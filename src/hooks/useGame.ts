@@ -12,6 +12,7 @@ import { rulesVersion, type RunStart } from "../game/sim/replay";
 import { applyRun } from "../game/special";
 import { applyPending, applyServer, editQueue, markCafeChanged, requestGameSync, type PendingRun } from "../state/game-sync";
 import { useLotus } from "./useLotus";
+import { useT } from "../i18n";
 
 export type RunStatus = "settled" | "pending" | "practice" | "rejected";
 export type RunReward = { credits: number; first: boolean; mastered: boolean; unlocks: string[]; status?: RunStatus; note?: string;
@@ -37,7 +38,7 @@ export function useGameMemberId() {
 
 export function useGame() {
   const { doc, update, commit } = useFood();
-  const { setNotice } = usePreferences();
+  const { setNotice } = usePreferences(), t = useT("game");
   const memberId = useGameMemberId();
   const { tier } = useLotus();
   const stored = doc.game;
@@ -67,10 +68,10 @@ export function useGame() {
       : { ...d, game: { ...d.game, credits: d.game.credits - price, owned: [...d.game.owned, id] } });
     try { return await applyServer(memberId, await buyItem(id), updateGame); }
     catch (error) {
-      setNotice({ text: error instanceof ApiError && error.code === "OFFLINE" ? "Connect to the internet to buy with café credits." : error instanceof Error ? error.message : "That did not work. Try again.", error: true });
+      setNotice({ text: error instanceof ApiError && error.code === "OFFLINE" ? t("connectToBuy") : error instanceof Error ? error.message : t("didNotWork"), error: true });
       return false;
     }
-  }, [memberId, commit, updateGame, setNotice]);
+  }, [memberId, commit, updateGame, setNotice, t]);
 
   /** Opens the attempt on the account when the service starts (under the id that seeded it). Null for guests. */
   const startRun = useCallback(async (setup: RunStart): Promise<StartedRun | null> => {
@@ -79,13 +80,13 @@ export function useGame() {
     try { await openRun(id, setup, rulesVersion); return { id, online: true }; }
     catch (error) {
       const code = error instanceof ApiError ? error.code : undefined;
-      return { id, online: false, note: code === "GAME_UPDATE" ? "Update QuinTaste to save game progress to your account."
-        : code === "PET_LOCKED" ? "This companion isn't unlocked on your account yet."
+      return { id, online: false, note: code === "GAME_UPDATE" ? t("updateToSave")
+        : code === "PET_LOCKED" ? t("petNotUnlocked")
         : code === "TECHNIQUE_LOCKED" || code === "TIER_LOCKED" || code === "LEVEL_UNAVAILABLE" || code === "SEASON_LOCKED" || code === "SEASONS_OFF" || code === "CAFE_CLOSED" || code === "CAFE_CHANGED"
-          || code === "SERVICE_PAUSED" ? (error as Error).message + " This service is practice."
-        : "You were offline when this service started, so it's practice and isn't saved to your account." };
+          || code === "SERVICE_PAUSED" ? (error as Error).message + t("practiceSuffix")
+        : t("offlinePractice") };
     }
-  }, [memberId]);
+  }, [memberId, t]);
 
   /**
    * Saves a finished service and returns the reward line. Guests: applied on the device. Members: queued first, shown at
@@ -99,7 +100,7 @@ export function useGame() {
       return reward;
     }
     const run = started ? await started : null;
-    if (!run?.online) return { ...none, status: "practice", note: run?.note ?? "This service is practice and isn't saved to your account." };
+    if (!run?.online) return { ...none, status: "practice", note: run?.note ?? t("practiceNote") };
     const pending: PendingRun = { id: run.id, setup, actions, result, finishedAt: Date.now() };
     await editQueue(memberId, q => ({ ...q, runs: [...q.runs.filter(r => r.id !== run.id), pending] }));
     const provisional = await applyPending(memberId, pending, updateGame) ?? none;
@@ -108,17 +109,17 @@ export function useGame() {
       await editQueue(memberId, q => ({ ...q, runs: q.runs.filter(r => r.id !== run.id) }));
       await applyServer(memberId, out.progress, updateGame);
       return out.status === "settled" ? { ...out.reward, status: "settled" }
-        : { ...none, status: "rejected", note: "This service couldn't be confirmed, so it earned no credits." };
+        : { ...none, status: "rejected", note: t("runNotConfirmed") };
     } catch (error) {
       if (final(error)) {
         await editQueue(memberId, q => ({ ...q, runs: q.runs.filter(r => r.id !== run.id) }));
         requestGameSync();
-        return { ...none, status: "rejected", note: "This service couldn't be confirmed, so it earned no credits." };
+        return { ...none, status: "rejected", note: t("runNotConfirmed") };
       }
       requestGameSync();
-      return { ...provisional, status: "pending", note: "Saved on this phone. It reaches your account when you're back online." };
+      return { ...provisional, status: "pending", note: t("savedOnPhone") };
     }
-  }, [memberId, commit, updateGame, tiered]);
+  }, [memberId, commit, updateGame, tiered, t]);
 
   return { game, set, save, buy, startRun, finish, member: !!memberId, tier };
 }

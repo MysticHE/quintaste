@@ -7,9 +7,10 @@ import { accountRequest, authClient, refreshAccountSession } from '../services/a
 import { useAuth } from '../state/Auth';
 import { usePreferences } from '../state/Preferences';
 import { safeReturn } from '../utils/navigation';
+import { useT } from '../i18n';
 
 export function AccountEligibilityScreen() {
-  const {user,pending}=useAuth(),{theme}=usePreferences();
+  const {user,pending}=useAuth(),{theme}=usePreferences(),t=useT('me'),tc=useT('common');
   const {returnTo}=useLocalSearchParams<{returnTo?:string}>();
   const [dateOfBirth,setDate]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState('');
   const [confirmed, setConfirmed] = useState(false);
@@ -21,21 +22,21 @@ export function AccountEligibilityScreen() {
         setConfirmed(true); setDate('');
       }
       const session = await refreshAccountSession(user?.id);
-      if (!session?.user.adultConfirmed) throw new Error('Could not refresh your account. Please retry.');
+      if (!session?.user.adultConfirmed) throw new Error(t('refreshAccountFailed'));
       router.dismissTo(safeReturn(returnTo));
-    } catch(problem) {setError(problem instanceof Error?problem.message:'Eligibility could not be checked.');}
+    } catch(problem) {setError(problem instanceof Error?problem.message:t('eligibilityFailed'));}
     finally {setBusy(false);}
   };
   if (user?.adultConfirmed) return <Redirect href={safeReturn(returnTo)} />;
-  return <Screen title="Confirm Your Age">
-    {!user?<><T>{pending?'Checking sign-in…':'Sign in to complete your account.'}</T><Button label="Sign In" onPress={()=>router.replace('/login')} /></>:<>
-      {confirmed ? <T>Age confirmed. Finishing your account setup.</T> : <>
+  return <Screen title={tc('confirmYourAge')}>
+    {!user?<><T>{pending?t('checkingSignIn'):t('signInToComplete')}</T><Button label={tc('signIn')} onPress={()=>router.replace('/login')} /></>:<>
+      {confirmed ? <T>{t('ageConfirmed')}</T> : <>
         <DateOfBirthField value={dateOfBirth} onChange={setDate} disabled={busy} />
-        <T variant="small" muted>You must be 18 or older. Your birth date is not stored.</T>
+        <T variant="small" muted>{t('ageRule')}</T>
       </>}
       {!!error&&<T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
-      <Button label={confirmed ? 'Retry' : 'Continue'} disabled={!confirmed && !dateOfBirth} loading={busy} onPress={()=>void confirm()} />
-      <Button label="Sign Out And Continue As Guest" variant="link" disabled={busy} onPress={()=>void authClient.signOut().then(()=>router.dismissTo('/'))} />
+      <Button label={confirmed ? tc('retry') : tc('continue')} disabled={!confirmed && !dateOfBirth} loading={busy} onPress={()=>void confirm()} />
+      <Button label={t('signOutAsGuest')} variant="link" disabled={busy} onPress={()=>void authClient.signOut().then(()=>router.dismissTo('/'))} />
     </>}
   </Screen>;
 }

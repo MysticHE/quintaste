@@ -36,7 +36,7 @@ export function useRemote<T>(key: string | null, load: (signal: AbortSignal) => 
       cache.set(key, value); setEntry({ key, epoch: started, data: value, error: null });
     }).catch(problem => {
       if (controller.signal.aborted || started !== epoch) return;
-      const error = problem instanceof ApiError ? problem : new ApiError("That did not load. Try again.", 0);
+      const error = problem instanceof ApiError ? problem : new ApiError("That did not load. Try again.", 0, "LOAD_FAILED");
       setEntry(previous => ({ ...same(previous), error, loading: false }));
     });
   }, [key]);

@@ -11,10 +11,11 @@ import { foodKey } from '../state/useFoodStorage';
 import { useAutosave } from '../hooks/useAutosave';
 import { lotusTierKey } from '../hooks/useLotus';
 import { AutosaveStatus } from '../components/AutosaveStatus';
+import { useT } from '../i18n';
 
 export function ConnectedProfileScreen() {
   const { user, pending } = useAuth();
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT('me'), tc = useT('common');
   const [name, setName] = useState(user?.name || ''), [bio, setBio] = useState(user?.bio || '');
   const [ready, setReady] = useState(false), [busy, setBusy] = useState(false);
   const [message, setMessage] = useState(''), [error, setError] = useState('');
@@ -43,14 +44,14 @@ export function ConnectedProfileScreen() {
       accountRequest<NonNullable<typeof access>>('access')]).then(([profile,permissions]) => {
       if (active) setAccess(permissions);
       if (active) { if (!edited.current) { setName(profile.name); setBio(profile.bio); } setReady(true); setError(''); }
-    }).catch(() => { if (active) setError('Your profile could not be loaded. Retry before editing.'); });
+    }).catch(() => { if (active) setError(t('profileLoadFailed')); });
     return () => { active = false; };
-  }, [userId, retry]);
+  }, [userId, retry, t]);
   const run = async (operation: () => Promise<void>) => {
     if (busy) return;
     setBusy(true); setError(''); setMessage('');
     try { await operation(); }
-    catch (problem) { setError(problem instanceof Error ? problem.message : 'Unable to connect. Please retry.'); }
+    catch (problem) { setError(problem instanceof Error ? problem.message : t('unableToConnect')); }
     finally { setBusy(false); }
   };
   const exportAccount = () => run(async () => {
@@ -61,42 +62,42 @@ export function ConnectedProfileScreen() {
       const link = document.createElement('a');
       link.href = url; link.download = 'quintaste-account.json'; link.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-    } else await Share.share({ title: 'QuinTaste account export', message: content });
+    } else await Share.share({ title: t('accountExportTitle'), message: content });
   });
   const erase = () => run(async () => {
-    if (!user || !access) throw new Error('Load your account before deleting it.');
-    if (access.passwordLogin && !password) throw new Error('Enter your password to confirm deletion.');
+    if (!user || !access) throw new Error(t('loadBeforeDelete'));
+    if (access.passwordLogin && !password) throw new Error(t('enterPasswordToDelete'));
     const id = user.id;
     const result = await authClient.deleteUser(access.passwordLogin?{password}:{});
-    if (result.error) throw new Error(result.error.message || 'Deletion failed. Check your password and retry.');
+    if (result.error) throw new Error(result.error.message || t('deletionFailed'));
     await AsyncStorage.multiRemove([foodKey('profile', id), '@quintaste/preview-preferences-v1/' + id, '@quintaste/avatar-preview/' + id, lotusTierKey(id)]);
     setPassword(''); router.dismissTo('/account');
   });
-  if (!user) return <Screen title="Account"><T>{pending ? 'Checking your session…' : 'Sign in to manage or delete your account.'}</T>
-    <Button label="Sign In" onPress={() => router.push({ pathname: '/login', params: { returnTo: '/profile' } })} /></Screen>;
-  return <Screen title="Edit Profile">
-    {access?.unlimitedUsage&&<T>Master account · Unlimited usage</T>}
-    <AutosaveStatus saving={autosave.saving} local={false} error={autosave.failed ? 'Your profile could not be saved. Tap Retry.' : undefined} />
-    <Field label="Display Name" value={name} onChangeText={value => change(value, bio)} maxLength={50} editable={ready && !busy} error={!name.trim() ? 'Enter a display name.' : undefined} onBlur={() => void autosave.flush()} />
-    <Field label="About You (Optional)" value={bio} onChangeText={value => change(name, value)} multiline maxLength={160} editable={ready && !busy} onBlur={() => void autosave.flush()} />
+  if (!user) return <Screen title={t('account')}><T>{pending ? t('checkingSession') : t('signInToManage')}</T>
+    <Button label={tc('signIn')} onPress={() => router.push({ pathname: '/login', params: { returnTo: '/profile' } })} /></Screen>;
+  return <Screen title={t('editProfile')}>
+    {access?.unlimitedUsage&&<T>{t('masterAccount')}</T>}
+    <AutosaveStatus saving={autosave.saving} local={false} error={autosave.failed ? t('profileSaveFailed') : undefined} />
+    <Field label={t('displayName')} value={name} onChangeText={value => change(value, bio)} maxLength={50} editable={ready && !busy} error={!name.trim() ? t('enterDisplayName') : undefined} onBlur={() => void autosave.flush()} />
+    <Field label={t('aboutYouOptional')} value={bio} onChangeText={value => change(name, value)} multiline maxLength={160} editable={ready && !busy} onBlur={() => void autosave.flush()} />
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     {!!message && <T accessibilityLiveRegion="polite">{message}</T>}
-    {!ready && <Button label="Retry Loading Profile" variant="secondary" onPress={() => setRetry(value => value + 1)} />}
-    {autosave.failed && <Button label="Retry" variant="link" onPress={() => void autosave.flush()} />}
-    <Card style={common.stack}><T variant="subtitle">Account Data</T>
-      <T muted>Your account details and eligibility result are stored on the server. Food collections stay on each device.</T>
-      {access?.passwordLogin?<Button label="Recovery Codes" variant="secondary" disabled={busy} onPress={() => router.push('/recovery-codes')} />
-        :<T muted>Sign in and recover access through your Google account.</T>}
-      <Button label="Export Account Data" variant="secondary" disabled={busy} onPress={() => void exportAccount()} />
-      <Button label="Local Food Data" variant="link" onPress={() => router.push('/privacy')} />
+    {!ready && <Button label={t('retryLoadingProfile')} variant="secondary" onPress={() => setRetry(value => value + 1)} />}
+    {autosave.failed && <Button label={tc('retry')} variant="link" onPress={() => void autosave.flush()} />}
+    <Card style={common.stack}><T variant="subtitle">{t('accountData')}</T>
+      <T muted>{t('accountDataNote')}</T>
+      {access?.passwordLogin?<Button label={t('recoveryCodes')} variant="secondary" disabled={busy} onPress={() => router.push('/recovery-codes')} />
+        :<T muted>{t('googleRecovery')}</T>}
+      <Button label={t('exportAccountData')} variant="secondary" disabled={busy} onPress={() => void exportAccount()} />
+      <Button label={t('localFoodData')} variant="link" onPress={() => router.push('/privacy')} />
     </Card>
-    <Card style={common.stack}><T variant="subtitle">Delete Account</T>
-      <T muted>Deletes your server profile, credentials and sessions, and this account’s food collection on this device. Guest originals stay. Backups expire within seven days; copies on other devices need local deletion.</T>
-      {confirm ? <>{access?.passwordLogin?<Field label="Confirm Password" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" maxLength={128} />
-        :<T>Google accounts require a sign-in from the last ten minutes. If deletion expires, sign out and sign in with Google again.</T>}
-        <Button label="Permanently Delete Account" variant="secondary" loading={busy} onPress={() => void erase()} />
-        <Button label="Cancel Deletion" variant="link" disabled={busy} onPress={() => { setConfirm(false); setPassword(''); }} /></>
-        : <Button label="Review Account Deletion" variant="secondary" onPress={() => setConfirm(true)} />}
+    <Card style={common.stack}><T variant="subtitle">{t('deleteAccount')}</T>
+      <T muted>{t('deleteAccountNote')}</T>
+      {confirm ? <>{access?.passwordLogin?<Field label={t('confirmPassword')} value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" maxLength={128} />
+        :<T>{t('googleDeleteNote')}</T>}
+        <Button label={t('permanentlyDelete')} variant="secondary" loading={busy} onPress={() => void erase()} />
+        <Button label={t('cancelDeletion')} variant="link" disabled={busy} onPress={() => { setConfirm(false); setPassword(''); }} /></>
+        : <Button label={t('reviewAccountDeletion')} variant="secondary" onPress={() => setConfirm(true)} />}
     </Card>
   </Screen>;
 }

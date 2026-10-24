@@ -71,8 +71,10 @@ async function savedCatalogueVenue(id: string) {
   return item && Date.now() - item.savedAt < catalogueOfflineMs ? item : null;
 }
 
+/** Why a place could not be shown, as an Explore message key. */
+export type CatalogueVenueError = "" | "connectToLoadPlace" | "detailsTryShortly" | "tryAgainShortly" | "placeNoLongerInExplore" | "placeDetailsTryShortly";
 /** `gone`: the server says the place is no longer published (removed, closed or hidden). */
-export type CatalogueVenueState = { venue: CatalogueVenue | null; busy: boolean; error: string; gone?: boolean };
+export type CatalogueVenueState = { venue: CatalogueVenue | null; busy: boolean; error: CatalogueVenueError; gone?: boolean };
 type Request = { controller: AbortController; listeners: Set<(state: CatalogueVenueState) => void> };
 const requests = new Map<string, Request>(), failures = new Map<string, number>();
 
@@ -89,12 +91,12 @@ export function subscribeCatalogueVenue(id: string, offline: boolean, notify: (s
     if (saved) deliver({ venue: saved.venue, busy: false, error: "" });
     if (saved && (offline || saved.full && Date.now() - saved.savedAt < catalogueFreshMs)) return;
     if (offline || !force && Date.now() - (failures.get(id) ?? 0) < 60_000) {
-      if (!saved) deliver({ venue: null, busy: false, error: offline ? "Connect to load this place's details." : "Details are temporarily unavailable. Please try again shortly." });
+      if (!saved) deliver({ venue: null, busy: false, error: offline ? "connectToLoadPlace" : "detailsTryShortly" });
       return;
     }
     let request = requests.get(id);
     if (!request) {
-      if (requests.size >= 40) { if (!saved) deliver({ venue: null, busy: false, error: "Please try again shortly." }); return; }
+      if (requests.size >= 40) { if (!saved) deliver({ venue: null, busy: false, error: "tryAgainShortly" }); return; }
       request = { controller: new AbortController(), listeners: new Set() };
       requests.set(id, request);
       const current = request;
@@ -106,7 +108,7 @@ export function subscribeCatalogueVenue(id: string, offline: boolean, notify: (s
             body: JSON.stringify({ id }), signal: current.controller.signal });
           if (response.status === 404) {
             forget(id); failures.delete(id);  // removed, closed or hidden: never show a saved copy of it again
-            state = { venue: null, busy: false, error: "This place is no longer in Explore.", gone: true };
+            state = { venue: null, busy: false, error: "placeNoLongerInExplore", gone: true };
           } else {
             if (!response.ok) throw new Error("Unavailable");
             const text = await response.text();
@@ -121,7 +123,7 @@ export function subscribeCatalogueVenue(id: string, offline: boolean, notify: (s
             failures.delete(id); failures.set(id, Date.now());
             while (failures.size > 40) failures.delete(failures.keys().next().value!);
           }
-          state = { venue: null, busy: false, error: "This place's details are unavailable. Please try again shortly." };
+          state = { venue: null, busy: false, error: "placeDetailsTryShortly" };
         } finally { clearTimeout(timeout); if (requests.get(id) === current) requests.delete(id); }
         for (const listener of current.listeners) listener(state);
       })();

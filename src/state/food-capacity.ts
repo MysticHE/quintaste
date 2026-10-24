@@ -1,9 +1,10 @@
 import type { FoodDocument } from "../types/food";
+import messages from "../i18n/en/me";
 
 // Leave headroom below Android's ~2 MiB per-row CursorWindow limit.
 export const foodDocumentByteLimit = 1_500_000;
 export class FoodCapacityError extends Error {
-  constructor() { super("Collection storage is full. Remove photos or unused items before adding more. This change was not saved."); }
+  constructor() { super(messages.storageFull); }
 }
 export function utf8Bytes(value: string) {
   let bytes = 0;

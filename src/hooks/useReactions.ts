@@ -4,6 +4,7 @@ import { useAuth } from "../state/Auth";
 import { usePreferences } from "../state/Preferences";
 import { useRemote, invalidate } from "./useRemote";
 import { ApiError, communityRequest } from "../services/community-api";
+import { useT } from "../i18n";
 
 export type ReactionKind = "recipe" | "place";
 /** `cooks`: members who finished Cook mode for a recipe (always 0 for places). */
@@ -45,7 +46,7 @@ export function useReactions(kind: ReactionKind, ids: string[]) {
 
 /** One item's counts with like and share actions. Guests are sent to sign in; counts update before the server answers. */
 export function useReaction(kind: ReactionKind, id: string) {
-  const { user } = useAuth(), { setNotice } = usePreferences(), account = user?.id ?? "guest", key = keyOf(account, kind, id);
+  const { user } = useAuth(), { setNotice } = usePreferences(), tc = useT("common"), account = user?.id ?? "guest", key = keyOf(account, kind, id);
   useKnown(key);
   // Sign-in returns to the same tab (Cook > Saved, Market > Orders...), not just the same screen.
   const path = usePathname(), { tab } = useGlobalSearchParams<{ tab?: string }>();
@@ -68,7 +69,7 @@ export function useReaction(kind: ReactionKind, id: string) {
       invalidate("reactions:" + kind + ":" + account);
     } catch (error) {
       remember(account, kind, [before]);
-      setNotice({ text: error instanceof ApiError ? error.message : "Your like didn't save. Try again.", error: true });
+      setNotice({ text: error instanceof ApiError ? error.message : tc("likeNotSaved"), error: true });
     } finally { pending.delete(key + ":like"); }
   };
   /**

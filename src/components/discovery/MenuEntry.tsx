@@ -6,14 +6,15 @@ import { usePreferences } from "../../state/Preferences";
 import type { PublishedMenu } from "../../types/menus";
 import { Icon, T, common } from "../ui";
 import { MenuIcon } from "./MenuIcon";
+import { useT } from "../../i18n";
 
 export function MenuEntry({ menu, compact = false }: { menu: Pick<PublishedMenu, "id" | "name" | "branch">; compact?: boolean }) {
-  const { theme } = usePreferences(), [focused, setFocused] = useState(false);
+  const { theme } = usePreferences(), [focused, setFocused] = useState(false), t = useT("explore");
   const content = <><MenuIcon size={compact ? 20 : 22}
     color={compact ? theme.mediaForeground : theme.actionForeground} />
     <T variant={compact ? "small" : "button"} color={compact ? theme.mediaForeground : theme.actionForeground}
-      style={common.bold}>Menu</T></>;
-  return <Pressable accessibilityRole="button" accessibilityLabel={"View menu for " + menu.name + ", " + menu.branch}
+      style={common.bold}>{t("menu")}</T></>;
+  return <Pressable accessibilityRole="button" accessibilityLabel={t("viewMenuForBranch", { name: menu.name, branch: menu.branch })}
     testID={compact ? "place-card-menu" : "place-detail-menu"}
     onPress={event => { event.stopPropagation(); router.push({ pathname: "/menu/[id]", params: { id: menu.id } } as never); }}
     onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}

@@ -6,9 +6,12 @@ import { bundledRecipeIds, recipeById } from "../data/recipes";
 import type { Recipe } from "../types/food";
 import { useMemberRecipe } from "./useMemberRecipes";
 import { isMemberRecipe } from "../services/member-recipes";
+import { useT } from "../i18n";
 
 export function useEditorial<T>(path: string | null): { data?: T; error?: string; loading: boolean; refresh: () => void } {
-  const [state, setState] = useState<{ path: string; data?: T; error?: string; loading: boolean }>();
+  const t = useT("cook");
+  // The failure is kept as a key so its message follows the language chosen afterwards.
+  const [state, setState] = useState<{ path: string; data?: T; failure?: "errorRecipeGone" | "errorContentDown"; loading: boolean }>();
   const active = useRef<AbortController | null>(null);
   const refresh = useCallback(() => {
     if (!path) return;
@@ -16,13 +19,15 @@ export function useEditorial<T>(path: string | null): { data?: T; error?: string
     setState(old => ({ ...(old?.path === path ? old : {}), path, loading: true }));
     void editorialRequest<T>(path, controller.signal).then(data => {
       if (!controller.signal.aborted) setState({ path, data, loading: false });
-    }).catch((error: { unavailable?: boolean }) => { if (!controller.signal.aborted) setState(old => ({ ...(old?.path === path && !error.unavailable ? old : {}), path, loading: false, error: error.unavailable ? "Recipe is no longer available." : "Content is temporarily unavailable. Try again shortly." })); });
+    }).catch((error: { unavailable?: boolean }) => { if (!controller.signal.aborted) setState(old => ({ ...(old?.path === path && !error.unavailable ? old : {}), path, loading: false, failure: error.unavailable ? "errorRecipeGone" : "errorContentDown" })); });
   }, [path]);
   useFocusEffect(useCallback(() => {
     refresh(); const sub = AppState.addEventListener("change", s => { if (s === "active") refresh(); });
     return () => { sub.remove(); active.current?.abort(); };
   }, [refresh]));
-  return { ...(state?.path === path ? state : { loading: !!path }), refresh };
+  if (state?.path !== path) return { loading: !!path, refresh };
+  const { failure, ...rest } = state;
+  return { ...rest, error: failure && t(failure), refresh };
 }
 export function usePublishedRecipe(id: string | null) {
   // Bundled recipes come with the app; staff edits and hides of them arrive in one small list, never per recipe.

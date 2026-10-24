@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
 
-export function SuggestionList({ id, children }: PropsWithChildren<{ id: string }>) {
-  return <div id={id} role="listbox" aria-label="Matching locations">{children}</div>;
+export function SuggestionList({ id, label, children }: PropsWithChildren<{ id: string; label: string }>) {
+  return <div id={id} role="listbox" aria-label={label}>{children}</div>;
 }

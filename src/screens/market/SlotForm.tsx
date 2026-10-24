@@ -13,58 +13,62 @@ import { createSlot, sellerState } from "../../services/market-api";
 import { ApiError } from "../../services/community-api";
 import { marketLimits } from "../../config/market";
 import { publicVenues } from "../../data/meet";
-import { parseSgDateTime, planDateIssue, sgDateTimeText } from "../../utils/sg-datetime";
+import { parseSgDateTime, planDateProblem, sgDateTimeText } from "../../utils/sg-datetime";
+import { useT } from "../../i18n";
+import type { MarketKey } from "../../i18n/en/market";
 import type { SellerProfile } from "../../types/community";
 
 export default function SlotFormScreen() {
-  const { member } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState), seller = remote.data?.seller;
-  return <Screen title="Collection Slot" hideTimers backTo="/market?tab=shop">
+  const { member } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState), seller = remote.data?.seller, t = useT("market");
+  return <Screen title={t("slotTitle")} hideTimers backTo="/market?tab=shop">
     {!member ? <MemberPrompt icon="calendar-outline" returnTo="/market?tab=shop" /> : seller ? <SlotForm seller={seller} />
-      : remote.data ? <EmptyState title="Set Up Your Shop First" text="" icon="storefront-outline" primary={{ label: "Set Up Shop", onPress: () => router.replace("/market?tab=shop") }} />
+      : remote.data ? <EmptyState title={t("setUpShopFirst")} text="" icon="storefront-outline" primary={{ label: t("setUpShop"), onPress: () => router.replace("/market?tab=shop") }} />
       : <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market?tab=shop" />}
   </Screen>;
 }
 const durations = [1, 2, 3, 4];
-const repeats = [{ weeks: 1, label: "Once" }, { weeks: 4, label: "4 weeks" }, { weeks: 8, label: "8 weeks" }];
+const repeats = [1, 4, 8];
 const week = 7 * 86400000;
-const cutoffs = [{ hours: 2, label: "2 hours" }, { hours: 12, label: "12 hours" }, { hours: 24, label: "1 day" }, { hours: 48, label: "2 days" }, { hours: 72, label: "3 days" }];
+const cutoffs = [2, 12, 24, 48, 72];
+const dateIssues: Record<NonNullable<ReturnType<typeof planDateProblem>>, MarketKey> = { dateIssueInvalid: "dateInvalid", dateIssuePast: "datePast", dateIssueHorizon: "dateTooFar" };
 /** A time window buyers can book; capacity caps how many orders it takes. */
 function SlotForm({ seller }: { seller: SellerProfile }) {
-  const { theme, setNotice } = usePreferences(), limit = marketLimits.perSlot;
+  const { theme, setNotice } = usePreferences(), limit = marketLimits.perSlot, t = useT("market");
   const [starts, setStarts] = useState(""), [hours, setHours] = useState(2), [mode, setMode] = useState<"meetup" | "delivery">(seller.meetup ? "meetup" : "delivery");
   const [place, setPlace] = useState(""), [capacity, setCapacity] = useState("10"), [cutoff, setCutoff] = useState(24), [weeks, setWeeks] = useState(1), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const at = parseSgDateTime(starts), ends = at === null ? "" : sgDateTimeText(at + hours * 3600000);
   const suggestions = [...(seller.area ? [seller.area + " MRT station"] : []), ...publicVenues.slice(0, 3)];
   const save = async () => {
-    const issue = planDateIssue(starts, Date.now()) ?? (mode === "meetup" && place.trim().length < 3 ? "Add a public meetup point." : null)
-      ?? (at !== null && at + (weeks - 1) * week - Date.now() > 60 * 86400000 ? "Open slots up to 60 days ahead. Repeat for fewer weeks." : null);
+    const dateIssue = planDateProblem(starts, Date.now());
+    const issue = (dateIssue && t(dateIssues[dateIssue])) ?? (mode === "meetup" && place.trim().length < 3 ? t("meetupPointNeeded") : null)
+      ?? (at !== null && at + (weeks - 1) * week - Date.now() > 60 * 86400000 ? t("slotsTooFar") : null);
     if (issue) { setError(issue); return; }
     setBusy(true); setError("");
     try {
       await createSlot({ starts, ends, mode, place, capacity: Number(capacity), cutoffHours: cutoff, repeatWeeks: weeks });
-      invalidate("/api/market/"); setNotice({ text: weeks > 1 ? `${weeks} weekly slots open for orders` : "Slot open for orders" }); router.dismissTo("/market?tab=shop");
-    } catch (problem) { setError(problem instanceof ApiError ? problem.message : "The slot wasn't saved. Try again."); }
+      invalidate("/api/market/"); setNotice({ text: weeks > 1 ? t("weeklySlotsOpen", { n: weeks }) : t("slotOpen") }); router.dismissTo("/market?tab=shop");
+    } catch (problem) { setError(problem instanceof ApiError ? problem.message : t("slotSaveFailed")); }
     finally { setBusy(false); }
   };
   return <>
-    <FormSection title="When">
-      <SgDateTimeField label="Starts" value={starts} onChange={setStarts} disabled={busy} />
-      <View style={{ gap: 6 }}><FieldLabel>Length</FieldLabel><Chips label="Length">{durations.map(h => <Chip key={h} label={h + (h === 1 ? " hour" : " hours")} role="radio" compact selected={hours === h} onPress={() => setHours(h)} />)}</Chips></View>
-      <View style={{ gap: 6 }}><FieldLabel>Repeat Weekly</FieldLabel><Chips label="Repeat weekly">{repeats.map(r => <Chip key={r.weeks} label={r.label} role="radio" compact selected={weeks === r.weeks} onPress={() => setWeeks(r.weeks)} />)}</Chips></View>
-      <View style={{ gap: 6 }}><FieldLabel>Stop Taking Orders</FieldLabel><Chips label="Cut-off">{cutoffs.map(c => <Chip key={c.hours} label={c.label + " before"} role="radio" compact selected={cutoff === c.hours} onPress={() => setCutoff(c.hours)} />)}</Chips></View>
+    <FormSection title={t("when")}>
+      <SgDateTimeField label={t("starts")} value={starts} onChange={setStarts} disabled={busy} />
+      <View style={{ gap: 6 }}><FieldLabel>{t("length")}</FieldLabel><Chips label={t("length")}>{durations.map(h => <Chip key={h} label={t("hours", { n: h })} role="radio" compact selected={hours === h} onPress={() => setHours(h)} />)}</Chips></View>
+      <View style={{ gap: 6 }}><FieldLabel>{t("repeatWeekly")}</FieldLabel><Chips label={t("repeatWeeklyGroup")}>{repeats.map(n => <Chip key={n} label={n === 1 ? t("repeatOnce") : t("repeatWeeks", { n })} role="radio" compact selected={weeks === n} onPress={() => setWeeks(n)} />)}</Chips></View>
+      <View style={{ gap: 6 }}><FieldLabel>{t("stopTakingOrdersField")}</FieldLabel><Chips label={t("cutoff")}>{cutoffs.map(h => <Chip key={h} label={h < 24 ? t("hoursBefore", { n: h }) : t("daysBefore", { n: h / 24 })} role="radio" compact selected={cutoff === h} onPress={() => setCutoff(h)} />)}</Chips></View>
     </FormSection>
-    <FormSection title="Where">
-      <Chips label="Collection">
-        {seller.meetup && <Chip label="Meetup" role="radio" compact selected={mode === "meetup"} onPress={() => setMode("meetup")} />}
-        {seller.delivery && <Chip label="Delivery" role="radio" compact selected={mode === "delivery"} onPress={() => setMode("delivery")} />}
+    <FormSection title={t("where")}>
+      <Chips label={t("collection")}>
+        {seller.meetup && <Chip label={t("meetup")} role="radio" compact selected={mode === "meetup"} onPress={() => setMode("meetup")} />}
+        {seller.delivery && <Chip label={t("delivery")} role="radio" compact selected={mode === "delivery"} onPress={() => setMode("delivery")} />}
       </Chips>
-      <Field label={mode === "meetup" ? "Public Meetup Point" : "Delivery Note (Optional)"} placeholder={mode === "meetup" ? "Tampines MRT, Exit A" : "East side only"} value={place} onChangeText={setPlace} maxLength={120} editable={!busy} />
+      <Field label={t(mode === "meetup" ? "publicMeetupPoint" : "deliveryNoteOptional")} placeholder={t(mode === "meetup" ? "meetupPlaceholder" : "deliveryNotePlaceholder")} value={place} onChangeText={setPlace} maxLength={120} editable={!busy} />
       {mode === "meetup" && <HorizontalChips>{suggestions.map(s => <Chip key={s} compact label={s} icon="location-outline" selected={place === s} onPress={() => setPlace(s)} />)}</HorizontalChips>}
     </FormSection>
-    <FormSection title="Orders">
-      <Field label={`Most Orders (Up To ${limit})`} value={capacity} onChangeText={setCapacity} keyboardType="number-pad" maxLength={3} editable={!busy} />
+    <FormSection title={t("orders")}>
+      <Field label={t("mostOrders", { limit })} value={capacity} onChangeText={setCapacity} keyboardType="number-pad" maxLength={3} editable={!busy} />
     </FormSection>
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
-    <Button label={weeks > 1 ? `Open ${weeks} Slots` : "Open For Orders"} loading={busy} disabled={!starts || !/^\d{1,3}$/.test(capacity)} onPress={() => void save()} />
+    <Button label={weeks > 1 ? t("openSlots", { n: weeks }) : t("openForOrders")} loading={busy} disabled={!starts || !/^\d{1,3}$/.test(capacity)} onPress={() => void save()} />
   </>;
 }

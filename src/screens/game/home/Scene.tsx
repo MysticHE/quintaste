@@ -10,6 +10,7 @@ import { Icon } from "../../../components/ui";
 import { AVATAR, backBox, COUNTER, PET, SLOTS, STATIONS_ON_COUNTER, STOVE, WOK, SPARKLE_AT, slotBox, type Box, type SlotId } from "./sceneLayout";
 import { Glint, Hop, HoverGlow, Motes, PressGlow, Steam, Sway } from "./Ambient";
 import { HeartPop, Leaves, RevealGlow, SparkleCycle, SunRays, popOnce } from "./SceneFx";
+import { useT } from "../../../i18n";
 
 export type HotId = "books" | "menu" | "window" | "wardrobe" | "stove" | "avatar" | "pet";
 const art = (key: string): ImageSourcePropType | undefined => GAME_ART[key];
@@ -35,7 +36,7 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, fres
   const bottomAt = (key: string, x: number, w: number, bottom: number) => { const h = w * artRatio(key); return { left: x * u, top: (bottom - h) * u, width: w * u, height: h * u }; };
   const petKey = (() => { const k = wearArt(game.pet, game.equip[game.pet] ?? null); return art(k) ? k : PETS[game.pet].art; })();
   const petW = PET.w * (PETS[game.pet].scale ?? 1), menuOpen = cleared(game, 5), petTop = PET.bottom - petW * artRatio(petKey);
-  const { reducedMotion } = usePreferences(), petPoke = useSharedValue(0), cookPoke = useSharedValue(0), heart = useSharedValue(0);
+  const { reducedMotion } = usePreferences(), petPoke = useSharedValue(0), cookPoke = useSharedValue(0), heart = useSharedValue(0), t = useT("game");
   const [timers] = useState(() => new Set<ReturnType<typeof setTimeout>>());
   useEffect(() => () => timers.forEach(clearTimeout), [timers]);
   // The companion and the cook react to a tap first; the sheet opens once the reaction has read.
@@ -51,13 +52,13 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, fres
   // Lian, the companion and the stove need no marker: they move, steam and react. Backdrop objects get a sparkle.
   const sparkles: [number, number][] = [SPARKLE_AT.books, [mx + mw * 0.82, my + mh * 0.18], SPARKLE_AT.wardrobe].map(([x, y]) => [x * u, y * u]);
   const hots: { id: HotId; box: Box; name: string; core?: boolean }[] = [
-    { id: "window", box: backBox("window", skin), name: "Window: out and about" },
-    { id: "books", box: backBox("books", skin), name: "Bookshelf: recipe, pantry and regulars books", core: true },
-    { id: "menu", box: backBox("menu", skin), name: menuOpen ? "Chalkboard menu" : "Chalkboard menu, opens at Level 6" },
-    { id: "wardrobe", box: backBox("wardrobe", skin), name: "Mirror and aprons: wardrobe", core: true },
-    { id: "avatar", box: [AVATAR.cx - AVATAR.w / 2, 66, AVATAR.w, 32], name: "Lian, the QuinTaste mascot, cooking. Say hello" },
-    { id: "stove", box: STOVE, name: "Stove: play Rush Hour", core: true },
-    { id: "pet", box: [PET.x, petTop, petW, petW * artRatio(petKey)], name: "Your companion, " + PETS[game.pet].name, core: true },
+    { id: "window", box: backBox("window", skin), name: t("hotWindow") },
+    { id: "books", box: backBox("books", skin), name: t("hotBooks"), core: true },
+    { id: "menu", box: backBox("menu", skin), name: menuOpen ? t("hotMenu") : t("hotMenuLocked") },
+    { id: "wardrobe", box: backBox("wardrobe", skin), name: t("hotWardrobe"), core: true },
+    { id: "avatar", box: [AVATAR.cx - AVATAR.w / 2, 66, AVATAR.w, 32], name: t("hotAvatar") },
+    { id: "stove", box: STOVE, name: t("hotStove"), core: true },
+    { id: "pet", box: [PET.x, petTop, petW, petW * artRatio(petKey)], name: t("hotPet", { pet: PETS[game.pet].name }), core: true },
   ];
   const decorImg = (slot: SlotId) => {
     const id = decor[slot]; if (!id || !DECOR[id]) return null;
@@ -69,7 +70,7 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, fres
     if (anchor === "center") return <View key={slot} style={[s.abs, box]}>{img}</View>;
     return <Sway key={slot} style={[s.abs, box]} deg={anchor === "top" ? 1.8 : 1.1} origin={anchor === "top" ? "top" : "bottom"} duration={anchor === "top" ? 3800 : 3000} delay={slot === "floorR" ? 700 : 0}>{img}</Sway>;
   };
-  return <View style={{ width, height: width * 1.5 }} accessibilityLabel={"My café, " + game.cafeName}>
+  return <View style={{ width, height: width * 1.5 }} accessibilityLabel={t("myCafe", { name: game.cafeName })}>
     {backdrop && <Image source={art(SKINS[skin].art!)} style={[s.abs, { left: 0, top: 0, width, height: width * 1.5 }]} resizeMode="cover" />}
     <SunRays box={backBox("window", skin)} u={u} />
     <Glint box={backBox("window", skin)} u={u} />
@@ -79,7 +80,7 @@ export function Scene({ game, width, decor, decorating, selectedSlot, hint, fres
     </Sway>
     <Image source={art("cafe-counter")} style={[s.abs, bottomAt("cafe-counter", COUNTER.x, COUNTER.w, COUNTER.y + COUNTER.w * artRatio("cafe-counter"))]} resizeMode="contain" />
     {STATIONS_ON_COUNTER.filter(st => cleared(game, st.level)).map(st =>
-      <Image key={st.id} source={art(st.art)} style={[s.abs, bottomAt(st.art, st.x, st.w, st.bottom)]} resizeMode="contain" accessibilityLabel={st.name} />)}
+      <Image key={st.id} source={art(st.art)} style={[s.abs, bottomAt(st.art, st.x, st.w, st.bottom)]} resizeMode="contain" accessibilityLabel={t(st.name)} />)}
     <Steam x={WOK.x} y={WOK.y} u={u} />
     <Hop style={[s.abs, bottomAt(petKey, PET.x, petW, PET.bottom)]} u={u} poke={petPoke}>
       <Image source={art(petKey)} style={s.fill} resizeMode="contain" />
@@ -116,8 +117,8 @@ function HotSpot({ name, box, onPress, reveal, order, count }: {
 
 /** Decorate mode: an empty spot is a dashed outline with a plus; the chosen spot has an accent outline. */
 function DecorSlot({ id, box, item, selected, onPress }: { id: SlotId; box: object; item: string | null | undefined; selected: boolean; onPress(): void }) {
-  const { theme } = usePreferences(), [hover, setHover] = useState(false);
-  const name = SLOTS[id].name + ": " + (item ? DECOR[item].name : "empty");
+  const { theme } = usePreferences(), [hover, setHover] = useState(false), t = useT("game");
+  const name = t("slotItem", { slot: t(SLOTS[id].name), item: item ? DECOR[item].name : t("slotEmpty") });
   return <Pressable accessibilityRole="button" accessibilityLabel={name} accessibilityState={{ selected }} onPress={onPress} onHoverIn={() => setHover(true)} onHoverOut={() => setHover(false)}
     style={[s.abs, s.slot, box, { borderStyle: item && !selected ? "solid" : "dashed", borderColor: selected ? theme.accent : item && !hover ? theme.transparent : theme.mediaForeground,
       backgroundColor: item ? theme.transparent : theme.mediaDivider }, selected && { borderWidth: 3, borderStyle: "solid" }]}>

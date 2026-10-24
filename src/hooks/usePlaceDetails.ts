@@ -3,15 +3,17 @@ import type { LivePlace } from "../types/discovery";
 import { recalledPlace, rememberPlaces } from "../utils/live-place-cache";
 import { apiUrl } from "../utils/api-url";
 import { useExploreLocal } from "../state/ExploreLocal";
+import { useT } from "../i18n";
+import type { ExploreKey } from "../utils/location-feedback";
 
 export function usePlaceDetails(id: string) {
-  const { offline } = useExploreLocal();
+  const { offline } = useExploreLocal(), t = useT("explore");
   const [place, setPlace] = useState<LivePlace | null>(() => recalledPlace(id, Date.now()) ?? null);
-  const [busy, setBusy] = useState(false), [error, setError] = useState(""), [expired, setExpired] = useState(false);
+  const [busy, setBusy] = useState(false), [error, setError] = useState<ExploreKey | "">(""), [expired, setExpired] = useState(false);
   const active = useRef<AbortController | null>(null);
   const load = useCallback(async () => {
     active.current?.abort(); const controller = new AbortController(); active.current = controller;
-    if (offline) { setPlace(recalledPlace(id, Date.now()) ?? null); setError("You’re offline"); setBusy(false); return; }
+    if (offline) { setPlace(recalledPlace(id, Date.now()) ?? null); setError("youreOffline"); setBusy(false); return; }
     const timeout = setTimeout(() => controller.abort(), 25000);
     setBusy(true); setError(""); setExpired(false);
     try {
@@ -26,8 +28,8 @@ export function usePlaceDetails(id: string) {
     } catch (problem) {
       if (active.current === controller) {
         setPlace(recalledPlace(id, Date.now()) ?? null);
-        setError(controller.signal.aborted ? "Loading took too long"
-          : problem instanceof TypeError ? "Connection unavailable" : problem instanceof Error && problem.message === "Refresh place details" ? problem.message : "Place details unavailable");
+        setError(controller.signal.aborted ? "loadingTooLong"
+          : problem instanceof TypeError ? "connectionUnavailable" : problem instanceof Error && problem.message === "Refresh place details" ? "refreshPlaceDetails" : "placeDetailsUnavailable");
       }
     } finally { clearTimeout(timeout); if (active.current === controller) { setBusy(false); active.current = null; } }
   }, [id, offline]);
@@ -41,5 +43,5 @@ export function usePlaceDetails(id: string) {
     const timer = setTimeout(() => { setPlace(null); setExpired(true); }, Math.max(0, place.fetchedAt + 300000 - Date.now()));
     return () => clearTimeout(timer);
   }, [place]);
-  return { place, busy, error, expired, offline, load };
+  return { place, busy, error: error && t(error), expired, offline, load };
 }

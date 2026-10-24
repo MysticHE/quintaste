@@ -1,6 +1,8 @@
 import { alliums, animalExclusions, type Exclusion } from "../config/preferences";
 import { labelsFrom, suits, type DietLabel } from "../config/diet-labels";
 import type { Ingredient, Recipe } from "../types/food";
+import { translate, type Language } from "../i18n";
+import type { CookKey } from "../i18n/en/cook";
 
 /** Prepared ingredients whose labels commonly hide exclusions. A label-checked line clears the rule. */
 const compoundRules: { pattern: RegExp; hides: readonly Exclusion[] }[] = [
@@ -45,3 +47,11 @@ export const fitRank = (result: ReturnType<typeof recipeFit>) => result.fit === 
 export function labelCheckIds(recipe: RecipeFacts, unknown: readonly Exclusion[]) {
   return new Set(recipe.ingredients.filter(item => compoundExclusions(item).some(value => unknown.includes(value))).map(item => item.id));
 }
+const exclusionKeys: Record<Exclusion, CookKey> = {
+  Garlic: "exGarlic", Onion: "exOnion", Leeks: "exLeeks", Chives: "exChives", Scallions: "exScallions", Shallots: "exShallots",
+  Asafoetida: "exAsafoetida", Eggs: "exEggs", Dairy: "exDairy", Honey: "exHoney", Peanuts: "exPeanuts", "Tree nuts": "exTreeNuts",
+  Gluten: "exGluten", Mushrooms: "exMushrooms", "Root vegetables": "exRootVegetables",
+};
+/** Exclusions as one list in the interface language ("Eggs, Dairy" / "蛋、奶制品"); the values stay English. */
+export const exclusionList = (values: readonly Exclusion[], language: Language) =>
+  values.map(value => translate(language, "cook", exclusionKeys[value])).join(translate(language, "cook", "listJoin"));

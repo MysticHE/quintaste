@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import { apiUrl } from "../utils/api-url";
 import { accountsEnabled, authClient } from "./auth-client";
+import type commonMessages from "../i18n/en/common";
 
 export class ApiError extends Error {
   constructor(message: string, readonly status: number, readonly code?: string) { super(message); }
@@ -12,13 +13,15 @@ export async function sessionHeaders(): Promise<Record<string, string>> {
   const cookie = await authClient.getCookie();
   return { ...(cookie ? { Cookie: cookie } : {}), "expo-origin": "quintaste://" };
 }
-/** The ApiError for a failed response body, keeping the server's message and code. */
-export function responseError(status: number, value: { error?: unknown; code?: unknown }, fallback = "That did not work. Try again.") {
+/** The ApiError for a failed response body, keeping the server's message and code; `fallback` stands in when the server sent none. */
+export function responseError(status: number, value: { error?: unknown; code?: unknown }, fallback: string) {
   return new ApiError(typeof value.error === "string" ? value.error.slice(0, 200) : fallback, status, typeof value.code === "string" ? value.code : undefined);
 }
+/** The app's own words for an error, in the member's language. Loaded on demand: the i18n layer's provider chain imports this file. */
+const appText = async (key: Extract<keyof typeof commonMessages, string>) => (await import("./saved-language")).savedText("common", key);
 /** JSON request to the community services with the account session, a 20-second timeout and readable errors. */
 export async function communityRequest<T>(path: string, { method = "GET", body, signal }: Options = {}): Promise<T> {
-  if (!accountsEnabled) throw new ApiError("Sign-in isn't available in this build.", 503, "UNAVAILABLE");
+  if (!accountsEnabled) throw new ApiError(await appText("signInUnavailableBuild"), 503, "UNAVAILABLE");
   const controller = new AbortController(), cancel = () => controller.abort();
   signal?.addEventListener("abort", cancel, { once: true });
   const timer = setTimeout(cancel, 20000);
@@ -28,11 +31,12 @@ export async function communityRequest<T>(path: string, { method = "GET", body, 
       headers: { "Content-Type": "application/json", ...await sessionHeaders() }, body: body === undefined ? undefined : JSON.stringify(body),
     });
     const value = await response.json().catch(() => ({}));
-    if (!response.ok) throw responseError(response.status, value);
+    if (!response.ok) throw responseError(response.status, value, await appText("actionFailed"));
     return value as T;
   } catch (error) {
     if (error instanceof ApiError) throw error;
-    throw new ApiError(controller.signal.aborted && !signal?.aborted ? "The connection timed out. Try again." : "You appear to be offline. Try again.", 0, "OFFLINE");
+    const timedOut = controller.signal.aborted && !signal?.aborted;
+    throw new ApiError(await appText(timedOut ? "connectionTimedOut" : "appearOffline"), 0, "OFFLINE");
   } finally { clearTimeout(timer); signal?.removeEventListener("abort", cancel); }
 }
 /** Image source for a server photo path; native requests carry the session so owners can see draft photos. */

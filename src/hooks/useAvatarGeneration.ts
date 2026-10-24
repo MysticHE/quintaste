@@ -4,6 +4,7 @@ import { avatarAvailability, avatarProgress, avatarRequest, removeAvatarJob } fr
 import { readAvatar } from "../utils/avatar-schema";
 import { avatarConsentVersion, type Avatar, type AvatarAvailability, type AvatarJob } from "../types/avatar";
 import type { LocalOwner } from "../types/explore-local";
+import { useT } from "../i18n";
 export function useAvatarGeneration(owner: LocalOwner, onResult: (avatar: Avatar) => Promise<void>, onAccepted: () => void, scope: string) {
   const storageKey = '@quintaste/avatar-request/' + scope;
   const [availability, setAvailability] = useState<AvatarAvailability>(), [checking, setChecking] = useState(false);
@@ -15,7 +16,8 @@ export function useAvatarGeneration(owner: LocalOwner, onResult: (avatar: Avatar
   const [restoreAttempt, setRestoreAttempt] = useState(0);
   const restoreFailed = useRef(false);
   const resume = useRef<() => Promise<void>>(async () => {});
-  useEffect(() => { handler.current = onResult; accepted.current = onAccepted; }, [onResult, onAccepted]);
+  const t = useT("me"), say = useRef(t);
+  useEffect(() => { handler.current = onResult; accepted.current = onAccepted; say.current = t; }, [onResult, onAccepted, t]);
   const check = useCallback(async () => {
     setChecking(true);
     try { const result = await avatarAvailability(owner); if (alive.current) setAvailability(result); }
@@ -37,7 +39,7 @@ export function useAvatarGeneration(owner: LocalOwner, onResult: (avatar: Avatar
       if (saved.id && /^[A-Za-z0-9-]{16,80}$/.test(saved.id)) {
         requestId.current = saved.id; setCanRetry(true); void resume.current();
       }
-    }).catch(() => { if (active) { restoreFailed.current = true; setCanRetry(true); setError('Could not restore the last request. Reconnect to try again.'); } })
+    }).catch(() => { if (active) { restoreFailed.current = true; setCanRetry(true); setError(say.current('restoreRequestFailed')); } })
       .finally(() => { if (active) setRestoring(false); });
     return () => { active = false; };
   }, [storageKey, restoreAttempt]);
@@ -49,19 +51,19 @@ export function useAvatarGeneration(owner: LocalOwner, onResult: (avatar: Avatar
       setJob(progress); accepted.current();
       if (progress.status === "complete") {
         const avatar = readAvatar(progress.avatar);
-        if (!avatar || ["base", "blink", "mid", "open"].some(state => !avatar.frames[state as keyof typeof avatar.frames])) throw new Error("The avatar preview could not be read.");
+        if (!avatar || ["base", "blink", "mid", "open"].some(state => !avatar.frames[state as keyof typeof avatar.frames])) throw new Error(t("previewReadFailed"));
         await handler.current(avatar); setCanRetry(false); return;
       }
       if (progress.status !== "working") {
         await AsyncStorage.removeItem(storageKey); requestId.current = ''; setCanRetry(false);
-        throw new Error(progress.message || "Generation stopped. Your saved avatar is unchanged.");
+        throw new Error(progress.message || t("generationStopped"));
       }
       await new Promise<void>(resolve => {
         const done = () => { clearTimeout(timer); signal.removeEventListener("abort", done); resolve(); };
         const timer = setTimeout(done, 3000); signal.addEventListener("abort", done, { once: true });
       });
     }
-    if (!signal.aborted) throw new Error("Preview timed out. Check its status before trying again.");
+    if (!signal.aborted) throw new Error(t("previewTimedOut"));
   };
   const execute = async (photo?: string) => {
     if (running.current || restoreFailed.current) return;
@@ -70,7 +72,7 @@ export function useAvatarGeneration(owner: LocalOwner, onResult: (avatar: Avatar
     setBusy(true); setError("");
     try {
       if (photo) {
-        if (requestId.current) throw new Error('Check the existing request before creating another avatar.');
+        if (requestId.current) throw new Error(t('checkExistingFirst'));
         if (active.signal.aborted || !alive.current) return;
         const id = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2) + "-avatar";
         await AsyncStorage.setItem(storageKey, JSON.stringify({ id }));
@@ -90,7 +92,7 @@ export function useAvatarGeneration(owner: LocalOwner, onResult: (avatar: Avatar
         if (failure instanceof Error && 'status' in failure && [400, 404, 410, 413, 422, 429].includes(Number(failure.status))) {
           await AsyncStorage.removeItem(storageKey); requestId.current = ''; setCanRetry(false);
         }
-        setError(failure instanceof Error ? failure.message : "Connection interrupted. Check the preview status.");
+        setError(failure instanceof Error ? failure.message : t("connectionInterrupted"));
       }
     }
     finally { photo = undefined; if (controller.current === active) { running.current = false; if (alive.current) setBusy(false); } }
@@ -105,7 +107,7 @@ export function useAvatarGeneration(owner: LocalOwner, onResult: (avatar: Avatar
       await AsyncStorage.removeItem(storageKey);
       requestId.current = ""; if (alive.current) { setCanRetry(false); setJob(undefined); setError(""); }
     } catch (failure) {
-      if (alive.current) setError('Could not confirm cancellation. Check the existing request before starting another.');
+      if (alive.current) setError(t('cancelUnconfirmed'));
       throw failure;
     } finally { running.current = false; if (alive.current) setBusy(false); }
   };

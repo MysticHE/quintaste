@@ -1,5 +1,7 @@
 import * as Notifications from "./local-notifications";
 import { Platform } from "react-native";
+import { translate, type Language } from "../i18n";
+import { savedLanguage } from "./saved-language";
 import type { AlertPermission, TimerAlertAdapter } from "./timer-alerts";
 
 const channelId = "cooking-timers";
@@ -8,9 +10,9 @@ Notifications.setNotificationHandler({ handleNotification: async () => ({
 }) });
 // No `sound` key: Android then uses the phone's default notification sound. Naming "default" makes Android look for a
 // bundled file of that name and log an error.
-async function channel() {
+async function channel(language: Language) {
   if (Platform.OS === "android") await Notifications.setNotificationChannelAsync(channelId, {
-    name: "Cooking timers", importance: Notifications.AndroidImportance.HIGH, vibrationPattern: [0, 250, 250, 250],
+    name: translate(language, "cook", "timerChannelName"), importance: Notifications.AndroidImportance.HIGH, vibrationPattern: [0, 250, 250, 250],
   });
 }
 function readPermission(result: Awaited<ReturnType<typeof Notifications.getPermissionsAsync>>): AlertPermission {
@@ -27,7 +29,7 @@ export const timerAlerts: TimerAlertAdapter = {
    */
   async permission(request = false): Promise<AlertPermission> {
     if (request) {
-      try { await channel(); } catch { /* Read the permission below; scheduling recreates the channel. */ }
+      try { await channel(await savedLanguage()); } catch { /* Read the permission below; scheduling recreates the channel. */ }
       try { return readPermission(await Notifications.requestPermissionsAsync({ ios: { allowAlert: true, allowSound: true, allowBadge: false }, android: {} })); }
       catch { /* Fall through to the current permission. */ }
     }
@@ -37,10 +39,12 @@ export const timerAlerts: TimerAlertAdapter = {
   presented: async () => (await Notifications.getPresentedNotificationsAsync()).map(n => n.request.identifier),
   cancel: id => Notifications.cancelScheduledNotificationAsync(id),
   dismiss: id => Notifications.dismissNotificationAsync(id),
+  /** Worded in the language chosen when the alert is scheduled; a later language change leaves scheduled alerts as they are. */
   async schedule(alert) {
-    await channel();
+    const language = await savedLanguage(), { title, body } = alert.text(language);
+    await channel(language);
     await Notifications.scheduleNotificationAsync({ identifier: alert.id,
-      content: { title: alert.title ?? "Cooking timer finished", body: alert.label, sound: "default",
+      content: { title, body, sound: "default",
         data: { kind: alert.kind === "plan" ? "plan-reminder" : alert.kind === "order" ? "order-reminder" : "cooking-timer", owner: alert.owner, timerId: alert.timerId } },
       trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: new Date(alert.endsAt), channelId },
     });

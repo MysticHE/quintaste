@@ -8,12 +8,13 @@ import { menuIndexCacheKey, menuIndexByteLimit } from "../services/menu-storage"
 import { utf8Bytes } from "./food-capacity";
 import { useExploreLocal } from "./ExploreLocal";
 import { useSegments } from "expo-router";
+import { useT } from "../i18n";
 
 function useMenuState() {
   const segments = useSegments();
   const enabled = segments.some(segment => segment === "menu" || segment === "place");
   const { offline } = useExploreLocal();
-  const [data, setData] = useState<MenuIndex | null>(null), [error, setError] = useState("");
+  const [data, setData] = useState<MenuIndex | null>(null), [failed, setFailed] = useState(false), t = useT("me");
   const [busy, setBusy] = useState(false), [storageError, setStorageError] = useState(false);
   const [now, setNow] = useState(() => Date.now());
   const current = useRef(data), active = useRef<AbortController | null>(null), alive = useRef(false);
@@ -24,7 +25,7 @@ function useMenuState() {
     if (!alive.current || offline || active.current || !force && Date.now() - fetched.current < menuRefreshMs) return;
     const controller = new AbortController(); active.current = controller;
     const timeout = setTimeout(() => controller.abort(), 10000);
-    setBusy(true); setError("");
+    setBusy(true); setFailed(false);
     try {
       const response = await ownedApiRequest("/api/menus?view=index", { signal: controller.signal,
         headers: etag.current ? { "If-None-Match": etag.current } : undefined });
@@ -46,7 +47,7 @@ function useMenuState() {
         if (alive.current) setStorageError(false); }
       catch { if (alive.current) setStorageError(true); }
     } catch {
-      if (alive.current && active.current === controller) setError("Menus unavailable. Please retry.");
+      if (alive.current && active.current === controller) setFailed(true);
     } finally {
       clearTimeout(timeout);
       if (active.current === controller) { active.current = null; if (alive.current) setBusy(false); }
@@ -73,7 +74,7 @@ function useMenuState() {
     }, 60000);
     return () => { mounted = false; subscription.remove(); clearInterval(timer); cancel(); };
   }, [offline, load, cancel, enabled]);
-  const usable = data && now - data.generatedAt < menuOfflineMs ? data : null;
+  const usable = data && now - data.generatedAt < menuOfflineMs ? data : null, error = failed ? t("menusUnavailable") : "";
   return { menus: usable?.venues ?? [], loaded: !!usable, busy, error, storageError, load, now, offline,
     cached: offline || !!error || !!usable && now - usable.generatedAt >= menuRefreshMs };
 }

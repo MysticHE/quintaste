@@ -10,19 +10,20 @@ import {
 import { usePreviewAuth } from "./usePreviewAuth";
 import { accountsEnabled } from "../services/auth-client";
 import { ConnectedAuthScreen } from "./ConnectedAuth";
+import { useT } from "../i18n";
 function PreviewAuthScreen({ signup = false }: { signup?: boolean }) {
-  const state = usePreviewAuth(signup);
+  const state = usePreviewAuth(signup), t = useT("me");
   return (
     <Screen
-      title={signup ? "Create Account" : undefined}
+      title={signup ? t("createAccount") : undefined}
       back={signup}
       footer={<AuthFooter signup={signup} />}
     >
       {!signup && <AuthHeader />}
       {signup && (
         <Field
-          label="Display Name"
-          placeholder="What should we call you?"
+          label={t("displayName")}
+          placeholder={t("displayNamePlaceholder")}
           value={state.name}
           onChangeText={state.setName}
           autoComplete="name"
@@ -33,14 +34,14 @@ function PreviewAuthScreen({ signup = false }: { signup?: boolean }) {
       <AuthFields state={state} signup={signup} />
       <AuthConsent state={state} signup={signup} />
       <Button
-        label={signup ? "Create Preview Profile" : "Sign In To Preview"}
+        label={signup ? t("createPreviewProfile") : t("signInToPreview")}
         icon="arrow-forward"
         loading={state.busy}
         onPress={() => void state.submit()}
       />
       {!signup && <AuthServices state={state} />}
       <T variant="small" muted style={common.center}>
-        UI preview only. Use example details; passwords are never saved or sent.
+        {t("previewOnlyNote")}
       </T>
     </Screen>
   );

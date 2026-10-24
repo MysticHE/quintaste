@@ -4,18 +4,21 @@ import { StatusPill } from "../GroupedList";
 import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { useMinuteClock } from "../food/Timers";
-import { dietSummary } from "../../config/preferences";
 import { planningAreaByCode } from "../../utils/planning-area";
 import { isToday, slotLabel } from "../../utils/social-match";
 import { sgDateTile } from "../../utils/sg-datetime";
 import type { Table } from "../../types/community";
 import { FaceStack, PlaceThumb, SeatDots } from "./Face";
 import { openSocial } from "./Shared";
+import { useDietSummary } from "./MeetUI";
+import { useLanguage, useT } from "../../i18n";
 
 const placeName = (t: Table) => t.place?.name ?? t.venue;
 /** "2 of 4" plus Joined/Invited/Full, read aloud with the time and place. */
-function tableLabel(t: Table, now: number) {
-  return [slotLabel(t.starts, now), placeName(t), t.held + " of " + t.size + " seats taken", t.myStatus === "accepted" ? "Joined" : "", dietSummary(t.diets)].filter(Boolean).join(", ");
+function useTableLabel() {
+  const say = useT("social"), language = useLanguage(), dietSummary = useDietSummary();
+  return (t: Table, now: number) => [slotLabel(t.starts, now, language), placeName(t), say("seatsTaken", { held: t.held, size: t.size }), t.myStatus === "accepted" ? say("joined") : "",
+    dietSummary(t.diets)].filter(Boolean).join(", ");
 }
 function useCardPress() {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
@@ -23,23 +26,24 @@ function useCardPress() {
 }
 /** A table in the Tables list: spot photo, day and time, place, seated faces and open seats. */
 export function TableRow({ table: t }: { table: Table }) {
-  const { theme } = usePreferences(), now = useMinuteClock(), press = useCardPress(), tile = sgDateTile(t.starts), today = isToday(t.starts, now);
-  const area = t.areaCode ? planningAreaByCode.get(t.areaCode)?.name : "", status = t.myStatus === "accepted" ? "Joined" : t.myStatus === "invited" ? "Invited" : t.held >= t.size ? "Full" : t.seatHeld ? "For a woman" : "";
-  return <Pressable accessibilityRole="button" accessibilityLabel={tableLabel(t, now)} onPress={() => openSocial("/table/" + t.id)} {...press.focusProps} style={press.style}>
+  const { theme } = usePreferences(), now = useMinuteClock(), press = useCardPress(), language = useLanguage(), say = useT("social"), label = useTableLabel(), dietSummary = useDietSummary();
+  const tile = sgDateTile(t.starts, language), today = isToday(t.starts, now);
+  const area = t.areaCode ? planningAreaByCode.get(t.areaCode)?.name : "", status = t.myStatus === "accepted" ? "joined" : t.myStatus === "invited" ? "invited" : t.held >= t.size ? "full" : t.seatHeld ? "forWoman" : "";
+  return <Pressable accessibilityRole="button" accessibilityLabel={label(t, now)} onPress={() => openSocial("/table/" + t.id)} {...press.focusProps} style={press.style}>
     <View style={[s.row, { backgroundColor: theme.card, borderColor: theme.border }]}>
       <View style={s.thumb}><PlaceThumb place={t.place} size="fill" /></View>
       <View style={[common.flex, { gap: 3, minWidth: 0 }]}>
         <View style={[common.row, { gap: 6 }]}>
-          <StatusPill label={today ? "Today" : (tile?.weekday ?? "") + " " + (tile?.day ?? "")} tone={today ? "accent" : "muted"} />
+          <StatusPill label={today ? say("today") : (tile?.weekday ?? "") + " " + (tile?.day ?? "")} tone={today ? "accent" : "muted"} />
           <T variant="small" style={common.bold}>{t.starts.slice(11)}</T>
-          {!!status && <StatusPill label={status} tone={status === "Full" ? "muted" : status === "For a woman" ? "accent" : "success"} />}
+          {!!status && <StatusPill label={say(status)} tone={status === "full" ? "muted" : status === "forWoman" ? "accent" : "success"} />}
         </View>
         <T variant="subtitle" numberOfLines={1}>{placeName(t)}</T>
-        <T variant="small" muted numberOfLines={1}>{[area, t.size === 6 ? "Table of 6" : "", t.sameGender ? (t.sameGender === "woman" ? "Women only" : "Men only") : "", t.alcoholFree ? "Alcohol-free" : ""].filter(Boolean).join(" · ") || dietSummary(t.diets)}</T>
+        <T variant="small" muted numberOfLines={1}>{[area, t.size === 6 ? say("tableOfSix") : "", t.sameGender ? say(t.sameGender === "woman" ? "womenOnly" : "menOnly") : "", t.alcoholFree ? say("alcoholFree") : ""].filter(Boolean).join(" · ") || dietSummary(t.diets)}</T>
         <View style={[common.row, { gap: 8 }]}>
           <FaceStack people={t.seated} size={24} />
           <SeatDots taken={Math.max(0, t.held - t.seated.length)} size={Math.max(0, t.size - t.seated.length)} />
-          <T variant="small" muted>{t.held + " of " + t.size}</T>
+          <T variant="small" muted>{say("heldOf", { held: t.held, size: t.size })}</T>
         </View>
       </View>
     </View>
@@ -47,14 +51,14 @@ export function TableRow({ table: t }: { table: Table }) {
 }
 /** A compact table for the Nearby carousel. */
 export function TableChip({ table: t }: { table: Table }) {
-  const { theme } = usePreferences(), now = useMinuteClock(), press = useCardPress(), today = isToday(t.starts, now);
-  return <Pressable accessibilityRole="button" accessibilityLabel={tableLabel(t, now)} onPress={() => openSocial("/table/" + t.id)} {...press.focusProps} style={press.style}>
+  const { theme } = usePreferences(), now = useMinuteClock(), press = useCardPress(), today = isToday(t.starts, now), language = useLanguage(), say = useT("social"), label = useTableLabel();
+  return <Pressable accessibilityRole="button" accessibilityLabel={label(t, now)} onPress={() => openSocial("/table/" + t.id)} {...press.focusProps} style={press.style}>
     <View style={[s.chip, { backgroundColor: theme.card, borderColor: theme.border }]}>
       <View style={s.chipPhoto}><PlaceThumb place={t.place} size="fill" radius={0} />
-        <View style={s.chipPill}><StatusPill label={today ? "Today" : slotLabel(t.starts, now).split(" ")[0]} tone={today ? "accent" : "muted"} /></View></View>
+        <View style={s.chipPill}><StatusPill label={today ? say("today") : slotLabel(t.starts, now, language).split(" ")[0]} tone={today ? "accent" : "muted"} /></View></View>
       <View style={{ padding: 10, gap: 6 }}>
         <T variant="small" style={common.bold} numberOfLines={1}>{t.starts.slice(11) + " · " + placeName(t)}</T>
-        <View style={common.spread}><SeatDots taken={t.held} size={t.size} /><T variant="small" muted>{t.held + " of " + t.size}</T></View>
+        <View style={common.spread}><SeatDots taken={t.held} size={t.size} /><T variant="small" muted>{say("heldOf", { held: t.held, size: t.size })}</T></View>
       </View>
     </View>
   </Pressable>;

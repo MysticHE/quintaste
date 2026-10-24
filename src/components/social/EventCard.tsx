@@ -1,6 +1,7 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Icon, T, common, type IconName } from "../ui";
+import { useLanguage, useT } from "../../i18n";
 import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { useOnAccent } from "../BrowseControls";
@@ -12,7 +13,7 @@ export type EventTag = { label: string; tone?: "accent" | "success" | "muted" };
 export function EventCard({ starts, title, time, place, tags = [], onPress, children, label }: PropsWithChildren<{
   starts: string; title: string; time: string; place?: string; tags?: EventTag[]; onPress: () => void; label?: string;
 }>) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), tile = sgDateTile(starts);
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), tile = sgDateTile(starts, useLanguage());
   const tone = (t: EventTag["tone"]) => t === "success" ? [theme.successSoft, theme.success] : t === "muted" ? [theme.muted, theme.mutedForeground] : [theme.accentSoft, theme.accent];
   return <View style={[s.card, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
     <Pressable accessibilityRole="button" accessibilityLabel={label ?? [title, time, place].filter(Boolean).join(", ")} onPress={onPress} {...focusProps}
@@ -40,15 +41,15 @@ function Fact({ icon, children }: { icon: IconName; children: ReactNode }) {
 /** Splits upcoming events into this week and later, keeping order. */
 export function byWhen<T>(items: T[], starts: (item: T) => string, now = Date.now()) {
   const week = now + 7 * 86400000, soon = items.filter(item => Date.parse(starts(item)) <= week);
-  return [{ title: "This week", items: soon }, { title: "Later", items: items.filter(item => !soon.includes(item)) }].filter(group => group.items.length);
+  return [{ title: "thisWeek" as const, items: soon }, { title: "later" as const, items: items.filter(item => !soon.includes(item)) }].filter(group => group.items.length);
 }
-export function WhenHeading({ title }: { title: string }) {
-  return <T variant="small" muted accessibilityRole="header" style={[common.bold, s.when]}>{title}</T>;
+export function WhenHeading({ title }: { title: "thisWeek" | "later" }) {
+  return <T variant="small" muted accessibilityRole="header" style={[common.bold, s.when]}>{useT("social")(title)}</T>;
 }
 /** Event types as one scrolling row of icon pills; the chosen type is filled. */
 export function TypePills<T extends string>({ options, value, onChange }: { options: readonly { id: T; label: string; icon: IconName }[]; value: T; onChange: (value: T) => void }) {
-  const { theme } = usePreferences(), onAccent = useOnAccent();
-  return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[s.pillRow, edgeScroll.row]} contentContainerStyle={[s.pills, edgeScroll.content]} accessibilityRole="radiogroup" accessibilityLabel="Event type">
+  const { theme } = usePreferences(), onAccent = useOnAccent(), t = useT("social");
+  return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[s.pillRow, edgeScroll.row]} contentContainerStyle={[s.pills, edgeScroll.content]} accessibilityRole="radiogroup" accessibilityLabel={t("eventType")}>
     {options.map(option => { const on = option.id === value;
       return <Pressable key={option.id} accessibilityRole="radio" accessibilityState={{ selected: on, checked: on }} accessibilityLabel={option.label} onPress={() => onChange(option.id)}
         style={({ pressed }) => [common.row, s.pill, { backgroundColor: on ? theme.accent : theme.card, borderColor: on ? theme.accent : theme.border, opacity: pressed ? 0.8 : 1 }]}>

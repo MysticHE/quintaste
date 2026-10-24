@@ -8,18 +8,19 @@ import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
 import { useGlassNavigation } from "./GlassNavigation";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
+import { useT } from "../../i18n";
 
 type DockProps = Parameters<NonNullable<ComponentProps<typeof Tabs>["tabBar"]>>[0];
-const tabs: Record<string, { label: string; icon: QuinTasteTab }> = {
-  "(explore)": { label: "Explore", icon: "explore" },
-  cook: { label: "Cook", icon: "cook" },
-  social: { label: "Social", icon: "social" },
-  market: { label: "Market", icon: "market" },
-  game: { label: "Game", icon: "game" },
+const tabs: Record<string, { label: "tabExplore" | "tabCook" | "tabSocial" | "tabMarket" | "tabGame"; icon: QuinTasteTab }> = {
+  "(explore)": { label: "tabExplore", icon: "explore" },
+  cook: { label: "tabCook", icon: "cook" },
+  social: { label: "tabSocial", icon: "social" },
+  market: { label: "tabMarket", icon: "market" },
+  game: { label: "tabGame", icon: "game" },
 };
 
 export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
-  const { theme } = usePreferences(), marketBadge = useMarketUnread()?.count ?? 0;
+  const { theme } = usePreferences(), marketBadge = useMarketUnread()?.count ?? 0, t = useT("common");
   const glass = useGlassNavigation(), setHeight = glass?.setHeight;
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {
@@ -36,7 +37,7 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
         <BlurView testID="navigation-blur" blurTarget={glass?.target} blurMethod="dimezisBlurView" intensity={70}
           tint={theme.dark ? "dark" : "light"} style={StyleSheet.absoluteFill} pointerEvents="none" />}
       {!glass?.reduceTransparency && <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: theme.navigation.glassTint }]} />}
-      <View style={s.tabs} accessibilityRole="tablist" accessibilityLabel="Main navigation">
+      <View style={s.tabs} accessibilityRole="tablist" accessibilityLabel={t("mainNavigation")}>
         {state.routes.map((route, index) => {
           const item = tabs[route.name], { options } = descriptors[route.key], selected = state.index === index;
           if (!item) return null;
@@ -46,7 +47,7 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
           };
           const badge = route.name === "market" ? marketBadge : 0;
           return <DockTab key={route.key} icon={item.icon} selected={selected} onPress={press} badge={badge}
-            accessibilityLabel={options.tabBarAccessibilityLabel ?? item.label + (badge ? `, ${badge} new` : "") + ", tab " + (index + 1) + " of " + state.routes.length}
+            accessibilityLabel={options.tabBarAccessibilityLabel ?? t(item.label) + (badge ? t("tabNew", { n: badge }) : "") + t("tabPosition", { i: index + 1, n: state.routes.length })}
             testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })} />;
         })}
       </View>

@@ -1,6 +1,7 @@
 import type { PrivatePlace, PrivatePlaceKind } from "../types/food";
 import type { SearchPoint } from "../types/location-search";
 import { inSingapore } from "./discovery-search";
+import { ExploreError } from "./location-feedback";
 
 export function readPrivatePoint(value: unknown): SearchPoint | undefined {
   if (!value || typeof value !== "object" || Array.isArray(value)) return;
@@ -26,9 +27,9 @@ export function privateOrigin(places: PrivatePlace[], kind: "home" | "work") {
 export function savePrivatePlace(places: PrivatePlace[], next: PrivatePlace): PrivatePlace[] {
   const kind = privatePlaceKind(next), original = places.find(place => place.id === next.id);
   if (kind !== "custom" && (!original || privatePlaceKind(original) !== kind) && places.some(place => place.id !== next.id && privatePlaceKind(place) === kind))
-    throw new Error("You already have " + (kind === "home" ? "Home" : "Work") + ". Edit its address instead.");
+    throw new ExploreError(kind === "home" ? "alreadyHaveHome" : "alreadyHaveWork");
   if (!places.some(place => place.id === next.id) && places.length >= 20)
-    throw new Error("You can keep up to 20 private places.");
+    throw new ExploreError("privatePlacesLimit");
   const result = places.some(place => place.id === next.id)
     ? places.map(place => place.id === next.id ? next : place) : [...places, next];
   const defaultId = result.find(place => place.isDefault)?.id ?? result[0]?.id;

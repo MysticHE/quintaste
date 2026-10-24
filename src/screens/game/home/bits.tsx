@@ -1,9 +1,27 @@
-import { useState, type ReactNode } from "react";
+import { useCallback, useState, type ReactNode } from "react";
 import { Image, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import { GAME_ART } from "../../../game/art";
+import type { Tier, Unlock } from "../../../game/content/cosmetics";
+import { SEASONS } from "../../../game/content/seasons";
+import type { Tier as KitchenTier } from "../../../game/mission";
 import { Icon, T } from "../../../components/ui";
 import { usePreferences } from "../../../state/Preferences";
 import { useKeyboardFocus } from "../../../hooks/useKeyboardFocus";
+import { useT, type Vars } from "../../../i18n";
+import type gameMessages from "../../../i18n/en/game";
+
+export type GameKey = Extract<keyof typeof gameMessages, string>;
+export type GameT = (key: GameKey, vars?: Vars) => string;
+/** Display names for the lotus tiers and the Recipe Kitchen tiers; the stored values stay the same. */
+export const LOTUS_TIER_KEYS: Record<Tier, GameKey> = { pink: "lotusTierPink", purple: "lotusTierPurple", blue: "lotusTierBlue", golden: "lotusTierGolden" };
+export const KITCHEN_TIER_KEYS: Record<KitchenTier, GameKey> = { learn: "kitchenTierLearn", service: "kitchenTierService", memory: "kitchenTierMemory" };
+/** What unlocks a cosmetic, in the member's language ("Clear Level 6", "Purple lotus", "120 credits"). Season names stay as game content. */
+export function useUnlockText() {
+  const t = useT("game");
+  return useCallback((u: Unlock) => u.kind === "free" ? t("unlockFree") : u.kind === "level" ? t("unlockLevel", { n: u.level })
+    : u.kind === "season" ? t("unlockSeason", { season: SEASONS.find(s => s.id === u.season)?.name ?? t("theSeason"), n: u.n })
+    : u.kind === "tier" ? t("tierLotus", { tier: t(LOTUS_TIER_KEYS[u.tier]) }) : t("credits", { n: u.price }), [t]);
+}
 
 export function Art({ k, size, style }: { k: string; size: number; style?: object }) {
   const src = GAME_ART[k];
@@ -18,8 +36,8 @@ export function useHover() {
 export function Tile({ art, label, status, selected, worn, locked, onPress, size = 64, a11y }: {
   art?: string; label: string; status?: string; selected?: boolean; worn?: boolean; locked?: boolean; onPress(): void; size?: number; a11y?: string;
 }) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), { hovered, hoverProps } = useHover();
-  return <Pressable onPress={onPress} accessibilityRole="button" accessibilityLabel={a11y ?? label + (status ? ", " + status : "")} accessibilityState={{ selected: !!selected }} {...focusProps} {...hoverProps}
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), { hovered, hoverProps } = useHover(), t = useT("game");
+  return <Pressable onPress={onPress} accessibilityRole="button" accessibilityLabel={a11y ?? label + (status ? t("sep") + status : "")} accessibilityState={{ selected: !!selected }} {...focusProps} {...hoverProps}
     style={({ pressed }) => [s.tile, { backgroundColor: selected ? theme.accentSoft : theme.card, borderColor: selected || focused ? theme.accent : hovered ? theme.mutedForeground : theme.border },
       selected && { borderWidth: 2 }, { transform: [{ scale: pressed ? 0.95 : hovered ? 1.03 : 1 }] }]}>
     {worn && <View style={[s.badge, { backgroundColor: theme.accent }]}><Icon name="checkmark" size={15} color={theme.actionForeground} /></View>}

@@ -1,13 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { FoodDocument } from "../types/food";
 import { emptyFoodDocument, readFoodDocument } from "./food-schema";
 import { FoodCapacityError, serializeFoodDocument } from "./food-capacity";
+import { useT } from "../i18n";
 
 export const foodKey = (owner: "guest" | "profile", accountId?: string) =>
   "@quintaste/food-v1/" + (owner === "profile" && accountId ? "account/" + accountId : owner);
-type StorageError = { key: string; kind: "load" | "write"; message: string } | null;
+type StorageError = { key: string; kind: "load" | "write"; code: "foodReadFailed" | "prepareFailed" | "storageFull" | "writeFailed" } | null;
 export function useFoodStorage(key: string) {
+  const t = useT("me");
   const [document, setDocument] = useState<FoodDocument>(emptyFoodDocument);
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
   const [error, setError] = useState<StorageError>(null);
@@ -40,7 +42,7 @@ export function useFoodStorage(key: string) {
     } catch {
       if (alive.current && active.current === captured) {
         setDocument(emptyFoodDocument()); setLoadedKey(captured);
-        setError({ key: captured, kind: "load", message: "Your saved food data could not be read. Retry before making changes." });
+        setError({ key: captured, kind: "load", code: "foodReadFailed" });
       }
     }
   }, [key]);
@@ -53,7 +55,7 @@ export function useFoodStorage(key: string) {
     let serialized: string;
     try { serialized = serializeFoodDocument(next); }
     catch (error) {
-      setError({ key, kind: "write", message: error instanceof FoodCapacityError ? error.message : "Changes could not be prepared for saving." });
+      setError({ key, kind: "write", code: error instanceof FoodCapacityError ? "storageFull" : "prepareFailed" });
       return Promise.resolve(false);
     }
     const captured = key, serial = ++revision.current;
@@ -67,7 +69,7 @@ export function useFoodStorage(key: string) {
         return true;
       } catch {
         if (alive.current && active.current === captured) setError({
-          key: captured, kind: "write", message: "Changes are still in memory. Device storage could not save them. Retry to keep them after closing.",
+          key: captured, kind: "write", code: "writeFailed",
         });
         return false;
       } finally {
@@ -123,9 +125,10 @@ export function useFoodStorage(key: string) {
       if (alive.current && active.current === key) setSwitching(false);
     }
   }, [key]);
+  const shownError = useMemo(() => error?.key === key ? { ...error, message: t(error.code) } : null, [error, key, t]);
   return {
     document: loadedKey === key ? document : emptyFoodDocument(), ready: loadedKey === key,
-    readable: loadedKey === key && error?.kind !== "load" && !switching, error: error?.key === key ? error : null,
+    readable: loadedKey === key && error?.kind !== "load" && !switching, error: shownError,
     saving, dirty, update, commit, retry, switching, withScopeLock,
   };
 }

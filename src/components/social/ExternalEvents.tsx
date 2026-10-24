@@ -7,6 +7,7 @@ import { EventCard, WhenHeading, byWhen } from "./EventCard";
 import { EmptyState } from "../food/Controls";
 import { Button, T } from "../ui";
 import { sgDateTile, formatSgShort } from "../../utils/sg-datetime";
+import { useLanguage, useT } from "../../i18n";
 import { usePreferences } from "../../state/Preferences";
 import { useDebounced } from "../../hooks/useDebounced";
 
@@ -20,36 +21,37 @@ export function ExternalEvents({ query }: { query: string }) {
   const [page, setPage] = useState<{ base: string; cursor: string | null; prior: ExternalEvent[] }>({ base, cursor: null, prior: [] });
   const own = page.base === base ? page : { base, cursor: null, prior: [] };
   const remote = useEditorial<EditorialPage<ExternalEvent>>(base + (own.cursor ? "&cursor=" + encodeURIComponent(own.cursor) : ""));
-  const [selected, setSelected] = useState<string | null>(null), { setNotice } = usePreferences();
+  const [selected, setSelected] = useState<string | null>(null), { setNotice } = usePreferences(), t = useT("social"), tc = useT("common"), language = useLanguage();
   const [now, setNow] = useState(Date.now);
   useEffect(() => { const timer = setInterval(() => setNow(Date.now()), 60000); return () => clearInterval(timer); }, []);
   const rows = [...own.prior, ...(remote.data?.items ?? [])].filter((r, index, all) => all.findIndex(x => x.id === r.id) === index && Date.parse(r.startsAt) > now);
-  const open = (url: string) => { void Linking.openURL(url).catch(() => setNotice({ text: "This link could not open. Please try again.", error: true })); };
+  const open = (url: string) => { void Linking.openURL(url).catch(() => setNotice({ text: t("linkNotOpen"), error: true })); };
   return <>
-    {remote.loading && !remote.data && <T muted>Loading local events...</T>}
-    {!remote.loading && !remote.error && remote.data && !rows.length && <EmptyState icon="megaphone-outline" title={q.trim() ? "No matching events" : "No local events coming up"} text="" />}
-    {remote.error && <EmptyState icon="cloud-offline-outline" title="Couldn't load events" text="Check your connection and try again." primary={{ label: "Try Again", onPress: remote.refresh }} />}
+    {remote.loading && !remote.data && <T muted>{t("loadingEvents")}</T>}
+    {!remote.loading && !remote.error && remote.data && !rows.length && <EmptyState icon="megaphone-outline" title={t(q.trim() ? "noMatchingEvents" : "noLocalEvents")} text="" />}
+    {remote.error && <EmptyState icon="cloud-offline-outline" title={t("eventsFailed")} text={t("eventsFailedText")} primary={{ label: tc("tryAgain"), onPress: remote.refresh }} />}
     {byWhen(rows, event => event.startsAt).map(group => <View key={group.title} style={{ gap: 10 }}>
       <WhenHeading title={group.title} />
       {group.items.map(event => {
-        const localTime = event.startsAt.slice(0, 16).replace("T", " "), tile = sgDateTile(localTime), expanded = selected === event.id;
-        const endTime = event.endsAt ? sgDateTile(event.endsAt.slice(0, 16).replace("T", " "))?.time : undefined;
+        const localTime = event.startsAt.slice(0, 16).replace("T", " "), tile = sgDateTile(localTime, language), expanded = selected === event.id;
+        const endTime = event.endsAt ? sgDateTile(event.endsAt.slice(0, 16).replace("T", " "), language)?.time : undefined;
         // The venue line is skipped when it only repeats the organiser.
         const sameVenue = event.location.toLowerCase().includes(event.organiser.toLowerCase());
         const feeNote = event.feeNote === LEGACY_FEE_NOTE ? "" : event.feeNote;
         // A fee note with several amounts (a range or ticket tiers) makes the tag a starting price.
-        const fee = event.feeAmount === 0 ? "Free" : event.feeAmount !== null && event.currency === "SGD" ? (/\d[\d.,]*\D+\d/.test(feeNote) ? "From S$" : "S$") + event.feeAmount : "";
-        return <EventCard key={event.id} starts={localTime} title={readableTitle(event.title)} time={(tile?.time ?? formatSgShort(localTime)) + (endTime ? " – " + endTime : "")}
-          place={sameVenue ? event.organiser : event.location + " · " + event.organiser} tags={fee ? [{ label: fee, tone: fee === "Free" ? "success" : "accent" }] : []}
+        const free = event.feeAmount === 0, fee = free ? t("free") : event.feeAmount !== null && event.currency === "SGD"
+          ? t(/\d[\d.,]*\D+\d/.test(feeNote) ? "fromPrice" : "price", { amount: event.feeAmount }) : "";
+        return <EventCard key={event.id} starts={localTime} title={readableTitle(event.title)} time={(tile?.time ?? formatSgShort(localTime, language)) + (endTime ? " – " + endTime : "")}
+          place={sameVenue ? event.organiser : event.location + " · " + event.organiser} tags={fee ? [{ label: fee, tone: free ? "success" : "accent" }] : []}
           onPress={() => setSelected(expanded ? null : event.id)}>
           {expanded && <View style={{ paddingHorizontal: 12, paddingBottom: 12, gap: 8 }}><T>{event.address}</T><T variant="small">{event.dietEvidence}</T>
             {!!feeNote && <T variant="small">{feeNote}</T>}
-            <T variant="small" muted>Checked {event.checkedAt}. Confirm details with the organiser.</T>
-            <Button label="Organiser & Registration" icon="open-outline" variant="secondary" onPress={() => open(event.registrationUrl ?? event.sources[0])} />
+            <T variant="small" muted>{t("checkedNote", { date: event.checkedAt })}</T>
+            <Button label={t("organiser")} icon="open-outline" variant="secondary" onPress={() => open(event.registrationUrl ?? event.sources[0])} />
           </View>}
         </EventCard>;
       })}
     </View>)}
-    {remote.data?.nextCursor && rows.length < 80 && <Button label="More Local Events" variant="secondary" disabled={remote.loading} onPress={() => setPage({ base, prior: rows, cursor: remote.data!.nextCursor })} />}
+    {remote.data?.nextCursor && rows.length < 80 && <Button label={t("moreEvents")} variant="secondary" disabled={remote.loading} onPress={() => setPage({ base, prior: rows, cursor: remote.data!.nextCursor })} />}
   </>;
 }

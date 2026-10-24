@@ -6,6 +6,7 @@ import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { useOnAccent } from "../BrowseControls";
 import { fontNames } from "../../theme/tokens";
+import { useT } from "../../i18n";
 
 /** One aisle: a titled card of items. */
 export function ShoppingAisle({ title, rows, recipeName, disabled, onToggle }: {
@@ -19,9 +20,9 @@ export function ShoppingAisle({ title, rows, recipeName, disabled, onToggle }: {
 }
 /** Tick to move an item into the basket; the recipes it is for sit under the name, the amount on the right. */
 function ShoppingItem({ row, first, recipeName, disabled, onToggle }: { row: ShoppingRow; first: boolean; recipeName: (id: string) => string; disabled: boolean; onToggle: () => void }) {
-  const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus();
+  const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus(), t = useT("cook");
   const forText = row.recipeIds.map(recipeName).join(" · ");
-  return <View>{!first && <View style={[s.divider, { backgroundColor: theme.divider }]} />}<Pressable accessibilityRole="checkbox" accessibilityState={{ checked: row.checked, disabled }} accessibilityLabel={row.spoken + (forText ? ", for " + forText : "")}
+  return <View>{!first && <View style={[s.divider, { backgroundColor: theme.divider }]} />}<Pressable accessibilityRole="checkbox" accessibilityState={{ checked: row.checked, disabled }} accessibilityLabel={row.spoken + (forText ? t("forRecipes", { list: forText }) : "")}
     disabled={disabled} onPress={onToggle} {...focusProps}
     style={({ pressed }) => [common.row, s.item, { borderColor: focused ? theme.accent : theme.transparent, opacity: pressed ? 0.7 : 1 }]}>
     <View style={[s.check, row.checked ? { backgroundColor: theme.success, borderColor: theme.success } : { borderColor: theme.mutedForeground }]}>
@@ -37,15 +38,15 @@ function ShoppingItem({ row, first, recipeName, disabled, onToggle }: { row: Sho
 }
 /** The add box: type an item, press the + or the keyboard's return. */
 export function AddItemField({ disabled, busy, onAdd }: { disabled: boolean; busy: boolean; onAdd: (text: string) => Promise<boolean> }) {
-  const { theme, textMultiplier } = usePreferences(), onAccent = useOnAccent(), [text, setText] = useState(""), [focused, setFocused] = useState(false);
+  const { theme, textMultiplier } = usePreferences(), onAccent = useOnAccent(), [text, setText] = useState(""), [focused, setFocused] = useState(false), t = useT("cook");
   const ready = !!text.trim() && !disabled && !busy;
   const add = async () => { if (ready && await onAdd(text.trim())) setText(""); };
   return <View style={[common.row, s.add, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
-    <TextInput value={text} onChangeText={setText} placeholder="Add an item" accessibilityLabel="Add an item" editable={!disabled} maxLength={300}
+    <TextInput value={text} onChangeText={setText} placeholder={t("addAnItem")} accessibilityLabel={t("addAnItem")} editable={!disabled} maxLength={300}
       onSubmitEditing={() => void add()} returnKeyType="done" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
       placeholderTextColor={theme.mutedForeground} selectionColor={theme.accent} underlineColorAndroid={theme.transparent}
       style={[common.flex, s.input, { color: theme.foreground, fontFamily: fontNames.regular, fontSize: 16 * textMultiplier }]} />
-    <Pressable accessibilityRole="button" accessibilityLabel="Add item" accessibilityState={{ disabled: !ready }} disabled={!ready} onPress={() => void add()}
+    <Pressable accessibilityRole="button" accessibilityLabel={t("addItem")} accessibilityState={{ disabled: !ready }} disabled={!ready} onPress={() => void add()}
       style={({ pressed }) => [s.plus, { backgroundColor: ready ? theme.accent : theme.muted, opacity: pressed ? 0.8 : 1 }]}>
       <Icon name="add" size={24} color={ready ? onAccent : theme.mutedForeground} />
     </Pressable>

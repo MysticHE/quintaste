@@ -8,9 +8,10 @@ import { accountRequest } from '../../services/auth-client';
 import { rememberGoogleSignIn, forgetGoogleSignIn } from '../../services/google-sign-in';
 import { usePreferences } from '../../state/Preferences';
 import { safeReturn } from '../../utils/navigation';
+import { useT } from '../../i18n';
 
 export function GoogleSignIn({ disabled = false, returnTo, onBusy }: { disabled?: boolean; returnTo?: string; onBusy?: (busy: boolean) => void }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT('me');
   const [busy, setBusy] = useState(false), [error, setError] = useState('');
   const alive = useRef(true), running = useRef(false);
   useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
@@ -27,17 +28,17 @@ export function GoogleSignIn({ disabled = false, returnTo, onBusy }: { disabled?
       const result = await WebBrowser.openAuthSessionAsync(flow.url, returnURL);
       if (result.type === 'success') {
         const callback = new URL(result.url);
-        if (callback.searchParams.get('flow') !== flow.id || !callback.searchParams.get('code')) throw new Error('Sign-in could not be verified. Please try again.');
+        if (callback.searchParams.get('flow') !== flow.id || !callback.searchParams.get('code')) throw new Error(t('signInUnverified'));
         router.replace({ pathname: '/auth-return', params: { flow: flow.id, code: callback.searchParams.get('code')! } });
       } else {
         await forgetGoogleSignIn();
         await accountRequest('google/cancel', { method: 'POST', body: JSON.stringify({ id: flow.id, proof: flow.proof }) }).catch(() => undefined);
       }
-    } catch (problem) { if (alive.current) setError(problem instanceof Error ? problem.message : 'Google sign-in could not start.'); }
+    } catch (problem) { if (alive.current) setError(problem instanceof Error ? problem.message : t('googleStartFailed')); }
     finally { running.current = false; if (alive.current) { setBusy(false); onBusy?.(false); } }
   };
   return <>
-    <Button label={busy ? 'Signing In…' : 'Continue With Google'} icon="logo-google" loading={busy} disabled={disabled || busy} onPress={() => void start()} />
+    <Button label={busy ? t('signingIn') : t('continueWithGoogle')} icon="logo-google" loading={busy} disabled={disabled || busy} onPress={() => void start()} />
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
   </>;
 }

@@ -9,10 +9,13 @@ import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../state/Preferences";
 import { ownListings, sellerState } from "../../services/market-api";
 import { photoSource } from "../../services/community-api";
-import { kindLabels } from "../../config/market";
+import { kindKeys } from "../../config/market";
 import { money } from "../../utils/food-format";
 import type { OwnListing } from "../../types/community";
 import type { RecipeDraft, RecipeDraftIngredient } from "../../types/recipe-workspace";
+import { useT } from "../../i18n";
+import type { CookKey } from "../../i18n/en/cook";
+import type { MarketText } from "../../i18n/en/market";
 
 export const shopLinkLimit = 10;
 /**
@@ -28,46 +31,45 @@ export function useOwnShopItems() {
 export type OwnShopItems = ReturnType<typeof useOwnShopItems>;
 const words = (value: string) => value.toLowerCase().split(/[^a-z0-9]+/).filter(word => word.length > 2);
 const suggested = (ingredient: string, item: OwnListing) => { const a = words(ingredient), b = words(item.name); return a.some(word => b.includes(word)); };
-/** Why an item can't be linked to this line, or "". */
-function blocker(item: OwnListing, draft: RecipeDraft, ingredient: RecipeDraftIngredient) {
-  if (draft.ingredients.some(i => i.id !== ingredient.id && i.listingId === item.id)) return "Linked to another ingredient";
-  return "";
+/** Why an item can't be linked to this line, or null. */
+function blocker(item: OwnListing, draft: RecipeDraft, ingredient: RecipeDraftIngredient): CookKey | null {
+  return draft.ingredients.some(i => i.id !== ingredient.id && i.listingId === item.id) ? "linkedElsewhere" : null;
 }
-/** Problem with an existing link, or "": shown on the card so the author can fix it before submitting. */
-function linkProblem(linked: OwnListing | undefined, draft: RecipeDraft, loaded: boolean) {
-  if (!loaded) return "";
-  if (!linked || linked.status === "removed" || linked.status === "draft") return "Unavailable · Remove the link";
-  return linked.status === "paused" ? "Paused · Hidden from buyers" : "";
+/** Problem with an existing link, or null: shown on the card so the author can fix it before submitting. */
+function linkProblem(linked: OwnListing | undefined, loaded: boolean): CookKey | null {
+  if (!loaded) return null;
+  if (!linked || linked.status === "removed" || linked.status === "draft") return "linkUnavailable";
+  return linked.status === "paused" ? "linkPaused" : null;
 }
 function Thumb({ item }: { item: OwnListing }) {
   const { theme } = usePreferences(), headers = useSessionHeaders(), source = photoSource(item.photos.item, headers);
   return <View style={[s.thumb, { backgroundColor: theme.muted }]}>{source ? <Image source={source} style={s.thumbImage} accessibilityIgnoresInvertColors /> : <Icon name="image-outline" size={18} color={theme.mutedForeground} />}</View>;
 }
-const itemLine = (item: OwnListing) => money(item.priceCents / 100) + " · " + kindLabels[item.kind];
+const itemLine = (item: OwnListing, tm: MarketText) => money(item.priceCents / 100) + " · " + tm(kindKeys[item.kind]);
 
 /** Under an ingredient: the linked item with Unlink, or a quiet Link Shop Item row when the author has items on sale. */
 export function IngredientShopLink({ draft, ingredient, shop: { items, loaded }, disabled, onChange }: {
   draft: RecipeDraft; ingredient: RecipeDraftIngredient; shop: OwnShopItems; disabled: boolean; onChange: (listingId: string | undefined) => void;
 }) {
-  const { theme } = usePreferences(), [open, setOpen] = useState(false), { focused, focusProps } = useKeyboardFocus();
-  const linked = ingredient.listingId ? items.find(item => item.id === ingredient.listingId) : undefined;
+  const { theme } = usePreferences(), [open, setOpen] = useState(false), { focused, focusProps } = useKeyboardFocus(), t = useT("cook"), tm = useT("market");
+  const name = ingredient.name || t("ingredientFallback"), linked = ingredient.listingId ? items.find(item => item.id === ingredient.listingId) : undefined;
   const onSale = items.filter(item => item.status === "active"), full = draft.ingredients.filter(i => i.listingId).length >= shopLinkLimit;
   if (ingredient.listingId) {
-    const state = linkProblem(linked, draft, loaded);
+    const problem = linkProblem(linked, loaded), state = problem ? t(problem) : "";
     return <View style={[common.row, s.card, { borderColor: theme.border, backgroundColor: theme.card }]}>
       {linked ? <Thumb item={linked} /> : <View style={[s.thumb, { backgroundColor: theme.muted }]}><Icon name="storefront-outline" size={18} color={theme.mutedForeground} /></View>}
       <View style={[common.flex, { minWidth: 0 }]}>
-        <T numberOfLines={1} style={common.bold}>{linked?.name || "Linked shop item"}</T>
-        <T variant="small" muted numberOfLines={1} color={state ? theme.warning : undefined}>{state || (linked ? itemLine(linked) : "")}</T>
+        <T numberOfLines={1} style={common.bold}>{linked?.name || t("linkedShopItem")}</T>
+        <T variant="small" muted numberOfLines={1} color={state ? theme.warning : undefined}>{state || (linked ? itemLine(linked, tm) : "")}</T>
       </View>
-      <IconButton label={"Unlink shop item from " + (ingredient.name || "ingredient")} icon="close" disabled={disabled} onPress={() => onChange(undefined)} />
+      <IconButton label={t("unlinkFrom", { name })} icon="close" disabled={disabled} onPress={() => onChange(undefined)} />
     </View>;
   }
   if (!onSale.length || full) return null;
   return <>
-    <Pressable accessibilityRole="button" accessibilityLabel={"Link shop item to " + (ingredient.name || "ingredient")} disabled={disabled} onPress={() => setOpen(true)} {...focusProps}
+    <Pressable accessibilityRole="button" accessibilityLabel={t("linkTo", { name })} disabled={disabled} onPress={() => setOpen(true)} {...focusProps}
       style={[common.row, s.linkRow, { borderColor: focused ? theme.accent : "transparent", opacity: disabled ? 0.5 : 1 }]}>
-      <Icon name="storefront-outline" size={18} color={theme.accent} /><T color={theme.accent} style={common.bold}>Link Shop Item</T>
+      <Icon name="storefront-outline" size={18} color={theme.accent} /><T color={theme.accent} style={common.bold}>{t("linkShopItem")}</T>
     </Pressable>
     <ShopItemPicker visible={open} draft={draft} ingredient={ingredient} items={onSale} onClose={() => setOpen(false)} onPick={id => { setOpen(false); onChange(id); }} />
   </>;
@@ -75,27 +77,27 @@ export function IngredientShopLink({ draft, ingredient, shop: { items, loaded },
 function ShopItemPicker({ visible, draft, ingredient, items, onClose, onPick }: {
   visible: boolean; draft: RecipeDraft; ingredient: RecipeDraftIngredient; items: OwnListing[]; onClose: () => void; onPick: (id: string) => void;
 }) {
-  const [query, setQuery] = useState(""), term = query.trim().toLowerCase();
+  const [query, setQuery] = useState(""), term = query.trim().toLowerCase(), t = useT("cook");
   const shown = items.filter(item => !term || item.name.toLowerCase().includes(term));
   const top = term ? [] : shown.filter(item => suggested(ingredient.name, item)), rest = shown.filter(item => !top.includes(item));
   const group = (title: string, rows: OwnListing[]) => !!rows.length && <View style={{ gap: 4 }}>
     <T variant="small" muted accessibilityRole="header" style={common.bold}>{title}</T>
-    {rows.map(item => <PickerRow key={item.id} item={item} reason={blocker(item, draft, ingredient)} onPick={() => onPick(item.id)} />)}
+    {rows.map(item => { const reason = blocker(item, draft, ingredient); return <PickerRow key={item.id} item={item} reason={reason ? t(reason) : ""} onPick={() => onPick(item.id)} />; })}
   </View>;
-  return <MarketModal visible={visible} onClose={onClose} label="Link Shop Item">
-    {items.length > 5 && <Field label="Search your items" value={query} onChangeText={setQuery} maxLength={60} />}
-    {group("Suggested", top)}{group(top.length ? "Your Items" : "Items On Sale", rest)}
-    {!shown.length && <T variant="small" muted>No matching items.</T>}
+  return <MarketModal visible={visible} onClose={onClose} label={t("linkShopItem")}>
+    {items.length > 5 && <Field label={t("searchYourItems")} value={query} onChangeText={setQuery} maxLength={60} />}
+    {group(t("suggested"), top)}{group(t(top.length ? "yourItems" : "itemsOnSale"), rest)}
+    {!shown.length && <T variant="small" muted>{t("noMatchingItems")}</T>}
   </MarketModal>;
 }
 function PickerRow({ item, reason, onPick }: { item: OwnListing; reason: string; onPick: () => void }) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  return <Pressable accessibilityRole="button" accessibilityLabel={item.name + ", " + itemLine(item) + (reason ? ". " + reason : "")} accessibilityState={{ disabled: !!reason }}
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), tm = useT("market");
+  return <Pressable accessibilityRole="button" accessibilityLabel={item.name + ", " + itemLine(item, tm) + (reason ? ". " + reason : "")} accessibilityState={{ disabled: !!reason }}
     disabled={!!reason} onPress={onPick} {...focusProps} style={[common.row, s.pickRow, { borderColor: focused ? theme.accent : "transparent" }]}>
     <Thumb item={item} />
     <View style={[common.flex, { minWidth: 0 }]}>
       <T numberOfLines={1} style={common.bold} color={reason ? theme.mutedForeground : undefined}>{item.name}</T>
-      <T variant="small" numberOfLines={1} color={reason ? theme.warning : theme.mutedForeground}>{reason || itemLine(item)}</T>
+      <T variant="small" numberOfLines={1} color={reason ? theme.warning : theme.mutedForeground}>{reason || itemLine(item, tm)}</T>
     </View>
   </Pressable>;
 }

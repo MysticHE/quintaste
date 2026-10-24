@@ -24,6 +24,7 @@ import { AuthProvider, useAuth } from "../state/Auth";
 import { takeSignInDestination } from '../services/sign-in-destination';
 import { SplashIntro, SplashMark, markAppReady } from '../components/splash/Intro';
 import { rememberIntroSettings } from '../components/splash/settings';
+import { DocumentLanguage, LanguageProvider, translate, useLanguage } from "../i18n";
 void SplashScreen.preventAutoHideAsync().catch(() => {});
 // The native splash is the plain brand background the intro starts on, so a quick fade is enough to hand over.
 SplashScreen.setOptions({ duration: 200, fade: true });
@@ -60,7 +61,7 @@ function Navigation() {
     tabLink: segments[0] === "(tabs)" && pathname !== "/" ? { pathname, params } as Href : null,
   }));
   const restored = useRef(false);
-  const { ready, theme, reducedMotion } = usePreferences();
+  const { ready, theme, reducedMotion } = usePreferences(), language = useLanguage();
   const { ready: collectionReady, owner, profileRoute, clearProfileRoute } = useFood();
   const navigation = useRootNavigationState();
   useTimerNotification(ready && collectionReady && !!navigation?.key);
@@ -97,7 +98,7 @@ function Navigation() {
   }, [ready, fontsLoaded, fontError, collectionReady, navigation?.key]);
   const { draft } = usePreferences();
   useEffect(() => {
-    if (ready) rememberIntroSettings({ sounds: draft.sounds, reduceMotion: draft.reduceMotion });
+    if (ready) void rememberIntroSettings({ sounds: draft.sounds, reduceMotion: draft.reduceMotion });
   }, [ready, draft.sounds, draft.reduceMotion]);
   if (!ready || (!fontsLoaded && !fontError))
     return (
@@ -108,7 +109,7 @@ function Navigation() {
           backgroundColor: theme.background,
         }}
       >
-        <SplashMark />
+        <SplashMark language={language} />
       </View>
     );
   return (
@@ -129,22 +130,23 @@ function Navigation() {
   );
 }
 function AccountScope() {
-  const { user, pending, unavailable, retry, openGuest } = useAuth();
+  const { user, pending, unavailable, retry, openGuest } = useAuth(), language = useLanguage();
+  const say = (key: "restoringSignIn" | "reconnectFailed" | "retryConnection" | "retry" | "openGuestOffline") => translate(language, "common", key);
   useEffect(() => { if (!pending && unavailable) { markAppReady(); void SplashScreen.hideAsync(); } }, [pending, unavailable]);
   // Do not mount guest storage while a saved account session is being restored.
   if (pending || (unavailable && !user)) return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 16 }}>
-    {pending ? <ActivityIndicator accessibilityLabel="Restoring sign-in" /> : <>
-      <Text>Unable to reconnect. Your sign-in is kept on this device.</Text>
-      <Pressable accessibilityRole="button" accessibilityLabel="Retry connection" style={{ padding: 16, minHeight: 48 }} onPress={retry}><Text>Retry</Text></Pressable>
-      <Pressable accessibilityRole="button" accessibilityLabel="Open guest collection offline" style={{ padding: 16, minHeight: 48 }} onPress={openGuest}><Text>Open guest collection offline</Text></Pressable>
+    {pending ? <ActivityIndicator accessibilityLabel={say("restoringSignIn")} /> : <>
+      <Text>{say("reconnectFailed")}</Text>
+      <Pressable accessibilityRole="button" accessibilityLabel={say("retryConnection")} style={{ padding: 16, minHeight: 48 }} onPress={retry}><Text>{say("retry")}</Text></Pressable>
+      <Pressable accessibilityRole="button" accessibilityLabel={say("openGuestOffline")} style={{ padding: 16, minHeight: 48 }} onPress={openGuest}><Text>{say("openGuestOffline")}</Text></Pressable>
     </>}
   </View>;
   return (
       <PreferencesProvider key={user?.id || "guest"}>
-        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><TimerFinishHaptics /><CookedSync /><GameSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider>
+        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><DocumentLanguage /><TimerFinishHaptics /><CookedSync /><GameSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider>
       </PreferencesProvider>
   );
 }
 export default function RootLayout() {
-  return <SafeAreaProvider><AuthProvider><AccountScope /></AuthProvider><SplashIntro /></SafeAreaProvider>;
+  return <SafeAreaProvider><LanguageProvider><AuthProvider><AccountScope /></AuthProvider><SplashIntro /></LanguageProvider></SafeAreaProvider>;
 }

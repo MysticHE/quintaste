@@ -17,36 +17,37 @@ import { Card, Icon, T, common } from "../ui";
 import { EvidenceLine } from "./Evidence";
 import { DietLabels } from "./DietLabels";
 import { EmptyState } from "./Controls";
+import { useLanguage, useT } from "../../i18n";
 
 export function FoodCard({ kind, id, onOpen, onMore, now = 0 }: { kind: SavedKind; id: string; onOpen: () => void; onMore?: () => void; now?: number }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("explore"), language = useLanguage();
   const { isSaved, toggleSave, readable } = useFood();
   const [busy, setBusy] = useState(false);
   const remote = usePublishedRecipe(kind === "recipe" ? id : null);
   const item = kind === "place" ? venueById(id) : kind === "dish" ? dishById(id) : recipeById(id);
   const saved = isSaved(kind, id);
-  if (!item && remote.loading) return <T muted>Loading saved recipe</T>;
-  if (!item) return <EmptyState title="This Item Is No Longer Available" text="Your private note is still kept. Remove this item whenever you are ready."
-    action="Remove from Saved" onPress={() => void toggleSave(kind, id)} icon="archive-outline" />;
+  if (!item && remote.loading) return <T muted>{t("loadingSavedRecipe")}</T>;
+  if (!item) return <EmptyState title={t("itemUnavailable")} text={t("itemUnavailableText")}
+    action={t("removeFromSaved")} onPress={() => void toggleSave(kind, id)} icon="archive-outline" />;
   const venue = kind === "dish" ? venueById(dishById(id)!.venueId) : kind === "place" ? venueById(id) : undefined;
   const recipe = kind === "recipe" ? recipeById(id) : undefined;
-  const metadata = recipe ? recipe.minutes + " min · " + recipe.servings + " servings"
-    : [areaById(venue?.areaId ?? "")?.name, kind === "dish" ? money(dishById(id)!.price) : venue?.cuisine].filter(Boolean).join(" · ");
+  const metadata = recipe ? t("recipeMeta", { minutes: recipe.minutes, servings: recipe.servings })
+    : [areaById(venue?.areaId ?? "")?.name, kind === "dish" ? money(dishById(id)!.price, language) : venue?.cuisine].filter(Boolean).join(" · ");
   const save = async () => { setBusy(true); try { await toggleSave(kind, id); } finally { setBusy(false); } };
   return <Card style={s.card}>
-    <Pressable accessibilityRole="button" accessibilityHint="Open details" onPress={onOpen}
+    <Pressable accessibilityRole="button" accessibilityHint={t("openDetails")} onPress={onOpen}
       style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}>
       {recipe ? <RecipeImage recipe={recipe} style={s.image} /> : <View style={s.image}><Image source={photos[item.photo!]} style={{ position: "absolute", width: "100%", height: "100%" }} resizeMode="cover" accessible={false} /></View>}
-      <View style={s.content}><T variant="subtitle">{item.name}</T><T variant="small" muted>{metadata}</T>{kind === "place" && venue && <T variant="small" color={openingState(venue, now) === "open" ? theme.success : theme.mutedForeground}>{openingLabel(venue, now)}</T>}</View>
+      <View style={s.content}><T variant="subtitle">{item.name}</T><T variant="small" muted>{metadata}</T>{kind === "place" && venue && <T variant="small" color={openingState(venue, now) === "open" ? theme.success : theme.mutedForeground}>{openingLabel(venue, now, language)}</T>}</View>
     </Pressable>
     <View style={s.bottom}>
-      <View style={common.flex}>{recipe ? <DietLabels labels={recipeLabels(recipe)} /> : <EvidenceLine dietary={item.dietary} />}</View>
-      <Pressable accessibilityRole="button" accessibilityLabel={(saved ? "Unsave " : "Save ") + item.name}
+      <View style={common.flex}>{recipe ? <DietLabels labels={recipeLabels(recipe)} interactive={false} /> : <EvidenceLine dietary={item.dietary} />}</View>
+      <Pressable accessibilityRole="button" accessibilityLabel={t(saved ? "unsaveName" : "saveName", { name: item.name })}
         accessibilityState={{ selected: saved, disabled: busy || !readable, busy }}
         disabled={busy || !readable} onPress={() => void save()} style={s.save}>
         <Icon name={saved ? "bookmark" : "bookmark-outline"} color={saved ? theme.accent : theme.foreground} />
       </Pressable>
-      {onMore && <Pressable accessibilityRole="button" accessibilityLabel={"More actions for " + item.name} onPress={onMore} style={s.save}><Icon name="ellipsis-horizontal" /></Pressable>}
+      {onMore && <Pressable accessibilityRole="button" accessibilityLabel={t("moreActionsFor", { name: item.name })} onPress={onMore} style={s.save}><Icon name="ellipsis-horizontal" /></Pressable>}
     </View>
   </Card>;
 }

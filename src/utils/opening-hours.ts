@@ -1,4 +1,6 @@
+import type { Language } from "../config/preferences";
 import type { Venue } from "../types/food";
+import { exploreWords } from "./location-feedback";
 
 export type OpeningState = "open" | "closed" | "unknown";
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -25,7 +27,7 @@ export function openingState(venue: Venue, now = Date.now()): OpeningState {
     return open ? "open" : "closed";
   } catch { return "unknown"; }
 }
-export function openingLabel(venue: Venue, now = Date.now()) {
-  const state = openingState(venue, now);
-  return state === "unknown" ? "Hours unknown" : state === "open" ? "Open now · sample hours" : "Closed · sample hours";
+export function openingLabel(venue: Venue, now = Date.now(), language: Language = "en") {
+  const state = openingState(venue, now), words = exploreWords(language);
+  return state === "unknown" ? words.hoursUnknown : state === "open" ? words.openSampleHours : words.closedSampleHours;
 }

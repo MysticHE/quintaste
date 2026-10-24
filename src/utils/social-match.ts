@@ -1,34 +1,40 @@
 import type { Person, SocialProfile } from "../types/community";
 import type { HideableField } from "../config/social-profile";
+import { translate, type Language } from "../i18n";
+import { dietName } from "./meet";
 import { sgDateTile, sgDateTimeText, sgDay } from "./sg-datetime";
 
-const shared = (a: readonly string[] = [], b: readonly string[] = []) => a.filter(item => b.includes(item));
+const shared = <T extends string>(a: readonly T[] = [], b: readonly string[] = []) => a.filter(item => b.includes(item));
 const shown = (p: SocialProfile, field: HideableField) => !p.hidden.includes(field);
 /**
  * What the viewer and another member have in common, most telling first. Only fields both show count: a hidden field of
  * yours is never used to suggest people, and the server already empties the other member's hidden fields.
  */
-export function inCommon(me: SocialProfile | undefined, them: Person): string[] {
+export function inCommon(me: SocialProfile | undefined, them: Person, language: Language = "en"): string[] {
   if (!me) return [];
-  const out: string[] = [];
-  if (shown(me, "hobbies")) for (const hobby of shared(me.hobbies, them.hobbies)) out.push("Both " + hobby.toLowerCase());
-  if (shown(me, "religion") && me.religion && me.religion === them.religion && !/^(Other|Prefer not to say)$/.test(me.religion)) out.push("Both " + me.religion);
-  for (const time of shared(me.times, them.times)) out.push("Both free " + time.toLowerCase());
-  if (shown(me, "languages")) for (const language of shared(me.languages, them.languages).filter(l => l !== "English" && l !== "Other")) out.push("Both speak " + language);
-  if (shown(me, "why")) for (const why of shared(me.why, them.why)) out.push("Both plant-based for " + why.toLowerCase());
-  if (shown(me, "spots") && shared(me.spots, them.spots).length) out.push("Same usual spot");
-  for (const label of shared(me.diets.filter(d => d !== "Plant-Based"), them.diets)) out.push("Both " + label);
+  type Key = Parameters<typeof translate<"social">>[2];
+  const out: string[] = [], add = (key: Key, option: Key, item: string, lower = false) => {
+    const value = translate(language, "social", option, { value: item });
+    out.push(translate(language, "social", key, { value: lower && language === "en" ? value.toLowerCase() : value }));
+  };
+  if (shown(me, "hobbies")) for (const hobby of shared(me.hobbies, them.hobbies)) add("bothHobby", "optHobby", hobby, true);
+  if (shown(me, "religion") && me.religion && me.religion === them.religion && !/^(Other|Prefer not to say)$/.test(me.religion)) add("bothReligion", "optReligion", me.religion);
+  for (const time of shared(me.times, them.times)) add("bothFree", "optTime", time, true);
+  if (shown(me, "languages")) for (const spoken of shared(me.languages, them.languages).filter(l => l !== "English" && l !== "Other")) add("bothSpeak", "optLanguage", spoken);
+  if (shown(me, "why")) for (const why of shared(me.why, them.why)) add("bothWhy", "optWhy", why, true);
+  if (shown(me, "spots") && shared(me.spots, them.spots).length) out.push(translate(language, "social", "sameSpot"));
+  for (const label of shared(me.diets.filter(d => d !== "Plant-Based"), them.diets)) out.push(translate(language, "social", "bothDiet", { value: dietName(language, label) }));
   return out;
 }
 /** Profile completion counts only the fields that drive suggestions. */
-export function completion(p: SocialProfile) {
+export function completion(p: SocialProfile, language: Language = "en") {
+  const step = (key: Parameters<typeof translate<"social">>[2], done: boolean) => ({ label: translate(language, "social", key), done });
   const steps = [
-    { label: "a picture", done: !!p.hasFace }, { label: "a religion", done: !!p.religion }, { label: "three hobbies", done: p.hobbies.length >= 3 },
-    { label: "a prompt", done: p.prompts.length > 0 }, { label: "languages", done: p.languages.length > 0 }, { label: "usual spots", done: p.spots.length > 0 },
-    { label: "free times", done: p.times.length > 0 }, { label: "a neighbourhood", done: !!p.area.trim() }, { label: "a first name", done: !!p.firstName.trim() },
-    { label: "Here for", done: !!p.hereFor },
+    step("doPicture", !!p.hasFace), step("doReligion", !!p.religion), step("doHobbies", p.hobbies.length >= 3), step("doPrompt", p.prompts.length > 0),
+    step("doLanguages", p.languages.length > 0), step("doSpots", p.spots.length > 0), step("doTimes", p.times.length > 0), step("doArea", !!p.area.trim()),
+    step("doFirstName", !!p.firstName.trim()), step("doHereFor", !!p.hereFor),
   ];
-  return { done: steps.filter(step => step.done).length, total: steps.length, missing: steps.filter(step => !step.done).map(step => step.label) };
+  return { done: steps.filter(item => item.done).length, total: steps.length, missing: steps.filter(item => !item.done).map(item => item.label) };
 }
 export const ageOf = (birthYear: number | null) => birthYear ? new Date().getFullYear() - birthYear : null;
 const slotTimes: Record<string, { weekend: boolean; times: string[] }> = {
@@ -49,11 +55,11 @@ export function suggestedSlots(mine: readonly string[], theirs: readonly string[
   return out;
 }
 /** "Today 12:30", "Tomorrow 19:00" or "Sat 11:00". */
-export function slotLabel(text: string, now: number) {
-  const tile = sgDateTile(text), day = text.slice(0, 10);
+export function slotLabel(text: string, now: number, language: Language = "en") {
+  const tile = sgDateTile(text, language), day = text.slice(0, 10);
   if (!tile) return text;
-  const name = day === sgDay(now) ? "Today" : day === sgDay(now + 86400000) ? "Tomorrow" : tile.weekday;
-  return name + " " + text.slice(11);
+  const name = day === sgDay(now) ? translate(language, "social", "today") : day === sgDay(now + 86400000) ? translate(language, "social", "tomorrow") : tile.weekday;
+  return translate(language, "social", "slotDay", { day: name, time: text.slice(11) });
 }
 export const isToday = (text: string, now: number) => text.slice(0, 10) === sgDateTimeText(now).slice(0, 10);
 /** Your profile as another member receives it (mirrors server/social/rules.mjs `shareable`): hidden fields empty, age instead of the year. */

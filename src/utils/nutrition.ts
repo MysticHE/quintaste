@@ -1,6 +1,8 @@
 import { claimCriteria, dailyReference, mealCategories, nutrientFunctionClaims, proteinKcalPerGram, type DailyNutrient, type NutritionBadge } from "../config/nutrition-standards";
 import type { Recipe } from "../types/food";
 import type { NutritionChoice } from "../types/recipe-workspace";
+import { translate, type Language } from "../i18n";
+import type { CookKey } from "../i18n/en/cook";
 
 type Figures = NonNullable<Recipe["nutrition"]>["perServing"];
 
@@ -28,9 +30,23 @@ export function nutritionBadgesFor(figures: Figures, categories: readonly Recipe
 }
 
 /** The one approved nutrient function claim that applies, in HPB's own words; undefined when no badge supports one. */
-export function nutrientBenefitFor(badges: readonly NutritionBadge[]) {
-  return nutrientFunctionClaims.find(claim => badges.includes(claim.badge));
+export function nutrientBenefitFor(badges: readonly NutritionBadge[], language: Language = "en") {
+  const claim = nutrientFunctionClaims.find(item => badges.includes(item.badge));
+  // HPB approves the claim wording itself, so it is always shown verbatim in English; only the source line is translated.
+  return claim && { text: claim.text,
+    source: translate(language, "cook", "claimSource", { n: claim.claim }) };
 }
+
+const badgeKeys: Record<NutritionBadge, CookKey> = {
+  "Light meal": "badgeLightMeal", "Under 500 kcal": "badgeUnder500", "High in protein": "badgeHighProtein", "Source of protein": "badgeSourceProtein",
+  "High in fibre": "badgeHighFibre", "Source of fibre": "badgeSourceFibre", "Low in sugar": "badgeLowSugar", "Under 300 mg sodium": "badgeUnder300Sodium",
+};
+/** A badge as shown; the badge value itself stays HPB's English wording. */
+export const badgeName = (badge: NutritionBadge, language: Language) => translate(language, "cook", badgeKeys[badge]);
+const choiceKeys: Record<NutritionChoice, CookKey> = {
+  "Under 500 kcal": "badgeUnder500", "Higher protein": "choiceHigherProtein", "Higher fibre": "choiceHigherFibre", "Under 300 mg sodium": "badgeUnder300Sodium",
+};
+export const nutritionChoiceName = (choice: NutritionChoice, language: Language) => translate(language, "cook", choiceKeys[choice]);
 
 const choiceBadges: Record<NutritionChoice, NutritionBadge[]> = {
   "Under 500 kcal": ["Under 500 kcal", "Light meal"],

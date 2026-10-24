@@ -5,6 +5,7 @@ import { usePreferences } from "../state/Preferences";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 import { useReaction, type ReactionKind } from "../hooks/useReactions";
 import { T, common, type IconName } from "./ui";
+import { translate, useT, type Language } from "../i18n";
 
 /** 1,234 → 1.2k; zero shows no number so something new reads as fresh rather than ignored. */
 export function compactCount(n: number) {
@@ -13,8 +14,8 @@ export function compactCount(n: number) {
   return (n < 10000 ? (Math.floor(n / 100) / 10).toFixed(1).replace(/\.0$/, "") : String(Math.floor(n / 1000))) + "k";
 }
 
-/** "Cooked by 1 person" / "Cooked by 1.2k people". */
-export const cookedBy = (n: number) => "Cooked by " + (compactCount(n) || "0") + (n === 1 ? " person" : " people");
+/** "Cooked by 1 person" / "Cooked by 1.2k people"; pass the interface language from useLanguage(). */
+export const cookedBy = (n: number, language: Language = "en") => translate(language, "common", "cookedBy", { n, count: compactCount(n) || "0" });
 
 /**
  * Like and share with their counts, the post idiom shared by Explore places and Cook recipes. `trailing` adds controls
@@ -23,12 +24,12 @@ export const cookedBy = (n: number) => "Cooked by " + (compactCount(n) || "0") +
 export function ReactionBar({ kind, id, name, shareMessage, trailing, onShareFailed }: {
   kind: ReactionKind; id: string; name: string; shareMessage: () => string; trailing?: ReactNode; onShareFailed?: (text: string) => void;
 }) {
-  const { theme } = usePreferences(), { reaction, enabled, toggleLike, share } = useReactionActions(kind, id, shareMessage, onShareFailed);
+  const { theme } = usePreferences(), { reaction, enabled, toggleLike, share } = useReactionActions(kind, id, shareMessage, onShareFailed), t = useT("common");
   return <View style={s.row}>
     {enabled && <Action icon={reaction.liked ? "heart" : "heart-outline"} color={reaction.liked ? theme.accent : theme.foreground} count={compactCount(reaction.likes)}
-      label={(reaction.liked ? "Unlike " : "Like ") + name + people(reaction.likes, "like", "likes")} selected={reaction.liked} onPress={() => void toggleLike()} />}
+      label={t(reaction.liked ? "unlikeName" : "likeName", { name }) + t("likesCount", { n: reaction.likes })} selected={reaction.liked} onPress={() => void toggleLike()} />}
     <Action icon="arrow-redo-outline" color={theme.foreground} count={enabled ? compactCount(reaction.shares) : ""}
-      label={"Share " + name + (enabled ? people(reaction.shares, "share", "shares") : "")} onPress={() => void share()} />
+      label={t("shareName", { name }) + (enabled ? t("sharesCount", { n: reaction.shares }) : "")} onPress={() => void share()} />
     <View style={common.flex} />
     {trailing}
   </View>;
@@ -41,26 +42,25 @@ export function ReactionColumn({ kind, id, name, shareMessage, save }: {
   kind: ReactionKind; id: string; name: string; shareMessage: () => string;
   save: { saved: boolean; busy: boolean; disabled: boolean; onPress: () => void };
 }) {
-  const { theme } = usePreferences(), { reaction, enabled, toggleLike, share } = useReactionActions(kind, id, shareMessage);
+  const { theme } = usePreferences(), { reaction, enabled, toggleLike, share } = useReactionActions(kind, id, shareMessage), t = useT("common");
   return <View style={s.column}>
     {enabled && <Action stacked icon="heart" color={reaction.liked ? theme.accent : theme.mediaForeground} count={compactCount(reaction.likes)}
-      label={(reaction.liked ? "Unlike " : "Like ") + name + people(reaction.likes, "like", "likes")} selected={reaction.liked} onPress={() => void toggleLike()} />}
+      label={t(reaction.liked ? "unlikeName" : "likeName", { name }) + t("likesCount", { n: reaction.likes })} selected={reaction.liked} onPress={() => void toggleLike()} />}
     <Action stacked icon="bookmark" color={save.saved ? theme.accent : theme.mediaForeground} busy={save.busy} disabled={save.disabled}
-      label={(save.saved ? "Remove saved " : "Save ") + name} selected={save.saved} onPress={save.onPress} />
+      label={t(save.saved ? "removeSavedName" : "saveName", { name })} selected={save.saved} onPress={save.onPress} />
     <Action stacked icon="arrow-redo" color={theme.mediaForeground} count={enabled ? compactCount(reaction.shares) : ""}
-      label={"Share " + name + (enabled ? people(reaction.shares, "share", "shares") : "")} onPress={() => void share()} />
+      label={t("shareName", { name }) + (enabled ? t("sharesCount", { n: reaction.shares }) : "")} onPress={() => void share()} />
   </View>;
 }
-const people = (n: number, one: string, many: string) => n ? ", " + n + " " + (n === 1 ? one : many) : "";
 function useReactionActions(kind: ReactionKind, id: string, shareMessage: () => string, onShareFailed?: (text: string) => void) {
-  const { setNotice } = usePreferences(), { reaction, enabled, toggleLike, recordShare } = useReaction(kind, id);
+  const { setNotice } = usePreferences(), { reaction, enabled, toggleLike, recordShare } = useReaction(kind, id), t = useT("common");
   const share = async () => {
     const message = shareMessage();
     try {
       const result = await Share.share({ message });
       if (result.action === Share.sharedAction) void recordShare();
     } catch {
-      if (onShareFailed) onShareFailed(message); else setNotice({ text: "Sharing isn't available here.", error: true });
+      if (onShareFailed) onShareFailed(message); else setNotice({ text: t("shareUnavailable"), error: true });
     }
   };
   return { reaction, enabled, toggleLike, share };

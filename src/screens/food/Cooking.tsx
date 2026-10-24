@@ -17,23 +17,25 @@ import { cookingRecipeById, cookingIssue } from "../../utils/private-recipes";
 import { TimerAlertControl } from "../../components/food/TimerAlertControl";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
+import { useT } from "../../i18n";
 
+/** True when the screen could not be kept awake. */
 function useCookingAwake(enabled: boolean) {
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   useFocusEffect(useCallback(() => {
     if (!enabled) return;
     let focused = true;
     const tag = "quintaste-guided-cooking";
     void activateKeepAwakeAsync(tag).then(() => {
       if (!focused) void deactivateKeepAwake(tag).catch(() => {});
-    }).catch(() => { if (focused) setError("Screen may sleep. Check your device settings."); });
+    }).catch(() => { if (focused) setError(true); });
     return () => { focused = false; void deactivateKeepAwake(tag).catch(() => {}); };
   }, [enabled]));
   return error;
 }
 export function CookingScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), { doc, update, commit, startTimer, readable, saving, dirty, error, discoveryScope } = useFood();
-  const { theme, textMultiplier, setNotice } = usePreferences();
+  const { theme, textMultiplier, setNotice } = usePreferences(), t = useT("cook"), tc = useT("common");
   usePublishedRecipe(doc.recipes.drafts.some(d => d.id === id) ? null : id);
   const recipe = cookingRecipeById(id, doc.recipes), session = doc.cooking?.recipeId === id ? doc.cooking : null;
   const privateDraft = doc.recipes.drafts.find(d => d.id === id), detailPath = recipe?.private ? "/private-recipe/" + id : "/cook/recipe/" + id;
@@ -47,11 +49,11 @@ export function CookingScreen() {
     if (!completion || completion.scope !== discoveryScope || completion.recipeId !== id || !focused || saving || dirty || error || doc.cooking || navigated.current) return;
     if (!doc.recipes.cooked.some(entry => entry.recipeId === id && entry.finishedAt === completion.finishedAt)) return;
     navigated.current = true;
-    setNotice({ text: "Cooking complete · Logged on this device" });
+    setNotice({ text: t("cookingComplete") });
     router.dismissTo(completion.path as never);
-  }, [completion, discoveryScope, id, focused, saving, dirty, error, doc.cooking, doc.recipes.cooked, setNotice]);
-  if (!recipe || !session) return <Screen title="Cooking" backTo="/cook"><EmptyState title="No Cooking In Progress" text="" action="View recipe" onPress={() => router.dismissTo((id.startsWith("recipe-") ? "/private-recipe/" + id : detailPath) as never)} icon="restaurant-outline" /></Screen>;
-  if (restricted) return <Screen title="Recipe Changed"><InfoBox title={recipe.withdrawal ? "Recipe Withdrawn" : "A Newer Version Is Available"} text={recipe.withdrawal ?? "Review before restarting. Timers keep running."} /><Button label="Review Recipe" onPress={() => router.dismissTo(detailPath as never)} /></Screen>;
+  }, [completion, discoveryScope, id, focused, saving, dirty, error, doc.cooking, doc.recipes.cooked, setNotice, t]);
+  if (!recipe || !session) return <Screen title={t("cookingTitle")} backTo="/cook"><EmptyState title={t("noCooking")} text="" action={t("viewRecipe")} onPress={() => router.dismissTo((id.startsWith("recipe-") ? "/private-recipe/" + id : detailPath) as never)} icon="restaurant-outline" /></Screen>;
+  if (restricted) return <Screen title={t("recipeChanged")}><InfoBox title={recipe.withdrawal ? t("recipeWithdrawn") : t("newerVersion")} text={recipe.withdrawal ?? t("reviewBeforeRestart")} /><Button label={t("reviewRecipe")} onPress={() => router.dismissTo(detailPath as never)} /></Screen>;
   const gathering = !!session.gathering, total = recipe.steps.length, scale = session.servings / recipe.servings;
   const step = recipe.steps[session.step], last = session.step >= total - 1;
   const patch = (changes: Partial<CookingSession>) => update(current => current.cooking?.recipeId === id ? { ...current, cooking: { ...current.cooking, ...changes } } : current);
@@ -81,36 +83,36 @@ export function CookingScreen() {
   const servingsControl = <Servings value={session.servings} onChange={servings => void patch({ servings })} />;
   const gatherList = <GatherList ingredients={recipe.ingredients} scale={scale} checked={session.gathered ?? []} disabled={!readable} onToggle={key => toggle("gathered", key)} />;
   return <Screen back={false} hideTimers header={<View style={common.row}><T variant="subtitle" accessibilityRole="header" style={common.flex}>{recipe.name}</T>
-    <Chip label="Close" icon="close-outline" onPress={() => router.dismissTo("/cook")} /></View>}>
-    <T variant="small" color={theme.accent}>{gathering ? "Before you start" : "Step " + Math.min(session.step + 1, total) + "/" + total} · {session.servings} servings</T>
+    <Chip label={tc("close")} icon="close-outline" onPress={() => router.dismissTo("/cook")} /></View>}>
+    <T variant="small" color={theme.accent}>{gathering ? t("beforeYouStart") : t("stepOfTotal", { n: Math.min(session.step + 1, total), total })} · {t("servingsCount", { n: session.servings })}</T>
     <View style={{ height: 4, backgroundColor: theme.muted, borderRadius: 2 }} accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: total, now: gathering ? 0 : Math.min(session.step + 1, total) }}>
       <View style={{ height: 4, width: `${(gathering ? 0 : Math.min(session.step + 1, total)) / total * 100}%` as `${number}%`, borderRadius: 2, backgroundColor: theme.accent }} />
     </View>
-    {gathering ? <><T variant="title">Gather your ingredients</T>{servingsControl}{gatherList}</> : step && <>
+    {gathering ? <><T variant="title">{t("gatherTitle")}</T>{servingsControl}{gatherList}</> : step && <>
       <T variant="title">{step.title}</T><T style={{ fontSize: 20 * textMultiplier, lineHeight: 29 * textMultiplier }}>{step.instruction}</T>
-      {privateDraft?.steps[session.step]?.photo ? <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={"Step " + (session.step + 1) + " photo"} />
-        : step.photo ? <StepPhoto path={step.photo} height={220} label={"Step " + (session.step + 1) + " photo"} /> : null}
+      {privateDraft?.steps[session.step]?.photo ? <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={t("stepPhoto", { n: session.step + 1 })} />
+        : step.photo ? <StepPhoto path={step.photo} height={220} label={t("stepPhoto", { n: session.step + 1 })} /> : null}
       <StepChecklist ingredients={recipe.ingredients} ids={step.ingredientIds} step={session.step} scale={scale} used={session.used ?? []} disabled={!readable} onToggle={key => toggle("used", key)} />
-      {step.timer && <Button label={"Start " + Math.round(step.timer.seconds / 60) + " min timer"} icon="timer-outline" variant="secondary" disabled={!readable}
+      {step.timer && <Button label={t("startTimerMinutes", { n: Math.round(step.timer.seconds / 60) })} icon="timer-outline" variant="secondary" disabled={!readable}
         onPress={() => void startTimer(id, step.timer!.label, step.timer!.seconds).then(okay => { if (okay) setOffer(true); })} />}
       {offer && <TimerAlertOffer />}
       <Chips>
-        <Chip label={"Servings · " + session.servings} icon="people-outline" selected={panel === "servings"} onPress={() => setPanel(panel === "servings" ? null : "servings")} />
-        <Chip label="All Ingredients" icon="list-outline" selected={panel === "ingredients"} onPress={() => setPanel(panel === "ingredients" ? null : "ingredients")} />
+        <Chip label={t("servingsChip", { n: session.servings })} icon="people-outline" selected={panel === "servings"} onPress={() => setPanel(panel === "servings" ? null : "servings")} />
+        <Chip label={t("allIngredients")} icon="list-outline" selected={panel === "ingredients"} onPress={() => setPanel(panel === "ingredients" ? null : "ingredients")} />
       </Chips>
       {panel === "servings" && servingsControl}
       {panel === "ingredients" && gatherList}
     </>}
-    <View style={common.row}>{!gathering && <View style={common.flex}><Button label="Previous" variant="secondary" disabled={busy || !readable} onPress={() => void move(-1)} /></View>}
-      <View style={common.flex}><Button label={gathering ? "Start Cooking" : last ? "Finish Cooking" : "Next"} disabled={busy || !readable} loading={busy} onPress={() => void move(1)} /></View></View>
-    {!!awakeError && <T variant="small" muted>{awakeError}</T>}
+    <View style={common.row}>{!gathering && <View style={common.flex}><Button label={t("previous")} variant="secondary" disabled={busy || !readable} onPress={() => void move(-1)} /></View>}
+      <View style={common.flex}><Button label={gathering ? t("startCooking") : last ? t("finishCooking") : tc("next")} disabled={busy || !readable} loading={busy} onPress={() => void move(1)} /></View></View>
+    {awakeError && <T variant="small" muted>{t("awakeError")}</T>}
     <CookingTools recipeId={id} />
   </Screen>;
 }
 export function TimersScreen() {
-  const { doc } = useFood();
-  return <Screen title="Timers" hideTimers>
-    {!doc.timers.length && <EmptyState title="No Timers" text="" icon="timer-outline" action="Browse recipes" onPress={() => router.dismissTo("/cook")} />}
+  const { doc } = useFood(), t = useT("cook");
+  return <Screen title={t("timersTitle")} hideTimers>
+    {!doc.timers.length && <EmptyState title={t("noTimers")} text="" icon="timer-outline" action={t("browseRecipesLower")} onPress={() => router.dismissTo("/cook")} />}
     {doc.timers.map(timer => <TimerCard key={timer.id} timer={timer} />)}
     <TimerAlertControl />
   </Screen>;

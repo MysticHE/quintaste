@@ -1,4 +1,6 @@
+import type { Language } from "../config/preferences";
 import type { MenuItem, PublishedMenu } from "../types/menus";
+import { exploreWords } from "./location-feedback";
 
 const key = (value: string) => value.normalize("NFKC").replace(/\s+/g, " ").trim().toLocaleLowerCase();
 const portion = /\s+(?:—|–|-)\s*(?:small|medium|large|regular|s|m|l)$/i;
@@ -50,8 +52,10 @@ export function menuDisplayItems(menu: PublishedMenu): MenuItem[] {
   return [...result.values()];
 }
 
-export function menuDisplayPrice({ price }: MenuItem) {
-  if (price.amount === null || price.currency !== "SGD") return "Price unavailable";
+export function menuDisplayPrice({ price }: MenuItem, language: Language = "en") {
+  const words = exploreWords(language);
+  if (price.amount === null || price.currency !== "SGD") return words.priceUnavailable;
   if (price.maxAmount !== undefined && price.maxAmount > price.amount) return "S$" + price.amount.toFixed(2) + "–" + price.maxAmount.toFixed(2);
-  return (price.type === "from" ? "From " : "") + "S$" + price.amount.toFixed(2);
+  const amount = "S$" + price.amount.toFixed(2);
+  return price.type === "from" ? words.priceFrom({ price: amount }) : amount;
 }

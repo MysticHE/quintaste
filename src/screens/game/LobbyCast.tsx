@@ -12,6 +12,7 @@ import { usePreferences } from "../../state/Preferences";
 import { Steam, useClock } from "./home/Ambient";
 import { artRatio } from "./home/Scene";
 import { HeartPop, popOnce } from "./home/SceneFx";
+import { useT } from "../../i18n";
 
 const TOSS_EVERY = 5200, TOSS_FOR = 900;
 const BITS: { art: string; side: number; reach: number; lift: number }[] = [
@@ -22,7 +23,7 @@ const BITS: { art: string; side: number; reach: number; lift: number }[] = [
 type Props = { width: number; height: number; petKey: string; onCook(): void; onPet(): void };
 
 export function LobbyCast({ width, height, petKey, onCook, onPet }: Props) {
-  const { reducedMotion } = usePreferences();
+  const { reducedMotion } = usePreferences(), say = useT("game");
   const stir = useClock(reducedMotion, 520, 0, true), toss = useSharedValue(0), heart = useSharedValue(0), poke = useSharedValue(0), petPoke = useSharedValue(0);
   // A tap's heart is its own value, so it never cancels the heart that follows each toss.
   const tapHeart = useSharedValue(0);
@@ -55,7 +56,7 @@ export function LobbyCast({ width, height, petKey, onCook, onPet }: Props) {
 
   return <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
     <Animated.View style={[s.abs, { left: cookLeft, top: cookTop, width: cookW, height: cookH, transformOrigin: "50% 100%" }, cook]}>
-      <Pressable accessibilityRole="button" accessibilityLabel="Lian, cooking. Say hello" style={s.fill}
+      <Pressable accessibilityRole="button" accessibilityLabel={say("lianSayHello")} style={s.fill}
         onPress={() => { if (!reducedMotion) { poke.value = 0; poke.value = withTiming(1, { duration: 620 }); } onCook(); }}>
         <Image source={GAME_ART["avatar-lian"]} style={s.fill} resizeMode="contain" accessibilityIgnoresInvertColors />
       </Pressable>
@@ -65,7 +66,7 @@ export function LobbyCast({ width, height, petKey, onCook, onPet }: Props) {
     </View>}
     {!reducedMotion && BITS.map((b, i) => <Bit key={b.art} bit={b} i={i} toss={toss} x={wokX} y={wokY} w={cookW} />)}
     <Animated.View style={[s.abs, { left: petLeft, top: petTop, width: petW, height: petH, transformOrigin: "50% 100%" }, pet]}>
-      <Pressable accessibilityRole="button" accessibilityLabel="Your companion. Say hello" style={s.fill}
+      <Pressable accessibilityRole="button" accessibilityLabel={say("companionSayHello")} style={s.fill}
         onPress={() => { if (!reducedMotion) { petPoke.value = 0; petPoke.value = withTiming(1, { duration: 520 }); popOnce(tapHeart); } onPet(); }}>
         <Image source={GAME_ART[petKey]} style={s.fill} resizeMode="contain" accessibilityIgnoresInvertColors />
       </Pressable>

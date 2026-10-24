@@ -7,11 +7,12 @@ import { useDiscovery } from "../state/Discovery";
 import { inSingapore } from "../utils/discovery-search";
 import { nearbyPosition } from "../utils/nearby-position";
 import { locationIssue, locationMessages, type LocationIssue } from "../utils/location-feedback";
+import { useT } from "../i18n";
 
 export function useNearbyLocation() {
   const { owner, setFilters, filters, setSearch, search } = useFood();
   const { setLocation, setSelection, selection, clear } = useDiscovery();
-  const [busy, setBusy] = useState(false), [issue, setIssue] = useState<LocationIssue | null>(null);
+  const [busy, setBusy] = useState(false), [issue, setIssue] = useState<LocationIssue | null>(null), t = useT("explore");
   const sequence = useRef(0), mounted = useRef(true), pending = useRef<number | null>(null);
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; sequence.current += 1; pending.current = null; }; }, [owner]);
   useFocusEffect(useCallback(() => () => { sequence.current += 1; pending.current = null; setBusy(false); setIssue(null); }, []));
@@ -57,6 +58,6 @@ export function useNearbyLocation() {
       else await Linking.openSettings();
     } catch { if (mounted.current && sequence.current === attempt) setIssue("unavailable"); }
   };
-  return { locate, cancel, busy, error: issue ? locationMessages[issue] : "", recover,
+  return { locate, cancel, busy, error: issue ? t(locationMessages[issue]) : "", recover,
     recoveryLabel: issue === "outside" ? "" : settings ? "Settings" : "Retry", dismiss: () => setIssue(null) };
 }

@@ -17,11 +17,12 @@ import { privateOrigin } from "../../utils/private-places";
 import { discoveryLabels, locationMode, withLocationMode, type LocationMode } from "../../utils/discovery-filters";
 import { sameSearchContext } from "../../utils/discovery-search";
 import { discoveryRadii } from "../../config/discovery";
+import { useT } from "../../i18n";
 
 export function FiltersScreen() {
   const { filters, setFilters, doc, discoveryQuery, setSearch, ready, readable } = useFood();
   const { radius, setRadius, selection, location, requested, busy, error, ensure, load } = useDiscovery();
-  const { draft: preferences, theme } = usePreferences();
+  const { draft: preferences, theme } = usePreferences(), t = useT("explore"), tc = useT("common");
   const { input, locationExpired, privateMissing, privateKind, followingCustom, point } = useDiscoveryInput(useMinuteClock());
   const home = !!privateOrigin(doc.privatePlaces, "home"), work = !!privateOrigin(doc.privatePlaces, "work");
   useFocusEffect(useCallback(() => {
@@ -38,19 +39,19 @@ export function FiltersScreen() {
     if (mode === "home" && !home || mode === "work" && !work)
       router.push({ pathname: "/location-place", params: { kind: mode } });
   };
-  return <Screen title="Place filters" compact
-    headerAction={<Button label="Done" variant="link" onPress={() => goBack("/")} />}>
+  return <Screen title={t("placeFilters")} compact
+    headerAction={<Button label={tc("done")} variant="link" onPress={() => goBack("/")} />}>
     <DiscoveryFilterOptions filters={privateKind ? { ...filters, home: privateKind === "home", work: privateKind === "work", near: false } : filters} change={change => { void setFilters(change); }}
       labels={discoveryLabels(filters, preferences.diets)} disabled={!readable}
       selected={!!selection || !!location} followingCustom={followingCustom} selectLocation={selectLocation} />
-    {!!point && <FilterSection title="Distance" icon="navigate-outline">
-      <Chips label="Distance">{discoveryRadii.map(value => <Chip compact key={value} label={value / 1000 + " km"} role="radio"
+    {!!point && <FilterSection title={t("distance")} icon="navigate-outline">
+      <Chips label={t("distance")}>{discoveryRadii.map(value => <Chip compact key={value} label={tc("kilometres", { km: value / 1000 })} role="radio"
         selected={radius === value} disabled={!readable} onPress={() => { void setRadius(value); }} />)}</Chips>
     </FilterSection>}
     <DiscoveryPlaceFilters filters={filters} change={change => { void setFilters(change); }} disabled={!readable} />
-    <Button label="Reset filters" variant="link" disabled={!readable} onPress={() => { void setFilters(current => ({ ...current, labels: [], savedOnly: false })); }} />
-    {eligible && currentRequest && busy && <ActivityIndicator color={theme.accent} accessibilityLabel="Updating places" />}
+    <Button label={t("resetFilters")} variant="link" disabled={!readable} onPress={() => { void setFilters(current => ({ ...current, labels: [], savedOnly: false })); }} />
+    {eligible && currentRequest && busy && <ActivityIndicator color={theme.accent} accessibilityLabel={t("updatingPlaces")} />}
     {eligible && currentRequest && !!error && <><T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>
-      <Button label="Retry Places" variant="link" onPress={() => { void load(input, true); }} /></>}
+      <Button label={t("retryPlaces")} variant="link" onPress={() => { void load(input, true); }} /></>}
   </Screen>;
 }

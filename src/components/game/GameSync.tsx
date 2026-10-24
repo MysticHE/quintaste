@@ -8,8 +8,10 @@ import { ApiError } from "../../services/community-api";
 import { fetchProgress, finishRun, importDeviceProgress, saveCafe, type ServerProgress } from "../../services/game-api";
 import type { GameProgress } from "../../game/progress";
 import { applyServer, cafeOf, cafeRev, editQueue, readQueue, refreshGameStatus, setSyncRequester } from "../../state/game-sync";
+import { useT } from "../../i18n";
+import type { GameT } from "../../screens/game/home/bits";
 
-type SyncContext = { memberId: string; game: () => GameProgress; update: (change: (game: GameProgress) => GameProgress) => Promise<boolean>; notify: (text: string, error?: boolean) => void };
+type SyncContext = { memberId: string; game: () => GameProgress; update: (change: (game: GameProgress) => GameProgress) => Promise<boolean>; notify: (text: string, error?: boolean) => void; t: GameT };
 const state = { running: false, again: null as SyncContext | null };
 
 /** One pass: import once, save café changes, settle queued runs, then refresh the device copy. Calls during a pass queue one more. */
@@ -25,7 +27,7 @@ async function syncAccount(ctx: SyncContext): Promise<void> {
       server = await importDeviceProgress(ctx.game());
       queue = await editQueue(memberId, q => ({ ...q, imported: true, cafeDirty: false }));
       // Credits earned on this phone before signing in stay off the account (owner, 23 Oct 2026); say so rather than let them vanish.
-      if (before > server.game.credits) ctx.notify("Café credits from this phone don't move to your account.");
+      if (before > server.game.credits) ctx.notify(ctx.t("creditsStayOnPhone"));
     } else if (queue.cafeDirty) {
       const rev = cafeRev();
       server = await saveCafe(cafeOf(ctx.game()));
@@ -36,8 +38,8 @@ async function syncAccount(ctx: SyncContext): Promise<void> {
         const out = await finishRun(run.id, run.actions, run.result);
         server = out.progress;
         await editQueue(memberId, q => ({ ...q, runs: q.runs.filter(r => r.id !== run.id) }));
-        if (out.status === "settled") ctx.notify(out.reward.credits > 0 ? "Rush Hour service saved: +" + out.reward.credits + " café credits." : "Rush Hour service saved to your account.");
-        else ctx.notify("A Rush Hour service couldn't be confirmed, so it earned no credits.", true);
+        if (out.status === "settled") ctx.notify(out.reward.credits > 0 ? ctx.t("serviceSavedCredits", { n: out.reward.credits }) : ctx.t("serviceSaved"));
+        else ctx.notify(ctx.t("serviceNotConfirmed"), true);
       } catch (error) {
         if (!(error instanceof ApiError && [400, 404, 413].includes(error.status))) throw error;
         await editQueue(memberId, q => ({ ...q, runs: q.runs.filter(r => r.id !== run.id) }));
@@ -60,7 +62,10 @@ async function syncAccount(ctx: SyncContext): Promise<void> {
 export function GameSync() {
   const { doc, update, owner, ready, readable } = useFood();
   const { user } = useAuth();
-  const { setNotice } = usePreferences();
+  const { setNotice } = usePreferences(), t = useT("game");
+  // Read at notice time, so a sync already running speaks the language chosen since.
+  const say = useRef(t);
+  useEffect(() => { say.current = t; }, [t]);
   const memberId = accountsEnabled && owner === "profile" && ready && readable && user?.adultConfirmed ? user.id : null;
   const latest = useRef(doc.game);
   useEffect(() => { latest.current = doc.game; }, [doc.game]);
@@ -68,7 +73,7 @@ export function GameSync() {
 
   useEffect(() => {
     if (!memberId) { void refreshGameStatus(); return; }
-    const ctx: SyncContext = { memberId, game: () => latest.current, update: updateGame, notify: (text, error) => setNotice({ text, error }) };
+    const ctx: SyncContext = { memberId, game: () => latest.current, update: updateGame, notify: (text, error) => setNotice({ text, error }), t: (key, vars) => say.current(key, vars) };
     const run = () => void syncAccount(ctx);
     setSyncRequester(run);
     run();

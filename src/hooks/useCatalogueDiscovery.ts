@@ -8,6 +8,8 @@ import { ownedApiRequest } from "../services/owned-api";
 import { catalogueFreshMs, catalogueOfflineMs, cataloguePageByteLimit, readCataloguePage } from "../utils/catalogue-page";
 import { utf8Bytes } from "../state/food-capacity";
 import { rememberCatalogueVenues } from "../services/catalogue-summaries";
+import { useT } from "../i18n";
+import type { ExploreKey } from "../utils/location-feedback";
 
 type Cached = { page: CataloguePage; etag: string; checkedAt: number };
 // Owner-scoped, bounded memory only: private search coordinates are never persisted.
@@ -23,14 +25,15 @@ export function useCatalogueDiscovery() {
   const [catalogue, setCatalogue] = useState<CataloguePage | null>(null);
   const [accepted, setAccepted] = useState<DiscoverySearch | undefined>();
   const [requested, setRequested] = useState<DiscoverySearch | null>(null);
-  const [busy, setBusy] = useState(false), [error, setError] = useState(""), [cached, setCached] = useState(false);
+  const [busy, setBusy] = useState(false), [error, setError] = useState<ExploreKey | "">(""), [cached, setCached] = useState(false);
+  const t = useT("explore");
   const active = useRef<AbortController | null>(null), activeKey = useRef("");
   const alive = useRef(true), current = useRef<CataloguePage | null>(null), currentSearch = useRef<DiscoverySearch | undefined>(undefined);
   const recent = useRef(new Map<string, Cached>()), failures = useRef(new Map<string, number>());
   const acceptedCheckedAt = useRef(0);
   useEffect(() => { alive.current = true; return () => { alive.current = false; active.current?.abort(); }; }, []);
   const loadPage = useCallback(async (search: DiscoverySearch, force = false, cursor: string | null = null) => {
-    if (search.origin && !originIsFresh(search.origin, Date.now())) { setError("Update your location to search nearby."); return; }
+    if (search.origin && !originIsFresh(search.origin, Date.now())) { setError("updateLocationNearby"); return; }
     const key = catalogueRequestKey(search, cursor), saved = recent.current.get(key), now = Date.now();
     if (active.current && activeKey.current !== key) {
       active.current.abort(); active.current = null; setBusy(false);
@@ -67,8 +70,8 @@ export function useCatalogueDiscovery() {
     }
     if (offline || !force && !cursor && now - (failures.current.get(key) ?? 0) < 60_000) {
       setCached(hasSavedResults); setBusy(false);
-      if (cursor && offline) setError("Offline. Connect to load more places.");
-      else if (!hasSavedResults) setError(offline ? "Offline. Connect to load places for this location." : "Places unavailable. Please retry.");
+      if (cursor && offline) setError("offlineLoadMore");
+      else if (!hasSavedResults) setError(offline ? "offlineLoadLocation" : "placesUnavailable");
       return;
     }
     const controller = new AbortController(); active.current = controller;
@@ -95,7 +98,7 @@ export function useCatalogueDiscovery() {
         failures.current.set(key, Date.now());
         while (failures.current.size > 8) failures.current.delete(failures.current.keys().next().value!);
         setCached(hasSavedResults); setError(problem instanceof Error && problem.message === "Search changed. Refresh results."
-          ? problem.message : hasSavedResults ? "Showing saved results. Could not refresh." : "Places unavailable. Please retry.");
+          ? "searchChanged" : hasSavedResults ? "showingSavedResults" : "placesUnavailable");
       }
     } finally {
       clearTimeout(timeout);
@@ -112,6 +115,6 @@ export function useCatalogueDiscovery() {
     setCatalogue(null); setAccepted(undefined); setRequested(null); setQuery(""); setError(""); setBusy(false);
   }, [setQuery]);
   return { location, setLocation, mixed, setMixed, selection, setSelection, radius, setRadius,
-    requested, query, setQuery, busy, error, cached, offline, load, ensure, loadMore, clear, accepted,
+    requested, query, setQuery, busy, error: error && t(error), cached, offline, load, ensure, loadMore, clear, accepted,
     venues: catalogue?.venues ?? [], catalogue, capped: !!catalogue?.nextCursor };
 }

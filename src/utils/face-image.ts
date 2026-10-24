@@ -1,12 +1,13 @@
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
+import { translate, type Language } from "../i18n";
 
 /** Production requests are capped at 16 KB at the edge, so a Social picture is a small square JPEG under 15,000 characters. */
 const limit = 15000;
 /**
  * A centred square, 160 pixels, made on the device from an avatar frame or a chosen photo. Gets smaller and softer
- * until it fits; throws when even the smallest version is too large.
+ * until it fits; throws (worded in `language`) when even the smallest version is too large.
  */
-export async function prepareFace(uri: string, width?: number, height?: number) {
+export async function prepareFace(uri: string, width?: number, height?: number, language: Language = "en") {
   for (const [size, compress] of [[160, 0.72], [144, 0.6], [128, 0.5]] as const) {
     const context = ImageManipulator.manipulate(uri);
     let image;
@@ -22,5 +23,5 @@ export async function prepareFace(uri: string, width?: number, height?: number) 
       if (data && data.length <= limit) return data;
     } finally { image?.release(); context.release(); }
   }
-  throw new Error("That picture is too detailed. Choose another.");
+  throw new Error(translate(language, "social", "pictureTooDetailed"));
 }

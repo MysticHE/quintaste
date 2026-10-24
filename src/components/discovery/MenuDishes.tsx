@@ -8,10 +8,11 @@ import { menuDisplayItems } from "../../utils/menu-display";
 import { MenuSection } from "./MenuSection";
 import { useScreenScrollToTop } from "../Screen";
 import { edgeScroll } from "../../theme/layout";
+import { useT } from "../../i18n";
 
 export function MenuDishes({ menu }: { menu: PublishedMenu; now: number }) {
   const [query, setQuery] = useState(""), [categoriesChosen, setCategories] = useState<string[]>([]);
-  const [page, setPage] = useState(0), scrollToTop = useScreenScrollToTop(), turned = useRef(false);
+  const [page, setPage] = useState(0), scrollToTop = useScreenScrollToTop(), turned = useRef(false), t = useT("explore");
   const turn = (next: number) => { turned.current = true; setPage(next); };
   const active = useMemo(() => ({ ...menu.sections[0], items: menuDisplayItems(menu) }), [menu]);
   const categories = useMemo(() => [...new Set(active.items.map(item => item.category ?? "").filter(Boolean))], [active]);
@@ -26,24 +27,24 @@ export function MenuDishes({ menu }: { menu: PublishedMenu; now: number }) {
   useEffect(() => { if (turned.current) { turned.current = false; scrollToTop(); } }, [currentPage, scrollToTop]);
   const sections = matched.length ? [{ ...active, items: matched.slice(currentPage * 20, (currentPage + 1) * 20) }] : [];
   return <View testID="menu-dishes" style={{ gap: 12 }}>
-    {(count > 12 || !!query) && <SearchField placeholder="Search dishes" value={query}
+    {(count > 12 || !!query) && <SearchField placeholder={t("searchDishes")} value={query}
       onChange={value => { setQuery(value); setPage(0); }} />}
     {categories.length > 1 && <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={edgeScroll.row} contentContainerStyle={edgeScroll.content}>
-      <View accessibilityLabel="Menu categories, choose any" style={{ flexDirection: "row", gap: 8, paddingVertical: 2 }}>
-        <Chip label="All dishes" selected={!selectedCategories.length} compact onPress={() => { setCategories([]); setPage(0); }} />
+      <View accessibilityLabel={t("menuCategoriesA11y")} style={{ flexDirection: "row", gap: 8, paddingVertical: 2 }}>
+        <Chip label={t("allDishes")} selected={!selectedCategories.length} compact onPress={() => { setCategories([]); setPage(0); }} />
         {categories.map(value => <Chip key={value} label={value} role="checkbox" selected={selectedCategories.includes(value)} compact
           onPress={() => { setCategories(toggleFilter(selectedCategories, value)); setPage(0); }} />)}
       </View>
     </ScrollView>}
-    <View style={common.spread}><T variant="caption" muted accessibilityLiveRegion="polite">{matched.length} {matched.length === 1 ? "dish" : "dishes"}{needle || selectedCategories.length ? " found" : ""}</T><T variant="caption" muted>Price</T></View>
+    <View style={common.spread}><T variant="caption" muted accessibilityLiveRegion="polite">{t("dishMatches", { n: matched.length, found: needle || selectedCategories.length ? 1 : 0 })}</T><T variant="caption" muted>{t("price")}</T></View>
     {sections.length ? sections.map(section => <MenuSection key={section.id} section={section} />) : <View style={common.stack}>
-      <T muted>No matching dishes</T><Button label="Clear dish search" variant="link" onPress={() => { setQuery(""); setCategories([]); setPage(0); }} />
+      <T muted>{t("noMatchingDishes")}</T><Button label={t("clearDishSearch")} variant="link" onPress={() => { setQuery(""); setCategories([]); setPage(0); }} />
     </View>}
     {matched.length > 20 && <View testID="menu-pagination" style={[common.row, { gap: 8 }]}>
-      <T variant="caption" muted style={[common.flex, { minWidth: 0 }]} accessibilityLiveRegion="polite">{currentPage * 20 + 1}–{Math.min((currentPage + 1) * 20, matched.length)} of {matched.length} dishes</T>
+      <T variant="caption" muted style={[common.flex, { minWidth: 0 }]} accessibilityLiveRegion="polite">{t("dishRange", { from: currentPage * 20 + 1, to: Math.min((currentPage + 1) * 20, matched.length), total: matched.length })}</T>
       <View style={[common.row, { gap: 8 }]}>
-        <IconButton label="Previous dishes" icon="chevron-back" disabled={currentPage === 0} onPress={() => turn(currentPage - 1)} />
-        <IconButton label="Next dishes" icon="chevron-forward" disabled={(currentPage + 1) * 20 >= matched.length} onPress={() => turn(currentPage + 1)} />
+        <IconButton label={t("previousDishes")} icon="chevron-back" disabled={currentPage === 0} onPress={() => turn(currentPage - 1)} />
+        <IconButton label={t("nextDishes")} icon="chevron-forward" disabled={(currentPage + 1) * 20 >= matched.length} onPress={() => turn(currentPage + 1)} />
       </View>
     </View>}
   </View>;

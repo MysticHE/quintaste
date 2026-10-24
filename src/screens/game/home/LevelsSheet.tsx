@@ -13,48 +13,49 @@ import { Kitchen, KitchenStart, type KitchenPick } from "./KitchenSection";
 import { Seasons, SeasonStart, type SeasonPick } from "./SeasonsSection";
 import { useKitchen, useSeasonsOn } from "../../../hooks/useKitchen";
 import type { Tier } from "../../../game/mission";
+import { useT } from "../../../i18n";
 
 /** Rush Hour: the next level, its twist, the companion joining and the path; beside it, the Recipe Kitchen (recipe levels). */
 export function LevelsSheet({ game, onClose, onPlay, onPlayMission, onPlaySeason, onCompanion }: {
   game: GameProgress; onClose(): void; onPlay(level: number): void; onPlayMission(hash: string, tier: Tier): void; onPlaySeason(season: string, n: number): void; onCompanion(): void;
 }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("game");
   const [pick, setPick] = useState(nextLevel(game)), seasonsOn = useSeasonsOn();
   const [tab, setTab] = useState<"levels" | "kitchen" | "seasons">("levels"), [recipe, setRecipe] = useState<KitchenPick | null>(null), [seasonPick, setSeasonPick] = useState<SeasonPick | null>(null);
   // One shelf request for the Recipe Kitchen list and its Start footer, made only while that tab is showing.
   const kitchen = useKitchen(tab === "kitchen");
   const tabs = <Seg<"levels" | "kitchen" | "seasons"> label="Rush Hour" value={tab} onChange={setTab}
-    options={[["levels", "Levels"], ["kitchen", "Recipe Kitchen"], ...(seasonsOn ? [["seasons", "Seasons"] as ["seasons", string]] : [])]} />;
-  if (tab === "seasons" && seasonsOn) return <GameSheet title="Rush Hour" subtitle="Seasons" onClose={onClose}
+    options={[["levels", t("tabLevels")], ["kitchen", t("tabKitchen")], ...(seasonsOn ? [["seasons", t("tabSeasons")] as ["seasons", string]] : [])]} />;
+  if (tab === "seasons" && seasonsOn) return <GameSheet title="Rush Hour" subtitle={t("tabSeasons")} onClose={onClose}
     footer={<SeasonStart game={game} pick={seasonPick} onPlay={onPlaySeason} />}>
     {tabs}<Seasons game={game} pick={seasonPick} onPick={setSeasonPick} />
   </GameSheet>;
-  if (tab === "kitchen") return <GameSheet title="Rush Hour" subtitle="Recipe Kitchen" onClose={onClose}
+  if (tab === "kitchen") return <GameSheet title="Rush Hour" subtitle={t("tabKitchen")} onClose={onClose}
     footer={<KitchenStart game={game} levels={kitchen.data?.levels} pick={recipe} onPlay={onPlayMission} />}>
     {tabs}<Kitchen game={game} remote={kitchen} pick={recipe} onPick={setRecipe} />
   </GameSheet>;
   const lv = LEVELS[pick - 1], pet = PETS[game.pet], skill = SKILLS[pet.skill], best = game.best[pick], record = best?.clears ? best : null;
   const guests = [...new Set(lv.orders.map(o => o.guest))];
-  return <GameSheet title="Rush Hour" subtitle={"Level " + pick + " · " + lv.name} art={levelDishes(lv)[0]?.art} onClose={onClose}
-    footer={<Button label={"Start Level " + pick} onPress={() => onPlay(pick)} />}>
+  return <GameSheet title="Rush Hour" subtitle={t("levelName", { n: pick, name: lv.name })} art={levelDishes(lv)[0]?.art} onClose={onClose}
+    footer={<Button label={t("startLevel", { n: pick })} onPress={() => onPlay(pick)} />}>
     {tabs}
     <Section>
-      <T variant="small" muted>Level {pick}{record ? " · best " + "★".repeat(record.stars) + " · " + record.score + " pts" + (record.coins ? " · " + record.coins + " coins" : "") + (record.left ? " · " + record.left + " s left" : "") : ""}</T>
+      <T variant="small" muted>{t("levelN", { n: pick })}{record ? t("levelBest", { stars: record.stars, score: record.score, coins: record.coins, left: record.left }) : ""}</T>
       <T variant="subtitle">{lv.name}</T>
       <T muted>{lv.brief}</T>
       <View style={s.row}>{levelDishes(lv).map(d => <View key={d.id} style={s.chip}><Art k={d.art} size={44} /><T variant="small" style={{ fontWeight: "700" }}>{d.name}</T></View>)}</View>
       <View style={s.row}>{guests.map(g => <View key={g} style={s.chip}><Art k={GUESTS[g].art} size={36} />
         <T variant="small" style={{ fontWeight: "700" }}>{GUESTS[g].name}{GUESTS[g].rules.length ? " · " + GUESTS[g].rules.map(r => RULES[r].chip).join(", ") : ""}</T></View>)}</View>
-      {(lv.twists ?? []).map(t => <T key={t.kind} variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>{TWISTS[t.kind].name}: </T>{TWISTS[t.kind].text}</T>)}
+      {(lv.twists ?? []).map(tw => <T key={tw.kind} variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>{TWISTS[tw.kind].name}: </T>{TWISTS[tw.kind].text}</T>)}
       {hasShare(lv) && <T variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>{SHARE.name}: </T>{SHARE.text}</T>}
-      {lv.bonus && <T variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>Bonus: {BONUS[lv.bonus].name}{record?.bonus ? " ✓" : ""}. </T>{BONUS[lv.bonus].text}</T>}
+      {lv.bonus && <T variant="small" muted><T variant="small" style={{ fontWeight: "800" }}>{t("bonusLabel", { name: BONUS[lv.bonus].name })}{record?.bonus ? " ✓" : ""}. </T>{BONUS[lv.bonus].text}</T>}
     </Section>
-    <Pressable onPress={onCompanion} accessibilityRole="button" accessibilityLabel={"Companion " + pet.name + ", " + skill.name + ". Change companion"}>
+    <Pressable onPress={onCompanion} accessibilityRole="button" accessibilityLabel={t("companionA11y", { pet: pet.name, skill: skill.name })}>
       <Section><View style={s.row}><Art k={pet.art} size={52} /><View style={{ flex: 1 }}>
-        <T style={{ fontWeight: "800" }}>{pet.name} · {skill.name}</T><T variant="small" muted>{skill.effect + " Once per service."}</T>
-      </View><T variant="small" color={theme.accent} style={{ fontWeight: "800" }}>Change</T></View></Section>
+        <T style={{ fontWeight: "800" }}>{pet.name} · {skill.name}</T><T variant="small" muted>{skill.effect + t("oncePerService")}</T>
+      </View><T variant="small" color={theme.accent} style={{ fontWeight: "800" }}>{t("change")}</T></View></Section>
     </Pressable>
-    <Section title="Your path">
+    <Section title={t("yourPath")}>
       <View style={s.path}>{LEVELS.map(l => <LevelNode key={l.n} n={l.n} name={l.name} open={levelOpen(game, l.n)} stars={game.best[l.n]?.clears ? game.best[l.n].stars : null}
         here={pick === l.n} next={nextLevel(game) === l.n} onPress={() => setPick(l.n)} />)}</View>
     </Section>
@@ -62,7 +63,7 @@ export function LevelsSheet({ game, onClose, onPlay, onPlayMission, onPlaySeason
 }
 /** One stop on the level path: cleared stops show stars, locked ones a lock, and the next level pulses gently. */
 function LevelNode({ n, name, open, stars, here, next, onPress }: { n: number; name: string; open: boolean; stars: number | null; here: boolean; next: boolean; onPress(): void }) {
-  const { theme, reducedMotion } = usePreferences(), { hovered, hoverProps } = useHover(), t = useSharedValue(0);
+  const { theme, reducedMotion } = usePreferences(), { hovered, hoverProps } = useHover(), t = useSharedValue(0), say = useT("game");
   useEffect(() => {
     if (!next || reducedMotion) { cancelAnimation(t); t.value = 0; return; }
     t.value = withRepeat(withTiming(1, { duration: 1400, easing: Easing.out(Easing.quad) }), -1);
@@ -71,7 +72,7 @@ function LevelNode({ n, name, open, stars, here, next, onPress }: { n: number; n
   const ring = useAnimatedStyle(() => ({ opacity: (1 - t.value) * 0.6, transform: [{ scale: 1 + t.value * 0.35 }] }));
   const bg = stars !== null ? theme.successSoft : open ? theme.accentSoft : theme.muted;
   return <Pressable disabled={!open} onPress={onPress} {...hoverProps} accessibilityRole="button" accessibilityState={{ selected: here, disabled: !open }}
-    accessibilityLabel={"Level " + n + ", " + name + (stars !== null ? ", " + stars + " stars" : open ? ", open" : ", locked")}
+    accessibilityLabel={say("levelA11y", { n, name }) + (stars !== null ? say("starsSuffix", { n: stars }) : open ? say("openSuffix") : say("lockedSuffix"))}
     style={({ pressed }) => [s.dot, { backgroundColor: bg, borderColor: here ? theme.accent : theme.transparent, transform: [{ scale: pressed ? 0.92 : hovered && open ? 1.06 : 1 }] }]}>
     {next && <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, s.ring, { borderColor: theme.accent }, ring]} />}
     {open ? <T variant="small" style={{ fontWeight: "900" }}>{n}</T> : <Icon name="lock-closed" size={16} color={theme.mutedForeground} />}

@@ -5,6 +5,7 @@ import { Icon, T, common, type IconName } from "./ui";
 import { usePreferences } from "../state/Preferences";
 import { StateView, type StateAction } from "./StateView";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
+import { useT } from "../i18n";
 
 export type BrowseFilter = { label: string; count: number; onPress: () => void };
 /** Text and icons drawn on the accent colour (the dark-mode accent is light, so it takes the background colour). */
@@ -25,9 +26,9 @@ export function BrowseHeader({ query, onChange, placeholder, filter, action, fie
 }
 /** The filter button inside a search box: a plain icon at rest, solid accent while filters are on. Owner rule: never show a count on it. */
 export function FilterButton({ label, count, onPress }: BrowseFilter) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), active = count > 0;
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), active = count > 0, t = useT("common");
   // Looks the same whether or not filters are on (owner rule: no count or colour on filter buttons); screen readers still hear "on".
-  return <Pressable accessibilityRole="button" accessibilityLabel={active ? label + ", on" : label} accessibilityState={{ selected: active }}
+  return <Pressable accessibilityRole="button" accessibilityLabel={active ? t("filterOn", { label }) : label} accessibilityState={{ selected: active }}
     onPress={onPress} hitSlop={4} {...focusProps}
     style={({ pressed }) => [s.filter, { backgroundColor: pressed ? theme.muted : theme.transparent, borderColor: focused ? theme.foreground : theme.transparent }]}>
     <Icon name="options-outline" size={22} color={theme.foreground} />

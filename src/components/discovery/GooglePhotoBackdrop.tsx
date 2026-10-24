@@ -6,12 +6,13 @@ import { usePhotoData } from "../../hooks/usePhotoData";
 import { usePreferences } from "../../state/Preferences";
 import { Icon, T } from "../ui";
 import { PhotoBlend } from "./PhotoBlend";
+import { useT } from "../../i18n";
 
 export function GooglePhotoBackdrop({ photo, expiresAt, panelHeight, nameHeight, panelInset = 12, enabled = true }: {
   photo?: LivePhoto; expiresAt: number; enabled?: boolean; panelHeight: number; nameHeight: number; panelInset?: number;
 }) {
   const { theme } = usePreferences(), { uri, failed, fail } = usePhotoData(photo?.url, expiresAt, enabled);
-  const [height, setHeight] = useState(panelHeight * 2);
+  const [height, setHeight] = useState(panelHeight * 2), t = useT("explore");
   const start = Math.min(height - 24, Math.max(0, height - panelHeight + panelInset + nameHeight / 2));
   return <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden
     style={[StyleSheet.absoluteFill, { backgroundColor: theme.mediaSurface }]}
@@ -25,7 +26,7 @@ export function GooglePhotoBackdrop({ photo, expiresAt, panelHeight, nameHeight,
         </PhotoBlend>
       </View></> : failed || !photo ? <View style={s.placeholder}>
         <Icon name="image-outline" color={theme.mediaMutedForeground} /><T variant="small" color={theme.mediaMutedForeground} numberOfLines={1} ellipsizeMode="tail"
-          style={{ minWidth: 0, flexShrink: 1 }}>Photo unavailable</T>
+          style={{ minWidth: 0, flexShrink: 1 }}>{t("photoUnavailable")}</T>
       </View> : <ActivityIndicator style={s.spinner} color={theme.mediaForeground} />}
   </View>;
 }

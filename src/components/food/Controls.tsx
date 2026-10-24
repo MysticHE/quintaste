@@ -9,6 +9,7 @@ import { fontNames } from "../../theme/tokens";
 import { edgeScroll } from "../../theme/layout";
 import { Card, Icon, T, common, type IconName } from "../ui";
 import { StateView } from "../StateView";
+import { useT } from "../../i18n";
 
 export function Chip({ label, a11y, icon, leading, trailing, selected = false, onPress, role = "button", disabled = false, compact = false, style }: {
   label: string; a11y?: string; icon?: IconName; leading?: ReactNode; trailing?: ReactNode; selected?: boolean; onPress: () => void; role?: AccessibilityRole; disabled?: boolean; compact?: boolean; style?: StyleProp<ViewStyle>;
@@ -50,8 +51,8 @@ export function IconButton({ label, icon, onPress, selected = false, badge = 0, 
 export function MeButton() {
   const { doc } = useFood();
   const { theme } = usePreferences();
-  const returnTo = usePathname();
-  return <Pressable accessibilityRole="button" accessibilityLabel="Me: profile and settings"
+  const returnTo = usePathname(), t = useT("common");
+  return <Pressable accessibilityRole="button" accessibilityLabel={t("meButton")}
     onPress={() => router.push({ pathname: "/account", params: { returnTo } })} style={[s.avatar, { backgroundColor: theme.accentSoft, borderColor: theme.border }]}>
     <AvatarPortrait avatar={doc.avatar} size={46} />
   </Pressable>;
@@ -61,7 +62,7 @@ export function SearchField({ value, onChange, placeholder, onSubmit, context, t
   value: string; onChange: (value: string) => void; placeholder: string; onSubmit?: () => void; context?: ReactNode; trailing?: ReactNode;
   input?: Omit<TextInputProps, "value" | "onChangeText" | "placeholder" | "style">;
 }) {
-  const { theme, textMultiplier } = usePreferences();
+  const { theme, textMultiplier } = usePreferences(), t = useT("common");
   const [focused, setFocused] = useState(false);
   return <View testID={context ? "discovery-search" : undefined}
     style={[s.search, !!context && s.contextSearch, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
@@ -72,7 +73,7 @@ export function SearchField({ value, onChange, placeholder, onSubmit, context, t
       autoCorrect={false} autoCapitalize="none" returnKeyType="search" onSubmitEditing={onSubmit} maxLength={100}
       placeholderTextColor={theme.mutedForeground} selectionColor={theme.accent}
       style={[s.searchInput, !!context && { paddingVertical: 5 }, { color: theme.foreground, fontFamily: fontNames.regular, fontSize: 16 * textMultiplier }]} /></View>
-    {!!value && <Pressable accessibilityRole="button" accessibilityLabel="Clear search" onPress={() => onChange("")} style={s.clear}><Icon name="close-circle-outline" /></Pressable>}
+    {!!value && <Pressable accessibilityRole="button" accessibilityLabel={t("clearSearch")} onPress={() => onChange("")} style={s.clear}><Icon name="close-circle-outline" /></Pressable>}
     {trailing}
   </View>;
 }
@@ -92,9 +93,10 @@ export function EmptyState({ title, text, action, onPress, icon = "search-outlin
   return <StateView icon={icon} title={title} text={text} primary={primary ?? extra} secondary={primary ? extra : undefined} />;
 }
 export function Servings({ value, onChange }: { value: number; onChange: (value: number) => void }) {
-  return <View style={[common.spread, s.servings]}><T style={[common.bold, common.flex]}>Servings</T>
+  const t = useT("common");
+  return <View style={[common.spread, s.servings]}><T style={[common.bold, common.flex]}>{t("servings")}</T>
     <Chip label="−" onPress={() => onChange(Math.max(1, value - 1))} disabled={value <= 1} />
-    <T accessibilityLabel={value + " servings"}>{value}</T>
+    <T accessibilityLabel={t("servingsCount", { n: value })}>{value}</T>
     <Chip label="+" onPress={() => onChange(Math.min(8, value + 1))} disabled={value >= 8} />
   </View>;
 }

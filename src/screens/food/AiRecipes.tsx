@@ -13,11 +13,13 @@ import { aiRecipesStatus, clearAiJobs, myAiJobs, startAiJob, uploadAiVideo } fro
 import { Rise } from "../../components/recipes/AiShowcase";
 import { AiRequests } from "../../components/recipes/AiRequests";
 import { AiInfoTip, dishTip, videoTip, type TipPoint } from "../../components/recipes/AiInfoTip";
+import { useDietText } from "../../components/food/DietLabels";
+import { useT } from "../../i18n";
 
 
 /** Ask for a dish or paste a video link; the server writes the recipe and it appears in the shared Cook feed. */
 export function AiRecipesScreen() {
-  const member = useMember(), { theme, setNotice } = usePreferences();
+  const member = useMember(), { theme, setNotice } = usePreferences(), t = useT("cook"), dietText = useDietText();
   const status = useRemote("ai-recipes:status", aiRecipesStatus);
   const jobs = useRemote(member.member ? "ai-recipes:mine" : null, signal => myAiJobs(signal).then(r => r.items), 6000);
   // Cook's "Get An AI Recipe" opens this screen with the search filled in.
@@ -43,16 +45,16 @@ export function AiRecipesScreen() {
       await startAiJob(kind, input.trim());
       if (kind === "video") setLink(""); else setDish("");
       invalidate("ai-recipes:mine"); jobs.refresh(); invalidate("ai-recipes:status");
-      setNotice({ text: "Added. We will show it here when it is ready." });
+      setNotice({ text: t("aiAdded") });
     } catch (error) {
-      failed(error, "Could not start that. Try again.");
+      failed(error, t("aiStartFailed"));
     } finally { setBusy(null); }
   };
   const [clearing, setClearing] = useState(false);
   const clear = async () => {
     setClearing(true);
     try { await clearAiJobs(); invalidate("ai-recipes:mine"); jobs.refresh(); }
-    catch (error) { setNotice({ text: error instanceof ApiError ? error.message : "Could not clear the list. Try again.", error: true }); }
+    catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("aiClearFailed"), error: true }); }
     finally { setClearing(false); }
   };
   const upload = async () => {
@@ -67,27 +69,27 @@ export function AiRecipesScreen() {
       await uploadAiVideo(video, link);
       setLink("");
       invalidate("ai-recipes:mine"); jobs.refresh(); invalidate("ai-recipes:status");
-      setNotice({ text: "Uploaded. We will show the recipe here when it is ready." });
+      setNotice({ text: t("aiUploaded") });
     } catch (error) {
-      failed(error, "The upload did not work. Try again.");
+      failed(error, t("aiUploadFailed"));
     } finally { setBusy(null); }
   };
-  return <CookLayout title="AI Recipes" backTo="/cook">
-    {data && !data.enabled && <Notice icon="pause-circle-outline" text="AI recipes are off right now." />}
-    {data?.enabled && full && <Notice icon="hourglass-outline" text="Fully booked today. Try again tomorrow." />}
+  return <CookLayout title={t("aiTitle")} backTo="/cook">
+    {data && !data.enabled && <Notice icon="pause-circle-outline" text={t("aiOff")} />}
+    {data?.enabled && full && <Notice icon="hourglass-outline" text={t("aiFull")} />}
     <Rise><PlanCard needsPlan={needsPlan} known={!!data} /></Rise>
     <Rise delay={80}><Card style={common.stack}>
-      <Heading icon="restaurant-outline" title="Describe A Dish" tip={dishTip} />
-      <Field label="Dish" showLabel={false} value={dish} onChangeText={setDish} maxLength={300} placeholder="Vegan laksa for 2, no garlic" />
-      <Button label="Find Recipe" icon="search-outline" loading={busy === "request"} disabled={!enabled || busy !== null || dish.trim().length < 3} onPress={() => void start("request", dish)} />
+      <Heading icon="restaurant-outline" title={t("describeDish")} tip={dishTip} />
+      <Field label={t("dishField")} showLabel={false} value={dish} onChangeText={setDish} maxLength={300} placeholder={t("dishPlaceholder", { vegan: dietText.name("Vegan") })} />
+      <Button label={t("findRecipe")} icon="search-outline" loading={busy === "request"} disabled={!enabled || busy !== null || dish.trim().length < 3} onPress={() => void start("request", dish)} />
     </Card></Rise>
     <Rise delay={160}><Card style={common.stack}>
-      <Heading icon="videocam-outline" title="From A Video" tip={videoTip} />
-      <Field label="Video link" showLabel={false} value={link} onChangeText={setLink} maxLength={500} placeholder="Paste a video link" autoCapitalize="none" keyboardType="url" />
-      <Button label="Import Video" icon="link-outline" loading={busy === "video"} disabled={!enabled || busy !== null || !/^https:\/\//.test(link.trim())} onPress={() => void start("video", link)} />
-      <Button label="Upload Video" icon="cloud-upload-outline" variant="secondary" loading={busy === "upload"} disabled={!enabled || busy !== null} onPress={() => void upload()} />
+      <Heading icon="videocam-outline" title={t("fromVideo")} tip={videoTip} />
+      <Field label={t("videoLink")} showLabel={false} value={link} onChangeText={setLink} maxLength={500} placeholder={t("pasteVideoLink")} autoCapitalize="none" keyboardType="url" />
+      <Button label={t("importVideo")} icon="link-outline" loading={busy === "video"} disabled={!enabled || busy !== null || !/^https:\/\//.test(link.trim())} onPress={() => void start("video", link)} />
+      <Button label={t("uploadVideo")} icon="cloud-upload-outline" variant="secondary" loading={busy === "upload"} disabled={!enabled || busy !== null} onPress={() => void upload()} />
       {limits && <View style={[common.row, s.limits]}><Icon name="information-circle-outline" size={16} color={theme.mutedForeground} />
-        <T variant="caption" muted>Up to {limits.videoMinutes} min · {limits.videoMb} MB · Public videos</T></View>}
+        <T variant="caption" muted>{t("videoLimits", { minutes: limits.videoMinutes, mb: limits.videoMb })}</T></View>}
     </Card></Rise>
     {!!jobs.data?.length && <Rise delay={220}><AiRequests jobs={jobs.data} retryDisabled={!enabled || busy !== null} onRetry={job => void start(job.kind, job.input)}
       clearing={clearing} onClear={() => void clear()} /></Rise>}
@@ -104,14 +106,14 @@ function Heading({ icon, title, tip }: { icon: IconName; title: string; tip: rea
 }
 /** The plan on a gradient card; opens the plans. Without a plan it asks the member to choose one. */
 function PlanCard({ needsPlan, known }: { needsPlan: boolean; known: boolean }) {
-  const { theme } = usePreferences();
-  return <Pressable accessibilityRole="button" accessibilityLabel={`AI Recipes Plan${known && needsPlan ? ", choose a plan" : ""}`}
+  const { theme } = usePreferences(), t = useT("cook");
+  return <Pressable accessibilityRole="button" accessibilityLabel={t(known && needsPlan ? "aiPlanChoose" : "aiPlan")}
     onPress={() => router.push("/cook/ai-plans" as never)} style={({ pressed }) => [s.usage, { borderColor: theme.border, opacity: pressed ? 0.85 : 1 }]}>
     <LinearGradient colors={[...theme.gradient] as [string, string, ...string[]]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
     <View style={[s.spark, { backgroundColor: theme.card }]}><Icon name="sparkles" size={20} color={theme.accent} /></View>
     <View style={common.flex}>
-      <T style={common.bold}>AI Recipes Plan</T>
-      {known && needsPlan && <T variant="small" muted>Choose a plan</T>}
+      <T style={common.bold}>{t("aiPlan")}</T>
+      {known && needsPlan && <T variant="small" muted>{t("choosePlanLower")}</T>}
     </View>
     <Icon name="chevron-forward" size={18} color={theme.mutedForeground} />
   </Pressable>;

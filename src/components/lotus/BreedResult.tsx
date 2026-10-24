@@ -16,15 +16,16 @@ import { AvatarReport } from "../avatar/AvatarReport";
 import { SegmentedTabs } from "../SegmentedTabs";
 import { Button, T, common } from "../ui";
 import { PerkLayers, perkLabel } from "./PerkLayers";
+import { useT } from "../../i18n";
 
-const FORMS = [{ key: "adult", name: "Adult" }, { key: "mini", name: "Mini" }] as const;
-const FORM_TABS = FORMS.map(f => ({ id: f.key, label: f.name }));
+const FORMS = [{ key: "adult", name: "lotusFormAdult" }, { key: "mini", name: "lotusFormMini" }] as const;
 
 export function BreedResult({ breed, tier, reveal, onAgain }: { breed: LotusBreed; tier: Tier; reveal: boolean; onAgain(): void }) {
   const { theme, reducedMotion, setNotice } = usePreferences(), { doc, avatarLibrary } = useFood();
   const forms = useLotusForms(breed.adultId, breed.miniId), [page, setPage] = useState(0), [width, setWidth] = useState(0);
   const [choosing, setChoosing] = useState(""), [error, setError] = useState("");
-  const pager = useRef<ScrollView>(null);
+  const pager = useRef<ScrollView>(null), t = useT("game"), tc = useT("common");
+  const formTabs = FORMS.map(f => ({ id: f.key, label: t(f.name) }));
   const show = (index: number) => { setPage(index); pager.current?.scrollTo({ x: index * width, animated: !reducedMotion }); };
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => { if (width) setPage(Math.round(event.nativeEvent.contentOffset.x / width)); };
   const choose = async (id: string, text: string) => {
@@ -32,11 +33,11 @@ export function BreedResult({ breed, tier, reveal, onAgain }: { breed: LotusBree
     setChoosing(id); setError("");
     const ok = await avatarLibrary.select(id);
     setChoosing("");
-    if (ok) setNotice({ text }); else setError(avatarLibrary.error || "Your choice did not save. Try again.");
+    if (ok) setNotice({ text }); else setError(avatarLibrary.error || t("lotusChoiceFailed"));
   };
   if (!forms.adult || !forms.mini) return <View style={s.stack}>
-    {forms.error ? <><T color={theme.error} style={common.center}>{forms.error}</T><Button label="Retry" variant="link" onPress={forms.retry} /></>
-      : <ActivityIndicator color={theme.accent} accessibilityLabel="Opening your forms" />}
+    {forms.error ? <><T color={theme.error} style={common.center}>{forms.error}</T><Button label={tc("retry")} variant="link" onPress={forms.retry} /></>
+      : <ActivityIndicator color={theme.accent} accessibilityLabel={t("lotusOpeningForms")} />}
   </View>;
   const current = doc.avatar?.id, selected = (id: string) => current === id;
   const size = Math.min(260, Math.max(200, width - 40));
@@ -44,25 +45,25 @@ export function BreedResult({ breed, tier, reveal, onAgain }: { breed: LotusBree
     <View style={[s.stage, { backgroundColor: theme.accentSoft }]} onLayout={e => setWidth(e.nativeEvent.layout.width)}>
       {!!width && <ScrollView ref={pager} horizontal pagingEnabled showsHorizontalScrollIndicator={false} onMomentumScrollEnd={onScroll} onScroll={onScroll} scrollEventThrottle={64}>
         {FORMS.map(f => <View key={f.key} style={[s.page, { width }]} accessible accessibilityRole="image"
-          accessibilityLabel={`Your ${f.name} form ${perkLabel(tier)}`.trim()}>
+          accessibilityLabel={t("lotusFormLabel", { form: t(f.name), perks: perkLabel(tier, t) }).trim()}>
           <PerkLayers tier={tier} size={size} reveal={reveal && f.key === "adult"}>
             <AvatarPortrait avatar={forms[f.key]} size={size * 0.86} animate label="" />
           </PerkLayers>
         </View>)}
       </ScrollView>}
     </View>
-    <View style={s.tabs}><SegmentedTabs label="Form" options={FORM_TABS} value={FORMS[page].key} onChange={key => show(FORMS.findIndex(f => f.key === key))} /></View>
-    <T variant="title" style={common.center}>Your avatar has bloomed</T>
+    <View style={s.tabs}><SegmentedTabs label={t("lotusForm")} options={formTabs} value={FORMS[page].key} onChange={key => show(FORMS.findIndex(f => f.key === key))} /></View>
+    <T variant="title" style={common.center}>{t("lotusAvatarBloomed")}</T>
     <View style={[common.row, s.wrap]}>
-      <Pill icon={selected(breed.adultId!) ? "checkmark-circle" : "person-outline"} text="Use Adult" label="Use your Adult form" disabled={!!choosing}
-        strong={selected(breed.adultId!)} onPress={() => void choose(breed.adultId!, "Adult form chosen")} />
-      <Pill icon={selected(breed.miniId!) ? "checkmark-circle" : "happy-outline"} text="Use Mini" label="Use your Mini form" disabled={!!choosing}
-        strong={selected(breed.miniId!)} onPress={() => void choose(breed.miniId!, "Mini form chosen")} />
-      <Pill icon={!current ? "checkmark-circle" : "flower-outline"} text="Keep Lian" label="Keep Lian, the QuinTaste mascot" disabled={!!choosing}
-        strong={!current} onPress={() => void choose("default", "Lian kept")} />
+      <Pill icon={selected(breed.adultId!) ? "checkmark-circle" : "person-outline"} text={t("lotusUseAdult")} label={t("lotusUseAdultA11y")} disabled={!!choosing}
+        strong={selected(breed.adultId!)} onPress={() => void choose(breed.adultId!, t("lotusAdultChosen"))} />
+      <Pill icon={selected(breed.miniId!) ? "checkmark-circle" : "happy-outline"} text={t("lotusUseMini")} label={t("lotusUseMiniA11y")} disabled={!!choosing}
+        strong={selected(breed.miniId!)} onPress={() => void choose(breed.miniId!, t("lotusMiniChosen"))} />
+      <Pill icon={!current ? "checkmark-circle" : "flower-outline"} text={t("lotusKeepLian")} label={t("lotusKeepLianA11y")} disabled={!!choosing}
+        strong={!current} onPress={() => void choose("default", t("lotusLianKept"))} />
     </View>
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
-    {breed.regenerationsLeft > 0 && <Button label={`Try Again With A New Selfie · ${breed.regenerationsLeft} Free`} variant="link" onPress={onAgain} />}
+    {breed.regenerationsLeft > 0 && <Button label={t("lotusTryNewSelfie", { n: breed.regenerationsLeft })} variant="link" onPress={onAgain} />}
     <View style={s.report}><AvatarReport key={page} avatarId={page ? breed.miniId! : breed.adultId!} owner="profile" /></View>
   </View>;
 }

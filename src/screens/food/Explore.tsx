@@ -23,12 +23,12 @@ import { useMixedKitchenCount } from "../../hooks/useMixedKitchenCount";
 import { SegmentedTabs } from "../../components/SegmentedTabs";
 import { LinkRow } from "../../components/LinkRow";
 import { discoveryRadii } from "../../config/discovery";
-
-const kitchens = [{ id: "veg", label: "Veg Kitchen" }, { id: "mixed", label: "Mixed Kitchen" }] as const;
+import { useT } from "../../i18n";
 
 export function ExploreScreen() {
   const { discoveryScope, search, setSearch, filters, ready, readable } = useFood();
-  const { theme, draft } = usePreferences(), discovery = useDiscovery();
+  const { theme, draft } = usePreferences(), discovery = useDiscovery(), t = useT("explore"), tc = useT("common");
+  const kitchens = [{ id: "veg", label: t("vegKitchen") }, { id: "mixed", label: t("mixedKitchen") }] as const;
   const { input, locationExpired, privateMissing, privateKind, point, areaLabel, choose, searchPlaces } = useDiscoveryInput(useMinuteClock());
   const nearby = useNearbyLocation(), { ensure } = discovery;
   const eligible = ready && !privateMissing && !locationExpired;
@@ -57,48 +57,48 @@ export function ExploreScreen() {
   return <Screen back={false} compact>
     <View style={[common.row, { gap: 8, zIndex: 50, alignItems: "flex-start" }]}><View style={common.flex}>
       <LocationSearchField key={discoveryScope} value={search} disabled={!readable} onChange={setSearch} onChoose={choose}
-        onSearch={searchPlaces} suggestionsInFlow trailing={<FilterButton label="Filters" count={count} onPress={() => router.push("/filters")} />} /></View>
-      <IconButton label="Search By My Location" icon="locate-outline" disabled={!readable} loading={nearby.busy}
+        onSearch={searchPlaces} suggestionsInFlow trailing={<FilterButton label={tc("filters")} count={count} onPress={() => router.push("/filters")} />} /></View>
+      <IconButton label={t("searchByLocation")} icon="locate-outline" disabled={!readable} loading={nearby.busy}
         selected={!!input.origin} onPress={() => void nearby.locate()} />
       <MeButton /></View>
-    <View style={common.row}><SegmentedTabs label="Kitchen" options={kitchens} value={discovery.mixed ? "mixed" : "veg"}
+    <View style={common.row}><SegmentedTabs label={t("kitchenTabs")} options={kitchens} value={discovery.mixed ? "mixed" : "veg"}
       onChange={id => discovery.setMixed(id === "mixed")} /></View>
     <View testID="explore-search-context" style={s.context}>
     {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
       <Icon name="location-outline" size={14} color={theme.foreground} />
       <T variant="caption" style={{ flexShrink: 1 }}><T variant="caption" style={common.bold}>{areaLabel}</T>
-        <T variant="caption">{" · " + input.radius / 1000 + " km"}</T></T>
+        <T variant="caption">{" · " + tc("kilometres", { km: input.radius / 1000 })}</T></T>
     </View>}
     {accepted && <View testID="explore-places-count" style={[s.countLabel, { backgroundColor: theme.accentSoft }]}>
       <Icon name="storefront-outline" size={14} color={theme.foreground} />
-      <T variant="caption" accessibilityLiveRegion="polite"><T variant="caption" style={common.bold}>{discovery.catalogue?.total ?? 0}</T>{(discovery.catalogue?.total ?? 0) === 1 ? " place" : " places"}</T>
+      <T variant="caption" accessibilityLiveRegion="polite"><T variant="caption" style={common.bold}>{discovery.catalogue?.total ?? 0}</T>{t("placeCountSuffix", { n: discovery.catalogue?.total ?? 0 })}</T>
     </View>}
     </View>
     <LocationFeedback nearby={nearby} />
-    {privateMissing && <Button label={"Add " + (privateKind === "home" ? "Home" : "Work") + " address"} variant="secondary"
+    {privateMissing && <Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"
       onPress={() => router.push({ pathname: "/location-place", params: { kind: privateKind } })} />}
-    {locationExpired && <Button label="Update My Location" variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} />}
-    {!ready && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading your settings" />}
-    {currentRequest && discovery.busy && !venues.length && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading places" />}
+    {locationExpired && <Button label={t("updateMyLocation")} variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} />}
+    {!ready && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingSettings")} />}
+    {currentRequest && discovery.busy && !venues.length && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingPlaces")} />}
     {currentRequest && !!discovery.error && <View style={common.row}><T variant="caption" accessibilityLiveRegion="polite" style={common.flex}>{discovery.error}</T>
-      <IconButton label="Retry Places" icon="refresh-outline" onPress={() => { if (eligible) void discovery.load(input, true); }} /></View>}
-    {accepted && discovery.cached && <T variant="caption" muted>{discovery.offline ? "Offline - saved results" : "Saved results - checking for changes"}</T>}
+      <IconButton label={t("retryPlaces")} icon="refresh-outline" onPress={() => { if (eligible) void discovery.load(input, true); }} /></View>}
+    {accepted && discovery.cached && <T variant="caption" muted>{t(discovery.offline ? "offlineSavedResults" : "savedResultsChecking")}</T>}
     {discovery.mixed ? <MixedKitchenList venues={venues} />
       : venues.map(venue => <CatalogueVenueCard key={venue.id} venue={venue} review={reviews.data?.items.find(item => item.id === venue.id)} />)}
-    {accepted && !!venues.length && <View style={common.row}><T variant="caption" muted style={common.flex}>{venues.length} of {discovery.catalogue?.total} published places</T>
-      <IconButton label="Refresh Places" icon="refresh-outline" loading={discovery.busy} onPress={() => void discovery.load(input, true)} /></View>}
-    {accepted && discovery.capped && <Button label="Load More Places" variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
+    {accepted && !!venues.length && <View style={common.row}><T variant="caption" muted style={common.flex}>{t("shownOfPublished", { shown: venues.length, total: discovery.catalogue?.total ?? "" })}</T>
+      <IconButton label={t("refreshPlaces")} icon="refresh-outline" loading={discovery.busy} onPress={() => void discovery.load(input, true)} /></View>}
+    {accepted && discovery.capped && <Button label={t("loadMorePlaces")} variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
     {accepted && !discovery.busy && !venues.length && discovery.mixed && <View style={common.stack}>
-      <T variant="subtitle" accessibilityRole="header">No Mixed Kitchen Places Here</T>
-      {!!wider && <Button label="Widen Area" variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
-      <Button label="Edit Filters" variant="secondary" onPress={() => router.push("/filters")} /></View>}
+      <T variant="subtitle" accessibilityRole="header">{t("noMixedHere")}</T>
+      {!!wider && <Button label={t("widenArea")} variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
+      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/filters")} /></View>}
     {accepted && !discovery.busy && !venues.length && !discovery.mixed && <View style={common.stack}>
-      <T variant="subtitle" accessibilityRole="header">No Published Places Match This Search</T>
-      <T muted>Try a wider distance, another location or fewer filters.</T>
-      <Button label="Edit Filters" variant="secondary" onPress={() => router.push("/filters")} /></View>}
-    {!!mixedCount && <LinkRow label={"Mixed Kitchen nearby · " + mixedCount + (mixedCount === 1 ? " place" : " places")}
-      icon="arrow-forward" hint="Shows the Mixed Kitchen list" onPress={() => discovery.setMixed(true)} />}
-    {accepted && !!discovery.catalogue?.locationGaps && <T variant="caption" muted>Some published places have unconfirmed map locations and are omitted from nearby results.</T>}
+      <T variant="subtitle" accessibilityRole="header">{t("noPublishedMatch")}</T>
+      <T muted>{t("tryWider")}</T>
+      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/filters")} /></View>}
+    {!!mixedCount && <LinkRow label={t("mixedNearby", { n: mixedCount })}
+      icon="arrow-forward" hint={t("mixedNearbyHint")} onPress={() => discovery.setMixed(true)} />}
+    {accepted && !!discovery.catalogue?.locationGaps && <T variant="caption" muted>{t("locationGaps")}</T>}
   </Screen>;
 }
 

@@ -5,6 +5,7 @@ import { usePreferences } from "../state/Preferences";
 import { fontNames, themeFor } from "../theme/tokens";
 import { titleCaseLabel } from "../utils/ui-label";
 import { Divider, Icon, T, common, type IconName } from "./ui";
+import { useT } from "../i18n";
 export function Row({
   label,
   hint,
@@ -70,13 +71,17 @@ export function Choices<T extends string>({
   value,
   onChange,
   label,
+  labels,
 }: {
   options: readonly T[];
   value: T;
   onChange: (value: T) => void;
   label: string;
+  /** Translated text for each option; options without one show their value in Title Case. */
+  labels?: Partial<Record<T, string>>;
 }) {
   const { theme } = usePreferences();
+  const text = (option: T) => labels?.[option] ?? titleCaseLabel(option);
   return (
     <View
       style={s.choices}
@@ -87,7 +92,7 @@ export function Choices<T extends string>({
         <Pressable
           key={option}
           accessibilityRole="radio"
-          accessibilityLabel={titleCaseLabel(option)}
+          accessibilityLabel={text(option)}
           accessibilityState={{ checked: value === option }}
           aria-checked={value === option}
           onPress={() => onChange(option)}
@@ -101,7 +106,7 @@ export function Choices<T extends string>({
           ]}
         >
           <T variant="button" color={theme.foreground} style={{ flexShrink: 1 }}>
-            {titleCaseLabel(option)}
+            {text(option)}
           </T>
           {value === option && <Icon name="checkmark" size={16} color={theme.accent} />}
         </Pressable>
@@ -110,16 +115,16 @@ export function Choices<T extends string>({
   );
 }
 export function Appearance() {
-  const { draft, patch, theme } = usePreferences();
+  const { draft, patch, theme } = usePreferences(), t = useT("me");
   const names = {
-    coral: "Coral & Peach",
-    cobalt: "Cobalt & Turquoise",
-    lavender: "Lavender & Frost",
+    coral: t("paletteCoral"),
+    cobalt: t("paletteCobalt"),
+    lavender: t("paletteLavender"),
   };
   return (
     <>
-      <T style={common.bold}>Colour palette</T>
-      <View accessibilityRole="radiogroup" accessibilityLabel="Colour palette">
+      <T style={common.bold}>{t("colourPalette")}</T>
+      <View accessibilityRole="radiogroup" accessibilityLabel={t("colourPalette")}>
         {palettes.map((palette, i) => (
           <View key={palette}>
             {i > 0 && <Divider />}
@@ -151,10 +156,11 @@ export function Appearance() {
           </View>
         ))}
       </View>
-      <T style={[common.bold, common.section]}>Display Mode</T>
+      <T style={[common.bold, common.section]}>{t("displayMode")}</T>
       <Choices
-        label="Display Mode"
+        label={t("displayMode")}
         options={displayModes}
+        labels={{ light: t("modeLight"), dark: t("modeDark"), system: t("modeSystem") }}
         value={draft.mode}
         onChange={(mode) => patch({ mode })}
       />

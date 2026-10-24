@@ -5,18 +5,20 @@ import { menuDisplayPrice } from "../../utils/menu-display";
 import { T, common } from "../ui";
 import { fontNames } from "../../theme/tokens";
 import { DietIcon } from "../food/DietIcon";
+import { useDietText } from "../food/DietLabels";
+import { useLanguage } from "../../i18n";
 
 export function MenuItemRow({ item }: { item: MenuItem }) {
-  const { theme } = usePreferences();
-  const price = menuDisplayPrice(item);
+  const { theme } = usePreferences(), dietText = useDietText(), language = useLanguage();
+  const price = menuDisplayPrice(item, language);
   // Only a venue's VG label proves a diet label (Vegan); its plain V means meat-free, which every listed dish is.
   const vegan = item.diet === "VG";
   return <View>
-    <View testID="menu-item" style={s.item} accessible accessibilityLabel={item.name + (vegan ? ", Vegan" : "") + ", " + price}>
+    <View testID="menu-item" style={s.item} accessible accessibilityLabel={item.name + (vegan ? ", " + dietText.name("Vegan") : "") + ", " + price}>
       <T variant="small" style={s.name}>{item.name}</T>
       {vegan && <View testID="menu-item-diet" style={[s.tag, { borderColor: theme.border }]}>
         <DietIcon diet="Vegan" size={13} color={theme.mutedForeground} />
-        <T variant="caption" color={theme.mutedForeground} style={common.bold}>Vegan</T></View>}
+        <T variant="caption" color={theme.mutedForeground} style={common.bold}>{dietText.name("Vegan")}</T></View>}
       <T style={s.price} variant="small">{price}</T>
     </View>
     <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: theme.divider }} />

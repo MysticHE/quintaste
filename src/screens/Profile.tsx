@@ -5,39 +5,39 @@ import { usePreferences } from "../state/Preferences";
 import { PreferenceSaveStatus } from "../components/AutosaveStatus";
 import { accountsEnabled } from "../services/auth-client";
 import { ConnectedProfileScreen } from "./ConnectedProfile";
+import { useT } from "../i18n";
 function PreviewProfileScreen() {
-  const { draft, patch } = usePreferences();
+  const { draft, patch } = usePreferences(), t = useT("me");
   const [error, setError] = useState<string>();
   return (
     <Screen
-      title="Edit Profile"
+      title={t("editProfile")}
 
     >
       <PreferenceSaveStatus />
       <Field
-        label="Display Name"
-        placeholder="What should we call you?"
+        label={t("displayName")}
+        placeholder={t("displayNamePlaceholder")}
         value={draft.displayName}
         onChangeText={(displayName) => {
           patch({ displayName });
-          setError(displayName.trim() ? undefined : "Enter a display name.");
+          setError(displayName.trim() ? undefined : t("enterDisplayName"));
         }}
         maxLength={50}
         error={error}
       />
       <Field
-        label="About You"
-        placeholder="What do you love cooking?"
+        label={t("aboutYou")}
+        placeholder={t("aboutYouPlaceholder")}
         multiline
         value={draft.bio}
         onChangeText={(bio) => patch({ bio })}
         maxLength={160}
       />
       <Card>
-        <T style={common.bold}>Local preview profile</T>
+        <T style={common.bold}>{t("localPreviewProfile")}</T>
         <T muted style={common.section}>
-          Your display name and preferences stay on this device. No birthday,
-          exact address or contact details are needed to try this preview.
+          {t("localPreviewProfileNote")}
         </T>
       </Card>
     </Screen>

@@ -5,6 +5,7 @@ import { usePreferences } from "../../state/Preferences";
 import { Icon, T } from "../ui";
 import { ensureMember, useMember } from "../CommunityGate";
 import { ReportSheet } from "../ReportSheet";
+import { useT } from "../../i18n";
 
 type Action = { key: string; label: string; accessible: string; icon: "create-outline" | "flag-outline"; onPress: () => void };
 /**
@@ -12,13 +13,13 @@ type Action = { key: string; label: string; accessible: string; icon: "create-ou
  * Development also keeps the local review service's correction and concern drafts.
  */
 export function PlaceFeedbackActions({ name, placeId, menuId }: { name: string; placeId: string; menuId?: string }) {
-  const { theme } = usePreferences(), member = useMember(), [open, setOpen] = useState(false);
+  const { theme } = usePreferences(), member = useMember(), [open, setOpen] = useState(false), t = useT("explore");
   const local = (kind: "correction" | "report") => router.push({ pathname: "/contribute", params: { target: name, kind, placeId,
     ...(kind === "correction" && menuId ? { menuId } : {}) } });
   const actions: Action[] = __DEV__
-    ? [{ key: "correction", label: "Correction", accessible: "Suggest a correction", icon: "create-outline", onPress: () => local("correction") },
-      { key: "report", label: "Report concern", accessible: "Report a concern", icon: "flag-outline", onPress: () => local("report") }]
-    : menuId ? [{ key: "problem", label: "Report A Problem", accessible: "Report a problem with " + name, icon: "flag-outline",
+    ? [{ key: "correction", label: t("correction"), accessible: t("suggestCorrectionA11y"), icon: "create-outline", onPress: () => local("correction") },
+      { key: "report", label: t("reportConcern"), accessible: t("reportConcernA11y"), icon: "flag-outline", onPress: () => local("report") }]
+    : menuId ? [{ key: "problem", label: t("reportProblem"), accessible: t("reportProblemWith", { name }), icon: "flag-outline",
       onPress: () => { if (ensureMember(member, "/place/catalogue-" + menuId)) setOpen(true); } }] : [];
   if (!actions.length) return null;
   return <View style={s.actions}>

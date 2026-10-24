@@ -13,55 +13,59 @@ import { FilterSection } from "../../components/BrowseControls";
 import { recipeCategories } from "../../types/food";
 import { nutritionChoices } from "../../types/recipe-workspace";
 import { defaultCookBrowse } from "../../state/recipe-workspace";
-import { selectedRecipeDiets, sortLabels } from "../../utils/recipe-browse";
+import { categoryName, selectedRecipeDiets, sortName } from "../../utils/recipe-browse";
+import { nutritionChoiceName } from "../../utils/nutrition";
 import { toggleFilter } from "../../utils/discovery-filters";
+import { useDietText } from "../../components/food/DietLabels";
+import { useLanguage, useT } from "../../i18n";
 
 export function CookFiltersScreen() {
   const { cookBrowse: browse, setCookBrowse, readable } = useFood(), { theme } = usePreferences();
+  const t = useT("explore"), tc = useT("common"), language = useLanguage(), dietText = useDietText();
   const set = (patch: Partial<CookBrowse>) => void setCookBrowse(patch);
-  const times = [["Any", "Any time"], ["15", "15 min or less"], ["30", "30 min or less"]] as const;
+  const times = [["Any", t("anyTime")], ["15", t("upTo15")], ["30", t("upTo30")]] as const;
   const diets = selectedRecipeDiets(browse);
   // Order follows what decides a meal for this audience: diet labels, time, then kind of dish.
-  return <CookLayout title="Recipe filters" backTo="/cook" headerAction={<Button label="Done" variant="link" onPress={() => goBack("/cook")} />}
-    footer={<Button label="Reset filters" variant="link" disabled={!readable} onPress={() => void setCookBrowse({ ...defaultCookBrowse })} />}>
-    <FilterSection title="Diet" icon="leaf-outline">
-      <Chips multiple label="Recipe diet"><Chip compact label="Any diet" selected={!diets.length} disabled={!readable} onPress={() => set({ labels: [] })} />
-        {(["Vegan", "Vegetarian"] as const).map(diet => <Chip compact key={diet} label={diet} role="checkbox" selected={diets.includes(diet)} disabled={!readable}
+  return <CookLayout title={t("recipeFilters")} backTo="/cook" headerAction={<Button label={tc("done")} variant="link" onPress={() => goBack("/cook")} />}
+    footer={<Button label={t("resetFilters")} variant="link" disabled={!readable} onPress={() => void setCookBrowse({ ...defaultCookBrowse })} />}>
+    <FilterSection title={t("diet")} icon="leaf-outline">
+      <Chips multiple label={t("recipeDiet")}><Chip compact label={t("anyDiet")} selected={!diets.length} disabled={!readable} onPress={() => set({ labels: [] })} />
+        {(["Vegan", "Vegetarian"] as const).map(diet => <Chip compact key={diet} label={dietText.name(diet)} role="checkbox" selected={diets.includes(diet)} disabled={!readable}
           leading={<DietIcon diet={diet} color={diets.includes(diet) ? theme.accent : theme.foreground} />}
           onPress={() => set({ labels: toggleFilter(diets, diet) })} />)}
       </Chips>
     </FilterSection>
-    <FilterSection title="Cooking time" icon="time-outline">
-      <Chips label="Time">{times.map(([value, label]) => <Chip compact key={value} label={label} role="radio" selected={browse.time === value} disabled={!readable} onPress={() => set({ time: value })} />)}</Chips>
+    <FilterSection title={t("cookingTime")} icon="time-outline">
+      <Chips label={t("time")}>{times.map(([value, label]) => <Chip compact key={value} label={label} role="radio" selected={browse.time === value} disabled={!readable} onPress={() => set({ time: value })} />)}</Chips>
     </FilterSection>
-    <FilterSection title="Category" icon="grid-outline">
-      <Chips label="Recipe category"><Chip compact label="All" role="radio" selected={browse.category === "All"} disabled={!readable} onPress={() => set({ category: "All" })} />
-        {recipeCategories.map(category => <Chip compact key={category} label={category} role="radio"
+    <FilterSection title={t("category")} icon="grid-outline">
+      <Chips label={t("recipeCategoryLabel")}><Chip compact label={categoryName("All", language)} role="radio" selected={browse.category === "All"} disabled={!readable} onPress={() => set({ category: "All" })} />
+        {recipeCategories.map(category => <Chip compact key={category} label={categoryName(category, language)} role="radio"
           selected={browse.category === category} disabled={!readable} onPress={() => set({ category })} />)}</Chips>
     </FilterSection>
-    <FilterSection title="Nutrition" icon="nutrition-outline">
-      <Chips multiple label="Nutrition per serving">{nutritionChoices.map(choice => <Chip compact key={choice} label={choice} role="checkbox" selected={(browse.nutrition ?? []).includes(choice)} disabled={!readable}
+    <FilterSection title={t("nutrition")} icon="nutrition-outline">
+      <Chips multiple label={t("nutritionPerServing")}>{nutritionChoices.map(choice => <Chip compact key={choice} label={nutritionChoiceName(choice, language)} role="checkbox" selected={(browse.nutrition ?? []).includes(choice)} disabled={!readable}
         onPress={() => set({ nutrition: toggleFilter(browse.nutrition ?? [], choice) })} />)}</Chips>
     </FilterSection>
-    <FilterSection title="Sort by" icon="swap-vertical-outline">
-      <Chips label="Recipe sort">{(["Fit", "Time", "Recent"] as const).map(sort => <Chip compact key={sort} label={sortLabels[sort]} role="radio"
+    <FilterSection title={t("sortBy")} icon="swap-vertical-outline">
+      <Chips label={t("recipeSort")}>{(["Fit", "Time", "Recent"] as const).map(sort => <Chip compact key={sort} label={sortName(sort, language)} role="radio"
         selected={browse.sort === sort} disabled={!readable} onPress={() => set({ sort })} />)}</Chips>
     </FilterSection>
-    <FilterSection title="More" icon="ellipsis-horizontal-circle-outline">
-      <Chips multiple label="More recipe filters"><Chip compact label="One pot" role="checkbox" selected={browse.onePot} disabled={!readable} onPress={() => set({ onePot: !browse.onePot })} /></Chips>
+    <FilterSection title={tc("more")} icon="ellipsis-horizontal-circle-outline">
+      <Chips multiple label={t("moreRecipeFilters")}><Chip compact label={t("onePot")} role="checkbox" selected={browse.onePot} disabled={!readable} onPress={() => set({ onePot: !browse.onePot })} /></Chips>
     </FilterSection>
   </CookLayout>;
 }
 export function SavedFiltersScreen() {
   const { doc, savedSelection, setSavedSelection, patchDocument, readable } = useFood();
-  const { setNotice } = usePreferences();
+  const { setNotice } = usePreferences(), t = useT("explore"), tc = useT("common");
   const [selection, setSelection] = useState<SavedSelection>(savedSelection), [adding, setAdding] = useState(false), [name, setName] = useState(""), [creating, setCreating] = useState(false);
   const selectionRevision = useRef(0);
   const changeSelection = (next: SavedSelection) => { selectionRevision.current += 1; setSelection(next); };
   const create = async () => {
     const label = name.trim();
-    if (!label || doc.lists.includes(label)) { setNotice({ text: "Choose a new list name.", error: true }); return; }
-    if (doc.lists.length >= 30) { setNotice({ text: "You can keep up to 30 lists.", error: true }); return; }
+    if (!label || doc.lists.includes(label)) { setNotice({ text: t("chooseNewListName"), error: true }); return; }
+    if (doc.lists.length >= 30) { setNotice({ text: t("upTo30Lists"), error: true }); return; }
     const revision = selectionRevision.current;
     setCreating(true);
     try {
@@ -72,17 +76,17 @@ export function SavedFiltersScreen() {
       }
     } finally { setCreating(false); }
   };
-  return <Screen title="Saved Filters" backTo="/saved">
-    <Card style={common.stack}><T style={common.bold}>Type</T>
-      <Chips>{(["All", "Places", "Dishes", "Recipes", "Notes"] as const).map(category => <Chip key={category} label={category} role="radio" selected={selection.category === category} onPress={() => changeSelection({ ...selection, category, list: category === "Notes" ? "" : selection.list })} />)}</Chips>
+  return <Screen title={t("savedFiltersTitle")} backTo="/saved">
+    <Card style={common.stack}><T style={common.bold}>{t("type")}</T>
+      <Chips>{(["All", "Places", "Dishes", "Recipes", "Notes"] as const).map(category => <Chip key={category} label={t("savedCategory", { name: category })} role="radio" selected={selection.category === category} onPress={() => changeSelection({ ...selection, category, list: category === "Notes" ? "" : selection.list })} />)}</Chips>
     </Card>
-    {selection.category !== "Notes" && <Card style={common.stack}><T style={common.bold}>List</T>
-      <Chips>{["", ...doc.lists].map(list => <Chip key={list} label={list || "All lists"} selected={selection.list === list} onPress={() => changeSelection({ ...selection, list })} />)}</Chips>
-      <Button label="New List" icon="add-outline" variant="link" onPress={() => setAdding(!adding)} />
-      {adding && <><Field label="List Name" maxLength={40} value={name} onChangeText={setName} placeholder="Weekday lunches" />
-        <Button label="Create List" variant="secondary" loading={creating} disabled={!readable || creating} onPress={() => void create()} /></>}
+    {selection.category !== "Notes" && <Card style={common.stack}><T style={common.bold}>{t("list")}</T>
+      <Chips>{["", ...doc.lists].map(list => <Chip key={list} label={list || t("allLists")} selected={selection.list === list} onPress={() => changeSelection({ ...selection, list })} />)}</Chips>
+      <Button label={t("newList")} icon="add-outline" variant="link" onPress={() => setAdding(!adding)} />
+      {adding && <><Field label={t("listName")} maxLength={40} value={name} onChangeText={setName} placeholder={t("listPlaceholder")} />
+        <Button label={t("createList")} variant="secondary" loading={creating} disabled={!readable || creating} onPress={() => void create()} /></>}
     </Card>}
-    <Button label="Apply" onPress={() => { setSavedSelection(selection); goBack("/saved"); }} />
-    <Button label="Reset" variant="link" onPress={() => changeSelection({ category: "All", list: "" })} />
+    <Button label={t("apply")} onPress={() => { setSavedSelection(selection); goBack("/saved"); }} />
+    <Button label={tc("reset")} variant="link" onPress={() => changeSelection({ category: "All", list: "" })} />
   </Screen>;
 }

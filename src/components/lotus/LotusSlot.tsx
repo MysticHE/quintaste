@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { Pressable, StyleSheet, View } from "react-native";
-import { TIER_NAMES } from "../../game/content/lotus";
+import { LOTUS_TIER_KEYS } from "../../screens/game/home/bits";
+import { useT } from "../../i18n";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { useLotus } from "../../hooks/useLotus";
 import { usePreferences } from "../../state/Preferences";
@@ -10,26 +11,26 @@ import { LotusSeal } from "./LotusSeal";
 /** Me → the "Your own avatar" slot, sealed by the member's lotus. Signed-in, age-checked members only. */
 export function LotusSlot() {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  const { member, remote, unavailable } = useLotus();
+  const { member, remote, unavailable } = useLotus(), t = useT("game"), tc = useT("common");
   if (!member || unavailable) return null;
   const state = remote.data, tier = state?.tier ?? null;
-  const breed = state?.breed, name = tier ? TIER_NAMES[tier] : "";
-  const status = !state ? (remote.error ? "Your lotus did not load." : " ") : !tier ? "Tap to bloom your lotus"
-    : breed?.status === "breeding" ? "Breeding your avatar…" : state.breeds?.available ? "Your breed is ready"
-    : breed?.status === "bred" ? `Your ${name} Lotus avatar` : `Your ${name} Lotus is waiting`;
+  const breed = state?.breed, name = tier ? t(LOTUS_TIER_KEYS[tier]) : "";
+  const status = !state ? (remote.error ? t("lotusLoadFailed") : " ") : !tier ? t("lotusTapToBloom")
+    : breed?.status === "breeding" ? t("lotusSlotBreeding") : state.breeds?.available ? t("lotusBreedReady")
+    : breed?.status === "bred" ? t("lotusSlotAvatar", { tier: name }) : t("lotusWaiting", { tier: name });
   return <Card style={[s.card, { borderColor: focused ? theme.accent : theme.border }]}>
-    <Pressable testID="lotus-slot" accessibilityRole="button" accessibilityLabel={"Your own avatar. " + status} disabled={!state}
+    <Pressable testID="lotus-slot" accessibilityRole="button" accessibilityLabel={t("lotusOwnAvatarA11y", { status })} disabled={!state}
       onPress={() => router.push("/lotus")} {...focusProps} style={({ pressed }) => [s.press, { opacity: pressed ? 0.8 : 1 }]}>
       <LotusSeal tier={tier} height={150} />
       <View style={common.spread}>
         <View style={common.flex}>
-          <T variant="subtitle">Your own avatar</T>
+          <T variant="subtitle">{t("lotusOwnAvatar")}</T>
           <T variant="small" muted accessibilityLiveRegion="polite">{status}</T>
         </View>
         {!!state && <Icon name="chevron-forward" size={20} color={theme.mutedForeground} />}
       </View>
     </Pressable>
-    {!state && !!remote.error && <Button label="Retry" variant="link" onPress={remote.refresh} />}
+    {!state && !!remote.error && <Button label={tc("retry")} variant="link" onPress={remote.refresh} />}
   </Card>;
 }
 const s = StyleSheet.create({ card: { padding: 12 }, press: { gap: 10 } });

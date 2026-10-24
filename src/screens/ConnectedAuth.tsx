@@ -10,10 +10,11 @@ import { authClient, accountRequest } from '../services/auth-client';
 import { usePreferences } from '../state/Preferences';
 import { safeReturn } from '../utils/navigation';
 import { getSignInDestination, setSignInDestination } from '../services/sign-in-destination';
+import { useT } from '../i18n';
 
 export function ConnectedAuthScreen({ signup = false }: { signup?: boolean }) {
   const { returnTo, username: initialUsername } = useLocalSearchParams<{ returnTo?: string; username?: string }>();
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT('me'), tc = useT('common');
   const { user } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [googleBusy, setGoogleBusy] = useState(false);
@@ -36,10 +37,10 @@ export function ConnectedAuthScreen({ signup = false }: { signup?: boolean }) {
       } else {
         setSignInDestination(safeReturn(returnTo));
         const result = await authClient.signIn.username({ username: username.trim(), password });
-        if (result.error) throw new Error('Sign-in failed. Check your username and password, or try again later.');
+        if (result.error) throw new Error(t('signInFailed'));
         setPassword('');
       }
-    } catch (problem) { setSignInDestination(undefined); setError(problem instanceof Error ? problem.message : 'Unable to connect. Please retry.'); }
+    } catch (problem) { setSignInDestination(undefined); setError(problem instanceof Error ? problem.message : t('unableToConnect')); }
     finally { setBusy(false); }
   };
   const finishSignup = async () => {
@@ -48,39 +49,39 @@ export function ConnectedAuthScreen({ signup = false }: { signup?: boolean }) {
     try {
       setSignInDestination(codes.length ? safeReturn(returnTo) : '/recovery-codes');
       const result = await authClient.signIn.username(credentials.current);
-      if (result.error) throw new Error('Your account is ready, but sign-in could not finish. Please try again.');
+      if (result.error) throw new Error(t('signInUnfinished'));
       credentials.current = null;
-    } catch (problem) { setSignInDestination(undefined); setError(problem instanceof Error ? problem.message : 'Could not finish sign-in. Please retry.'); }
+    } catch (problem) { setSignInDestination(undefined); setError(problem instanceof Error ? problem.message : t('finishSignInFailed')); }
     finally { setBusy(false); }
   };
   if (user) return <Redirect href={user.adultConfirmed ? (getSignInDestination() || safeReturn(returnTo)) : { pathname: '/account-eligibility', params: { returnTo } }} />;
-  if (created) return <Screen title="Account Created" back={false}>
+  if (created) return <Screen title={t('accountCreated')} back={false}>
     {codes.length ? <RecoveryCodes username={username} codes={codes} busy={busy} onDone={() => void finishSignup()} /> : <>
-      <T>Your account is ready. Continue to set up recovery codes.</T>
-      <Button label="Continue" loading={busy} onPress={() => void finishSignup()} />
+      <T>{t('accountReady')}</T>
+      <Button label={tc('continue')} loading={busy} onPress={() => void finishSignup()} />
     </>}
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
   </Screen>;
-  return <Screen title={signup ? 'Create Account' : 'Sign In'}>
+  return <Screen title={signup ? t('createAccount') : tc('signIn')}>
     {!(signup && passwordVisible) && <GoogleSignIn disabled={busy} returnTo={returnTo} onBusy={setGoogleBusy} />}
     {!googleBusy && <>
-    <Button label={passwordVisible ? (signup ? 'Other Sign-Up Options' : 'Hide Password Sign-In') : (signup ? 'Create With Username' : 'Use Username And Password')}
+    <Button label={passwordVisible ? (signup ? t('otherSignUp') : t('hidePasswordSignIn')) : (signup ? t('createWithUsername') : t('useUsernamePassword'))}
       variant="link" disabled={busy} onPress={() => { setPasswordVisible(value => !value); setDateOfBirth(''); setPassword(''); setError(''); }} />
     {passwordVisible && <>
-    {signup && <><Field label="Display Name" value={name} onChangeText={setName} maxLength={50} />
+    {signup && <><Field label={t('displayName')} value={name} onChangeText={setName} maxLength={50} />
       <DateOfBirthField value={dateOfBirth} onChange={setDateOfBirth} disabled={busy} />
-      <T variant="small" muted>You must be 18 or older. Your birth date is not stored.</T></>}
-    <Field label="Username" value={username} onChangeText={setUsername} autoCapitalize="none" autoCorrect={false} autoComplete="username" maxLength={30} />
-    {signup && <T variant="small" muted>3–30 letters, numbers or underscores. Start with a letter. Cannot be changed later.</T>}
-    <Field label="Password" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete={signup ? 'new-password' : 'current-password'} maxLength={128} placeholder={signup ? 'At least 15 characters' : 'Your password'} />
+      <T variant="small" muted>{t('ageRule')}</T></>}
+    <Field label={t('username')} value={username} onChangeText={setUsername} autoCapitalize="none" autoCorrect={false} autoComplete="username" maxLength={30} />
+    {signup && <T variant="small" muted>{t('usernameRule')}</T>}
+    <Field label={t('password')} value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete={signup ? 'new-password' : 'current-password'} maxLength={128} placeholder={signup ? t('atLeast15') : t('yourPassword')} />
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     {!!message && <Card><T accessibilityLiveRegion="polite">{message}</T></Card>}
-    <Button label={signup ? 'Create Account' : 'Sign In'} loading={busy} disabled={!username.trim() || !password || (signup && (!name.trim() || !dateOfBirth))} onPress={() => void submit()} />
-    {!signup && <Button label="Forgot Password?" variant="link" disabled={busy} onPress={() => router.push({ pathname: '/reset-password', params: { username } })} />}
+    <Button label={signup ? t('createAccount') : tc('signIn')} loading={busy} disabled={!username.trim() || !password || (signup && (!name.trim() || !dateOfBirth))} onPress={() => void submit()} />
+    {!signup && <Button label={t('forgotPassword')} variant="link" disabled={busy} onPress={() => router.push({ pathname: '/reset-password', params: { username } })} />}
     </>}
-    <Button label={signup ? 'Already Have An Account? Sign In' : 'Create An Account'} variant="link" disabled={busy}
+    <Button label={signup ? t('haveAccount') : t('createAnAccount')} variant="link" disabled={busy}
       onPress={() => router.replace({ pathname: signup ? '/login' : '/create-account', params: { returnTo } })} />
-    <Button label="Continue As Guest" variant="secondary" disabled={busy} onPress={() => router.dismissTo(safeReturn(returnTo))} />
+    <Button label={t('continueAsGuest')} variant="secondary" disabled={busy} onPress={() => router.dismissTo(safeReturn(returnTo))} />
     </>}
   </Screen>;
 }

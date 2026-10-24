@@ -1,13 +1,15 @@
 /**
- * The intro starts before any account or its preferences load, so it reads a device-level copy of the two choices
- * it needs: Sounds and Reduce Motion. The root layout mirrors them here whenever preferences are ready, so the
- * next launch follows the last choice made on this device. Missing or unreadable: sounds on, motion on.
+ * Device-level choices that must work before any account loads: Sounds and Reduce Motion for the intro, and the
+ * interface language (Me > Language), which belongs to the device so it survives sign-in and account switches. The root
+ * layout mirrors Sounds and Reduce Motion here whenever preferences are ready. Missing or unreadable: sounds on, motion
+ * on, phone language.
  */
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { languageChoices, type LanguageChoice } from "../../config/preferences";
 
 const KEY = "@quintaste/intro-settings";
-export type IntroSettings = { sounds: boolean; reduceMotion: boolean };
-const DEFAULTS: IntroSettings = { sounds: true, reduceMotion: false };
+export type IntroSettings = { sounds: boolean; reduceMotion: boolean; language: LanguageChoice };
+const DEFAULTS: IntroSettings = { sounds: true, reduceMotion: false, language: "system" };
 let loaded: Promise<IntroSettings> | null = null;
 
 export function loadIntroSettings(): Promise<IntroSettings> {
@@ -16,7 +18,8 @@ export function loadIntroSettings(): Promise<IntroSettings> {
       const value: unknown = raw ? JSON.parse(raw) : null;
       if (!value || typeof value !== "object") return DEFAULTS;
       const v = value as Record<string, unknown>;
-      return { sounds: v.sounds !== false, reduceMotion: v.reduceMotion === true };
+      const language = languageChoices.find(choice => choice === v.language) ?? DEFAULTS.language;
+      return { sounds: v.sounds !== false, reduceMotion: v.reduceMotion === true, language };
     })
     .catch(error => {
       if (__DEV__) console.warn("Intro settings unreadable", error);
@@ -25,8 +28,14 @@ export function loadIntroSettings(): Promise<IntroSettings> {
   return loaded;
 }
 
-export function rememberIntroSettings(settings: IntroSettings) {
-  AsyncStorage.setItem(KEY, JSON.stringify(settings)).catch(error => {
-    if (__DEV__) console.warn("Intro settings not saved", error);
+/** Saves some of the device choices, keeping the rest; readers later in this session see the change. */
+export function rememberIntroSettings(change: Partial<IntroSettings>): Promise<IntroSettings> {
+  loaded = loadIntroSettings().then(current => {
+    const next = { ...current, ...change };
+    AsyncStorage.setItem(KEY, JSON.stringify(next)).catch(error => {
+      if (__DEV__) console.warn("Intro settings not saved", error);
+    });
+    return next;
   });
+  return loaded;
 }

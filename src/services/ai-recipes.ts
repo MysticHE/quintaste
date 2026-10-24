@@ -1,7 +1,10 @@
 import { Platform } from "react-native";
 import { File, UploadType } from "expo-file-system";
+import type { Language } from "../config/preferences";
+import { translate } from "../i18n";
 import { apiUrl } from "../utils/api-url";
 import { ApiError, communityRequest as call, responseError, sessionHeaders } from "./community-api";
+import { savedLanguage } from "./saved-language";
 
 export type AiJobKind = "video" | "request";
 export type AiJob = {
@@ -23,33 +26,33 @@ export const startAiJob = (kind: AiJobKind, input: string) => call<AiJob>("/api/
 export const clearAiJobs = () => call<{ cleared: number }>("/api/ai-recipes/mine/clear", { method: "POST", body: {} });
 export const aiJobActive = (job: AiJob) => job.status === "queued" || job.status === "working";
 export const MAX_UPLOAD_BYTES = 60 * 1024 * 1024;
-const tooLarge = () => new ApiError("Videos can be up to 60 MB. Trim it or pick a shorter clip.", 413);
+const tooLarge = (language: Language) => new ApiError(translate(language, "cook", "videoTooLarge"), 413);
 
 /** Sends a video from the phone when its site blocks our server; `source` is the optional original link for credit. */
 export async function uploadAiVideo(video: { uri: string; mimeType?: string | null; fileSize?: number | null }, source: string) {
-  const type = video.mimeType?.startsWith("video/") ? video.mimeType : "video/mp4";
-  if (video.fileSize && video.fileSize > MAX_UPLOAD_BYTES) throw tooLarge();
+  const type = video.mimeType?.startsWith("video/") ? video.mimeType : "video/mp4", language = await savedLanguage();
+  if (video.fileSize && video.fileSize > MAX_UPLOAD_BYTES) throw tooLarge(language);
   const link = source.trim(), path = "/api/ai-recipes/upload" + (/^https:\/\//.test(link) ? "?source=" + encodeURIComponent(link) : "");
   let status: number, text: string;
   try {
     if (Platform.OS === "web") {
       const blob = await (await fetch(video.uri)).blob();
-      if (blob.size > MAX_UPLOAD_BYTES) throw tooLarge();
+      if (blob.size > MAX_UPLOAD_BYTES) throw tooLarge(language);
       const response = await fetch(apiUrl(path), { method: "POST", body: blob, credentials: "include", headers: { "Content-Type": type } });
       status = response.status; text = await response.text();
     } else {
       const file = new File(video.uri);
-      if (file.size > MAX_UPLOAD_BYTES) throw tooLarge();
+      if (file.size > MAX_UPLOAD_BYTES) throw tooLarge(language);
       const result = await file.upload(apiUrl(path), { httpMethod: "POST", uploadType: UploadType.BINARY_CONTENT, mimeType: type,
         headers: { "Content-Type": type, ...await sessionHeaders() } });
       status = result.status; text = result.body;
     }
   } catch (error) {
     if (error instanceof ApiError) throw error;
-    throw new ApiError("The upload did not finish. Check your connection and try again.", 0, "OFFLINE");
+    throw new ApiError(translate(language, "cook", "uploadDidNotFinish"), 0, "OFFLINE");
   }
   let value: { error?: unknown; code?: unknown } = {};
   try { value = JSON.parse(text); } catch { value = {}; }
-  if (status < 200 || status >= 300) throw responseError(status, value, "The upload did not work. Try again.");
+  if (status < 200 || status >= 300) throw responseError(status, value, translate(language, "cook", "aiUploadFailed"));
   return value as AiJob;
 }

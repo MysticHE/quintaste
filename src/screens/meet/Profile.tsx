@@ -27,16 +27,18 @@ import { defaultHidden } from "../../config/social-profile";
 import { keptLabels, meetPractices, meetTimes, type MeetProfile } from "../../types/meet";
 import type { DietLabel } from "../../config/diet-labels";
 import type { SocialProfile } from "../../types/community";
+import { useLanguage, useT } from "../../i18n";
 
 export function MeetProfileScreen() {
-  const remote = useSocialMe(), [preview, setPreview] = useState(false);
-  return <Screen title="Your Profile" backTo="/social" headerAction={remote.data ? <Button label="Preview" icon="eye-outline" variant="link" onPress={() => setPreview(true)} /> : undefined}>
+  const remote = useSocialMe(), [preview, setPreview] = useState(false), t = useT("social");
+  return <Screen title={t("yourProfileTitle")} backTo="/social" headerAction={remote.data ? <Button label={t("preview")} icon="eye-outline" variant="link" onPress={() => setPreview(true)} /> : undefined}>
     <MemberGate returnTo="/social/profile">
       {remote.data ? <Profile initial={remote.data.profile} accountName={remote.data.accountName} preview={preview} onPreview={setPreview} />
         : <RemoteStatus remote={remote} icon="person-circle-outline" returnTo="/social/profile" />}
     </MemberGate></Screen>;
 }
-const listText = (items: string[]) => items.length > 1 ? items.slice(0, -1).join(", ") + " and " + items[items.length - 1] : items[0] ?? "";
+type Say = ReturnType<typeof useT<"social">>;
+const listText = (items: string[], t: Say) => items.length > 1 ? items.slice(0, -1).join(t("listSep")) + t("nameJoin") + items[items.length - 1] : items[0] ?? "";
 /**
  * An empty account profile starts from the profile kept on this device, or else from the account's first name and
  * the diet labels in the member's Food Choices, so the two never start out disagreeing.
@@ -50,37 +52,37 @@ export function startingProfile(p: SocialProfile, local: MeetProfile, accountNam
 }
 /** The switch stays disabled until the profile has what others need, and while a pause after missed meals runs. */
 function OpenToPlans({ p, set }: { p: SocialProfile; set: (next: SocialProfile) => void }) {
-  const missing = profileChecklist(p).filter(step => !step.done).map(step => step.label), now = useMinuteClock();
-  const paused = p.pausedUntil && Date.parse(p.pausedUntil) > now ? "Paused until " + formatSgDateTime(Date.parse(p.pausedUntil)) : "";
+  const t = useT("social"), language = useLanguage(), missing = profileChecklist(p, language).filter(step => !step.done).map(step => step.label), now = useMinuteClock();
+  const paused = p.pausedUntil && Date.parse(p.pausedUntil) > now ? t("pausedUntil", { time: formatSgDateTime(Date.parse(p.pausedUntil), language) }) : "";
   return <ListGroup>
-    <ListItem title="Open To Plans" subtitle={paused || (missing.length ? "Add " + listText(missing) : undefined)} wrap leading={<RowIcon name="people-outline" tone={p.visible ? "accent" : "muted"} />}
-      trailing={<ThemedSwitch label="Open to plans" value={p.visible} disabled={!!missing.length || !!paused} onChange={visible => set({ ...p, visible })} />} />
+    <ListItem title={t("openToPlansTitle")} subtitle={paused || (missing.length ? t("addList", { list: listText(missing, t) }) : undefined)} wrap leading={<RowIcon name="people-outline" tone={p.visible ? "accent" : "muted"} />}
+      trailing={<ThemedSwitch label={t("openToPlans")} value={p.visible} disabled={!!missing.length || !!paused} onChange={visible => set({ ...p, visible })} />} />
   </ListGroup>;
 }
 function Completion({ p }: { p: SocialProfile }) {
-  const { theme } = usePreferences(), c = completion(p), pct = Math.round(c.done / c.total * 100);
+  const { theme } = usePreferences(), t = useT("social"), language = useLanguage(), c = completion(p, language), pct = Math.round(c.done / c.total * 100);
   return <Card style={{ gap: 8 }}>
-    <View style={common.spread}><T style={common.bold}>{`Profile ${c.done} of ${c.total}`}</T></View>
+    <View style={common.spread}><T style={common.bold}>{t("profileProgress", { done: c.done, total: c.total })}</T></View>
     <View style={{ height: 8, borderRadius: 4, backgroundColor: theme.muted, overflow: "hidden" }} accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: 100, now: pct }}>
       <View style={{ width: `${pct}%`, height: "100%", backgroundColor: theme.accent, borderRadius: 4 }} /></View>
-    {!!c.missing.length && <T variant="small" muted>{"Add " + listText(c.missing.slice(0, 3))}</T>}
+    {!!c.missing.length && <T variant="small" muted>{t("addList", { list: listText(c.missing.slice(0, 3), t) })}</T>}
   </Card>;
 }
 /** Lines tablemates wrote; show up to three. */
 function KakiSays() {
-  const remote = useRemote("/api/social/me/kaki-says", kakiSays), items = remote.data?.items ?? [], { setNotice } = usePreferences();
+  const remote = useRemote("/api/social/me/kaki-says", kakiSays), items = remote.data?.items ?? [], { setNotice } = usePreferences(), t = useT("social");
   if (!items.length) return null;
   const flip = async (id: string, shown: boolean) => {
     try { await showKakiSay(id, shown); remote.refresh(); invalidate("/api/social/people/"); }
-    catch (error) { setNotice({ text: error instanceof Error ? error.message : "That did not save.", error: true }); }
+    catch (error) { setNotice({ text: error instanceof Error ? error.message : t("didNotSave"), error: true }); }
   };
-  return <FormSection title="Kaki Says">
+  return <FormSection title={t("kakiSaysTitle")}>
     <ListGroup inset={false}>{items.map(k => <ListItem key={k.id} title={"“" + k.body + "”"} subtitle={k.byName} wrap
-      trailing={<ThemedSwitch label={"Show " + k.byName + "'s line"} value={k.shown} onChange={value => void flip(k.id, value)} />} />)}</ListGroup>
+      trailing={<ThemedSwitch label={t("showLine", { name: k.byName })} value={k.shown} onChange={value => void flip(k.id, value)} />} />)}</ListGroup>
   </FormSection>;
 }
 function Profile({ initial, accountName, preview, onPreview }: { initial: SocialProfile; accountName: string; preview: boolean; onPreview: (open: boolean) => void }) {
-  const { draft } = usePreferences(), { network } = useMeet(), { userId } = useMember();
+  const { draft } = usePreferences(), { network } = useMeet(), { userId } = useMember(), t = useT("social"), tc = useT("common");
   const [p, setProfile] = useState(() => startingProfile(initial, network.profile, accountName, draft)), [interests, setInterests] = useState(p.interests.join(", "));
   const autosave = useAutosave(async (profile: SocialProfile) => {
     try {
@@ -97,31 +99,31 @@ function Profile({ initial, accountName, preview, onPreview }: { initial: Social
   return <>
     <Completion p={p} />
     <OpenToPlans p={p} set={set} />
-    <FormSection title="Picture"><FaceSetup name={p.firstName} hasFace={!!p.hasFace} onChange={hasFace => setProfile(current => ({ ...current, hasFace }))} /></FormSection>
+    <FormSection title={t("picture")}><FaceSetup name={p.firstName} hasFace={!!p.hasFace} onChange={hasFace => setProfile(current => ({ ...current, hasFace }))} /></FormSection>
     <BasicsSection p={p} set={set} />
-    <FormSection title="Food">
-      <View style={{ gap: 6 }}><FieldLabel>Diet</FieldLabel><DietChoices value={p.diets} onChange={diets => set({ ...p, diets })} /></View>
-      <View style={{ gap: 6 }}><FieldLabel>Practice</FieldLabel><Chips>{meetPractices.map(practice => <Chip key={practice} label={practice} role="checkbox" selected={p.practices.includes(practice)}
+    <FormSection title={t("foodSection")}>
+      <View style={{ gap: 6 }}><FieldLabel>{t("diet")}</FieldLabel><DietChoices value={p.diets} onChange={diets => set({ ...p, diets })} /></View>
+      <View style={{ gap: 6 }}><FieldLabel>{t("practice")}</FieldLabel><Chips>{meetPractices.map(practice => <Chip key={practice} label={t("optPractice", { value: practice })} role="checkbox" selected={p.practices.includes(practice)}
         onPress={() => set({ ...p, practices: toggleItem(p.practices, practice) })} />)}</Chips></View>
-      <View style={{ gap: 6 }}><View style={common.spread}><FieldLabel>Avoid</FieldLabel>
-        {!!fromFoodChoices.length && <Button label="Use My Food Choices" variant="link" onPress={() => set({ ...p, excluded: [...p.excluded, ...fromFoodChoices] })} />}</View>
+      <View style={{ gap: 6 }}><View style={common.spread}><FieldLabel>{t("avoid")}</FieldLabel>
+        {!!fromFoodChoices.length && <Button label={t("useFoodChoices")} variant="link" onPress={() => set({ ...p, excluded: [...p.excluded, ...fromFoodChoices] })} />}</View>
         <IngredientChoices value={p.excluded} onChange={excluded => set({ ...p, excluded })} /></View>
       <SpotsField p={p} set={set} />
     </FormSection>
     <AboutSection p={p} set={set} />
     <PromptsSection p={p} set={set} />
-    <FormSection title="Plans">
-      <Field label="Neighbourhood" value={p.area} maxLength={60} placeholder="Bugis" onChangeText={area => set({ ...p, area })} />
-      <View style={{ gap: 6 }}><FieldLabel>Group Size</FieldLabel><SizeChoices value={p.size} onChange={size => set({ ...p, size })} /></View>
-      <View style={{ gap: 6 }}><FieldLabel>Usually Free</FieldLabel><Chips>{meetTimes.map(time => <Chip key={time} label={time} role="checkbox" selected={p.times.includes(time)} onPress={() => set({ ...p, times: toggleItem(p.times, time) })} />)}</Chips></View>
-      <Field label="About" value={p.about} maxLength={180} multiline onChangeText={about => set({ ...p, about })} />
-      <Field label="Food Interests" value={interests} maxLength={160} placeholder="Coffee, noodles, brunch" onChangeText={value => {
-        setInterests(value); set({ ...p, interests: value.split(",").map(s => s.trim().slice(0, 30)).filter(Boolean).slice(0, 5) }); }} />
+    <FormSection title={t("plans")}>
+      <Field label={t("neighbourhood")} value={p.area} maxLength={60} placeholder={t("areaPlaceholder")} onChangeText={area => set({ ...p, area })} />
+      <View style={{ gap: 6 }}><FieldLabel>{t("groupSizeTitle")}</FieldLabel><SizeChoices value={p.size} onChange={size => set({ ...p, size })} /></View>
+      <View style={{ gap: 6 }}><FieldLabel>{t("usuallyFree")}</FieldLabel><Chips>{meetTimes.map(time => <Chip key={time} label={t("optTime", { value: time })} role="checkbox" selected={p.times.includes(time)} onPress={() => set({ ...p, times: toggleItem(p.times, time) })} />)}</Chips></View>
+      <Field label={t("aboutField")} value={p.about} maxLength={180} multiline onChangeText={about => set({ ...p, about })} />
+      <Field label={t("foodInterests")} value={interests} maxLength={160} placeholder={t("foodInterestsHint")} onChangeText={value => {
+        setInterests(value); set({ ...p, interests: value.split(/[,，、]/).map(s => s.trim().slice(0, 30)).filter(Boolean).slice(0, 5) }); }} />
     </FormSection>
     <KakiSays />
-    <AutosaveStatus saving={autosave.saving} error={autosave.failed ? "Your profile was not saved. Tap Retry." : undefined} />
-    {autosave.failed && <Button label="Retry" variant="link" onPress={() => void autosave.flush()} />}
-    <Sheet visible={preview} onClose={() => onPreview(false)} title="How Others See You">
+    <AutosaveStatus saving={autosave.saving} error={autosave.failed ? t("profileNotSaved") : undefined} />
+    {autosave.failed && <Button label={tc("retry")} variant="link" onPress={() => void autosave.flush()} />}
+    <Sheet visible={preview} onClose={() => onPreview(false)} title={t("howOthersSee")}>
       {userId && <PersonCard person={asSeenByOthers(p, userId)} common={[]} />}
     </Sheet>
   </>;

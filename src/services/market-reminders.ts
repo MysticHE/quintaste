@@ -1,7 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import type { Language } from "../config/preferences";
 import type { OrderSummary } from "../types/community";
+import { translate } from "../i18n";
 import { formatSgDateTime, parseSgDateTime } from "../utils/sg-datetime";
-import { reminderAlerts } from "./timer-alert-sync";
+import { reminderAlerts, type ReminderOffset } from "./timer-alert-sync";
 
 /** A buyer's confirmed Market order to collect; kept on the device so reminders survive going offline. */
 export type OrderReminder = { orderId: string; starts: string; shop: string; place: string; delivery: boolean };
@@ -25,7 +27,9 @@ export async function loadOrderReminders(userId: string): Promise<OrderReminder[
 export async function saveOrderReminders(userId: string, reminders: OrderReminder[]) {
   await AsyncStorage.setItem(key(userId), JSON.stringify(reminders.slice(0, limit)));
 }
-const offsets = [{ key: "day", ms: 86400000, title: "Market collection tomorrow" }, { key: "hour", ms: 3600000, title: "Market collection in 1 hour" }];
+const offsets: ReminderOffset[] = [{ key: "day", ms: 86400000, title: language => translate(language, "market", "collectionReminderDay") },
+  { key: "hour", ms: 3600000, title: language => translate(language, "market", "collectionReminderHour") }];
 /** Reminders 1 day and 1 hour before each confirmed collection or delivery. */
 export const orderAlertsFor = (owner: string, reminders: OrderReminder[], now = Date.now()) => reminderAlerts(owner, "order",
-  reminders.map(r => ({ id: r.orderId, starts: r.starts, label: (at: number) => [r.shop, r.delivery ? "Delivery" : r.place, formatSgDateTime(at)].filter(Boolean).join(" · ") })), offsets, now);
+  reminders.map(r => ({ id: r.orderId, starts: r.starts, label: (at: number, language: Language) =>
+    [r.shop, r.delivery ? translate(language, "market", "delivery") : r.place, formatSgDateTime(at, language)].filter(Boolean).join(" · ") })), offsets, now);

@@ -1,12 +1,24 @@
 import type { Exclusion } from "../config/preferences";
 import { suits, type DietLabel } from "../config/diet-labels";
-import type { Recipe } from "../types/food";
+import type { Recipe, RecipeCategory } from "../types/food";
 import type { CookBrowse, CookSort, CookedEntry } from "../types/recipe-workspace";
+import { translate, type Language } from "../i18n";
+import type { CookKey } from "../i18n/en/cook";
 import { matchesNutritionChoices } from "./nutrition";
 import { fitRank, recipeFit } from "./recipe-dietary";
 import { dailyShuffle, daypartScore, type DaypartNow } from "./daypart";
 
-export const sortLabels: Record<CookSort, string> = { Fit: "Best fit", Time: "Quickest", Recent: "Recently cooked" };
+const sortKeys: Record<CookSort, CookKey> = { Fit: "sortFit", Time: "sortTime", Recent: "sortRecent" };
+export const sortName = (sort: CookSort, language: Language) => translate(language, "cook", sortKeys[sort]);
+const categoryKeys = new Map<string, CookKey>(Object.entries({
+  All: "catAll", Breakfast: "catBreakfast", Noodles: "catNoodles", "Rice meals": "catRiceMeals", "With rice": "catWithRice",
+  Soups: "catSoups", "Snacks & kueh": "catSnacks", "Desserts & drinks": "catDesserts",
+} satisfies Record<"All" | RecipeCategory, CookKey>));
+/** A category as shown; the stored value stays English. Text that is not a category (a server suggestion) shows as written. */
+export function categoryName(category: string, language: Language) {
+  const key = categoryKeys.get(category);
+  return key ? translate(language, "cook", key) : category;
+}
 /** Vegan and/or Vegetarian chosen in Cook filters; a recipe must prove every one (AND). */
 export const selectedRecipeDiets = (browse: CookBrowse): DietLabel[] => browse.labels;
 export function cookedStats(cooked: CookedEntry[], recipeId: string) {

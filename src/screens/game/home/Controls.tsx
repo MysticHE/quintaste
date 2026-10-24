@@ -2,11 +2,12 @@ import { useEffect, useRef } from "react";
 import { Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Animated, { cancelAnimation, Easing, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withSequence, withSpring, withTiming } from "react-native-reanimated";
 import { Icon, T, type IconName } from "../../../components/ui";
-import { DECOR, DECOR_ORDER, unlockText } from "../../../game/content/cosmetics";
+import { DECOR, DECOR_ORDER } from "../../../game/content/cosmetics";
 import { isUnlocked, type GameProgress } from "../../../game/progress";
 import { useKeyboardFocus } from "../../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../../state/Preferences";
-import { Art } from "./bits";
+import { Art, useUnlockText } from "./bits";
+import { useT } from "../../../i18n";
 import { SLOTS, type SlotId } from "./sceneLayout";
 
 export function Pill({ text, icon, label, onPress, disabled, strong, shrink, children }: {
@@ -25,13 +26,13 @@ export function Pill({ text, icon, label, onPress, disabled, strong, shrink, chi
 
 /** Café credits; the pill pops when the balance changes. */
 export function CreditsPill({ credits }: { credits: number }) {
-  const { reducedMotion } = usePreferences(), k = useSharedValue(1), last = useRef(credits);
+  const { reducedMotion } = usePreferences(), k = useSharedValue(1), last = useRef(credits), t = useT("game");
   useEffect(() => {
     if (last.current === credits) return; last.current = credits;
     if (!reducedMotion) k.value = withSequence(withTiming(1.18, { duration: 140 }), withSpring(1, { damping: 7, stiffness: 180 }));
   }, [credits, reducedMotion, k]);
   const st = useAnimatedStyle(() => ({ transform: [{ scale: k.value }] }));
-  return <Animated.View style={st}><Pill text={String(credits)} icon="sparkles" label={credits + " café credits"} /></Animated.View>;
+  return <Animated.View style={st}><Pill text={String(credits)} icon="sparkles" label={t("cafeCredits", { n: credits })} /></Animated.View>;
 }
 
 /** The game's primary action (Play, Enter café): one compact gold pill with a soft breathing halo; keyboard focus holds the halo lit instead of an outline. */
@@ -57,23 +58,23 @@ export function PlayButton({ title, sub, onPlay, icon = "play", label }: { title
 
 /** Decorate tray: pick a spot in the room, then something from the inventory to put there. */
 export function DecorTray({ game, draft, slot, height, onPut }: { game: GameProgress; draft: Record<string, string | null>; slot: SlotId | null; height: number; onPut(id: string | null): void }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("game"), unlockText = useUnlockText();
   return <View style={[s.tray, { backgroundColor: theme.background, height }]}>
-    {!slot ? <View style={s.trayEmpty}><Icon name="hand-left-outline" color={theme.accent} size={28} /><T variant="subtitle">Tap a spot in your café</T></View> : <>
-      <T variant="subtitle">{SLOTS[slot].name}</T>
+    {!slot ? <View style={s.trayEmpty}><Icon name="hand-left-outline" color={theme.accent} size={28} /><T variant="subtitle">{t("tapSpot")}</T></View> : <>
+      <T variant="subtitle">{t(SLOTS[slot].name)}</T>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.tiles}>
-        <TrayTile label="Empty" selected={!draft[slot]} onPress={() => onPut(null)} />
+        <TrayTile label={t("empty")} selected={!draft[slot]} onPress={() => onPut(null)} />
         {DECOR_ORDER.filter(id => DECOR[id].fits === SLOTS[slot].fits).map(id => {
           const ok = isUnlocked(game, DECOR[id].unlock, id), at = Object.keys(draft).find(k => draft[k] === id);
           return <TrayTile key={id} art={DECOR[id].art} label={DECOR[id].name} selected={draft[slot] === id} disabled={!ok}
-            status={!ok ? unlockText(DECOR[id].unlock) : at === slot ? "Here" : at ? "Moves here" : "In inventory"} onPress={() => onPut(id)} />;
+            status={!ok ? unlockText(DECOR[id].unlock) : at === slot ? t("here") : at ? t("movesHere") : t("inInventory")} onPress={() => onPut(id)} />;
         })}
       </ScrollView></>}
   </View>;
 }
 function TrayTile({ art, label, status, selected, disabled, onPress }: { art?: string; label: string; status?: string; selected?: boolean; disabled?: boolean; onPress(): void }) {
-  const { theme } = usePreferences();
-  return <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" accessibilityLabel={label + (status ? ", " + status : "")} accessibilityState={{ selected, disabled }}
+  const { theme } = usePreferences(), t = useT("game");
+  return <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" accessibilityLabel={label + (status ? t("sep") + status : "")} accessibilityState={{ selected, disabled }}
     style={[s.tile, { backgroundColor: theme.card, borderColor: selected ? theme.accent : theme.border, opacity: disabled ? 0.5 : 1 }]}>
     {art ? <Art k={art} size={48} /> : <Icon name="close" color={theme.mutedForeground} size={30} />}
     <T variant="small" style={s.tileLabel} numberOfLines={1}>{label}</T>

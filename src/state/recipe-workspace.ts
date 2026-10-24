@@ -1,6 +1,7 @@
 import { recipeCategories } from "../types/food";
 import { readLabels, type DietLabel } from "../config/diet-labels";
 import { nutritionChoices, type CookBrowse, type CookedEntry, type RecipeDraft, type RecipeDraftIngredient, type RecipeWorkspace } from "../types/recipe-workspace";
+import { translate, type Language } from "../i18n";
 const record = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
 const text = (value: unknown, max: number) => typeof value === "string" ? value.slice(0, max) : "";
 const rows = (value: unknown) => Array.isArray(value) ? value.slice(0, 100).map(record) : [];
@@ -43,16 +44,21 @@ export const emptyRecipeDraft = (id: string): RecipeDraft => ({ id, title: "", d
 export function recipePhoto(value: unknown) {
   return typeof value === "string" && value.length <= 300000 && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(value) ? value : undefined;
 }
-export function publicationIssue(d: RecipeDraft) {
-  if (!d.title.trim() || !d.author.trim() || !d.language.trim() || !d.description.trim()) return "Add a name, description, author and language.";
-  if (!d.photo) return "Add a recipe photo.";
-  if (!/^[1-8]$/.test(d.servings) || !/^\d+$/.test(d.minutes) || +d.minutes < 1 || +d.minutes > 1440) return "Choose 1–8 servings and a total time from 1 to 1440 minutes.";
-  if (!d.categories.length) return "Choose a category.";
-  if (!d.ingredients.length || d.ingredients.some(ingredientIssue)) return "Give every ingredient a name. Amounts need a unit (use item for whole pieces); leave the amount blank for to-taste ingredients.";
-  if (!d.steps.length || d.steps.some(s => !s.title.trim() || !s.instruction.trim() || (s.minutes !== "" && (!/^\d+$/.test(s.minutes) || +s.minutes < 1 || +s.minutes > 180)))) return "Add a title and instructions to each step. Optional timers must be 1–180 whole minutes.";
-  if (!d.sponsorship) return "Choose a sponsorship disclosure, including None if there is no sponsorship.";
-  if (!d.rights || !d.policy) return "Confirm your content rights and publication policy.";
-  return "";
+/** The first thing stopping publication, or "". `language` words it; pass useLanguage() from the caller. */
+export function publicationIssue(d: RecipeDraft, language: Language = "en") {
+  const key = publicationIssueKey(d);
+  return key ? translate(language, "me", key) : "";
+}
+function publicationIssueKey(d: RecipeDraft) {
+  if (!d.title.trim() || !d.author.trim() || !d.language.trim() || !d.description.trim()) return "issueBasics";
+  if (!d.photo) return "issuePhoto";
+  if (!/^[1-8]$/.test(d.servings) || !/^\d+$/.test(d.minutes) || +d.minutes < 1 || +d.minutes > 1440) return "issueTime";
+  if (!d.categories.length) return "issueCategory";
+  if (!d.ingredients.length || d.ingredients.some(ingredientIssue)) return "issueIngredients";
+  if (!d.steps.length || d.steps.some(s => !s.title.trim() || !s.instruction.trim() || (s.minutes !== "" && (!/^\d+$/.test(s.minutes) || +s.minutes < 1 || +s.minutes > 180)))) return "issueSteps";
+  if (!d.sponsorship) return "issueSponsorship";
+  if (!d.rights || !d.policy) return "issueRights";
+  return null;
 }
 export function readRecipeWorkspace(value: unknown): RecipeWorkspace {
   const v = record(value), seen = new Set<string>();
@@ -67,9 +73,10 @@ export function readRecipeWorkspace(value: unknown): RecipeWorkspace {
     ...(text(n.name, 120) ? { name: text(n.name, 120), amount: typeof n.amount === "number" && Number.isFinite(n.amount) && n.amount > 0 ? n.amount : null, unit: text(n.unit, 24) } : {}) }));
   return { drafts, shopping, browse: readBrowse(v.browse, v.filter), cooked: readCooked(v.cooked), shoppingView: v.shoppingView === "recipe" ? "recipe" : "combined" };
 }
-export function workspaceSizeIssue(workspace: RecipeWorkspace) {
+export function workspaceSizeIssue(workspace: RecipeWorkspace, language: Language = "en") {
   const bytes = workspace.drafts.reduce((n, d) => n + (d.photo?.length ?? 0) + d.steps.reduce((m, s) => m + (s.photo?.length ?? 0), 0), 0);
-  return workspace.drafts.length > 20 ? "Keep up to 20 recipe drafts. Delete a draft before adding another." : bytes > 1200000 ? "Recipe photo storage is full. Remove a photo or choose a smaller image." : workspace.shopping.length > 100 ? "Your shopping notes are full. Remove a note first." : "";
+  const key = workspace.drafts.length > 20 ? "draftsFull" : bytes > 1200000 ? "recipePhotosFull" : workspace.shopping.length > 100 ? "shoppingFull" : null;
+  return key ? translate(language, "me", key) : "";
 }
 export function mergeRecipeWorkspace(profile: RecipeWorkspace, guest: RecipeWorkspace): RecipeWorkspace {
   const cooked = [...profile.cooked, ...guest.cooked.filter(g => !profile.cooked.some(p => p.recipeId === g.recipeId && p.finishedAt === g.finishedAt))]

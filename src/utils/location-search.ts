@@ -1,6 +1,7 @@
 import { areas } from "../data/areas";
 import type { LocationSearchResult, LocationSuggestion } from "../types/location-search";
 import { inSingapore } from "./discovery-search";
+import { ExploreError } from "./location-feedback";
 
 export function locationQuery(value: unknown): string | undefined {
   if (typeof value !== "string" || value.length > 100 || /[\u0000-\u001f\u007f]/.test(value)) return;
@@ -29,7 +30,7 @@ export function readLocationSearch(value: unknown): LocationSearchResult {
   if (!result || !Array.isArray(result.suggestions) || result.suggestions.length > 8
     || result.suggestions.some(item => !isLocationSuggestion(item))
     || (result.warning !== undefined && (typeof result.warning !== "string" || result.warning.length > 200))) {
-    throw new Error("Location suggestions could not be read. Please retry.");
+    throw new ExploreError("suggestionsUnreadable");
   }
   return result;
 }

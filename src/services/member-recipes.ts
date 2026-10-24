@@ -1,7 +1,8 @@
 import { communityRequest as call } from "./community-api";
 import type { Ingredient, Recipe, RecipeCategory } from "../types/food";
 import type { RecipeDraft } from "../types/recipe-workspace";
-import type { Exclusion } from "../config/preferences";
+import type { Exclusion, Language } from "../config/preferences";
+import { translate } from "../i18n";
 
 type MemberSummary = {
   id: string; name: string; description: string; minutes: number; servings: number; categories: RecipeCategory[]; diet: "Vegan" | "Vegetarian";
@@ -59,10 +60,11 @@ export function submitRecipe(d: RecipeDraft) {
   return call<{ id: string; state: "review" }>("/api/recipes/mine/" + d.id, { method: "PUT", body: { recipe, photos } });
 }
 /** One short status for a draft beside its server record. A newer local revision means edits were not sent. */
-export function recipeStatus(d: RecipeDraft, mine: MyRecipeStatus | undefined) {
-  if (!mine) return d.status === "ready" ? "Ready to submit" : "Private draft";
-  const sent = mine.state ? mine.pendingRevision : mine.liveRevision, unsent = sent !== null && d.revision > sent ? " · Changes not submitted" : "";
-  if (mine.live && mine.hidden) return "Hidden by QuinTaste" + unsent;
-  if (mine.live) return "Published" + (mine.state === "review" ? " · Update in review" : mine.state === "declined" ? " · Update not approved" : "") + unsent;
-  return (mine.state === "review" ? "In review" : "Not approved") + unsent;
+export function recipeStatus(d: RecipeDraft, mine: MyRecipeStatus | undefined, language: Language = "en") {
+  const say = (key: Parameters<typeof translate<"cook">>[2]) => translate(language, "cook", key);
+  if (!mine) return say(d.status === "ready" ? "statusReadyToSubmit" : "statusPrivateDraft");
+  const sent = mine.state ? mine.pendingRevision : mine.liveRevision, unsent = sent !== null && d.revision > sent ? say("statusChangesNotSubmitted") : "";
+  if (mine.live && mine.hidden) return say("statusHidden") + unsent;
+  if (mine.live) return say("statusPublished") + (mine.state === "review" ? say("statusUpdateInReview") : mine.state === "declined" ? say("statusUpdateNotApproved") : "") + unsent;
+  return say(mine.state === "review" ? "statusInReview" : "statusNotApproved") + unsent;
 }

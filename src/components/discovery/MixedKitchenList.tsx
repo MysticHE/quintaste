@@ -7,7 +7,8 @@ import { usePreferences } from "../../state/Preferences";
 import { useMenuDetail } from "../../hooks/useMenuDetail";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { menuDisplayItems } from "../../utils/menu-display";
-import { dishCount, mixedKitchenSafety } from "../../utils/venue-kitchen";
+import { dishCount } from "../../utils/venue-kitchen";
+import { useLanguage, useT } from "../../i18n";
 import { Button, T, common } from "../ui";
 import { MenuItemRow } from "./MenuItemRow";
 import { PlaceDetailAction } from "./PlaceDetailParts";
@@ -24,12 +25,12 @@ export function MixedKitchenList({ venues }: { venues: CatalogueVenue[] }) {
 }
 
 function MixedKitchenRow({ venue, number, expanded, onToggle }: { venue: CatalogueVenue; number: number; expanded: boolean; onToggle: () => void }) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  const distance = venue.distanceKm !== undefined ? venue.distanceKm.toFixed(1) + " km" : "";
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), tc = useT("common"), language = useLanguage();
+  const distance = venue.distanceKm !== undefined ? tc("kilometres", { km: venue.distanceKm.toFixed(1) }) : "", dishes = dishCount(venue.itemCount, language);
   const detail = [venue.address, distance, venue.hours?.summary].filter(Boolean).join(" · ");
   return <View testID="mixed-kitchen-row" style={[s.card, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
     <Pressable accessibilityRole="button" accessibilityState={{ expanded }} {...focusProps} onPress={onToggle}
-      accessibilityLabel={[number + ". " + venue.name, distance, dishCount(venue.itemCount)].filter(Boolean).join(", ")}
+      accessibilityLabel={[number + ". " + venue.name, distance, dishes].filter(Boolean).join(", ")}
       style={({ pressed }) => [common.row, s.body, { opacity: pressed ? 0.75 : 1 }]}>
       <View style={[s.number, { backgroundColor: theme.muted }]}>
         <T variant="small" color={theme.foreground} style={[common.bold, s.digits]}>{number}</T>
@@ -39,7 +40,7 @@ function MixedKitchenRow({ venue, number, expanded, onToggle }: { venue: Catalog
         <T variant="small" muted numberOfLines={1}>{detail}</T>
       </View>
       <View style={[s.tag, { backgroundColor: theme.accentSoft }]}>
-        <T variant="small" color={theme.accent} style={common.bold}>{dishCount(venue.itemCount)}</T>
+        <T variant="small" color={theme.accent} style={common.bold}>{dishes}</T>
       </View>
     </Pressable>
     {expanded && <ExpandedVenue venue={venue} />}
@@ -47,25 +48,25 @@ function MixedKitchenRow({ venue, number, expanded, onToggle }: { venue: Catalog
 }
 
 function ExpandedVenue({ venue }: { venue: CatalogueVenue }) {
-  const { theme } = usePreferences(), { isSaved, toggleSave, readable } = useFood();
+  const { theme } = usePreferences(), { isSaved, toggleSave, readable } = useFood(), t = useT("explore"), tc = useT("common");
   const { menu, busy, error, load } = useMenuDetail(venue.id, venue);
   const savedId = "catalogue-" + venue.id, saved = isSaved("place", savedId);
   const dishes = useMemo(() => menu ? menuDisplayItems(menu) : [], [menu]), more = dishes.length - previewDishes;
   return <View style={s.expanded}>
-    {busy && !menu && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading dishes" />}
+    {busy && !menu && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingDishes")} />}
     {!menu && !busy && !!error && <View style={common.row}>
       <T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">{error}</T>
-      <Button label="Retry" variant="link" onPress={() => void load(true)} /></View>}
+      <Button label={tc("retry")} variant="link" onPress={() => void load(true)} /></View>}
     {dishes.length > 0 && <View>{dishes.slice(0, previewDishes).map(item => <MenuItemRow key={item.id} item={item} />)}</View>}
-    {more > 0 && <T variant="small" muted>{dishCount(more).replace(/^(\d+)/, "$1 more")}</T>}
-    <T variant="small" muted>{mixedKitchenSafety}</T>
+    {more > 0 && <T variant="small" muted>{t("moreDishes", { n: more })}</T>}
+    <T variant="small" muted>{t("mixedKitchenSafety")}</T>
     <View style={common.row}>
-      <PlaceDetailAction label="Details" icon="information-circle-outline" accessibleLabel={"Details for " + venue.name}
+      <PlaceDetailAction label={t("details")} icon="information-circle-outline" accessibleLabel={t("detailsFor", { name: venue.name })}
         onPress={() => router.push({ pathname: "/place/[id]", params: { id: savedId } } as never)} />
-      <PlaceDetailAction label="Menu" icon="book-outline" accessibleLabel={"View menu for " + venue.name}
+      <PlaceDetailAction label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })}
         onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />
-      <PlaceDetailAction label={saved ? "Saved" : "Save"} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} disabled={!readable}
-        accessibleLabel={(saved ? "Remove saved " : "Save ") + venue.name} onPress={() => void toggleSave("place", savedId, venue.name)} />
+      <PlaceDetailAction label={tc(saved ? "saved" : "save")} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} disabled={!readable}
+        accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} onPress={() => void toggleSave("place", savedId, venue.name)} />
     </View>
   </View>;
 }

@@ -6,6 +6,7 @@ import { subscribeCataloguePhoto } from "../../services/catalogue-photo-cache";
 import { apiUrl } from "../../utils/api-url";
 import { Icon, T, type IconName } from "../ui";
 import { PhotoBlend } from "./PhotoBlend";
+import { useT } from "../../i18n";
 
 /**
  * `source` is a photo bundled with the app; `fallback` names what a photo-less item is (a recipe's category);
@@ -14,7 +15,7 @@ import { PhotoBlend } from "./PhotoBlend";
 export function CataloguePhotoBackdrop({ path, source, fallback, emptyIcon, enabled, panelHeight, nameHeight }: {
   path?: string; source?: ImageSourcePropType; fallback?: string; emptyIcon?: IconName; enabled: boolean; panelHeight: number; nameHeight: number;
 }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("explore");
   const [state, setState] = useState<{ uri?: string; failed: boolean }>({ failed: false });
   const [height, setHeight] = useState(260), [attempt, setAttempt] = useState(0);
   let url: string | undefined;
@@ -49,7 +50,7 @@ export function CataloguePhotoBackdrop({ path, source, fallback, emptyIcon, enab
       <T variant="title" color={theme.mediaMutedForeground} numberOfLines={2} style={s.fallbackText}>{fallback}</T>
     </View> : <View style={{ position: "absolute", top: 76, left: 16, right: 16, flexDirection: "row", alignItems: "center", gap: 8 }}>
       <Icon name="image-outline" color={theme.mediaMutedForeground} />
-      <T variant="small" color={theme.mediaMutedForeground}>{!url || state.failed ? "Photo unavailable" : "Loading photo…"}</T>
+      <T variant="small" color={theme.mediaMutedForeground}>{t(!url || state.failed ? "photoUnavailable" : "loadingPhoto")}</T>
     </View>}
   </View>;
 }

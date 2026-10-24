@@ -1,6 +1,8 @@
 import { readLabels, type DietLabel } from "./diet-labels";
 export const palettes = ["coral", "cobalt", "lavender"] as const;
 export const displayModes = ["light", "dark", "system"] as const;
+/** Interface language (a device setting, see src/i18n): "system" follows the phone; content keeps its own language. */
+export const languageChoices = ["system", "en", "zh"] as const;
 export const alliums = ["Garlic", "Onion", "Leeks", "Chives", "Scallions", "Shallots", "Asafoetida"] as const;
 export const animalExclusions = ["Eggs", "Dairy", "Honey"] as const;
 export const otherExclusions = ["Peanuts", "Tree nuts", "Gluten", "Mushrooms"] as const;
@@ -9,15 +11,23 @@ export const traditionExclusions = ["Root vegetables"] as const;
 export const exclusions = [...alliums, ...animalExclusions, ...otherExclusions, ...traditionExclusions] as const;
 export type Palette = (typeof palettes)[number];
 export type DisplayMode = (typeof displayModes)[number];
+export type LanguageChoice = (typeof languageChoices)[number];
+export type Language = Exclude<LanguageChoice, "system">;
 /** One name everywhere for avoiding garlic, onion, leek, chives and asafoetida; screen readers hear the English. */
 export const fivePungentLabel = "No five pungent (五辛)", fivePungentSpoken = "No five pungent";
 /** The labels someone keeps, as one line ("Vegan · Vegetarian"). */
 export const dietSummary = (labels: readonly DietLabel[]) => labels.join(" · ");
 export type Exclusion = (typeof exclusions)[number];
+/** Display names for each exclusion (keys in the common messages); the stored values above stay English. */
+export const exclusionNameKeys = {
+  Garlic: "exGarlic", Onion: "exOnion", Leeks: "exLeeks", Chives: "exChives", Scallions: "exScallions", Shallots: "exShallots",
+  Asafoetida: "exAsafoetida", Eggs: "exEggs", Dairy: "exDairy", Honey: "exHoney", Peanuts: "exPeanuts", "Tree nuts": "exTreeNuts",
+  Gluten: "exGluten", Mushrooms: "exMushrooms", "Root vegetables": "exRootVegetables",
+} as const satisfies Record<Exclusion, string>;
 /** Named starting points that expand into editable chips; observance varies, so none is a certification. */
-export const exclusionPresets: { label: string; items: readonly Exclusion[] }[] = [
-  { label: "No five pungent (五辛)", items: alliums },
-  { label: "Jain", items: [...alliums, "Root vegetables", "Mushrooms", "Eggs", "Honey"] },
+export const exclusionPresets: { label: string; nameKey: "presetFivePungent" | "presetJain"; items: readonly Exclusion[] }[] = [
+  { label: "No five pungent (五辛)", nameKey: "presetFivePungent", items: alliums },
+  { label: "Jain", nameKey: "presetJain", items: [...alliums, "Root vegetables", "Mushrooms", "Eggs", "Honey"] },
 ];
 export type Preferences = {
   /** Labels this person keeps (src/config/diet-labels.ts): Plant-Based alone, or Vegan and/or Vegetarian. */

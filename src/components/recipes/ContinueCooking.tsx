@@ -6,27 +6,28 @@ import { Icon, T, common } from "../ui";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { cookingRecipeById } from "../../utils/private-recipes";
+import { useT } from "../../i18n";
 
 /** The cooking session in progress: resume it, or end it (timers keep running). */
 export function ContinueCooking() {
-  const { doc, patchDocument } = useFood(), { theme, setNotice } = usePreferences(), onAccent = useOnAccent();
+  const { doc, patchDocument } = useFood(), { theme, setNotice } = usePreferences(), onAccent = useOnAccent(), t = useT("cook");
   const session = doc.cooking, recipe = session && cookingRecipeById(session.recipeId, doc.recipes);
   if (!session || !recipe || session.step >= recipe.steps.length) return null;
   const total = recipe.steps.length, done = session.gathering ? 0 : session.step + 1;
-  const where = session.gathering ? "Gathering ingredients" : "Step " + done + " of " + total;
+  const where = session.gathering ? t("gatheringIngredients") : t("stepNOfTotal", { n: done, total });
   const resume = () => router.push("/cooking/" + recipe.id as never);
-  const end = async () => { if (await patchDocument({ cooking: null })) setNotice({ text: "Cooking ended" }); };
+  const end = async () => { if (await patchDocument({ cooking: null })) setNotice({ text: t("cookingEnded") }); };
   return <View style={[s.card, { backgroundColor: theme.accentSoft, borderColor: theme.border }]}>
     <View style={[common.row, { gap: 12 }]}>
-      <Pressable accessibilityRole="button" accessibilityLabel={"Resume cooking " + recipe.name} onPress={resume}
+      <Pressable accessibilityRole="button" accessibilityLabel={t("resumeCooking", { name: recipe.name })} onPress={resume}
         style={({ pressed }) => [s.play, { backgroundColor: theme.accent, opacity: pressed ? 0.8 : 1 }]}>
         <Icon name="play" size={22} color={onAccent} />
       </Pressable>
       <Pressable accessibilityElementsHidden importantForAccessibility="no" onPress={resume} style={[common.flex, { minWidth: 0 }]}>
         <T variant="subtitle" numberOfLines={2}>{recipe.name}</T>
-        <T variant="small" muted>{where} · {session.servings} {session.servings === 1 ? "serving" : "servings"}</T>
+        <T variant="small" muted>{where} · {t("servingCount", { n: session.servings })}</T>
       </Pressable>
-      <IconButton label={"End cooking " + recipe.name} icon="close" onPress={() => void end()} />
+      <IconButton label={t("endCooking", { name: recipe.name })} icon="close" onPress={() => void end()} />
     </View>
     <View accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: total, now: done }} style={[s.track, { backgroundColor: theme.border }]}>
       <View style={[s.fill, { backgroundColor: theme.accent, width: `${Math.max(4, (done / total) * 100)}%` }]} />

@@ -15,6 +15,8 @@ import { ReportSheet } from "../../components/ReportSheet";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { menuAvailabilityNote, menuDisplayItems } from "../../utils/menu-display";
 import { dishCount, menuKind } from "../../utils/venue-kitchen";
+import { zhDate } from "../../utils/food-format";
+import { useLanguage, useT } from "../../i18n";
 
 /** Meat-free restaurants often name mock-meat dishes after meat or seafood ("Assam Fish", "BLT"). */
 const MEAT_NAMED = /\b(chicken|pork|beef|mutton|lamb|bacon|ham|duck|fish\w*|prawns?|shrimp|crab|squid|abalone|blt|steak|sausage|meat\w*)\b|[鸡鸭猪牛羊鱼虾蟹肉]/i;
@@ -27,6 +29,7 @@ export function MenuScreen() {
   // The kitchen decides how the menu reads, so hold the menu back until the place has answered (a failed lookup still shows it, unstyled).
   const venuePending = venueBusy && !venue, busy = indexBusy || detailBusy || venuePending, ready = !!menu && !venuePending;
   const { theme } = usePreferences(), member = useMember(), [reporting, setReporting] = useState(false);
+  const t = useT("explore"), tc = useT("common"), language = useLanguage();
   // Production menu updates file to the staff case queue; development keeps the local review service.
   const correct = () => {
     if (!menu) return;
@@ -41,39 +44,40 @@ export function MenuScreen() {
   const kind = menuKind(venue), options = kind === "mixed";
   const shown = options && menu ? menuDisplayItems(menu).length : 0;
   // Owner, 19 Oct: show only the listed count; "3 of 38" read as 38 listed dishes. 20 Oct: no "vegetarian" (now no five pungent).
-  const heading = !options ? "Menu" : dishCount(shown);
+  const heading = !options ? t("menu") : dishCount(shown, language);
   const availabilityNote = menu ? menuAvailabilityNote(menu) : undefined;
   const mockNamed = kind === "vegetarian" && !!menu?.sections.some(section => section.items.some(item => MEAT_NAMED.test(item.name)));
   const latestSource = menu?.sections.reduce<(typeof menu.sections)[number] | undefined>((latest, section) => !latest || Date.parse(section.checkedAt) > Date.parse(latest.checkedAt) ? section : latest, undefined);
-  return <Screen title={menu?.name ?? "Menu"}
-    headerAction={menu ? <IconButton label={__DEV__ ? "Suggest a menu correction" : "Report a menu problem"} icon={__DEV__ ? "create-outline" : "flag-outline"} onPress={correct} /> : undefined}>
-    {busy && !ready && <ActivityIndicator color={theme.accent} accessibilityLabel="Loading menu" />}
+  const updated = latestSource && new Date(latestSource.checkedAt);
+  return <Screen title={menu?.name ?? t("menu")}
+    headerAction={menu ? <IconButton label={t(__DEV__ ? "suggestMenuCorrection" : "reportMenuProblem")} icon={__DEV__ ? "create-outline" : "flag-outline"} onPress={correct} /> : undefined}>
+    {busy && !ready && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingMenu")} />}
     {ready && menu ? <>
       <View testID="menu-overview" style={{ gap: 8 }}>
         <View style={[common.row, { gap: 8 }]}><Icon name="location-outline" size={16} /><T variant="small" muted style={common.flex}>{menu.branch || menu.address}</T></View>
         <View style={[common.row, { borderBottomWidth: 1, borderBottomColor: theme.divider, paddingBottom: 2 }]}>
           <View style={[common.row, common.flex, { gap: 6 }]}><Icon name="book-outline" size={18} color={theme.accent} /><T variant="small" style={[common.flex, common.bold]} accessibilityRole="header">{heading}</T></View>
-          <Pressable accessibilityRole="button" accessibilityLabel="View place details and reviews" onPress={details}
+          <Pressable accessibilityRole="button" accessibilityLabel={t("viewPlaceAndReviews")} onPress={details}
             style={({ pressed }) => [common.row, { gap: 6, minHeight: 44, opacity: pressed ? 0.6 : 1 }]}>
-            <Icon name="star-outline" size={18} color={theme.accent} /><T variant="small" color={theme.accent} style={common.bold}>Place & reviews</T>
+            <Icon name="star-outline" size={18} color={theme.accent} /><T variant="small" color={theme.accent} style={common.bold}>{t("placeAndReviews")}</T>
           </Pressable>
         </View>
       </View>
-      {mockNamed && <T variant="small" muted>Every dish here is meat-free. Names like fish or chicken are mock-meat versions.</T>}
+      {mockNamed && <T variant="small" muted>{t("mockMeatNote")}</T>}
       {availabilityNote && <T testID="menu-availability-note" variant="small" muted>{availabilityNote}</T>}
-      {cached && <View style={common.row}><T variant="caption" muted style={common.flex} accessibilityLiveRegion="polite">{offline ? "Offline · saved menu" : "Saved menu · may have changed"}</T>
-        <Button label="Retry" variant="link" loading={busy} onPress={retry} /></View>}
+      {cached && <View style={common.row}><T variant="caption" muted style={common.flex} accessibilityLiveRegion="polite">{t(offline ? "offlineSavedMenu" : "savedMenuMayChange")}</T>
+        <Button label={tc("retry")} variant="link" loading={busy} onPress={retry} /></View>}
       <MenuDishes key={menu.id} menu={menu} now={now} />
-      {latestSource && <View testID="menu-latest-update">
+      {latestSource && updated && <View testID="menu-latest-update">
         <MenuSourceLink url={latestSource.sourceUrl} publisher={latestSource.sourceLabel}
-          label={"Last updated " + new Date(latestSource.checkedAt).toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" })} />
+          label={t("lastUpdated", { date: language === "zh" ? zhDate(updated) : updated.toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" }) })} />
       </View>}
-      {options && <T testID="veg-options-footnote" variant="caption" muted>Labelled meat-free by the venue</T>}
-      {storageError && <T variant="caption" muted>Offline copy could not be saved</T>}
+      {options && <T testID="veg-options-footnote" variant="caption" muted>{t("labelledMeatFree")}</T>}
+      {storageError && <T variant="caption" muted>{t("offlineCopyFailed")}</T>}
     </> : !busy && (loaded && !error && !indexError
       // Loaded fine, nothing published: not an error, so no retry; point to what the member can do instead.
-      ? <EmptyState icon="book-outline" title="No menu for this place yet" text="We haven't published a menu for this place." action="Back" onPress={() => goBack("/")} />
-      : <EmptyState icon="cloud-offline-outline" title="Couldn't load the menu" text="Check your connection and try again." primary={{ label: "Try Again", onPress: retry }} />)}
+      ? <EmptyState icon="book-outline" title={t("noMenuYet")} text={t("noMenuPublished")} action={tc("back")} onPress={() => goBack("/")} />
+      : <EmptyState icon="cloud-offline-outline" title={t("couldntLoadMenu")} text={t("checkConnection")} primary={{ label: tc("tryAgain"), onPress: retry }} />)}
     {menu && !__DEV__ && <ReportSheet kind="place" targetId={menu.id} name={menu.name} initialReason="Menu or prices"
       visible={reporting} onClose={() => setReporting(false)} />}
   </Screen>;

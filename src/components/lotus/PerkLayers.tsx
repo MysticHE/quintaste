@@ -12,16 +12,17 @@ import { TIERS, type Tier } from "../../game/content/cosmetics";
 import { useClock } from "../../screens/game/home/Ambient";
 import { usePreferences } from "../../state/Preferences";
 import { Icon } from "../ui";
+import type { GameT } from "../../screens/game/home/bits";
 
 const rank = (tier: Tier) => TIERS.indexOf(tier);
 /** The companion that sits on the frame: the lotus's own pet wearing its accessory. */
 const PET_ART: Partial<Record<Tier, string>> = { purple: "wear-purple-hat", blue: "pet-blue", golden: "wear-golden-crown" };
 export const PET_NAMES: Partial<Record<Tier, string>> = { purple: "Mochi", blue: "Ripple", golden: "Golden Dewdrop" };
-/** Words for screen readers: the perks shown with the avatar. */
-export function perkLabel(tier: Tier) {
+/** Words for screen readers: the perks shown with the avatar. Companion names stay as game content. */
+export function perkLabel(tier: Tier, t: GameT) {
   if (tier === "pink") return "";
-  const parts = [tier === "golden" ? "sparkle frame" : "purple portrait frame", ...(rank(tier) >= rank("blue") ? ["water-ripple aura"] : []), PET_NAMES[tier]!];
-  return "with " + parts.join(", ");
+  const parts = [t(tier === "golden" ? "lotusPerkSparkleFrame" : "lotusPerkPurpleFrame"), ...(rank(tier) >= rank("blue") ? [t("lotusPerkRippleAura")] : []), PET_NAMES[tier]!];
+  return t("lotusPerksWith", { parts: parts.join(t("lotusListSep")) });
 }
 
 function useReveal(reveal: boolean, step: number) {

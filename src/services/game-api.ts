@@ -4,6 +4,8 @@ import type { Action, Result } from "../game/sim/engine";
 import type { RunStart } from "../game/sim/replay";
 import { apiUrl } from "../utils/api-url";
 import { ApiError, communityRequest } from "./community-api";
+import { savedLanguage } from "./saved-language";
+import { translate } from "../i18n";
 
 /** Rush Hour account progress (server/game). Signed-in, age-checked members only; guests never call these. */
 export type ServerProgress = { game: GameProgress; imported: boolean; rules: string };
@@ -50,7 +52,10 @@ export const fetchPack = (hash: string) => communityRequest<PackResponse>("/api/
 /** Signed-out players: public live levels only, played as practice on the device. */
 async function publicGet<T>(path: string, signal?: AbortSignal): Promise<T> {
   const response = await fetch(apiUrl(path), { signal, credentials: "omit" });
-  if (!response.ok) throw new ApiError(response.status === 404 ? "That level is unavailable." : "That did not load. Try again.", response.status);
+  if (!response.ok) {
+    const language = await savedLanguage();
+    throw new ApiError(response.status === 404 ? translate(language, "game", "levelUnavailableError") : translate(language, "common", "loadFailed"), response.status);
+  }
   return await response.json() as T;
 }
 export const fetchPublicKitchen = (signal?: AbortSignal) => publicGet<KitchenShelf>("/api/game-public/kitchen", signal);

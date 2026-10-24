@@ -4,7 +4,9 @@ import { defaultMeetFilters, emptyMeet, groupSizes, keptLabels, legacyLabels, me
 const record = (v: unknown): Record<string, unknown> => v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : {};
 const text = (v: unknown, max = 100) => typeof v === "string" ? v.trim().slice(0, max) : "";
 const strings = (v: unknown) => Array.isArray(v) ? [...new Set(v.filter((s): s is string => typeof s === "string"))] : [];
-export class MeetCapacityError extends Error {}
+export class MeetCapacityError extends Error {
+  constructor(readonly count: number) { super(`Together there are ${count} plan reminders; the limit is ${reminderLimit}. Nothing was merged.`); }
+}
 export function readMeetProfile(input: unknown): MeetProfile {
   const p = record(input);
   return { name: text(p.name, 40), diets: Array.isArray(p.diets) ? keptLabels(p.diets) : legacyLabels(p.diet, p.practices), area: text(p.area, 60), about: text(p.about, 180),
@@ -36,6 +38,6 @@ export function readMeet(input: unknown): MeetNetwork {
 }
 export function mergeMeet(profile: MeetNetwork, guest: MeetNetwork): MeetNetwork {
   const reminders = [...profile.reminders, ...guest.reminders.filter(r => !profile.reminders.some(p => p.groupId === r.groupId))];
-  if (reminders.length > reminderLimit) throw new MeetCapacityError(`Together there are ${reminders.length} plan reminders; the limit is ${reminderLimit}. Nothing was merged.`);
+  if (reminders.length > reminderLimit) throw new MeetCapacityError(reminders.length);
   return readMeet({ ...profile, profile: profile.profile.name ? profile.profile : guest.profile, reminders });
 }

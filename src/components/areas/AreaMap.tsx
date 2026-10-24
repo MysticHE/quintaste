@@ -8,6 +8,7 @@ import { usePreferences } from "../../state/Preferences";
 import { planningAreaBounds as B, planningAreaProjection as P, planningAreas } from "../../data/planning-areas";
 import { planningAreaAtPixel, planningAreaByCode, ringPath } from "../../utils/planning-area";
 import type { AreaBand, AreaLayer } from "../../types/areas";
+import { useT } from "../../i18n";
 
 /** Attribution required for the OneMap basemap and URA boundaries; shown with the map. */
 export const areaMapCredit = "Map: OneMap © Singapore Land Authority · Areas: URA Master Plan 2025";
@@ -23,7 +24,7 @@ type Props = { layer: AreaLayer; bands: Map<string, AreaBand>; mine: string | nu
  * never people. The member's own area carries a Home or Work marker. Drag to pan once zoomed in.
  */
 export function AreaMap({ layer, bands, mine, selected, onSelect }: Props) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("explore");
   const [view, setView] = useState(0), [zoom, setZoom] = useState<Zoom>(1);
   const [origin, setOrigin] = useState<[number, number]>([minX, minY]);
   const k = view ? view / width * zoom : 0, viewW = k ? view / k : width, viewH = k ? view * height / width / k : height;
@@ -64,7 +65,7 @@ export function AreaMap({ layer, bands, mine, selected, onSelect }: Props) {
   const at = (x: number, y: number) => ({ left: (x - origin[0]) * k, top: (y - origin[1]) * k });
   const layout = (event: LayoutChangeEvent) => { const w = Math.round(event.nativeEvent.layout.width); if (w && w !== view) { setView(w); setZoom(1); setOrigin([minX, minY]); } };
   return <View onLayout={layout} style={[s.frame, { height: view ? view * height / width : 220, backgroundColor: theme.muted, borderColor: theme.border }]}>
-    {!!k && <View style={StyleSheet.absoluteFill} {...responder} accessibilityLabel="Map of Singapore planning areas">
+    {!!k && <View style={StyleSheet.absoluteFill} {...responder} accessibilityLabel={t("mapA11y")}>
       {tiles.map(tile => <Image key={tile.key} source={{ uri: tile.uri }} cachePolicy="memory-disk" pointerEvents="none" accessible={false}
         style={{ position: "absolute", left: tile.left, top: tile.top, width: tile.size + 0.5, height: tile.size + 0.5 }} />)}
       <Svg pointerEvents="none" style={StyleSheet.absoluteFill} viewBox={`${origin[0]} ${origin[1]} ${viewW} ${viewH}`}>
@@ -76,19 +77,19 @@ export function AreaMap({ layer, bands, mine, selected, onSelect }: Props) {
         const band = bands.get(area.code); if (!band) return null;
         const size = Math.round(bubbleSize[band] * (zoom === 1 ? 0.8 : 1)), { left, top } = at(area.label[0], area.label[1]);
         if (left < -size || top < -size || left > view + size || top > view * height / width + size) return null;
-        return <Pressable key={area.code} accessibilityRole="button" accessibilityLabel={`${area.name}, ${band} members`} hitSlop={6}
+        return <Pressable key={area.code} accessibilityRole="button" accessibilityLabel={t("areaBand", { name: area.name, band })} hitSlop={6}
           onPress={() => onSelect(area.code)} style={[s.bubble, { left: left - size / 2, top: top - size / 2, width: size, height: size, borderRadius: size / 2,
             backgroundColor: theme.mediaControl, borderColor: area.code === selected ? theme.accent : theme.mediaDivider }]}>
           <T variant="small" color={theme.mediaForeground} style={common.bold}>{band}</T></Pressable>;
       })}
-      {own && <Pressable accessibilityRole="button" accessibilityLabel={(layer === "home" ? "Your Home area, " : "Your Work area, ") + own.name}
+      {own && <Pressable accessibilityRole="button" accessibilityLabel={t(layer === "home" ? "yourHomeArea" : "yourWorkArea", { name: own.name })}
         onPress={() => onSelect(own.code)} style={[s.mine, { ...offset(at(own.label[0], own.label[1]), bands.has(own.code)), backgroundColor: theme.accent, borderColor: theme.card }]}>
         <Icon name={layer === "home" ? "home" : "briefcase"} size={15} color={theme.actionForeground} /></Pressable>}
     </View>}
     <View style={s.controls}>
-      {zoom < 3 && <IconButton label="Zoom In" icon="add" appearance="media" onPress={() => zoomTo(zoom === 1 ? 2 : 3)} />}
-      {zoom > 1 && <IconButton label="Zoom Out" icon="remove" appearance="media" onPress={() => zoomTo(zoom === 3 ? 2 : 1)} />}
-      {own && <IconButton label={"Show My " + (layer === "home" ? "Home" : "Work") + " Area"} icon="navigate" appearance="media"
+      {zoom < 3 && <IconButton label={t("zoomIn")} icon="add" appearance="media" onPress={() => zoomTo(zoom === 1 ? 2 : 3)} />}
+      {zoom > 1 && <IconButton label={t("zoomOut")} icon="remove" appearance="media" onPress={() => zoomTo(zoom === 3 ? 2 : 1)} />}
+      {own && <IconButton label={t(layer === "home" ? "showMyHomeArea" : "showMyWorkArea")} icon="navigate" appearance="media"
         onPress={() => { onSelect(own.code); zoomTo(2, own.label); }} />}
     </View>
   </View>;

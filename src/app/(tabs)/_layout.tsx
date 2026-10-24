@@ -5,17 +5,18 @@ import { TabDock } from "../../components/navigation/TabDock";
 import { GlassNavigationProvider, TabBackdrop } from "../../components/navigation/GlassNavigation";
 import { MarketReminderSync } from "../../components/market/MarketReminderSync";
 import { MarketUnreadProvider } from "../../components/market/MarketUnread";
+import { useT } from "../../i18n";
 
 export default function TabLayout() {
-  const { theme } = usePreferences(), { owner } = useFood();
+  const { theme } = usePreferences(), { owner } = useFood(), t = useT("common");
   return <GlassNavigationProvider key={owner}><MarketUnreadProvider><Tabs backBehavior="history" tabBar={props => <TabDock {...props} />}
     screenLayout={({ children }) => <TabBackdrop>{children}</TabBackdrop>} screenOptions={{
     headerShown: false, sceneStyle: { backgroundColor: theme.background }, animation: "none",
   }}>
-    <Tabs.Screen name="(explore)" options={{ title: "Explore" }} />
-    <Tabs.Screen name="cook" options={{ title: "Cook" }} />
-    <Tabs.Screen name="social" options={{ title: "Social" }} />
-    <Tabs.Screen name="market" options={{ title: "Market" }} />
-    <Tabs.Screen name="game" options={{ title: "Game" }} />
+    <Tabs.Screen name="(explore)" options={{ title: t("tabExplore") }} />
+    <Tabs.Screen name="cook" options={{ title: t("tabCook") }} />
+    <Tabs.Screen name="social" options={{ title: t("tabSocial") }} />
+    <Tabs.Screen name="market" options={{ title: t("tabMarket") }} />
+    <Tabs.Screen name="game" options={{ title: t("tabGame") }} />
   </Tabs><MarketReminderSync /></MarketUnreadProvider></GlassNavigationProvider>;
 }

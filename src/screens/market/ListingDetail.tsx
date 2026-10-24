@@ -15,18 +15,18 @@ import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
 import { listing as loadListing, openConversation, toggleSaved } from "../../services/market-api";
 import { ApiError } from "../../services/community-api";
-import { handoverPayment, listingLabels, marketMoney, practicesOf } from "../../utils/market";
-import { formatDay } from "../../utils/day";
+import { handoverPayment, listingLabels, marketDate, marketMoney, practicesOf } from "../../utils/market";
+import { useLanguage, useT } from "../../i18n";
 import type { ListingDetail } from "../../types/community";
 
 export default function ListingDetailScreen() {
-  const { id = "" } = useLocalSearchParams<{ id: string }>(), remote = useRemote("/api/market/listings/" + id, signal => loadListing(id, signal));
+  const { id = "" } = useLocalSearchParams<{ id: string }>(), remote = useRemote("/api/market/listings/" + id, signal => loadListing(id, signal)), t = useT("market");
   if (!remote.data) return <Screen hideTimers header={<MarketToolbar />}>
-    <RemoteStatus remote={remote} icon="storefront-outline" returnTo={"/market/listing/" + id} missing="Item Unavailable" /></Screen>;
+    <RemoteStatus remote={remote} icon="storefront-outline" returnTo={"/market/listing/" + id} missing={t("itemUnavailable")} /></Screen>;
   return <Detail item={remote.data} />;
 }
 function Detail({ item }: { item: ListingDetail }) {
-  const member = useMember(), { theme, setNotice } = usePreferences();
+  const member = useMember(), { theme, setNotice } = usePreferences(), t = useT("market"), language = useLanguage();
   const [menu, setMenu] = useState(false), [report, setReport] = useState(false), [override, setOverride] = useState<{ value: boolean; base: ListingDetail }>();
   const s = item.seller, open = item.slots.filter(slot => slot.itemLeft !== 0), ordered = !item.own && open.length > 0;
   const soldOut = !item.own && item.slots.length > 0 && !open.length;
@@ -36,23 +36,23 @@ function Detail({ item }: { item: ListingDetail }) {
     if (!ensureMember(member, "/market/listing/" + item.id) || saving.current) return;
     saving.current = true;
     try { const value = (await toggleSaved(item.id)).saved; setOverride({ value, base: item }); invalidate("/api/market/listings"); }
-    catch (error) { setNotice({ text: error instanceof ApiError ? error.message : "That did not save. Try again.", error: true }); }
+    catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("tryAgainSave"), error: true }); }
     finally { saving.current = false; }
   };
   const message = async () => {
     if (!ensureMember(member, "/market/listing/" + item.id)) return;
     try { const { id } = await openConversation(s.id); router.push({ pathname: "/market/chat/[id]", params: { id } }); }
-    catch (error) { setNotice({ text: error instanceof ApiError ? error.message : "The conversation did not open. Try again.", error: true }); }
+    catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("conversationFailed"), error: true }); }
   };
   const share = async () => {
     try { await Share.share({ message: [item.name, marketMoney(item.priceCents), s.tradingName].join(" · ") }); }
-    catch { setNotice({ text: "Sharing is unavailable. Try again.", error: true }); }
+    catch { setNotice({ text: t("shareFailed"), error: true }); }
   };
-  const collection = [s.meetup && "Meetup", s.delivery && [`Delivery${s.deliveryFeeCents ? " " + marketMoney(s.deliveryFeeCents) : ""}`,
-    s.deliveryMinCents ? "min " + marketMoney(s.deliveryMinCents) : "", s.deliveryAreas].filter(Boolean).join(" · ")].filter(Boolean).join(" · ");
+  const collection = [s.meetup && t("meetup"), s.delivery && [t("delivery") + (s.deliveryFeeCents ? " " + marketMoney(s.deliveryFeeCents) : ""),
+    s.deliveryMinCents ? t("minAmount", { amount: marketMoney(s.deliveryMinCents) }) : "", s.deliveryAreas].filter(Boolean).join(" · ")].filter(Boolean).join(" · ");
   return <Screen fill hideTimers header={<MarketToolbar><View style={[common.row, { gap: 6, justifyContent: "flex-end" }]}>
-    <IconButton label="Share Item" icon="share-outline" onPress={() => void share()} />
-    {!item.own && <IconButton label="More Options" icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}
+    <IconButton label={t("shareItem")} icon="share-outline" onPress={() => void share()} />
+    {!item.own && <IconButton label={t("moreOptions")} icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}
   </View></MarketToolbar>}>
     <ScrollView style={common.flex} contentContainerStyle={{ gap: 14, paddingBottom: 8 }}>
       <ListingGallery name={item.name} photos={item.photos} />
@@ -64,27 +64,27 @@ function Detail({ item }: { item: ListingDetail }) {
       <DietPills labels={listingLabels(item)} practices={practicesOf(item.diets)} />
       <ListGroup><ListItem title={s.tradingName} subtitle={[s.area, s.rating !== null ? "★ " + s.rating : ""].filter(Boolean).join(" · ") || undefined}
         leading={<Initial name={s.tradingName} />} onPress={() => router.push({ pathname: "/market/shop/[id]", params: { id: s.id } })} /></ListGroup>
-      <ListGroup title="Ingredients"><View style={st.ingredients}><T>{item.ingredients}</T>
+      <ListGroup title={t("ingredients")}><View style={st.ingredients}><T>{item.ingredients}</T>
         <IngredientSummary value={{ contains: item.contains, mayContain: item.mayContain, reviewed: true }} status={false} /></View></ListGroup>
       <ListGroup>
         <ListItem title={item.storage} leading={<RowIcon name="snow-outline" />} wrap />
-        {item.kind === "prepacked" && !!item.dateMark && <ListItem title={"Date mark " + formatDay(item.dateMark)} subtitle={item.lot ? "Lot " + item.lot : undefined} leading={<RowIcon name="calendar-outline" />} />}
-        <ListItem title={item.leadDays ? `Order ${item.leadDays} ${item.leadDays === 1 ? "day" : "days"} ahead` : "Order by the slot cut-off"} subtitle={collection} leading={<RowIcon name="time-outline" />} wrap />
-        <ListItem title={"Pay the seller at collection · " + handoverPayment(s)} subtitle="QuinTaste doesn't take payment or check sellers" leading={<RowIcon name="cash-outline" />} wrap />
+        {item.kind === "prepacked" && !!item.dateMark && <ListItem title={t("dateMark", { date: marketDate(item.dateMark, language) })} subtitle={item.lot ? t("lot", { lot: item.lot }) : undefined} leading={<RowIcon name="calendar-outline" />} />}
+        <ListItem title={item.leadDays ? t("orderAhead", { n: item.leadDays }) : t("orderByCutoff")} subtitle={collection} leading={<RowIcon name="time-outline" />} wrap />
+        <ListItem title={t("payTheSeller", { methods: handoverPayment(s, t) })} subtitle={t("noTakePaymentOrCheck")} leading={<RowIcon name="cash-outline" />} wrap />
       </ListGroup>
-      {item.slots.length > 0 && <ListGroup title="Next collections"><View style={st.slots}>{item.slots.slice(0, 3).map(slot =>
+      {item.slots.length > 0 && <ListGroup title={t("nextCollections")}><View style={st.slots}>{item.slots.slice(0, 3).map(slot =>
         <SlotOption key={slot.id} slot={slot} selected={false} onPress={() => router.push({ pathname: "/market/checkout", params: { seller: s.id, listing: item.id, slot: slot.id } })} />)}</View></ListGroup>}
     </ScrollView>
     <View style={[st.bar, { backgroundColor: theme.card, borderColor: theme.border }]}>
-      {item.own ? <View style={common.flex}><Button label="Edit Item" icon="create-outline" onPress={() => router.push({ pathname: "/market/edit", params: { id: item.id } })} /></View> : <>
-        <IconButton label={saved ? "Unsave Item" : "Save Item"} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} onPress={() => void save()} />
-        <IconButton label="Message Seller" icon="chatbubble-outline" onPress={() => void message()} />
-        <View style={common.flex}><Button label={ordered ? "Order" : soldOut ? "Sold Out" : "No Collections Open"} icon={ordered ? "bag-add-outline" : undefined} disabled={!ordered}
+      {item.own ? <View style={common.flex}><Button label={t("editItem")} icon="create-outline" onPress={() => router.push({ pathname: "/market/edit", params: { id: item.id } })} /></View> : <>
+        <IconButton label={t(saved ? "unsaveItem" : "saveItem")} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} onPress={() => void save()} />
+        <IconButton label={t("messageSeller")} icon="chatbubble-outline" onPress={() => void message()} />
+        <View style={common.flex}><Button label={t(ordered ? "orderButton" : soldOut ? "soldOutButton" : "noCollectionsOpen")} icon={ordered ? "bag-add-outline" : undefined} disabled={!ordered}
           onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) router.push({ pathname: "/market/checkout", params: { seller: s.id, listing: item.id } }); }} /></View>
       </>}
     </View>
     <MarketModal visible={menu} onClose={() => setMenu(false)} label={item.name}>
-      <Button label="Report Item" icon="flag-outline" variant="secondary" onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) { setMenu(false); setReport(true); } }} />
+      <Button label={t("reportItem")} icon="flag-outline" variant="secondary" onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) { setMenu(false); setReport(true); } }} />
     </MarketModal>
     <ReportSheet kind="listing" targetId={item.id} name={item.name} visible={report} onClose={() => setReport(false)} />
   </Screen>;

@@ -4,10 +4,5 @@
  * staff turn the `game_cafes` switch on.
  */
 export const CAFE_TERMS_VERSION = 1;
-export const CAFE_TERMS = [
-  "Members who are signed in can visit your café. They see its name and its menu, never your area or contact details.",
-  "Only reviewed recipe levels go on your menu, up to six.",
-  "Keep the name friendly: no links, emails, phone numbers or anything that would upset other members.",
-  "Members can report your café, and QuinTaste staff can close it after a report.",
-  "Your café earns no money or credits from visitors. Only you see how many guests it served.",
-];
+/** Message keys in the `game` namespace (src/i18n/en/game-cafe.ts), shown in the member's language. */
+export const CAFE_TERMS = ["cafeTerm1", "cafeTerm2", "cafeTerm3", "cafeTerm4", "cafeTerm5"] as const;

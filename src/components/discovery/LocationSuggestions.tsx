@@ -4,11 +4,12 @@ import { usePreferences } from "../../state/Preferences";
 import type { LocationSuggestion } from "../../types/location-search";
 import { SuggestionList } from "./SuggestionList";
 import { Icon, T, common } from "../ui";
+import { useT } from "../../i18n";
 
 type Props = { id: string; suggestions: LocationSuggestion[]; busy: boolean; error: string; index: number;
   choose: (item: LocationSuggestion) => void; keepOpen: () => void; retry: () => void; inFlow?: boolean };
 export function LocationSuggestions({ id, suggestions, busy, error, index, choose, keepOpen, retry, inFlow = false }: Props) {
-  const { theme } = usePreferences(), [hover, setHover] = useState(-1);
+  const { theme } = usePreferences(), [hover, setHover] = useState(-1), t = useT("explore"), tc = useT("common");
   const scroll = useRef<ScrollView>(null), rows = useRef(new Map<string, number>());
   useEffect(() => {
     const selected = suggestions[index], y = selected ? rows.current.get(selected.id) : undefined;
@@ -18,9 +19,9 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
     { backgroundColor: theme.card, borderColor: theme.border }]}>
     <ScrollView ref={scroll} keyboardShouldPersistTaps="handled"
       nestedScrollEnabled style={s.scroll} showsVerticalScrollIndicator={false}>
-      {busy && <View style={s.status}><ActivityIndicator size="small" color={theme.accent} accessibilityLabel="Finding locations" />
-        <T variant="small" muted accessibilityLiveRegion="polite">Finding locations…</T></View>}
-      <SuggestionList id={id}>{suggestions.map((item, position) => <Pressable key={item.id} nativeID={id + "-" + position} role="option"
+      {busy && <View style={s.status}><ActivityIndicator size="small" color={theme.accent} accessibilityLabel={t("findingLocations")} />
+        <T variant="small" muted accessibilityLiveRegion="polite">{t("findingLocationsNow")}</T></View>}
+      <SuggestionList id={id} label={t("matchingLocations")}>{suggestions.map((item, position) => <Pressable key={item.id} nativeID={id + "-" + position} role="option"
         accessibilityLabel={item.name + " " + item.address} accessibilityState={{ selected: position === index }}
         {...(Platform.OS === "web" ? { "aria-selected": position === index } : {})}
         onLayout={event => {
@@ -37,12 +38,12 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
           <T variant="caption" muted>{item.address}</T></View>
       </Pressable>)}</SuggestionList>
       {!busy && !suggestions.length && !error && <T variant="small" muted style={s.status} accessibilityLiveRegion="polite">
-        No matching locations. Try another name or postal code.</T>}
+        {t("noMatchingLocations")}</T>}
       {!!error && <View style={s.feedback}><T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>
-        <Pressable accessibilityRole="button" accessibilityLabel="Retry location suggestions" onPressIn={keepOpen} onPress={retry}
-          style={s.retry}><T variant="small" color={theme.accent} style={common.bold}>Retry</T></Pressable></View>}
+        <Pressable accessibilityRole="button" accessibilityLabel={t("retryLocationSuggestions")} onPressIn={keepOpen} onPress={retry}
+          style={s.retry}><T variant="small" color={theme.accent} style={common.bold}>{tc("retry")}</T></Pressable></View>}
     </ScrollView>
-    {suggestions.some(item => item.kind === "address") && <T variant="caption" muted style={s.source}>Addresses · OneMap / SLA</T>}
+    {suggestions.some(item => item.kind === "address") && <T variant="caption" muted style={s.source}>{t("addressesSource")}</T>}
   </View>;
 }
 const s = StyleSheet.create({

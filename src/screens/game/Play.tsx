@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { gameEnabled } from "../../config/game";
 import { cookRecipeId, nearbyTerm, openNearby, openRecipe } from "../../game/bridges";
 import { PETS, wearArt } from "../../game/content/cosmetics";
-import { LEVELS, levelDishes, SEASON_LEVELS, TIER_NAMES } from "../../game/content/levels";
+import { LEVELS, levelDishes, SEASON_LEVELS } from "../../game/content/levels";
 import { GAME_PAGE_PATH, gameArtUris, gameHost, withPictures } from "../../game/artUris";
 import { packByHash, packHash, readPack, registerPack, type LevelPack } from "../../game/content/pack";
 import { cafeFor, missionFor, TIERS, type Tier } from "../../game/mission";
@@ -29,6 +29,8 @@ import { GamePreferences } from "./GamePreferences";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { PlaySettingsSheet } from "./home/PlaySettingsSheet";
+import { KITCHEN_TIER_KEYS } from "./home/bits";
+import { useT } from "../../i18n";
 
 const HAPTICS: Record<HapticKind, () => Promise<void>> = {
   light: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light), select: () => Haptics.selectionAsync(),
@@ -45,7 +47,7 @@ export function GamePlayScreen() {
 
 function PlayService() {
   const params = useLocalSearchParams<{ level?: string; run?: string; special?: string; pack?: string; tier?: string; season?: string; n?: string; cafe?: string }>();
-  const { game, set, startRun, finish, member } = useGame();
+  const { game, set, startRun, finish, member } = useGame(), t = useT("game");
   // A Recipe Kitchen mission: the pack and its pictures come from the account, or the public route for signed-out players.
   const tier: Tier | null = TIERS.includes(params.tier as Tier) ? params.tier as Tier : null, packId = typeof params.pack === "string" && tier ? params.pack : null;
   const [loaded, setLoaded] = useState<{ pack: LevelPack; json: unknown; pictures: Record<string, string>; recipeId: string } | null>(null);
@@ -78,9 +80,9 @@ function PlayService() {
     fetchCafe(cafeHost).then(res => {
       const packs = res.packs.map(json => { const pack = readPack(json); registerPack(pack); return packByHash(packHash(pack))!; });
       if (live) setCafeLoaded({ host: res.host, json: res.packs, packs, pictures: res.pictures });
-    }).catch(error => { if (live) setCafeError(error instanceof ApiError ? error.message : "That café didn't load. Try again."); });
+    }).catch(error => { if (live) setCafeError(error instanceof ApiError ? error.message : t("cafeLoadFailed")); });
     return () => { live = false; };
-  }, [cafeHost, member]);
+  }, [cafeHost, member, t]);
   const cafeLevel = useMemo(() => (cafeLoaded ? cafeFor(cafeLoaded.packs, cafeLoaded.host) : null), [cafeLoaded]);
   // A level that needs a technique this player hasn't learned says where to learn it, then goes back. A guest's tiers open in order
   // from the device's bests, as the server holds members to (TIER_LOCKED). Both wait for the sign-in state and the saved progress, so
@@ -88,11 +90,11 @@ function PlayService() {
   const { ready } = useFood(), auth = useMember(), known = ready && !auth.pending;
   const missing = !known ? null : loaded ? missingTechnique(game, loaded.pack.techniques) : cafeLevel ? missingTechnique(game, cafeLevel.stations) : null;
   const tierShut = known && !!loaded && !!tier && !member && !tierOpen({ best: game.kitchen[loaded.recipeId] ?? {} }, tier);
-  const locked = missing ? (missing.level ? "Learn the " + missing.name.toLowerCase() + " in Level " + missing.level + " first." : "Update QuinTaste to play this level.")
-    : tierShut ? "Clear " + TIER_NAMES[TIERS[TIERS.indexOf(tier!) - 1]] + " first." : null;
+  const locked = missing ? (missing.level ? t("learnFirst", { name: missing.name.toLowerCase(), n: missing.level }) : t("updateToPlayLevel"))
+    : tierShut ? t("clearTierFirst", { tier: t(KITCHEN_TIER_KEYS[TIERS[TIERS.indexOf(tier!) - 1]]) }) : null;
   // A café that can't be visited (closed, cafés off, offline, signed out) says why, then goes back.
-  const cafeGone = !cafeHost || !known ? null : !member ? "Sign in to visit cafés." : cafeError;
-  const [leaveTitle, leaveText] = locked ? ["Not open yet", locked] : cafeGone ? ["Café unavailable", cafeGone] : ["", null];
+  const cafeGone = !cafeHost || !known ? null : !member ? t("signInToVisit") : cafeError;
+  const [leaveTitle, leaveText] = locked ? [t("notOpenYet"), locked] : cafeGone ? [t("cafeUnavailable"), cafeGone] : ["", null];
   useEffect(() => {
     if (!leaveText) return;
     Alert.alert(leaveTitle, leaveText);
@@ -154,11 +156,11 @@ function PlayService() {
   // Android Back during a service asks first, so a stray press never throws the round away (iOS swipe-back is off below).
   useEffect(() => {
     const sub = BackHandler.addEventListener("hardwareBackPress", () => {
-      Alert.alert("Leave this service?", "This round won't be saved.", [{ text: "Keep cooking", style: "cancel" }, { text: "Leave", style: "destructive", onPress: () => router.back() }]);
+      Alert.alert(t("leaveServiceTitle"), t("leaveServiceBody"), [{ text: t("keepCooking"), style: "cancel" }, { text: t("leave"), style: "destructive", onPress: () => router.back() }]);
       return true;
     });
     return () => sub.remove();
-  }, []);
+  }, [t]);
 
   if (!gameEnabled || !on) return <Redirect href="/game" />;
   if (!ready) return <View style={{ flex: 1 }} />;

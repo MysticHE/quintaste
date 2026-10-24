@@ -5,45 +5,48 @@ import { dietaryResult } from "../../utils/dietary";
 import { usePreferences } from "../../state/Preferences";
 import { Card, Icon, T, common, type IconName } from "../ui";
 import { useCompactUI } from "../ui-density";
+import { useLanguage, useT } from "../../i18n";
+import { exclusionList } from "../../utils/recipe-dietary";
+import { useDietText } from "./DietLabels";
 
 const fitIcons: Record<Fit, IconName> = { Vegan: "leaf", Vegetarian: "leaf-outline", Unknown: "help-circle-outline", Conflicts: "warning-outline" };
 export function FitBadge({ fit }: { fit: Fit }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("explore"), dietText = useDietText();
+  const name = fit === "Unknown" ? t("fitUnknown") : fit === "Conflicts" ? t("fitConflicts") : dietText.name(fit);
   const color = fit === "Conflicts" ? theme.warning : fit === "Unknown" ? theme.mutedForeground : theme.success;
   return <View style={[s.badge, { backgroundColor: fit === "Conflicts" ? theme.warningSoft : fit === "Unknown" ? theme.muted : theme.successSoft,
-    borderColor: color, borderStyle: fit === "Unknown" ? "dashed" : "solid" }]} accessible accessibilityLabel={"Dietary fit: " + fit}>
-    <View style={{ width: 15, height: 15 }}><Icon name={fitIcons[fit]} size={15} color={color} />{fit === "Vegetarian" && <View style={{ position: "absolute", left: 0, top: 0, width: 8, height: 15, overflow: "hidden" }}><Icon name="leaf" size={15} color={color} /></View>}</View><T variant="small" color={color} style={common.bold}>{fit}</T>
+    borderColor: color, borderStyle: fit === "Unknown" ? "dashed" : "solid" }]} accessible accessibilityLabel={t("dietaryFit", { fit: name })}>
+    <View style={{ width: 15, height: 15 }}><Icon name={fitIcons[fit]} size={15} color={color} />{fit === "Vegetarian" && <View style={{ position: "absolute", left: 0, top: 0, width: 8, height: 15, overflow: "hidden" }}><Icon name="leaf" size={15} color={color} /></View>}</View><T variant="small" color={color} style={common.bold}>{name}</T>
   </View>;
 }
 /** uncertain carries recipe compound-ingredient exclusions so Saved cards match the fit shown in Cook. */
 export function EvidenceLine({ dietary, uncertain }: { dietary: Dietary; uncertain?: readonly Exclusion[] }) {
-  const { draft } = usePreferences();
+  const { draft } = usePreferences(), t = useT("explore");
   const result = dietaryResult(dietary, draft.diets, draft.excluded, undefined, uncertain);
-  return <View style={s.evidenceRow}><FitBadge fit={result.fit} /><T variant="small" muted>{result.evidence === "Current sample" ? dietary.evidence.kind === "menu" ? "Venue says · sample" : "Editorial · sample" : result.evidence}</T></View>;
+  return <View style={s.evidenceRow}><FitBadge fit={result.fit} /><T variant="small" muted>{result.evidence === "Current sample" ? t(dietary.evidence.kind === "menu" ? "venueSaysSample" : "editorialSample") : t("evidence", { value: result.evidence })}</T></View>;
 }
 export function EvidencePanel({ dietary }: { dietary: Dietary }) {
-  const { draft, theme } = usePreferences();
+  const { draft, theme } = usePreferences(), t = useT("explore"), language = useLanguage(), dietText = useDietText();
   const compact = useCompactUI();
   const result = dietaryResult(dietary, draft.diets, draft.excluded);
+  const conflicts = exclusionList(result.conflicts, language), unknown = exclusionList(result.unknown, language);
   if (compact) return <View style={{ gap: 6 }}><EvidenceLine dietary={dietary} />
-    <T variant="small" muted>{dietary.evidence.source}{dietary.evidence.checkedAt ? " · " + dietary.evidence.checkedAt : " · Undated"}</T>
-    {!!result.conflicts.length && <T variant="small" color={theme.warning}>Contains: {result.conflicts.join(", ")}</T>}
-    {!!result.unknown.length && <T variant="small" muted>Unconfirmed: {result.unknown.join(", ")}</T>}
-    {dietary.evidence.withdrawn && <T variant="small" color={theme.warning}>Evidence withdrawn</T>}
-    <T variant="small" muted>Check labels. Not an allergen guarantee.</T>
+    <T variant="small" muted>{dietary.evidence.source}{" · " + (dietary.evidence.checkedAt || t("undated"))}</T>
+    {!!result.conflicts.length && <T variant="small" color={theme.warning}>{t("containsList", { list: conflicts })}</T>}
+    {!!result.unknown.length && <T variant="small" muted>{t("unconfirmedList", { list: unknown })}</T>}
+    {dietary.evidence.withdrawn && <T variant="small" color={theme.warning}>{t("evidenceWithdrawn")}</T>}
+    <T variant="small" muted>{t("checkLabels")}</T>
   </View>;
   return <Card style={common.stack}>
-    <T variant="subtitle" accessibilityRole="header">Fit & Evidence</T>
+    <T variant="subtitle" accessibilityRole="header">{t("fitEvidence")}</T>
     <EvidenceLine dietary={dietary} />
-    <T variant="small" muted>{dietary.evidence.source}{dietary.evidence.checkedAt ? " · " + dietary.evidence.checkedAt : " · no confirmation date"}</T>
-    <T>{result.fit === "Conflicts" ? "This item conflicts with your current choices."
-      : result.fit === "Unknown" ? "There is not enough current evidence to confirm a fit."
-        : "The listed sample ingredients fit your current choices."}</T>
-    {!!result.conflicts.length && <T color={theme.warning}>Contains: {result.conflicts.join(", ")}</T>}
-    {!!result.unknown.length && <T muted>Not confirmed: {result.unknown.join(", ")}</T>}
-    {!result.conflicts.length && draft.diets.includes("Vegan") && dietary.diet === "Vegetarian" && <T color={theme.warning}>Vegetarian information does not establish that a dish is vegan.</T>}
-    {dietary.evidence.withdrawn && <T muted>Previous evidence was withdrawn. It is no longer a confirmation.</T>}
-    <T variant="small" muted>Ask about sauces, stock and shared equipment. This is ingredient guidance, not an allergen guarantee.</T>
+    <T variant="small" muted>{dietary.evidence.source}{" · " + (dietary.evidence.checkedAt || t("noConfirmationDate"))}</T>
+    <T>{t(result.fit === "Conflicts" ? "conflictsWithChoices" : result.fit === "Unknown" ? "notEnoughEvidence" : "sampleFits")}</T>
+    {!!result.conflicts.length && <T color={theme.warning}>{t("containsList", { list: conflicts })}</T>}
+    {!!result.unknown.length && <T muted>{t("notConfirmedList", { list: unknown })}</T>}
+    {!result.conflicts.length && draft.diets.includes("Vegan") && dietary.diet === "Vegetarian" && <T color={theme.warning}>{t("vegetarianNotVegan", { vegetarian: dietText.name("Vegetarian"), vegan: dietText.name("Vegan") })}</T>}
+    {dietary.evidence.withdrawn && <T muted>{t("previousWithdrawn")}</T>}
+    <T variant="small" muted>{t("askSauces")}</T>
   </Card>;
 }
 const s = StyleSheet.create({

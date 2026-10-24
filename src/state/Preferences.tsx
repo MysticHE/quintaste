@@ -16,6 +16,7 @@ import {
   type Preferences,
 } from "../config/preferences";
 import { themeFor } from "../theme/tokens";
+import { translate, useLanguage } from "../i18n";
 import { useAuth } from "./Auth";
 type Notice = { text: string; error?: boolean; preferenceRetry?: 'load' | 'save' } | null;
 function useStoredPreferences() {
@@ -34,6 +35,9 @@ function useStoredPreferences() {
   }, [notice]);
   const queue = useRef<Promise<boolean>>(Promise.resolve(true));
   const current = useRef<Preferences>(defaults);
+  // Notices raised inside saves and loads use the language at that moment.
+  const interfaceLanguage = useLanguage(), language = useRef(interfaceLanguage);
+  useEffect(() => { language.current = interfaceLanguage; }, [interfaceLanguage]);
   const persisted = useRef<Preferences>(defaults);
   const readable = useRef(false);
   const revision = useRef(0);
@@ -55,7 +59,7 @@ function useStoredPreferences() {
     } catch {
       if (alive.current)
         setNotice({
-          text: "Saved choices could not be loaded. Tap Retry before saving new choices.",
+          text: translate(language.current, "me", "prefsLoadFailed"),
           error: true,
           preferenceRetry: 'load',
         });
@@ -73,7 +77,7 @@ function useStoredPreferences() {
   const save = useCallback((override?: Partial<Preferences>) => {
     if (!readable.current) {
       setNotice({
-        text: "Retry loading saved choices before saving.",
+        text: translate(language.current, "me", "prefsRetryLoad"),
         error: true,
         preferenceRetry: 'load',
       });
@@ -98,7 +102,7 @@ function useStoredPreferences() {
       .catch(() => {
         if (alive.current && serial === revision.current)
           setNotice({
-            text: "Changes could not be saved. Your changes are still here. Tap Retry.",
+            text: translate(language.current, "me", "prefsSaveFailed"),
             error: true,
             preferenceRetry: 'save',
           });

@@ -6,13 +6,15 @@ import { utf8Bytes } from "../state/food-capacity";
 import { cachedMenuDetail, menuDetailByteLimit, readMenuDetail, removeMenuDetail, saveMenuDetail } from "../services/menu-storage";
 import { ownedApiRequest } from "../services/owned-api";
 import { menuOfflineMs, menuRefreshMs } from "../utils/menu-catalogue";
+import { useLanguage } from "../i18n";
+import { exploreText } from "../utils/location-feedback";
 
 const settleKey = (id: string | undefined, fingerprint: string | undefined) => id + ":" + (fingerprint ?? "");
 
 /** `known` supplies the summary where the menu index is not loaded (Explore rows carry their own). The index lists packaged and staff-created
  * places only: for any other place (a QT Explorer one) the place's own catalogue summary, a superset of a menu summary, stands in once the index has answered. */
 export function useMenuDetail(id: string | undefined, known?: MenuSummary) {
-  const { menus, offline, now, cached: indexCached, loaded: indexLoaded, error: indexError } = useMenus();
+  const { menus, offline, now, cached: indexCached, loaded: indexLoaded, error: indexError } = useMenus(), language = useLanguage();
   const indexed = known ?? menus.find(menu => menu.id === id);
   const lookupWanted = !!id && !indexed && (indexLoaded || !!indexError || offline);
   const lookup = useCatalogueVenue(id ?? "", lookupWanted), retryLookup = lookup.retry;
@@ -56,7 +58,7 @@ export function useMenuDetail(id: string | undefined, known?: MenuSummary) {
       catch { if (alive.current) setStorageError(true); }
     } catch (cause) {
       if (alive.current && active.current === controller)
-        setError(cause instanceof Error && cause.message === "Menu no longer published." ? cause.message : "Menu unavailable. Please retry.");
+        setError(cause instanceof Error && cause.message === "Menu no longer published." ? "menuNoLongerPublished" : "menuUnavailable");
     } finally {
       clearTimeout(timeout);
       if (active.current === controller) { active.current = null; if (alive.current) setBusy(false); }
@@ -90,6 +92,6 @@ export function useMenuDetail(id: string | undefined, known?: MenuSummary) {
   const lookupError = lookupWanted && !summary ? lookup.error : "";
   // Busy until the saved copy of this very place and version has been read, so no render shows "no menu" between a summary arriving and its menu loading.
   const waiting = !!summary && settled !== settleKey(id, fingerprint), looking = lookupWanted && lookup.busy && !summary;
-  return { menu: valid?.venues[0], busy: busy || waiting || looking, error: error || lookupError, storageError, load: reload,
+  return { menu: valid?.venues[0], busy: busy || waiting || looking, error: exploreText(language, error) || lookupError, storageError, load: reload,
     cached: offline || indexCached || !!error || !!valid && now - valid.generatedAt >= menuRefreshMs };
 }

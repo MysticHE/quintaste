@@ -7,6 +7,7 @@ import { accountsEnabled } from "../services/auth-client";
 import { forgetPublishedRecipe, recipeById, rememberPublishedRecipe } from "../data/recipes";
 import { browsePath, isMemberRecipe, memberRecipe, memberRecipeDetail, memberRecipes, memberSummary, myRecipes } from "../services/member-recipes";
 import type { Recipe } from "../types/food";
+import { useT } from "../i18n";
 
 /** Published member recipes for Cook's search and category, paged like the editorial list. Quietly empty when the service is off. */
 export function useMemberRecipes() {
@@ -22,7 +23,7 @@ export function useMemberRecipes() {
 }
 /** One published member recipe with its live shop labels; remembered so Cook mode and Shopping can use it. */
 export function useMemberRecipe(id: string | null) {
-  const key = isMemberRecipe(id) ? id : null;
+  const key = isMemberRecipe(id) ? id : null, t = useT("cook"), tc = useT("common");
   const remote = useRemote(key ? "member-recipe:" + key : null, signal => memberRecipeDetail(key!, signal).then(memberRecipe));
   useEffect(() => {
     if (!key) return;
@@ -31,7 +32,7 @@ export function useMemberRecipe(id: string | null) {
   }, [key, remote.data, remote.error]);
   const gone = remote.error?.status === 404;
   return { recipe: gone ? undefined : remote.data ?? (key ? recipeById(key) : undefined), loading: remote.loading,
-    error: remote.error ? (gone ? "Recipe is no longer available." : remote.error.message) : undefined, refresh: remote.refresh };
+    error: remote.error ? (gone ? t("errorRecipeGone") : remote.error.code === "LOAD_FAILED" ? tc("loadFailed") : remote.error.message) : undefined, refresh: remote.refresh };
 }
 /** Where each of the member's drafts stands on the server, keyed by draft id. */
 export function useMyRecipeStatus() {

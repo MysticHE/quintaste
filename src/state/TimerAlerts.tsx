@@ -9,6 +9,9 @@ import { planAlertsFor } from "../services/timer-alert-sync";
 import { canScheduleTimerAlerts } from "../services/timer-alert-policy";
 import { useAuth } from './Auth';
 import { loadOrderReminders, orderAlertsFor, saveOrderReminders, type OrderReminder } from "../services/market-reminders";
+import { useT } from "../i18n";
+
+type AlertProblem = "" | "alertsUpdateFailed" | "alertsBlocked" | "alertsNotOn" | "choiceNotSaved";
 
 const coordinator = createTimerAlertCoordinator(timerAlerts);
 
@@ -17,7 +20,7 @@ function useTimerAlertState() {
   const { user } = useAuth();
   const scope = timerOwnerKey(owner, user?.id);
   const [permission, setPermission] = useState<AlertPermission>("undetermined");
-  const [error, setError] = useState(""), [busy, setBusy] = useState(false), [refresh, setRefresh] = useState(0);
+  const [error, setError] = useState<AlertProblem>(""), [busy, setBusy] = useState(false), [refresh, setRefresh] = useState(0), t = useT("me");
   const lease = useRef<ReturnType<typeof coordinator.claim> | null>(null);
   const timerKey = JSON.stringify(doc.timers), planKey = JSON.stringify(doc.social.network.reminders);
   // Market collection reminders belong to the signed-in account; null until the device copy has loaded, so nothing is cancelled early.
@@ -60,7 +63,7 @@ function useTimerAlertState() {
     void claimed?.reconcile(ready && readable ? JSON.parse(timerKey) as CookingTimer[] : null, doc.notifications.cooking, plans).then(status => {
       if (active && lease.current === claimed && status) { setPermission(status); setError(''); }
     }).catch(() => {
-      if (active && lease.current === claimed) setError('Timer alerts could not be updated. Check notification permission in device settings, then retry.');
+      if (active && lease.current === claimed) setError("alertsUpdateFailed");
     });
     return () => { active = false; };
   }, [scope, ready, readable, timerKey, planKey, orderKey, doc.notifications.cooking, refresh]);
@@ -76,19 +79,18 @@ function useTimerAlertState() {
       setPermission(status);
       if (!doc.notifications.cooking && !canScheduleTimerAlerts(status)) {
         // Blocked needs phone settings; a prompt that was closed (or couldn't show) can simply be tried again.
-        setError(status === "denied" ? "Allow notifications for QuinTaste in phone settings, then turn this on."
-          : "Notifications weren't turned on. Try again, or allow them in phone settings.");
+        setError(status === "denied" ? "alertsBlocked" : "alertsNotOn");
         return;
       }
       step = "save";
       await update(current => ({ ...current, notifications: { ...current.notifications, cooking: !current.notifications.cooking } }));
       if (lease.current === captured) setRefresh(n => n + 1);
     } catch {
-      if (lease.current === captured) setError(step === "permission" ? "Notifications weren't turned on. Try again, or allow them in phone settings." : "Your choice didn't save. Try again.");
+      if (lease.current === captured) setError(step === "permission" ? "alertsNotOn" : "choiceNotSaved");
     }
     finally { if (lease.current === captured) setBusy(false); }
   }, [busy, readable, dirty, doc.notifications.cooking, permission, update]);
-  return { permission, error, busy, enabled: doc.notifications.cooking, toggle, retry: () => setRefresh(n => n + 1), setOrderReminders };
+  return { permission, error: error ? t(error) : "", busy, enabled: doc.notifications.cooking, toggle, retry: () => setRefresh(n => n + 1), setOrderReminders };
 }
 const Context = createContext<ReturnType<typeof useTimerAlertState> | null>(null);
 export function TimerAlertsProvider({ children }: PropsWithChildren) {

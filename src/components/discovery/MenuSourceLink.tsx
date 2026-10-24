@@ -4,16 +4,17 @@ import { useState, type ComponentProps } from "react";
 import { Platform, Pressable, StyleSheet } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { Icon, T } from "../ui";
+import { useT } from "../../i18n";
 
-export function MenuSourceLink({ url, publisher, label = "Menu source" }: { url: string; publisher: string; label?: string }) {
-  const { setNotice } = usePreferences();
+export function MenuSourceLink({ url, publisher, label }: { url: string; publisher: string; label?: string }) {
+  const { setNotice } = usePreferences(), t = useT("explore"), text = label ?? t("menuSource");
   const open = async () => {
     try { await Linking.openURL(url); }
-    catch { setNotice({ text: "Menu source could not open. Check your connection.", error: true }); }
+    catch { setNotice({ text: t("menuSourceFailed"), error: true }); }
   };
   return <Link href={url as `https://${string}`} target="_blank" rel="noopener noreferrer" asChild
     onPress={event => { if (Platform.OS !== "web") { event.preventDefault(); void open(); } }}>
-    <SourceControl label={label} accessibilityLabel={label + ", " + publisher + ", opens in browser"} />
+    <SourceControl label={text} accessibilityLabel={t("sourceLinkA11y", { label: text, publisher })} />
   </Link>;
 }
 

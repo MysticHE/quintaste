@@ -4,14 +4,15 @@ import { useIsFocused } from "expo-router/react-navigation";
 import { usePreferences } from "../../state/Preferences";
 import type { Avatar, AvatarState } from "../../types/avatar";
 import { GAME_ART, GAME_ART_SIZE } from "../../game/art";
+import { useT } from "../../i18n";
 const samples: Record<AvatarState, ImageSourcePropType> = {
   base: require("../../../assets/avatar/sample-base.webp"), blink: require("../../../assets/avatar/sample-blink.webp"),
   mid: require("../../../assets/avatar/sample-mid.webp"), open: require("../../../assets/avatar/sample-open.webp"),
 };
-export function AvatarPortrait({ avatar, size = 280, animate = false, speaking = false, label = "Your avatar" }: {
+export function AvatarPortrait({ avatar, size = 280, animate = false, speaking = false, label: given }: {
   avatar: Avatar | null; size?: number; animate?: boolean; speaking?: boolean; label?: string;
 }) {
-  const { reducedMotion } = usePreferences(), focused = useIsFocused();
+  const { reducedMotion } = usePreferences(), focused = useIsFocused(), t = useT("me"), label = given ?? t("avatarLabel");
   const [foreground, setForeground] = useState(AppState.currentState !== "background"), [blink, setBlink] = useState(false);
   const [mouth, setMouth] = useState<AvatarState>("base"), [failed, setFailed] = useState<string[]>([]);
   const [breathe] = useState(() => new Animated.Value(0));

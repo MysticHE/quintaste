@@ -4,8 +4,11 @@ import { expoClient } from '@better-auth/expo/client';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 import { apiUrl } from '../utils/api-url';
+import type meMessages from '../i18n/en/me';
 
 export const accountsEnabled = process.env.EXPO_PUBLIC_AUTH_ENABLED === 'true';
+/** The app's own words for an account error, in the member's language. Loaded on demand: the i18n layer's provider chain imports this file. */
+const accountText = async (key: Extract<keyof typeof meMessages, string>) => (await import('./saved-language')).savedText('me', key);
 export const authOrigin = process.env.EXPO_PUBLIC_API_URL ||
   (typeof window !== 'undefined' && Platform.OS === 'web' ? window.location.origin : 'http://localhost:8081');
 export const authClient = createAuthClient({
@@ -27,7 +30,7 @@ export function refreshAccountSession(expectedUserId?: string) {
     await session.get().refetch();
     const result = session.get();
     if (result.error || !result.data?.user || (expectedUserId && result.data.user.id !== expectedUserId)) {
-      throw new Error('Could not refresh your account. Please retry.');
+      throw new Error(await accountText('refreshAccountFailed'));
     }
     return result.data;
   });
@@ -47,6 +50,6 @@ export async function accountRequest<T>(path: string, options: RequestInit = {})
     signal: AbortSignal.timeout(15000),
   });
   const value = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(value.error || 'Your account request could not be completed.');
+  if (!response.ok) throw new Error(value.error || await accountText('accountRequestFailed'));
   return value as T;
 }

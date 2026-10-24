@@ -1,5 +1,4 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { dietSummary } from "../config/preferences";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { AvatarPortrait } from "../components/avatar/AvatarPortrait";
@@ -15,10 +14,14 @@ import { MarketModal } from "../components/market/MarketChrome";
 import { Action } from "../components/Actions";
 import { TimerAlertControl } from "../components/food/TimerAlertControl";
 import { LotusSlot } from "../components/lotus/LotusSlot";
+import { useDietText } from "../components/food/DietLabels";
+import { useLanguageName } from "./Settings";
+import { useT, useLanguageChoice } from "../i18n";
 
 export function AccountScreen() {
   const { user, enabled } = useAuth();
   const { draft, preview, theme } = usePreferences(), { doc, leavePreview, switching } = useFood();
+  const tc = useT("common"), t = useT("me"), languageName = useLanguageName(useLanguageChoice().choice), dietText = useDietText();
   const { returnTo } = useLocalSearchParams<{ returnTo?: string }>();
   const origin = returnTo ? safeReturn(returnTo) : "/";
   const [unsaved, setUnsaved] = useState(false);
@@ -28,48 +31,49 @@ export function AccountScreen() {
     else if (result === true) { setUnsaved(false); router.dismissTo("/"); }
     return result === true;
   };
-  return <Screen title="Me" backTo={origin}>
+  return <Screen title={tc("me")} backTo={origin}>
     <Card style={s.profile}>
-      <Pressable accessibilityRole="button" accessibilityLabel="Change Avatar"
+      <Pressable accessibilityRole="button" accessibilityLabel={t("changeAvatar")}
         onPress={() => router.push("/avatar")} style={({ pressed }) => [s.avatar, { opacity: pressed ? 0.7 : 1 }]}>
         <View style={[s.portrait, { backgroundColor: theme.accentSoft }]}><AvatarPortrait avatar={doc.avatar} size={64} /></View>
         <View style={[s.avatarEdit, { backgroundColor: theme.card, borderColor: theme.border }]}><Icon name="camera-outline" size={16} color={theme.accent} /></View>
       </Pressable>
       <View style={common.flex}>
-        <T variant="subtitle">{user?.name || (preview ? draft.displayName : "Your Space")}</T>
-        {!user && <T variant="small" muted>{preview ? "Local Preview" : "Guest"}</T>}
-        {!user && !preview && enabled && <Button label="Sign In Or Create Account" icon="log-in-outline" variant="link"
+        <T variant="subtitle">{user?.name || (preview ? draft.displayName : t("yourSpace"))}</T>
+        {!user && <T variant="small" muted>{preview ? t("localPreview") : t("guest")}</T>}
+        {!user && !preview && enabled && <Button label={t("signInOrCreate")} icon="log-in-outline" variant="link"
           onPress={() => router.push({ pathname: "/login", params: { returnTo: "/account" } })} />}
-        {(preview || user?.adultConfirmed) && <Button label="Edit Profile" icon="create-outline" variant="link" onPress={() => router.push("/profile")} />}
-        {user && !user.adultConfirmed && <Button label="Complete Account Setup" variant="link" onPress={() => router.push('/account-eligibility')} />}
+        {(preview || user?.adultConfirmed) && <Button label={t("editProfile")} icon="create-outline" variant="link" onPress={() => router.push("/profile")} />}
+        {user && !user.adultConfirmed && <Button label={tc("completeAccountSetup")} variant="link" onPress={() => router.push('/account-eligibility')} />}
       </View>
     </Card>
     <LotusSlot />
     <Card style={s.group}>
-      <SettingsRow label="Saved" leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
-      <SettingsRow label="Food Choices" icon="leaf-outline" value={dietSummary(draft.diets)} onPress={() => router.push("/exclusions")} />
-      <SettingsRow label="AI Recipes Plan" icon="sparkles-outline" onPress={() => router.push("/cook/ai-plans" as never)} />
-      <SettingsRow label="Location" icon="location-outline" last={!__DEV__} onPress={() => router.push("/private-places")} />
-      {__DEV__ && <SettingsRow label="My Cases" icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
+      <SettingsRow label={tc("saved")} leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
+      <SettingsRow label={t("foodChoices")} icon="leaf-outline" value={draft.diets.map(dietText.name).join(" · ")} onPress={() => router.push("/exclusions")} />
+      <SettingsRow label={t("aiRecipesPlan")} icon="sparkles-outline" onPress={() => router.push("/cook/ai-plans" as never)} />
+      <SettingsRow label={t("location")} icon="location-outline" last={!__DEV__} onPress={() => router.push("/private-places")} />
+      {__DEV__ && <SettingsRow label={t("myCases")} icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
     </Card>
     <Card style={s.group}>
-      <SettingsRow label="Appearance" icon="color-palette-outline" onPress={() => router.push("/settings")} />
-      <SettingsRow label="Accessibility" icon="accessibility-outline" last={Platform.OS === "web"} onPress={() => router.push("/accessibility")} />
-      <TimerAlertControl label="Notifications" />
+      <SettingsRow label={tc("language")} icon="language-outline" value={languageName} onPress={() => router.push("/language" as never)} />
+      <SettingsRow label={t("appearance")} icon="color-palette-outline" onPress={() => router.push("/settings")} />
+      <SettingsRow label={t("accessibility")} icon="accessibility-outline" last={Platform.OS === "web"} onPress={() => router.push("/accessibility")} />
+      <TimerAlertControl label={t("notifications")} />
     </Card>
     <Card style={s.group}>
-      <SettingsRow label="Privacy & Data" icon="shield-checkmark-outline" onPress={() => router.push("/privacy")} />
-      <SettingsRow label="Help" icon="help-circle-outline" last={!user} onPress={() => router.push("/help")} />
-      {user && <SettingsRow label="Bring In Guest Saves" icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
+      <SettingsRow label={t("privacyData")} icon="shield-checkmark-outline" onPress={() => router.push("/privacy")} />
+      <SettingsRow label={t("help")} icon="help-circle-outline" last={!user} onPress={() => router.push("/help")} />
+      {user && <SettingsRow label={t("bringInGuestSaves")} icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
     </Card>
-    {(user || preview || !enabled) && <Button label={user ? "Sign Out" : preview ? "Return To Guest Collection" : "View Profile Options"} icon={user || preview ? "log-out-outline" : "log-in-outline"} variant="link" loading={switching} onPress={() => {
+    {(user || preview || !enabled) && <Button label={user ? tc("signOut") : preview ? t("returnToGuest") : t("viewProfileOptions")} icon={user || preview ? "log-out-outline" : "log-in-outline"} variant="link" loading={switching} onPress={() => {
       if (preview) void leave();
       else router.push({ pathname: "/login", params: { returnTo: "/account" } });
     }} />}
-    <MarketModal visible={unsaved} onClose={() => setUnsaved(false)} label="Sign Out Anyway?">
-      <T>Some changes on this device have not saved yet. Signing out now discards them.</T>
-      <Action label="Sign Out Anyway" run={() => leave(true)} />
-      <Button label="Stay Signed In" variant="link" onPress={() => setUnsaved(false)} />
+    <MarketModal visible={unsaved} onClose={() => setUnsaved(false)} label={t("signOutAnywayQuestion")}>
+      <T>{t("unsavedSignOut")}</T>
+      <Action label={t("signOutAnyway")} run={() => leave(true)} />
+      <Button label={t("staySignedIn")} variant="link" onPress={() => setUnsaved(false)} />
     </MarketModal>
   </Screen>;
 }

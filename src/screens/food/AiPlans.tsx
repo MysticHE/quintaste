@@ -10,7 +10,11 @@ import { MarketModal } from "../../components/market/MarketChrome";
 import { ensureMember, useMember } from "../../components/CommunityGate";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { usePreferences } from "../../state/Preferences";
-import { aiPlan, aiPlans, aiRecipeFeatures, bestValue, cancelWhere, paymentChannel, paymentsLive, planPrice, termsUrl, type AiPlan, type AiPlanId } from "../../config/ai-plans";
+import { aiPlan, aiPlans, aiRecipeFeatures, bestValue, cancelWhere, paymentChannel, paymentsLive, planName, planPrice, termsUrl, type AiPlan, type AiPlanId } from "../../config/ai-plans";
+import { useDietText } from "../../components/food/DietLabels";
+import { badgeName } from "../../utils/nutrition";
+import { sgDay } from "../../utils/sg-datetime";
+import { useLanguage, useT, type Language } from "../../i18n";
 
 const MOCHI = require("../../../assets/mochi/mochi-happy.webp");
 
@@ -20,31 +24,32 @@ const MOCHI = require("../../../assets/mochi/mochi-happy.webp");
  * flow ends in a notice and nothing is charged (src/config/ai-plans.ts).
  */
 export function AiPlansScreen() {
-  const member = useMember(), { theme } = usePreferences();
+  const member = useMember(), { theme } = usePreferences(), t = useT("cook"), language = useLanguage(), dietText = useDietText();
   const [chosen, setChosen] = useState<AiPlanId>("ai-cook"), plan = aiPlan(chosen) ?? aiPlans[0];
+  const featureVars = { badge: badgeName("High in fibre", language), vegan: dietText.name("Vegan"), vegetarian: dietText.name("Vegetarian") };
   const next = () => { if (ensureMember(member, "/cook/ai-plans")) router.push({ pathname: "/cook/ai-checkout" as never, params: { plan: chosen } }); };
-  return <CookLayout title="AI Recipes" backTo="/cook/ai"
+  return <CookLayout title={t("aiTitle")} backTo="/cook/ai"
     footer={<Rise delay={420} style={s.footer}>
-      <Button label={`Continue With ${plan.name}`} onPress={next} />
-      <T variant="caption" muted style={s.center}>Cancel anytime</T>
+      <Button label={t("continueWith", { name: planName(plan, language) })} onPress={next} />
+      <T variant="caption" muted style={s.center}>{t("cancelAnytime")}</T>
       <Legal />
     </Rise>}>
     <AiShowcase height={196} />
     <Rise delay={120} style={s.hero}>
-      <T variant="title" accessibilityRole="header" style={s.center}>Turn any dish or video into a recipe</T>
+      <T variant="title" accessibilityRole="header" style={s.center}>{t("plansHero")}</T>
     </Rise>
     <Rise delay={200}>
-      <View accessibilityRole="radiogroup" accessibilityLabel="Choose a plan" style={s.tiles}>
+      <View accessibilityRole="radiogroup" accessibilityLabel={t("choosePlanLower")} style={s.tiles}>
         {aiPlans.map(item => <PlanTile key={item.id} plan={item} selected={item.id === chosen} onPress={() => setChosen(item.id)} />)}
       </View>
     </Rise>
     <Rise delay={280} style={s.features}>
-      <T style={common.bold} accessibilityRole="header">What you get</T>
+      <T style={common.bold} accessibilityRole="header">{t("whatYouGet")}</T>
       <View style={s.grid}>
         {aiRecipeFeatures.map(item => <View key={item.label} style={[s.feature, { backgroundColor: theme.card, borderColor: theme.border }]}>
           <View style={[s.featureIcon, { backgroundColor: theme.accentSoft }]}><Icon name={item.icon as IconName} size={18} color={theme.accent} /></View>
-          <T variant="small" style={common.bold} numberOfLines={1}>{item.label}</T>
-          <T variant="caption" muted numberOfLines={2}>{item.detail}</T>
+          <T variant="small" style={common.bold} numberOfLines={1}>{t(item.label)}</T>
+          <T variant="caption" muted numberOfLines={2}>{t(item.detail, featureVars)}</T>
         </View>)}
       </View>
     </Rise>
@@ -54,78 +59,82 @@ export function AiPlansScreen() {
 /** A plan tile: name, the price large, how many recipes. The chosen tile lifts slightly and shows a check. */
 function PlanTile({ plan, selected, onPress }: { plan: AiPlan; selected: boolean; onPress: () => void }) {
   const { theme, reducedMotion } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), best = plan.id === bestValue;
+  const t = useT("cook"), name = planName(plan, useLanguage());
   const lift = useSharedValue(selected ? 1 : 0);
   useEffect(() => { lift.value = reducedMotion ? (selected ? 1 : 0) : withSpring(selected ? 1 : 0, { damping: 13, stiffness: 180 }); }, [selected, reducedMotion, lift]);
   const moved = useAnimatedStyle(() => ({ transform: [{ scale: 1 + lift.value * 0.03 }, { translateY: -lift.value * 3 }] }));
   const onAccent = theme.dark ? theme.background : theme.actionForeground;
   return <Animated.View style={[s.tileWrap, moved]}>
     <Pressable accessibilityRole="radio" accessibilityState={{ checked: selected }} onPress={onPress} {...focusProps}
-      accessibilityLabel={`${plan.name}, ${planPrice(plan)} a month, ${plan.recipesPerMonth} AI recipes${best ? ", best value" : ""}`}
+      accessibilityLabel={t(best ? "planTileLabelBest" : "planTileLabel", { name, price: planPrice(plan), n: plan.recipesPerMonth })}
       style={({ pressed }) => [s.tile, { backgroundColor: selected ? theme.accentSoft : pressed ? theme.muted : theme.card,
         borderColor: selected || focused ? theme.accent : theme.border, shadowColor: theme.shadow, shadowOpacity: selected ? 0.18 : 0 }]}>
       <View style={common.spread}>
-        <T variant="small" style={common.bold} numberOfLines={1}>{plan.name}</T>
+        <T variant="small" style={common.bold} numberOfLines={1}>{name}</T>
         <Icon name={selected ? "checkmark-circle" : "ellipse-outline"} size={22} color={selected ? theme.accent : theme.border} />
       </View>
       <T variant="title" style={s.price}>{planPrice(plan)}</T>
-      <T variant="caption" muted>a month</T>
+      <T variant="caption" muted>{t("aMonth")}</T>
       <View style={[s.count, { backgroundColor: selected ? theme.card : theme.accentSoft }]}>
-        <T variant="small" style={common.bold}>{plan.recipesPerMonth} AI recipes</T>
+        <T variant="small" style={common.bold}>{t("aiRecipesCount", { n: plan.recipesPerMonth })}</T>
       </View>
     </Pressable>
-    {best && <View style={[s.ribbon, { backgroundColor: theme.accent }]}><T variant="caption" color={onAccent} style={common.bold}>Best Value</T></View>}
+    {best && <View style={[s.ribbon, { backgroundColor: theme.accent }]}><T variant="caption" color={onAccent} style={common.bold}>{t("bestValue")}</T></View>}
   </Animated.View>;
 }
 
 /** Terms (where they exist) and privacy, as the stores require on a subscription screen. */
 function Legal() {
-  const { theme } = usePreferences(), terms = termsUrl;
+  const { theme } = usePreferences(), terms = termsUrl, t = useT("cook");
   return <View style={[common.row, s.legal]}>
     {terms && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(terms)} hitSlop={12} style={s.link}>
-      <T variant="caption" color={theme.accent}>Terms of Use</T></Pressable>}
+      <T variant="caption" color={theme.accent}>{t("termsOfUse")}</T></Pressable>}
     <Pressable accessibilityRole="link" onPress={() => router.push("/privacy")} hitSlop={12} style={s.link}>
-      <T variant="caption" color={theme.accent}>Privacy</T></Pressable>
+      <T variant="caption" color={theme.accent}>{t("privacy")}</T></Pressable>
   </View>;
 }
 
 const renewal = new Intl.DateTimeFormat("en-SG", { timeZone: "Asia/Singapore", day: "numeric", month: "short", year: "numeric" });
-/** The same day next month, when a monthly plan started today would renew. */
-function nextRenewal(now = new Date()) {
+/** The same day next month, when a monthly plan started today would renew: "24 Nov 2026", Chinese "2026年11月24日". */
+function nextRenewal(language: Language, now = new Date()) {
   const next = new Date(now);
   next.setMonth(next.getMonth() + 1);
-  return renewal.format(next);
+  if (language !== "zh") return renewal.format(next);
+  const [year, month, day] = sgDay(next.getTime()).split("-");
+  return year + "年" + Number(month) + "月" + Number(day) + "日";
 }
 
 /** Checkout as a ticket: the billed amount is the largest element (App Store rule), then how it is paid, renewal and cancelling. */
 export function AiCheckoutScreen() {
   const { plan: id } = useLocalSearchParams<{ plan?: string }>(), plan = aiPlan(id) ?? aiPlans[0];
   const member = useMember(), { theme } = usePreferences(), [notice, setNotice] = useState(false);
+  const t = useT("cook"), tc = useT("common"), language = useLanguage(), price = planPrice(plan);
   const subscribe = () => { if (!ensureMember(member, "/cook/ai-checkout?plan=" + plan.id)) return; if (!paymentsLive) setNotice(true); };
-  return <CookLayout title="Review Plan" backTo="/cook/ai-plans"
+  return <CookLayout title={t("reviewPlan")} backTo="/cook/ai-plans"
     footer={<Rise delay={260} style={s.footer}>
-      <Button label={`Subscribe For ${planPrice(plan)} A Month`} onPress={subscribe} />
-      <T variant="caption" muted style={s.center}>Renews monthly · Cancel anytime in {cancelWhere}</T>
+      <Button label={t("subscribeFor", { price })} onPress={subscribe} />
+      <T variant="caption" muted style={s.center}>{t("renewsMonthly", { where: cancelWhere(language) })}</T>
       <Legal />
     </Rise>}>
     <Rise style={[s.ticket, { backgroundColor: theme.card, borderColor: theme.border, shadowColor: theme.shadow }]}>
       <LinearGradient colors={[...theme.gradient] as [string, string, ...string[]]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={s.ticketTop}>
         <View style={common.flex}>
-          <T style={common.bold}>AI Recipes {plan.name}</T>
-          <T variant="display" accessibilityLabel={`${planPrice(plan)} a month`}>{planPrice(plan)}<T muted> /mo</T></T>
-          <T variant="small" muted>{plan.recipesPerMonth} AI recipes a month</T>
+          <T style={common.bold}>{t("aiPlanTicket", { name: planName(plan, language) })}</T>
+          <T variant="display" accessibilityLabel={t("priceAMonth", { price })}>{price}<T muted>{t("perMonth")}</T></T>
+          <T variant="small" muted>{t("aiRecipesAMonth", { n: plan.recipesPerMonth })}</T>
         </View>
         <Image source={MOCHI} style={s.ticketMochi} accessibilityIgnoresInvertColors />
       </LinearGradient>
       <View style={s.ticketBody}>
-        <Line icon="card-outline" label="Pay with" value={paymentChannel} />
-        <Line icon="calendar-outline" label="Renews" value={nextRenewal()} />
-        <Line icon="close-circle-outline" label="Cancel" value="Anytime" />
+        <Line icon="card-outline" label={t("payWith")} value={paymentChannel(language)} />
+        <Line icon="calendar-outline" label={t("renews")} value={nextRenewal(language)} />
+        <Line icon="close-circle-outline" label={tc("cancel")} value={t("anytime")} />
       </View>
     </Rise>
-    <Rise delay={160}><Button label="Change Plan" variant="link" onPress={() => router.back()} /></Rise>
-    <MarketModal visible={notice} onClose={() => setNotice(false)} label="Payments Aren't Open Yet">
-      <T>Nothing was charged.</T>
-      <Button label="Back To AI Recipes" onPress={() => { setNotice(false); router.dismissTo("/cook/ai" as never); }} />
+    <Rise delay={160}><Button label={t("changePlan")} variant="link" onPress={() => router.back()} /></Rise>
+    <MarketModal visible={notice} onClose={() => setNotice(false)} label={t("paymentsNotOpen")}>
+      <T>{t("nothingCharged")}</T>
+      <Button label={t("backToAi")} onPress={() => { setNotice(false); router.dismissTo("/cook/ai" as never); }} />
     </MarketModal>
   </CookLayout>;
 }

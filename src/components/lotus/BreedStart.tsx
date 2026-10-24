@@ -10,13 +10,14 @@ import { useAvatarPhoto } from "../../hooks/useAvatarPhoto";
 import { usePreferences } from "../../state/Preferences";
 import { Button, T, common } from "../ui";
 import { BreedConsent } from "./BreedConsent";
+import { useT } from "../../i18n";
 
-const TIPS = ["Face centred", "Even light", "Just you"];
+const TIPS = ["lotusTipCentred", "lotusTipLight", "lotusTipYou"] as const;
 
 function Guide({ photo }: { photo?: string }) {
-  const { theme } = usePreferences(), [w, h] = GAME_ART_SIZE["avatar-adult"];
+  const { theme } = usePreferences(), [w, h] = GAME_ART_SIZE["avatar-adult"], t = useT("game");
   return <View style={[s.guide, { backgroundColor: theme.accentSoft }]}>
-    {photo ? <Image source={{ uri: photo }} resizeMode="cover" accessibilityLabel="Your selected selfie" style={StyleSheet.absoluteFill} />
+    {photo ? <Image source={{ uri: photo }} resizeMode="cover" accessibilityLabel={t("lotusSelectedSelfie")} style={StyleSheet.absoluteFill} />
       : <Image source={GAME_ART["avatar-adult"]} resizeMode="contain" accessible={false} style={{ height: 170, width: 170 * w / h, tintColor: theme.mutedForeground, opacity: 0.35 }} />}
     <View pointerEvents="none" style={[s.oval, { borderColor: theme.mediaForeground }]} />
   </View>;
@@ -25,26 +26,26 @@ function Guide({ photo }: { photo?: string }) {
 export function BreedStart({ regenerate, triesLeft, busy, error, onBreed }: {
   regenerate: boolean; triesLeft: number; busy: boolean; error: string; onBreed(photo: string): void;
 }) {
-  const { theme } = usePreferences(), photo = useAvatarPhoto(), [agreed, setAgreed] = useState(false);
+  const { theme } = usePreferences(), photo = useAvatarPhoto(), [agreed, setAgreed] = useState(false), t = useT("game");
   const choose = (camera: boolean) => { setAgreed(false); void photo.choose(camera); };
   const disabled = busy || photo.busy;
   return <View style={s.stack}>
     <Guide photo={photo.photo} />
-    <View style={[common.row, s.wrap]} accessible accessibilityLabel={"Selfie tips: " + TIPS.join(", ")}>
-      {TIPS.map(tip => <T key={tip} variant="small" muted style={[s.tip, { backgroundColor: theme.card, borderColor: theme.border }]}>{tip}</T>)}
+    <View style={[common.row, s.wrap]} accessible accessibilityLabel={t("lotusSelfieTips", { list: TIPS.map(tip => t(tip)).join(t("sep")) })}>
+      {TIPS.map(tip => <T key={tip} variant="small" muted style={[s.tip, { backgroundColor: theme.card, borderColor: theme.border }]}>{t(tip)}</T>)}
     </View>
     <View style={[common.row, s.wrap]}>
-      <Pill icon="image-outline" text={photo.photo ? "Change Photo" : "Choose Photo"} label={photo.photo ? "Change photo" : "Choose a photo"} disabled={disabled} onPress={() => choose(false)} />
-      <Pill icon="camera-outline" text="Take Selfie" label="Take a selfie" disabled={disabled} onPress={() => choose(true)} />
+      <Pill icon="image-outline" text={photo.photo ? t("lotusChangePhoto") : t("lotusChoosePhoto")} label={photo.photo ? t("lotusChangePhotoA11y") : t("lotusChoosePhotoA11y")} disabled={disabled} onPress={() => choose(false)} />
+      <Pill icon="camera-outline" text={t("lotusTakeSelfie")} label={t("lotusTakeSelfieA11y")} disabled={disabled} onPress={() => choose(true)} />
     </View>
-    {photo.busy && <T variant="small" accessibilityLiveRegion="polite">Preparing your photo…</T>}
+    {photo.busy && <T variant="small" accessibilityLiveRegion="polite">{t("lotusPreparingPhoto")}</T>}
     {!!photo.error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{photo.error}</T>}
-    {photo.needsSettings && <Button label="Open Camera Settings" variant="link" onPress={() => { void Linking.openSettings().catch(() => undefined); }} />}
+    {photo.needsSettings && <Button label={t("lotusCameraSettings")} variant="link" onPress={() => { void Linking.openSettings().catch(() => undefined); }} />}
     {photo.photo && <BreedConsent agreed={agreed} disabled={disabled} onChange={() => setAgreed(v => !v)} />}
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite" style={common.center}>{error}</T>}
     {photo.photo && agreed && !disabled
-      ? <PlayButton icon="sparkles" title="Breed My Avatar" sub={regenerate ? `Free try · ${triesLeft} left` : "Uses your breed"} onPlay={() => onBreed(photo.photo!)} />
-      : <T variant="small" muted style={common.center}>{busy ? "Starting your breed…" : photo.photo ? "Give consent to breed." : "Choose a clear, front-facing selfie."}</T>}
+      ? <PlayButton icon="sparkles" title={t("lotusBreedMine")} sub={regenerate ? t("lotusFreeTry", { n: triesLeft }) : t("lotusUsesBreed")} onPlay={() => onBreed(photo.photo!)} />
+      : <T variant="small" muted style={common.center}>{busy ? t("lotusStartingBreed") : photo.photo ? t("lotusGiveConsent") : t("lotusChooseSelfie")}</T>}
   </View>;
 }
 

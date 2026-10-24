@@ -6,24 +6,25 @@ import { StatusPill } from "../GroupedList";
 import { ListingPhoto } from "./ListingPhoto";
 import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
-import { kindLabels } from "../../config/market";
+import { kindKeys } from "../../config/market";
 import { marketMoney, slotDay } from "../../utils/market";
+import { useLanguage, useT } from "../../i18n";
 import type { ListingCard as Listing } from "../../types/community";
 
 /** Photo with the item type, then price, name and one line: shop and the next collection day. */
 export function ListingCard({ listing, onSave }: { listing: Listing; onSave?: () => void }) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  const price = marketMoney(listing.priceCents), next = slotDay(listing.nextSlot), few = listing.left !== null && listing.left <= 5;
-  const when = listing.soldOut ? "Sold out" : next ? "Next " + next : "No collection set";
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), t = useT("market"), kind = t(kindKeys[listing.kind]);
+  const price = marketMoney(listing.priceCents), next = slotDay(listing.nextSlot, useLanguage()), few = listing.left !== null && listing.left <= 5;
+  const when = listing.soldOut ? t("soldOut") : next ? t("nextDay", { day: next }) : t("noCollectionSet");
   const meta = [listing.sellerName, when].join(" · ");
   return <View>
-    <Pressable accessibilityRole="button" accessibilityLabel={[listing.name, price, listing.portion, listing.sellerName, kindLabels[listing.kind], listing.soldOut ? "sold out" : next && "next collection " + next, !listing.soldOut && few && listing.left + " left"].filter(Boolean).join(", ")}
+    <Pressable accessibilityRole="button" accessibilityLabel={[listing.name, price, listing.portion, listing.sellerName, kind, listing.soldOut ? t("soldOutSpoken") : next && t("nextCollection", { day: next }), !listing.soldOut && few && t("unitsLeft", { n: listing.left ?? 0 })].filter(Boolean).join(", ")}
       onPress={() => router.push({ pathname: "/market/listing/[id]", params: { id: listing.id } })} {...focusProps}
       style={({ pressed }) => [s.card, { opacity: pressed ? 0.85 : 1 }, focused && { outlineWidth: 2, outlineColor: theme.accent, outlineStyle: "solid" }]}>
       <View>
         <ListingPhoto path={listing.photo} />
-        <View style={s.badge}><StatusPill label={kindLabels[listing.kind]} tone={listing.kind === "prepacked" ? "accent" : "muted"} />
-          {listing.soldOut ? <StatusPill label="Sold out" tone="muted" /> : few && <StatusPill label={listing.left + " left"} tone="warning" />}</View>
+        <View style={s.badge}><StatusPill label={kind} tone={listing.kind === "prepacked" ? "accent" : "muted"} />
+          {listing.soldOut ? <StatusPill label={t("soldOut")} tone="muted" /> : few && <StatusPill label={t("unitsLeft", { n: listing.left ?? 0 })} tone="warning" />}</View>
       </View>
       <View style={s.info}>
         <T style={common.bold} numberOfLines={1}>{price}<T variant="small" muted>{listing.portion ? "  " + listing.portion : ""}</T></T>
@@ -31,7 +32,7 @@ export function ListingCard({ listing, onSave }: { listing: Listing; onSave?: ()
         <T variant="caption" muted numberOfLines={1}>{meta}</T>
       </View>
     </Pressable>
-    {onSave && <View style={s.save}><IconButton appearance="media" label={(listing.saved ? "Unsave " : "Save ") + listing.name} icon={listing.saved ? "bookmark" : "bookmark-outline"}
+    {onSave && <View style={s.save}><IconButton appearance="media" label={t(listing.saved ? "unsaveName" : "saveName", { name: listing.name })} icon={listing.saved ? "bookmark" : "bookmark-outline"}
       selected={listing.saved} onPress={onSave} /></View>}
   </View>;
 }

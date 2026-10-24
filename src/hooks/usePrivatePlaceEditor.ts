@@ -5,10 +5,16 @@ import type { FoodDocument, PrivatePlace, PrivatePlaceKind } from "../types/food
 import type { LocationSuggestion, SearchPoint } from "../types/location-search";
 import { privatePlaceFor, privatePlaceKind, readPrivatePoint, removePrivatePlace, savePrivatePlace } from "../utils/private-places";
 import { followDefaultLocation } from "../utils/discovery-settings";
+import { useLanguage } from "../i18n";
+import { exploreText, problemText } from "../utils/location-feedback";
 
 export type PlaceTarget = { id?: string; kind: PrivatePlaceKind };
 type Draft = { label: string; address: string; details: string; point?: SearchPoint; postalCode?: string };
 export const placeKindName = (kind: PrivatePlaceKind) => kind === "home" ? "Home" : kind === "work" ? "Work" : "";
+/** Home and Work read in the interface language unless renamed; other places keep their own names. */
+export function placeTitle(kind: PrivatePlaceKind, label: string | undefined, names: { home: string; work: string }) {
+  return kind !== "custom" && (!label || label === placeKindName(kind)) ? names[kind] : label ?? "";
+}
 export function findPlace(places: PrivatePlace[], target: PlaceTarget) {
   return target.id ? places.find(place => place.id === target.id) : target.kind !== "custom" ? privatePlaceFor(places, target.kind) : undefined;
 }
@@ -16,7 +22,7 @@ const samePoint = (a?: SearchPoint, b?: SearchPoint) => a?.latitude === b?.latit
 
 /** Edits one place whose kind is fixed by the row that opened it, so Home can never turn into Work. Saves once an address is chosen. */
 export function usePrivatePlaceEditor(target: PlaceTarget) {
-  const { doc, update, readable } = useFood();
+  const { doc, update, readable } = useFood(), language = useLanguage();
   const [initial] = useState(() => findPlace(doc.privatePlaces, target));
   const [id] = useState(() => initial?.id ?? localId("private"));
   const kind = initial ? privatePlaceKind(initial) : target.kind;
@@ -30,10 +36,10 @@ export function usePrivatePlaceEditor(target: PlaceTarget) {
     setBusy(true); setError("");
     try {
       const okay = await update(change);
-      if (!okay && current()) setError("Could not save. Your changes are still here.");
+      if (!okay && current()) setError("couldNotSaveKept");
       return okay;
     } catch (problem) {
-      if (current()) setError(problem instanceof Error ? problem.message : "Could not save.");
+      if (current()) setError(problemText(problem, "couldNotSave"));
       return false;
     } finally { if (current()) setBusy(false); }
   };
@@ -55,9 +61,9 @@ export function usePrivatePlaceEditor(target: PlaceTarget) {
     const next = { ...latest.current, ...patch }; latest.current = next; setDraft(next); setError("");
     if (save) autosave.change(next, immediate);
   };
-  return { ...draft, kind, saved: doc.privatePlaces.find(place => place.id === id), busy: busy || autosave.saving, error, readable,
+  return { ...draft, kind, saved: doc.privatePlaces.find(place => place.id === id), busy: busy || autosave.saving, error: exploreText(language, error), readable,
     choose: (item: LocationSuggestion) => {
-      if (item.kind !== "address") { setError("Choose a street address or postal code."); return; }
+      if (item.kind !== "address") { setError("chooseStreetAddress"); return; }
       change({ address: item.address, point: { latitude: item.latitude, longitude: item.longitude }, postalCode: item.postalCode }, true, true);
     },
     changeAddress: (address: string) => change({ address, point: undefined, postalCode: undefined }, false),

@@ -5,16 +5,17 @@ import { usePreferences } from "../../state/Preferences";
 import type { LivePhoto } from "../../types/discovery";
 import { Icon, T, common } from "../ui";
 import { GooglePhotoCredits, GooglePhotoImage } from "./GooglePhoto";
+import { useT } from "../../i18n";
 
 export function GooglePhotoViewer({ photo, name, expiresAt, visible, onClose }: {
   photo: LivePhoto; name: string; expiresAt: number; visible: boolean; onClose: () => void;
 }) {
   const { theme, reducedMotion } = usePreferences();
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""), t = useT("explore");
   return <Modal visible={visible} animationType={reducedMotion ? "none" : "fade"} onRequestClose={onClose}>
     <SafeAreaView style={[common.flex, { backgroundColor: theme.mediaSurface }]}>
       <View style={s.heading}><T variant="small" color={theme.mediaForeground} style={common.flex}>{name}</T>
-        <Pressable accessibilityRole="button" accessibilityLabel="Close photo" onPress={onClose} style={s.close}>
+        <Pressable accessibilityRole="button" accessibilityLabel={t("closePhoto")} onPress={onClose} style={s.close}>
           <Icon name="close" color={theme.mediaForeground} /></Pressable></View>
       <GooglePhotoImage key={photo.url} photo={photo} name={name} expiresAt={expiresAt} contain style={common.flex} />
       <ScrollView style={s.credits} contentContainerStyle={s.creditContent}>

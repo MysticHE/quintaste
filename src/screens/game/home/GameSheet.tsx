@@ -5,13 +5,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon, T } from "../../../components/ui";
 import { usePreferences } from "../../../state/Preferences";
 import { Art } from "./bits";
+import { useT } from "../../../i18n";
 
 /**
  * Bottom sheet for the café home. It springs up over a fading backdrop, with a grab handle and an optional round art
  * badge beside the title so each sheet reads as part of the game. Backdrop tap and the close button dismiss it.
  */
 export function GameSheet({ title, subtitle, art, onClose, children, footer }: PropsWithChildren<{ title: string; subtitle?: string; art?: string; onClose(): void; footer?: ReactNode }>) {
-  const { theme, reducedMotion } = usePreferences();
+  const { theme, reducedMotion } = usePreferences(), tc = useT("common");
   const insets = useSafeAreaInsets();
   const t = useSharedValue(reducedMotion ? 1 : 0);
   useEffect(() => { if (!reducedMotion) t.value = withSpring(1, { damping: 18, stiffness: 170, mass: 0.9 }); }, [reducedMotion, t]);
@@ -20,7 +21,7 @@ export function GameSheet({ title, subtitle, art, onClose, children, footer }: P
   return <Modal transparent visible animationType="none" onRequestClose={onClose} statusBarTranslucent>
     <View style={s.wrap}>
       <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: theme.overlay }, shade]}>
-        <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityRole="button" accessibilityLabel="Close" />
+        <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityRole="button" accessibilityLabel={tc("close")} />
       </Animated.View>
       <Animated.View style={[s.sheet, { backgroundColor: theme.background, paddingBottom: 16 + insets.bottom }, sheet]} accessibilityViewIsModal>
         <View style={[s.handle, { backgroundColor: theme.border }]} />
@@ -30,7 +31,7 @@ export function GameSheet({ title, subtitle, art, onClose, children, footer }: P
             <T variant="title" accessibilityRole="header" numberOfLines={1}>{title}</T>
             {!!subtitle && <T variant="small" muted numberOfLines={1}>{subtitle}</T>}
           </View>
-          <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel="Close"
+          <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel={tc("close")}
             style={({ pressed }) => [s.close, { backgroundColor: theme.muted, transform: [{ scale: pressed ? 0.92 : 1 }] }]}>
             <Icon name="close" color={theme.foreground} /></Pressable>
         </View>

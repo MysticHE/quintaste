@@ -5,11 +5,13 @@ import { s } from "./authStyles";
 import { usePreferences } from "../state/Preferences";
 import { safeReturn, goBack } from "../utils/navigation";
 import type { AuthState } from "./usePreviewAuth";
+import { useT } from "../i18n";
 export function AuthHeader() {
+  const t = useT("me"), tc = useT("common");
   return <View style={common.row}>
     <Image source={require("../../assets/chef.png")} style={{ width: 40, height: 40 }} resizeMode="contain" accessible={false} />
-    <T variant="subtitle" accessibilityRole="header" style={common.flex}>Sign In</T>
-    <Pressable accessibilityRole="button" accessibilityLabel="Close profile preview" onPress={() => goBack()} style={s.iconButton}>
+    <T variant="subtitle" accessibilityRole="header" style={common.flex}>{tc("signIn")}</T>
+    <Pressable accessibilityRole="button" accessibilityLabel={t("closeProfilePreview")} onPress={() => goBack()} style={s.iconButton}>
       <Icon name="close" />
     </Pressable>
   </View>;
@@ -31,10 +33,11 @@ export function AuthFields({
     errors,
     theme,
   } = state;
+  const t = useT("me");
   return (
     <>
       <Field
-        label="Email"
+        label={t("email")}
         icon="mail-outline"
         placeholder="you@example.com"
         value={email}
@@ -46,10 +49,10 @@ export function AuthFields({
         error={errors.email}
       />
       <Field
-        label="Password"
+        label={t("password")}
         icon="lock-closed-outline"
         placeholder={
-          signup ? "Create a preview password" : "At least 8 characters"
+          signup ? t("createPreviewPassword") : t("atLeast8")
         }
         value={password}
         onChangeText={setPassword}
@@ -61,12 +64,12 @@ export function AuthFields({
         trailing={
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={visible ? "Hide password" : "Show password"}
+            accessibilityLabel={visible ? t("hidePassword") : t("showPassword")}
             onPress={() => setVisible(!visible)}
             style={s.show}
           >
             <T color={theme.accent} style={common.bold}>
-              {visible ? "Hide" : "Show"}
+              {visible ? t("hide") : t("show")}
             </T>
           </Pressable>
         }
@@ -82,19 +85,18 @@ export function AuthConsent({
   signup: boolean;
 }) {
   const { ack, setAck, errors } = state;
-  const { theme, setNotice } = usePreferences();
+  const { theme, setNotice } = usePreferences(), t = useT("me");
   return (
     <>
       {signup ? (
         <Card>
-          <T style={common.bold}>Your choices stay yours</T>
+          <T style={common.bold}>{t("choicesStayYours")}</T>
           <T variant="small" muted style={s.tagline}>
-            Your profile and preferences stay on this device. This preview does
-            not create an online account.
+            {t("previewProfileNote")}
           </T>
           <Pressable
             accessibilityRole="checkbox"
-            accessibilityLabel="I understand this is a preview profile"
+            accessibilityLabel={t("understandPreviewLabel")}
             accessibilityState={{ checked: ack }}
             onPress={() => setAck(!ack)}
             style={s.ack}
@@ -104,7 +106,7 @@ export function AuthConsent({
               color={theme.accent}
             />
             <T variant="small" style={common.flex}>
-              I understand this is a preview profile.
+              {t("understandPreview")}
             </T>
           </Pressable>
           {errors.ack && (
@@ -115,11 +117,11 @@ export function AuthConsent({
         </Card>
       ) : (
         <Button
-          label="Forgot Password?"
+          label={t("forgotPassword")}
           variant="link"
           onPress={() =>
             setNotice({
-              text: "Password recovery will be available with real authentication. For this preview, use any 8-character password.",
+              text: t("previewPasswordNotice"),
             })
           }
         />
@@ -128,29 +130,30 @@ export function AuthConsent({
   );
 }
 export function AuthServices({ state }: { state: AuthState }) {
+  const t = useT("me");
   return <View style={common.row}>
-    <View style={common.flex}><Button label="Apple" accessibilityLabel="Continue with Apple" variant="secondary" icon="logo-apple" onPress={() => state.provider("Apple")} /></View>
-    <View style={common.flex}><Button label="Google" accessibilityLabel="Continue with Google" variant="secondary" icon="logo-google" onPress={() => state.provider("Google")} /></View>
+    <View style={common.flex}><Button label="Apple" accessibilityLabel={t("continueWithProvider", { provider: "Apple" })} variant="secondary" icon="logo-apple" onPress={() => state.provider("Apple")} /></View>
+    <View style={common.flex}><Button label="Google" accessibilityLabel={t("continueWithProvider", { provider: "Google" })} variant="secondary" icon="logo-google" onPress={() => state.provider("Google")} /></View>
   </View>;
 }
 export function AuthFooter({ signup }: { signup: boolean }) {
   const { returnTo } = useLocalSearchParams<{ returnTo?: string }>();
-  const destination = safeReturn(returnTo);
+  const destination = safeReturn(returnTo), t = useT("me");
   return signup ? (
     <Button
-      label="Already A Member? Sign In"
+      label={t("alreadyMember")}
       variant="link"
       onPress={() => router.replace({ pathname: "/login", params: { returnTo: String(destination) } })}
     />
   ) : (
     <>
       <Button
-        label="New Here? Create Account"
+        label={t("newHere")}
         variant="link"
         onPress={() => router.push({ pathname: "/create-account", params: { returnTo: String(destination) } })}
       />
       <Button
-        label="Explore First"
+        label={t("exploreFirst")}
         variant="link"
         onPress={() => router.dismissTo(destination)}
       />

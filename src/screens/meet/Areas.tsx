@@ -15,27 +15,33 @@ import { tables, tablesKey } from "../../services/social-api";
 import { formatSgShort } from "../../utils/sg-datetime";
 import { planningAreaByCode } from "../../utils/planning-area";
 import type { AreaBand, AreaLayer } from "../../types/areas";
+import { useLanguage, useT, type Language } from "../../i18n";
+import { formatDay } from "../../utils/day";
 
 // The switch picks the map layer (everyone); "Your areas" below is the member's own Home and Work.
-const layers = [{ id: "home", label: "Where people live" }, { id: "work", label: "Where people work" }] as const;
+const layers = [{ id: "home", label: "layerLive" }, { id: "work", label: "layerWork" }] as const;
 const rank: Record<AreaBand, number> = { "100+": 4, "50+": 3, "20+": 2, "10+": 1 };
-const weekLabel = (week: string) => "Week of " + new Date(week + "T00:00:00+08:00").toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" });
+const weekDate = (week: string, language: Language) => language === "zh" ? formatDay(week, language)
+  : new Date(week + "T00:00:00+08:00").toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" });
 const editPlace = (layer: AreaLayer) => router.push({ pathname: "/location-place", params: { kind: layer } });
 
 /** Open tables in this area this week, each opening its table page. */
 function AreaTables({ area }: { area: string }) {
   const key = tablesKey("", { area, day: "week" }), remote = useRemote(key, signal => tables(key, signal)), items = remote.data?.items ?? [];
+  const t = useT("social"), language = useLanguage();
   if (!items.length) return null;
-  return <ListGroup title={items.length + (items.length === 1 ? " table this week" : " tables this week")}>{items.slice(0, 3).map(t =>
-    <ListItem key={t.id} title={t.place?.name ?? t.venue} subtitle={formatSgShort(t.starts) + " · " + t.held + " of " + t.size} onPress={() => router.push(("/social/table/" + t.id) as never)} />)}</ListGroup>;
+  return <ListGroup title={t("tablesThisWeek", { n: items.length })}>{items.slice(0, 3).map(table =>
+    <ListItem key={table.id} title={table.place?.name ?? table.venue} subtitle={formatSgShort(table.starts, language) + " · " + t("heldOf", { held: table.held, size: table.size })}
+      onPress={() => router.push(("/social/table/" + table.id) as never)} />)}</ListGroup>;
 }
 /** The Areas map, opened from Nearby. */
 export function MeetAreasScreen() {
-  return <Screen title="Areas" backTo="/social"><MemberGate returnTo="/social/areas"><AreasView query="" /></MemberGate></Screen>;
+  return <Screen title={useT("social")("areas")} backTo="/social"><MemberGate returnTo="/social/areas"><AreasView query="" /></MemberGate></Screen>;
 }
 /** Where members live and work, by planning area. Only weekly bands of 10 or more are shown. */
 export function AreasView({ query }: { query: string }) {
-  const [layer, setLayer] = useState<AreaLayer>("home"), [selected, setSelected] = useState<string | null>(null);
+  const [layer, setLayer] = useState<AreaLayer>("home"), [selected, setSelected] = useState<string | null>(null), t = useT("social"), language = useLanguage();
+  const layerOptions = useMemo(() => layers.map(option => ({ ...option, label: t(option.label) })), [t]);
   const snapshot = useRemote("/api/areas", areaSnapshot), mine = useRemote("/api/areas/me", myAreas);
   const bands = useMemo(() => new Map((snapshot.data?.[layer] ?? []).map(item => [item.area, item.band])), [snapshot.data, layer]);
   const other = useMemo(() => new Map((snapshot.data?.[layer === "home" ? "work" : "home"] ?? []).map(item => [item.area, item.band])), [snapshot.data, layer]);
@@ -45,35 +51,35 @@ export function AreasView({ query }: { query: string }) {
   const active = [...bands].map(([code, band]) => ({ area: planningAreaByCode.get(code), band }))
     .filter((item): item is { area: NonNullable<typeof item.area>; band: AreaBand } => !!item.area && item.area.name.toLowerCase().includes(search))
     .sort((a, b) => rank[b.band] - rank[a.band] || a.area.name.localeCompare(b.area.name));
-  const status = (code: string | null, from: Map<string, AreaBand>) => !code ? "Not shared" : from.get(code) ?? "Not enough yet";
+  const status = (code: string | null, from: Map<string, AreaBand>) => !code ? t("notShared") : from.get(code) ?? t("notEnoughYet");
   return <>
-    <SegmentedTabs options={layers} value={layer} onChange={value => { setLayer(value); setSelected(null); }} label="Map layer" />
+    <SegmentedTabs options={layerOptions} value={layer} onChange={value => { setLayer(value); setSelected(null); }} label={t("mapLayer")} />
     <RemoteStatus remote={snapshot} icon="map-outline" returnTo="/social" />
     {snapshot.data && <>
       <AreaMap layer={layer} bands={bands} mine={own} selected={selected} onSelect={select} />
-      <T variant="caption" muted>{(snapshot.data.week ? weekLabel(snapshot.data.week) : "First update this week") + " · " + areaMapCredit}</T>
+      <T variant="caption" muted>{(snapshot.data.week ? t("weekOf", { date: weekDate(snapshot.data.week, language) }) : t("firstUpdate")) + " · " + areaMapCredit}</T>
     </>}
     {area && <Card style={common.stack}>
       <View style={common.spread}><View style={common.flex}><T variant="subtitle" accessibilityRole="header">{area.name}</T><T variant="small" muted>{area.region}</T></View>
-        {area.code === own && <StatusPill label={layer === "home" ? "Your home" : "Your work"} tone="accent" />}</View>
+        {area.code === own && <StatusPill label={t(layer === "home" ? "yourHome" : "yourWork")} tone="accent" />}</View>
       <View style={[common.row, { gap: 8, flexWrap: "wrap" }]}>
-        <StatusPill label={"Live here · " + ((layer === "home" ? bands : other).get(area.code) ?? "Not enough yet")} />
-        <StatusPill label={"Work here · " + ((layer === "work" ? bands : other).get(area.code) ?? "Not enough yet")} />
+        <StatusPill label={t("liveHere", { band: (layer === "home" ? bands : other).get(area.code) ?? t("notEnoughYet") })} />
+        <StatusPill label={t("workHere", { band: (layer === "work" ? bands : other).get(area.code) ?? t("notEnoughYet") })} />
       </View>
       <AreaTables area={area.code} />
-      <Button label="Start A Table Here" icon="restaurant-outline" variant="secondary"
+      <Button label={t("startTableHere")} icon="restaurant-outline" variant="secondary"
         onPress={() => router.push({ pathname: "/social/table/[id]", params: { id: "new", area: area.code } })} />
     </Card>}
-    <ListGroup title="Your areas">
+    <ListGroup title={t("yourAreas")}>
       {(["home", "work"] as const).map(kind => {
         const code = mine.data?.[kind]?.area ?? null, name = code ? planningAreaByCode.get(code)?.name : undefined;
-        return <ListItem key={kind} title={kind === "home" ? "Home" : "Work"} subtitle={name ?? "Not shared"} leading={<RowIcon name={kind === "home" ? "home-outline" : "briefcase-outline"} tone={code ? "accent" : "muted"} />}
+        return <ListItem key={kind} title={t(kind)} subtitle={name ?? t("notShared")} leading={<RowIcon name={kind === "home" ? "home-outline" : "briefcase-outline"} tone={code ? "accent" : "muted"} />}
           trailing={code ? <StatusPill label={status(code, kind === layer ? bands : other)} /> : undefined} onPress={() => editPlace(kind)} />;
       })}
     </ListGroup>
-    {snapshot.data && (active.length ? <ListGroup title="Most active">{active.map(item => <ListItem key={item.area.code} title={item.area.name} subtitle={item.area.region}
+    {snapshot.data && (active.length ? <ListGroup title={t("mostActive")}>{active.map(item => <ListItem key={item.area.code} title={item.area.name} subtitle={item.area.region}
       trailing={<StatusPill label={item.band} tone={item.band === "10+" || item.band === "20+" ? "muted" : "accent"} />} onPress={() => select(item.area.code)} />)}</ListGroup>
-      : <EmptyState title={search ? "No Matching Areas" : "No Areas With 10+ Members Yet"} text="" icon="map-outline"
-        action={!search && !own ? "Count Me In" : undefined} onPress={() => editPlace(layer)} />)}
+      : <EmptyState title={t(search ? "noMatchingAreas" : "noAreasYet")} text="" icon="map-outline"
+        action={!search && !own ? t("countMeIn") : undefined} onPress={() => editPlace(layer)} />)}
   </>;
 }

@@ -18,6 +18,7 @@ import { fontNames, themeFor } from "../../theme/tokens";
 import { MochiFace } from "./Face";
 import { FEET_ORIGIN, HOLD, LANDINGS, SETTLED, SWAY, bodyKeyframes, shadowKeyframes, shadowSwayKeyframes, swayKeyframes } from "./motion";
 import { loadIntroSettings, type IntroSettings } from "./settings";
+import { resolveLanguage, systemLanguage, translate, type Language } from "../../i18n";
 import { playIntroSound, prepareIntroSound, releaseIntroSound } from "./sound";
 
 const EXIT = 380;
@@ -47,9 +48,9 @@ function useBrand(): Brand {
 }
 
 /** The native splash frame (plain brand background), shown while the app loads where no native splash exists (web). */
-export function SplashMark() {
+export function SplashMark({ language = systemLanguage() }: { language?: Language }) {
   const { background } = useBrand();
-  return <View accessible accessibilityLabel="Loading QuinTaste" style={[s.fill, { backgroundColor: background }]} />;
+  return <View accessible accessibilityLabel={translate(language, "common", "loadingApp")} style={[s.fill, { backgroundColor: background }]} />;
 }
 
 /** Mount once, at the root. */
@@ -71,7 +72,7 @@ export function SplashIntro() {
   useEffect(() => { if (go) void SplashScreen.hideAsync().catch(() => {}); }, [go]);
   if (done) return null;
   if (!go) return <View style={StyleSheet.absoluteFill}><SplashMark /></View>;
-  return <Play still={systemStill || settings.reduceMotion} sounds={settings.sounds} onDone={() => setDone(true)} />;
+  return <Play still={systemStill || settings.reduceMotion} sounds={settings.sounds} language={resolveLanguage(settings.language)} onDone={() => setDone(true)} />;
 }
 
 function tap(style: Haptics.ImpactFeedbackStyle) {
@@ -111,7 +112,7 @@ function Shadow({ size, cx, base, brand, bounce, sway }: { size: number; cx: num
 const FADE_OUT = { to: { opacity: 0 } };
 const TITLE_IN = { from: { opacity: 0, transform: [{ translateY: 14 }] }, to: { opacity: 1, transform: [{ translateY: 0 }] } };
 
-function Play({ still, sounds, onDone }: { still: boolean; sounds: boolean; onDone: () => void }) {
+function Play({ still, sounds, language, onDone }: { still: boolean; sounds: boolean; language: Language; onDone: () => void }) {
   const brand = useBrand(), appReady = useSyncExternalStore(subscribe, isReady, isReady);
   const { width: W, height: H } = useWindowDimensions();
   const size = Math.min(W * 0.46, H * 0.26, 220), cx = W / 2, cy = H * 0.43;
@@ -153,7 +154,7 @@ function Play({ still, sounds, onDone }: { still: boolean; sounds: boolean; onDo
   const breathe = still ? null : { animationName: frames.breath, animationDuration: 1300, animationDelay: SETTLED, animationTimingFunction: "ease-in-out", animationIterationCount: "infinite", animationDirection: "alternate" } as const;
   const title = still ? null : { animationName: TITLE_IN, animationDuration: 420, animationDelay: LANDINGS[0] + 180, animationTimingFunction: "ease-out", animationFillMode: "both" } as const;
   return <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: brand.background }, fade]}>
-    <Pressable accessibilityRole="button" accessibilityLabel="Skip QuinTaste intro" onPress={() => leave(true)} style={StyleSheet.absoluteFill}>
+    <Pressable accessibilityRole="button" accessibilityLabel={translate(language, "common", "skipIntro")} onPress={() => leave(true)} style={StyleSheet.absoluteFill}>
       <Shadow size={size} cx={cx} base={base} brand={brand} bounce={still ? null : play(frames.ground, SETTLED)} sway={hovering ? loop(frames.groundIn, frames.groundSway) : null} />
       <Animated.View pointerEvents="none" style={[s.abs, { left: cx - size / 2, top: cy - size / 2, width: size, height: size }, still ? null : play(frames.body, SETTLED)]}>
         <Animated.View style={[s.feet, hovering ? loop(frames.swayIn, frames.sway) : null]}>

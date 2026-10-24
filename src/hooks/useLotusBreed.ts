@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { invalidate } from "./useRemote";
 import { breedProgress, newRequestId, startBreed, type BreedJob } from "../services/lotus-api";
+import { useT } from "../i18n";
 
 type Failure = Error & { status?: number; code?: string };
 const POLL_MS = 2500, POLL_FOR_MS = 35 * 60 * 1000;
@@ -19,7 +20,7 @@ export function useLotusBreed(userId: string, serverJob: BreedJob | null | undef
   const key = "@quintaste/lotus-breed-request/" + userId;
   const [job, setJob] = useState<BreedJob | null>(null), [uploading, setUploading] = useState(false), [error, setError] = useState("");
   const [restored, setRestored] = useState(false), [pending, setPending] = useState("");
-  const controller = useRef<AbortController | null>(null), active = useRef("");
+  const controller = useRef<AbortController | null>(null), active = useRef(""), t = useT("game");
   const track = useCallback((id: string) => { active.current = id; setPending(id); }, []);
 
   const finish = useCallback(async (id: string) => {
@@ -43,10 +44,10 @@ export function useLotusBreed(userId: string, serverJob: BreedJob | null | undef
       if (run.signal.aborted) return;
       const problem = failure as Failure;
       // The upload never arrived: forget the id so the member can start again. Otherwise keep it and reconnect later.
-      if (problem.status === 404) { await finish(id); setJob(null); setError("Your photo did not upload. Try again."); return; }
-      setError(problem.message || "Connection interrupted. Reconnect to check your breed.");
+      if (problem.status === 404) { await finish(id); setJob(null); setError(t("lotusPhotoNotUploaded")); return; }
+      setError(problem.message || t("lotusConnectionLost"));
     }
-  }, [finish, track]);
+  }, [finish, track, t]);
 
   useEffect(() => {
     let alive = true;
@@ -75,7 +76,7 @@ export function useLotusBreed(userId: string, serverJob: BreedJob | null | undef
       const problem = failure as Failure;
       // A refusal from the server starts nothing, so forget the id; a lost connection keeps it for Reconnect.
       if (problem.status && (problem.status < 500 || problem.status === 503)) await finish(id);
-      setError(problem.message || "Your breed did not start. Try again.");
+      setError(problem.message || t("lotusBreedFailed"));
     } finally { setUploading(false); }
   };
   const reconnect = () => { const id = active.current; if (id) void poll(id); };

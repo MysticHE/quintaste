@@ -21,6 +21,7 @@ import { Icon, T, common } from "./ui";
 import { PhotoScrollView } from "./discovery/PhotoScrollView";
 import { useGlassNavigation } from "./navigation/GlassNavigation";
 import { SCREEN_GUTTER } from "../theme/layout";
+import { useT } from "../i18n";
 type ScreenProps = {
   title?: string;
   subtitle?: string;
@@ -78,10 +79,10 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
   </LinearGradient>;
 }
 function ScreenHeading({ title, subtitle, back, backTo, titleAccessory, headerAction, compact }: ScreenProps) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("common");
   if (!title && !titleAccessory && !headerAction) return null;
   return <View style={s.heading}><View style={common.row}>
-    {back && <Pressable accessibilityRole="button" accessibilityLabel="Go back"
+    {back && <Pressable accessibilityRole="button" accessibilityLabel={t("goBack")}
       onPress={() => router.canGoBack() ? router.back() : router.replace(backTo ?? "/")} style={s.back}><Icon name="chevron-back" color={theme.foreground} /></Pressable>}
     {titleAccessory ? <View style={common.flex}>{!!title && <T variant={compact ? "subtitle" : "title"} accessibilityRole="header" style={s.title}>{title}</T>}{titleAccessory}</View>
       : <T variant={compact ? "subtitle" : "title"} accessibilityRole="header" style={[common.flex, s.title]}>{title}</T>}
@@ -89,7 +90,7 @@ function ScreenHeading({ title, subtitle, back, backTo, titleAccessory, headerAc
   </View>{!!subtitle && <T variant="small" muted style={s.subtitle}>{subtitle}</T>}</View>;
 }
 function NoticeBanner() {
-  const { theme, notice, setNotice, reload, save } = usePreferences();
+  const { theme, notice, setNotice, reload, save } = usePreferences(), t = useT("common");
   const focused = useIsFocused();
   if (!focused) return null;
   return (
@@ -114,16 +115,16 @@ function NoticeBanner() {
           {notice.error && notice.preferenceRetry && (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel={notice.preferenceRetry === 'save' ? "Retry saving preferences" : "Retry loading preferences"}
+              accessibilityLabel={notice.preferenceRetry === 'save' ? t("retrySavingPreferences") : t("retryLoadingPreferences")}
               onPress={() => void (notice.preferenceRetry === 'save' ? save() : reload())}
               style={s.back}
             >
-              <T color={theme.accent}>Retry</T>
+              <T color={theme.accent}>{t("retry")}</T>
             </Pressable>
           )}
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Dismiss message"
+            accessibilityLabel={t("dismissMessage")}
             onPress={() => setNotice(null)}
             style={s.back}
           >

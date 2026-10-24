@@ -5,38 +5,37 @@ import { Icon, T, common, type IconName } from "../components/ui";
 import { ListGroup } from "../components/GroupedList";
 import { usePreferences } from "../state/Preferences";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
+import { useDietText } from "../components/food/DietLabels";
+import { useT } from "../i18n";
+import type meMessages from "../i18n/en/me";
 
-type Answer = { icon: IconName; question: string; answer: string };
+type Answer = { icon: IconName; question: keyof typeof meMessages; answer: keyof typeof meMessages };
 /** Task questions members actually ask. Every answer states what QuinTaste does and does not check. */
 const answers: Answer[] = [
-  { icon: "leaf-outline", question: "How do I find food with no five pungent (五辛)?",
-    answer: "In QuinTaste, Vegetarian means no five pungent: garlic, onion, shallots, spring onion, leeks, chives and asafoetida. Vegan means no dairy, egg or honey. In Explore or Cook, open the filter in the search box and choose Vegetarian. Sauces can still hide garlic or onion, so ask the stall when it matters." },
-  { icon: "shield-checkmark-outline", question: "Are the diet labels checked?",
-    answer: "A place shows Vegan or Vegetarian only when the venue's own information says so; otherwise it shows no label. Each place lists its sources and the date they were checked. Market sellers and recipe authors declare their own food. QuinTaste does not certify any food or seller." },
-  { icon: "bag-handle-outline", question: "How do I buy from Market?",
-    answer: "Choose an item, pick a collection slot and send the order. The seller confirms it, and you pay them in cash or PayNow when you collect. QuinTaste does not take payment." },
-  { icon: "people-outline", question: "How do I find people to eat with?",
-    answer: "In Social, finish your profile and turn on Open to plans. Invite one, three or five people, agree a public place and time in the group chat, and everyone confirms before the meal." },
-  { icon: "phone-portrait-outline", question: "Where is my data kept?",
-    answer: "Saves, notes, recipe drafts, your shopping list and Home and Work addresses stay on this phone. Your account, Social plans, Market orders and reviews are kept by QuinTaste so other members can see them. Manage both in Privacy & Data." },
-  { icon: "flag-outline", question: "How do I report a problem?",
-    answer: "On a place, use Suggest an update. On a person, item, recipe or event, use Report. Reports go to the QuinTaste team." },
+  { icon: "leaf-outline", question: "helpPungentQ", answer: "helpPungentA" },
+  { icon: "shield-checkmark-outline", question: "helpLabelsQ", answer: "helpLabelsA" },
+  { icon: "bag-handle-outline", question: "helpMarketQ", answer: "helpMarketA" },
+  { icon: "people-outline", question: "helpSocialQ", answer: "helpSocialA" },
+  { icon: "phone-portrait-outline", question: "helpDataQ", answer: "helpDataA" },
+  { icon: "flag-outline", question: "helpReportQ", answer: "helpReportA" },
 ];
 export function HelpScreen() {
-  return <Screen title="Help">
-    <ListGroup>{answers.map(item => <Question key={item.question} item={item} />)}</ListGroup>
+  const t = useT("me"), diet = useDietText();
+  const labels = { vegan: diet.name("Vegan"), vegetarian: diet.name("Vegetarian") };
+  return <Screen title={t("help")}>
+    <ListGroup>{answers.map(item => <Question key={item.question} question={t(item.question)} answer={t(item.answer, labels)} icon={item.icon} />)}</ListGroup>
   </Screen>;
 }
-function Question({ item }: { item: Answer }) {
+function Question({ question, answer, icon }: { question: string; answer: string; icon: IconName }) {
   const { theme } = usePreferences(), [open, setOpen] = useState(false), { focused, focusProps } = useKeyboardFocus();
   return <View>
-    <Pressable accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={item.question} onPress={() => setOpen(!open)} {...focusProps}
+    <Pressable accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel={question} onPress={() => setOpen(!open)} {...focusProps}
       style={({ pressed }) => [common.row, s.row, { borderColor: focused ? theme.accent : theme.transparent, opacity: pressed ? 0.7 : 1 }]}>
-      <View style={[s.icon, { backgroundColor: theme.accentSoft }]}><Icon name={item.icon} size={20} color={theme.accent} /></View>
-      <T style={[common.flex, common.bold]}>{item.question}</T>
+      <View style={[s.icon, { backgroundColor: theme.accentSoft }]}><Icon name={icon} size={20} color={theme.accent} /></View>
+      <T style={[common.flex, common.bold]}>{question}</T>
       <Icon name={open ? "chevron-up" : "chevron-down"} size={18} color={theme.mutedForeground} />
     </Pressable>
-    {open && <T muted style={s.answer}>{item.answer}</T>}
+    {open && <T muted style={s.answer}>{answer}</T>}
   </View>;
 }
 const s = StyleSheet.create({

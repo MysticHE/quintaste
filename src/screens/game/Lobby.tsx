@@ -21,6 +21,7 @@ import { wideSkinKey } from "./home/Scene";
 import { Leaves, SunRays } from "./home/SceneFx";
 import { SlideToEnter } from "./home/SlideToEnter";
 import { LobbyCast } from "./LobbyCast";
+import { useT } from "../../i18n";
 
 /**
  * The Game tab, full screen behind the app's bottom navigation (docs/game/LOBBY_MOTION_PLAN.md): the café room with
@@ -29,7 +30,7 @@ import { LobbyCast } from "./LobbyCast";
  */
 export function GameLobby() {
   const { theme, reducedMotion } = usePreferences();
-  const { game } = useGame();
+  const { game } = useGame(), t = useT("game");
   const focused = useIsFocused();
   const { sound, buzz } = useCafeFeedback(game.settings, focused);
   const insets = useSafeAreaInsets(), dock = useGlassNavigation()?.height ?? 0;
@@ -92,17 +93,17 @@ export function GameLobby() {
       <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: theme.lotus.ray }, flash]} />
     </Animated.View>}
     {box.w > 0 && <Animated.View style={[s.info, { top: insets.top + 10, left: insets.left + 20, right: insets.right + 84 }, infoIn]}>
-      <T variant="small" color={theme.mediaRating} style={s.eyebrow} numberOfLines={1}>{allDone ? "All " + LEVELS.length + " levels cleared" : "Level " + n + " · " + lv.name}</T>
+      <T variant="small" color={theme.mediaRating} style={s.eyebrow} numberOfLines={1}>{allDone ? t("allLevelsCleared", { n: LEVELS.length }) : t("levelName", { n, name: lv.name })}</T>
       <T variant="title" color={theme.mediaForeground} numberOfLines={1} accessibilityRole="header" style={s.name}>{game.cafeName}</T>
       <View style={s.stats}>
-        <Stat icon="star" text={stars + " / " + LEVELS.length * 3} label={stars + " of " + LEVELS.length * 3 + " stars"} />
+        <Stat icon="star" text={stars + " / " + LEVELS.length * 3} label={t("starsOf", { stars, total: LEVELS.length * 3 })} />
         <View style={[s.dot, { backgroundColor: theme.mediaDivider }]} />
-        <Stat icon="sparkles" text={game.credits + " credits"} label={game.credits + " café credits"} />
+        <Stat icon="sparkles" text={t("credits", { n: game.credits })} label={t("cafeCredits", { n: game.credits })} />
       </View>
     </Animated.View>}
     <View style={[s.me, { top: insets.top + 8, right: insets.right + 12 }]}><MeButton /></View>
     {box.w > 0 && <Animated.View style={[s.slide, { bottom: slideBottom, left: (box.w - slideW) / 2 }, slideIn]}>
-      <SlideToEnter key={focused ? "here" : "away"} width={slideW} title="Slide to enter" label={"Enter " + game.cafeName} onTick={() => buzz("tick")} onComplete={enter} />
+      <SlideToEnter key={focused ? "here" : "away"} width={slideW} title={t("slideToEnter")} label={t("enterCafe", { name: game.cafeName })} onTick={() => buzz("tick")} onComplete={enter} />
     </Animated.View>}
   </View>;
 }

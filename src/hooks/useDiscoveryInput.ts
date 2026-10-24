@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useFood } from "../state/Food";
 import { useDiscovery } from "../state/Discovery";
 import { usePreferences } from "../state/Preferences";
+import { useT } from "../i18n";
 import type { LocationSuggestion } from "../types/location-search";
 import type { PlaceLabel } from "../types/discovery";
 import { originIsFresh } from "../utils/discovery-search";
@@ -10,7 +11,7 @@ import { discoveryLabels, selectedCuisines, selectedPrices, withLocationMode } f
 
 export function useDiscoveryInput(now: number) {
   const { doc, filters, setFilters, followDefault, setSearch } = useFood();
-  const discovery = useDiscovery(), { draft } = usePreferences();
+  const discovery = useDiscovery(), { draft } = usePreferences(), t = useT("explore");
   const privateKind = filters.home ? "home" : filters.work ? "work" : undefined;
   // The default location drives Explore unless the user typed a search, chose a place, used GPS, picked Near Home/Work
   // or explicitly chose all of Singapore. A "Current search" left over from an earlier session also falls back to it.
@@ -54,9 +55,9 @@ export function useDiscoveryInput(now: number) {
     if (value.trim()) setFilters(withLocationMode(filters, "singapore")); else void followDefault();
   };
   const automaticKind = automatic ? privatePlaceKind(automatic) : undefined;
-  const areaLabel = privateKind ? privateKind === "home" ? "Near Home" : "Near Work"
-    : automaticKind ? automaticKind === "home" ? "Near Home" : automaticKind === "work" ? "Near Work" : "Near default location"
-    : selection?.name ?? (origin ? "Near me" : area);
+  const areaLabel = privateKind ? t(privateKind === "home" ? "nearHome" : "nearWork")
+    : automaticKind ? t(automaticKind === "home" ? "nearHome" : automaticKind === "work" ? "nearWork" : "nearDefault")
+    : selection?.name ?? (origin ? t("nearMe") : area === "Singapore" ? t("singapore") : area);
   return { input, locationExpired, privateMissing,
     privateKind: privateKind ?? (automaticKind === "home" || automaticKind === "work" ? automaticKind : undefined),
     followingCustom: automaticKind === "custom", point: center ?? origin, areaLabel, choose, searchPlaces };

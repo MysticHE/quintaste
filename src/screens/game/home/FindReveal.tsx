@@ -8,6 +8,7 @@ import { usePreferences } from "../../../state/Preferences";
 import { Art } from "./bits";
 import { PlayButton } from "./Controls";
 import { FindLight } from "./FindLight";
+import { useT } from "../../../i18n";
 
 /** `level` orders the finds; `from` names what earned it ("Cleared Level 30", "Cleared Reunion kitchen 6"). */
 export type Find = { kind: "accessory" | "pet" | "decor" | "skin"; id: string; level: number; from: string };
@@ -16,12 +17,12 @@ export type Find = { kind: "accessory" | "pet" | "decor" | "skin"; id: string; l
  * dimmed café, what it is for, then the gold pill (Equip, Choose, Use, or Done) and Keep current look.
  */
 export function FindReveal({ find, pet, onEquip, onKeep }: { find: Find; pet: string; onEquip(): void; onKeep(): void }) {
-  const { theme, reducedMotion } = usePreferences(), { height } = useWindowDimensions();
+  const { theme, reducedMotion } = usePreferences(), { height } = useWindowDimensions(), t = useT("game"), tc = useT("common");
   const item = find.kind === "accessory" ? ACCESSORIES[find.id] : find.kind === "pet" ? PETS[find.id] : find.kind === "decor" ? DECOR[find.id] : SKINS[find.id];
   const name = item.name, wearer = find.kind === "accessory" && GAME_ART[wearArt(pet, find.id)] ? wearArt(pet, find.id) : null;
   const art = find.kind === "skin" ? SKINS[find.id].art! : (item as { art: string }).art;
-  const forWho = find.kind === "accessory" ? "For your companion" : find.kind === "pet" ? "A new companion" : find.kind === "decor" ? "For your café" : "A new café skin";
-  const action = find.kind === "accessory" ? (wearer ? "Equip on " + PETS[pet].name : null) : find.kind === "pet" ? "Choose " + name : find.kind === "skin" ? "Use this skin" : null;
+  const forWho = find.kind === "accessory" ? t("forCompanion") : find.kind === "pet" ? t("newCompanion") : find.kind === "decor" ? t("forCafe") : t("newSkin");
+  const action = find.kind === "accessory" ? (wearer ? t("equipOn", { pet: PETS[pet].name }) : null) : find.kind === "pet" ? t("choosePet", { pet: name }) : find.kind === "skin" ? t("useSkin") : null;
   // The spotlight shrinks (to 60%) on a short screen so everything fits; the page still scrolls if it cannot.
   const fit = Math.max(0.6, Math.min(1, (height - (wearer ? 470 : 360)) / 300));
   const enter = (i: number) => reducedMotion ? undefined : FadeInDown.delay(80 + i * 110).springify().damping(16).stiffness(150);
@@ -37,7 +38,7 @@ export function FindReveal({ find, pet, onEquip, onKeep }: { find: Find; pet: st
     <ScrollView contentContainerStyle={s.body} accessibilityViewIsModal bounces={false} showsVerticalScrollIndicator={false}>
       <Animated.View entering={enter(0)} style={s.head}>
         <View style={s.from}><Spark color={theme.mediaRating} /><T variant="small" color={theme.mediaRating} style={s.fromText}>{find.from}</T><Spark color={theme.mediaRating} /></View>
-        <T variant="display" color={theme.mediaForeground} accessibilityRole="header" style={s.center}>Your new find</T>
+        <T variant="display" color={theme.mediaForeground} accessibilityRole="header" style={s.center}>{t("yourNewFind")}</T>
       </Animated.View>
       <Animated.View entering={reducedMotion ? undefined : FadeIn.duration(260)}>
         <FindLight art={art} size={find.kind === "skin" ? 176 : 136} still={reducedMotion} card={find.kind === "skin"} fit={fit} />
@@ -48,11 +49,11 @@ export function FindReveal({ find, pet, onEquip, onKeep }: { find: Find; pet: st
         {wearer && <Art k={wearer} size={104} style={s.wearer} />}
       </Animated.View>
       <Animated.View entering={enter(4)} style={s.acts}>
-        <PlayButton title={action ?? "Done"} icon={action ? "sparkles" : "checkmark"} onPlay={action ? onEquip : onKeep} />
+        <PlayButton title={action ?? tc("done")} icon={action ? "sparkles" : "checkmark"} onPlay={action ? onEquip : onKeep} />
         {action && <Pressable onPress={onKeep} accessibilityRole="button" hitSlop={4} style={({ pressed }) => [s.keep, { opacity: pressed ? 0.6 : 1 }]}>
-          <T color={theme.mediaMutedForeground} style={s.keepText}>Keep current look</T>
+          <T color={theme.mediaMutedForeground} style={s.keepText}>{t("keepLook")}</T>
         </Pressable>}
-        <T variant="small" color={theme.mediaMutedForeground} style={[s.center, s.free]}>Free · cosmetic only</T>
+        <T variant="small" color={theme.mediaMutedForeground} style={[s.center, s.free]}>{t("freeCosmetic")}</T>
       </Animated.View>
     </ScrollView>
   </Modal>;

@@ -3,12 +3,13 @@ import type { LivePlace } from "../../types/discovery";
 import type { livePlaceMetadata } from "../../utils/live-place-format";
 import { usePreferences } from "../../state/Preferences";
 import { Icon, T, common } from "../ui";
+import { useT } from "../../i18n";
 
 export function LivePlaceInformation({ place, meta, measurePanel, measureName, onSource }: {
   place: LivePlace; meta: ReturnType<typeof livePlaceMetadata>;
   measurePanel: (height: number) => void; measureName: (height: number) => void; onSource: () => void;
 }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), t = useT("explore");
   return <View pointerEvents="box-none" testID="photo-information-layer" onLayout={event => measurePanel(Math.ceil(event.nativeEvent.layout.height))} style={s.panel}>
     <View style={s.information} pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
     <T testID="place-card-name" variant="place" color={theme.mediaForeground} style={[common.bold, s.text]}
@@ -16,7 +17,7 @@ export function LivePlaceInformation({ place, meta, measurePanel, measureName, o
       onLayout={event => measureName(Math.ceil(event.nativeEvent.layout.height))}>{place.name}</T>
     <View style={s.row}><Icon name="location-outline" size={14} color={theme.mediaForeground} />
       <T testID="place-card-address" variant="caption" color={theme.mediaForeground} style={[common.flex, s.text]}
-        numberOfLines={1} ellipsizeMode="tail">{place.address || "Address unavailable"}</T></View>
+        numberOfLines={1} ellipsizeMode="tail">{place.address || t("addressUnavailable")}</T></View>
     <View style={s.summary}>
       {!!meta.distanceLabel && <View style={[s.row, !!meta.rating && s.distance]}><Icon name="navigate-outline" size={13} color={theme.mediaForeground} />
         <T testID="place-card-distance" variant="caption" color={theme.mediaForeground} style={s.text}
@@ -33,7 +34,7 @@ export function LivePlaceInformation({ place, meta, measurePanel, measureName, o
       <View style={s.row} pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants"><Icon name="time-outline" size={14} color={theme.mediaForeground} />
         <T testID="place-card-hours" variant="caption" color={theme.mediaForeground} style={s.text}
           numberOfLines={1} ellipsizeMode="tail">{meta.hours}</T></View>
-      <Pressable accessibilityRole="link" accessibilityLabel={"View " + place.name + " in Google Maps"}
+      <Pressable accessibilityRole="link" accessibilityLabel={t("viewInMaps", { name: place.name })}
         onPress={event => { event.stopPropagation(); onSource(); }} hitSlop={{ top: 10, bottom: 10, left: 4, right: 4 }} style={s.source}>
         <T variant="caption" color={theme.mediaProviderForeground} numberOfLines={1} style={s.attribution}>Google Maps</T>
         <Icon name="open-outline" size={11} color={theme.mediaProviderForeground} />

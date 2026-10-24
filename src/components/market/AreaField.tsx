@@ -3,6 +3,7 @@ import { Chip, HorizontalChips } from "../food/Controls";
 import { Field } from "../ui";
 import { areas } from "../../data/areas";
 import { useFood } from "../../state/Food";
+import { useT } from "../../i18n";
 import { planningAreaFor } from "../../utils/planning-area";
 import type { PrivatePlaceKind } from "../../types/food";
 
@@ -15,10 +16,10 @@ const matches = (text: string) => {
 };
 /** The planning area of the member's saved Home or Work place, worked out on the device; only the area name is ever sent. */
 export function useNearAreas() {
-  const { doc } = useFood();
+  const { doc } = useFood(), t = useT("market");
   return (["home", "work"] as PrivatePlaceKind[]).flatMap(kind => {
     const point = doc.privatePlaces.find(place => place.kind === kind)?.point, name = point ? planningAreaFor(point.latitude, point.longitude)?.name : undefined;
-    return name ? [{ kind, name, label: kind === "home" ? "Near Home" : "Near Work" }] : [];
+    return name ? [{ kind, name, label: t(kind === "home" ? "nearHome" : "nearWork") }] : [];
   });
 }
 /** An area text field with matching Singapore area names under it; `near` adds Near Home and Near Work. */

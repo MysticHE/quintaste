@@ -14,6 +14,7 @@ import { RemoteStatus } from "../../components/CommunityGate";
 import { useRemote } from "../../hooks/useRemote";
 import { nearby, places, placesByIdKey, tables, tablesKey } from "../../services/social-api";
 import type { NearbyArea } from "../../types/community";
+import { useT } from "../../i18n";
 
 /** Work leads on weekdays and Home on weekends (Singapore time). */
 function ordered(areas: NearbyArea[], now: number) {
@@ -22,7 +23,7 @@ function ordered(areas: NearbyArea[], now: number) {
 }
 /** Your areas, the spots people there usually eat at, and tables coming up nearby. */
 export function NearbyView({ query }: { query: string }) {
-  const now = useMinuteClock(), me = useSocialMe().data?.profile, [lead, setLead] = useState<string | null>(null);
+  const now = useMinuteClock(), me = useSocialMe().data?.profile, [lead, setLead] = useState<string | null>(null), t = useT("social");
   const remote = useRemote("/api/social/nearby", nearby), areas = ordered(remote.data?.areas ?? [], now);
   const first = areas.find(a => a.layer + a.area === lead) ?? areas[0], rest = areas.filter(a => a !== first);
   const ids = [...new Set(areas.flatMap(a => a.spots.map(s => s.id)))], placesKey = placesByIdKey(ids);
@@ -30,17 +31,17 @@ export function NearbyView({ query }: { query: string }) {
   const key = tablesKey(query, { day: "week" }), upcoming = useRemote(key, signal => tables(key, signal), 60000);
   const mine = new Set(areas.map(a => a.area)), list = (upcoming.data?.items ?? []).filter(t => !mine.size || (t.areaCode && mine.has(t.areaCode)));
   return <>
-    {me && profileState(me).label !== "Open to plans" && <ListGroup><ProfileRow profile={me} /></ListGroup>}
+    {me && profileState(me).id !== "open" && <ListGroup><ProfileRow profile={me} /></ListGroup>}
     <RemoteStatus remote={remote} icon="location-outline" returnTo="/social" />
-    {remote.data && !areas.length && <FirstRunState icon="location-outline" title="See who eats near you" text="Count your home or work area."
-      action={{ label: "Count Me In", icon: "add", onPress: () => router.push("/private-places") }} />}
+    {remote.data && !areas.length && <FirstRunState icon="location-outline" title={t("seeWhoEats")} text={t("countArea")}
+      action={{ label: t("countMeIn"), icon: "add", onPress: () => router.push("/private-places") }} />}
     {first && <AreaCard area={first} places={byId} />}
     {rest.map(a => <ListGroup key={a.layer}><AreaRow area={a} onPress={() => setLead(a.layer + a.area)} /></ListGroup>)}
     {!!list.length && <View style={{ gap: 8 }}>
-      <View style={common.spread}><T style={common.bold} accessibilityRole="header">Tables near you this week</T>
-        <Button label="See All" variant="link" onPress={() => router.setParams({ tab: "tables" })} /></View>
+      <View style={common.spread}><T style={common.bold} accessibilityRole="header">{t("tablesNearWeek")}</T>
+        <Button label={t("seeAll")} variant="link" onPress={() => router.setParams({ tab: "tables" })} /></View>
       <HorizontalChips bleed>{list.slice(0, 8).map(t => <TableChip key={t.id} table={t} />)}</HorizontalChips>
     </View>}
-    {remote.data && <ListGroup><ListItem title="Show Map" leading={<RowIcon name="map-outline" />} onPress={() => openSocial("/areas")} /></ListGroup>}
+    {remote.data && <ListGroup><ListItem title={t("showMap")} leading={<RowIcon name="map-outline" />} onPress={() => openSocial("/areas")} /></ListGroup>}
   </>;
 }

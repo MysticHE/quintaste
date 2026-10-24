@@ -4,14 +4,16 @@ import { avatarRequest } from '../utils/avatar-api';
 import { readAvatar, sampleAvatar } from '../utils/avatar-schema';
 import type { Avatar } from '../types/avatar';
 import type { FoodDocument } from '../types/food';
+import { useT } from '../i18n';
 
 export type AvatarItem = { id: string; createdAt: number; thumbnail: string; recipe?: Avatar['recipe']; form?: Avatar['form'] };
 type Library = { items: AvatarItem[]; selected: string | null };
 type Options = { scope: string; enabled: boolean; avatar: Avatar | null; update: (change: (doc: FoodDocument) => FoodDocument) => Promise<boolean> };
 export function useAccountAvatars(options: Options) {
   const [state, setState] = useState({ scope: '', items: [] as AvatarItem[], loading: false, ready: false, error: '' });
+  const t = useT('me'), say = useRef(t);
   const current = useRef(options), controller = useRef<AbortController | null>(null), locked = useRef(false);
-  useLayoutEffect(() => { current.current = options; });
+  useLayoutEffect(() => { current.current = options; say.current = t; });
   const run = useCallback(async (action: (request: <T>(path: string, init?: RequestInit) => Promise<T>) => Promise<void>) => {
     if (!current.current.enabled || locked.current) return false;
     const scope = current.current.scope, active = new AbortController();
@@ -24,7 +26,7 @@ export function useAccountAvatars(options: Options) {
     };
     try { await action(request); return !active.signal.aborted && current.current.scope === scope; }
     catch (error) {
-      if (!active.signal.aborted && current.current.scope === scope) setState(value => ({ ...value, error: error instanceof Error ? error.message : 'Your avatar library could not connect. Try again.' }));
+      if (!active.signal.aborted && current.current.scope === scope) setState(value => ({ ...value, error: error instanceof Error ? error.message : say.current('libraryConnectFailed') }));
       return false;
     } finally {
       if (controller.current === active) { locked.current = false; setState(value => ({ ...value, loading: false })); }
@@ -43,7 +45,7 @@ export function useAccountAvatars(options: Options) {
     if (controller.current?.signal.aborted) return;
     setState(value => ({ ...value, items: library.items, ready: true }));
     if (selected !== null && avatar?.id !== current.current.avatar?.id && !await current.current.update(doc => ({ ...doc, avatar }))) {
-      throw new Error('Your account library is safe, but this device could not apply your avatar. Free some device storage and retry.');
+      throw new Error(say.current('libraryApplyFailed'));
     }
   }), [run]);
   useEffect(() => {
@@ -56,19 +58,19 @@ export function useAccountAvatars(options: Options) {
     await request('', { method: 'POST', body: JSON.stringify({ avatar }) });
     if (controller.current?.signal.aborted) return;
     setState(value => ({ ...value, items: [{ id: avatar.id, createdAt: avatar.createdAt, thumbnail: avatar.frames.base }, ...value.items.filter(item => item.id !== avatar.id)] }));
-    if (!await current.current.update(doc => ({ ...doc, avatar }))) throw new Error('Saved to your account, but this device could not apply it. Free some device storage and choose the saved portrait again.');
+    if (!await current.current.update(doc => ({ ...doc, avatar }))) throw new Error(say.current('savedApplyFailed'));
   });
   const select = (id: string) => run(async request => {
     const avatar = id === 'default' ? null : id === sampleAvatar.id ? sampleAvatar : readAvatar(await request<Avatar>('/' + encodeURIComponent(id)));
-    if (id !== 'default' && !avatar) throw new Error('This avatar could not be opened. Choose it again.');
+    if (id !== 'default' && !avatar) throw new Error(say.current('avatarOpenChooseAgain'));
     await request('/selection', { method: 'POST', body: JSON.stringify({ selected: id }) });
-    if (!controller.current?.signal.aborted && !await current.current.update(doc => ({ ...doc, avatar }))) throw new Error('Your account selection is saved, but this device could not apply it. Free some device storage and retry.');
+    if (!controller.current?.signal.aborted && !await current.current.update(doc => ({ ...doc, avatar }))) throw new Error(say.current('selectionApplyFailed'));
   });
   const remove = (id: string) => run(async request => {
     await request('/' + encodeURIComponent(id), { method: 'DELETE' });
     if (controller.current?.signal.aborted) return;
     setState(value => ({ ...value, items: value.items.filter(item => item.id !== id) }));
-    if (current.current.avatar?.id === id && !await current.current.update(doc => ({ ...doc, avatar: null }))) throw new Error('Deleted from your account, but this device could not update its cache. Free some device storage and reconnect.');
+    if (current.current.avatar?.id === id && !await current.current.update(doc => ({ ...doc, avatar: null }))) throw new Error(say.current('deletedCacheFailed'));
   });
   const active = state.scope === options.scope && options.enabled;
   return { items: active ? state.items : [], loading: active && state.loading, ready: active && state.ready,

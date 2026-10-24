@@ -6,6 +6,7 @@ import { sampleAvatar } from '../../utils/avatar-schema';
 import type { Avatar } from '../../types/avatar';
 import type { AvatarItem } from '../../hooks/useAccountAvatars';
 import { useKeyboardFocus } from '../../hooks/useKeyboardFocus';
+import { useT } from '../../i18n';
 
 function Choice({ id, label, thumbnail, avatar, selected, onPress, disabled }: {
   id: string; label: string; thumbnail?: string; avatar?: Avatar | null; selected: boolean; onPress: (id: string) => void; disabled: boolean;
@@ -32,14 +33,15 @@ function Choice({ id, label, thumbnail, avatar, selected, onPress, disabled }: {
 export function AvatarLibrary({ items, pending, selected, onSelect, disabled }: {
   items: AvatarItem[]; pending: Avatar | null; selected: string; onSelect: (id: string) => void; disabled: boolean;
 }) {
+  const t = useT('me');
   return <View style={{ gap: 12 }}>
-    <T variant="subtitle" accessibilityRole="header">Your Avatars</T>
+    <T variant="subtitle" accessibilityRole="header">{t('yourAvatars')}</T>
     <View style={[common.row, { flexWrap: 'wrap', alignItems: 'stretch', gap: 8 }]}>
-      {pending && !items.some(item => item.id === pending.id) && <Choice id={pending.id} label="New - Unsaved" thumbnail={pending.frames.base} selected={selected === pending.id} onPress={onSelect} disabled={disabled} />}
-      {items.map((item, index) => <Choice key={item.id} id={item.id} label={item.form === 'mini' ? 'Mini Form' : item.form === 'adult' ? 'Adult Form' : 'Portrait ' + (items.length - index)} thumbnail={item.thumbnail}
+      {pending && !items.some(item => item.id === pending.id) && <Choice id={pending.id} label={t('newUnsaved')} thumbnail={pending.frames.base} selected={selected === pending.id} onPress={onSelect} disabled={disabled} />}
+      {items.map((item, index) => <Choice key={item.id} id={item.id} label={item.form === 'mini' ? t('miniForm') : item.form === 'adult' ? t('adultForm') : t('portraitN', { n: items.length - index })} thumbnail={item.thumbnail}
         selected={selected === item.id} onPress={onSelect} disabled={disabled} />)}
       <Choice id="default" label="Lian" avatar={null} selected={selected === 'default'} onPress={onSelect} disabled={disabled} />
-      <Choice id={sampleAvatar.id} label="Sample" avatar={sampleAvatar} selected={selected === sampleAvatar.id} onPress={onSelect} disabled={disabled} />
+      <Choice id={sampleAvatar.id} label={t('sample')} avatar={sampleAvatar} selected={selected === sampleAvatar.id} onPress={onSelect} disabled={disabled} />
     </View>
   </View>;
 }

@@ -14,6 +14,7 @@ import { ApiError } from "../../../services/community-api";
 import { fetchCafes, fetchMyCafe, saveMyCafe, type KitchenLevel, type MyCafe } from "../../../services/game-api";
 import { usePreferences } from "../../../state/Preferences";
 import { GameSheet, Section } from "./GameSheet";
+import { useT } from "../../../i18n";
 
 /** Up to six dishes on a café menu (server/game/cafes.mjs MENU_MAX). */
 const MENU_MAX = 6;
@@ -26,9 +27,9 @@ export function OpenMyCafe({ game }: { game: GameProgress }) {
   const memberId = useGameMemberId(), on = useCafesOn();
   const mine = useRemote(memberId && on ? "game-my-cafe" : null, signal => fetchMyCafe(signal));
   // The menu offers what is on the shelf now; loaded here once, so saving (which starts the form again) doesn't reload it.
-  const kitchen = useKitchen(!!memberId && on), authored = useMyRecipeStatus();
+  const kitchen = useKitchen(!!memberId && on), authored = useMyRecipeStatus(), t = useT("game");
   if (!memberId || !on || !mine.data) return null;
-  if (!kitchen.data) return <Section title="Open my café"><RemoteStatus remote={kitchen} icon="storefront-outline" returnTo="/game/cafe" /></Section>;
+  if (!kitchen.data) return <Section title={t("openMyCafe")}><RemoteStatus remote={kitchen} icon="storefront-outline" returnTo="/game/cafe" /></Section>;
   // The form starts from what is saved and starts again after each save, so it never copies the server's answer in an effect.
   const saved = mine.data, key = JSON.stringify([saved.cafe, saved.menu.map(m => m.hash)]);
   const own = new Set(authored.data?.items.map(r => r.id));
@@ -49,7 +50,7 @@ function menuChoices(shelf: KitchenLevel[], own: Set<string>): Choice[] {
 }
 
 function CafeForm({ saved, shelf, own, fallbackName, onSaved }: { saved: MyCafe; shelf: KitchenLevel[]; own: Set<string>; fallbackName: string; onSaved(): void }) {
-  const { theme, setNotice } = usePreferences();
+  const { theme, setNotice } = usePreferences(), t = useT("game");
   const choices = menuChoices(shelf, own), offered = new Set(choices.map(c => c.hash));
   const [name, setName] = useState(saved.cafe?.name ?? fallbackName), [chosen, setChosen] = useState(saved.menu.map(m => m.hash));
   const [open, setOpen] = useState(!!saved.cafe?.open), [agree, setAgree] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState("");
@@ -64,50 +65,50 @@ function CafeForm({ saved, shelf, own, fallbackName, onSaved }: { saved: MyCafe;
     try {
       const opening = open && canOpen;
       await saveMyCafe({ name, open: opening, menu, ...(agree && current ? { terms: saved.terms } : {}) });
-      setNotice({ text: opening ? "Your café is open" : "Café saved" }); onSaved();
-    } catch (problem) { setError(problem instanceof ApiError ? problem.message : "That did not save. Try again."); }
+      setNotice({ text: opening ? t("cafeIsOpen") : t("cafeSaved") }); onSaved();
+    } catch (problem) { setError(problem instanceof ApiError ? problem.message : t("saveFailed")); }
     finally { setBusy(false); }
   };
-  return <Section title="Open my café">
-    {saved.cafe?.hidden && <T variant="small" color={theme.error}>Staff closed your café after a report.</T>}
-    {saved.cafe?.open && <T variant="small" muted>This week: {saved.week.visits} {saved.week.visits === 1 ? "visit" : "visits"}, {saved.week.served} served. Only you see this.</T>}
-    <Field label="Name on the sign" value={name} maxLength={30} onChangeText={setName} editable={!busy} />
-    <FieldLabel>{"Menu · " + menu.length + " of " + MENU_MAX}</FieldLabel>
-    {!choices.length && <T variant="small" muted>No reviewed recipe levels yet.</T>}
+  return <Section title={t("openMyCafe")}>
+    {saved.cafe?.hidden && <T variant="small" color={theme.error}>{t("staffClosed")}</T>}
+    {saved.cafe?.open && <T variant="small" muted>{t("thisWeek", { visits: saved.week.visits, served: saved.week.served })}</T>}
+    <Field label={t("nameOnSign")} value={name} maxLength={30} onChangeText={setName} editable={!busy} />
+    <FieldLabel>{t("menuCount", { n: menu.length, max: MENU_MAX })}</FieldLabel>
+    {!choices.length && <T variant="small" muted>{t("noReviewedLevels")}</T>}
     {choices.map(l => { const picked = menu.includes(l.hash), disabled = busy || (!picked && menu.length >= MENU_MAX);
       return <Pressable key={l.hash} onPress={() => toggle(l.hash)} disabled={disabled} accessibilityRole="checkbox" accessibilityState={{ checked: picked, disabled }}
         accessibilityLabel={l.name} style={({ pressed }) => [s.row, { borderColor: picked ? theme.accent : theme.border, opacity: pressed ? 0.85 : 1 }]}>
         <Icon name={picked ? "checkbox" : "square-outline"} size={20} color={picked ? theme.accent : theme.mutedForeground} />
         <T numberOfLines={1} style={{ flex: 1 }}>{l.name}</T>
       </Pressable>; })}
-    {!canOpen ? <T variant="small" muted>Update the app to open your café.</T>
-      : !accepted && <View style={{ gap: 4 }}><FieldLabel>Café terms</FieldLabel>{CAFE_TERMS.map(t => <T key={t} variant="small" muted>• {t}</T>)}
-        <ThemedSwitch label="I accept the café terms" value={agree} onChange={setAgree} disabled={busy} /></View>}
-    <ThemedSwitch label="Open to visitors" value={open && canOpen} onChange={setOpen} disabled={busy || !canOpen || !!saved.cafe?.hidden} />
+    {!canOpen ? <T variant="small" muted>{t("updateToOpen")}</T>
+      : !accepted && <View style={{ gap: 4 }}><FieldLabel>{t("cafeTerms")}</FieldLabel>{CAFE_TERMS.map(term => <T key={term} variant="small" muted>• {t(term)}</T>)}
+        <ThemedSwitch label={t("acceptTerms")} value={agree} onChange={setAgree} disabled={busy} /></View>}
+    <ThemedSwitch label={t("openToVisitors")} value={open && canOpen} onChange={setOpen} disabled={busy || !canOpen || !!saved.cafe?.hidden} />
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
-    <Button label="Save Café" icon="storefront-outline" loading={busy} onPress={() => void save()} />
+    <Button label={t("saveCafe")} icon="storefront-outline" loading={busy} onPress={() => void save()} />
   </Section>;
 }
 
 /** The window (GAME_CONTENT_PLAN §9, open decision 5): Out and about, with Stall visits (later) and members' cafés to visit. */
 export function OutAndAboutSheet({ onClose, onVisit }: { onClose(): void; onVisit(host: string): void }) {
-  const memberId = useGameMemberId(), on = useCafesOn(), { theme } = usePreferences();
+  const memberId = useGameMemberId(), on = useCafesOn(), { theme } = usePreferences(), t = useT("game");
   const [draft, setDraft] = useState(""), [q, setQ] = useState(""), [report, setReport] = useState<{ host: string; name: string } | null>(null);
   const cafes = useRemote(memberId && on ? "game-cafes:" + q : null, signal => fetchCafes(q, signal));
-  return <GameSheet title="Out and about" onClose={onClose}>
-    {memberId && on && <Section title="Cafés">
-      <Field label="Find a café or dish" value={draft} maxLength={40} onChangeText={setDraft} onSubmitEditing={() => setQ(draft.trim())} returnKeyType="search" />
+  return <GameSheet title={t("outAndAbout")} onClose={onClose}>
+    {memberId && on && <Section title={t("cafes")}>
+      <Field label={t("findCafe")} value={draft} maxLength={40} onChangeText={setDraft} onSubmitEditing={() => setQ(draft.trim())} returnKeyType="search" />
       <RemoteStatus remote={cafes} icon="storefront-outline" returnTo="/game/cafe" />
-      {cafes.data && !cafes.data.cafes.length && <T variant="small" muted>{q ? "No open cafés match." : "No cafés are open yet."}</T>}
+      {cafes.data && !cafes.data.cafes.length && <T variant="small" muted>{q ? t("noCafesMatch") : t("noCafesOpen")}</T>}
       {cafes.data?.cafes.map(c => <View key={c.host} style={[s.cafe, { borderColor: theme.border }]}>
         <View style={{ flex: 1, gap: 2 }}><T style={{ fontWeight: "800" }} numberOfLines={1}>{c.name}</T>
           <T variant="small" muted numberOfLines={2}>{c.dishes.join(" · ")}</T></View>
-        <Button label="Visit" variant="secondary" accessibilityLabel={"Visit " + c.name} onPress={() => onVisit(c.host)} />
-        <Pressable onPress={() => setReport({ host: c.host, name: c.name })} accessibilityRole="button" accessibilityLabel={"Report " + c.name} hitSlop={8} style={s.flag}>
+        <Button label={t("visit")} variant="secondary" accessibilityLabel={t("visitName", { name: c.name })} onPress={() => onVisit(c.host)} />
+        <Pressable onPress={() => setReport({ host: c.host, name: c.name })} accessibilityRole="button" accessibilityLabel={t("reportName", { name: c.name })} hitSlop={8} style={s.flag}>
           <Icon name="flag-outline" size={18} color={theme.mutedForeground} /></Pressable>
       </View>)}
     </Section>}
-    <Section title="Stall visits"><T muted>Coming in a later update: visit someone else&apos;s hawker stall as the customer and choose which questions to ask.</T></Section>
+    <Section title={t("stallVisits")}><T muted>{t("stallVisitsSoon")}</T></Section>
     {report && <ReportSheet kind="cafe" targetId={report.host} name={report.name} visible onClose={() => setReport(null)} />}
   </GameSheet>;
 }

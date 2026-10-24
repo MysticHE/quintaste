@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import { accountRequest, authClient, refreshAccountSession } from './auth-client';
+import { savedText } from './saved-language';
 
 const key = 'quintaste_google_pending';
 type Pending = { id: string; proof: string; expiresAt: number; token?: string; returnTo?: string };
@@ -16,19 +17,19 @@ export function finishGoogleSignIn(id: string, code: string) {
     const raw = await SecureStore.getItemAsync(key);
     const pending: Pending | null = raw ? JSON.parse(raw) : null;
     if (!pending || pending.id !== id || pending.expiresAt <= Date.now() || !/^[A-Za-z0-9_-]{43}$/.test(code)) {
-      throw new Error('This sign-in expired. Please try again.');
+      throw new Error(await savedText('me', 'signInExpired'));
     }
     if (!pending.token) {
       const result = await accountRequest<{ token?: string; returnTo?: string }>('google/finish', {
         method: 'POST', body: JSON.stringify({ id, proof: pending.proof, callback: code }),
       });
-      if (!result.token) throw new Error('Sign-in could not be verified. Please try again.');
+      if (!result.token) throw new Error(await savedText('me', 'signInUnverified'));
       pending.token = result.token; pending.returnTo = result.returnTo;
       pending.expiresAt = Date.now() + 60_000;
       await SecureStore.setItemAsync(key, JSON.stringify(pending));
     }
     const verified = await authClient.oneTimeToken.verify({ token: pending.token });
-    if (verified.error || !verified.data?.user) throw new Error('This sign-in expired. Please try again.');
+    if (verified.error || !verified.data?.user) throw new Error(await savedText('me', 'signInExpired'));
     await forgetGoogleSignIn();
     await refreshAccountSession(verified.data.user.id);
     return { adult: !!verified.data.user.adultConfirmed, returnTo: pending.returnTo };

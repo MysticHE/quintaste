@@ -8,18 +8,19 @@ import type { BreedJob } from "../../services/lotus-api";
 import { usePreferences } from "../../state/Preferences";
 import { Button, Icon, T, common } from "../ui";
 import { LotusBud } from "./LotusSeal";
+import { useT } from "../../i18n";
 
 export function BreedProgress({ tier, job, error, onReconnect }: { tier: Tier; job: BreedJob | null; error: string; onReconnect(): void }) {
-  const { theme } = usePreferences(), done = job?.completed ?? 0;
+  const { theme } = usePreferences(), done = job?.completed ?? 0, t = useT("game");
   const steps = [
-    { label: "Adult form", finished: done >= 1, current: done === 0 },
-    { label: "Mini form", finished: done >= 2, current: done === 1 },
-    { label: done >= 2 && done < 6 ? `Expressions · ${done - 2} of 4` : "Expressions", finished: done >= 6, current: done >= 2 && done < 6 },
+    { label: t("lotusStepAdult"), finished: done >= 1, current: done === 0 },
+    { label: t("lotusStepMini"), finished: done >= 2, current: done === 1 },
+    { label: done >= 2 && done < 6 ? t("lotusStepExpressionsCount", { n: done - 2 }) : t("lotusStepExpressions"), finished: done >= 6, current: done >= 2 && done < 6 },
   ];
   return <View style={s.stack}>
     <View style={[s.stage, { backgroundColor: theme.accentSoft }]}><LotusBud tier={tier} size={150} sealed={false} /></View>
-    <T variant="title" style={common.center} accessibilityLiveRegion="polite">Breeding your avatar…</T>
-    <View style={s.steps} accessible accessibilityLabel={steps.map(st => st.label + (st.finished ? ", done" : st.current ? ", in progress" : "")).join("; ")}>
+    <T variant="title" style={common.center} accessibilityLiveRegion="polite">{t("lotusSlotBreeding")}</T>
+    <View style={s.steps} accessible accessibilityLabel={steps.map(st => st.label + (st.finished ? t("lotusStepDone") : st.current ? t("lotusStepCurrent") : "")).join(t("lotusStepSep"))}>
       {steps.map(st => <View key={st.label} style={[common.row, s.step]}>
         <Icon name={st.finished ? "checkmark-circle" : st.current ? "ellipse" : "ellipse-outline"} size={20}
           color={st.finished ? theme.success : st.current ? theme.accent : theme.mutedForeground} />
@@ -27,8 +28,8 @@ export function BreedProgress({ tier, job, error, onReconnect }: { tier: Tier; j
       </View>)}
     </View>
     {error ? <><T variant="small" color={theme.error} accessibilityLiveRegion="polite" style={common.center}>{error}</T>
-      <Button label="Reconnect" variant="link" onPress={onReconnect} /></>
-      : <T variant="small" muted style={common.center}>You can leave this screen. Breeding carries on, and nothing is used twice.</T>}
+      <Button label={t("lotusReconnect")} variant="link" onPress={onReconnect} /></>
+      : <T variant="small" muted style={common.center}>{t("lotusCanLeave")}</T>}
   </View>;
 }
 

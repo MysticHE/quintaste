@@ -40,12 +40,15 @@ export const claimCriteria = {
 export const nutritionBadges = ["Light meal", "Under 500 kcal", "High in protein", "Source of protein", "High in fibre", "Source of fibre", "Low in sugar", "Under 300 mg sodium"] as const;
 export type NutritionBadge = (typeof nutritionBadges)[number];
 
-/** Approved nutrient function claims (HPB guide, Appendix II), verbatim. Shown only when the matching badge is earned. */
-export const nutrientFunctionClaims: { badge: NutritionBadge; nutrient: "Protein" | "Dietary fibre"; text: string; source: string }[] = [
-  { badge: "High in fibre", nutrient: "Dietary fibre", text: "Dietary fibre aids in digestion.", source: "HPB nutrient function claim 5" },
-  { badge: "High in protein", nutrient: "Protein", text: "Protein helps in tissue building and growth.", source: "HPB nutrient function claim 2" },
-  { badge: "Source of fibre", nutrient: "Dietary fibre", text: "Dietary fibre aids in digestion.", source: "HPB nutrient function claim 5" },
-  { badge: "Source of protein", nutrient: "Protein", text: "Protein helps in tissue building and growth.", source: "HPB nutrient function claim 2" },
+/**
+ * Approved nutrient function claims (HPB guide, Appendix II), verbatim, with HPB's claim number. Shown only when the matching
+ * badge is earned. The wording is shown verbatim in every interface language; only the source line is translated.
+ */
+export const nutrientFunctionClaims: { badge: NutritionBadge; nutrient: "Protein" | "Dietary fibre"; text: string; claim: number }[] = [
+  { badge: "High in fibre", nutrient: "Dietary fibre", text: "Dietary fibre aids in digestion.", claim: 5 },
+  { badge: "High in protein", nutrient: "Protein", text: "Protein helps in tissue building and growth.", claim: 2 },
+  { badge: "Source of fibre", nutrient: "Dietary fibre", text: "Dietary fibre aids in digestion.", claim: 5 },
+  { badge: "Source of protein", nutrient: "Protein", text: "Protein helps in tissue building and growth.", claim: 2 },
 ];
 
 /** Energy per gram used to turn protein grams into an energy share (Atwater factor). */

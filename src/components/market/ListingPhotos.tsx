@@ -8,8 +8,10 @@ import { Button, Icon, T, common } from "../ui";
 import { MarketModal } from "./MarketChrome";
 import { useListingSource } from "./ListingPhoto";
 import { usePreferences } from "../../state/Preferences";
+import { useT } from "../../i18n";
+import type { MarketKey } from "../../i18n/en/market";
 import type { MarketPhotos, PhotoSlot } from "../../types/market";
-const photoLabels: Record<PhotoSlot, string> = { item: "Food", detail: "Another photo", label: "Product label", seal: "Seal", date: "Date mark" };
+const photoKeys: Record<PhotoSlot, MarketKey> = { item: "photoFood", detail: "photoAnother", label: "photoProductLabel", seal: "photoSeal", date: "photoDateMark" };
 /** Photo size budgets: Market uploads keep labels legible within the 1 MB server limit; device-stored photos stay small. */
 export const photoBudgets = { upload: { edge: 1600, compress: 0.8, chars: 1390000 }, device: { edge: 1024, compress: 0.5, chars: 299950 } } as const;
 type Budget = { edge: number; compress: number; chars: number };
@@ -29,7 +31,7 @@ export function ListingPhotos({ value, onChange, error, disabled, onBusy, slots 
   value: MarketPhotos; onChange: (next: MarketPhotos) => void; error?: string; disabled: boolean;
   onBusy: (busy: boolean) => void; slots?: PhotoSlot[]; labels?: Partial<Record<PhotoSlot, string>>; budget?: Budget;
 }) {
-  const names = { ...photoLabels, ...labels };
+  const t = useT("market"), names = (slot: PhotoSlot) => labels?.[slot] ?? t(photoKeys[slot]);
   const { theme } = usePreferences(), alive = useRef(true), picking = useRef(false), source = useListingSource();
   const [pickerError, setPickerError] = useState(""), [sourceSlot, setSourceSlot] = useState<PhotoSlot>();
   useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
@@ -40,33 +42,33 @@ export function ListingPhotos({ value, onChange, error, disabled, onBusy, slots 
       if (camera) {
         const permission = await ImagePicker.requestCameraPermissionsAsync();
         if (!alive.current) return;
-        if (!permission.granted) { setPickerError("Allow camera access in Settings, or choose an existing photo."); return; }
+        if (!permission.granted) { setPickerError(t("cameraDenied")); return; }
       }
       const options: ImagePicker.ImagePickerOptions = { mediaTypes: ["images"], quality: 1, allowsMultipleSelection: false };
       const result = camera ? await ImagePicker.launchCameraAsync(options) : await ImagePicker.launchImageLibraryAsync(options);
       if (!alive.current || result.canceled) return;
       const photo = await preparePhoto(result.assets[0], budget);
       if (!alive.current) return;
-      if (!photo) { setPickerError("That photo is too large. Choose another photo."); return; }
+      if (!photo) { setPickerError(t("photoTooLarge")); return; }
       onChange({ ...value, [slot]: photo });
-    } catch { if (alive.current) setPickerError("Photo selection failed. Try again."); }
+    } catch { if (alive.current) setPickerError(t("photoFailed")); }
     finally { picking.current = false; if (alive.current) onBusy(false); }
   };
   return <View style={{ gap: 6 }}><View style={s.photos}>{slots.map(slot => {
     const wide = slots.length === 1, quad = slots.length === 4, uri = value[slot];
     return <View key={slot} style={[s.tile, wide && s.wide, quad && s.quad, { borderColor: theme.border, backgroundColor: theme.card }]}>
-      <Pressable accessibilityRole="button" accessibilityLabel={(uri ? "Change " : "Add ") + names[slot] + " photo"} accessibilityState={{ disabled }} disabled={disabled}
+      <Pressable accessibilityRole="button" accessibilityLabel={t(uri ? "changePhoto" : "addPhoto", { slot: names(slot) })} accessibilityState={{ disabled }} disabled={disabled}
         onPress={() => Platform.OS === "web" ? void pick(slot) : setSourceSlot(slot)} style={({ pressed }) => [s.pick, { opacity: pressed ? 0.8 : 1 }]}>
         {uri ? <Image source={source(uri)} style={StyleSheet.absoluteFill} contentFit={slot === "item" ? "cover" : "contain"} />
-          : <><Icon name="camera-outline" size={26} color={theme.accent} /><T variant="small" style={common.center}>{names[slot]}</T></>}
+          : <><Icon name="camera-outline" size={26} color={theme.accent} /><T variant="small" style={common.center}>{names(slot)}</T></>}
       </Pressable>
-      {!!uri && <View style={s.remove}><IconButton appearance="media" label={"Remove " + names[slot] + " photo"} icon="close" disabled={disabled}
+      {!!uri && <View style={s.remove}><IconButton appearance="media" label={t("removePhoto", { slot: names(slot) })} icon="close" disabled={disabled}
         onPress={() => onChange({ ...value, [slot]: undefined })} /></View>}
     </View>;
   })}</View>{!!(pickerError || error) && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{pickerError || error}</T>}
-    <MarketModal visible={!!sourceSlot} onClose={() => setSourceSlot(undefined)} label={sourceSlot ? names[sourceSlot] : "Photo"}>
-      <Button label="Take Photo" icon="camera-outline" onPress={() => sourceSlot && void pick(sourceSlot, true)} />
-      <Button label="Choose Photo" icon="images-outline" variant="secondary" onPress={() => sourceSlot && void pick(sourceSlot)} />
+    <MarketModal visible={!!sourceSlot} onClose={() => setSourceSlot(undefined)} label={sourceSlot ? names(sourceSlot) : t("photo")}>
+      <Button label={t("takePhoto")} icon="camera-outline" onPress={() => sourceSlot && void pick(sourceSlot, true)} />
+      <Button label={t("choosePhoto")} icon="images-outline" variant="secondary" onPress={() => sourceSlot && void pick(sourceSlot)} />
     </MarketModal>
   </View>;
 }

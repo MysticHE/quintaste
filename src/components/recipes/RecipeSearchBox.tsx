@@ -8,6 +8,8 @@ import { Icon, T, common, type IconName } from "../ui";
 import type { SearchSuggestion } from "../../services/cook-search";
 import { useRecentSearches, useRecipeSuggestions } from "../../hooks/useRecipeSearch";
 import { useSuggestionKeys } from "../../hooks/useSuggestionKeys";
+import { useLanguage, useT } from "../../i18n";
+import { categoryName } from "../../utils/recipe-browse";
 
 type Row = { key: string; icon: IconName; text: string; aside?: string; label: string; run: () => void };
 type Props = {
@@ -21,7 +23,7 @@ type Props = {
  * every row stays tappable on Android. Returns the box and the list for BrowseHeader's `field` and `below`.
  */
 export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRecipe, onCategory, onAi }: Props): { field: ReactNode; below: ReactNode; remember: (term: string) => void } {
-  const { theme } = usePreferences(), id = "recipe-search-" + useId();
+  const { theme } = usePreferences(), id = "recipe-search-" + useId(), t = useT("cook"), tc = useT("common"), language = useLanguage();
   const [hover, setHover] = useState(-1), nav = useSuggestionKeys(), { open, setOpen, index, setIndex, keepOpen } = nav;
   const recent = useRecentSearches(), suggestions = useRecipeSuggestions(query, open), typed = query.trim();
   const close = () => { setOpen(false); setIndex(-1); };
@@ -32,16 +34,17 @@ export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRec
     else { recent.remember(item.text); onChange(item.text); }
   };
   const rows: Row[] = typed.length < 2
-    ? recent.items.map(text => ({ key: "recent:" + text, icon: "time-outline", text, label: "Search " + text, run: () => { close(); onChange(text); } }))
-    : [...suggestions.items.map((item): Row => ({
-        key: item.kind + ":" + (item.kind === "recipe" ? item.recipeId : item.text), text: item.text,
-        icon: item.kind === "recipe" ? "restaurant-outline" : item.kind === "category" ? "grid-outline" : "search-outline",
-        aside: item.kind === "recipe" && item.minutes ? item.minutes + " min" : undefined,
-        label: (item.kind === "recipe" ? "Open recipe " : item.kind === "category" ? "Browse " : "Search ") + item.text, run: () => pick(item),
-      })),
+    ? recent.items.map(text => ({ key: "recent:" + text, icon: "time-outline", text, label: t("searchTerm", { text }), run: () => { close(); onChange(text); } }))
+    : [...suggestions.items.map((item): Row => {
+        const text = item.kind === "category" ? categoryName(item.text, language) : item.text;
+        return { key: item.kind + ":" + (item.kind === "recipe" ? item.recipeId : item.text), text,
+          icon: item.kind === "recipe" ? "restaurant-outline" : item.kind === "category" ? "grid-outline" : "search-outline",
+          aside: item.kind === "recipe" && item.minutes ? tc("minutes", { n: item.minutes }) : undefined,
+          label: t(item.kind === "recipe" ? "openRecipeNamed" : item.kind === "category" ? "browseCategory" : "searchTerm", { text }), run: () => pick(item) };
+      }),
       // Only when nothing matched at all: a category or ingredient match ("noodl", "tofu") means recipes exist.
       ...(!suggestions.busy && suggestions.settled && !suggestions.items.length
-        ? [{ key: "ai", icon: "sparkles-outline" as IconName, text: `Get “${typed.slice(0, 40)}” as an AI recipe`, label: "Get " + typed + " as an AI recipe", run: () => { close(); onAi(typed); } }] : [])];
+        ? [{ key: "ai", icon: "sparkles-outline" as IconName, text: t("getAsAi", { text: typed.slice(0, 40) }), label: t("getAsAiSpoken", { text: typed }), run: () => { close(); onAi(typed); } }] : [])];
   const expanded = open && (rows.length > 0 || suggestions.busy);
   const field = <SearchField value={query} placeholder={placeholder}
     onChange={value => { setIndex(-1); setOpen(true); onChange(value); }}
@@ -52,10 +55,10 @@ export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRec
       onFocus: nav.focus, onBlur: nav.blur,
       onKeyPress: event => { if (nav.key(event.nativeEvent.key, rows.length)) event.preventDefault(); } }} />;
   const below = expanded ? <View testID="recipe-suggestions" style={[s.panel, { backgroundColor: theme.card, borderColor: theme.border }]}>
-    {typed.length < 2 && <View style={[common.spread, s.heading]}><T variant="small" muted>Recent</T>
-      <Pressable accessibilityRole="button" accessibilityLabel="Clear recent searches" onPressIn={keepOpen} onPress={() => { recent.clear(); close(); }} style={s.clear}>
-        <T variant="small" color={theme.accent} style={common.bold}>Clear</T></Pressable></View>}
-    <SuggestionList id={id} label="Recipe suggestions">{rows.map((row, position) => <Pressable key={row.key} nativeID={id + "-" + position} role="option"
+    {typed.length < 2 && <View style={[common.spread, s.heading]}><T variant="small" muted>{t("recent")}</T>
+      <Pressable accessibilityRole="button" accessibilityLabel={t("clearRecent")} onPressIn={keepOpen} onPress={() => { recent.clear(); close(); }} style={s.clear}>
+        <T variant="small" color={theme.accent} style={common.bold}>{tc("clear")}</T></Pressable></View>}
+    <SuggestionList id={id} label={t("recipeSuggestions")}>{rows.map((row, position) => <Pressable key={row.key} nativeID={id + "-" + position} role="option"
       accessibilityLabel={row.label} accessibilityState={{ selected: position === index }} {...(Platform.OS === "web" ? { "aria-selected": position === index } : {})}
       onPressIn={keepOpen} onPress={row.run} onHoverIn={() => setHover(position)} onHoverOut={() => setHover(-1)}
       style={({ pressed }) => [s.option, { backgroundColor: pressed || position === hover || position === index ? theme.accentSoft : theme.card }]}>
@@ -63,7 +66,7 @@ export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRec
       <T variant="small" style={[common.flex, row.key === "ai" && common.bold]} numberOfLines={1}>{row.text}</T>
       {!!row.aside && <T variant="caption" muted>{row.aside}</T>}
     </Pressable>)}</SuggestionList>
-    {suggestions.busy && !rows.length && <View style={s.status}><ActivityIndicator size="small" color={theme.accent} accessibilityLabel="Finding recipes" /></View>}
+    {suggestions.busy && !rows.length && <View style={s.status}><ActivityIndicator size="small" color={theme.accent} accessibilityLabel={t("findingRecipes")} /></View>}
   </View> : null;
   return { field, below, remember: recent.remember };
 }

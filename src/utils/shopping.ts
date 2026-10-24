@@ -1,9 +1,15 @@
 import type { Recipe } from "../types/food";
 import type { RecipeWorkspace, ShoppingNote } from "../types/recipe-workspace";
 import { ingredientLine, quantity } from "./food-format";
+import { translate, type Language } from "../i18n";
+import type { CookKey } from "../i18n/en/cook";
 
 export const aisles = ["Vegetables & fruit", "Tofu & soy", "Rice, noodles & bread", "Sauces & pastes", "Oils, spices & dry goods", "Coconut & plant milks", "Other"] as const;
 export type Aisle = (typeof aisles)[number];
+const aisleKeys: Record<Aisle, CookKey> = {
+  "Vegetables & fruit": "aisleVegetables", "Tofu & soy": "aisleTofu", "Rice, noodles & bread": "aisleStaples", "Sauces & pastes": "aisleSauces",
+  "Oils, spices & dry goods": "aisleDryGoods", "Coconut & plant milks": "aisleMilks", Other: "aisleOther",
+};
 /** Ordered: the first match wins, so "soy sauce" is a sauce and "rice vinegar" is not rice. */
 const aisleRules: [RegExp, Aisle][] = [
   [/coconut milk|oat milk|soy milk|plant-based butter|vegan butter/i, "Coconut & plant milks"],
@@ -53,24 +59,25 @@ export type ShoppingRow = { key: string; ids: string[]; text: string; spoken: st
 function mergeKey(note: ShoppingNote) {
   return note.name ? note.name.trim().toLowerCase() + "|" + (note.amount === null ? "to-taste" : (note.unit ?? "").toLowerCase()) : "note|" + note.id;
 }
-function toRow(group: ShoppingNote[]): ShoppingRow {
+function toRow(group: ShoppingNote[], language: Language): ShoppingRow {
   const first = group[0];
-  const line = first.name && group.length > 1
-    ? ingredientLine({ name: first.name, unit: first.unit ?? "", amount: first.amount === null || first.amount === undefined ? null : group.reduce((sum, note) => sum + (note.amount ?? 0), 0) })
-    : { text: first.text, spoken: first.text };
   const total = first.amount === null || first.amount === undefined ? null : group.reduce((sum, note) => sum + (note.amount ?? 0), 0);
-  const qty = !first.name ? "" : total === null ? "To taste" : [quantity(total), first.unit].filter(Boolean).join(" ");
+  // A single line keeps its saved (English) text; merged lines, and every recipe line in another language, are written afresh.
+  const line = first.name && (group.length > 1 || language !== "en")
+    ? ingredientLine({ name: first.name, unit: first.unit ?? "", amount: total }, 1, language)
+    : { text: first.text, spoken: first.text };
+  const qty = !first.name ? "" : total === null ? translate(language, "cook", "shoppingToTaste") : [quantity(total), first.unit].filter(Boolean).join(" ");
   return { key: mergeKey(first), ids: group.map(note => note.id), text: line.text, spoken: line.spoken, checked: group.every(note => note.checked),
     recipeIds: [...new Set(group.map(note => note.recipeId).filter(Boolean))], aisle: aisleFor(first.name ?? first.text), name: first.name ?? first.text, qty };
 }
-/** Identical name + unit lines merge across recipes; different units never merge. */
-export function combinedRows(notes: ShoppingNote[]) {
+/** Identical name + unit lines merge across recipes; different units never merge. Aisle titles are in `language`. */
+export function combinedRows(notes: ShoppingNote[], language: Language = "en") {
   const groups = new Map<string, ShoppingNote[]>();
   for (const note of notes) groups.set(mergeKey(note), [...(groups.get(mergeKey(note)) ?? []), note]);
-  const rows = [...groups.values()].map(toRow);
-  return aisles.map(aisle => ({ title: aisle as string, rows: rows.filter(row => row.aisle === aisle) })).filter(section => section.rows.length);
+  const rows = [...groups.values()].map(group => toRow(group, language));
+  return aisles.map(aisle => ({ aisle, title: translate(language, "cook", aisleKeys[aisle]), rows: rows.filter(row => row.aisle === aisle) })).filter(section => section.rows.length);
 }
-export function shoppingShareText(notes: ShoppingNote[]) {
-  const sections = combinedRows(notes.filter(note => !note.checked));
-  return ["Shopping list", ...sections.map(section => section.title + "\n" + section.rows.map(row => "- " + row.text).join("\n"))].join("\n\n");
+export function shoppingShareText(notes: ShoppingNote[], language: Language = "en") {
+  const sections = combinedRows(notes.filter(note => !note.checked), language);
+  return [translate(language, "cook", "shoppingListTitle"), ...sections.map(section => section.title + "\n" + section.rows.map(row => "- " + row.text).join("\n"))].join("\n\n");
 }

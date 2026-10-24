@@ -1,5 +1,7 @@
 import type { MealTime, Recipe, RecipeCategory } from "../types/food";
 import { sgDateTimeText } from "./sg-datetime";
+import { translate, type Language } from "../i18n";
+import type { CookKey } from "../i18n/en/cook";
 
 /**
  * Cook feed by time of day, in Singapore time (owner decision, 21 October 2026; docs/COOK_DISCOVERY_PLAN.md §3).
@@ -41,7 +43,8 @@ export function daypartScore(recipe: Pick<Recipe, "categories" | "mealTimes" | "
 }
 
 /** The meal name shown on the first card when it suits now: "Dinner · 25 min". */
-export const daypartLabel: Record<Daypart, string> = { morning: "Breakfast", brunch: "Brunch", midday: "Lunch", afternoon: "Tea Time", dinner: "Dinner", late: "Supper" };
+const daypartKeys: Record<Daypart, CookKey> = { morning: "daypartMorning", brunch: "daypartBrunch", midday: "daypartMidday", afternoon: "daypartAfternoon", dinner: "daypartDinner", late: "daypartLate" };
+export const daypartName = (part: Daypart, language: Language) => translate(language, "cook", daypartKeys[part]);
 
 /** A stable number per recipe per day, so recipes that rank the same take turns at the top instead of always the same few. */
 export function dailyShuffle(id: string, day: string) {

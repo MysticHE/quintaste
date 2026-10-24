@@ -5,23 +5,24 @@ import { useFood } from '../state/Food';
 import { usePreferences } from '../state/Preferences';
 import { readAvatar, sampleAvatar } from '../utils/avatar-schema';
 import type { Avatar } from '../types/avatar';
+import { useT } from '../i18n';
 
 export function useAvatarEditor() {
   const { user } = useAuth();
   const { doc, owner, patchDocument, avatarLibrary } = useFood();
-  const { setNotice } = usePreferences();
+  const { setNotice } = usePreferences(), t = useT('me'), say = useRef(t);
   const key = '@quintaste/avatar-preview/' + (owner === 'profile' && user ? user.id : owner);
   const [preview, setPreview] = useState<Avatar | null>(doc.avatar), [pending, setPending] = useState<Avatar | null>(null);
   const [error, setError] = useState(''), [busy, setBusy] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const current = useRef(key), saving = useRef(false), previewRef = useRef(preview), previousSaved = useRef(doc.avatar);
-  useLayoutEffect(() => { current.current = key; previewRef.current = preview; });
+  useLayoutEffect(() => { current.current = key; previewRef.current = preview; say.current = t; });
   useEffect(() => {
     let active = true;
     void AsyncStorage.getItem(key).then(raw => {
       const avatar = raw ? readAvatar(JSON.parse(raw)) : null;
       if (active && avatar) { setPending(avatar); setPreview(avatar); }
-    }).catch(() => { if (active) setError('An unfinished preview could not be loaded. Your saved library is unchanged.'); })
+    }).catch(() => { if (active) setError(say.current('previewLoadFailed')); })
       .finally(() => { if (active) setLoaded(true); });
     return () => { active = false; };
   }, [key]);
@@ -32,7 +33,7 @@ export function useAvatarEditor() {
   const receive = async (avatar: Avatar) => {
     setPending(avatar); setPreview(avatar); setError(''); setBusy(true);
     try { await AsyncStorage.setItem(key, JSON.stringify(avatar)); }
-    catch { setError('Preview is ready, but device storage could not keep it. Save it to your account before leaving.'); }
+    catch { setError(t('previewKeepFailed')); }
     finally { if (current.current === key) setBusy(false); }
   };
   const discard = async () => {
@@ -41,7 +42,7 @@ export function useAvatarEditor() {
       await AsyncStorage.removeItem(key);
       if (current.current !== key) return false;
       setPending(null); setPreview(doc.avatar); return true;
-    } catch { setError('Could not discard the device preview. Try again.'); return false; }
+    } catch { setError(t('discardFailed')); return false; }
     finally { if (current.current === key) setBusy(false); }
   };
   const apply = async () => {
@@ -51,15 +52,15 @@ export function useAvatarEditor() {
     try {
       let okay: boolean;
       if (avatarLibrary.connected) {
-        if (!avatarLibrary.ready) throw new Error('Reconnect your library before saving. Your preview is kept.');
+        if (!avatarLibrary.ready) throw new Error(t('reconnectBeforeSave'));
         okay = avatar && !avatar.sample ? await avatarLibrary.save(avatar) : await avatarLibrary.select(avatar?.id || 'default');
       } else okay = await patchDocument({ avatar });
-      if (!okay) throw new Error('Could not save this selection. Your preview is kept; reconnect and retry.');
+      if (!okay) throw new Error(t('selectionSaveFailed'));
       if (current.current !== scope) return false;
       if (pending?.id === avatar?.id) { await AsyncStorage.removeItem(key); setPending(null); }
-      setNotice({ text: 'Avatar saved' });
+      setNotice({ text: t('avatarSaved') });
       return true;
-    } catch (failure) { if (current.current === scope) setError(failure instanceof Error ? failure.message : 'Could not save. Try again.'); return false; }
+    } catch (failure) { if (current.current === scope) setError(failure instanceof Error ? failure.message : t('saveFailed')); return false; }
     finally { saving.current = false; if (current.current === scope) setBusy(false); }
   };
   const open = async (id: string) => {
@@ -74,7 +75,7 @@ export function useAvatarEditor() {
       const avatar = readAvatar(await avatarRequest<Avatar>(owner, 'library/' + encodeURIComponent(id)));
       if (!avatar) throw new Error('This avatar could not be opened. Try again.');
       if (current.current === key) setPreview(avatar);
-    } catch { setError('Could not open this saved avatar. Reconnect and try again.'); }
+    } catch { setError(t('openSavedFailed')); }
     finally { if (current.current === key) setBusy(false); }
   };
   return { preview, pending, busy: busy || !loaded, error, receive, apply, open, discard, setPreview,

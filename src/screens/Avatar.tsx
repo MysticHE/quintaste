@@ -15,11 +15,12 @@ import { useAvatarPhoto } from '../hooks/useAvatarPhoto';
 import { useAvatarGeneration } from '../hooks/useAvatarGeneration';
 import { useAvatarEditor } from '../hooks/useAvatarEditor';
 import { AutosaveStatus } from '../components/AutosaveStatus';
+import { useT } from '../i18n';
 
 export function AvatarScreen() {
   const { user } = useAuth();
   const { doc, owner, readable, saving, avatarLibrary } = useFood();
-  const { theme, reducedMotion } = usePreferences();
+  const { theme, reducedMotion } = usePreferences(), t = useT('me'), tc = useT('common');
   const editor = useAvatarEditor(), photo = useAvatarPhoto();
   const [creating, setCreating] = useState(false), [agreed, setAgreed] = useState(false);
   const [moving, setMoving] = useState(false), [speaking, setSpeaking] = useState(false), [width, setWidth] = useState(224);
@@ -47,46 +48,46 @@ export function AvatarScreen() {
   useEffect(() => {
     if (editor.dirty && !editor.error && canAutosave) void apply.current();
   }, [editor.dirty, editor.error, editor.preview?.id, avatarLibrary.error, canAutosave]);
-  const cancel = async () => { try { if (creating) await generation.clear(); else await generation.release(); photo.clear(); setAgreed(false); } catch { if (!creating) setInfo('The temporary preview could not be removed. It will expire automatically.'); } };
+  const cancel = async () => { try { if (creating) await generation.clear(); else await generation.release(); photo.clear(); setAgreed(false); } catch { if (!creating) setInfo(t('previewRemoveFailed')); } };
   useEffect(() => {
     if (generation.job?.status === 'complete' && generation.job.avatar?.id === doc.avatar?.id && !editor.pending && !busy && released.current !== generation.job.id) {
       released.current = generation.job.id;
-      void generation.release().catch(() => setInfo('Your portrait is saved. The temporary preview will expire automatically.'));
+      void generation.release().catch(() => setInfo(t('portraitSavedPreviewExpires')));
     }
-  }, [generation, editor.pending, doc.avatar?.id, busy]);
+  }, [generation, editor.pending, doc.avatar?.id, busy, t]);
   const select = (id: string) => { setDeleting(false); setMoving(false); setSpeaking(false); void editor.open(id); };
   const items = avatarLibrary.items.length ? avatarLibrary.items : doc.avatar && !doc.avatar.sample
     ? [{ id: doc.avatar.id, createdAt: doc.avatar.createdAt, thumbnail: doc.avatar.frames.base }] : [];
-  if (creating) return <Screen title="Create Avatar" back={false}>
-    <Button label="Back To My Avatars" variant="link" icon="chevron-back" disabled={busy} onPress={() => setCreating(false)} />
+  if (creating) return <Screen title={t('createAvatar')} back={false}>
+    <Button label={t('backToAvatars')} variant="link" icon="chevron-back" disabled={busy} onPress={() => setCreating(false)} />
     <AvatarCreate photo={photo} generation={generation} agreed={agreed} onAgree={setAgreed} disabled={disabled}
       hasPending={!!editor.pending} onGenerate={() => { if (photo.photo && agreed) void generation.start(photo.photo); }} />
   </Screen>;
-  return <Screen title="Your Avatar" backTo="/account">
+  return <Screen title={t('yourAvatar')} backTo="/account">
     <View style={{ gap: 10, alignItems: 'center', paddingVertical: 8, backgroundColor: theme.accentSoft, borderRadius: 20 }}
       onLayout={event => setWidth(Math.min(224, event.nativeEvent.layout.width - 24))}>
-      <AvatarPortrait key={selected} avatar={editor.preview} size={width} animate={moving} speaking={speaking} label={editor.preview ? 'Selected Avatar Preview' : 'Lian, the QuinTaste Mascot'} />
+      <AvatarPortrait key={selected} avatar={editor.preview} size={width} animate={moving} speaking={speaking} label={editor.preview ? t('selectedAvatarPreview') : t('lianMascot')} />
       {editor.preview && <View style={[common.row, { flexWrap: 'wrap', justifyContent: 'center' }]}>
-        <Button label={moving ? 'Pause' : 'Animate'} variant="link" disabled={reducedMotion} onPress={() => { setMoving(value => !value); setSpeaking(false); }} />
-        <Button label={speaking ? 'Stop Talking' : 'Talking Preview'} variant="link" disabled={reducedMotion} onPress={() => { setMoving(true); setSpeaking(value => !value); }} />
+        <Button label={moving ? t('pause') : t('animate')} variant="link" disabled={reducedMotion} onPress={() => { setMoving(value => !value); setSpeaking(false); }} />
+        <Button label={speaking ? t('stopTalking') : t('talkingPreview')} variant="link" disabled={reducedMotion} onPress={() => { setMoving(true); setSpeaking(value => !value); }} />
       </View>}
     </View>
     <AutosaveStatus saving={editor.busy || saving || avatarLibrary.loading} local={!avatarLibrary.connected} error={syncError || undefined} />
-    {!!syncError && <Button label="Retry" variant="link" disabled={disabled} onPress={() => { if (editor.error) void editor.apply(); else void avatarLibrary.refresh(); }} />}
+    {!!syncError && <Button label={tc('retry')} variant="link" disabled={disabled} onPress={() => { if (editor.error) void editor.apply(); else void avatarLibrary.refresh(); }} />}
     {!!info && <T variant="small" muted accessibilityLiveRegion="polite">{info}</T>}
     <AvatarLibrary items={items} pending={editor.pending} selected={selected} disabled={disabled} onSelect={select} />
     {editor.pending && <>{discarding ? <View style={common.stack}>
-      <T>Discard the new unsaved portrait? Your saved avatars will stay in your library.</T>
-      <Button label="Discard New Portrait" variant="secondary" disabled={disabled} onPress={() => { void editor.discard().then(okay => { if (okay) { setDiscarding(false); void cancel(); } }); }} />
-      <Button label="Keep New Portrait" variant="link" disabled={disabled} onPress={() => setDiscarding(false)} />
-    </View> : <Button label="Discard Unsaved Portrait" variant="link" disabled={disabled} onPress={() => setDiscarding(true)} />}</>}
-    {!avatarLibrary.connected && <T variant="small" muted>Sign in to create your own avatar.</T>}
+      <T>{t('discardPortraitQuestion')}</T>
+      <Button label={t('discardNewPortrait')} variant="secondary" disabled={disabled} onPress={() => { void editor.discard().then(okay => { if (okay) { setDiscarding(false); void cancel(); } }); }} />
+      <Button label={t('keepNewPortrait')} variant="link" disabled={disabled} onPress={() => setDiscarding(false)} />
+    </View> : <Button label={t('discardUnsavedPortrait')} variant="link" disabled={disabled} onPress={() => setDiscarding(true)} />}</>}
+    {!avatarLibrary.connected && <T variant="small" muted>{t('signInForAvatar')}</T>}
     {saved && <>{deleting ? <View style={common.stack}>
-      <T>Delete this portrait from your account? This cannot be undone. Your other avatars will stay saved.</T>
-      <Button label="Delete Portrait Permanently" variant="secondary" disabled={disabled} onPress={() => { void avatarLibrary.remove(selected).then(okay => { if (okay) { editor.setPreview(null); setDeleting(false); } }); }} />
-      <Button label="Keep Portrait" variant="link" disabled={disabled} onPress={() => setDeleting(false)} />
-    </View> : <Button label="Delete Selected Portrait" variant="link" disabled={disabled} onPress={() => setDeleting(true)} />}</>}
-    <Button label="Create New Avatar" icon="add-outline" disabled={busy} onPress={() => { setCreating(true); setDeleting(false); }} />
+      <T>{t('deletePortraitQuestion')}</T>
+      <Button label={t('deletePortrait')} variant="secondary" disabled={disabled} onPress={() => { void avatarLibrary.remove(selected).then(okay => { if (okay) { editor.setPreview(null); setDeleting(false); } }); }} />
+      <Button label={t('keepPortrait')} variant="link" disabled={disabled} onPress={() => setDeleting(false)} />
+    </View> : <Button label={t('deleteSelectedPortrait')} variant="link" disabled={disabled} onPress={() => setDeleting(true)} />}</>}
+    <Button label={t('createNewAvatar')} icon="add-outline" disabled={busy} onPress={() => { setCreating(true); setDeleting(false); }} />
     {accountsEnabled && editor.preview && !editor.preview.sample && <AvatarReport key={editor.preview.id} avatarId={editor.preview.id} owner={owner} />}
   </Screen>;
 }
