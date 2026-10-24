@@ -114,6 +114,7 @@ const zh: typeof en = {
   sentToTeam: "已发送给 QuinTaste 团队",
   reportSent: "举报已发送",
   reportFailed: "举报没有发送成功，请再试一次。",
+  reasonNotTheirPhoto: "照片不是本人",
   reasonHarassment: "骚扰",
   reasonSpam: "垃圾信息或诈骗",
   reasonInappropriate: "内容不当",

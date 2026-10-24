@@ -1,1 +1,1 @@
-export { MeetHomeScreen as default } from "../../screens/meet/Home";
+export { SocialHomeScreen as default } from "../../screens/social/Home";

@@ -1,11 +1,9 @@
 import express from 'express';
-import { readFileSync } from 'node:fs';
 import { CommunityError } from '../community/http.mjs';
 import { catalogueVenues, publishedPlaceId, publishedPlaceIds } from '../catalogue-places.mjs';
 
 const byId = new Map(catalogueVenues.map(venue => [venue.id, venue]));
-const areaCodes = new Set(JSON.parse(readFileSync(new URL('../areas/planning-areas.json', import.meta.url), 'utf8')).map(area => area.code));
-/** What Social shows about a catalogue place; tables and invitations only use published packaged places. */
+/** What Social shows about a catalogue place; dinner invites and favourite places only use published packaged places. */
 export function placeView(id) {
   const venue = id ? byId.get(id) : null;
   if (!venue) return null;
@@ -20,7 +18,6 @@ export async function requirePlace(raw) {
   return place;
 }
 /** The planning area the app worked out from the place's map point; only the code is stored. */
-export const readAreaCode = value => typeof value === 'string' && areaCodes.has(value) ? value : null;
 
 /** `near=lat,lng` inside Singapore, or null. The app sends only a map point, never a member's address. */
 function readNear(value) {

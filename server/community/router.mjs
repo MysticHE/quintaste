@@ -2,6 +2,7 @@ import { pool, logger } from '../config.mjs';
 import { CommunityError, communityRouter, errors, requireUser, text, throttle, transaction } from './http.mjs';
 import { publishedPlaceId } from '../catalogue-places.mjs';
 import { publishedRecipeId } from '../recipes/published.mjs';
+import { separate } from '../social/separate.mjs';
 
 /** Blocking is mutual for visibility: neither side sees or contacts the other. */
 export async function blockedBetween(a, b, db = pool) {
@@ -44,7 +45,7 @@ community.post('/blocks', async (req, res) => {
     const exists = await db.query('SELECT 1 FROM public."user" WHERE id=$1', [target]);
     if (!exists.rowCount) throw new CommunityError(404, 'That person is unavailable.');
     await db.query('INSERT INTO community.block(user_id,blocked_id) VALUES($1,$2) ON CONFLICT DO NOTHING', [me, target]);
-    await leaveSharedGroups(db, me, target);
+    await separate(db, me, target);
   });
   res.status(201).json({ blocked: true });
 });
@@ -68,7 +69,7 @@ community.post('/reports', async (req, res) => {
   if (req.body?.block === true && kind === 'person' && target !== me) {
     await transaction(async db => {
       await db.query('INSERT INTO community.block(user_id,blocked_id) SELECT $1,$2 WHERE EXISTS (SELECT 1 FROM public."user" WHERE id=$2) ON CONFLICT DO NOTHING', [me, target]);
-      await leaveSharedGroups(db, me, target);
+      await separate(db, me, target);
     });
   }
   res.status(201).json({ reference });
@@ -82,17 +83,5 @@ async function publicLevel(hash) {
 async function openCafe(publicId) {
   if (typeof publicId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(publicId)) return null;
   return (await pool.query(`SELECT user_id FROM game.cafe WHERE public_id = $1::uuid AND open AND hidden_at IS NULL`, [publicId])).rows[0]?.user_id ?? null;
-}
-/** Blocking someone leaves any open Social group you share with them. */
-async function leaveSharedGroups(db, me, other) {
-  const left = (await db.query(`UPDATE social.member m SET status='left', confirmed=false, updated_at=now() WHERE m.user_id=$1 AND m.status IN ('invited','accepted')
-    AND EXISTS (SELECT 1 FROM social.member o WHERE o.group_id=m.group_id AND o.user_id=$2) RETURNING m.group_id`, [me, other])).rows;
-  // Loaded here, not at the top, because Social's group helpers import this router's block checks.
-  const { afterLeave } = left.length ? await import('../social/group-core.mjs') : {};
-  for (const row of left) {
-    await db.query('UPDATE social.member SET confirmed=false WHERE group_id=$1', [row.group_id]);
-    await db.query("INSERT INTO social.message(group_id,kind,body) VALUES($1,'event','A member left')", [row.group_id]);
-    await afterLeave(db, row.group_id, me);
-  }
 }
 community.use(errors);

@@ -114,6 +114,7 @@ const en = {
   sentToTeam: "Sent to the QuinTaste team",
   reportSent: "Report sent",
   reportFailed: "The report was not sent. Try again.",
+  reasonNotTheirPhoto: "Not their photo",
   reasonHarassment: "Harassment",
   reasonSpam: "Spam or scam",
   reasonInappropriate: "Inappropriate",

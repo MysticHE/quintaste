@@ -11,7 +11,7 @@ import { useT } from "../i18n";
 import type commonMessages from "../i18n/en/common";
 
 const reasons = {
-  person: ["Harassment", "Spam or scam", "Inappropriate", "Safety concern", "Other"],
+  person: ["Not their photo", "Harassment", "Spam or scam", "Inappropriate", "Safety concern", "Other"],
   listing: ["Prohibited item", "Misleading details", "Spam or scam", "Other"],
   place: ["Hours", "Address or location", "Menu or prices", "Closed or moved", "Not meat-free", "Other"],
   recipe: ["Not meat-free", "Unsafe instructions", "Not their recipe", "Spam or scam", "Other"],
@@ -21,7 +21,7 @@ const reasons = {
 type Reason = (typeof reasons)[keyof typeof reasons][number];
 /** The reason is sent as written above; this is only what the member reads. */
 const reasonKeys: Record<Reason, keyof typeof commonMessages> = {
-  Harassment: "reasonHarassment", "Spam or scam": "reasonSpam", Inappropriate: "reasonInappropriate", "Safety concern": "reasonSafety",
+  "Not their photo": "reasonNotTheirPhoto", Harassment: "reasonHarassment", "Spam or scam": "reasonSpam", Inappropriate: "reasonInappropriate", "Safety concern": "reasonSafety",
   Other: "reasonOther", "Prohibited item": "reasonProhibited", "Misleading details": "reasonMisleading", Hours: "reasonHours",
   "Address or location": "reasonAddress", "Menu or prices": "reasonMenu", "Closed or moved": "reasonClosed", "Not meat-free": "reasonNotMeatFree",
   "Unsafe instructions": "reasonUnsafe", "Not their recipe": "reasonNotTheirs", "Wrong ingredients": "reasonWrongIngredients", "Inappropriate name": "reasonInappropriateName",

@@ -1,1 +1,1 @@
-export { MeetFiltersScreen as default } from "../../screens/meet/Filters";
+export { FiltersScreen as default } from "../../screens/social/Filters";

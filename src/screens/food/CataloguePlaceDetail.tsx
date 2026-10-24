@@ -14,7 +14,6 @@ import { PlaceDetailAction, PlaceDetailSection, PlaceSources } from "../../compo
 import { PlaceReviews } from "../../components/discovery/PlaceReviews";
 import { GoogleReviewsLink } from "../../components/discovery/GoogleReviewsLink";
 import { PlaceFeedbackActions } from "../../components/discovery/PlaceFeedbackActions";
-import { PlaceTables } from "../../components/social/PlaceTables";
 import { PrivateNote } from "../../components/food/DetailParts";
 import { DietLabels, PungentUnconfirmed } from "../../components/food/DietLabels";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
@@ -71,7 +70,6 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
         <PlaceDetailAction label={tc(saved ? "saved" : "save")} accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} icon={saved ? "bookmark" : "bookmark-outline"}
           selected={saved} disabled={!readable || saving} onPress={() => void save()} />
       </View>
-      <PlaceTables placeId={venue.id} />
       <PlaceReviews placeId={venue.id} />
       <GoogleReviewsLink id={venue.googlePlaceId} name={venue.name} address={venue.address} />
       <View style={[s.secondary, { borderTopColor: theme.divider }]}>

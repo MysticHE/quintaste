@@ -1,5 +1,5 @@
 import { marketIngredients } from "../config/market-ingredients";
-import { ageBands, hereForOptions, hobbyOptions, languageOptions, religions } from "../config/social-profile";
+import { ageBands, distanceOptions, hobbyOptions, languageOptions } from "../config/social-profile";
 import { defaultMeetFilters, emptyMeet, groupSizes, keptLabels, legacyLabels, meetPractices, meetTimes, payOptions, reminderLimit, type MeetFilters, type MeetNetwork, type MeetProfile, type PlanReminder } from "../types/meet";
 const record = (v: unknown): Record<string, unknown> => v && typeof v === "object" && !Array.isArray(v) ? v as Record<string, unknown> : {};
 const text = (v: unknown, max = 100) => typeof v === "string" ? v.trim().slice(0, max) : "";
@@ -18,7 +18,7 @@ function readReminders(input: unknown): PlanReminder[] {
   const rows = (Array.isArray(input) ? input : []).map(record)
     .filter(r => text(r.groupId, 80) && text(r.venue, 160) && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(text(r.starts, 16)));
   const unique = new Map(rows.map(r => [text(r.groupId, 80), { groupId: text(r.groupId, 80), venue: text(r.venue, 160), starts: text(r.starts, 16),
-    pay: payOptions.find(option => option === r.pay) ?? "own" }]));
+    pay: r.pay === "organiser" ? "host" as const : payOptions.find(option => option === r.pay) ?? "own" }]));
   return [...unique.values()].slice(-reminderLimit);
 }
 /** People filters; before 20 Oct 2026 a single `diet` and `fivePungentFree` (now Vegetarian). Old Vegetarian (eggs and dairy) matches everyone. */
@@ -26,15 +26,13 @@ function readFilterDiets(f: Record<string, unknown>): MeetFilters["diets"] {
   const chosen = Array.isArray(f.diets) ? f.diets : [...(f.diet === "Vegan" ? ["Vegan"] : []), ...(f.fivePungentFree === true ? ["Vegetarian"] : [])];
   return (["Vegan", "Vegetarian"] as const).filter(label => chosen.includes(label));
 }
-/** Earlier local-only groups, gatherings and sample people are not carried forward; Social now lives on the account. */
+/** Earlier local-only groups, gatherings and sample people are not carried forward; Social now lives on the account. Old People filters (time, group size, religion, same area) drop. */
 export function readMeet(input: unknown): MeetNetwork {
   const v = record(input), f = record(v.filters);
   return { ...emptyMeet(), profile: readMeetProfile(v.profile), dismissedMoment: text(v.dismissedMoment, 10), reminders: readReminders(v.reminders),
-    filters: { ...defaultMeetFilters(), diets: readFilterDiets(f), time: meetTimes.find(t => t === f.time) ?? "Any",
-      prefers: f.prefers === "Any" ? "Any" : groupSizes.find(n => n === f.prefers) ?? "Any",
-      hereFor: hereForOptions.find(o => o.id === f.hereFor)?.id ?? "Any", religions: religions.filter(r => strings(f.religions).includes(r)),
+    filters: { ...defaultMeetFilters(), diets: readFilterDiets(f), ages: ageBands.filter(a => strings(f.ages).includes(a)),
       languages: languageOptions.filter(l => strings(f.languages).includes(l)), hobbies: hobbyOptions.filter(h => strings(f.hobbies).includes(h)).slice(0, 12),
-      ages: ageBands.filter(a => strings(f.ages).includes(a)), sameArea: f.sameArea === true } };
+      km: distanceOptions.find(n => n === f.km) ?? 0 } };
 }
 export function mergeMeet(profile: MeetNetwork, guest: MeetNetwork): MeetNetwork {
   const reminders = [...profile.reminders, ...guest.reminders.filter(r => !profile.reminders.some(p => p.groupId === r.groupId))];

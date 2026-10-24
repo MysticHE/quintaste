@@ -28,10 +28,10 @@ export function reminderAlerts(owner: string, kind: "plan" | "order", events: { 
 }
 const planOffsets: ReminderOffset[] = [{ key: "day", ms: 86400000, title: language => translate(language, "social", "planReminderDay") },
   { key: "hour", ms: 3600000, title: language => translate(language, "social", "planReminderHour") }];
-/** Reminders 1 day and 1 hour before each plan the user confirmed and opted into. */
+/** Reminders 1 day and 1 hour before each accepted dinner the member opted into. */
 export const planAlertsFor = (owner: string, reminders: PlanReminder[], now = Date.now()) => reminderAlerts(owner, "plan",
   reminders.map(g => ({ id: g.groupId, starts: g.starts,
-    label: (at: number, language: Language) => g.venue + " · " + formatSgDateTime(at, language) + " · " + translate(language, "social", "optPay", { value: g.pay }) })), planOffsets, now);
+    label: (at: number, language: Language) => g.venue + " · " + formatSgDateTime(at, language) })), planOffsets, now);
 export async function syncTimerAlerts(adapter: TimerAlertAdapter, owner: string, timers: CookingTimer[], enabled: boolean, plans: TimerAlert[] = []) {
   const allowed = canScheduleTimerAlerts(await adapter.permission());
   const alerts = allowed ? [...(enabled ? timers.map(t => alertFor(owner, t)).filter((t): t is TimerAlert => !!t) : []), ...plans] : [];

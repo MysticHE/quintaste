@@ -17,6 +17,7 @@ import { Ingredients } from './content/Ingredients';
 import { Creators } from './content/Creators';
 import { GameLevels } from './content/GameLevels';
 import Sellers from './Sellers';
+import { PhotoChecks, Teachers } from './Social';
 import { Audit, Integrations, Staff } from './Administration';
 
 type StaffSession = { member: { id: string; email: string; role: Role } };
@@ -36,8 +37,11 @@ const groups: { title?: string; sections: Section[] }[] = [
     { id: 'ingredients', title: 'Ingredients', icon: 'leaf', capability: 'content' },
     { id: 'reviews', title: 'Place reviews', icon: 'star', capability: 'content', count: d => d.reviews },
     { id: 'gatherings', title: 'Gatherings', icon: 'group', capability: 'content' }] },
+  { title: 'Social', sections: [
+    { id: 'photo-checks', title: 'Photo checks', icon: 'identity', capability: 'identity', count: d => d.social?.checks }] },
   { title: 'Market', sections: [
     { id: 'shops', title: 'Shops', icon: 'sellers', capability: 'sellers' },
+    { id: 'teachers', title: 'Class teachers', icon: 'person', capability: 'sellers', count: d => d.social?.teachers },
     { id: 'listings', title: 'Listings', icon: 'tag', capability: 'content', count: d => d.listings }] },
   { title: 'Safety', sections: [
     { id: 'cases', title: 'Cases', icon: 'cases', capability: 'cases', count: d => d.queues?.reduce((sum, q) => sum + q.count, 0) },
@@ -85,6 +89,7 @@ export default function Console({ section }: { section: string }) {
         {section === 'places' && <Places/>}{section === 'recipes' && <Recipes/>}{section === 'events' && <Events/>}{section === 'creators' && <Creators/>}{section === 'game-levels' && <GameLevels/>}
         {section === 'member-recipes' && <MemberRecipes origin="member"/>}{section === 'ai-recipes' && <AiRecipes canLimit={can(member.role, 'operations')}/>}{section === 'ingredients' && <Ingredients/>}
         {section === 'reviews' && <Reviews/>}{section === 'gatherings' && <Gatherings/>}
+        {section === 'photo-checks' && <PhotoChecks/>}{section === 'teachers' && <Teachers/>}
         {section === 'shops' && <Sellers/>}{section === 'listings' && <Listings/>}
         {section === 'accounts' && <Accounts/>}{section === 'cases' && <Cases canAssign={can(member.role, 'operations')}/>}
         {section === 'features' && <Controls/>}{section === 'integrations' && <Integrations/>}

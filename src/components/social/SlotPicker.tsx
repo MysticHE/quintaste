@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Chip, Chips } from "../food/Controls";
 import { FieldLabel } from "../GroupedList";
 import { useMinuteClock } from "../food/Timers";
-import { slotLabel } from "../../utils/social-match";
+import { slotLabel } from "../../utils/social-time";
 import { SgDateTimeField } from "./SgDateTimeField";
 import { useLanguage, useT } from "../../i18n";
 

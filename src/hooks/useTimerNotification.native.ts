@@ -18,7 +18,7 @@ export function useTimerNotification(ready: boolean) {
       Notifications.clearLastNotificationResponse();
       if (content.data?.owner !== scope) return;
       if (content.data?.kind === "order-reminder") { router.push({ pathname: "/market/order/[id]", params: { id: String(content.data.timerId) } }); return; }
-      if (content.data?.kind === "plan-reminder") { if (doc.social.network.reminders.some(r => r.groupId === content.data?.timerId)) router.push(("/social/chat/" + content.data.timerId) as never); return; }
+      if (content.data?.kind === "plan-reminder") { if (doc.social.network.reminders.some(r => r.groupId === content.data?.timerId)) router.push(("/social/dinner/" + content.data.timerId) as never); return; }
       if (doc.timers.some(t => t.id === content.data?.timerId)) router.push("/timers");
     };
     open(Notifications.getLastNotificationResponse());

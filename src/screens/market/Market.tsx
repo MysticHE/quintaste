@@ -9,6 +9,7 @@ import { MarketFilters } from "../../components/market/MarketFilters";
 import { MemberPrompt, RemoteStatus, ensureMember, useMember } from "../../components/CommunityGate";
 import { OrdersContent } from "./Orders";
 import { MyShopContent, useShopAdd, type ShopTab } from "./MyShop";
+import { EventsList } from "../../components/market/EventsList";
 import { useDebounced } from "../../hooks/useDebounced";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
@@ -35,19 +36,21 @@ function useMore(key: string) {
   };
   return { extra, busy, load };
 }
-type MarketTab = "browse" | "saved" | "orders" | "shop";
-const placeholders: Record<MarketTab, MarketKey> = { browse: "searchMarket", saved: "searchSaved", orders: "searchOrders", shop: "myItems" };
-/** Market: browse, saved items, orders and the member's shop as tabs under one search box. */
+type MarketTab = "browse" | "events" | "saved" | "orders" | "shop";
+const placeholders: Record<MarketTab, MarketKey> = { browse: "searchMarket", events: "findEvents", saved: "searchSaved", orders: "searchOrders", shop: "myItems" };
+/** Market: browse, events and cooking classes, saved items, orders and the member's shop as tabs under one search box. */
 export default function MarketScreen() {
   const { tab: param } = useLocalSearchParams<{ tab?: string }>();
-  const tab: MarketTab = param === "saved" || param === "orders" || param === "shop" ? param : "browse";
+  const tab: MarketTab = param === "events" || param === "saved" || param === "orders" || param === "shop" ? param : "browse";
   const member = useMember(), counts = useMarketUnread(), t = useT("market"), tc = useT("common");
-  const [queries, setQueries] = useState<Record<MarketTab, string>>({ browse: "", saved: "", orders: "", shop: "" });
+  const [queries, setQueries] = useState<Record<MarketTab, string>>({ browse: "", events: "", saved: "", orders: "", shop: "" });
   const [filters, setFilters] = useState(defaultShopFilter), [filterOpen, setFilterOpen] = useState(false), [shopTab, setShopTab] = useState<ShopTab>("orders");
   const query = queries[tab], setQuery = (value: string) => setQueries(current => ({ ...current, [tab]: value }));
   const add = useShopAdd(shopTab), browsing = tab === "browse" || tab === "saved";
   const tabs: IconTab<MarketTab>[] = [
     { id: "browse", label: t("tabBrowse"), icon: "grid-outline", activeIcon: "grid" },
+    // Local events and cooking classes by approved teachers, open to every member (24 Oct 2026: moved here from Social).
+    { id: "events", label: t("tabEvents"), icon: "calendar-outline", activeIcon: "calendar" },
     { id: "saved", label: tc("saved"), icon: "bookmark-outline", activeIcon: "bookmark" },
     { id: "orders", label: t("tabOrders"), icon: "receipt-outline", activeIcon: "receipt" },
     // New orders are the seller's to act on, in My shop.
@@ -60,7 +63,7 @@ export default function MarketScreen() {
     <IconTabs tabs={tabs} value={tab} label={t("sections")} onChange={next => router.setParams({ tab: next === "browse" ? undefined : next })} />
     {browsing ? (tab === "saved" && !member.member ? <MemberPrompt icon="bookmark-outline" returnTo="/market?tab=saved" />
       : <Browse query={query} filters={{ ...filters, savedOnly: tab === "saved" }} setFilters={setFilters} />)
-      : tab === "orders" ? <OrdersContent query={query} /> : <MyShopContent tab={shopTab} setTab={setShopTab} query={query} />}
+      : tab === "events" ? <EventsList query={query} /> : tab === "orders" ? <OrdersContent query={query} /> : <MyShopContent tab={shopTab} setTab={setShopTab} query={query} />}
     {filterOpen && <MarketFilters value={{ ...filters, savedOnly: tab === "saved" }} onApply={next => setFilters({ ...next, savedOnly: false })} onClose={() => setFilterOpen(false)} />}
   </Screen>;
 }

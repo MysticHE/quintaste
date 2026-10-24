@@ -1,6 +1,6 @@
 import type { MarketIngredient } from "../config/market-ingredients";
 import { readLabels, type DietLabel } from "../config/diet-labels";
-import type { AgeBand, HereFor } from "../config/social-profile";
+import type { AgeBand, Distance } from "../config/social-profile";
 export const groupSizes = [2, 4, 6] as const;
 export type GroupSize = typeof groupSizes[number];
 export const meetTimes = ["Weekday lunch", "Weekday dinner", "Weekends"] as const;
@@ -20,32 +20,21 @@ export function legacyLabels(diet: unknown, practices: unknown): DietLabel[] {
   const pungentFree = Array.isArray(practices) && practices.includes(legacyFivePungent);
   return diet === "Vegan" ? (pungentFree ? ["Vegan", "Vegetarian"] : ["Vegan"]) : pungentFree ? ["Vegetarian"] : ["Plant-Based"];
 }
-export const payOptions = ["own", "split", "organiser"] as const;
+/** Who pays for a dinner (server/social/dinners.mjs); "host" is "I'll pay the bill" for the person who invited. */
+export const payOptions = ["split", "host", "own"] as const;
 export type PayOption = typeof payOptions[number];
-export const payLabels: Record<PayOption, string> = { own: "Each pays their own", split: "Split the bill", organiser: "Organiser covers" };
 /** A profile kept on this device before Social had accounts; used only to prefill the account profile. */
 export type MeetProfile = {
   name: string; diets: DietLabel[]; area: string; about: string; interests: string[]; times: string[]; size: GroupSize;
   excluded: MarketIngredient[]; practices: MeetPractice[];
 };
-export const premisesTypes = ["HDB flat", "Private home", "Commercial kitchen"] as const;
-/** Singapore home-food rules the applicant declares; wording pending legal review. */
-export const hostDeclarations = [
-  "Only residents prepare the food",
-  "No catering, buffets or packed meals for sale",
-  "No raw ready-to-eat seafood",
-  "Ingredients come from licensed sources",
-  "No signage at the premises",
-  "No alcohol is sold",
-] as const;
-/** `diets`: people must keep every chosen label (Vegan and/or Vegetarian); none = everyone. Lists match any chosen value. */
-export type MeetFilters = { diets: Exclude<DietLabel, "Plant-Based">[]; time: string; prefers: "Any" | GroupSize;
-  hereFor: "Any" | HereFor; religions: string[]; languages: string[]; hobbies: string[]; ages: AgeBand[]; sameArea: boolean };
-/** A device reminder for a confirmed plan; refreshed from the group whenever it is opened. */
+/** People filters. `diets`: people must keep every chosen label (Vegan and/or Vegetarian); none = everyone. Lists match any chosen value; `km` 0 is anywhere. */
+export type MeetFilters = { diets: Exclude<DietLabel, "Plant-Based">[]; ages: AgeBand[]; languages: string[]; hobbies: string[]; km: Distance };
+/** A device reminder for an accepted dinner (`groupId` is the dinner id); refreshed whenever the dinner is opened. */
 export type PlanReminder = { groupId: string; venue: string; starts: string; pay: PayOption };
-/** What Social keeps on this device: browse filters, a dismissed observance chip and plan reminders. */
+/** What Social keeps on this device: People filters and dinner reminders. `dismissedMoment` and `profile` are kept for older data. */
 export type MeetNetwork = { version: 3; profile: MeetProfile; filters: MeetFilters; dismissedMoment: string; reminders: PlanReminder[] };
 export const reminderLimit = 30;
 export const emptyMeetProfile = (): MeetProfile => ({ name: "", diets: ["Plant-Based"], area: "", about: "", interests: [], times: [], size: 4, excluded: [], practices: [] });
-export const defaultMeetFilters = (): MeetFilters => ({ diets: [], time: "Any", prefers: "Any", hereFor: "Any", religions: [], languages: [], hobbies: [], ages: [], sameArea: false });
+export const defaultMeetFilters = (): MeetFilters => ({ diets: [], ages: [], languages: [], hobbies: [], km: 0 });
 export const emptyMeet = (): MeetNetwork => ({ version: 3, profile: emptyMeetProfile(), filters: defaultMeetFilters(), dismissedMoment: "", reminders: [] });

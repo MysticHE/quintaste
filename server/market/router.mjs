@@ -4,12 +4,16 @@ import { orders } from './orders.mjs';
 import { conversations } from './conversations.mjs';
 import { sellerProfile } from './seller.mjs';
 import { sellerShop } from './seller-shop.mjs';
+import { classes } from './classes.mjs';
+import { teaching } from './teaching.mjs';
 
-/** Buying: browsing and shop pages are readable by guests; orders and chat need a signed-in member. */
+/** Buying: browsing, shop pages and cooking classes are readable by guests; orders, chat, joining classes and teaching need a signed-in member. */
 export const market = communityRouter({ guests: true, bodyLimit: '64kb' });
 market.use(shop);
 market.use(orders);
 market.use(conversations);
+market.use(classes);
+market.use(teaching);
 market.use(errors);
 /** Selling: a member's own shop, application, items and slots. Only saving a listing carries photos. */
 export const marketSeller = communityRouter({ bodyLimit: '64kb', photoLimit: '6mb',

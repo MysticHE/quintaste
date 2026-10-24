@@ -6,15 +6,15 @@ import { Button, Card, T, common } from "./ui";
 import { dateText, formatDay, parseDay } from "../utils/day";
 import { useLanguage, useT } from "../i18n";
 
-export type DateFieldProps = { label: string; value: string; onChange: (value: string) => void; disabled?: boolean; error?: string; minimum?: string };
+export type DateFieldProps = { label: string; value: string; onChange: (value: string) => void; disabled?: boolean; error?: string; minimum?: string; maximum?: string };
 /** A calendar date stored as YYYY-MM-DD; Android uses the system dialog and iOS a spinner sheet. */
-export function DateField({ label, value, onChange, disabled, error, minimum }: DateFieldProps) {
+export function DateField({ label, value, onChange, disabled, error, minimum, maximum }: DateFieldProps) {
   const { theme } = usePreferences(), t = useT("common"), language = useLanguage();
-  const start = () => parseDay(value) ?? parseDay(minimum ?? "") ?? new Date();
+  const start = () => parseDay(value) ?? parseDay(maximum ?? "") ?? parseDay(minimum ?? "") ?? new Date();
   const [open, setOpen] = useState(false), [draft, setDraft] = useState(start);
-  const minimumDate = parseDay(minimum ?? "") ?? undefined;
+  const minimumDate = parseDay(minimum ?? "") ?? undefined, maximumDate = parseDay(maximum ?? "") ?? undefined;
   const choose = () => {
-    if (Platform.OS === "android") DateTimePickerAndroid.open({ value: start(), mode: "date", minimumDate, onValueChange: (_event, day) => onChange(dateText(day)) });
+    if (Platform.OS === "android") DateTimePickerAndroid.open({ value: start(), mode: "date", minimumDate, maximumDate, onValueChange: (_event, day) => onChange(dateText(day)) });
     else { setDraft(start()); setOpen(true); }
   };
   return <View style={{ gap: 6 }}>
@@ -26,7 +26,7 @@ export function DateField({ label, value, onChange, disabled, error, minimum }: 
       <View style={{ flex: 1, justifyContent: "center", padding: 16, backgroundColor: theme.overlay }}>
         <Card><View accessibilityViewIsModal style={{ gap: 12 }}>
           <T variant="subtitle">{label}</T>
-          <DateTimePicker value={draft} mode="date" display="spinner" minimumDate={minimumDate} themeVariant={theme.dark ? "dark" : "light"} onValueChange={(_event, day) => setDraft(day)} />
+          <DateTimePicker value={draft} mode="date" display="spinner" minimumDate={minimumDate} maximumDate={maximumDate} themeVariant={theme.dark ? "dark" : "light"} onValueChange={(_event, day) => setDraft(day)} />
           <Button label={t("useThisDate")} onPress={() => { onChange(dateText(draft)); setOpen(false); }} />
           <Button label={t("cancel")} variant="link" onPress={() => setOpen(false)} />
         </View></Card>

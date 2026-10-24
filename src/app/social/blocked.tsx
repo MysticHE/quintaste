@@ -1,1 +1,1 @@
-export { MeetBlockedScreen as default } from "../../screens/meet/Safety";
+export { BlockedScreen as default } from "../../screens/social/Filters";

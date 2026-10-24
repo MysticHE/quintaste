@@ -1,118 +1,96 @@
 import express from 'express';
 import { pool } from '../config.mjs';
-import { CommunityError, requireUser, throttle } from '../community/http.mjs';
-import { notBlocked, notRestricted } from '../community/router.mjs';
-import { publishedPlaceIds } from '../catalogue-places.mjs';
-import { placeView } from './places.mjs';
-import { liveSql } from './group-core.mjs';
-import { languages, religions, hobbies, hereFor } from './options.mjs';
-import { legacyDiet, newerColumns, profileColumns, profileIssue, readDiets, readProfile, shareable, sizes, storedPractices, times } from './rules.mjs';
+import { CommunityError, requireUser } from '../community/http.mjs';
+import { hobbies, languages } from './options.mjs';
+import { readDiets } from './rules.mjs';
+import { ageFrom, meetAgeSql, friendsSql, pausedUntilSql, reachableSql, requireBrowse, seeableSql, standing, verifiedSql } from './access.mjs';
+import { hideable, meetColumns, photoUrl } from './profile.mjs';
+import { readFileSync } from 'node:fs';
 
 export const people = express.Router();
-/** Fields added on 20 Oct 2026; older apps never send them. */
-const newer = ['hereFor', 'gender', 'birthYear', 'religion', 'ethnicity', 'why', 'hobbies', 'languages', 'education', 'work', 'grewUp', 'height', 'drinking', 'smoking',
-  'family', 'pets', 'spots', 'prompts', 'opening', 'hidden'];
-const empty = { firstName: '', area: '', diets: ['Plant-Based'], diet: 'Vegetarian', practices: [], times: [], size: 4, about: '', interests: [], excluded: [], visible: false,
-  hereFor: 'makan', gender: '', birthYear: null, religion: '', ethnicity: '', why: [], hobbies: [], languages: [], education: '', work: '', grewUp: '', height: null,
-  drinking: '', smoking: '', family: '', pets: [], spots: [], prompts: [], opening: '', hidden: ['gender', 'ethnicity'], pausedUntil: null, hasFace: false, tables: 0, noShows: 0 };
-people.get('/me', async (_req, res) => {
-  const me = res.locals.user;
-  const row = (await pool.query(`SELECT ${profileColumns} FROM social.profile p WHERE p.user_id=$1`, [me.id])).rows[0];
-  res.json({ id: me.id, accountName: me.name, profile: row ? { ...row, id: undefined } : empty });
-});
-people.put('/me', async (req, res) => {
-  // `legacy` (an older app sent only diet) needs nothing more for profiles: its practices carry Vegetarian.
-  const { legacy: _legacy, ...p } = readProfile(req.body?.profile), me = res.locals.user.id;
-  await throttle('social-profile:' + me, 120, 3600);
-  // Spots are places Social can show and plan at: published packaged catalogue places.
-  p.spots = (await publishedPlaceIds(p.spots)).filter(id => id && placeView(id));
-  // Apps from before 20 Oct 2026 send none of the newer fields; the stored values stay instead of being reset.
-  const stored = (await pool.query(`SELECT ${newerColumns} FROM social.profile p WHERE p.user_id=$1`, [me])).rows[0], body = req.body?.profile ?? {};
-  if (stored) for (const key of newer) if (!(key in body)) p[key] = stored[key];
-  const paused = (await pool.query('SELECT paused_until FROM social.profile WHERE user_id=$1 AND paused_until > now()', [me])).rows[0];
-  if (p.visible && (profileIssue(p) || paused)) p.visible = false;
-  p.diet = legacyDiet(p.diets);
-  await pool.query(`INSERT INTO social.profile(user_id,first_name,area,diet,practices,times,group_size,about,interests,excluded,visible,diets,here_for,gender,birth_year,religion,
-      ethnicity,why,hobbies,languages,education,work,grew_up,height,drinking,smoking,family,pets,spots,prompts,opening,hidden)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32)
-    ON CONFLICT(user_id) DO UPDATE SET first_name=$2,area=$3,diet=$4,practices=$5,times=$6,group_size=$7,about=$8,interests=$9,excluded=$10,visible=$11,diets=$12,
-      here_for=$13,gender=$14,birth_year=$15,religion=$16,ethnicity=$17,why=$18,hobbies=$19,languages=$20,education=$21,work=$22,grew_up=$23,height=$24,drinking=$25,
-      smoking=$26,family=$27,pets=$28,spots=$29,prompts=$30,opening=$31,hidden=$32,updated_at=now()`,
-  [me, p.firstName, p.area, p.diet, storedPractices(p.practices, p.diets), p.times, p.size, p.about, p.interests, p.excluded, p.visible, p.diets, p.hereFor, p.gender,
-    p.birthYear, p.religion, p.ethnicity, p.why, p.hobbies, p.languages, p.education, p.work, p.grewUp, p.height, p.drinking, p.smoking, p.family, p.pets, p.spots,
-    JSON.stringify(p.prompts), p.opening, p.hidden]);
-  res.json({ profile: p, paused: !!paused });
-});
-/** Other members who opted in, are adults, are not restricted and are not blocked either way. */
-/** Recipes each member finished in Cook mode (community.reaction 'cooked'); zero when that table is not installed. */
-async function cookedCounts(ids) {
-  if (!ids.length) return new Map();
-  try {
-    const rows = (await pool.query(`SELECT user_id, count(*)::int AS n FROM community.reaction WHERE user_id = ANY($1) AND kind='recipe' AND action='cooked' GROUP BY user_id`, [ids])).rows;
-    return new Map(rows.map(row => [row.user_id, row.n]));
-  } catch { return new Map(); }
+/** Planning-area centres (URA Master Plan 2025 label points) for rough distances between members' areas. */
+const points = JSON.parse(readFileSync(new URL('./area-points.json', import.meta.url), 'utf8'));
+const pointOf = area => points[Object.keys(points).find(name => name.toLowerCase() === String(area ?? '').trim().toLowerCase()) ?? ''] ?? null;
+const areaNames = Object.keys(points), areaLats = areaNames.map(name => points[name][0]), areaLngs = areaNames.map(name => points[name][1]);
+/** SQL: kilometres (one decimal) from `origin` to the centre of the area in `column`, the same great-circle sum as `areaKm`; NULL for an unknown area. */
+function kmSql(column, origin, add) {
+  if (!origin) return 'NULL::float8';
+  const lat = add(origin[0]), lng = add(origin[1]);
+  return `(SELECT round((12742 * asin(sqrt(power(sin(radians(pt.lat - ${lat}) / 2), 2) + cos(radians(${lat})) * cos(radians(pt.lat)) * power(sin(radians(pt.lng - ${lng}) / 2), 2))))::numeric, 1)::float8
+    FROM unnest(${add(areaNames)}::text[], ${add(areaLats)}::float8[], ${add(areaLngs)}::float8[]) AS pt(name, lat, lng) WHERE lower(pt.name)=lower(trim(${column})))`;
 }
-const discoverable = `p.visible AND p.user_id <> $1 AND u."adultConfirmed" AND ${notRestricted('p.user_id')} AND ${notBlocked('p.user_id', '$1')}`;
-const csv = value => typeof value === 'string' ? value.split(',').map(item => item.trim()).filter(Boolean).slice(0, 12) : [];
+/** Straight-line kilometres between two planning areas' centres, or null when either area is unknown. */
+export function areaKm(a, b) {
+  const p = pointOf(a), q = pointOf(b);
+  if (!p || !q) return null;
+  const rad = Math.PI / 180, dLat = (q[0] - p[0]) * rad, dLng = (q[1] - p[1]) * rad;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(p[0] * rad) * Math.cos(q[0] * rad) * Math.sin(dLng / 2) ** 2;
+  return Math.round(12742 * Math.asin(Math.sqrt(h)) * 10) / 10;
+}
+/** What another member may see: hidden fields removed, birth date reduced to age, the hidden list kept private. */
+export function shareable(row, photos) {
+  const { birthDate, hidden = [], visible: _visible, excluded: _excluded, ...rest } = row, out = { ...rest, age: ageFrom(birthDate), photos };
+  for (const key of hideable) if (hidden.includes(key)) out[key] = Array.isArray(rest[key]) ? [] : typeof rest[key] === 'number' ? null : '';
+  return out;
+}
+/** Photo links for members, main photo first. */
+export async function photosOf(ids, db = pool) {
+  const map = new Map(ids.map(id => [id, []]));
+  if (!ids.length) return map;
+  const rows = (await db.query('SELECT id, user_id, position, digest FROM social.photo WHERE user_id = ANY($1) ORDER BY user_id, position', [ids])).rows;
+  for (const row of rows) map.get(row.user_id)?.push({ url: photoUrl(row), thumb: photoUrl(row, 'thumb') });
+  return map;
+}
+const csv = (value, choices) => typeof value === 'string' ? value.split(',').map(item => item.trim()).filter(item => choices.includes(item)).slice(0, 12) : [];
+const ageBands = { '21-29': [21, 29], '30s': [30, 39], '40-45': [40, 45] };
+
 /**
- * People who keep every chosen label (`diets=Vegan,Vegetarian`; none = everyone). For one release older apps send
- * `diet=Vegan` and `fivePungentFree=1`; their old `diet=Vegetarian` (eggs and dairy) now matches everyone.
+ * People to meet: public, verified members of the opposite gender aged 21 to 45, who are not friends, have no open request with
+ * the viewer, did not decline one in the last 30 days and are not blocked either way. Nearest areas first.
  */
-function peopleDiets(q) {
-  const chosen = typeof q.diets === 'string' ? q.diets.split(',') : Array.isArray(q.diets) ? q.diets : [...(q.diet === 'Vegan' ? ['Vegan'] : []), ...(q.fivePungentFree === '1' ? ['Vegetarian'] : [])];
-  return readDiets(chosen).filter(label => label !== 'Plant-Based');
-}
-const ageBands = { '20s': [18, 29], '30s': [30, 39], '40s': [40, 49], '50+': [50, 120] };
-/** Filters on a profile field match only members who show that field. */
-function profileFilters(q, add) {
-  const where = [], shown = field => `NOT '${field}' = ANY(p.hidden)`;
-  if (hereFor.includes(q.hereFor)) where.push(`p.here_for = ${add(q.hereFor)}`);
-  const faiths = csv(q.religions).filter(item => religions.includes(item));
-  if (faiths.length) where.push(`${shown('religion')} AND p.religion = ANY(${add(faiths)}::text[])`);
-  const spoken = csv(q.languages).filter(item => languages.includes(item));
-  if (spoken.length) where.push(`${shown('languages')} AND p.languages && ${add(spoken)}::text[]`);
-  const liked = csv(q.hobbies).filter(item => hobbies.includes(item));
-  if (liked.length) where.push(`${shown('hobbies')} AND p.hobbies && ${add(liked)}::text[]`);
-  const bands = csv(q.ages).filter(band => ageBands[band]);
-  if (bands.length) {
-    const year = new Date().getFullYear();
-    where.push(`${shown('age')} AND (${bands.map(band => `(${year} - p.birth_year) BETWEEN ${ageBands[band][0]} AND ${ageBands[band][1]}`).join(' OR ')})`);
-  }
-  if (q.sameArea === '1') where.push(`EXISTS (SELECT 1 FROM community.area_participation a JOIN community.area_participation b ON a.layer=b.layer AND a.area_code=b.area_code
-    WHERE a.user_id=p.user_id AND b.user_id=$1)`);
-  return where;
-}
 people.get('/people', async (req, res) => {
-  const me = res.locals.user.id, q = req.query, params = [me], where = [discoverable];
+  const me = res.locals.user.id, q = req.query, params = [me];
+  const state = requireBrowse(await standing(me));
   const add = value => { params.push(value); return '$' + params.length; };
-  const wanted = peopleDiets(q);
+  const where = [`p.user_id<>$1 AND p.visible AND p.gender=${add(state.gender === 'woman' ? 'man' : 'woman')}`, verifiedSql('p.user_id'), meetAgeSql('p.user_id'),
+    reachableSql('p.user_id', '$1'), `NOT ${friendsSql('p.user_id', '$1')}`,
+    `NOT EXISTS (SELECT 1 FROM social.friend_request r WHERE ((r.from_id=$1 AND r.to_id=p.user_id) OR (r.from_id=p.user_id AND r.to_id=$1))
+      AND (r.status='pending' OR (r.status='declined' AND r.decided_at > now() - interval '30 days')))`];
+  const wanted = readDiets(typeof q.diets === 'string' ? q.diets.split(',') : []).filter(label => label !== 'Plant-Based');
   if (wanted.length) where.push(`p.diets @> ${add(wanted)}::text[]`);
-  if (times.includes(q.time)) where.push(`${add(q.time)} = ANY(p.times)`);
-  if (sizes.includes(Number(q.prefers))) where.push(`p.group_size = ${add(Number(q.prefers))}`);
-  where.push(...profileFilters(q, add));
+  const spoken = csv(q.languages, languages);
+  if (spoken.length) where.push(`NOT 'languages' = ANY(p.hidden) AND p.languages && ${add(spoken)}::text[]`);
+  const liked = csv(q.hobbies, hobbies);
+  if (liked.length) where.push(`NOT 'hobbies' = ANY(p.hidden) AND p.hobbies && ${add(liked)}::text[]`);
+  const bands = csv(q.ages, Object.keys(ageBands));
+  if (bands.length) where.push(`(${bands.map(band => `date_part('year', age((now() AT TIME ZONE 'Asia/Singapore')::date, p.birth_date)) BETWEEN ${ageBands[band][0]} AND ${ageBands[band][1]}`).join(' OR ')})`);
   if (typeof q.q === 'string' && q.q.trim()) {
-    where.push(`(p.first_name || ' ' || p.area || ' ' || p.about || ' ' || array_to_string(p.interests, ' ') || ' ' || CASE WHEN 'hobbies' = ANY(p.hidden) THEN '' ELSE array_to_string(p.hobbies, ' ') END) ILIKE ${add('%' + q.q.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%')}`);
+    where.push(`(p.first_name || ' ' || p.area || ' ' || p.about || ' ' || p.opening || ' ' || CASE WHEN 'hobbies' = ANY(p.hidden) THEN '' ELSE array_to_string(p.hobbies, ' ') END)
+      ILIKE ${add('%' + q.q.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%')}`);
   }
-  const rows = (await pool.query(`SELECT ${profileColumns} FROM social.profile p JOIN public."user" u ON u.id=p.user_id
-    WHERE ${where.join(' AND ')} ORDER BY p.updated_at DESC LIMIT 60`, params)).rows;
-  const cooked = await cookedCounts(rows.map(row => row.id));
-  res.json({ items: rows.map(row => ({ ...shareable(row), cooked: cooked.get(row.id) ?? 0 })) });
+  // Distance is worked out in SQL so the limit applies after the distance filter and nearest-first order, however many people match.
+  const within = Number(q.km), km = kmSql('p.area', pointOf(state.area), add);
+  const rows = (await pool.query(`SELECT * FROM (SELECT p.user_id AS id, ${meetColumns}, p.updated_at, ${km} AS km FROM social.profile p WHERE ${where.join(' AND ')}) x
+    ${within > 0 ? `WHERE x.km <= ${add(within)}` : ''} ORDER BY x.km NULLS LAST, x.updated_at DESC LIMIT 60`, params)).rows;
+  const photos = await photosOf(rows.map(row => row.id));
+  res.json({ items: rows.map(({ km: distance, updated_at: _updated, ...row }) => ({ ...shareable(row, photos.get(row.id)), km: distance })), canAppear: state.canMeet });
 });
+
+/** One profile, with how the viewer stands with them: friends, a request either way, and whether a dinner invite is possible. */
 people.get('/people/:id', async (req, res) => {
   const me = res.locals.user.id, id = requireUser(req.params.id);
-  // Visible profiles, or anyone you currently share an open group, invitation or table with, can be opened.
-  const row = (await pool.query(`SELECT ${profileColumns} FROM social.profile p JOIN public."user" u ON u.id=p.user_id
-    WHERE p.user_id=$2 AND ${notRestricted('p.user_id')} AND ${notBlocked('p.user_id', '$1')} AND (p.visible OR EXISTS (
-      SELECT 1 FROM social.member a JOIN social.member b ON a.group_id=b.group_id WHERE a.user_id=$1 AND b.user_id=$2
-        AND ${liveSql('a')} AND ${liveSql('b')}) OR EXISTS (
-      SELECT 1 FROM social.member b JOIN social."group" g ON g.id=b.group_id WHERE b.user_id=$2 AND b.status='accepted' AND g.listed AND g.starts > now()
-        AND (g.same_gender='' OR g.same_gender=(SELECT gender FROM social.profile WHERE user_id=$1))))`, [me, id])).rows[0];
+  const row = (await pool.query(`SELECT p.user_id AS id, ${meetColumns}, ${friendsSql('p.user_id', '$1')} AS friend, ${verifiedSql('p.user_id')} AS verified,
+      ${meetAgeSql('p.user_id')} AS adult, ${pausedUntilSql('p.user_id')} > now() AS "theyPaused",
+      EXISTS (SELECT 1 FROM social.dinner d WHERE d.status='invited' AND d.expires_at > now() AND d.starts > now()
+        AND ((d.host_id=$1 AND d.guest_id=p.user_id) OR (d.host_id=p.user_id AND d.guest_id=$1))) AS "openInvite",
+      (SELECT json_build_object('id', r.id, 'mine', r.from_id=$1, 'note', r.note) FROM social.friend_request r WHERE r.status='pending'
+        AND ((r.from_id=$1 AND r.to_id=p.user_id) OR (r.from_id=p.user_id AND r.to_id=$1)) LIMIT 1) AS request
+    FROM social.profile p WHERE p.user_id=$2 AND ${seeableSql('p.user_id', '$1')}`, [me, id])).rows[0];
   if (!row) throw new CommunityError(404, 'This profile is unavailable.');
-  const group = (await pool.query(`SELECT a.group_id AS id FROM social.member a JOIN social.member b ON a.group_id=b.group_id
-    WHERE a.user_id=$1 AND b.user_id=$2 AND ${liveSql('a')} AND ${liveSql('b')} LIMIT 1`, [me, id])).rows[0];
-  const says = (await pool.query(`SELECT k.body, coalesce(nullif(bp.first_name,''), bu.name, 'Member') AS "byName" FROM social.kaki_say k
-    JOIN public."user" bu ON bu.id=k.by_id LEFT JOIN social.profile bp ON bp.user_id=k.by_id
-    WHERE k.about_id=$1 AND k.shown AND ${notBlocked('k.by_id', '$2')} ORDER BY k.created_at DESC LIMIT 3`, [id, me])).rows;
-  const cooked = (await cookedCounts([id])).get(id) ?? 0;
-  res.json({ ...shareable(row), cooked, groupId: group?.id ?? null, kakiSays: says });
+  const [state, photos] = await Promise.all([standing(me), photosOf([id])]);
+  const { friend, verified, adult, request, theyPaused, openInvite, ...profile } = row;
+  const opposite = !!state.gender && !!profile.gender && state.gender !== profile.gender;
+  // The same rules the server applies when an invite is sent (dinners.mjs requirePair), plus one open invite per pair.
+  res.json({ ...shareable(profile, photos.get(id)), km: areaKm(state.area, profile.area), verified, friend, request, openInvite,
+    canInvite: friend && opposite && verified && adult && !theyPaused && !openInvite && state.canMeet && !state.pausedUntil });
 });

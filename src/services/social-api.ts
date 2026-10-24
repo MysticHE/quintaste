@@ -1,79 +1,56 @@
 import { communityRequest as call } from "./community-api";
-import type { Gathering, GatheringInput, Group, HostApplication, Kaki, KakiSay, NearbyArea, Person, SocialPlace, SocialProfile, Table, TableInput, Unread } from "../types/community";
+import type { Badges, ChatLine, Dinner, DinnerDetail, DinnerPay, Friends, Met, Person, PersonPage, SocialMe, SocialPhoto, SocialPlace, SocialProfile, Standing } from "../types/community";
 import type { MeetFilters } from "../types/meet";
 import type { SearchPoint } from "../types/location-search";
 
-export const me = (signal: AbortSignal) => call<{ id: string; accountName: string; profile: SocialProfile }>("/api/social/me", { signal });
-export const saveProfile = (profile: SocialProfile) => call<{ profile: SocialProfile; paused: boolean }>("/api/social/me", { method: "PUT", body: { profile } });
+/** Social on the account (server/social). Every call needs a signed-in, age-checked member; People, friends, chat and dinners also need 21+ and a checked photo. */
+export const me = (signal: AbortSignal) => call<SocialMe>("/api/social/me", { signal });
+export const saveProfile = (profile: SocialProfile) => call<{ profile: SocialProfile; standing: Standing }>("/api/social/me", { method: "PUT", body: { profile } });
+type Photos = { photos: SocialPhoto[]; standing: Standing };
+/** One photo per request (the edge caps request size); added after the last, up to six. */
+export const addPhoto = (image: string) => call<Photos>("/api/social/me/photos", { method: "POST", body: { image } });
+export const orderPhotos = (ids: string[]) => call<Photos>("/api/social/me/photos/order", { method: "PUT", body: { ids } });
+export const removePhoto = (id: string) => call<Photos>("/api/social/me/photos/" + id, { method: "DELETE" });
+export const verifyState = (signal: AbortSignal) => call<{ pose: string | null; standing: Standing }>("/api/social/me/verify", { signal });
+export const newPose = () => call<{ pose: string }>("/api/social/me/verify/pose", { method: "POST" });
+export const sendSelfie = (selfie: string, pose: string) => call<{ standing: Standing }>("/api/social/me/verify", { method: "POST", body: { selfie, pose } });
+
 export function peopleKey(q: string, f: MeetFilters) {
   const params = new URLSearchParams();
   if (q.trim()) params.set("q", q.trim());
-  if (f.diets.length) params.set("diets", f.diets.join(","));
-  if (f.time !== "Any") params.set("time", f.time);
-  if (f.prefers !== "Any") params.set("prefers", String(f.prefers));
-  if (f.hereFor !== "Any") params.set("hereFor", f.hereFor);
-  for (const key of ["religions", "languages", "hobbies", "ages"] as const) if (f[key].length) params.set(key, f[key].join(","));
-  if (f.sameArea) params.set("sameArea", "1");
+  for (const key of ["diets", "ages", "languages", "hobbies"] as const) if (f[key].length) params.set(key, f[key].join(","));
+  if (f.km) params.set("km", String(f.km));
   return "/api/social/people?" + params.toString();
 }
-export const faceUrl = (id: string) => "/api/social/faces/" + encodeURIComponent(id);
-export const saveFace = (image: string) => call<{ hasFace: boolean }>("/api/social/me/face", { method: "PUT", body: { image } });
-export const removeFace = () => call<{ hasFace: boolean }>("/api/social/me/face", { method: "DELETE" });
+export const people = (path: string, signal: AbortSignal) => call<{ items: Person[]; canAppear: boolean }>(path, { signal });
+export const person = (id: string, signal: AbortSignal) => call<PersonPage>("/api/social/people/" + id, { signal });
+
+export const badges = (signal: AbortSignal) => call<Badges>("/api/social/badges", { signal });
+export const friends = (signal: AbortSignal) => call<Friends>("/api/social/friends", { signal });
+export const requestFriend = (userId: string, note: string) => call<{ id?: string; friends?: true }>("/api/social/friends/requests", { method: "POST", body: { userId, note } });
+export const acceptRequest = (id: string) => call("/api/social/friends/requests/" + id + "/accept", { method: "POST" });
+export const declineRequest = (id: string) => call("/api/social/friends/requests/" + id + "/decline", { method: "POST" });
+export const cancelRequest = (id: string) => call("/api/social/friends/requests/" + id, { method: "DELETE" });
+export const removeFriend = (id: string) => call("/api/social/friends/" + id, { method: "DELETE" });
+export const chatKey = (id: string) => "/api/social/chats/" + id;
+export const chat = (id: string, signal: AbortSignal) => call<{ items: ChatLine[]; more: boolean }>(chatKey(id), { signal });
+export const sendChat = (id: string, body: string) => call<{ id: string; createdAt: string }>(chatKey(id), { method: "POST", body: { body } });
+
+export const dinners = (signal: AbortSignal) => call<{ upcoming: Dinner[]; past: Dinner[] }>("/api/social/dinners", { signal });
+export const dinner = (id: string, signal: AbortSignal) => call<DinnerDetail>("/api/social/dinners/" + id, { signal });
+export type DinnerInput = { userId: string; placeId: string; starts: string; pay: DinnerPay; message: string };
+export const inviteDinner = (input: DinnerInput) => call<{ id: string }>("/api/social/dinners", { method: "POST", body: input });
+export const acceptDinner = (id: string) => call("/api/social/dinners/" + id + "/accept", { method: "POST" });
+export const suggestDinner = (id: string, starts: string) => call("/api/social/dinners/" + id + "/suggest", { method: "POST", body: { starts } });
+export const declineDinner = (id: string) => call("/api/social/dinners/" + id + "/decline", { method: "POST" });
+export const cancelDinner = (id: string) => call("/api/social/dinners/" + id + "/cancel", { method: "POST" });
+export const reportDinner = (id: string, body: { met: Met; eatAgain: boolean | null; note: string }) => call("/api/social/dinners/" + id + "/report", { method: "POST", body });
+
 /** Name search (`q`) and/or nearest-first places (`near`, rounded to about 100 m so no exact address leaves the phone). */
 export const placesKey = (q: string, near?: SearchPoint | null) => "/api/social/places?q=" + encodeURIComponent(q.trim())
   + (near ? "&near=" + near.latitude.toFixed(3) + "," + near.longitude.toFixed(3) : "");
 export const placesByIdKey = (ids: readonly string[]) => ids.length ? "/api/social/places?ids=" + ids.map(encodeURIComponent).join(",") : null;
 export const places = (path: string, signal: AbortSignal) => call<{ items: SocialPlace[] }>(path, { signal });
-export const nearby = (signal: AbortSignal) => call<{ areas: NearbyArea[] }>("/api/social/nearby", { signal });
-export const kakis = (signal: AbortSignal) => call<{ items: Kaki[] }>("/api/social/kakis", { signal });
-export const repeat = (signal: AbortSignal) => call<{ items: Kaki[] }>("/api/social/repeat", { signal });
-export const kakiSays = (signal: AbortSignal) => call<{ items: KakiSay[] }>("/api/social/me/kaki-says", { signal });
-export const showKakiSay = (id: string, shown: boolean) => call("/api/social/me/kaki-says/" + id, { method: "PUT", body: { shown } });
-export const deleteKakiSay = (id: string) => call("/api/social/me/kaki-says/" + id, { method: "DELETE" });
-export function tablesKey(q: string, filters: { area?: string | null; day?: "today" | "week" | "weekend" | null; place?: string | null } = {}) {
-  const params = new URLSearchParams();
-  if (q.trim()) params.set("q", q.trim());
-  if (filters.area) params.set("area", filters.area);
-  if (filters.day) params.set("day", filters.day);
-  if (filters.place) params.set("place", filters.place);
-  return "/api/social/tables?" + params.toString();
-}
-export const tables = (path: string, signal: AbortSignal) => call<{ items: Table[] }>(path, { signal });
-export const table = (id: string, signal: AbortSignal) => call<Table>("/api/social/tables/" + id, { signal });
-export const startTable = (input: TableInput) => call<{ id: string }>("/api/social/tables", { method: "POST", body: { table: input } });
-export const openSeat = (id: string) => call("/api/social/tables/" + id + "/open-seat", { method: "POST" });
-export const joinTable = (id: string, kakiId: string | null) => call("/api/social/tables/" + id + "/join", { method: "POST", body: { kakiId } });
-export const suggest = (id: string, starts: string) => call("/api/social/groups/" + id + "/suggest", { method: "POST", body: { starts } });
-export const attend = (id: string, body: { attended: "yes" | "no" | "changed"; eatAgain: string[]; missing: string[]; says: Record<string, string> }) =>
-  call<{ recorded: boolean; paused: boolean }>("/api/social/groups/" + id + "/attend", { method: "POST", body });
-export type InviteOffer = { placeId: string; starts: string; pay: string; areaCode: string | null };
-export const people = (path: string, signal: AbortSignal) => call<{ items: Person[] }>(path, { signal });
-export const person = (id: string, signal: AbortSignal) => call<Person>("/api/social/people/" + id, { signal });
-export const groups = (signal: AbortSignal) => call<{ items: Group[] }>("/api/social/groups", { signal });
-export const group = (id: string, signal: AbortSignal) => call<Group>("/api/social/groups/" + id, { signal });
-export const invite = (personId: string, size: number, intro: string, offer: InviteOffer | null = null, kakiId: string | null = null) =>
-  call<{ id: string }>("/api/social/groups", { method: "POST", body: { personId, size, intro, offer, kakiId } });
-export const respond = (id: string, accept: boolean) => call("/api/social/groups/" + id + "/respond", { method: "POST", body: { accept } });
-export const addPerson = (id: string, personId: string) => call("/api/social/groups/" + id + "/invite", { method: "POST", body: { personId } });
-export const sendMessage = (id: string, text: string) => call("/api/social/groups/" + id + "/messages", { method: "POST", body: { text } });
-export const plan = (id: string, body: { venue: string; starts: string; food: string; pay: string; placeId?: string | null; areaCode?: string | null }) => call("/api/social/groups/" + id + "/plan", { method: "POST", body });
-export const confirm = (id: string) => call("/api/social/groups/" + id + "/confirm", { method: "POST" });
-export const leave = (id: string) => call("/api/social/groups/" + id + "/leave", { method: "POST" });
-export const removeGroup = (id: string) => call("/api/social/groups/" + id, { method: "DELETE" });
-export const markRead = (id: string) => call("/api/social/groups/" + id + "/read", { method: "POST" });
-export const unread = (signal: AbortSignal) => call<Unread>("/api/social/unread", { signal });
-export const gatherings = (q: string, signal: AbortSignal) => call<{ items: Gathering[] }>("/api/social/gatherings" + (q.trim() ? "?q=" + encodeURIComponent(q.trim()) : ""), { signal });
-export const myGatherings = (signal: AbortSignal) => call<{ items: Gathering[] }>("/api/social/gatherings/mine", { signal });
-export const gathering = (id: string, signal: AbortSignal) => call<Gathering>("/api/social/gatherings/" + id, { signal });
-export const saveGathering = (id: string | null, gathering: GatheringInput, post: boolean) =>
-  call<{ id: string }>(id ? "/api/social/gatherings/" + id : "/api/social/gatherings", { method: id ? "PUT" : "POST", body: { gathering, post } });
-export const cancelGathering = (id: string) => call("/api/social/gatherings/" + id + "/cancel", { method: "POST" });
-export const deleteGathering = (id: string) => call("/api/social/gatherings/" + id, { method: "DELETE" });
-export const joinGathering = (id: string, join: boolean) => call("/api/social/gatherings/" + id + (join ? "/join" : "/leave"), { method: "POST" });
-export const applications = (signal: AbortSignal) => call<{ items: HostApplication[] }>("/api/social/applications", { signal });
-export const saveApplication = (id: string | null, application: HostApplication, submit: boolean) =>
-  call<{ id: string; state: string }>(id ? "/api/social/applications/" + id : "/api/social/applications", { method: id ? "PUT" : "POST", body: { application, submit } });
-export const deleteApplication = (id: string) => call("/api/social/applications/" + id, { method: "DELETE" });
 export const blocks = (signal: AbortSignal) => call<{ items: { id: string; name: string; createdAt: string }[] }>("/api/community/blocks", { signal });
 export const block = (userId: string) => call("/api/community/blocks", { method: "POST", body: { userId } });
 export const unblock = (userId: string) => call("/api/community/blocks/" + userId, { method: "DELETE" });

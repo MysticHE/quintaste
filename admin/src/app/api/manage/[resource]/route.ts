@@ -9,6 +9,7 @@ import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
 import { providerKeyStatus, setProviderKey, removeProviderKey } from '../../../../lib/provider-keys';
 import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers';
 import { setDailyCap } from '../../../../lib/ai-recipes';
+import { photoCheck, photoCheckAction, photoCheckImage, photoChecks, teacher, teacherAction, teachers } from '../../../../lib/social';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -21,6 +22,13 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || '', offset(params.get('page'))));
   if (resource === 'sellers') return json(params.has('id') ? await sellerDetail(member, text(params.get('id'),'seller id',64)) : await sellerList(member, params.get('status') || ''));
   if (resource === 'integrations') return json({ ...await gatewayStatus(member), ...await providerKeyStatus(member) });
+  if (resource === 'photo-checks') return json(params.has('id') ? await photoCheck(member, text(params.get('id'),'member id',64)) : await photoChecks(member, params.get('status') || ''));
+  if (resource === 'photo-check-image') {
+    const bytes = await photoCheckImage(member, text(params.get('id'),'member id',64), text(params.get('which'),'photo',8));
+    if (!bytes) throw new HttpError(404, 'Photo not found.');
+    return new Response(new Uint8Array(bytes), { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
+  }
+  if (resource === 'teachers') return json(params.has('id') ? await teacher(member, text(params.get('id'),'member id',64)) : await teachers(member, params.get('status') || ''));
   if (resource === 'staff') return json(await staffList(member));
   if (resource === 'assignees') {
     authorize(member, 'operations');
@@ -49,6 +57,8 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'accounts') return json(await accountAction(member,input,reason));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
+  if (resource === 'photo-checks') return json(await photoCheckAction(member,input,reason));
+  if (resource === 'teachers') return json(await teacherAction(member,input,reason));
   if (resource === 'controls') return json(await changeControl(member,input,reason));
   if (resource === 'ai-limit') return json(await setDailyCap(member,input,reason));
   if (resource === 'staff') return json(await changeStaff(member,input,reason));

@@ -16,6 +16,7 @@ import { devWebOrigin } from './community/http.mjs';
 import { market, marketSeller } from './market/router.mjs';
 import { purgeOrderContacts } from './market/orders.mjs';
 import { social } from './social/router.mjs';
+import { purgeSelfies } from './social/verify.mjs';
 import { recipes } from './recipes/router.mjs';
 import { reactions } from './reactions/router.mjs';
 import { areas } from './areas/router.mjs';
@@ -171,6 +172,9 @@ const stopLevels = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startLeve
 const purgeContacts = () => purgeOrderContacts().then(count => count && logger.info({ event: 'market_contacts_purged', count }))
   .catch(error => logger.warn({ event: 'market_contacts_purge_failed', code: error?.code }));
 const purgeTimer = setInterval(purgeContacts, 6 * 3600000).unref();
+const purgeSelfieImages = () => purgeSelfies().then(count => count && logger.info({ event: 'social_selfies_purged', count }))
+  .catch(error => logger.warn({ event: 'social_selfies_purge_failed', code: error?.code }));
+const purgeSelfieTimer = setInterval(purgeSelfieImages, 6 * 3600000).unref();
 const stopAreaSnapshots = startAreaSnapshots();
 const purgeLogs = () => purgeRunLogs().then(count => count && logger.info({ event: 'game_run_logs_purged', count }))
   .catch(error => logger.warn({ event: 'game_run_logs_purge_failed', code: error?.code }));
@@ -178,6 +182,7 @@ const purgeLogsTimer = setInterval(purgeLogs, 24 * 3600000).unref();
 // Also shortly after start: deploys more often than daily would otherwise never reach the first daily run.
 setTimeout(purgeLogs, 120000).unref();
 setTimeout(purgeContacts, 60000).unref();
+setTimeout(purgeSelfieImages, 90000).unref();
 let closing = false;
 async function stop() {
   if (closing) return;
@@ -188,6 +193,7 @@ async function stop() {
   stopDemand();
   stopLevels();
   clearInterval(purgeTimer);
+  clearInterval(purgeSelfieTimer);
   clearInterval(purgeLogsTimer);
   stopAreaSnapshots();
   const timer = setTimeout(() => process.exit(1), 15000).unref();

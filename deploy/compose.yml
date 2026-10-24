@@ -107,6 +107,17 @@ services:
       traefik.http.middlewares.quintaste-game-bots-body.buffering.memRequestBodyBytes: '1700000'
       traefik.http.middlewares.quintaste-game-bots-rate.ratelimit.average: '1'
       traefik.http.middlewares.quintaste-game-bots-rate.ratelimit.burst: '5'
+      # Social profile photos (1 MB) and the live selfie (2 MB), one data URI per request (router allows 3 MB).
+      traefik.http.routers.quintaste-social-photos.rule: Host(`${APP_HOST}`) && Method(`POST`) && (Path(`/api/social/me/photos`) || Path(`/api/social/me/verify`))
+      traefik.http.routers.quintaste-social-photos.priority: '106'
+      traefik.http.routers.quintaste-social-photos.entrypoints: websecure
+      traefik.http.routers.quintaste-social-photos.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-social-photos.service: quintaste
+      traefik.http.routers.quintaste-social-photos.middlewares: quintaste-social-photos-body,quintaste-social-photos-rate
+      traefik.http.middlewares.quintaste-social-photos-body.buffering.maxRequestBodyBytes: '3200000'
+      traefik.http.middlewares.quintaste-social-photos-body.buffering.memRequestBodyBytes: '3200000'
+      traefik.http.middlewares.quintaste-social-photos-rate.ratelimit.average: '5'
+      traefik.http.middlewares.quintaste-social-photos-rate.ratelimit.burst: '10'
     logging: *logging
   preview:
     image: ${PREVIEW_IMAGE:?Set PREVIEW_IMAGE}
