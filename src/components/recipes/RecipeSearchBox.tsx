@@ -6,13 +6,15 @@ import { FilterButton, type BrowseFilter } from "../BrowseControls";
 import { SuggestionList } from "../discovery/SuggestionList";
 import { Icon, T, common, type IconName } from "../ui";
 import type { SearchSuggestion } from "../../services/cook-search";
-import { useRecentSearches, useRecipeSuggestions } from "../../hooks/useRecipeSearch";
+import { useRecipeSuggestions } from "../../hooks/useRecipeSearch";
 import { useSuggestionKeys } from "../../hooks/useSuggestionKeys";
 import { useLanguage, useT } from "../../i18n";
 import { categoryName } from "../../utils/recipe-browse";
 
 type Row = { key: string; icon: IconName; text: string; aside?: string; label: string; run: () => void };
 type Props = {
+  recent: { items: string[]; remember: (term: string) => void; clear: () => void };
+  onSubmit?: () => void; hideRecent?: boolean;
   query: string; onChange: (value: string) => void; placeholder: string; filter?: BrowseFilter;
   onRecipe: (id: string) => void; onCategory: (category: string) => void; onAi: (dish: string) => void;
 };
@@ -22,10 +24,10 @@ type Props = {
  * from the recipes we have, and "Get … as an AI recipe" when nothing matches. The list sits in the page flow (not floating), so
  * every row stays tappable on Android. Returns the box and the list for BrowseHeader's `field` and `below`.
  */
-export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRecipe, onCategory, onAi }: Props): { field: ReactNode; below: ReactNode; remember: (term: string) => void } {
+export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRecipe, onCategory, onAi, onSubmit, hideRecent, recent }: Props): { field: ReactNode; below: ReactNode; remember: (term: string) => void } {
   const { theme } = usePreferences(), id = "recipe-search-" + useId(), t = useT("cook"), tc = useT("common"), language = useLanguage();
   const [hover, setHover] = useState(-1), nav = useSuggestionKeys(), { open, setOpen, index, setIndex, keepOpen } = nav;
-  const recent = useRecentSearches(), suggestions = useRecipeSuggestions(query, open), typed = query.trim();
+  const suggestions = useRecipeSuggestions(query, open), typed = query.trim();
   const close = () => { setOpen(false); setIndex(-1); };
   const pick = (item: SearchSuggestion) => {
     close();
@@ -34,7 +36,7 @@ export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRec
     else { recent.remember(item.text); onChange(item.text); }
   };
   const rows: Row[] = typed.length < 2
-    ? recent.items.map(text => ({ key: "recent:" + text, icon: "time-outline", text, label: t("searchTerm", { text }), run: () => { close(); onChange(text); } }))
+    ? (hideRecent ? [] : recent.items).map(text => ({ key: "recent:" + text, icon: "time-outline", text, label: t("searchTerm", { text }), run: () => { close(); onChange(text); } }))
     : [...suggestions.items.map((item): Row => {
         const text = item.kind === "category" ? categoryName(item.text, language) : item.text;
         return { key: item.kind + ":" + (item.kind === "recipe" ? item.recipeId : item.text), text,
@@ -48,7 +50,7 @@ export function useRecipeSearchBox({ query, onChange, placeholder, filter, onRec
   const expanded = open && (rows.length > 0 || suggestions.busy);
   const field = <SearchField value={query} placeholder={placeholder}
     onChange={value => { setIndex(-1); setOpen(true); onChange(value); }}
-    onSubmit={() => { if (rows[index]) rows[index].run(); else { recent.remember(typed); close(); } }}
+    onSubmit={() => { if (rows[index]) rows[index].run(); else { recent.remember(typed); close(); onSubmit?.(); } }}
     trailing={filter ? <FilterButton {...filter} /> : undefined}
     input={{ role: "combobox", "aria-expanded": expanded, accessibilityState: { expanded },
       ...(Platform.OS === "web" ? { "aria-controls": id, "aria-activedescendant": expanded && rows[index] ? id + "-" + index : undefined } : {}),

@@ -16,7 +16,7 @@ export default function TabLayout() {
     <Tabs.Screen name="(explore)" options={{ title: t("tabExplore") }} />
     <Tabs.Screen name="cook" options={{ title: t("tabCook") }} />
     <Tabs.Screen name="social" options={{ title: t("tabSocial") }} />
-    <Tabs.Screen name="market" options={{ title: t("tabMarket") }} />
+    <Tabs.Screen name="market" options={{ title: t("tabMarket"), href: null }} />
     <Tabs.Screen name="game" options={{ title: t("tabGame") }} />
   </Tabs><MarketReminderSync /></MarketUnreadProvider></GlassNavigationProvider>;
 }

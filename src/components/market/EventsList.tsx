@@ -1,5 +1,5 @@
 import * as Linking from "expo-linking";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { View } from "react-native";
 import { useEditorial } from "../../hooks/useEditorial";
 import { useRemote } from "../../hooks/useRemote";
@@ -9,7 +9,9 @@ import type { EditorialPage, ExternalEvent } from "../../services/editorial";
 import { classes as loadClasses } from "../../services/classes-api";
 import type { CookingClass } from "../../types/community";
 import { EventCard, TypePills, WhenHeading, byWhen, type EventTag } from "./EventCard";
-import { EmptyState } from "../food/Controls";
+import { useFeeds, defaultEventFilters, type EventFilters } from "../../state/Feeds";
+import { matchesEventFilters } from "../../utils/feed-filters";
+import { IconButton, EmptyState } from "../food/Controls";
 import { ListGroup, ListItem, RowIcon } from "../GroupedList";
 import { Button, T } from "../ui";
 import { sgDateTile, formatSgShort } from "../../utils/sg-datetime";
@@ -27,7 +29,7 @@ type Kind = "all" | "local" | "classes";
 type Item = { kind: "event"; at: string; event: ExternalEvent } | { kind: "class"; at: string; item: CookingClass };
 const matches = (c: CookingClass, q: string) => !q || [c.title, c.makes, c.venue, c.area, c.teacher.name].join(" ").toLowerCase().includes(q.toLowerCase());
 
-function ExternalCard({ event, open, expanded, onPress }: { event: ExternalEvent; open: (url: string) => void; expanded: boolean; onPress: () => void }) {
+function ExternalCard({ event, open, expanded, onPress, action }: { action?: ReactNode; event: ExternalEvent; open: (url: string) => void; expanded: boolean; onPress: () => void }) {
   const t = useT("market"), language = useLanguage(), localTime = event.startsAt.slice(0, 16).replace("T", " "), tile = sgDateTile(localTime, language);
   const endTime = event.endsAt ? sgDateTile(event.endsAt.slice(0, 16).replace("T", " "), language)?.time : undefined;
   // The venue line is skipped when it only repeats the organiser.
@@ -35,7 +37,7 @@ function ExternalCard({ event, open, expanded, onPress }: { event: ExternalEvent
   // A fee note with several amounts (a range or ticket tiers) makes the tag a starting price.
   const free = event.feeAmount === 0, fee = free ? t("freeTag") : event.feeAmount !== null && event.currency === "SGD"
     ? t(/\d[\d.,]*\D+\d/.test(feeNote) ? "fromPrice" : "priceAmount", { amount: event.feeAmount }) : "";
-  return <EventCard starts={localTime} title={readableTitle(event.title)} time={(tile?.time ?? formatSgShort(localTime, language)) + (endTime ? " – " + endTime : "")}
+  return <EventCard action={action} starts={localTime} title={readableTitle(event.title)} time={(tile?.time ?? formatSgShort(localTime, language)) + (endTime ? " – " + endTime : "")}
     place={sameVenue ? event.organiser : event.location + " · " + event.organiser} tags={fee ? [{ label: fee, tone: free ? "success" : "accent" }] : []} onPress={onPress}>
     {expanded && <View style={{ paddingHorizontal: 12, paddingBottom: 12, gap: 8 }}><T>{event.address}</T><T variant="small">{event.dietEvidence}</T>
       {!!feeNote && <T variant="small">{feeNote}</T>}
@@ -44,32 +46,36 @@ function ExternalCard({ event, open, expanded, onPress }: { event: ExternalEvent
     </View>}
   </EventCard>;
 }
-function ClassCard({ item }: { item: CookingClass }) {
+function ClassCard({ item, action }: { item: CookingClass; action?: ReactNode }) {
   const t = useT("market"), language = useLanguage(), tile = sgDateTile(item.starts, language), end = sgDateTile(item.ends, language)?.time, left = item.seats - item.taken;
   const tags: EventTag[] = [{ label: t("classTag"), tone: "accent" }, item.joined ? { label: t("joinedTag"), tone: "success" }
     : { label: left > 0 ? t("seatsLeft", { n: left }) : t("classFull"), tone: left > 0 ? "accent" : "muted" },
     { label: item.priceCents ? money(item.priceCents / 100, language) : t("freeTag"), tone: item.priceCents ? "muted" : "success" }];
-  return <EventCard starts={item.starts} title={item.title} time={(tile?.time ?? item.starts.slice(11)) + (end ? " – " + end : "")}
+  return <EventCard action={action} starts={item.starts} title={item.title} time={(tile?.time ?? item.starts.slice(11)) + (end ? " – " + end : "")}
     place={[item.venue, item.area].filter(Boolean).join(" · ")} tags={tags} onPress={() => openMarket("/class/" + item.id)} />;
 }
 /**
  * Events: local events from the editorial team and cooking classes by approved teachers, by date. Open to every member
  * aged 18 and over. There are no invites for events; a class reserves a seat and is paid to the teacher directly.
  */
-export function EventsList({ query }: { query: string }) {
+export function EventsList({ query, filters, feed = false }: { query: string; filters?: EventFilters; feed?: boolean }) {
   const q = useDebounced(query).trim(), base = "/events?q=" + encodeURIComponent(q), { member } = useMember();
   const [page, setPage] = useState<{ base: string; cursor: string | null; prior: ExternalEvent[] }>({ base, cursor: null, prior: [] });
   const own = page.base === base ? page : { base, cursor: null, prior: [] };
   const remote = useEditorial<EditorialPage<ExternalEvent>>(base + (own.cursor ? "&cursor=" + encodeURIComponent(own.cursor) : ""));
   const classes = useRemote("/api/market/classes", loadClasses);
-  const [kind, setKind] = useState<Kind>("all"), [selected, setSelected] = useState<string | null>(null), { setNotice } = usePreferences();
+  const [localKind, setKind] = useState<Kind>("all"), [selected, setSelected] = useState<string | null>(null), { setNotice } = usePreferences();
   const t = useT("market"), tc = useT("common"), [now, setNow] = useState(Date.now);
   useEffect(() => { const timer = setInterval(() => setNow(Date.now()), 60000); return () => clearInterval(timer); }, []);
+  const feeds = useFeeds(), tf = useT("feeds"), active = filters ?? defaultEventFilters(), kind = filters?.kind ?? localKind;
   const events = [...own.prior, ...(remote.data?.items ?? [])].filter((r, index, all) => all.findIndex(x => x.id === r.id) === index && Date.parse(r.startsAt) > now);
   // A few dozen rows at most, so the merge and sort simply run each render.
   const items: Item[] = [
     ...(kind === "classes" ? [] : events.map(event => ({ kind: "event" as const, at: event.startsAt.slice(0, 16).replace("T", " "), event }))),
     ...(kind === "local" ? [] : (classes.data?.items ?? []).filter(c => matches(c, q)).map(item => ({ kind: "class" as const, at: item.starts, item })))]
+    .filter(item => matchesEventFilters(item.kind === "event"
+      ? { at: item.at, area: item.event.location + " " + item.event.address, price: item.event.feeAmount, saved: feeds.savedEvents.includes("e:" + item.event.id) }
+      : { at: item.at, area: item.item.area + " " + item.item.venue, price: item.item.priceCents, saved: feeds.savedEvents.includes("c:" + item.item.id) }, active, now))
     .sort((a, b) => a.at.localeCompare(b.at));
   const open = (url: string) => { void Linking.openURL(url).catch(() => setNotice({ text: t("linkNotOpen"), error: true })); };
   const kinds = useMemo(() => [{ id: "all" as const, label: t("eventsAll"), icon: "apps-outline" as const }, { id: "local" as const, label: t("eventsLocal"), icon: "megaphone-outline" as const },
@@ -80,17 +86,23 @@ export function EventsList({ query }: { query: string }) {
   const failed = (kind !== "classes" && !!remote.error) || (kind !== "local" && !!classes.error && classes.error.code !== "SERVICE_PAUSED");
   const retry = () => { remote.refresh(); classes.refresh(); };
   return <>
-    <TypePills options={kinds} value={kind} onChange={setKind} />
+    {!feed && <TypePills options={kinds} value={kind} onChange={setKind} />}
     {loading && <T muted>{t("loadingEvents")}</T>}
     {failed && <EmptyState icon="cloud-offline-outline" title={t("eventsFailed")} text={t("eventsFailedText")} primary={{ label: tc("tryAgain"), onPress: retry }} />}
     {!loading && !items.length && !failed && <EmptyState icon="megaphone-outline" title={t(q ? "noMatchingEvents" : "noLocalEvents")} text="" />}
     {byWhen(items, item => item.at.replace(" ", "T") + ":00+08:00", now).map(group => <View key={group.title} style={{ gap: 10 }}>
-      <WhenHeading title={group.title} />
-      {group.items.map(item => item.kind === "class" ? <ClassCard key={"c" + item.item.id} item={item.item} />
-        : <ExternalCard key={item.event.id} event={item.event} open={open} expanded={selected === item.event.id} onPress={() => setSelected(selected === item.event.id ? null : item.event.id)} />)}
+      {!feed && <WhenHeading title={group.title} />}
+      {group.items.map(item => {
+        const id = item.kind === "class" ? "c:" + item.item.id : "e:" + item.event.id;
+        const name = item.kind === "class" ? item.item.title : item.event.title, saved = feeds.savedEvents.includes(id);
+        const action = feed ? <IconButton appearance="plain" label={tf(saved ? "unsaveEvent" : "saveEvent", { name })} icon={saved ? "bookmark" : "bookmark-outline"} disabled={!feeds.savesReady}
+          onPress={() => void feeds.toggleEvent(id).catch(() => setNotice({ text: tf("eventSaveFailed"), error: true }))} /> : undefined;
+        return item.kind === "class" ? <ClassCard key={id} item={item.item} action={action} />
+          : <ExternalCard key={id} event={item.event} action={action} open={open} expanded={selected === item.event.id} onPress={() => setSelected(selected === item.event.id ? null : item.event.id)} />;
+      })}
     </View>)}
     {kind !== "classes" && remote.data?.nextCursor && events.length < 80 && <Button label={t("moreEvents")} variant="secondary" disabled={remote.loading}
       onPress={() => setPage({ base, prior: events, cursor: remote.data!.nextCursor })} />}
-    {member && <ListGroup><ListItem title={t("myClassesRow")} leading={<RowIcon name="school-outline" />} onPress={() => openMarket("/teaching")} /></ListGroup>}
+    {!feed && member && <ListGroup><ListItem title={t("myClassesRow")} leading={<RowIcon name="school-outline" />} onPress={() => openMarket("/teaching")} /></ListGroup>}
   </>;
 }

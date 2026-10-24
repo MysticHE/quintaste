@@ -1,7 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDebounced } from "./useDebounced";
-import { useFood } from "../state/Food";
 import { useMember } from "../components/CommunityGate";
 import { accountsEnabled } from "../services/auth-client";
 import { logRecipeSearch, recipeSuggestions, type SearchSuggestion } from "../services/cook-search";
@@ -30,35 +28,6 @@ export function useRecipeSuggestions(query: string, open: boolean) {
   // Recipes first, then searches and categories.
   const items = active ? [...merged.filter(i => i.kind === "recipe"), ...merged.filter(i => i.kind !== "recipe")].slice(0, 8) : [];
   return { items, busy: active && accountsEnabled && fetched === null, settled: q === query.trim() };
-}
-
-/** The last five Cook searches, on this device only, per account or guest; cleared from the search box. */
-export function useRecentSearches() {
-  const { discoveryScope } = useFood(), key = "@quintaste/recent-recipe-searches/" + discoveryScope;
-  // Kept with the key it belongs to, so switching account never shows another person's searches.
-  const [stored, setStored] = useState<{ key: string; items: string[] }>({ key: "", items: [] });
-  useEffect(() => {
-    let live = true;
-    AsyncStorage.getItem(key).then(raw => {
-      const value: unknown = raw ? JSON.parse(raw) : [];
-      if (live) setStored({ key, items: Array.isArray(value) ? value.filter((v): v is string => typeof v === "string").slice(0, 5) : [] });
-    }).catch(() => { if (live) setStored({ key, items: [] }); });
-    return () => { live = false; };
-  }, [key]);
-  const items = stored.key === key ? stored.items : [];
-  const write = useCallback((next: string[]) => { setStored({ key, items: next }); AsyncStorage.setItem(key, JSON.stringify(next)).catch(() => {}); }, [key]);
-  const remember = useCallback((term: string) => {
-    const text = term.trim().slice(0, 60);
-    if (normal(text).length < 3) return;
-    setStored(current => {
-      const before = current.key === key ? current.items : [];
-      // "laks" then "laksa" keeps only "laksa".
-      const next = [text, ...before.filter(item => normal(item) !== normal(text) && !normal(text).startsWith(normal(item)))].slice(0, 5);
-      AsyncStorage.setItem(key, JSON.stringify(next)).catch(() => {});
-      return { key, items: next };
-    });
-  }, [key]);
-  return { items, remember, clear: () => write([]) };
 }
 
 /**

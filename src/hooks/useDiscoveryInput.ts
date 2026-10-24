@@ -16,7 +16,7 @@ export function useDiscoveryInput(now: number) {
   // The default location drives Explore unless the user typed a search, chose a place, used GPS, picked Near Home/Work
   // or explicitly chose all of Singapore. A "Current search" left over from an earlier session also falls back to it.
   const singaporeChosen = doc.discoverySettings.locationModeChosen === true && !filters.near && !privateKind;
-  const automatic = !singaporeChosen && !privateKind && !discovery.query && !discovery.selection && !discovery.location
+  const automatic = !singaporeChosen && !privateKind && !discovery.selection && !discovery.location
     ? defaultPrivatePlace(doc.privatePlaces) : undefined;
   const privatePlace = privateKind ? privateOrigin(doc.privatePlaces, privateKind) : automatic;
   const privateMissing = !!privateKind && !privatePlace;
@@ -46,13 +46,15 @@ export function useDiscoveryInput(now: number) {
       setSearch(suggestion.name); return;
     }
     discovery.setSelection(suggestion); discovery.setLocation(null); discovery.clear();
-    setSearch(suggestion.name); setFilters(withLocationMode(filters, "selected"));
+    setSearch(suggestion.name); setFilters(current => withLocationMode(current, "selected"));
   };
-  const searchPlaces = (value: string) => {
+  const searchPlaces = (value: string, preserveLocation = false) => {
+    // The combined search screen applies a dish/name query within the selected area and filters.
+    if (preserveLocation) { setSearch(value.trim()); discovery.setQuery(value.trim()); return; }
     discovery.setSelection(null); discovery.setLocation(null); discovery.clear();
     setSearch(value.trim()); discovery.setQuery(value.trim());
     // Clearing the search returns to the default location rather than locking Explore to all of Singapore.
-    if (value.trim()) setFilters(withLocationMode(filters, "singapore")); else void followDefault();
+    if (value.trim()) setFilters(current => withLocationMode(current, "singapore")); else void followDefault();
   };
   const automaticKind = automatic ? privatePlaceKind(automatic) : undefined;
   const areaLabel = privateKind ? t(privateKind === "home" ? "nearHome" : "nearWork")

@@ -1,5 +1,5 @@
-import { router } from "expo-router";
-import { useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, Field, T } from "../../components/ui";
@@ -30,6 +30,8 @@ function ClassRow({ c, own }: { c: CookingClass; own: boolean }) {
 export function TeachingScreen() {
   const t = useT("market"), remote = useRemote("/api/market/teaching", loadTeaching), joined = useRemote("/api/market/me/classes", myClasses).data?.items ?? [];
   const host = remote.data?.host, approved = host?.status === "approved";
+  const { create } = useLocalSearchParams<{ create?: string }>();
+  useEffect(() => { if (create === "1" && approved) router.replace("/market/class-edit"); }, [create, approved]);
   return <Screen title={t("teachTitle")} floatingAction={approved ? <FloatingAddButton label={t("newClass")} onPress={() => openMarket("/class-edit")} /> : undefined}>
     <MemberGate returnTo="/market/teaching">
       <RemoteStatus remote={remote} icon="school-outline" returnTo="/market?tab=events" />

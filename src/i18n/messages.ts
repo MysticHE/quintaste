@@ -1,3 +1,7 @@
+import enProfile from "./en/profile";
+import zhProfile from "./zh/profile";
+import enFeeds from "./en/feeds";
+import zhFeeds from "./zh/feeds";
 import enCommon from "./en/common";
 import enCook from "./en/cook";
 import enDiet from "./en/diet";
@@ -17,7 +21,7 @@ import zhSocial from "./zh/social";
 
 /** One table per area, so each area's strings live in their own pair of files. */
 export const messages = {
-  en: { common: enCommon, diet: enDiet, explore: enExplore, cook: enCook, social: enSocial, market: enMarket, me: enMe, game: enGame },
-  zh: { common: zhCommon, diet: zhDiet, explore: zhExplore, cook: zhCook, social: zhSocial, market: zhMarket, me: zhMe, game: zhGame },
+  en: { profile: enProfile, feeds: enFeeds, common: enCommon, diet: enDiet, explore: enExplore, cook: enCook, social: enSocial, market: enMarket, me: enMe, game: enGame },
+  zh: { profile: zhProfile, feeds: zhFeeds, common: zhCommon, diet: zhDiet, explore: zhExplore, cook: zhCook, social: zhSocial, market: zhMarket, me: zhMe, game: zhGame },
 };
 export type Namespace = keyof (typeof messages)["en"];

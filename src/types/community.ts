@@ -59,11 +59,12 @@ export type Order = {
   items: { listingId: string | null; name: string; priceCents: number; quantity: number; dateMark: string | null; lot: string }[];
 };
 export type ChatMessage = { id: string; senderId: string | null; senderName?: string; kind: "text" | "event"; body: string; createdAt: string; mine: boolean; orderId?: string | null };
-export type ConversationSummary = { id: string; sellerId: string; role: "buyer" | "seller"; otherName: string; last: string | null; unread: boolean; updatedAt: string };
+export type ConversationSummary = { id: string; sellerId: string; role: "buyer" | "seller"; otherName: string; context?: string | null; last: string | null; unread: boolean; updatedAt: string };
 export type Conversation = { id: string; role: "buyer" | "seller"; sellerId: string; other: { id: string; name: string }; blocked: boolean;
-  openOrders: { id: string; status: OrderStatus; totalCents: number; starts: string }[]; messages: ChatMessage[] };
+  openOrders: { id: string; items?: string | null; status: OrderStatus; totalCents: number; starts: string }[]; messages: ChatMessage[] };
 export type ShopFilter = {
   category: "All" | ShopCategory; sort: "Newest" | "Soonest" | "Lowest first" | "Highest first"; labels: MarketLabel[]; practices: MarketPractice[]; exclude: MarketIngredient[];
+  price?: "any" | "under10" | "10to20"; collection?: "any" | "today" | "weekend" | "date"; date?: string;
   mode: "Any" | SlotMode; kind: "Any" | ListingKind; area: string; savedOnly: boolean; available: boolean;
 };
 export const defaultShopFilter = (): ShopFilter => ({ category: "All", sort: "Newest", labels: [], practices: [], exclude: [], mode: "Any", kind: "Any", area: "", savedOnly: false, available: false });

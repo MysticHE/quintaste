@@ -31,7 +31,9 @@ conversations.get('/conversations', async (_req, res) => {
   const me = res.locals.user.id;
   const rows = (await pool.query(`SELECT c.id, c.seller_id AS "sellerId", c.updated_at AS "updatedAt", CASE WHEN c.buyer_id=$1 THEN 'buyer' ELSE 'seller' END AS role,
       CASE WHEN c.buyer_id=$1 THEN s.trading_name ELSE u.name END AS "otherName",
-      (SELECT body FROM market.message m WHERE m.conversation_id=c.id ORDER BY created_at DESC LIMIT 1) AS last, ${unreadFor} AS unread
+      (SELECT body FROM market.message m WHERE m.conversation_id=c.id ORDER BY created_at DESC LIMIT 1) AS last, ${unreadFor} AS unread,
+      (SELECT string_agg(i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=(SELECT o.id FROM market."order" o
+        WHERE o.buyer_id=c.buyer_id AND o.seller_id=c.seller_id ORDER BY o.created_at DESC LIMIT 1)) AS context
     FROM market.conversation c JOIN market.seller s ON s.user_id=c.seller_id JOIN public."user" u ON u.id=c.buyer_id
     WHERE c.buyer_id=$1 OR c.seller_id=$1 ORDER BY c.updated_at DESC LIMIT 100`, [me])).rows;
   res.json({ items: rows });
@@ -61,8 +63,9 @@ conversations.get('/conversations/:id', async (req, res) => {
     pool.query(`SELECT id, sender_id AS "senderId", kind, order_id AS "orderId", body, created_at AS "createdAt" FROM
       (SELECT * FROM market.message WHERE conversation_id=$1 ORDER BY created_at DESC LIMIT 200) m ORDER BY created_at`, [c.id]),
     pool.query(`SELECT 1 WHERE ${notBlocked('$1', '$2')}`, [other, me]),
-    pool.query(`SELECT id, status, total_cents AS "totalCents", ${sgText('starts')} AS starts
-      FROM market."order" WHERE buyer_id=$1 AND seller_id=$2 AND status IN ('requested','confirmed','ready') ORDER BY starts`, [c.buyer_id, c.seller_id]),
+    pool.query(`SELECT o.id, o.status, o.total_cents AS "totalCents", ${sgText('o.starts')} AS starts,
+        (SELECT string_agg(i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=o.id) AS items
+      FROM market."order" o WHERE o.buyer_id=$1 AND o.seller_id=$2 AND o.status IN ('requested','confirmed','ready') ORDER BY o.starts`, [c.buyer_id, c.seller_id]),
   ]);
   res.json({ id: c.id, role: buyer ? 'buyer' : 'seller', sellerId: c.seller_id, other: { id: other, name: buyer ? c.sellerName : c.buyerName },
     blocked: blocked.rowCount === 0, openOrders: orders.rows, messages: messages.rows.map(m => ({ ...m, mine: m.senderId === me })) });

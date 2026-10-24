@@ -38,8 +38,6 @@ function SampleVenueDetail({ id }: { id: string }) {
     </Card>
     <SectionTitle title={t("onSampleMenu")} />
     {dishes.filter(dish => dish.venueId === id).map(dish => <FoodCard key={dish.id} kind="dish" id={dish.id} onOpen={() => router.push("/dish/" + dish.id as never)} />)}
-    <PrivateNote key={"place:" + id} noteKey={"place:" + id} />
-    <Button label={t("askTheStall")} variant="secondary" icon="chatbubble-outline" onPress={() => router.push({ pathname: "/ask/[id]", params: { id, kind: "place" } } as never)} />
     {__DEV__ && <Button label={t("suggestCorrection")} variant="link" onPress={() => router.push({ pathname: "/contribute", params: { target: venue.name, kind: "correction" } })} />}
   </Screen>;
 }

@@ -10,6 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, View, Text, Pressable } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { FeedsProvider } from "../state/Feeds";
 import { FoodProvider, useFood } from "../state/Food";
 import { TimerAlertsProvider } from "../state/TimerAlerts";
 import { TimerFinishHaptics } from "../components/food/Timers";
@@ -143,7 +144,7 @@ function AccountScope() {
   </View>;
   return (
       <PreferencesProvider key={user?.id || "guest"}>
-        <FoodProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><DocumentLanguage /><TimerFinishHaptics /><CookedSync /><GameSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FoodProvider>
+        <FoodProvider><FeedsProvider><TimerAlertsProvider><ExploreLocalProvider><MenusProvider><DiscoveryProvider><Navigation /><DocumentLanguage /><TimerFinishHaptics /><CookedSync /><GameSync /></DiscoveryProvider></MenusProvider></ExploreLocalProvider></TimerAlertsProvider></FeedsProvider></FoodProvider>
       </PreferencesProvider>
   );
 }

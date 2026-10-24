@@ -3,9 +3,7 @@ import { useCallback, useEffect } from "react";
 import { ActivityIndicator, View, AppState, StyleSheet } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, Icon, T, common } from "../../components/ui";
-import { IconButton, MeButton } from "../../components/food/Controls";
-import { FilterButton } from "../../components/BrowseControls";
-import { LocationSearchField } from "../../components/discovery/LocationSearchField";
+import { IconButton } from "../../components/food/Controls";
 import { LocationFeedback } from "../../components/discovery/LocationFeedback";
 import { CatalogueVenueCard } from "../../components/discovery/CatalogueVenueCard";
 import { MixedKitchenList } from "../../components/discovery/MixedKitchenList";
@@ -26,10 +24,10 @@ import { discoveryRadii } from "../../config/discovery";
 import { useT } from "../../i18n";
 
 export function ExploreScreen() {
-  const { discoveryScope, search, setSearch, filters, ready, readable } = useFood();
+  const { filters, ready, readable } = useFood();
   const { theme, draft } = usePreferences(), discovery = useDiscovery(), t = useT("explore"), tc = useT("common");
-  const kitchens = [{ id: "veg", label: t("vegKitchen") }, { id: "mixed", label: t("mixedKitchen") }] as const;
-  const { input, locationExpired, privateMissing, privateKind, point, areaLabel, choose, searchPlaces } = useDiscoveryInput(useMinuteClock());
+  const kitchens = [{ id: "veg", label: t("vegShort"), accessibleLabel: t("vegKitchen"), flex: .7 }, { id: "mixed", label: t("mixedKitchen"), flex: 1.3 }] as const;
+  const { input, locationExpired, privateMissing, privateKind, point, areaLabel, searchPlaces } = useDiscoveryInput(useMinuteClock());
   const nearby = useNearbyLocation(), { ensure } = discovery;
   const eligible = ready && !privateMissing && !locationExpired;
   // Find it nearby (the game's bridges, GAME_PLAN §11): /?q=laksa runs the same search as typing it, once.
@@ -55,14 +53,13 @@ export function ExploreScreen() {
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   return <Screen back={false} compact>
-    <View style={[common.row, { gap: 8, zIndex: 50, alignItems: "flex-start" }]}><View style={common.flex}>
-      <LocationSearchField key={discoveryScope} value={search} disabled={!readable} onChange={setSearch} onChoose={choose}
-        onSearch={searchPlaces} suggestionsInFlow trailing={<FilterButton label={tc("filters")} count={count} onPress={() => router.push("/filters")} />} /></View>
+    <View testID="explore-toolbar" style={[common.row, { gap: 6 }]}>
+      <SegmentedTabs accent label={t("kitchenTabs")} options={kitchens} value={discovery.mixed ? "mixed" : "veg"}
+        onChange={id => discovery.setMixed(id === "mixed")} />
+      <IconButton label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
+        onPress={() => router.push("/explore-search")} />
       <IconButton label={t("searchByLocation")} icon="locate-outline" disabled={!readable} loading={nearby.busy}
-        selected={!!input.origin} onPress={() => void nearby.locate()} />
-      <MeButton /></View>
-    <View style={common.row}><SegmentedTabs label={t("kitchenTabs")} options={kitchens} value={discovery.mixed ? "mixed" : "veg"}
-      onChange={id => discovery.setMixed(id === "mixed")} /></View>
+        selected={!!input.origin} onPress={() => void nearby.locate()} /></View>
     <View testID="explore-search-context" style={s.context}>
     {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
       <Icon name="location-outline" size={14} color={theme.foreground} />

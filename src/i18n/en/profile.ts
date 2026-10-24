@@ -1,0 +1,20 @@
+const profile = {
+  searchingSaves: "Searching all your saves…",
+  posts: "My posts", saved: "Saved", dining: "Dining", all: "All", recipes: "Recipes", market: "Market", events: "Events",
+  profile: "Social profile", classChats: "Classes", edit: "Edit profile", settings: "Settings", messages: "Messages", unreadMessages: "Messages, {n} unread conversations",
+  newPost: "New post", privateSaves: "Saved for you. Visible only to you.", searchSaved: "Find a saved item", noPosts: "Your posts belong here",
+  noPostsText: "Share a recipe, list an item or create a cooking class.", noSaved: "Nothing saved here yet", noMatch: "No matching saved items",
+  browse: "Explore Feeds", recipe: "Recipe", event: "Event", draft: "Draft", untitled: "Untitled recipe", unavailable: "This saved item is unavailable", remove: "Remove save",
+  comingUp: "Coming up", viewAll: "View all", openDinner: "Open dinner", invitations: "Invitations", invite: "Invite a friend", past: "Past dinners",
+  findPeople: "Find people", friends: "Friends", dinnerWith: "Dinner with {name}", noDinner: "Make time for dinner", noDinnerText: "Choose a friend and plan your next meal together.",
+  viewInvite: "View invitation", orders: "My orders", shop: "Manage my shop", classes: "My classes", savedPlaces: "Saved places", manage: "Manage",
+  searchMessages: "Search people, shops or classes", unreadOnly: "Unread only", friend: "Friend", buying: "Market · Buying", selling: "Market · Selling", class: "Class",
+  classTeacher: "Class teacher", classMember: "Class participant", classEnquiry: "Class enquiry", privateClass: "Private conversation with the teacher",
+  noMessages: "No conversations yet", noMessagesText: "Chat with a friend, message a shop or ask a class teacher.", noUnread: "You're all caught up", noMessageMatch: "No matching conversations",
+  messageFailed: "Some conversations could not load", retry: "Try again", chatNote: "Dinner plans stay with your friend chats.", viewClass: "View class",
+  messagePerson: "Message {name}…", messageShop: "Message the shop…", askTeacher: "Ask the teacher…", viewOrder: "View order", allOrders: "All orders", order: "Order {id}",
+  buyingRole: "Market · You're buying", sellingRole: "Market · You're selling", classUpdate: "Class update", more: "Show more", savedFailed: "Your save could not be updated.",
+  profileFallback: "Your profile", finishProfile: "Add your photo and profile", likes: "{n} likes", shares: "{n} shares",
+  pending: "Awaiting reply", confirmed: "Confirmed", payOwn: "Each pays their own", paySplit: "Split the bill", payHost: "Host pays", view: "View", archived: "Unavailable",
+} as const;
+export default profile;

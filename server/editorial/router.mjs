@@ -83,6 +83,16 @@ editorial.get('/recipes/:id', async (req, res, next) => {
   } catch (e) { next(e); }
 });
 /** Staff edits and hides of the recipes bundled in the app (bot and staff-created recipes come through /recipes). */
+/** A saved event remains viewable after its date; hidden/cancelled records do not. */
+editorial.get('/events/:id', async (req, res, next) => {
+  try {
+    const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]);
+    const id = String(req.params.id), item = staffRecord(staff, 'event', id, snapshot.records['event:' + id]?.data ?? null)
+      ?? staffCreated(staff, 'event').find(item => item.id === id);
+    if (!item || item.status === 'cancelled') return res.sendStatus(404);
+    conditional(req, res, item);
+  } catch (error) { next(error); }
+});
 editorial.get('/staff-recipes', async (req, res, next) => {
   try {
     const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]);

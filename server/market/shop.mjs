@@ -72,6 +72,17 @@ shop.get('/listings', async (req, res) => {
   if (exclude.length) { const tags = add(exclude); where.push(`NOT (l.contains && ${tags}::text[] OR l.may_contain && ${tags}::text[])`); }
   if (q.saved === '1') { if (!viewer) throw new CommunityError(401, 'Sign in to see saved items.', 'SIGN_IN'); where.push('EXISTS (SELECT 1 FROM market.saved v WHERE v.user_id=$1 AND v.listing_id=l.id)'); }
   if (q.available === '1') where.push('n.starts IS NOT NULL');
+  if (q.price === 'under10') where.push('l.price_cents < 1000');
+  if (q.price === '10to20') where.push('l.price_cents >= 1000 AND l.price_cents <= 2000');
+  const validDay = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
+    && Number.isFinite(Date.parse(value + 'T00:00:00Z')) && new Date(value + 'T00:00:00Z').toISOString().slice(0, 10) === value;
+  if (validDay(q.from) && validDay(q.to) && q.from <= q.to) {
+    const from = add(q.from), to = add(q.to);
+    // Match any orderable collection in the range, including a later slot after the earliest one.
+    where.push(`EXISTS (SELECT 1 FROM market.slot x WHERE ${orderable('x', 's', 'l')}
+      AND (l.per_slot IS NULL OR ${usedIn('x', 'l')} < l.per_slot)
+      AND (x.starts AT TIME ZONE 'Asia/Singapore')::date BETWEEN ${from}::date AND ${to}::date)`);
+  }
   const order = q.sort === 'low' ? 'l.price_cents ASC' : q.sort === 'high' ? 'l.price_cents DESC' : q.sort === 'soon' ? 'n.starts ASC NULLS LAST' : 'l.updated_at DESC';
   const offset = Math.min(Math.max(Number(q.cursor) || 0, 0), 2000);
   const rows = (await pool.query(`SELECT ${cardColumns}, EXISTS (SELECT 1 FROM market.saved v WHERE v.user_id=$1 AND v.listing_id=l.id) AS saved

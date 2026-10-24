@@ -62,10 +62,10 @@ function TabButton<T extends string>({ tab, selected, onPress }: { tab: IconTab<
 export function FirstRunState({ icon, title, text, action }: { icon: IconName; title: string; text: string; action?: StateAction }) {
   return <StateView size="page" icon={icon} title={title} text={text} primary={action} />;
 }
-export function FilterSection({ title, icon, children }: PropsWithChildren<{ title: string; icon: IconName }>) {
+export function FilterSection({ title, icon, children, prominent = false }: PropsWithChildren<{ title: string; icon: IconName; prominent?: boolean }>) {
   const { theme } = usePreferences();
   return <View style={[s.section, { borderBottomColor: theme.divider }]}>
-    <View style={[common.row, { gap: 8 }]}><Icon name={icon} size={18} /><T variant="small" style={common.bold} accessibilityRole="header">{title}</T></View>
+    <View style={[common.row, { gap: 8 }]}><Icon name={icon} size={prominent ? 20 : 18} /><T variant={prominent ? "subtitle" : "small"} style={common.bold} accessibilityRole="header">{title}</T></View>
     {children}
   </View>;
 }

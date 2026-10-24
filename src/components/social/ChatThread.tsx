@@ -4,6 +4,7 @@ import { Icon, T, common } from "../ui";
 import { ChatBubble, ChatComposer } from "../Chat";
 import { usePreferences } from "../../state/Preferences";
 import { useLanguage, useT } from "../../i18n";
+import { chatTime } from "../../utils/chat-time";
 import { formatSgDateTime } from "../../utils/sg-datetime";
 import type { LineKind } from "../../types/community";
 import type socialMessages from "../../i18n/en/social";
@@ -33,19 +34,19 @@ function SystemLine({ text, at }: { text: string; at: string }) {
  * A 1-to-1 conversation filling the screen: lines scroll and stay pinned to the newest, the composer stays at the bottom.
  * `top` sits above the first line (an invitation card, Load Earlier); `describe` words system lines.
  */
-export function ChatThread({ lines, describe, name, onSend, empty, top, disabled = false }: {
-  lines: Line[]; describe: (line: Line) => string; name: string; onSend: (text: string) => Promise<boolean>; empty: string; top?: ReactNode; disabled?: boolean;
+export function ChatThread({ lines, describe, name, onSend, empty, top, disabled = false, placeholder }: {
+  lines: Line[]; describe: (line: Line) => string; name: string; onSend: (text: string) => Promise<boolean>; empty: string; top?: ReactNode; disabled?: boolean; placeholder?: string;
 }) {
   const scroll = useRef<ScrollView>(null), t = useT("social"), language = useLanguage();
   return <View style={[common.flex, { gap: 8, minHeight: 0 }]}>
+    {top && <ScrollView style={{ maxHeight: "45%", flexGrow: 0 }} contentContainerStyle={{ paddingBottom: 6 }}>{top}</ScrollView>}
     <ScrollView ref={scroll} style={common.flex} contentContainerStyle={{ gap: 8, paddingVertical: 4 }} keyboardShouldPersistTaps="handled"
       onContentSizeChange={() => scroll.current?.scrollToEnd({ animated: false })} showsVerticalScrollIndicator={false}>
-      {top}
       {!lines.length && <T muted style={{ textAlign: "center", paddingVertical: 24 }}>{empty}</T>}
       {lines.map(line => line.kind === "text"
-        ? <ChatBubble key={line.id} text={line.body} mine={line.mine} label={(line.mine ? t("you") : name) + ": " + line.body + ", " + formatSgDateTime(Date.parse(line.createdAt), language)} />
+        ? <ChatBubble key={line.id} text={line.body} mine={line.mine} time={chatTime(line.createdAt, language)} label={(line.mine ? t("you") : name) + ": " + line.body + ", " + formatSgDateTime(Date.parse(line.createdAt), language)} />
         : <SystemLine key={line.id} text={describe(line)} at={line.createdAt} />)}
     </ScrollView>
-    <ChatComposer onSend={onSend} disabled={disabled} />
+    <ChatComposer onSend={onSend} disabled={disabled} placeholder={placeholder} />
   </View>;
 }

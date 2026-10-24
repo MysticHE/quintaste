@@ -3,7 +3,7 @@ import type en from "../en/common";
 /** 简体中文 messages; the type keeps every English key covered. */
 const zh: typeof en = {
   tabExplore: "探索",
-  tabCook: "下厨",
+  tabCook: "动态",
   tabSocial: "饭友",
   tabMarket: "市集",
   tabGame: "游戏",

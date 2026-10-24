@@ -2,6 +2,11 @@ import type { Vars } from "..";
 
 /** Explore, Filters, place, menu, Saved, Location and sample screens. */
 const en = {
+  vegShort: "Veg",
+  searchAndFilters: "Search and filters",
+  recentPlaceSearches: "Recent searches",
+  removeRecentPlaceSearch: (v: Vars) => "Remove " + String(v.name) + " from recent searches",
+  submitPlaceSearch: "Search",
   searchByLocation: "Search By My Location",
   kitchenTabs: "Kitchen",
   placeCountSuffix: (v: Vars): string => v.n === 1 ? " place" : " places",

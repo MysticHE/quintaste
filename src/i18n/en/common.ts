@@ -3,7 +3,7 @@ import type { Vars } from "..";
 /** Words shared by every area: tabs, actions, states and the language setting. */
 const en = {
   tabExplore: "Explore",
-  tabCook: "Cook",
+  tabCook: "Feeds",
   tabSocial: "Social",
   tabMarket: "Market",
   tabGame: "Game",

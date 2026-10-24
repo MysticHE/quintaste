@@ -1,5 +1,7 @@
 import { communityRequest as call } from "./community-api";
 import type { ClassInput, ClassLine, ClassPerson, CookingClass, Teacher, TeacherApplication } from "../types/community";
+export type ClassConversation = { id: string; classId: string; title: string; starts: string; memberId: string; hosting: boolean; updatedAt: string; name: string; last: string | null; unread: boolean };
+export const classConversations = (signal: AbortSignal) => call<{ items: ClassConversation[] }>("/api/market/class-conversations", { signal });
 
 /** Cooking classes in Market > Events (server/market/classes.mjs, teaching.mjs). Browsing works for guests; joining, questions and teaching need a member. */
 export const classes = (signal: AbortSignal) => call<{ items: CookingClass[] }>("/api/market/classes", { signal });

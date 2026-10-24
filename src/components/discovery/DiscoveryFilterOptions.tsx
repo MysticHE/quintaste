@@ -11,9 +11,9 @@ import type { LocationMode } from "../../utils/discovery-filters";
 import { locationMode, placeLabelChoices, placeLabelsOf, toggleFilter } from "../../utils/discovery-filters";
 import { useT } from "../../i18n";
 
-export function DiscoveryFilterOptions({ filters, change, labels, selected, disabled, followingCustom = false, selectLocation }: {
+export function DiscoveryFilterOptions({ filters, change, labels, selected, disabled, followingCustom = false, selectLocation, searchLayout = false }: {
   filters: ExploreFilters; change: (value: FilterChange) => void; labels: PlaceLabel[];
-  selected: boolean; disabled: boolean; followingCustom?: boolean; selectLocation: (mode: LocationMode) => void;
+  selected: boolean; disabled: boolean; followingCustom?: boolean; selectLocation: (mode: LocationMode) => void; searchLayout?: boolean;
 }) {
   // Following a custom default place matches none of these choices, so none is shown as selected.
   const { theme } = usePreferences(), dietText = useDietText(), mode = followingCustom ? null : locationMode(filters), t = useT("explore");
@@ -24,15 +24,15 @@ export function DiscoveryFilterOptions({ filters, change, labels, selected, disa
     { mode: "work", label: t("nearWork"), icon: "briefcase-outline" },
   ];
   return <>
-    <FilterSection title={t("diet")} icon="leaf-outline">
-      <Chips label={t("diet")} multiple><Chip label={t("any")} a11y={t("anyDiet")} compact role="checkbox" selected={!labels.length} disabled={disabled} onPress={() => change({ labels: [] })} />
-        {placeLabelChoices.map(value => <Chip compact key={value} label={dietText.line(value)} role="checkbox"
+    <FilterSection prominent={searchLayout} title={t("diet")} icon="leaf-outline">
+      <Chips label={t("diet")} multiple><Chip label={t("any")} a11y={t("anyDiet")} compact={!searchLayout} role="checkbox" selected={!labels.length} disabled={disabled} onPress={() => change({ labels: [] })} />
+        {(searchLayout ? [...placeLabelChoices].reverse() : placeLabelChoices).map(value => <Chip compact={!searchLayout} key={value} label={dietText.line(value)} role="checkbox"
         leading={<DietIcon diet={value} color={labels.includes(value) ? theme.accent : theme.foreground} />}
         selected={labels.includes(value)} disabled={disabled} onPress={() => change({ labels: placeLabelsOf(toggleFilter(labels, value)) })} />)}</Chips>
       <DietLabelHelp />
     </FilterSection>
-    <FilterSection title={t("location")} icon="location-outline">
-      <Chips label={t("searchAround")}>{locations.filter(item => item.mode !== "selected" || selected || mode === "selected").map(item => <Chip key={item.mode} label={item.label} icon={item.icon} role="radio" compact style={s.locationChoice}
+    <FilterSection prominent={searchLayout} title={t("location")} icon="location-outline">
+      <Chips label={t("searchAround")}>{locations.filter(item => searchLayout || item.mode !== "selected" || selected || mode === "selected").map(item => <Chip key={item.mode} label={item.label} icon={item.icon} role="radio" compact={!searchLayout} style={s.locationChoice}
         disabled={disabled || item.mode === "selected" && !selected} selected={mode === item.mode}
         onPress={() => selectLocation(item.mode)} />)}</Chips>
     </FilterSection>

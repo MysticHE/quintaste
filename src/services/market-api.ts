@@ -1,3 +1,4 @@
+import { feedDateRange } from "../utils/feed-filters";
 import { communityRequest as call } from "./community-api";
 import type {
   Conversation, ConversationSummary, ListingCard, ListingDetail, ListingInput, Order, OrderSummary, OwnListing, SellerProfile, SellerState, ShopFilter,
@@ -18,6 +19,9 @@ export function browseKey(q: string, f: ShopFilter) {
   if (f.area.trim()) params.set("area", f.area.trim());
   if (f.savedOnly) params.set("saved", "1");
   if (f.available) params.set("available", "1");
+  if (f.price && f.price !== "any") params.set("price", f.price);
+  const range = feedDateRange(f.collection ?? "any", f.date);
+  if (range) { params.set("from", range.from); params.set("to", range.to); }
   return "/api/market/listings?" + params.toString();
 }
 export const browse = (path: string, signal: AbortSignal) => call<{ items: ListingCard[]; next: number | null }>(path, { signal });

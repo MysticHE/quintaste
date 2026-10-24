@@ -1,3 +1,4 @@
-import { Redirect } from "expo-router";
-/** Now a tab of Cook; kept so older links still open it. */
-export default function Previous() { return <Redirect href="/cook?tab=mine" />; }
+import { Screen } from "../../../components/Screen";
+import { MyRecipesContent } from "../../../screens/food/MyRecipes";
+import { useT } from "../../../i18n";
+export default function MyRecipes() { return <Screen title={useT("cook")("tabMine")} backTo="/cook"><MyRecipesContent query="" /></Screen>; }
