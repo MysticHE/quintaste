@@ -7,8 +7,6 @@ import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import type { CatalogueVenue } from "../../types/catalogue";
 import { useT } from "../../i18n";
 
-type Translate = ReturnType<typeof useT<"explore">>;
-
 export function PlaceDetailSection({ title, summary, icon, children }: PropsWithChildren<{ title: string; summary?: string; icon: IconName }>) {
   const { theme } = usePreferences(), [open, setOpen] = useState(false), { focused, focusProps } = useKeyboardFocus();
   return <View style={{ gap: open ? 8 : 0 }}>
@@ -32,36 +30,31 @@ export function PlaceDetailAction({ label, accessibleLabel, icon, selected, disa
     <T variant="caption" color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} style={common.bold}>{label}</T>
   </Pressable>;
 }
-export function PlaceSources({ venue, open }: { venue: CatalogueVenue; open: (url: string) => void }) {
-  const illustrated = venue.photo?.author === "QuinTaste illustration", t = useT("explore");
-  return <View style={{ gap: 10 }}>
-    {venue.hours && <View style={{ gap: 4 }}><T variant="small" style={common.bold}>{t("hours")}</T>
-      <T variant="caption" muted>{t("checkedSgTime", { date: venue.hours.checkedAt })}</T>
-      {!!venue.hours.notes && <T variant="caption" muted>{venue.hours.notes}</T>}
-      <Button label={t("hoursSource")} variant="link" icon="open-outline" onPress={() => open(venue.hours!.sourceUrl)} /></View>}
-    {venue.photo && <View style={{ gap: 4 }}><T variant="small" style={common.bold}>{t(illustrated ? "cover" : "photo")}</T>
-      {/* Owner, 20 Oct 2026: a place without a reusable photo may use an approved illustration of its own dishes; say so here, never as a photo. */}
-      <T variant="caption" muted>{illustrated ? t("illustrationNote")
-        : (venue.photo.provider ? venue.photo.provider + " · " : "") + t("photographBy", { author: venue.photo.author, license: venue.photo.license })}</T>
-      {!illustrated && <T variant="caption" muted>{venue.photo.changes}</T>}
-      <Button label={t(illustrated ? "menuSourceButton" : "photoSource")} variant="link" icon="open-outline" onPress={() => open(venue.photo!.sourceUrl)} />
-      {venue.photo.licenseUrl && <Button label={t("photoLicence")} variant="link" icon="open-outline" onPress={() => open(venue.photo!.licenseUrl!)} />}</View>}
-    {venue.research && <View style={{ gap: 4 }}><T variant="small" style={common.bold}>{t("sourceUpdates")}</T>
-      <T variant="caption" muted>{t("checkedOn", { date: venue.research.checkedAt })}</T>
-      {venue.research.notes.map((note, i) => <T variant="caption" muted key={i}>{sourceNote(note, t)}</T>)}
-      {[...new Set(venue.research.sourceUrls)].filter(url => url !== venue.hours?.sourceUrl && url !== venue.photo?.sourceUrl && url !== venue.photo?.licenseUrl).map((url, i) =>
-        <Button key={url} label={t("sourceN", { n: i + 1 })} variant="link" icon="open-outline" onPress={() => open(url)} />)}</View>}
+/**
+ * One line under the place photo. Sources & credits was removed (owner, 24 Oct 2026), but CC BY / CC BY-SA photos must
+ * still name the author, licence and changes, and an approved illustration must never pass as a photo (owner, 20 Oct).
+ */
+export function PhotoCredit({ photo, open }: { photo: NonNullable<CatalogueVenue["photo"]>; open: (url: string) => void }) {
+  const t = useT("explore"), { theme } = usePreferences(), [expanded, setExpanded] = useState(false), { focused, focusProps } = useKeyboardFocus();
+  if (photo.author === "QuinTaste illustration") return <T testID="place-photo-credit" variant="caption" muted>{t("illustrationNote")}</T>;
+  const credit = t("photoCreditLine", { author: photo.author, license: photo.license });
+  return <View testID="place-photo-credit">
+    <Pressable {...focusProps} accessibilityRole="button" accessibilityLabel={credit} accessibilityState={{ expanded }} aria-expanded={expanded} onPress={() => setExpanded(!expanded)}
+      style={[s.credit, { borderColor: focused ? theme.accent : theme.transparent }, Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
+      <T variant="caption" muted numberOfLines={1} style={common.flex}>{credit}</T>
+      <Icon name={expanded ? "chevron-up" : "information-circle-outline"} size={16} color={theme.mutedForeground} />
+    </Pressable>
+    {expanded && <View style={{ gap: 2, paddingHorizontal: 4 }}>
+      <T variant="caption" muted>{(photo.provider ? photo.provider + " · " : "") + t("photographBy", { author: photo.author, license: photo.license }) + (photo.changes ? " " + photo.changes : "")}</T>
+      <View style={[common.row, { flexWrap: "wrap", columnGap: 8 }]}>
+        <Button label={t("photoSource")} variant="link" icon="open-outline" onPress={() => open(photo.sourceUrl)} />
+        {!!photo.licenseUrl && <Button label={t("photoLicence")} variant="link" icon="open-outline" onPress={() => open(photo.licenseUrl!)} />}
+      </View>
+    </View>}
   </View>;
-}
-function sourceNote(note: string, t: Translate) {
-  try {
-    const value = JSON.parse(note) as { serviceChargePercent?: number; gstPercent?: number; currency?: string; salesChannel?: string };
-    if (typeof value.serviceChargePercent === "number" && typeof value.gstPercent === "number") return t("serviceChargeNote", { service: value.serviceChargePercent, gst: value.gstPercent });
-    if (value.currency === "SGD" && value.salesChannel === "FIELDS online ordering") return t("fieldsNote");
-    return t("additionalEvidence");
-  } catch { return note; }
 }
 const s = StyleSheet.create({
   section: { flexDirection: "row", alignItems: "center", minHeight: 48, gap: 8, borderWidth: 2, borderRadius: 12, paddingHorizontal: 2 },
   action: { flex: 1, minWidth: 0, minHeight: 68, padding: 8, alignItems: "center", justifyContent: "center", gap: 6, borderWidth: 2, borderRadius: 12 },
+  credit: { flexDirection: "row", alignItems: "center", gap: 6, minHeight: 36, paddingHorizontal: 4, borderWidth: 2, borderRadius: 10 },
 });

@@ -74,6 +74,7 @@ shop.get('/listings', async (req, res) => {
   if (q.available === '1') where.push('n.starts IS NOT NULL');
   if (q.price === 'under10') where.push('l.price_cents < 1000');
   if (q.price === '10to20') where.push('l.price_cents >= 1000 AND l.price_cents <= 2000');
+  if (q.price === 'over20') where.push('l.price_cents > 2000');
   const validDay = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
     && Number.isFinite(Date.parse(value + 'T00:00:00Z')) && new Date(value + 'T00:00:00Z').toISOString().slice(0, 10) === value;
   if (validDay(q.from) && validDay(q.to) && q.from <= q.to) {

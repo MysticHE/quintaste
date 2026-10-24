@@ -9,7 +9,7 @@ const zh: typeof en = {
   anyDate: "不限日期", anyDay: "不限日期", today: "今天", weekend: "本周末", chooseDate: "选择日期",
   location: "地点", singapore: "新加坡", nearMe: "我的附近", area: "地区", anyArea: "搜索地区",
   locationFailed: "无法找到你所在的地区。请选择地区或重试。", price: "价格", anyPrice: "不限价格", free: "免费", paid: "收费",
-  underTen: "低于 S$10", tenToTwenty: "S$10–S$20", savedEvents: "仅显示已收藏活动", available: "仅显示可订购商品",
+  underTen: "低于 S$10", tenToTwenty: "S$10–S$20", overTwenty: "高于 S$20", savedEvents: "仅显示已收藏活动", available: "仅显示可订购商品",
   saveEvent: "收藏{name}", unsaveEvent: "取消收藏{name}", eventSaveFailed: "无法收藏此活动，请重试。",
   reset: "重置筛选", savedRecipes: "仅显示已收藏食谱", myRecipes: "我的食谱", dateRequired: "请选择日期后继续。",
 };

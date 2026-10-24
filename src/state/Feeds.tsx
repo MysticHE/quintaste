@@ -2,11 +2,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { useFood } from "./Food";
 import { defaultShopFilter, type ShopFilter } from "../types/community";
+import type { SearchPoint } from "../types/location-search";
 
 export type FeedTab = "recipes" | "events" | "market";
 export type DateChoice = "any" | "today" | "weekend" | "date";
-export type EventFilters = { kind: "all" | "local" | "classes"; when: DateChoice; date: string; area: string; price: "any" | "free" | "paid"; savedOnly: boolean };
-export const defaultEventFilters = (): EventFilters => ({ kind: "all", when: "any", date: "", area: "", price: "any", savedOnly: false });
+/** Where Near me found the member: the point for distance to events, the planning area for cooking classes. */
+export type NearPoint = SearchPoint & { area: string };
+export type EventFilters = { kind: "all" | "local" | "classes"; when: DateChoice; date: string; area: string; near: NearPoint | null; price: "any" | "free" | "paid"; savedOnly: boolean };
+export const defaultEventFilters = (): EventFilters => ({ kind: "all", when: "any", date: "", area: "", near: null, price: "any", savedOnly: false });
 function useFeedState() {
   const { discoveryScope } = useFood(), key = "@quintaste/saved-feed-events/" + discoveryScope;
   const [queries, setQueries] = useState({ events: "", market: "" });

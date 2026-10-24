@@ -37,8 +37,8 @@ export function CookScreen() {
   // Old bookmarks keep their standalone collection; they no longer add tabs to Feeds.
   if (param === "mine" || param === "shopping" || param === "saved") return <LegacyCollection kind={param} />;
   return <Screen back={false} header={<FeedHeader tab={tab} filtered={filtered} onChange={next => router.setParams({ tab: next })} />}>
-    {tab === "recipes" ? <Recipes ingredient={ingredient} /> : tab === "events" ? <EventsList query={feeds.queries.events} filters={feeds.events} feed />
-      : <Browse query={feeds.queries.market} filters={feeds.market} setFilters={feeds.setMarket} feed clearQuery={() => feeds.setQueries(current => ({ ...current, market: "" }))} />}
+    {tab === "recipes" ? <Recipes ingredient={ingredient} /> : tab === "events" ? <EventsList query={feeds.queries.events} filters={feeds.events} />
+      : <Browse query={feeds.queries.market} filters={feeds.market} setFilters={feeds.setMarket} clearQuery={() => feeds.setQueries(current => ({ ...current, market: "" }))} />}
   </Screen>;
 }
 function LegacyCollection({ kind }: { kind: "mine" | "saved" | "shopping" }) {

@@ -120,4 +120,6 @@ export async function editorialRequest<T>(path: string, signal?: AbortSignal): P
 export type EditorialPage<T> = { revision: string; items: T[]; total: number; nextCursor: string | null };
 export type RecipeSummary = Omit<Recipe, "ingredients" | "steps"> & { ingredientNames?: string[] };
 export type StaffRecipes = { revision: string; hidden: string[]; recipes: Recipe[] };
-export type ExternalEvent = { id: string; title: string; organiser: string; startsAt: string; endsAt: string | null; location: string; address: string; feeAmount: number | null; currency: string | null; feeNote: string; registrationUrl: string | null; registrationDeadline: string | null; dietEvidence: string; status: string; checkedAt: string; sources: string[] };
+export type ExternalEvent = { id: string; title: string; organiser: string; startsAt: string; endsAt: string | null; location: string; address: string; feeAmount: number | null; currency: string | null; feeNote: string; registrationUrl: string | null; registrationDeadline: string | null; dietEvidence: string; status: string; checkedAt: string; sources: string[];
+  /** Added by the server from the address (server/editorial/event-points.mjs); missing until OneMap has placed it. */
+  point?: { lat: number; lng: number } };

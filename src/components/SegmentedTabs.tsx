@@ -4,10 +4,10 @@ import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 import { usePreferences } from "../state/Preferences";
 import { T, common } from "./ui";
 
-export type SegmentOption<V extends string> = { id: V; label: string; accessibleLabel?: string; flex?: number };
+export type SegmentOption<V extends string> = { id: V; label: string };
 /** One segmented radio row: arrow keys, Home and End move between options with a single web tab stop. */
-export function SegmentedTabs<V extends string>({ options, value, onChange, label, accent = false }: {
-  options: readonly SegmentOption<V>[]; value: V; onChange: (value: V) => void; label: string; accent?: boolean;
+export function SegmentedTabs<V extends string>({ options, value, onChange, label }: {
+  options: readonly SegmentOption<V>[]; value: V; onChange: (value: V) => void; label: string;
 }) {
   const { theme } = usePreferences(), items = useRef<(View | null)[]>([]);
   const keyDown = (event: KeyboardEvent, index: number) => {
@@ -17,23 +17,21 @@ export function SegmentedTabs<V extends string>({ options, value, onChange, labe
     if (next < 0) return;
     event.preventDefault(); onChange(options[next].id); items.current[next]?.focus();
   };
-  return <View accessibilityRole="radiogroup" accessibilityLabel={label} style={[s.track, { backgroundColor: accent ? theme.accentSoft : theme.muted }]}>
+  return <View accessibilityRole="radiogroup" accessibilityLabel={label} style={[s.track, { backgroundColor: theme.muted }]}>
     {options.map((option, index) => <Segment key={option.id} label={option.label} selected={value === option.id} onPress={() => onChange(option.id)}
-      accent={accent} accessibleLabel={option.accessibleLabel} flex={option.flex}
       controlRef={node => { items.current[index] = node; }} onKeyDown={event => keyDown(event, index)} />)}
   </View>;
 }
-function Segment({ label, selected, onPress, controlRef, onKeyDown, accent, accessibleLabel, flex = 1 }: {
+function Segment({ label, selected, onPress, controlRef, onKeyDown }: {
   label: string; selected: boolean; onPress: () => void; controlRef: (node: View | null) => void; onKeyDown: (event: KeyboardEvent) => void;
-  accent: boolean; accessibleLabel?: string; flex?: number;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
   const keyboardProps = Platform.OS === "web" ? { tabIndex: selected ? 0 as const : -1 as const, onKeyDown } : {};
-  return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="radio" accessibilityLabel={accessibleLabel ?? label} accessibilityState={{ checked: selected }} aria-checked={selected}
+  return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="radio" accessibilityLabel={label} accessibilityState={{ checked: selected }} aria-checked={selected}
     onPress={onPress} {...focusProps}
-    style={({ pressed }) => [s.tab, { flex, backgroundColor: selected ? (accent ? theme.accent : theme.card) : theme.transparent,
-      borderColor: focused ? (accent ? theme.foreground : theme.accent) : theme.transparent, opacity: pressed ? .7 : 1 }, Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
-    <T variant="small" color={selected ? (accent ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent) : theme.mutedForeground} style={[common.bold, s.label]}>{label}</T>
+    style={({ pressed }) => [s.tab, { backgroundColor: selected ? theme.card : theme.transparent,
+      borderColor: focused ? theme.accent : theme.transparent, opacity: pressed ? .7 : 1 }, Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
+    <T variant="small" color={selected ? theme.accent : theme.mutedForeground} style={[common.bold, s.label]}>{label}</T>
   </Pressable>;
 }
 const s = StyleSheet.create({

@@ -35,7 +35,7 @@ function Thread({ c, refresh }: { c: Conversation; refresh: () => void }) {
   const starters = [t("starterNuts"), t("starterSweet"), t("starterPickup"), t("starterAllium")];
   const [menu, setMenu] = useState(false), [report, setReport] = useState(false);
   const last = c.messages[c.messages.length - 1]?.id;
-  useEffect(() => { void markRead(c.id).then(() => invalidate("/api/market/unread", "/api/market/conversations")).catch(() => {}); }, [c.id, last]);
+  useEffect(() => { void markRead(c.id).then(() => invalidate("/api/market/conversations")).catch(() => {}); }, [c.id, last]);
   const send = async (text: string) => {
     try { await sendMessage(c.id, text); refresh(); invalidate("/api/market/conversations"); return true; }
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("messageFailed"), error: true }); return false; }

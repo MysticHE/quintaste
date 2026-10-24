@@ -11,6 +11,7 @@ import { usePreferences } from "../../state/Preferences";
 import { useFood } from "../../state/Food";
 import { useFeeds } from "../../state/Feeds";
 import { useRecipeWorkspace } from "../../hooks/useRecipeWorkspace";
+import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
 import { useMyRecipeStatus } from "../../hooks/useMemberRecipes";
 import { useDebounced } from "../../hooks/useDebounced";
 import { usePublishedRecipe } from "../../hooks/useEditorial";
@@ -29,7 +30,7 @@ import { marketMoney } from "../../utils/market";
 import { formatSgShort } from "../../utils/sg-datetime";
 import { useLanguage, useT } from "../../i18n";
 
-export type ContentKind = "all" | "recipes" | "market" | "events";
+export type ContentKind = "all" | "places" | "recipes" | "market" | "events";
 export function GridTile({ title, type, path, source, note, href, onPress, save, children, date }: {
   title: string; type: string; path?: string | null; source?: ImageSource | number; note?: string; href?: Href; onPress?: () => void;
   save?: () => Promise<unknown>; children?: ReactNode; date?: string;
@@ -95,15 +96,19 @@ export function MyPostGrid({ kind }: { kind: ContentKind }) {
 }
 export function SavedGrid({ kind, query }: { kind: ContentKind; query: string }) {
   const { doc } = useFood(), feeds = useFeeds(), t = useT("profile"), q = useDebounced(query).trim().toLowerCase(), [limit, setLimit] = useState(6);
-  const ids = doc.saves.filter(s => s.kind === "recipe" && !s.id.startsWith("private-")).sort((a, b) => b.savedAt - a.savedAt).map(s => s.id);
-  const recipes = kind === "all" || kind === "recipes", market = kind === "all" || kind === "market", events = kind === "all" || kind === "events";
+  const newest = (type: "recipe" | "place") => doc.saves.filter(s => s.kind === type).sort((a, b) => b.savedAt - a.savedAt).map(s => s.id);
+  const ids = newest("recipe").filter(id => !id.startsWith("private-"));
+  // Only Explore catalogue places have a tile; older saves (Google places, sample venues) stay in Saved places.
+  const placeIds = newest("place").filter(id => id.startsWith("catalogue-")).map(id => id.slice(10));
+  const places = kind === "all" || kind === "places", recipes = kind === "all" || kind === "recipes", market = kind === "all" || kind === "market", events = kind === "all" || kind === "events";
   const [results, setResults] = useState<Record<string, number>>({});
   const report = useCallback((id: string, count: number) => setResults(current => current[q + ":" + id] === count ? current : { ...current, [q + ":" + id]: count }), [q]);
-  const remaining = (recipes && ids.length > limit) || (events && feeds.savedEvents.length > limit);
-  const keys = [...(recipes ? ids.slice(0, limit).map(id => "r:" + id) : []), ...(market ? ["market"] : []), ...(events ? feeds.savedEvents.slice(0, limit) : [])];
+  const remaining = (places && placeIds.length > limit) || (recipes && ids.length > limit) || (events && feeds.savedEvents.length > limit);
+  const keys = [...(places ? placeIds.slice(0, limit).map(id => "p:" + id) : []), ...(recipes ? ids.slice(0, limit).map(id => "r:" + id) : []),
+    ...(market ? ["market"] : []), ...(events ? feeds.savedEvents.slice(0, limit) : [])];
   const empty = feeds.savesReady && !remaining && keys.every(id => results[q + ":" + id] === 0);
   const settled = keys.every(id => results[q + ":" + id] !== undefined && results[q + ":" + id] >= -1);
-  const total = Math.max(recipes ? ids.length : 0, events ? feeds.savedEvents.length : 0);
+  const total = Math.max(places ? placeIds.length : 0, recipes ? ids.length : 0, events ? feeds.savedEvents.length : 0);
   // Search resolves the entire collection in small batches, including past an
   // unavailable saved record. Pagination only limits idle browsing.
   useEffect(() => {
@@ -114,6 +119,7 @@ export function SavedGrid({ kind, query }: { kind: ContentKind; query: string })
   }, [q, remaining, settled, total]);
   return <>
     <View testID="profile-saved-grid" style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start" }}>
+      {places && placeIds.slice(0, limit).map(id => <SavedPlace key={id} id={id} query={q} report={report} />)}
       {recipes && ids.slice(0, limit).map(id => <RecipeTile key={id} id={id} query={q} saved report={report} />)}
       {market && <SavedMarket query={q} report={report} />}
       {events && feeds.savedEvents.slice(0, limit).map(id => <SavedEvent key={id} id={id} query={q} report={report} />)}
@@ -122,6 +128,17 @@ export function SavedGrid({ kind, query }: { kind: ContentKind; query: string })
       : remaining && <Button label={t("more")} variant="secondary" onPress={() => setLimit(limit + 6)} />}
     {empty && <EmptyState title={t(q ? "noMatch" : "noSaved")} text="" icon="bookmark-outline" />}
   </>;
+}
+function SavedPlace({ id, query, report }: { id: string; query: string; report: ResultReporter }) {
+  const { venue, busy, error, retry } = useCatalogueVenue(id), t = useT("profile"), food = useFood(), savedId = "catalogue-" + id;
+  const count = venue ? (!query || (venue.name + " " + venue.address).toLowerCase().includes(query) ? 1 : 0) : busy ? -2 : -1;
+  useEffect(() => { report("p:" + id, count); }, [report, id, count]);
+  if (!venue && busy) return <View style={{ width: "48%", minHeight: 100, justifyContent: "center" }}><ActivityIndicator /></View>;
+  if (!venue) return <View style={{ width: "48%", gap: 6 }}><T muted>{t("unavailable")}</T>
+    {!!error && <Button label={t("retry")} variant="link" onPress={retry} />}<Button label={t("remove")} variant="link" onPress={() => void food.toggleSave("place", savedId)} /></View>;
+  if (!count) return null;
+  return <GridTile title={venue.name} type={t("place")} path={venue.photo?.path} note={venue.address}
+    href={("/place/" + savedId) as Href} save={() => food.toggleSave("place", savedId)} />;
 }
 function SavedMarket({ query, report }: { query: string; report: ResultReporter }) {
   const t = useT("profile"), [page, setPage] = useState<{ base: string; cursor: number | null; prior: import("../../types/community").ListingCard[] }>({ base: "", cursor: null, prior: [] });

@@ -38,10 +38,12 @@ conversations.get('/conversations', async (_req, res) => {
     WHERE c.buyer_id=$1 OR c.seller_id=$1 ORDER BY c.updated_at DESC LIMIT 100`, [me])).rows;
   res.json({ items: rows });
 });
+/** Counts for member $1, shared with the app-wide inbox count (server/community/inbox.mjs). */
+export const unreadMarketChatsSql = `(SELECT count(*)::int FROM market.conversation c WHERE (c.buyer_id=$1 OR c.seller_id=$1) AND ${unreadFor})`;
+export const newOrdersSql = `(SELECT count(*)::int FROM market."order" o WHERE o.seller_id=$1 AND o.status='requested')`;
+/** Kept for app builds released before /api/inbox. */
 conversations.get('/unread', async (_req, res) => {
-  const me = res.locals.user.id;
-  const row = (await pool.query(`SELECT (SELECT count(*)::int FROM market.conversation c WHERE (c.buyer_id=$1 OR c.seller_id=$1) AND ${unreadFor}) AS messages,
-    (SELECT count(*)::int FROM market."order" o WHERE o.seller_id=$1 AND o.status='requested') AS orders`, [me])).rows[0];
+  const row = (await pool.query(`SELECT ${unreadMarketChatsSql} AS messages, ${newOrdersSql} AS orders`, [res.locals.user.id])).rows[0];
   res.json({ ...row, count: row.messages + row.orders });
 });
 /** A buyer opens (or reopens) their conversation with a live shop. */

@@ -13,7 +13,5 @@ export function useMessages() {
   const friends = useRemote(member && allowed ? "/api/social/friends" : null, loadFriends, 30000);
   const market = useRemote(member ? "/api/market/conversations" : null, conversations, 30000);
   const classes = useRemote(member ? "/api/market/class-conversations" : null, classConversations, 30000);
-  const unread = (allowed ? friends.data?.friends.filter(f => f.unread > 0).length ?? 0 : 0)
-    + (market.data?.items.filter(c => c.unread).length ?? 0) + (classes.data?.items.filter(c => c.unread).length ?? 0);
-  return { friends, market, classes, unread, me, allowed };
+  return { friends, market, classes, me, allowed };
 }

@@ -64,7 +64,7 @@ export type Conversation = { id: string; role: "buyer" | "seller"; sellerId: str
   openOrders: { id: string; items?: string | null; status: OrderStatus; totalCents: number; starts: string }[]; messages: ChatMessage[] };
 export type ShopFilter = {
   category: "All" | ShopCategory; sort: "Newest" | "Soonest" | "Lowest first" | "Highest first"; labels: MarketLabel[]; practices: MarketPractice[]; exclude: MarketIngredient[];
-  price?: "any" | "under10" | "10to20"; collection?: "any" | "today" | "weekend" | "date"; date?: string;
+  price?: "any" | "under10" | "10to20" | "over20"; collection?: "any" | "today" | "weekend" | "date"; date?: string;
   mode: "Any" | SlotMode; kind: "Any" | ListingKind; area: string; savedOnly: boolean; available: boolean;
 };
 export const defaultShopFilter = (): ShopFilter => ({ category: "All", sort: "Newest", labels: [], practices: [], exclude: [], mode: "Any", kind: "Any", area: "", savedOnly: false, available: false });

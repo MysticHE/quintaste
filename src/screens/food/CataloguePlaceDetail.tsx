@@ -10,7 +10,7 @@ import { Button, Icon, T, common } from "../../components/ui";
 import { EmptyState, IconButton } from "../../components/food/Controls";
 import { StatusPill } from "../../components/GroupedList";
 import { CataloguePhotoBackdrop } from "../../components/discovery/CataloguePhotoBackdrop";
-import { PlaceDetailAction, PlaceDetailSection } from "../../components/discovery/PlaceDetailParts";
+import { PhotoCredit, PlaceDetailAction, PlaceDetailSection } from "../../components/discovery/PlaceDetailParts";
 import { PlaceReviews } from "../../components/discovery/PlaceReviews";
 import { GoogleReviewsLink } from "../../components/discovery/GoogleReviewsLink";
 import { PlaceFeedbackActions } from "../../components/discovery/PlaceFeedbackActions";
@@ -41,7 +41,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   };
   const directions = directionsUrl(venue?.address ?? "", venue?.googlePlaceId);
   return <Screen title={venue?.name ?? t("placeDetails")} header={<View style={common.row}>
-    <IconButton appearance="plain" label={tc("goBack")} icon="arrow-back" onPress={() => goBack("/")} />
+    <IconButton appearance="plain" label={tc("goBack")} icon="chevron-back" onPress={() => goBack("/")} />
   </View>}>
     {busy && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingPlaceDetails")} />}
     {offline && <T variant="caption" muted>{t(venue ? "offlineSavedDetails" : "offlineBookmarkOnly")}</T>}
@@ -54,6 +54,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
       <View testID={venue.photo ? "catalogue-place-photo" : "catalogue-place-tile"} style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
         <CataloguePhotoBackdrop key={venue.photo?.path ?? "none"} path={venue.photo?.path} emptyIcon={placeTileIcon(venue)} enabled panelHeight={0} nameHeight={0} />
       </View>
+      {venue.photo && <PhotoCredit photo={venue.photo} open={url => void open(url)} />}
       <View style={{ gap: 4 }}>
         <T variant="title" accessibilityRole="header">{venue.name}</T>
         <View style={[common.row, { flexWrap: "wrap" }]}>

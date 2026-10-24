@@ -16,7 +16,7 @@ import { planningAreaFor } from "../../utils/planning-area";
 import { sgDateTimeText } from "../../utils/sg-datetime";
 import { useMinuteClock } from "../food/Timers";
 import { toggleFilter } from "../../utils/discovery-filters";
-import type { DateChoice, EventFilters } from "../../state/Feeds";
+import type { DateChoice, EventFilters, NearPoint } from "../../state/Feeds";
 import type { ShopFilter } from "../../types/community";
 
 export function DateFilters({ collection = false, value, date, change }: { collection?: boolean; value: DateChoice; date: string; change: (value: DateChoice, date: string) => void }) {
@@ -29,11 +29,12 @@ export function DateFilters({ collection = false, value, date, change }: { colle
     {value === "date" && <DateField label={t("chooseDate")} value={date} onChange={next => change("date", next)} minimum={sgDateTimeText(now).slice(0, 10)} />}
   </FilterSection>;
 }
-export function LocationFilter({ value, change }: { value: string; change: (area: string) => void }) {
+/** `near` (Events) passes where Near me found the member; `nearOn` keeps that choice selected after the page reopens. */
+export function LocationFilter({ value, change, nearOn }: { value: string; change: (area: string, near: NearPoint | null) => void; nearOn?: boolean }) {
   const t = useT("feeds"), { theme } = usePreferences(), [busy, setBusy] = useState(false), [error, setError] = useState(false), [near, setNear] = useState("");
   const revision = useRef(0), mounted = useRef(true);
   useEffect(() => () => { mounted.current = false; revision.current++; }, []);
-  const set = (area: string) => { revision.current++; setBusy(false); setError(false); change(area); };
+  const set = (area: string) => { revision.current++; setBusy(false); setError(false); change(area, null); };
   const locate = async () => {
     const request = ++revision.current, current = () => mounted.current && revision.current === request;
     setBusy(true); setError(false);
@@ -41,14 +42,14 @@ export function LocationFilter({ value, change }: { value: string; change: (area
       const point = await nearbyPosition(current);
       if (!current()) return;
       const area = point && planningAreaFor(point.coords.latitude, point.coords.longitude)?.name;
-      if (!area) throw new Error("AREA_UNAVAILABLE");
-      setNear(area); change(area);
+      if (!point || !area) throw new Error("AREA_UNAVAILABLE");
+      setNear(area); change(area, { latitude: point.coords.latitude, longitude: point.coords.longitude, area });
     } catch { if (current()) setError(true); }
     finally { if (current()) setBusy(false); }
   };
   return <FilterSection prominent title={t("location")} icon="location-outline">
     <Chips label={t("location")}><Chip label={t("singapore")} icon="globe-outline" role="radio" selected={!value} onPress={() => set("")} />
-      <Chip label={t("nearMe")} icon="locate-outline" role="radio" selected={!!near && value === near} disabled={busy} onPress={() => void locate()} /></Chips>
+      <Chip label={t("nearMe")} icon="locate-outline" role="radio" selected={nearOn ?? (!!near && value === near)} disabled={busy} onPress={() => void locate()} /></Chips>
     <AreaField label={t("area")} value={value} onChange={set} placeholder={t("anyArea")} near />
     {error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{t("locationFailed")}</T>}
   </FilterSection>;
@@ -60,7 +61,7 @@ export function EventSearchFilters({ value, change }: { value: EventFilters; cha
       {(["all", "local", "classes"] as const).map(kind => <Chip key={kind} label={t(kind === "local" ? "localEvents" : kind)} role="radio" selected={value.kind === kind} onPress={() => change({ kind })} />)}
     </Chips></FilterSection>
     <DateFilters value={value.when} date={value.date} change={(when, date) => change({ when, date })} />
-    <LocationFilter value={value.area} change={area => change({ area })} />
+    <LocationFilter value={value.area} nearOn={!!value.near} change={(area, near) => change({ area, near })} />
     <FilterSection prominent title={t("price")} icon="pricetag-outline"><Chips label={t("price")}>
       {(["any", "free", "paid"] as const).map(price => <Chip key={price} label={t(price === "any" ? "anyPrice" : price)} role="radio" selected={value.price === price} onPress={() => change({ price })} />)}
     </Chips></FilterSection>
@@ -82,7 +83,8 @@ export function MarketSearchFilters({ value, change }: { value: ShopFilter; chan
     <DateFilters collection value={value.collection ?? "any"} date={value.date ?? ""} change={(collection, date) => change({ collection, date })} />
     <LocationFilter value={value.area} change={area => change({ area })} />
     <FilterSection prominent title={t("price")} icon="pricetag-outline"><Chips label={t("price")}>
-      {(["any", "under10", "10to20"] as const).map(price => <Chip key={price} label={t(price === "any" ? "anyPrice" : price === "under10" ? "underTen" : "tenToTwenty")} role="radio" selected={(value.price ?? "any") === price} onPress={() => change({ price })} />)}
+      {(["any", "under10", "10to20", "over20"] as const).map(price => <Chip key={price} label={t(({ any: "anyPrice", under10: "underTen", "10to20": "tenToTwenty", over20: "overTwenty" } as const)[price])}
+        role="radio" selected={(value.price ?? "any") === price} onPress={() => change({ price })} />)}
     </Chips></FilterSection>
     <SwitchRow label={t("available")} value={value.available} change={available => change({ available })} />
     <Chip label={t("moreFilters")} icon="options-outline" onPress={() => setMore(true)} />

@@ -1,12 +1,10 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Icon, T, common, type IconName } from "../ui";
-import { useLanguage, useT } from "../../i18n";
+import { useLanguage } from "../../i18n";
 import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
-import { useOnAccent } from "../BrowseControls";
 import { sgDateTile } from "../../utils/sg-datetime";
-import { edgeScroll } from "../../theme/layout";
 
 export type EventTag = { label: string; tone?: "accent" | "success" | "muted" };
 /** One event: a date tile, the title, then time and place on their own lines, then a few facts as tags. */
@@ -43,21 +41,6 @@ export function byWhen<T>(items: T[], starts: (item: T) => string, now = Date.no
   const week = now + 7 * 86400000, soon = items.filter(item => Date.parse(starts(item)) <= week);
   return [{ title: "thisWeek" as const, items: soon }, { title: "later" as const, items: items.filter(item => !soon.includes(item)) }].filter(group => group.items.length);
 }
-export function WhenHeading({ title }: { title: "thisWeek" | "later" }) {
-  return <T variant="small" muted accessibilityRole="header" style={[common.bold, s.when]}>{useT("market")(title)}</T>;
-}
-/** Event types as one scrolling row of icon pills; the chosen type is filled. */
-export function TypePills<T extends string>({ options, value, onChange }: { options: readonly { id: T; label: string; icon: IconName }[]; value: T; onChange: (value: T) => void }) {
-  const { theme } = usePreferences(), onAccent = useOnAccent(), t = useT("market");
-  return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[s.pillRow, edgeScroll.row]} contentContainerStyle={[s.pills, edgeScroll.content]} accessibilityRole="radiogroup" accessibilityLabel={t("eventType")}>
-    {options.map(option => { const on = option.id === value;
-      return <Pressable key={option.id} accessibilityRole="radio" accessibilityState={{ selected: on, checked: on }} accessibilityLabel={option.label} onPress={() => onChange(option.id)}
-        style={({ pressed }) => [common.row, s.pill, { backgroundColor: on ? theme.accent : theme.card, borderColor: on ? theme.accent : theme.border, opacity: pressed ? 0.8 : 1 }]}>
-        <Icon name={option.icon} size={17} color={on ? onAccent : theme.mutedForeground} />
-        <T variant="small" style={common.bold} color={on ? onAccent : theme.foreground}>{option.label}</T>
-      </Pressable>; })}
-  </ScrollView>;
-}
 const s = StyleSheet.create({
   card: { borderWidth: 1, borderRadius: 18, overflow: "hidden" },
   body: { gap: 12, padding: 12, alignItems: "flex-start" },
@@ -66,8 +49,4 @@ const s = StyleSheet.create({
   day: { lineHeight: 28 },
   tags: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 4 },
   tag: { borderRadius: 9, paddingHorizontal: 9, paddingVertical: 2 },
-  when: { marginTop: 6, letterSpacing: 0.4 },
-  pillRow: { flexGrow: 0 },
-  pills: { gap: 8, paddingVertical: 2, alignItems: "center" },
-  pill: { gap: 6, minHeight: 44, borderWidth: 1, borderRadius: 22, paddingHorizontal: 14 },
 });

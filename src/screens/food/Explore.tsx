@@ -18,7 +18,7 @@ import { sameSearchContext } from "../../utils/discovery-search";
 import { usePlaceReviewSummaries } from "../../hooks/usePlaceReviewSummaries";
 import { useReactions } from "../../hooks/useReactions";
 import { useMixedKitchenCount } from "../../hooks/useMixedKitchenCount";
-import { SegmentedTabs } from "../../components/SegmentedTabs";
+import { TopBar, TopTabs } from "../../components/TopTabs";
 import { LinkRow } from "../../components/LinkRow";
 import { discoveryRadii } from "../../config/discovery";
 import { useT } from "../../i18n";
@@ -26,7 +26,7 @@ import { useT } from "../../i18n";
 export function ExploreScreen() {
   const { filters, ready, readable } = useFood();
   const { theme, draft } = usePreferences(), discovery = useDiscovery(), t = useT("explore"), tc = useT("common");
-  const kitchens = [{ id: "veg", label: t("vegShort"), accessibleLabel: t("vegKitchen"), flex: .7 }, { id: "mixed", label: t("mixedKitchen"), flex: 1.3 }] as const;
+  const kitchens = [{ id: "veg", label: t("vegKitchen") }, { id: "mixed", label: t("mixedKitchen") }] as const;
   const { input, locationExpired, privateMissing, privateKind, point, areaLabel, searchPlaces } = useDiscoveryInput(useMinuteClock());
   const nearby = useNearbyLocation(), { ensure } = discovery;
   const eligible = ready && !privateMissing && !locationExpired;
@@ -53,13 +53,13 @@ export function ExploreScreen() {
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   return <Screen back={false} compact>
-    <View testID="explore-toolbar" style={[common.row, { gap: 6 }]}>
-      <SegmentedTabs accent label={t("kitchenTabs")} options={kitchens} value={discovery.mixed ? "mixed" : "veg"}
-        onChange={id => discovery.setMixed(id === "mixed")} />
-      <IconButton label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
-        onPress={() => router.push("/explore-search")} />
-      <IconButton label={t("searchByLocation")} icon="locate-outline" disabled={!readable} loading={nearby.busy}
-        selected={!!input.origin} onPress={() => void nearby.locate()} /></View>
+    <TopBar testID="explore-toolbar" actions={<>
+      <IconButton appearance="plain" label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
+        dot={count > 0} onPress={() => router.push("/explore-search")} />
+      <IconButton appearance="plain" label={t("searchByLocation")} icon="locate-outline" disabled={!readable} loading={nearby.busy}
+        selected={!!input.origin} onPress={() => void nearby.locate()} /></>}>
+      <TopTabs label={t("kitchenTabs")} tabs={kitchens} value={discovery.mixed ? "mixed" : "veg"} onChange={id => discovery.setMixed(id === "mixed")} />
+    </TopBar>
     <View testID="explore-search-context" style={s.context}>
     {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
       <Icon name="location-outline" size={14} color={theme.foreground} />
@@ -88,11 +88,11 @@ export function ExploreScreen() {
     {accepted && !discovery.busy && !venues.length && discovery.mixed && <View style={common.stack}>
       <T variant="subtitle" accessibilityRole="header">{t("noMixedHere")}</T>
       {!!wider && <Button label={t("widenArea")} variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
-      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/filters")} /></View>}
+      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
     {accepted && !discovery.busy && !venues.length && !discovery.mixed && <View style={common.stack}>
       <T variant="subtitle" accessibilityRole="header">{t("noPublishedMatch")}</T>
       <T muted>{t("tryWider")}</T>
-      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/filters")} /></View>}
+      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
     {!!mixedCount && <LinkRow label={t("mixedNearby", { n: mixedCount })}
       icon="arrow-forward" hint={t("mixedNearbyHint")} onPress={() => discovery.setMixed(true)} />}
     {accepted && !!discovery.catalogue?.locationGaps && <T variant="caption" muted>{t("locationGaps")}</T>}

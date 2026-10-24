@@ -41,7 +41,6 @@ export const conversation = (id: string, signal: AbortSignal) => call<Conversati
 export const openConversation = (sellerId: string) => call<{ id: string }>("/api/market/conversations", { method: "POST", body: { sellerId } });
 export const sendMessage = (id: string, text: string) => call("/api/market/conversations/" + id + "/messages", { method: "POST", body: { text } });
 export const markRead = (id: string) => call("/api/market/conversations/" + id + "/read", { method: "POST" });
-export const unread = (signal: AbortSignal) => call<{ count: number; messages: number; orders: number }>("/api/market/unread", { signal });
 
 export const sellerState = (signal: AbortSignal) => call<SellerState>("/api/market/seller", { signal });
 export type SellerInput = Omit<SellerProfile, "declarationsVersion" | "status" | "statusNote" | "openedAt">;

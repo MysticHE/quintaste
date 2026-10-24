@@ -17,6 +17,23 @@
       "port": 8086
     },
     {
+      "name": "expo-web-auth",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "expo",
+        "start",
+        "--web",
+        "--clear",
+        "--port",
+        "8088"
+      ],
+      "env": {
+        "CI": "1",
+        "EXPO_PUBLIC_AUTH_ENABLED": "true"
+      },
+      "port": 8088
+    },
+    {
       "name": "expo-web-ops",
       "runtimeExecutable": "node",
       "runtimeArgs": [

@@ -115,6 +115,7 @@ const en = {
   hoursSource: "Hours Source",
   cover: "Cover",
   illustrationNote: "Illustration by QuinTaste, drawn from this place's menu.",
+  photoCreditLine: "Photo · {author} · {license}",
   photographBy: "Photograph by {author}. {license}.",
   menuSourceButton: "Menu Source",
   photoSource: "Photo Source",

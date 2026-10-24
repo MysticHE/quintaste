@@ -8,6 +8,7 @@ import { hash } from './validation.mjs';
 import { publisherKey } from './key.mjs';
 import { staffContent, staffCreated, staffEdited, staffPlace, staffRecord } from '../staff-content.mjs';
 import { logger } from '../config.mjs';
+import { withPoint } from './event-points.mjs';
 
 export const editorial = express.Router();
 const root = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
@@ -82,7 +83,6 @@ editorial.get('/recipes/:id', async (req, res, next) => {
     recipe ? conditional(req, res, recipe) : res.sendStatus(404);
   } catch (e) { next(e); }
 });
-/** Staff edits and hides of the recipes bundled in the app (bot and staff-created recipes come through /recipes). */
 /** A saved event remains viewable after its date; hidden/cancelled records do not. */
 editorial.get('/events/:id', async (req, res, next) => {
   try {
@@ -90,9 +90,10 @@ editorial.get('/events/:id', async (req, res, next) => {
     const id = String(req.params.id), item = staffRecord(staff, 'event', id, snapshot.records['event:' + id]?.data ?? null)
       ?? staffCreated(staff, 'event').find(item => item.id === id);
     if (!item || item.status === 'cancelled') return res.sendStatus(404);
-    conditional(req, res, item);
+    conditional(req, res, withPoint(item));
   } catch (error) { next(error); }
 });
+/** Staff edits and hides of the recipes bundled in the app (bot and staff-created recipes come through /recipes). */
 editorial.get('/staff-recipes', async (req, res, next) => {
   try {
     const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]);
@@ -114,7 +115,9 @@ for (const kind of ['recipe', 'event']) editorial.get('/' + kind + 's', async (r
     const rows = records.filter(Boolean).filter(r => kind === 'recipe' ? !r.withdrawal && (!category || r.categories.includes(category)) && (!q || (r.name + ' ' + r.ingredients.map(i => i.name).join(' ')).toLowerCase().includes(q)) : r.status !== 'cancelled' && Date.parse(r.startsAt) > Date.now() && (!q || (r.title + ' ' + r.organiser + ' ' + r.address).toLowerCase().includes(q)))
       .sort((a, b) => kind === 'event' ? a.startsAt.localeCompare(b.startsAt) : a.name.localeCompare(b.name));
     // Only the requested page is returned. Full recipe steps load at detail time.
-    const items = rows.slice(offset, offset + 20).map(r => kind === 'event' ? r : { ...Object.fromEntries(Object.entries(r).filter(([key]) => !['ingredients', 'steps', 'adaptationNote'].includes(key))), ingredientNames: r.ingredients.map(i => i.name) });
+    // Every upcoming event is placed (in the background), not only this page, so the next page already has its points.
+    const placed = kind === 'event' ? rows.map(withPoint) : rows;
+    const items = placed.slice(offset, offset + 20).map(r => kind === 'event' ? r : { ...Object.fromEntries(Object.entries(r).filter(([key]) => !['ingredients', 'steps', 'adaptationNote'].includes(key))), ingredientNames: r.ingredients.map(i => i.name) });
     conditional(req, res, { revision, items, total: rows.length, nextCursor: offset + 20 < rows.length ? Buffer.from(JSON.stringify({ revision, offset: offset + 20, q, category })).toString('base64url') : null });
   } catch (e) { next(e); }
 });

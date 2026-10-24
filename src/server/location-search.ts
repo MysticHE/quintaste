@@ -39,6 +39,7 @@ export function normalizeLocations(value: unknown, query: string): LocationSugge
 }
 async function requestLocations(query: string): Promise<LocationSearchResult> {
   const local = matchingAreas(query);
+  // Twin: server/editorial/event-points.mjs places events with the same OneMap search; keep the two aligned.
   const url = new URL("https://www.onemap.gov.sg/api/common/elastic/search");
   url.search = new URLSearchParams({ searchVal: query, returnGeom: "Y", getAddrDetails: "Y", pageNum: "1" }).toString();
   try {

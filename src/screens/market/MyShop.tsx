@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { View } from "react-native";
-import { EmptyState, IconButton } from "../../components/food/Controls";
+import { EmptyState } from "../../components/food/Controls";
 import { common } from "../../components/ui";
 import { FirstRunState } from "../../components/BrowseControls";
 import { ListGroup, ListItem, RowIcon, StatusPill, type Tone } from "../../components/GroupedList";
@@ -35,9 +35,10 @@ export function MyShopContent({ tab, setTab, query }: { tab: ShopTab; setTab: (t
   if (!seller) return <FirstRunState icon="storefront-outline" title={t("openShopTitle")} text={t("openShopText")} action={{ label: t("openShop"), icon: "storefront-outline", onPress: () => router.push("/market/setup") }} />;
   return <>
     <ListGroup><ListItem title={seller.tradingName || t("yourShop")} subtitle={[seller.area, seller.status === "suspended" || seller.status === "removed" ? seller.statusNote : ""].filter(Boolean).join(" · ") || undefined} wrap
-      leading={<RowIcon name="storefront-outline" />} trailing={<View style={[common.row, { gap: 6 }]}><StatusPill label={t(statusText[seller.status][0])} tone={statusText[seller.status][1]} />
-        <IconButton label={t("shopSettings")} icon="settings-outline" onPress={() => router.push("/market/setup")} /></View>}
-      onPress={() => seller.status === "active" && userId ? router.push({ pathname: "/market/shop/[id]", params: { id: userId } }) : router.push("/market/setup")} /></ListGroup>
+      leading={<RowIcon name="storefront-outline" />} trailing={<StatusPill label={t(statusText[seller.status][0])} tone={statusText[seller.status][1]} />}
+      onPress={() => seller.status === "active" && userId ? router.push({ pathname: "/market/shop/[id]", params: { id: userId } }) : router.push("/market/setup")} />
+      {/* A separate row: a button inside the tappable shop row would nest one button in another. */}
+      <ListItem title={t("shopSettings")} leading={<RowIcon name="settings-outline" />} onPress={() => router.push("/market/setup")} /></ListGroup>
     <View style={common.row}><SegmentedTabs options={shopTabs.map(item => ({ id: item.id, label: t(item.label) }))} value={tab} onChange={setTab} label={t("tabMyShop")} /></View>
     {tab === "orders" ? <SellerOrders /> : tab === "items" ? <SellerItems query={query} /> : <SellerSlots />}
   </>;

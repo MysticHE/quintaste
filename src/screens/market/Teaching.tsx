@@ -34,7 +34,7 @@ export function TeachingScreen() {
   useEffect(() => { if (create === "1" && approved) router.replace("/market/class-edit"); }, [create, approved]);
   return <Screen title={t("teachTitle")} floatingAction={approved ? <FloatingAddButton label={t("newClass")} onPress={() => openMarket("/class-edit")} /> : undefined}>
     <MemberGate returnTo="/market/teaching">
-      <RemoteStatus remote={remote} icon="school-outline" returnTo="/market?tab=events" />
+      <RemoteStatus remote={remote} icon="school-outline" returnTo="/cook?tab=events" />
       {!!joined.length && <ListGroup title={t("joinedClasses")} inset={72}>{joined.map(c => <ClassRow key={c.id} c={c} own={false} />)}</ListGroup>}
       {remote.data && (host ? <ListGroup><ListItem title={t(hostState[host.status][0])} subtitle={host.reason || undefined} wrap
         leading={<RowIcon name="school-outline" tone={hostState[host.status][1]} />}

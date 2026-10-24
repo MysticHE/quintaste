@@ -10,21 +10,24 @@ import { sgText } from '../social/rules.mjs';
  * reserves a seat straight away; members pay the teacher directly: QuinTaste takes no payment.
  */
 export const classes = express.Router();
+/** Class chats (ch, joined to their class c) that member $1 takes part in; blocks and restrictions match chatFor. */
+const classChatsFrom = `social.class_chat ch JOIN social.class c ON c.id=ch.class_id JOIN social.host h ON h.user_id=c.host_id
+  JOIN public."user" u ON u.id=ch.member_id`;
+const classChatsWhere = `(ch.member_id=$1 OR c.host_id=$1) AND ${notRestricted('c.host_id')} AND ${notBlocked('c.host_id', 'ch.member_id')}`;
+const classUnreadSql = `EXISTS (SELECT 1 FROM social.class_message m WHERE m.chat_id=ch.id AND m.sender_id IS DISTINCT FROM $1
+  AND m.created_at > CASE WHEN c.host_id=$1 THEN ch.host_read_at ELSE ch.member_read_at END)`;
+/** For the app-wide inbox count (server/community/inbox.mjs). */
+export const unreadClassChatsSql = `(SELECT count(*)::int FROM ${classChatsFrom} WHERE ${classChatsWhere} AND ${classUnreadSql})`;
 /** Every existing private class conversation, including enquiries before joining.
- * The participant predicate is independent of teacher approval; blocks/restrictions
- * match chatFor. Never enumerate another teacher's students through this endpoint. */
+ * The participant predicate is independent of teacher approval. Never enumerate another teacher's students through this endpoint. */
 classes.get('/class-conversations', signedIn, async (_req, res) => {
   const me = res.locals.user.id;
   const rows = (await pool.query(`SELECT ch.id, c.id AS "classId", c.title, ${sgText('c.starts')} AS starts,
       ch.member_id AS "memberId", c.host_id=$1 AS hosting, ch.updated_at AS "updatedAt",
       CASE WHEN c.host_id=$1 THEN coalesce(nullif(p.first_name,''), u.name, 'Member') ELSE h.display_name END AS name,
       (SELECT body FROM social.class_message m WHERE m.chat_id=ch.id AND m.kind='text' ORDER BY m.created_at DESC, m.id DESC LIMIT 1) AS last,
-      EXISTS (SELECT 1 FROM social.class_message m WHERE m.chat_id=ch.id AND m.sender_id IS DISTINCT FROM $1
-        AND m.created_at > CASE WHEN c.host_id=$1 THEN ch.host_read_at ELSE ch.member_read_at END) AS unread
-    FROM social.class_chat ch JOIN social.class c ON c.id=ch.class_id JOIN social.host h ON h.user_id=c.host_id
-      JOIN public."user" u ON u.id=ch.member_id LEFT JOIN social.profile p ON p.user_id=ch.member_id
-    WHERE (ch.member_id=$1 OR c.host_id=$1) AND ${notRestricted('c.host_id')}
-      AND ${notBlocked('c.host_id', 'ch.member_id')}
+      ${classUnreadSql} AS unread
+    FROM ${classChatsFrom} LEFT JOIN social.profile p ON p.user_id=ch.member_id WHERE ${classChatsWhere}
     ORDER BY ch.updated_at DESC, ch.id DESC LIMIT 200`, [me])).rows;
   res.json({ items: rows });
 });

@@ -40,7 +40,7 @@ function SetupFlow({ me }: { me: SocialMe }) {
     } catch (failure) { setError(problem(failure)); }
     finally { setBusy(false); }
   };
-  if (outsideAge) return <AgeNotice onEvents={() => router.replace("/market?tab=events")} />;
+  if (outsideAge) return <AgeNotice onEvents={() => router.replace("/cook?tab=events")} />;
   if (sent) return <WaitingState onDone={() => router.replace("/social")} />;
   const basicsDone = !!(draft.firstName.trim() && draft.gender && draft.birthDate && draft.area);
   const next = step === 1 ? <Button label={t("continue")} icon="arrow-forward" disabled={!photos.length} onPress={() => setStep(2)} />

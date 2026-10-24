@@ -67,7 +67,7 @@ export function AgeNotice({ onEvents }: { onEvents: () => void }) {
 /** Social screens past setup: a signed-in member aged 21 to 45. Anyone outside the range sees the notice that points to Market > Events. */
 export function SocialGate({ children, returnTo }: PropsWithChildren<{ returnTo: string }>) {
   const me = useSocialMe().data;
-  return <MemberGate returnTo={returnTo}>{me?.standing.step === "age" ? <AgeNotice onEvents={() => router.push("/market?tab=events")} /> : children}</MemberGate>;
+  return <MemberGate returnTo={returnTo}>{me?.standing.step === "age" ? <AgeNotice onEvents={() => router.push("/cook?tab=events")} /> : children}</MemberGate>;
 }
 /** People, Friends and Dinners need a finished setup and age 21 to 45; the gate shows the right first step instead. */
 export function MeetGate({ data, onEvents, children }: PropsWithChildren<{ data: SocialMe | undefined; onEvents: () => void }>) {

@@ -4,10 +4,16 @@ import { useFocusEffect } from "expo-router";
 import { ApiError, sessionHeaders } from "../services/community-api";
 
 const cache = new Map<string, unknown>();
-const listeners = new Map<string, Set<() => void>>();
+const listeners = new Map<string, Set<() => void>>(), followers = new Set<(prefixes: string[]) => void>();
 /** Refetches every mounted view whose key starts with one of the prefixes. */
 export function invalidate(...prefixes: string[]) {
   for (const [key, set] of listeners) if (prefixes.some(prefix => key.startsWith(prefix))) set.forEach(run => run());
+  followers.forEach(follow => follow(prefixes));
+}
+/** Hears every invalidation, for data derived from other keys (the inbox count follows Social and Market changes). */
+export function onInvalidate(follow: (prefixes: string[]) => void) {
+  followers.add(follow);
+  return () => { followers.delete(follow); };
 }
 let headerCache: Record<string, string> | null = null, epoch = 0;
 /** Clears all cached community data, for example when the signed-in account changes, and reloads mounted views. */

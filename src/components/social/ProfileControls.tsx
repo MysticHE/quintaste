@@ -1,23 +1,17 @@
-import { ScrollView, Pressable, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Icon, T, common } from "../ui";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
-import { IconButton } from "../food/Controls";
+import { Chip, HorizontalChips, IconButton } from "../food/Controls";
 import { router } from "expo-router";
 
-export function ProfileTabs<Tab extends string>({ options, value, onChange, solid = false, label }: {
-  options: { id: Tab; label: string }[]; value: Tab; onChange: (id: Tab) => void; solid?: boolean; label: string;
+/** A single-choice filter row under a section (My posts and Saved kinds, Messages kinds). */
+export function ChoiceChips<V extends string>({ options, value, onChange, label }: {
+  options: readonly { id: V; label: string }[]; value: V; onChange: (id: V) => void; label: string;
 }) {
-  const { theme } = usePreferences();
-  return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }} contentContainerStyle={{ flexGrow: 1, borderRadius: 12, backgroundColor: solid ? theme.muted : theme.transparent }}
-    accessibilityRole="tablist" accessibilityLabel={label}>
-    {options.map(o => <Pressable key={o.id} accessibilityRole="tab" accessibilityLabel={o.label} accessibilityState={{ selected: o.id === value }} aria-selected={o.id === value}
-      onPress={() => onChange(o.id)} style={({ pressed }) => ({ flex: 1, flexBasis: 'auto', minHeight: 48, paddingHorizontal: 12, paddingVertical: 12, alignItems: "center", justifyContent: "center", borderRadius: solid ? 12 : 0,
-        backgroundColor: solid && o.id === value ? theme.foreground : pressed ? theme.accentSoft : theme.transparent,
-        borderBottomWidth: solid ? 0 : 2, borderBottomColor: o.id === value ? theme.accent : theme.transparent })}>
-      <T variant="button" style={{ textAlign: "center" }} color={solid && o.id === value ? theme.background : o.id === value ? theme.accent : theme.foreground}>{o.label}</T>
-    </Pressable>)}
-  </ScrollView>;
+  return <View accessibilityRole="radiogroup" accessibilityLabel={label}><HorizontalChips bleed>
+    {options.map(o => <Chip key={o.id} compact role="radio" label={o.label} selected={o.id === value} onPress={() => onChange(o.id)} />)}
+  </HorizontalChips></View>;
 }
 export function MessagesButton({ unread }: { unread: number }) {
   const t = useT("profile");

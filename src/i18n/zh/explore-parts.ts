@@ -115,6 +115,7 @@ const zh: typeof en = {
   hoursSource: "营业时间来源",
   cover: "封面",
   illustrationNote: "由 QuinTaste 根据这家店的菜单绘制的插图。",
+  photoCreditLine: "照片 · {author} · {license}",
   photographBy: "摄影：{author}。{license}。",
   menuSourceButton: "菜单来源",
   photoSource: "照片来源",

@@ -85,7 +85,7 @@ const zh: typeof en = {
   servings: "份量",
   servingsCount: "{n} 份",
   mainNavigation: "主导航",
-  tabNew: "，{n} 项新动态",
+  tabActivity: "，有新动态",
   tabPosition: "，第 {i} 个标签，共 {n} 个",
   loadingApp: "QuinTaste 正在加载",
   skipIntro: "跳过 QuinTaste 开场动画",

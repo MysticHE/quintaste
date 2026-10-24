@@ -1,4 +1,4 @@
-import { router, type Href } from "expo-router";
+import { router, useLocalSearchParams, type Href } from "expo-router";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
 import { Screen } from "../../components/Screen";
@@ -6,7 +6,7 @@ import { RemoteStatus } from "../../components/CommunityGate";
 import { MemberGate } from "../../components/social/SocialState";
 import { Avatar } from "../../components/social/SocialPhoto";
 import { useLineText } from "../../components/social/ChatThread";
-import { ProfileTabs } from "../../components/social/ProfileControls";
+import { ChoiceChips } from "../../components/social/ProfileControls";
 import { Button, Icon, T, common } from "../../components/ui";
 import { SearchField, EmptyState } from "../../components/food/Controls";
 import { ThemedSwitch } from "../../components/GroupedList";
@@ -17,9 +17,12 @@ import { chatTime } from "../../utils/chat-time";
 
 type Kind = "all" | "friends" | "market" | "classes";
 type Thread = { id: string; kind: Kind; name: string; label: string; context: string; preview: string; at: string; unread: boolean; photo?: string | null; href: Href };
+const kinds = ["all", "friends", "market", "classes"] as const;
 export function MessagesScreen() {
   const t = useT("profile"), { theme } = usePreferences(), language = useLanguage(), data = useMessages(), describe = useLineText();
-  const [kind, setKind] = useState<Kind>("all"), [query, setQuery] = useState(""), [unreadOnly, setUnreadOnly] = useState(false);
+  // Older Market and Social inbox links open their own kind (/market/inbox → ?kind=market).
+  const { kind: initial } = useLocalSearchParams<{ kind?: string }>();
+  const [kind, setKind] = useState<Kind>(kinds.find(k => k === initial) ?? "all"), [query, setQuery] = useState(""), [unreadOnly, setUnreadOnly] = useState(false);
   const rows: Thread[] = [
     ...(data.allowed ? data.friends.data?.friends ?? [] : []).filter(f => !!f.threadId).map(f => ({ id: "f:" + f.id, kind: "friends" as const, name: f.firstName, label: t("friend"), context: "", photo: f.photo,
       preview: f.last ? describe(f.last, f.firstName) : "", at: f.last?.at ?? f.updatedAt, unread: f.unread > 0, href: ("/social/chat/" + f.id) as Href })),
@@ -37,7 +40,7 @@ export function MessagesScreen() {
   return <Screen title={t("messages")} backTo="/social" hideTimers>
     <MemberGate returnTo="/messages">
       <SearchField value={query} onChange={setQuery} placeholder={t("searchMessages")} />
-      <ProfileTabs options={(["all", "friends", "market", "classes"] as const).map(id => ({ id, label: t(id === "classes" ? "classChats" : id) }))} value={kind} onChange={setKind} label={t("messages")} />
+      <ChoiceChips options={kinds.map(id => ({ id, label: t(id === "classes" ? "classChats" : id) }))} value={kind} onChange={setKind} label={t("messages")} />
       <View style={[common.row, { justifyContent: "flex-end", gap: 8 }]}><T variant="small" muted>{t("unreadOnly")}</T><ThemedSwitch label={t("unreadOnly")} value={unreadOnly} onChange={setUnreadOnly} /></View>
       {sources.map((remote, i) => <RemoteStatus key={i} remote={remote} icon="chatbubble-outline" returnTo="/messages" />)}
       {visible.map(r => <Pressable key={r.id} accessibilityRole="button" accessibilityLabel={[r.name, r.label, r.context, r.preview, r.unread ? t("unreadOnly") : ""].filter(Boolean).join(", ")}
@@ -49,8 +52,7 @@ export function MessagesScreen() {
         {r.unread && <View style={{ alignSelf: "center", width: 8, height: 8, borderRadius: 4, backgroundColor: theme.accent }} />}
       </Pressable>)}
       {!loading && !failed && !visible.length && <EmptyState icon="chatbubbles-outline" title={t(term ? "noMessageMatch" : unreadOnly ? "noUnread" : "noMessages")} text={term || unreadOnly ? "" : t("noMessagesText")} />}
-      <Button variant="link" label={t("friends")} onPress={() => router.push("/social/community?tab=friends")} />
-      <T variant="caption" muted style={{ textAlign: "center" }}>{t("chatNote")}</T>
+      <Button variant="link" label={t("findFriends")} icon="people-outline" onPress={() => router.push("/social/community?tab=friends")} />
     </MemberGate>
   </Screen>;
 }

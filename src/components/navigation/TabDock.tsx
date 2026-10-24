@@ -2,8 +2,8 @@ import { BlurView } from "expo-blur";
 import type { Tabs } from "expo-router";
 import { useEffect, useState, type ComponentProps } from "react";
 import { Keyboard, Platform, Pressable, StyleSheet, View } from "react-native";
-import { T, common } from "../ui";
-import { useMarketUnread } from "../market/MarketUnread";
+import { T } from "../ui";
+import { useInbox } from "../InboxCounts";
 import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
 import { useGlassNavigation } from "./GlassNavigation";
@@ -19,7 +19,8 @@ const tabs: Record<string, { label: "tabExplore" | "tabCook" | "tabSocial" | "ta
 };
 
 export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
-  const { theme } = usePreferences(), marketBadge = useMarketUnread()?.count ?? 0, t = useT("common");
+  // A dot, not a number: the counts themselves sit where each thing lives (Messages, My shop, Dining).
+  const { theme } = usePreferences(), activity = (useInbox()?.total ?? 0) > 0, t = useT("common");
   const glass = useGlassNavigation(), setHeight = glass?.setHeight;
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {
@@ -38,15 +39,16 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
       {!glass?.reduceTransparency && <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: theme.navigation.glassTint }]} />}
       <View style={s.tabs} accessibilityRole="tablist" accessibilityLabel={t("mainNavigation")}>
         {state.routes.map((route, index) => {
-          const item = tabs[route.name], { options } = descriptors[route.key], selected = state.index === index || (route.name === "cook" && state.routes[state.index]?.name === "market");
+          // The hidden Market route is the Orders / My shop hub opened from Social.
+          const item = tabs[route.name], { options } = descriptors[route.key], selected = state.index === index || (route.name === "social" && state.routes[state.index]?.name === "market");
           if (!item) return null;
           const press = () => {
             const event = navigation.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
-            if (!selected && !event.defaultPrevented) navigation.navigate(route.name, route.params);
+            if (state.index !== index && !event.defaultPrevented) navigation.navigate(route.name, route.params);
           };
-          const badge = route.name === "cook" ? marketBadge : 0;
-          return <DockTab key={route.key} label={t(item.label)} icon={item.icon} selected={selected} onPress={press} badge={badge}
-            accessibilityLabel={options.tabBarAccessibilityLabel ?? t(item.label) + (badge ? t("tabNew", { n: badge }) : "") + t("tabPosition", { i: state.routes.filter(r => !!tabs[r.name]).findIndex(r => r.key === route.key) + 1, n: Object.keys(tabs).length })}
+          const dot = route.name === "social" && activity;
+          return <DockTab key={route.key} label={t(item.label)} icon={item.icon} selected={selected} onPress={press} dot={dot}
+            accessibilityLabel={options.tabBarAccessibilityLabel ?? t(item.label) + (dot ? t("tabActivity") : "") + t("tabPosition", { i: state.routes.filter(r => !!tabs[r.name]).findIndex(r => r.key === route.key) + 1, n: Object.keys(tabs).length })}
             testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })} />;
         })}
       </View>
@@ -54,9 +56,9 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
   </View>;
 }
 
-function DockTab({ label, icon, selected, onPress, onLongPress, accessibilityLabel, testID, badge = 0 }: {
+function DockTab({ label, icon, selected, onPress, onLongPress, accessibilityLabel, testID, dot = false }: {
   label: string; icon: QuinTasteTab; selected: boolean; onPress: () => void; onLongPress: () => void;
-  accessibilityLabel: string; testID?: string; badge?: number;
+  accessibilityLabel: string; testID?: string; dot?: boolean;
 }) {
   const { theme } = usePreferences();
   const { focused, focusProps } = useKeyboardFocus(), [hovered, setHovered] = useState(false);
@@ -73,8 +75,7 @@ function DockTab({ label, icon, selected, onPress, onLongPress, accessibilityLab
       borderColor: selected ? theme.navigation.selectedForeground : theme.transparent,
     }]}><QuinTasteIcon name={icon} color={color} selected={selected} size={27} /></View>
     <T variant="caption" color={color} style={{ textAlign: "center", fontSize: 11, marginTop: 2 }}>{label}</T>
-    {badge > 0 && <View pointerEvents="none" style={[s.badge, { backgroundColor: theme.accent }]}>
-      <T variant="caption" color={theme.actionForeground} style={common.bold}>{badge > 99 ? "99+" : badge}</T></View>}
+    {dot && <View testID={"tab-dot-" + icon} pointerEvents="none" style={[s.dot, { backgroundColor: theme.accent, borderColor: theme.background }]} />}
   </Pressable>;
 }
 
@@ -84,6 +85,6 @@ const s = StyleSheet.create({
   tabs: { flexDirection: "row", gap: 6 },
   tab: { flex: 1, minWidth: 48, minHeight: 68, paddingHorizontal: 2,
     borderWidth: 2, borderRadius: 18, alignItems: "center", justifyContent: "center", overflow: "hidden" },
-  badge: { position: "absolute", top: 4, left: "55%", minWidth: 18, height: 18, borderRadius: 9, alignItems: "center", justifyContent: "center", paddingHorizontal: 4 },
+  dot: { position: "absolute", top: 6, left: "58%", width: 10, height: 10, borderRadius: 5, borderWidth: 1.5 },
   highlight: { width: "100%", maxWidth: 68, height: 38, borderRadius: 22, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
 });

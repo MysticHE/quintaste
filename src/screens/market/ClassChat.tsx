@@ -29,7 +29,7 @@ export function ClassChatScreen() {
   };
   return <Screen title={other || cls?.title || tp("class")} subtitle={tp(teaching ? "classMember" : "classTeacher")} fill hideTimers backTo="/messages">
     <MemberGate returnTo={"/market/class-chat/" + id}>
-      <RemoteStatus remote={lines} icon="chatbubbles-outline" returnTo="/market?tab=events" missing={t("classUnavailable")} />
+      <RemoteStatus remote={lines} icon="chatbubbles-outline" returnTo="/cook?tab=events" missing={t("classUnavailable")} />
       {lines.data && <ChatThread lines={lines.data.items} name={other} describe={line => describe(line, teaching, memberName ?? "")} placeholder={teaching ? tp("messagePerson", { name: other }) : tp("askTeacher")} top={cls && <View style={{ gap: 8 }}><ChatContext title={cls.title}
           detail={formatSgShort(cls.starts, language) + " \u00b7 " + cls.venue} action={tp("viewClass")} icon="school-outline" onPress={() => router.push({ pathname: "/market/class/[id]", params: { id: cls.id } })} />
           {!teaching && <T variant="caption" muted style={{ textAlign: "center" }}>{tp("privateClass")}</T>}</View>} onSend={send} empty={t("classChatEmpty", { name: other })} />}

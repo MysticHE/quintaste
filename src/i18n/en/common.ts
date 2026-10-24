@@ -85,7 +85,7 @@ const en = {
   servings: "Servings",
   servingsCount: "{n} servings",
   mainNavigation: "Main navigation",
-  tabNew: ", {n} new",
+  tabActivity: ", new activity",
   tabPosition: ", tab {i} of {n}",
   loadingApp: "Loading QuinTaste",
   skipIntro: "Skip QuinTaste intro",

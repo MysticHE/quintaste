@@ -54,18 +54,20 @@ friends.get('/friends', async (_req, res) => {
     sent: requests.filter(r => r.mine).map(({ photo, mine: _m, ...r }) => ({ ...r, photo: thumbOf(photo) })) });
 });
 
-/** Tab badges: friend requests waiting, unread chat lines from friends, and dinners that need the member (an answer, or how it went). */
+/** Counts for member $1, shared by the tab badges below and the app-wide inbox count (server/community/inbox.mjs). */
+export const friendRequestsSql = `(SELECT count(*)::int FROM social.friend_request r WHERE r.to_id=$1 AND r.status='pending' AND r.created_at > now() - interval '14 days'
+  AND ${reachableSql('r.from_id', '$1')})`;
+/** Friend chats with a message $1 has not read (conversations, not messages, to match the Messages count). */
+export const unreadFriendChatsSql = `(SELECT count(DISTINCT t.id)::int FROM social.thread t JOIN social.thread_message m ON m.thread_id=t.id WHERE (t.a_id=$1 OR t.b_id=$1)
+  AND m.sender_id IS DISTINCT FROM $1 AND m.created_at > CASE WHEN t.a_id=$1 THEN t.a_read_at ELSE t.b_read_at END AND ${friendsSql('t.a_id', 't.b_id')}
+  AND ${meetAgeSql('CASE WHEN t.a_id=$1 THEN t.b_id ELSE t.a_id END')})`;
+/** Invitations waiting on $1, and recent dinners $1 has not reported on yet. */
+export const dinnersDueSql = `(SELECT count(*)::int FROM social.dinner d WHERE (d.status='invited' AND d.waiting_on=$1 AND d.expires_at > now() AND d.starts > now())
+  OR (d.status='accepted' AND (d.host_id=$1 OR d.guest_id=$1) AND d.starts < now() AND d.starts > now() - interval '30 days'
+    AND NOT EXISTS (SELECT 1 FROM social.dinner_report r WHERE r.dinner_id=d.id AND r.user_id=$1)))`;
+/** Tab badges: friend requests waiting, friend chats with unread lines, and dinners that need the member (an answer, or how it went). */
 friends.get('/badges', async (_req, res) => {
-  const me = res.locals.user.id;
-  const row = (await pool.query(`SELECT
-      (SELECT count(*)::int FROM social.friend_request r WHERE r.to_id=$1 AND r.status='pending' AND r.created_at > now() - interval '14 days'
-        AND ${reachableSql('r.from_id', '$1')}) AS requests,
-      (SELECT count(*)::int FROM social.thread t JOIN social.thread_message m ON m.thread_id=t.id WHERE (t.a_id=$1 OR t.b_id=$1) AND m.sender_id IS DISTINCT FROM $1
-        AND m.created_at > CASE WHEN t.a_id=$1 THEN t.a_read_at ELSE t.b_read_at END AND ${friendsSql('t.a_id', 't.b_id')}
-        AND ${meetAgeSql('CASE WHEN t.a_id=$1 THEN t.b_id ELSE t.a_id END')}) AS messages,
-      (SELECT count(*)::int FROM social.dinner d WHERE (d.status='invited' AND d.waiting_on=$1 AND d.expires_at > now() AND d.starts > now())
-        OR (d.status='accepted' AND (d.host_id=$1 OR d.guest_id=$1) AND d.starts < now() AND d.starts > now() - interval '30 days'
-          AND NOT EXISTS (SELECT 1 FROM social.dinner_report r WHERE r.dinner_id=d.id AND r.user_id=$1))) AS dinners`, [me])).rows[0];
+  const row = (await pool.query(`SELECT ${friendRequestsSql} AS requests, ${unreadFriendChatsSql} AS messages, ${dinnersDueSql} AS dinners`, [res.locals.user.id])).rows[0];
   res.json(row);
 });
 /**

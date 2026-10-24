@@ -10,9 +10,10 @@ import { useDebounced } from "../../hooks/useDebounced";
 import { useRemote } from "../../hooks/useRemote";
 import { people, peopleKey } from "../../services/social-api";
 import { useT } from "../../i18n";
-import { defaultMeetFilters } from "../../types/meet";
+import { defaultMeetFilters, type MeetFilters } from "../../types/meet";
 import type { Person, SocialMe } from "../../types/community";
-import { activePeopleFilters } from "./Home";
+
+export const activePeopleFilters = (f: MeetFilters) => f.diets.length > 0 || f.ages.length > 0 || f.languages.length > 0 || f.hobbies.length > 0 || f.km > 0;
 
 /** People to meet: public, verified members of the opposite gender aged 21+, nearest areas first. Your own profile row sits on top. */
 export function PeopleTab({ query, me }: { query: string; me: SocialMe }) {

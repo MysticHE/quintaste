@@ -2,7 +2,6 @@ import type en from "../en/explore-screens";
 
 /** 简体中文：探索、筛选、店家、菜单、收藏、位置和示例页面。 */
 const zh: typeof en = {
-  vegShort: "素食",
   searchAndFilters: "搜索与筛选",
   recentPlaceSearches: "最近搜索",
   removeRecentPlaceSearch: v => "从最近搜索中移除" + String(v.name),

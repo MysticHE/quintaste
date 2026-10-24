@@ -35,17 +35,19 @@ export function HorizontalChips({ children, bleed = false }: PropsWithChildren<{
   return <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[{ flexGrow: 0 }, bleed && edgeScroll.row]}
     contentContainerStyle={[{ gap: 8, alignItems: "center", paddingVertical: 2 }, bleed && edgeScroll.content]}>{children}</ScrollView>;
 }
-export function IconButton({ label, icon, onPress, selected = false, badge = 0, appearance = "default", disabled = false, loading = false }: {
-  label: string; icon: IconName; onPress: () => void; selected?: boolean; badge?: number; appearance?: "default" | "media" | "plain"; disabled?: boolean; loading?: boolean;
+/** `dot` marks an active state (search with filters on) without a count. */
+export function IconButton({ label, icon, onPress, selected = false, badge = 0, dot = false, appearance = "default", disabled = false, loading = false }: {
+  label: string; icon: IconName; onPress: () => void; selected?: boolean; badge?: number; dot?: boolean; appearance?: "default" | "media" | "plain"; disabled?: boolean; loading?: boolean;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
   const media = appearance === "media", plain = appearance === "plain";
   return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected, disabled: disabled || loading, busy: loading }} disabled={disabled || loading}
     onPress={onPress} {...focusProps}
-    style={({ pressed }) => [s.iconButton, media && s.mediaButton, plain && s.plainButton, { backgroundColor: media ? theme.mediaControl : plain ? (pressed ? theme.accentSoft : theme.transparent) : selected ? theme.accentSoft : theme.card,
+    style={({ pressed }) => [s.iconButton, media && s.mediaButton, plain && s.plainButton, { backgroundColor: media ? theme.mediaControl : plain ? (pressed || selected ? theme.accentSoft : theme.transparent) : selected ? theme.accentSoft : theme.card,
       borderColor: focused ? (media ? theme.mediaForeground : theme.accent) : media || plain ? theme.transparent : selected ? theme.accent : theme.border, opacity: disabled ? 0.5 : pressed && !plain ? 0.7 : 1 }]}>
     {loading ? <ActivityIndicator color={theme.accent} /> : <Icon name={icon} size={plain ? 22 : 20} color={media ? theme.mediaForeground : selected || plain ? theme.accent : theme.mutedForeground} />}
     {badge > 0 && <View style={[s.badge, { backgroundColor: theme.accent }]}><T variant="small" color={theme.actionForeground} style={common.bold}>{badge}</T></View>}
+    {dot && !badge && <View pointerEvents="none" style={[s.dot, { backgroundColor: theme.accent }]} />}
   </Pressable>;
 }
 export function MeButton() {
@@ -107,6 +109,7 @@ const s = StyleSheet.create({
   mediaButton: { borderRadius: 24, borderWidth: 2 },
   plainButton: { borderRadius: 24, borderWidth: 2 },
   badge: { position: "absolute", right: 0, top: 0, minWidth: 18, minHeight: 18, borderRadius: 9, alignItems: "center", justifyContent: "center", paddingHorizontal: 3 },
+  dot: { position: "absolute", right: 9, top: 9, width: 8, height: 8, borderRadius: 4 },
   avatar: { width: 48, height: 48, borderRadius: 24, borderWidth: 1, overflow: "hidden" },
   avatarImage: { width: "100%", height: "100%" },
   search: { flexDirection: "row", alignItems: "center", gap: 8, borderWidth: 1, borderRadius: 12, paddingLeft: 10, minHeight: 48 },

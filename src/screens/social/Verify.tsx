@@ -59,7 +59,7 @@ export function VerifyPanel({ onSent }: { onSent: (standing: Standing) => void }
   if (!remote.data) return <RemoteStatus remote={remote} icon="camera-outline" returnTo="/social/verify" />;
   // Photos and basics come first (the selfie is compared with the main photo); members under 21 have no photo check.
   if (standing?.step === "photos" || standing?.step === "basics") return <SetupPrompt />;
-  if (standing?.step === "age") return <AgeNotice onEvents={() => router.replace("/market?tab=events")} />;
+  if (standing?.step === "age") return <AgeNotice onEvents={() => router.replace("/cook?tab=events")} />;
   if (standing?.step === "waiting") return <WaitingState onDone={() => router.replace("/social")} />;
   if (standing?.verified) return <StateView size="page" icon="checkmark-circle-outline" title={t("verifiedStatus")} text="" primary={{ label: t("done"), icon: "checkmark", onPress: () => router.replace("/social") }} />;
   return <View style={{ gap: 14 }}>
