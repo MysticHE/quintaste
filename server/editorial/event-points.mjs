@@ -29,13 +29,15 @@ function searchFor(event) {
   return streets.length ? { key: streets.join('|').toLowerCase(), postal: null, streets } : null;
 }
 class RateLimited extends Error {}
+/** @typedef {{ LATITUDE?: string, LONGITUDE?: string, POSTAL?: string, ADDRESS?: string }} OneMapResult */
+/** @param {string} query @returns {Promise<OneMapResult[]>} */
 async function oneMap(query) {
   const url = new URL('https://www.onemap.gov.sg/api/common/elastic/search');
   url.search = new URLSearchParams({ searchVal: query, returnGeom: 'Y', getAddrDetails: 'Y', pageNum: '1' }).toString();
   const response = await fetch(url, { signal: AbortSignal.timeout(8000) });
   if (response.status === 429) { await response.body?.cancel(); throw new RateLimited(); }
   if (!response.ok) throw new Error('OneMap ' + response.status);
-  const results = (await response.json())?.results;
+  const results = /** @type {{ results?: unknown }} */ (await response.json())?.results;
   return Array.isArray(results) ? results : [];
 }
 /**
