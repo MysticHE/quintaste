@@ -34,7 +34,7 @@ function SpotChoices({ ids, value, onChange }: { ids: string[]; value: SocialPla
       <Chip label={t("searchPlaces")} icon="search" onPress={() => setSearch(true)} />
     </HorizontalChips>
     {value && <View style={[common.row, { gap: 6 }]}><Icon name="time-outline" size={14} color={theme.mutedForeground} /><T variant="small" muted numberOfLines={1}>{value.hours || value.address}</T></View>}
-    <PlacePicker visible={search} onClose={() => setSearch(false)} onPick={onChange} />
+    <PlacePicker visible={search} onClose={() => setSearch(false)} onPick={onChange} selectedId={value?.id} />
   </View>;
 }
 /** Invite someone to a concrete meal: when, where, how many, who pays, and an answer to their opening question. */

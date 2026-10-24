@@ -1,6 +1,7 @@
 import { communityRequest as call } from "./community-api";
 import type { Gathering, GatheringInput, Group, HostApplication, Kaki, KakiSay, NearbyArea, Person, SocialPlace, SocialProfile, Table, TableInput, Unread } from "../types/community";
 import type { MeetFilters } from "../types/meet";
+import type { SearchPoint } from "../types/location-search";
 
 export const me = (signal: AbortSignal) => call<{ id: string; accountName: string; profile: SocialProfile }>("/api/social/me", { signal });
 export const saveProfile = (profile: SocialProfile) => call<{ profile: SocialProfile; paused: boolean }>("/api/social/me", { method: "PUT", body: { profile } });
@@ -18,7 +19,9 @@ export function peopleKey(q: string, f: MeetFilters) {
 export const faceUrl = (id: string) => "/api/social/faces/" + encodeURIComponent(id);
 export const saveFace = (image: string) => call<{ hasFace: boolean }>("/api/social/me/face", { method: "PUT", body: { image } });
 export const removeFace = () => call<{ hasFace: boolean }>("/api/social/me/face", { method: "DELETE" });
-export const placesKey = (q: string) => "/api/social/places?q=" + encodeURIComponent(q.trim());
+/** Name search (`q`) and/or nearest-first places (`near`, rounded to about 100 m so no exact address leaves the phone). */
+export const placesKey = (q: string, near?: SearchPoint | null) => "/api/social/places?q=" + encodeURIComponent(q.trim())
+  + (near ? "&near=" + near.latitude.toFixed(3) + "," + near.longitude.toFixed(3) : "");
 export const placesByIdKey = (ids: readonly string[]) => ids.length ? "/api/social/places?ids=" + ids.map(encodeURIComponent).join(",") : null;
 export const places = (path: string, signal: AbortSignal) => call<{ items: SocialPlace[] }>(path, { signal });
 export const nearby = (signal: AbortSignal) => call<{ areas: NearbyArea[] }>("/api/social/nearby", { signal });

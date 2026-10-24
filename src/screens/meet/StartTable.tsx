@@ -71,6 +71,6 @@ function StartTable({ me }: { me: SocialProfile }) {
       <T variant="small" muted style={{ alignSelf: "flex-end" }}>{note.length + " / 120"}</T>
     </FormSection>
     <View style={common.stack}><Action label={t("postTable")} disabled={!place || !starts || !diets.length} run={post} /></View>
-    <PlacePicker visible={picking} onClose={() => setPicking(false)} onPick={setChosen} />
+    <PlacePicker visible={picking} onClose={() => setPicking(false)} onPick={setChosen} selectedId={place?.id} />
   </>;
 }
