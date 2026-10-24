@@ -21,10 +21,10 @@ import type { ShopPage, Slot } from "../../types/community";
 export default function CheckoutScreen() {
   const { seller = "", listing, slot, items } = useLocalSearchParams<{ seller: string; listing?: string; slot?: string; items?: string }>(), { member } = useMember();
   const remote = useRemote(member && seller ? "/api/market/shops/" + seller : null, signal => loadShop(seller, signal)), t = useT("market");
-  return <Screen title={t("checkoutTitle")} hideTimers backTo="/market">
-    {!member ? <MemberPrompt icon="bag-handle-outline" returnTo="/market" />
+  return <Screen title={t("checkoutTitle")} hideTimers backTo="/cook?tab=market">
+    {!member ? <MemberPrompt icon="bag-handle-outline" returnTo="/cook?tab=market" />
       : remote.data ? <Checkout key={remote.data.id} shop={remote.data} listing={listing} slot={slot} items={items} />
-      : <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market" missing={t("shopUnavailable")} />}
+      : <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/cook?tab=market" missing={t("shopUnavailable")} />}
   </Screen>;
 }
 /** Choose items, a collection slot and how to pay at handover. Nothing is charged in the app. */

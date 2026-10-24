@@ -25,8 +25,8 @@ import type { Conversation } from "../../types/community";
 export default function MarketChatScreen() {
   const { id = "" } = useLocalSearchParams<{ id: string }>(), { member } = useMember(), t = useT("market");
   const remote = useRemote(member ? "/api/market/conversations/" + id : null, signal => loadConversation(id, signal), 5000);
-  if (!member) return <Screen hideTimers header={<MarketToolbar />}><MemberPrompt icon="chatbubbles-outline" returnTo="/market" /></Screen>;
-  if (!remote.data) return <Screen hideTimers header={<MarketToolbar />}><RemoteStatus remote={remote} icon="chatbubbles-outline" returnTo="/market" missing={t("conversationUnavailable")} /></Screen>;
+  if (!member) return <Screen hideTimers header={<MarketToolbar />}><MemberPrompt icon="chatbubbles-outline" returnTo="/messages" /></Screen>;
+  if (!remote.data) return <Screen hideTimers header={<MarketToolbar />}><RemoteStatus remote={remote} icon="chatbubbles-outline" returnTo="/messages" missing={t("conversationUnavailable")} /></Screen>;
   return <Thread c={remote.data} refresh={remote.refresh} />;
 }
 /** Open orders on top, then messages and order updates, then the composer. */

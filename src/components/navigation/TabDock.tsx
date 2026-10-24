@@ -2,7 +2,6 @@ import { BlurView } from "expo-blur";
 import type { Tabs } from "expo-router";
 import { useEffect, useState, type ComponentProps } from "react";
 import { Keyboard, Platform, Pressable, StyleSheet, View } from "react-native";
-import { T } from "../ui";
 import { useInbox } from "../InboxCounts";
 import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
@@ -39,15 +38,14 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
       {!glass?.reduceTransparency && <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: theme.navigation.glassTint }]} />}
       <View style={s.tabs} accessibilityRole="tablist" accessibilityLabel={t("mainNavigation")}>
         {state.routes.map((route, index) => {
-          // The hidden Market route is the Orders / My shop hub opened from Social.
-          const item = tabs[route.name], { options } = descriptors[route.key], selected = state.index === index || (route.name === "social" && state.routes[state.index]?.name === "market");
+          const item = tabs[route.name], { options } = descriptors[route.key], selected = state.index === index;
           if (!item) return null;
           const press = () => {
             const event = navigation.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
-            if (state.index !== index && !event.defaultPrevented) navigation.navigate(route.name, route.params);
+            if (!selected && !event.defaultPrevented) navigation.navigate(route.name, route.params);
           };
           const dot = route.name === "social" && activity;
-          return <DockTab key={route.key} label={t(item.label)} icon={item.icon} selected={selected} onPress={press} dot={dot}
+          return <DockTab key={route.key} icon={item.icon} selected={selected} onPress={press} dot={dot}
             accessibilityLabel={options.tabBarAccessibilityLabel ?? t(item.label) + (dot ? t("tabActivity") : "") + t("tabPosition", { i: state.routes.filter(r => !!tabs[r.name]).findIndex(r => r.key === route.key) + 1, n: Object.keys(tabs).length })}
             testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })} />;
         })}
@@ -56,8 +54,8 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
   </View>;
 }
 
-function DockTab({ label, icon, selected, onPress, onLongPress, accessibilityLabel, testID, dot = false }: {
-  label: string; icon: QuinTasteTab; selected: boolean; onPress: () => void; onLongPress: () => void;
+function DockTab({ icon, selected, onPress, onLongPress, accessibilityLabel, testID, dot = false }: {
+  icon: QuinTasteTab; selected: boolean; onPress: () => void; onLongPress: () => void;
   accessibilityLabel: string; testID?: string; dot?: boolean;
 }) {
   const { theme } = usePreferences();
@@ -74,7 +72,6 @@ function DockTab({ label, icon, selected, onPress, onLongPress, accessibilityLab
       backgroundColor: selected ? theme.navigation.selection : hovered ? theme.navigation.hover : theme.transparent,
       borderColor: selected ? theme.navigation.selectedForeground : theme.transparent,
     }]}><QuinTasteIcon name={icon} color={color} selected={selected} size={27} /></View>
-    <T variant="caption" color={color} style={{ textAlign: "center", fontSize: 11, marginTop: 2 }}>{label}</T>
     {dot && <View testID={"tab-dot-" + icon} pointerEvents="none" style={[s.dot, { backgroundColor: theme.accent, borderColor: theme.background }]} />}
   </Pressable>;
 }
@@ -83,8 +80,8 @@ const s = StyleSheet.create({
   host: { position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center" },
   dock: { width: "100%", maxWidth: 760, borderWidth: 0, borderTopLeftRadius: 24, borderTopRightRadius: 24, overflow: "hidden" },
   tabs: { flexDirection: "row", gap: 6 },
-  tab: { flex: 1, minWidth: 48, minHeight: 68, paddingHorizontal: 2,
+  tab: { flex: 1, minWidth: 48, minHeight: 56, paddingHorizontal: 2,
     borderWidth: 2, borderRadius: 18, alignItems: "center", justifyContent: "center", overflow: "hidden" },
-  dot: { position: "absolute", top: 6, left: "58%", width: 10, height: 10, borderRadius: 5, borderWidth: 1.5 },
-  highlight: { width: "100%", maxWidth: 68, height: 38, borderRadius: 22, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
+  dot: { position: "absolute", top: 8, left: "58%", width: 10, height: 10, borderRadius: 5, borderWidth: 1.5 },
+  highlight: { width: "100%", maxWidth: 68, height: 44, borderRadius: 22, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
 });

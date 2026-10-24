@@ -24,8 +24,8 @@ export default function MarketOrderScreen() {
   const { id = "" } = useLocalSearchParams<{ id: string }>(), { member } = useMember();
   const remote = useRemote(member ? "/api/market/orders/" + id : null, signal => loadOrder(id, signal), 15000), t = useT("market");
   return <Screen title={t("orderTitle")} hideTimers header={<MarketToolbar />}>
-    {!member ? <MemberPrompt icon="receipt-outline" returnTo="/market" /> : remote.data ? <OrderView key={remote.data.status} order={remote.data} refresh={remote.refresh} />
-      : <RemoteStatus remote={remote} icon="receipt-outline" returnTo="/market" missing={t("orderUnavailable")} />}
+    {!member ? <MemberPrompt icon="receipt-outline" returnTo="/market?tab=orders" /> : remote.data ? <OrderView key={remote.data.status} order={remote.data} refresh={remote.refresh} />
+      : <RemoteStatus remote={remote} icon="receipt-outline" returnTo="/market?tab=orders" missing={t("orderUnavailable")} />}
   </Screen>;
 }
 type Sheet = "decline" | "cancel" | "review" | "problem" | null;

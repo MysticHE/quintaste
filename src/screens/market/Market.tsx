@@ -15,7 +15,7 @@ import { useDebounced } from "../../hooks/useDebounced";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { usePreferences } from "../../state/Preferences";
 import { browse, browseKey, toggleSaved } from "../../services/market-api";
-import { useInbox } from "../../components/InboxCounts";
+import { useLiveInbox } from "../../components/InboxCounts";
 import { ApiError } from "../../services/community-api";
 import { useT } from "../../i18n";
 import type { MarketKey } from "../../i18n/en/market";
@@ -41,8 +41,8 @@ function useMore(key: string) {
 type MarketTab = "orders" | "shop";
 const placeholders: Record<MarketTab, MarketKey> = { orders: "searchOrders", shop: "myItems" };
 /**
- * Orders and My shop, opened from Social (24 Oct 2026). Browsing and events moved to Feeds and saved items to Social,
- * so older /market links (sign-in returns, Back fallbacks, bookmarks) open their new home instead of a second copy.
+ * Orders and My shop: a screen above the tabs, opened from Social, so Back returns to wherever it was opened from.
+ * Browsing and events moved to Feeds and saved items to Social, so older /market links open their new home instead.
  */
 export default function MarketScreen() {
   const { tab } = useLocalSearchParams<{ tab?: string }>();
@@ -50,7 +50,7 @@ export default function MarketScreen() {
   return <Redirect href={tab === "events" ? "/cook?tab=events" : tab === "saved" ? "/social?tab=saved" : "/cook?tab=market"} />;
 }
 function MarketHub({ tab }: { tab: MarketTab }) {
-  const counts = useInbox(), t = useT("market"), tc = useT("common");
+  const counts = useLiveInbox(), t = useT("market"), tc = useT("common");
   const [queries, setQueries] = useState<Record<MarketTab, string>>({ orders: "", shop: "" }), [shopTab, setShopTab] = useState<ShopTab>("orders");
   const query = queries[tab], setQuery = (value: string) => setQueries(current => ({ ...current, [tab]: value }));
   const add = useShopAdd(shopTab);
@@ -81,7 +81,7 @@ export function Browse({ query, filters, setFilters, clearQuery }: { query: stri
   const paused = remote.error?.code === "SERVICE_PAUSED";
   const clear = () => { setFilters({ ...defaultShopFilter(), savedOnly: false }); clearQuery?.(); };
   const save = async (item: ListingCard) => {
-    if (!ensureMember(member, "/market") || saving.current.has(item.id)) return;
+    if (!ensureMember(member, "/cook?tab=market") || saving.current.has(item.id)) return;
     saving.current.add(item.id);
     try { const result = await toggleSaved(item.id); setSaved(current => ({ ...current, [item.id]: { value: result.saved, base: remote.data } })); invalidate("/api/market/listings"); }
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("tryAgainSave"), error: true }); }

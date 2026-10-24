@@ -31,7 +31,7 @@ export default function MarketShopScreen() {
     try { const c = await openConversation(s.id); router.push({ pathname: "/market/chat/[id]", params: { id: c.id } }); }
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("conversationFailed"), error: true }); }
   };
-  const blockShop = async () => { await block(s.id); invalidate("/api/market/"); setMenu(false); router.dismissTo("/market"); return true; };
+  const blockShop = async () => { await block(s.id); invalidate("/api/market/"); setMenu(false); router.dismissTo("/cook?tab=market"); return true; };
   return <Screen hideTimers header={<MarketToolbar><View style={[common.row, { justifyContent: "flex-end", gap: 6 }]}>
     {!s.own && <IconButton label={t("messageShop")} icon="chatbubble-outline" onPress={() => void message()} />}
     {!s.own && member.member && <IconButton label={t("moreOptions")} icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}
@@ -58,6 +58,6 @@ export default function MarketShopScreen() {
       <ListItem title={t("report")} leading={<RowIcon name="flag-outline" tone="warning" />} onPress={() => { setMenu(false); setReport(true); }} />
       <Confirm label={t("block")} text={t("blockShopText")} action={t("blockName", { name: s.tradingName })} run={blockShop} />
     </MarketModal>
-    <ReportSheet kind="person" targetId={s.id} name={s.tradingName} visible={report} onClose={() => setReport(false)} onBlocked={() => { invalidate("/api/market/"); router.dismissTo("/market"); }} />
+    <ReportSheet kind="person" targetId={s.id} name={s.tradingName} visible={report} onClose={() => setReport(false)} onBlocked={() => { invalidate("/api/market/"); router.dismissTo("/cook?tab=market"); }} />
   </Screen>;
 }

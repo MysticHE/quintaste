@@ -1,3 +1,3 @@
 import { Redirect } from "expo-router";
-/** Now a tab of Market; kept so older links still open it. */
+/** Kept so older links still open My shop. */
 export default function Previous() { return <Redirect href="/market?tab=shop" />; }

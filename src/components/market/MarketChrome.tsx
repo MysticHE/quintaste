@@ -20,7 +20,7 @@ export function MarketModal({ visible, onClose, label, children }: PropsWithChil
 export function MarketToolbar({ children, back = true }: PropsWithChildren<{ back?: boolean }>) {
   const { theme } = usePreferences(), t = useT("market");
   return <View style={[common.row, { gap: 6 }]}>
-    {back && <Pressable accessibilityRole="button" accessibilityLabel={t("goBack")} onPress={() => router.canGoBack() ? router.back() : router.replace("/market")} style={s.back}>
+    {back && <Pressable accessibilityRole="button" accessibilityLabel={t("goBack")} onPress={() => router.canGoBack() ? router.back() : router.replace("/cook?tab=market")} style={s.back}>
       <Icon name="chevron-back" color={theme.foreground} /></Pressable>}
     <View style={common.flex}>{children}</View>
   </View>;
