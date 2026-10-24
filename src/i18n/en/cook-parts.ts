@@ -150,8 +150,6 @@ const en = {
   itemsOnSale: "Items On Sale",
   noMatchingItems: "No matching items.",
   forRecipes: ", for {list}",
-  addAnItem: "Add an item",
-  addItem: "Add item",
   timerReady: "Ready",
   checkFood: "Check your food",
   paused: "Paused",

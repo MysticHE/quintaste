@@ -9,7 +9,8 @@ export type RecipeDraft = {
   sponsorship: "" | "None" | "Paid" | "Gifted" | "Affiliate"; rights: boolean; policy: boolean; status: "draft" | "ready"; revision: number; updatedAt: number;
 };
 /** Recipe-added notes carry structured name/amount/unit so identical lines can merge; manual notes use text only. */
-export type ShoppingNote = { id: string; recipeId: string; text: string; checked: boolean; name?: string; amount?: number | null; unit?: string };
+/** `recipeName` travels with the line so the list can still name a recipe this device no longer holds (a published recipe after a restart). */
+export type ShoppingNote = { id: string; recipeId: string; recipeName?: string; text: string; checked: boolean; name?: string; amount?: number | null; unit?: string };
 export type CookSort = "Fit" | "Time" | "Recent";
 /** Nutrition filter choices, worded as the badges they match (config/nutrition-standards.ts); AND across choices. */
 export const nutritionChoices = ["Under 500 kcal", "Higher protein", "Higher fibre", "Under 300 mg sodium"] as const;

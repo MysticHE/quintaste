@@ -9,14 +9,15 @@ export type Tone = "accent" | "warning" | "muted" | "success";
 function rows(children: ReactNode): ReactNode[] {
   return Children.toArray(children).flatMap(child => isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment ? rows(child.props.children) : [child]);
 }
-/** A titled group of rows on one surface, separated by hairlines. Renders nothing when empty. */
-export function ListGroup({ title, aside, inset = true, children }: PropsWithChildren<{ title?: string; aside?: string; inset?: boolean }>) {
+/** A titled group of rows on one surface, separated by hairlines. Renders nothing when empty.
+ *  `inset` lines the hairline up with the row text: true after a 40-point leading icon, false flush, or an exact offset. */
+export function ListGroup({ title, aside, inset = true, children }: PropsWithChildren<{ title?: string; aside?: string; inset?: boolean | number }>) {
   const { theme } = usePreferences(), items = rows(children);
   if (!items.length) return null;
   return <View style={{ gap: 6 }}>
     {!!title && <View style={[common.spread, s.heading]}><T variant="small" muted accessibilityRole="header" style={common.bold}>{title}</T>{!!aside && <T variant="small" muted>{aside}</T>}</View>}
     <View style={[s.group, { backgroundColor: theme.card, borderColor: theme.border }]}>
-      {items.map((item, index) => <View key={index}>{index > 0 && <View style={[s.hairline, { marginLeft: inset ? 66 : 14, backgroundColor: theme.divider }]} />}{item}</View>)}
+      {items.map((item, index) => <View key={index}>{index > 0 && <View style={[s.hairline, { marginLeft: typeof inset === "number" ? inset : inset ? 66 : 14, backgroundColor: theme.divider }]} />}{item}</View>)}
     </View>
   </View>;
 }

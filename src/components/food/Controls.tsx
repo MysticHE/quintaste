@@ -36,15 +36,15 @@ export function HorizontalChips({ children, bleed = false }: PropsWithChildren<{
     contentContainerStyle={[{ gap: 8, alignItems: "center", paddingVertical: 2 }, bleed && edgeScroll.content]}>{children}</ScrollView>;
 }
 export function IconButton({ label, icon, onPress, selected = false, badge = 0, appearance = "default", disabled = false, loading = false }: {
-  label: string; icon: IconName; onPress: () => void; selected?: boolean; badge?: number; appearance?: "default" | "media"; disabled?: boolean; loading?: boolean;
+  label: string; icon: IconName; onPress: () => void; selected?: boolean; badge?: number; appearance?: "default" | "media" | "plain"; disabled?: boolean; loading?: boolean;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  const media = appearance === "media";
+  const media = appearance === "media", plain = appearance === "plain";
   return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected, disabled: disabled || loading, busy: loading }} disabled={disabled || loading}
     onPress={onPress} {...focusProps}
-    style={({ pressed }) => [s.iconButton, media && s.mediaButton, { backgroundColor: media ? theme.mediaControl : selected ? theme.accentSoft : theme.card,
-      borderColor: focused ? (media ? theme.mediaForeground : theme.accent) : media ? theme.transparent : selected ? theme.accent : theme.border, opacity: disabled ? 0.5 : pressed ? 0.7 : 1 }]}>
-    {loading ? <ActivityIndicator color={theme.accent} /> : <Icon name={icon} size={20} color={media ? theme.mediaForeground : selected ? theme.accent : theme.mutedForeground} />}
+    style={({ pressed }) => [s.iconButton, media && s.mediaButton, plain && s.plainButton, { backgroundColor: media ? theme.mediaControl : plain ? (pressed ? theme.accentSoft : theme.transparent) : selected ? theme.accentSoft : theme.card,
+      borderColor: focused ? (media ? theme.mediaForeground : theme.accent) : media || plain ? theme.transparent : selected ? theme.accent : theme.border, opacity: disabled ? 0.5 : pressed && !plain ? 0.7 : 1 }]}>
+    {loading ? <ActivityIndicator color={theme.accent} /> : <Icon name={icon} size={plain ? 22 : 20} color={media ? theme.mediaForeground : selected || plain ? theme.accent : theme.mutedForeground} />}
     {badge > 0 && <View style={[s.badge, { backgroundColor: theme.accent }]}><T variant="small" color={theme.actionForeground} style={common.bold}>{badge}</T></View>}
   </Pressable>;
 }
@@ -105,6 +105,7 @@ const s = StyleSheet.create({
   chip: { minHeight: 48, minWidth: 48, borderWidth: 1, borderRadius: 12, paddingVertical: 8, paddingHorizontal: 12, flexDirection: "row", gap: 6, alignItems: "center", justifyContent: "center", flexShrink: 1 },
   iconButton: { minHeight: 48, minWidth: 48, padding: 10, borderWidth: 1, borderRadius: 12, justifyContent: "center", alignItems: "center" },
   mediaButton: { borderRadius: 24, borderWidth: 2 },
+  plainButton: { borderRadius: 24, borderWidth: 2 },
   badge: { position: "absolute", right: 0, top: 0, minWidth: 18, minHeight: 18, borderRadius: 9, alignItems: "center", justifyContent: "center", paddingHorizontal: 3 },
   avatar: { width: 48, height: 48, borderRadius: 24, borderWidth: 1, overflow: "hidden" },
   avatarImage: { width: "100%", height: "100%" },

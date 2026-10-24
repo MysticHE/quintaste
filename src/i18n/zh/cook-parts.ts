@@ -150,8 +150,6 @@ const zh: typeof en = {
   itemsOnSale: "在售商品",
   noMatchingItems: "没有符合的商品。",
   forRecipes: "，用于{list}",
-  addAnItem: "添加一样东西",
-  addItem: "添加",
   timerReady: "时间到",
   checkFood: "看看你的食物",
   paused: "已暂停",

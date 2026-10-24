@@ -6,7 +6,8 @@ import type { CookKey } from "../i18n/en/cook";
 
 export const aisles = ["Vegetables & fruit", "Tofu & soy", "Rice, noodles & bread", "Sauces & pastes", "Oils, spices & dry goods", "Coconut & plant milks", "Other"] as const;
 export type Aisle = (typeof aisles)[number];
-const aisleKeys: Record<Aisle, CookKey> = {
+/** Message keys for aisle titles. */
+export const aisleKeys: Record<Aisle, CookKey> = {
   "Vegetables & fruit": "aisleVegetables", "Tofu & soy": "aisleTofu", "Rice, noodles & bread": "aisleStaples", "Sauces & pastes": "aisleSauces",
   "Oils, spices & dry goods": "aisleDryGoods", "Coconut & plant milks": "aisleMilks", Other: "aisleOther",
 };
@@ -22,16 +23,27 @@ const aisleRules: [RegExp, Aisle][] = [
 export function aisleFor(text: string): Aisle {
   return aisleRules.find(([pattern]) => pattern.test(text))?.[1] ?? "Other";
 }
-type ShoppingRecipe = Pick<Recipe, "id" | "ingredients" | "servings">;
+type ShoppingRecipe = Pick<Recipe, "id" | "name" | "ingredients" | "servings">;
+/** Water is in recipes but never bought: it is left out of whole-recipe adds, recipe totals and suggestions. */
+export const isWater = (name: string) => /^water\b/i.test(name);
+/** The ingredients a whole-recipe add puts on the list. */
+export const shoppableIngredients = (recipe: Pick<Recipe, "ingredients">) => recipe.ingredients.filter(item => !isWater(item.name));
+/** The shopping line a recipe ingredient becomes, so a screen can tell whether it is already on the list. */
+export const shoppingLineId = (recipeId: string, ingredientId: string) => recipeId + "-" + ingredientId;
 function lineNote(recipe: ShoppingRecipe, item: Recipe["ingredients"][number], servings: number, checked = false): ShoppingNote {
   const scale = servings / recipe.servings;
-  return { id: recipe.id + "-" + item.id, recipeId: recipe.id, text: ingredientLine(item, scale).text, checked,
+  return { id: shoppingLineId(recipe.id, item.id), recipeId: recipe.id, recipeName: recipe.name, text: ingredientLine(item, scale).text, checked,
     name: item.name, amount: item.amount === null ? null : item.amount * scale, unit: item.unit };
+}
+/** How a recipe sits on the list at these servings: lines not added yet, and added lines whose amounts are for other servings. */
+export function recipeShoppingState(shopping: ShoppingNote[], recipe: ShoppingRecipe, servings: number) {
+  const lines = shoppableIngredients(recipe).map(item => lineNote(recipe, item, servings)), saved = new Map(shopping.map(note => [note.id, note.text]));
+  return { missing: lines.filter(line => !saved.has(line.id)).length, stale: lines.filter(line => saved.has(line.id) && saved.get(line.id) !== line.text).length };
 }
 /** Adds a recipe's scaled ingredients (or only ingredientIds); re-adding replaces that recipe's amounts instead of duplicating lines.
  *  A tick survives only when the line is unchanged, so a larger amount is never hidden as already bought. */
 export function addRecipeToShopping(workspace: RecipeWorkspace, recipe: ShoppingRecipe, servings: number, ingredientIds?: string[]): RecipeWorkspace {
-  const notes = recipe.ingredients.filter(item => ingredientIds ? ingredientIds.includes(item.id) : !/^water\b/i.test(item.name)).map(item => lineNote(recipe, item, servings));
+  const notes = (ingredientIds ? recipe.ingredients.filter(item => ingredientIds.includes(item.id)) : shoppableIngredients(recipe)).map(item => lineNote(recipe, item, servings));
   const fresh = new Map(notes.map(note => [note.id, note]));
   const kept = workspace.shopping.map(note => {
     const next = fresh.get(note.id);

@@ -69,7 +69,7 @@ export function readRecipeWorkspace(value: unknown): RecipeWorkspace {
     draft.status = d.status === "ready" && !publicationIssue(draft) ? "ready" : "draft";
     return draft;
   });
-  const shopping = rows(v.shopping).filter(n => text(n.id, 80) && text(n.text, 300)).map(n => ({ id: text(n.id, 80), recipeId: text(n.recipeId, 80), text: text(n.text, 300), checked: n.checked === true,
+  const shopping = rows(v.shopping).filter(n => text(n.id, 80) && text(n.text, 300)).map(n => ({ id: text(n.id, 80), recipeId: text(n.recipeId, 80), ...(text(n.recipeName, 120) ? { recipeName: text(n.recipeName, 120) } : {}), text: text(n.text, 300), checked: n.checked === true,
     ...(text(n.name, 120) ? { name: text(n.name, 120), amount: typeof n.amount === "number" && Number.isFinite(n.amount) && n.amount > 0 ? n.amount : null, unit: text(n.unit, 24) } : {}) }));
   return { drafts, shopping, browse: readBrowse(v.browse, v.filter), cooked: readCooked(v.cooked), shoppingView: v.shoppingView === "recipe" ? "recipe" : "combined" };
 }
