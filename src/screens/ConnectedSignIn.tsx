@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { BackHandler, Pressable } from 'react-native';
+import { BackHandler, Pressable, View } from 'react-native';
 import { Redirect, router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { Icon, T } from '../components/ui';
 import { useAuth } from '../state/Auth';
@@ -12,12 +12,14 @@ import { useT } from '../i18n';
 import { SignInScene } from '../components/walkin/SignInScene';
 import { WelcomeButton, WelcomeDivider, WelcomeField } from '../components/walkin/WelcomeUI';
 import { fontNames } from '../theme/tokens';
+import { useWelcomeLayout } from '../components/walkin/WelcomeLayout';
 
 /** The welcome sign-in page: Google, or a username and password form, after the walk-in introductions. */
 export function ConnectedSignInScreen({ onGalleryBack }: { onGalleryBack?: () => void }) {
   const { returnTo, username: initialUsername } = useLocalSearchParams<{ returnTo?: string; username?: string }>();
   const { theme } = usePreferences(), t = useT('me'), tc = useT('common');
   const { user } = useAuth();
+  const { compact, landscape } = useWelcomeLayout();
   // Without a page to return to, both ways of signing in open the app's home.
   const destination = safeReturn(returnTo || '/');
   const [formOpen, setFormOpen] = useState(!!initialUsername), [revealed, setRevealed] = useState(false);
@@ -53,6 +55,7 @@ export function ConnectedSignInScreen({ onGalleryBack }: { onGalleryBack?: () =>
   return <SignInScene title={t(formOpen ? 'welcomeBack' : 'welcomeHome')} body={t(formOpen ? 'welcomeBackBody' : 'welcomeHomeBody')}
     onBack={formOpen ? closeForm : onGalleryBack} backLabel={t(formOpen ? 'welcomeChoices' : 'walkInBack')} busy={locked} compact={formOpen}>
     {formOpen ? <>
+      <View style={{ gap: compact ? 6 : 10, flexDirection: landscape ? 'row' : 'column' }}>
       <WelcomeField label={t('username')} placeholder={t('welcomeUsernamePlaceholder')} value={username} onChangeText={setUsername}
         autoCapitalize="none" autoCorrect={false} autoComplete="username" maxLength={30} editable={!locked} />
       <WelcomeField label={t('password')} value={password} onChangeText={setPassword} secureTextEntry={!revealed} autoCapitalize="none"
@@ -63,6 +66,7 @@ export function ConnectedSignInScreen({ onGalleryBack }: { onGalleryBack?: () =>
           style={{ minWidth: 48, minHeight: 48, justifyContent: 'center', alignItems: 'center' }}>
           <Icon name={revealed ? 'eye-off-outline' : 'eye-outline'} />
         </Pressable>} />
+      </View>
       <Pressable accessibilityRole="button" accessibilityLabel={t('forgotPassword')} disabled={locked} accessibilityState={{ disabled: locked }}
         onPress={() => router.push({ pathname: '/reset-password', params: { username } })}
         style={{ alignSelf: 'flex-end', minHeight: 48, paddingVertical: 12, justifyContent: 'center', marginTop: -8 }}>

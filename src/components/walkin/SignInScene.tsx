@@ -1,32 +1,39 @@
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, useWindowDimensions, type ScrollViewInstance } from 'react-native';
-import { useLayoutEffect, useRef, type PropsWithChildren } from 'react';
-import { WelcomeBack, WelcomeBrand, WelcomeHeading } from './WelcomeUI';
-import { SignInArtwork } from './ReferenceArtwork';
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, View, type ScrollViewInstance } from 'react-native';
+import { useEffect, useLayoutEffect, useRef, useState, type PropsWithChildren } from 'react';
+import { WelcomeBack, WelcomeHeading } from './WelcomeUI';
+import { CompleteSignInArtwork } from './ReferenceArtwork';
+import { FittedWelcomePage } from './FittedWelcomePage';
+import { useWelcomeLayout } from './WelcomeLayout';
 
 export function SignInScene({ children, title, body, onBack, backLabel, busy, compact = false }: PropsWithChildren<{
   title: string; body: string; onBack?: () => void; backLabel: string; busy?: boolean; compact?: boolean;
 }>) {
-  const { width } = useWindowDimensions();
-  const pageWidth = Math.min(width, 480);
+  const { height, compact: short } = useWelcomeLayout();
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
   const scroll = useRef<ScrollViewInstance>(null);
   useLayoutEffect(() => { scroll.current?.scrollTo({ y: 0, animated: false }); }, [title]);
-  return <KeyboardAvoidingView style={s.fill} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-    <ScrollView ref={scroll} testID="signin-scroll" keyboardShouldPersistTaps="handled" contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
-      <View>
-        <WelcomeBrand compact={compact} />
-        {onBack && <WelcomeBack onPress={onBack} label={backLabel} disabled={busy} />}
-      </View>
-      <SignInArtwork width={pageWidth} compact={compact} />
-      <View style={[s.body, { paddingHorizontal: pageWidth * 0.06, gap: compact ? 18 : 22 }]}>
-        <WelcomeHeading title={title} body={body} size={compact ? 'username' : 'signin'} />
-        <View style={[s.controls, { gap: compact ? 12 : 16 }]}>{children}</View>
-      </View>
+  useEffect(() => {
+    const show = Keyboard.addListener('keyboardDidShow', () => setKeyboardVisible(true));
+    const hide = Keyboard.addListener('keyboardDidHide', () => { setKeyboardVisible(false); scroll.current?.scrollTo({ y: 0, animated: false }); });
+    return () => { show.remove(); hide.remove(); };
+  }, []);
+  return <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <ScrollView ref={scroll} testID="signin-scroll" scrollEnabled={keyboardVisible} bounces={false}
+      keyboardShouldPersistTaps="handled" contentContainerStyle={{ height }} showsVerticalScrollIndicator={false}>
+      <FittedWelcomePage testID="walkin-signin-page" artwork={(width, availableHeight) => {
+        const aspect = (compact ? 657 : 849) / 853;
+        const artWidth = Math.min(width, availableHeight / aspect);
+        return <View style={{ width: artWidth, height: artWidth * aspect }}>
+          <CompleteSignInArtwork width={artWidth} height={availableHeight} compact={compact} />
+          {onBack && <WelcomeBack onPress={onBack} label={backLabel} disabled={busy}
+            left={Math.max(0, artWidth * 0.086 - 24)} top={Math.max(0, artWidth * 0.07 - 24)} />}
+        </View>;
+      }}>
+        <View style={{ paddingHorizontal: short ? 18 : 24, paddingTop: 6, paddingBottom: short ? 6 : 12, gap: short ? 8 : 12 }}>
+          <WelcomeHeading title={title} body={body} size={compact ? 'username' : 'signin'} />
+          <View style={{ gap: short ? 4 : 8 }}>{children}</View>
+        </View>
+      </FittedWelcomePage>
     </ScrollView>
   </KeyboardAvoidingView>;
 }
-const s = StyleSheet.create({
-  fill: { flex: 1 },
-  content: { flexGrow: 1, paddingBottom: 22 },
-  body: { paddingHorizontal: 24, gap: 28, paddingTop: 8 },
-  controls: { gap: 16 },
-});

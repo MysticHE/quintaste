@@ -27,21 +27,15 @@ function ArtworkRegion({ source, width, from, to, sourceHeight = 1844, fade = fa
   </View>;
 }
 
-export function IntroductionArtwork({ page, width }: { page: number; width: number }) {
+export function IntroductionArtwork({ page, width, height = Infinity }: { page: number; width: number; height?: number }) {
   // Starts below the reference's status bar and ends before its headline. The exact logo stays in the art.
-  return <ArtworkRegion source={illustrations[page]} width={width} from={84} to={1340} fade />;
+  return <ArtworkRegion source={illustrations[page]} width={Math.min(width, height * 853 / 1256)} from={84} to={1340} fade />;
 }
 
-export function BrandArtwork({ width, compact }: { width: number; compact: boolean }) {
-  return <View accessible accessibilityRole="image" accessibilityLabel="QuinTaste">
-    <ArtworkRegion source={compact ? username : signIn} width={width} from={84} to={204} sourceHeight={compact ? 1843 : 1844} />
-  </View>;
-}
-
-export function SignInArtwork({ width, compact }: { width: number; compact: boolean }) {
-  // The reference's drawn Back arrow is above this region; WelcomeBack supplies the real control.
-  return <ArtworkRegion source={compact ? username : signIn} width={width} from={204} to={compact ? 741 : 933}
-    sourceHeight={compact ? 1843 : 1844} fade />;
+export function CompleteSignInArtwork({ width, height, compact }: { width: number; height: number; compact: boolean }) {
+  const end = compact ? 741 : 933;
+  return <ArtworkRegion source={compact ? username : signIn} width={Math.min(width, height * 853 / (end - 84))}
+    from={84} to={end} sourceHeight={compact ? 1843 : 1844} fade />;
 }
 
 const s = StyleSheet.create({ fade: { position: 'absolute', bottom: 0, left: 0, right: 0 } });

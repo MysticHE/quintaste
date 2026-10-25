@@ -1,23 +1,18 @@
 import type { PropsWithChildren, ReactNode } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, View, useWindowDimensions, type TextInputProps } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, View, type TextInputProps } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { Field, Icon, T, type IconName } from '../ui';
 import { usePreferences } from '../../state/Preferences';
 import { useKeyboardFocus } from '../../hooks/useKeyboardFocus';
 import { fontNames } from '../../theme/tokens';
-import { BrandArtwork } from './ReferenceArtwork';
 import { useLanguage } from '../../i18n';
+import { useWelcomeLayout } from './WelcomeLayout';
 
-export function WelcomeBrand({ compact = false }: { compact?: boolean }) {
-  const { width } = useWindowDimensions();
-  return <BrandArtwork width={Math.min(width, 480)} compact={compact} />;
-}
-
-export function WelcomeBack({ onPress, label, disabled }: { onPress: () => void; label: string; disabled?: boolean }) {
+export function WelcomeBack({ onPress, label, disabled, left = 10, top = 2 }: { onPress: () => void; label: string; disabled?: boolean; left?: number; top?: number }) {
   const { focused, focusProps } = useKeyboardFocus(), { theme } = usePreferences();
   return <Pressable accessibilityRole="button" accessibilityLabel={label} disabled={disabled} accessibilityState={{ disabled }}
-    onPress={onPress} {...focusProps} style={[s.back, { opacity: disabled ? 0.5 : 1, borderColor: focused ? theme.accent : theme.transparent }]}>
-    {/* The approved artwork supplies the Back glyph; this 48-point native target supplies its behavior and focus ring. */}
+    onPress={onPress} {...focusProps} style={[s.back, { left, top, opacity: disabled ? 0.5 : 1, borderColor: focused ? theme.accent : theme.transparent }]}>
+    {/* The complete, proportionally fitted reference supplies the Back glyph. */}
   </Pressable>;
 }
 
@@ -34,31 +29,30 @@ export function WelcomeButton({ label, onPress, kind = 'outline', icon, busy, di
   label: string; onPress: () => void; kind?: 'outline' | 'primary' | 'google'; icon?: IconName; busy?: boolean; disabled?: boolean; testID?: string;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  const { textMultiplier } = usePreferences(), { width } = useWindowDimensions();
+  const { textMultiplier } = usePreferences(), { compact } = useWelcomeLayout();
   const primary = kind === 'primary', off = disabled || busy;
   const foreground = primary ? (theme.dark ? theme.background : theme.actionForeground) : kind === 'google' ? theme.welcome.foreground : theme.welcome.accent;
   return <Pressable testID={testID} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: off, busy }} disabled={off}
-    onPress={onPress} {...focusProps} style={({ pressed }) => [s.action, {
+    onPress={onPress} {...focusProps} style={({ pressed }) => [s.action, compact && { minHeight: 48, paddingVertical: 7, gap: 10 }, {
       backgroundColor: primary ? theme.welcome.primary : kind === 'outline' ? theme.welcome.background : theme.card,
       borderColor: focused || kind === 'outline' ? theme.welcome.accent : primary ? theme.welcome.primary : theme.welcome.border,
       borderWidth: focused ? 2 : 1, opacity: off ? 0.55 : pressed ? 0.78 : 1,
     }]}>
     {busy ? <ActivityIndicator color={foreground} /> : kind === 'google' ? <GoogleMark /> : icon ? <Icon name={icon} color={foreground} size={27} /> : null}
-    <T variant="button" style={[s.actionText, { color: foreground, fontSize: Math.max(16, 18 * Math.min(width, 480) / 390) * textMultiplier }]}>{label}</T>
+    <T variant="button" style={[s.actionText, { color: foreground, fontSize: (compact ? 16 : 18) * textMultiplier }]}>{label}</T>
   </Pressable>;
 }
 
 export function WelcomeDivider({ children }: PropsWithChildren) {
-  const { theme } = usePreferences();
-  return <View style={s.divider}><View style={[s.rule, { backgroundColor: theme.welcome.border }]} /><T color={theme.welcome.mutedForeground}>{children}</T><View style={[s.rule, { backgroundColor: theme.welcome.border }]} /></View>;
+  const { theme } = usePreferences(), { compact } = useWelcomeLayout();
+  return <View style={[s.divider, compact && { marginVertical: 0 }]}><View style={[s.rule, { backgroundColor: theme.welcome.border }]} /><T style={{ fontSize: 14, lineHeight: 18 }} color={theme.welcome.mutedForeground}>{children}</T><View style={[s.rule, { backgroundColor: theme.welcome.border }]} /></View>;
 }
 
 export function WelcomeHeading({ title, body, children, size = 'intro' }: { title: string; body: string; children?: ReactNode; size?: 'intro' | 'community' | 'signin' | 'username' }) {
-  const { textMultiplier, theme } = usePreferences(), { width } = useWindowDimensions();
+  const { textMultiplier, theme } = usePreferences(), { typeScale: scale } = useWelcomeLayout();
   const chinese = useLanguage() === 'zh';
-  const scale = Math.min(width, 480) / 390;
-  const heading = (size === 'community' ? 36 : size === 'signin' ? 48 : size === 'username' ? 47 : 41) * scale;
-  const bodySize = Math.max(16, (size === 'signin' || size === 'username' ? 20 : 18) * scale);
+  const heading = Math.max(24, (size === 'community' ? 32 : size === 'signin' ? 38 : size === 'username' ? 36 : 36) * scale);
+  const bodySize = Math.max(14, 17 * scale);
   return <View style={[s.copy, { gap: 8 * scale }]}>
     <T accessibilityRole="header" style={[s.heading, { color: theme.welcome.foreground, fontFamily: chinese ? undefined : fontNames.welcome, fontWeight: chinese ? '800' : undefined, fontSize: heading * textMultiplier, lineHeight: heading * 1.04 * textMultiplier }]}>{title}</T>
     <T style={{ color: theme.welcome.mutedForeground, fontFamily: chinese ? undefined : fontNames.regular, fontSize: bodySize * textMultiplier, lineHeight: bodySize * 1.18 * textMultiplier }}>{body}</T>
@@ -67,12 +61,12 @@ export function WelcomeHeading({ title, body, children, size = 'intro' }: { titl
 }
 
 export function WelcomeField({ label, trailing, ...props }: TextInputProps & { label: string; trailing?: ReactNode }) {
-  const { theme, textMultiplier } = usePreferences();
-  return <View style={{ gap: 5 }}>
-    <T style={{ color: theme.dark ? theme.foreground : theme.mascot.ink, fontFamily: fontNames.semibold, fontSize: 15 * textMultiplier }}>{label}</T>
+  const { theme, textMultiplier } = usePreferences(), { compact, landscape } = useWelcomeLayout();
+  return <View style={{ gap: 5, flex: landscape ? 1 : undefined, minWidth: 0 }}>
+    {!compact && <T style={{ color: theme.dark ? theme.foreground : theme.mascot.ink, fontFamily: fontNames.semibold, fontSize: 14 * textMultiplier }}>{label}</T>}
     <Field {...props} label={label} showLabel={false} trailing={trailing}
       fieldStyle={{ borderColor: theme.welcome.border, borderRadius: 10, paddingVertical: 0, minHeight: 48 }}
-      style={[{ fontSize: 18 * textMultiplier, minHeight: 46, color: theme.welcome.foreground }, props.style]} />
+      style={[{ fontSize: 16 * textMultiplier, minHeight: 46, color: theme.welcome.foreground }, props.style]} />
   </View>;
 }
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
-import { ActivityIndicator, BackHandler, Platform, ScrollView, StyleSheet, View, useWindowDimensions, type ScrollViewInstance } from 'react-native';
+import { ActivityIndicator, BackHandler, Platform, ScrollView, StyleSheet, View, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
@@ -10,6 +10,8 @@ import { useT } from '../../i18n';
 import { T } from '../ui';
 import { IntroductionArtwork } from './ReferenceArtwork';
 import { WelcomeHeading } from './WelcomeUI';
+import { WelcomeLayout, useWelcomeLayout } from './WelcomeLayout';
+import { FittedWelcomePage } from './FittedWelcomePage';
 
 const panels = [
   ['walkInDiningTitle', 'walkInDiningBody'], ['walkInRecipesTitle', 'walkInRecipesBody'],
@@ -28,18 +30,17 @@ export function WalkInExperience({ SignIn }: { SignIn: SignInComponent }) {
   return <View style={[s.root, { backgroundColor: theme.welcome.background }]}>
     <StatusBar style={theme.dark ? 'light' : 'dark'} />
     <SafeAreaView style={s.safe}>
-      <View style={[s.frame, { backgroundColor: theme.welcome.background }]}>
+      <WelcomeLayout>
         {user || introduce === false ? <SignIn onGalleryBack={() => setIntroduce(true)} /> : introduce === null
           ? <View style={s.loading}><ActivityIndicator color={theme.accent} /></View>
           : <Gallery SignIn={SignIn} />}
-      </View>
+      </WelcomeLayout>
     </SafeAreaView>
   </View>;
 }
 
 function Gallery({ SignIn }: { SignIn: SignInComponent }) {
-  const { width } = useWindowDimensions(), { reducedMotion, theme } = usePreferences(), t = useT('me');
-  const pageWidth = Math.min(width, 480);
+  const { width: pageWidth, compact } = useWelcomeLayout(), { reducedMotion, theme } = usePreferences(), t = useT('me');
   const scroll = useRef<ScrollViewInstance>(null), current = useRef(0);
   const [page, setPage] = useState(0);
   const go = useCallback((index: number, animate = true) => {
@@ -141,14 +142,13 @@ function Gallery({ SignIn }: { SignIn: SignInComponent }) {
     onScroll={event => { const x = event.nativeEvent.contentOffset.x; if (Math.abs(x / pageWidth - Math.round(x / pageWidth)) < 0.005) settled(x); }}>
     {panels.map(([title, body], index) => <View key={title} style={{ width: pageWidth, height: '100%' }}
       accessibilityElementsHidden={index !== page} importantForAccessibility={index === page ? 'auto' : 'no-hide-descendants'} aria-hidden={index !== page}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={s.panel} nestedScrollEnabled>
-        <IntroductionArtwork page={index} width={pageWidth} />
-        <View style={[s.copy, { paddingHorizontal: pageWidth * 0.07 }]}><WelcomeHeading title={t(title)} body={t(body)} size={index === 3 ? 'community' : 'intro'} /></View>
-        <View style={s.progress} accessible={false}>
+      <FittedWelcomePage testID={`walkin-page-${index + 1}`} artwork={(width, height) => <IntroductionArtwork page={index} width={width} height={height} />}>
+        <View style={[s.copy, { paddingHorizontal: 24 }]}><WelcomeHeading title={t(title)} body={t(body)} size={index === 3 ? 'community' : 'intro'} /></View>
+        <View style={[s.progress, compact && { gap: 5, paddingTop: 6, paddingBottom: 6 }]} accessible={false}>
           <View style={s.dots}>{panels.map((_, dot) => <View key={dot} style={[s.dot, { width: dot === index ? 12 : 9, backgroundColor: dot === index ? theme.welcome.accent : theme.welcome.dot }]} />)}</View>
-          <T style={{ color: theme.welcome.mutedForeground, fontSize: 13 }}>{t(index === 3 ? 'walkInSignIn' : 'walkInSwipe')}</T>
+          <T style={{ color: theme.welcome.mutedForeground, fontSize: compact ? 12 : 13 }}>{t(index === 3 ? 'walkInSignIn' : 'walkInSwipe')}</T>
         </View>
-      </ScrollView>
+      </FittedWelcomePage>
     </View>)}
     <View style={{ width: pageWidth, height: '100%' }} accessibilityElementsHidden={page !== 4} importantForAccessibility={page === 4 ? 'auto' : 'no-hide-descendants'} aria-hidden={page !== 4}>
       {page === 4 ? <SignIn onGalleryBack={backToGallery} /> : null}
@@ -157,9 +157,9 @@ function Gallery({ SignIn }: { SignIn: SignInComponent }) {
 }
 
 const s = StyleSheet.create({
-  root: { flex: 1 }, safe: { flex: 1, alignItems: 'center' }, frame: { flex: 1, width: '100%', maxWidth: 480 },
+  root: { flex: 1 }, safe: { flex: 1, alignItems: 'center' },
   fill: { flex: 1 }, horizontal: { alignItems: 'stretch' }, loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  panel: { flexGrow: 1, paddingBottom: 12 }, copy: { paddingTop: 4 },
+  copy: { paddingTop: 4 },
   progress: { alignItems: 'center', gap: 10, paddingTop: 12, paddingBottom: 10 },
   dots: { flexDirection: 'row', gap: 14, alignItems: 'center', paddingVertical: 5 }, dot: { height: 9, borderRadius: 5 },
 });
