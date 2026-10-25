@@ -5,7 +5,7 @@ import { Chip, Chips, IconButton, SearchField } from "../food/Controls";
 import { DateField } from "../DateField";
 import { FieldLabel, ListGroup, ListItem, ThemedSwitch } from "../GroupedList";
 import { DietIcon } from "../food/DietIcon";
-import { DietLabelHelp, useDietText } from "../food/DietLabels";
+import { useDietText } from "../food/DietLabels";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
 import { dietLabels, toggleLabel } from "../../config/diet-labels";
@@ -59,7 +59,6 @@ export function DietChoices({ value, onChange }: { value: SocialProfile["diets"]
   return <View style={{ gap: 6 }}>
     <ChoiceGroup label={t("diet")} multiple>{dietLabels.map(label => <Chip key={label} label={text.name(label)} role="checkbox" selected={value.includes(label)}
       leading={<DietIcon diet={label} size={20} color={value.includes(label) ? theme.accent : theme.mutedForeground} />} onPress={() => onChange(toggleLabel(value, label))} />)}</ChoiceGroup>
-    <DietLabelHelp />
   </View>;
 }
 function Multi({ label, options, value, onChange, word, max }: { label: string; options: readonly string[]; value: string[]; onChange: (next: string[]) => void;

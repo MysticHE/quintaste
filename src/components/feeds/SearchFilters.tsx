@@ -77,7 +77,7 @@ export function MarketSearchFilters({ value, change }: { value: ShopFilter; chan
     </Chips></FilterSection>
     <FilterSection prominent title={te("diet")} icon="leaf-outline"><Chips label={te("diet")} multiple>
       <Chip label={te("anyDiet")} selected={!value.labels.length} onPress={() => change({ labels: [] })} />
-      {(["Vegetarian", "Vegan"] as const).map(label => <Chip key={label} label={diet.line(label)} role="checkbox" selected={value.labels.includes(label)}
+      {(["Vegetarian", "Vegan"] as const).map(label => <Chip key={label} label={diet.name(label)} role="checkbox" selected={value.labels.includes(label)}
         leading={<DietIcon diet={label} color={value.labels.includes(label) ? theme.accent : theme.foreground} />} onPress={() => change({ labels: toggleFilter(value.labels, label) })} />)}
     </Chips></FilterSection>
     <DateFilters collection value={value.collection ?? "any"} date={value.date ?? ""} change={(collection, date) => change({ collection, date })} />

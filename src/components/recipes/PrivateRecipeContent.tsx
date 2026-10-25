@@ -1,6 +1,5 @@
 import { Image } from "expo-image";
 import type { ReactNode } from "react";
-import { CookSection } from "./CookLayout";
 import { T } from "../ui";
 import { View } from "react-native";
 import type { RecipeDraft } from "../../types/recipe-workspace";
@@ -16,10 +15,10 @@ export function PrivateRecipeContent({ draft: d, servings, controls }: { draft: 
     {!controls && <T>{t("servingsCount", { n: servings ?? (d.servings || "?") })}{d.minutes ? " · " + tc("minutes", { n: d.minutes }) : ""}</T>}
     {!!controls && !!d.minutes && <T variant="small" muted>{tc("minutes", { n: d.minutes })}</T>}
     {d.sponsorship && d.sponsorship !== "None" && <T variant="small">{sponsorshipName(d.sponsorship, language)}</T>}
+    {!!d.description && <T variant="small">{d.description}</T>}
     {controls}
     <View style={{ gap: 6 }}><T variant="subtitle">{t("ingredients")}</T>{!d.ingredients.length && <T muted>{t("addIngredientsInEdit")}</T>}{d.ingredients.map(i => <T key={i.id}>{!i.name.trim() ? t("incompleteIngredient") : !i.amount.trim() ? t("toTaste", { name: i.name })
       : Number.isFinite(+i.amount) ? ingredientLine({ name: i.name, unit: i.unit, amount: +i.amount }, scale, language).text : [i.amount, i.unit, i.name].filter(Boolean).join(" ")}</T>)}</View>
     {d.steps.map((s, n) => <View key={s.id} style={{ gap: 6, paddingVertical: 6 }}><T variant="subtitle">{n + 1}. {s.title || t("untitledStep")}</T><T>{s.instruction || t("instructionsMissing")}</T>{!!s.minutes && <T variant="small">{t("timerLine", { n: s.minutes })}</T>}{s.photo && <Image source={{ uri: s.photo }} contentFit="contain" style={{ height: 150, width: "100%" }} accessibilityLabel={t("stepPhoto", { n: n + 1 })} />}</View>)}
-    <CookSection title={t("recipeInfo")}>{!!d.author && <T>{d.author}</T>}<T variant="small">{d.language} · v{d.revision}</T>{!!d.description && <T>{d.description}</T>}</CookSection>
   </>;
 }

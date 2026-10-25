@@ -3,7 +3,7 @@ import { router, type Href } from "expo-router";
 import * as Linking from "expo-linking";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
-import { Button, Icon, T, common } from "../ui";
+import { Button, Icon, T, common, type IconName } from "../ui";
 import { EmptyState, IconButton } from "../food/Controls";
 import { RemoteStatus } from "../CommunityGate";
 import { useListingSource } from "../market/ListingPhoto";
@@ -31,17 +31,17 @@ import { formatSgShort } from "../../utils/sg-datetime";
 import { useLanguage, useT } from "../../i18n";
 
 export type ContentKind = "all" | "places" | "recipes" | "market" | "events";
-export function GridTile({ title, type, path, source, note, href, onPress, save, children, date }: {
-  title: string; type: string; path?: string | null; source?: ImageSource | number; note?: string; href?: Href; onPress?: () => void;
+export function GridTile({ title, type, path, source, note, href, onPress, save, children, date, icon = "image-outline" }: {
+  title: string; type: string; path?: string | null; source?: ImageSource | number; note?: string; href?: Href; onPress?: () => void; icon?: IconName;
   save?: () => Promise<unknown>; children?: ReactNode; date?: string;
 }) {
   const { theme, setNotice } = usePreferences(), image = useListingSource(), t = useT("profile"), [busy, setBusy] = useState(false), [failed, setFailed] = useState(false);
   const imageSource = source ?? image(path);
   return <View style={{ width: "48%", flexGrow: 0, gap: 4, marginBottom: 12 }}>
     <View><Pressable accessibilityRole="button" accessibilityLabel={[title, type, note].filter(Boolean).join(", ")} onPress={onPress ?? (() => href && router.push(href))}>
-      <View style={{ aspectRatio: 1.12, borderRadius: 12, overflow: "hidden", backgroundColor: theme.muted, alignItems: "center", justifyContent: "center", gap: 8 }}>
+      <View style={{ aspectRatio: 1.12, borderRadius: 12, overflow: "hidden", backgroundColor: imageSource && !failed ? theme.muted : theme.accentSoft, alignItems: "center", justifyContent: "center", gap: 8 }}>
         {imageSource && !failed ? <Image source={imageSource} contentFit="cover" style={StyleSheet.absoluteFill} onError={() => setFailed(true)} />
-          : <><Icon name={date ? "calendar-outline" : "image-outline"} size={32} />{!!date && <T variant="small" style={{ textAlign: "center", paddingHorizontal: 8 }}>{date}</T>}</>}
+          : <><Icon name={date ? "calendar-outline" : icon} size={34} color={theme.accent} />{!!date && <T variant="small" style={{ textAlign: "center", paddingHorizontal: 8 }}>{date}</T>}</>}
         <View style={{ position: "absolute", bottom: 8, left: 8, borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, backgroundColor: theme.card }}><T variant="caption">{type}</T></View>
       </View><T numberOfLines={2} style={[common.bold, { paddingTop: 6 }]}>{title}</T>
       {!!note && <T variant="small" muted numberOfLines={2}>{note}</T>}
@@ -51,15 +51,30 @@ export function GridTile({ title, type, path, source, note, href, onPress, save,
       }} /></View>}</View>{children}
   </View>;
 }
+/** The tile's footprint for an item that could not load. */
+function UnavailableTile({ retry, remove }: { retry?: () => void; remove?: () => void }) {
+  const { theme } = usePreferences(), t = useT("profile");
+  return <View style={{ width: "48%", marginBottom: 12 }}>
+    <View style={{ aspectRatio: 1.12, borderRadius: 12, backgroundColor: theme.muted, alignItems: "center", justifyContent: "center", gap: 6 }}>
+      <Icon name="cloud-offline-outline" size={28} color={theme.mutedForeground} />
+      <T variant="small" muted>{t("unavailable")}</T>
+      <View style={[common.row, { gap: 4 }]}>
+        {retry && <IconButton appearance="plain" icon="refresh" label={t("retry")} onPress={retry} />}
+        {remove && <IconButton appearance="plain" icon="trash-outline" label={t("remove")} onPress={remove} />}
+      </View>
+    </View>
+  </View>;
+}
 type ResultReporter = (id: string, count: number) => void;
-function RecipeTile({ id, query = "", saved = false, report }: { id: string; query?: string; saved?: boolean; report?: ResultReporter }) {
-  const { recipe, loading, error, refresh } = usePublishedRecipe(id), t = useT("profile"), language = useLanguage(), food = useFood();
+function RecipeTile({ id, query = "", saved = false, report, onGone }: { id: string; query?: string; saved?: boolean; report?: ResultReporter; onGone?: (id: string) => void }) {
+  const { recipe, loading, error, refresh, gone } = usePublishedRecipe(id), t = useT("profile"), language = useLanguage(), food = useFood();
   useReactions("recipe", recipe ? [id] : []);
   const count = recipe ? (!query || recipe.name.toLowerCase().includes(query) ? 1 : 0) : loading ? -2 : -1;
   useEffect(() => { report?.("r:" + id, count); }, [report, id, count]);
+  useEffect(() => { if (gone) onGone?.(id); }, [gone, onGone, id]);
   if (loading && !recipe) return <View style={{ width: "48%", minHeight: 100, justifyContent: "center" }}><ActivityIndicator /></View>;
-  if (!recipe) return <View style={{ width: "48%", gap: 6 }}><T muted>{t("unavailable")}</T>
-    {!!error && <Button label={t("retry")} variant="link" onPress={refresh} />}{saved && <Button label={t("remove")} variant="link" onPress={() => void food.toggleSave("recipe", id)} />}</View>;
+  if (!recipe && gone && !saved) return null;
+  if (!recipe) return <UnavailableTile retry={error && !gone ? refresh : undefined} remove={saved ? () => void food.toggleSave("recipe", id) : undefined} />;
   if (query && !recipe.name.toLowerCase().includes(query)) return null;
   return <GridTile title={recipe.name} type={t("recipe")} path={recipe.image?.path} source={!recipe.image?.path && recipe.photo ? photos[recipe.photo] as ImageSource : undefined}
     href={("/cook/recipe/" + id) as Href} save={saved ? () => food.toggleSave("recipe", id) : undefined}>
@@ -72,7 +87,9 @@ export function MyPostGrid({ kind }: { kind: ContentKind }) {
   const items = useRemote(seller.data?.seller && (kind === "all" || kind === "market") ? "/api/market/seller/listings" : null, ownListings);
   const classes = useRemote(kind === "all" || kind === "events" ? "/api/market/teaching" : null, teaching);
   const recipes = kind === "all" || kind === "recipes", market = kind === "all" || kind === "market", events = kind === "all" || kind === "events";
-  const drafts = recipes ? workspace.drafts : [], remoteOnly = recipes ? (status.data?.items ?? []).filter(r => r.live && !workspace.drafts.some(d => d.id === r.draftKey)) : [];
+  const [gone, setGone] = useState<ReadonlySet<string>>(() => new Set());
+  const markGone = useCallback((id: string) => { setGone(current => (current.has(id) ? current : new Set([...current, id]))); }, []);
+  const drafts = recipes ? workspace.drafts : [], remoteOnly = recipes ? (status.data?.items ?? []).filter(r => r.live && !r.hidden && !gone.has(r.id) && !workspace.drafts.some(d => d.id === r.draftKey)) : [];
   const listings = market ? items.data?.items ?? [] : [], hosted = events ? classes.data?.classes ?? [] : [];
   const busy = !ready || (recipes && status.loading) || (market && (seller.loading || items.loading)) || (events && classes.loading);
   const error = (recipes && status.error) || (market && (seller.error || items.error)) || (events && classes.error);
@@ -83,12 +100,12 @@ export function MyPostGrid({ kind }: { kind: ContentKind }) {
     {events && <RemoteStatus remote={classes} icon="calendar-outline" returnTo="/social" />}
     {!busy && !error && !drafts.length && !remoteOnly.length && !listings.length && !hosted.length && <EmptyState title={t("noPosts")} text={t("noPostsText")} icon="grid-outline" />}
     <View testID="profile-post-grid" style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start" }}>
-      {drafts.map(d => { const live = status.byDraft.get(d.id); return <GridTile key={d.id} title={d.title || t("untitled")} type={t("recipe")} path={d.photo}
+      {drafts.map(d => { const live = status.byDraft.get(d.id); return <GridTile key={d.id} title={d.title || t("untitled")} type={t("recipe")} path={d.photo} icon="restaurant-outline"
         note={recipeStatus(d, live, language)} href={("/recipe-draft/" + d.id) as Href}>
         {live?.live && <ReactionBar kind="recipe" id={live.id} name={d.title} shareMessage={() => d.title + " " + Linking.createURL("/cook/recipe/" + live.id)} />}
       </GridTile>; })}
-      {remoteOnly.map(r => <RecipeTile key={r.id} id={r.id} />)}
-      {listings.map(l => <GridTile key={l.id} title={l.name} type={t("market")} path={l.photos.item} note={marketMoney(l.priceCents) + " · " + tm(({ active: "itemLive", draft: "itemDraft", paused: "itemPaused", removed: "itemRemoved" } as const)[l.status])} href={{ pathname: "/market/edit", params: { id: l.id } }} />)}
+      {remoteOnly.map(r => <RecipeTile key={r.id} id={r.id} onGone={markGone} />)}
+      {listings.map(l => <GridTile key={l.id} title={l.name} type={t("market")} path={l.photos.item} icon="storefront-outline" note={marketMoney(l.priceCents) + " · " + tm(({ active: "itemLive", draft: "itemDraft", paused: "itemPaused", removed: "itemRemoved" } as const)[l.status])} href={{ pathname: "/market/edit", params: { id: l.id } }} />)}
       {hosted.map(c => <GridTile key={c.id} title={c.title} type={t("event")} date={formatSgShort(c.starts, language)} note={c.status === "draft" ? t("draft") : c.status === "cancelled" ? tm("classStatusCancelled") : formatSgShort(c.starts, language)}
         href={("/market/class/" + c.id) as Href} />)}
     </View>
@@ -134,10 +151,9 @@ function SavedPlace({ id, query, report }: { id: string; query: string; report: 
   const count = venue ? (!query || (venue.name + " " + venue.address).toLowerCase().includes(query) ? 1 : 0) : busy ? -2 : -1;
   useEffect(() => { report("p:" + id, count); }, [report, id, count]);
   if (!venue && busy) return <View style={{ width: "48%", minHeight: 100, justifyContent: "center" }}><ActivityIndicator /></View>;
-  if (!venue) return <View style={{ width: "48%", gap: 6 }}><T muted>{t("unavailable")}</T>
-    {!!error && <Button label={t("retry")} variant="link" onPress={retry} />}<Button label={t("remove")} variant="link" onPress={() => void food.toggleSave("place", savedId)} /></View>;
+  if (!venue) return <UnavailableTile retry={error ? retry : undefined} remove={() => void food.toggleSave("place", savedId)} />;
   if (!count) return null;
-  return <GridTile title={venue.name} type={t("place")} path={venue.photo?.path} note={venue.address}
+  return <GridTile title={venue.name} type={t("place")} path={venue.photo?.path} icon="location-outline" note={venue.address}
     href={("/place/" + savedId) as Href} save={() => food.toggleSave("place", savedId)} />;
 }
 function SavedMarket({ query, report }: { query: string; report: ResultReporter }) {

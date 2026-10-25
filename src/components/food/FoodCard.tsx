@@ -41,7 +41,7 @@ export function FoodCard({ kind, id, onOpen, onMore, now = 0 }: { kind: SavedKin
       <View style={s.content}><T variant="subtitle">{item.name}</T><T variant="small" muted>{metadata}</T>{kind === "place" && venue && <T variant="small" color={openingState(venue, now) === "open" ? theme.success : theme.mutedForeground}>{openingLabel(venue, now, language)}</T>}</View>
     </Pressable>
     <View style={s.bottom}>
-      <View style={common.flex}>{recipe ? <DietLabels labels={recipeLabels(recipe)} interactive={false} /> : <EvidenceLine dietary={item.dietary} />}</View>
+      <View style={common.flex}>{recipe ? <DietLabels labels={recipeLabels(recipe)} /> : <EvidenceLine dietary={item.dietary} />}</View>
       <Pressable accessibilityRole="button" accessibilityLabel={t(saved ? "unsaveName" : "saveName", { name: item.name })}
         accessibilityState={{ selected: saved, disabled: busy || !readable, busy }}
         disabled={busy || !readable} onPress={() => void save()} style={s.save}>

@@ -1,6 +1,3 @@
-import { useFood } from "../../state/Food";
-import { AvatarPortrait } from "../avatar/AvatarPortrait";
-import { router, usePathname } from "expo-router";
 import { ActivityIndicator, Pressable, StyleSheet, ScrollView, TextInput, View, type AccessibilityRole, type StyleProp, type TextInputProps, type ViewStyle } from "react-native";
 import { useState, type PropsWithChildren, type ReactNode } from "react";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
@@ -50,15 +47,6 @@ export function IconButton({ label, icon, onPress, selected = false, badge = 0, 
     {dot && !badge && <View pointerEvents="none" style={[s.dot, { backgroundColor: theme.accent }]} />}
   </Pressable>;
 }
-export function MeButton() {
-  const { doc } = useFood();
-  const { theme } = usePreferences();
-  const returnTo = usePathname(), t = useT("common");
-  return <Pressable accessibilityRole="button" accessibilityLabel={t("meButton")}
-    onPress={() => router.push({ pathname: "/account", params: { returnTo } })} style={[s.avatar, { backgroundColor: theme.accentSoft, borderColor: theme.border }]}>
-    <AvatarPortrait avatar={doc.avatar} size={46} />
-  </Pressable>;
-}
 /** `input` adds combobox behaviour (focus, blur, keys, ARIA) for a suggestion list; the box looks the same either way. */
 export function SearchField({ value, onChange, placeholder, onSubmit, context, trailing, input }: {
   value: string; onChange: (value: string) => void; placeholder: string; onSubmit?: () => void; context?: ReactNode; trailing?: ReactNode;
@@ -94,8 +82,14 @@ export function EmptyState({ title, text, action, onPress, icon = "search-outlin
   const extra = action && onPress ? { label: action, onPress } : undefined;
   return <StateView icon={icon} title={title} text={text} primary={primary ?? extra} secondary={primary ? extra : undefined} />;
 }
-export function Servings({ value, onChange }: { value: number; onChange: (value: number) => void }) {
+/** `compact`: the stepper alone, "2 servings" between − and +, to sit beside an action. */
+export function Servings({ value, onChange, compact = false }: { value: number; onChange: (value: number) => void; compact?: boolean }) {
   const t = useT("common");
+  if (compact) return <View style={[common.row, { gap: 4 }]}>
+    <Chip label="−" a11y={t("servings") + " −"} onPress={() => onChange(Math.max(1, value - 1))} disabled={value <= 1} />
+    <T variant="small" style={[common.bold, { minWidth: 72, textAlign: "center" }]}>{t("servingsCount", { n: value })}</T>
+    <Chip label="+" a11y={t("servings") + " +"} onPress={() => onChange(Math.min(8, value + 1))} disabled={value >= 8} />
+  </View>;
   return <View style={[common.spread, s.servings]}><T style={[common.bold, common.flex]}>{t("servings")}</T>
     <Chip label="−" onPress={() => onChange(Math.max(1, value - 1))} disabled={value <= 1} />
     <T accessibilityLabel={t("servingsCount", { n: value })}>{value}</T>
@@ -110,7 +104,6 @@ const s = StyleSheet.create({
   plainButton: { borderRadius: 24, borderWidth: 2 },
   badge: { position: "absolute", right: 0, top: 0, minWidth: 18, minHeight: 18, borderRadius: 9, alignItems: "center", justifyContent: "center", paddingHorizontal: 3 },
   dot: { position: "absolute", right: 9, top: 9, width: 8, height: 8, borderRadius: 4 },
-  avatar: { width: 48, height: 48, borderRadius: 24, borderWidth: 1, overflow: "hidden" },
   avatarImage: { width: "100%", height: "100%" },
   search: { flexDirection: "row", alignItems: "center", gap: 8, borderWidth: 1, borderRadius: 12, paddingLeft: 10, minHeight: 48 },
   contextSearch: { paddingLeft: 0, gap: 0, paddingVertical: 4 }, searchAction: { minHeight: 48, minWidth: 48, alignItems: "center", justifyContent: "center" },

@@ -21,7 +21,7 @@ export function RecipeFilters({ value, change }: { value: CookBrowse; change: (p
     </Chips></FilterSection>
     <FilterSection prominent title={t("diet")} icon="leaf-outline"><Chips multiple label={t("recipeDiet")}>
       <Chip label={t("anyDiet")} selected={!diets.length} onPress={() => change({ labels: [] })} />
-      {(["Vegetarian", "Vegan"] as const).map(diet => <Chip key={diet} label={dietText.line(diet)} role="checkbox" selected={diets.includes(diet)}
+      {(["Vegetarian", "Vegan"] as const).map(diet => <Chip key={diet} label={dietText.name(diet)} role="checkbox" selected={diets.includes(diet)}
         leading={<DietIcon diet={diet} color={diets.includes(diet) ? theme.accent : theme.foreground} />}
         onPress={() => change({ labels: toggleFilter(diets, diet) })} />)}
     </Chips></FilterSection>

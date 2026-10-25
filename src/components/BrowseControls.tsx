@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import { MeButton, SearchField } from "./food/Controls";
+import { SearchField } from "./food/Controls";
 import { Icon, T, common, type IconName } from "./ui";
 import { usePreferences } from "../state/Preferences";
 import { StateView, type StateAction } from "./StateView";
@@ -19,7 +19,7 @@ export function BrowseHeader({ query, onChange, placeholder, filter, action, fie
   const row = <View testID="browse-search-row" style={s.search}>
     <View style={[common.flex, { minWidth: 0 }]}>{field ?? <SearchField value={query} onChange={onChange} placeholder={placeholder}
       trailing={filter ? <FilterButton {...filter} /> : undefined} />}</View>
-    {action}<MeButton />
+    {action}
   </View>;
   // Always the same wrapper: adding one only when the list appears would remount the search box and drop its focus.
   return <View>{row}{below}</View>;

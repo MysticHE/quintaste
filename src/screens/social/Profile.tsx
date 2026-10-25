@@ -42,7 +42,7 @@ function ProfileHub({ me }: { me: SocialMe }) {
       <ListItem title={t("photosRow")} subtitle={t("photosCount", { n: me.photos.length })} leading={<RowIcon name="images-outline" />} onPress={() => openSocial("/photos")} />
       <ListItem title={t("basicsRow")} subtitle={[p.firstName, s.age, p.gender && t("optGender", { value: p.gender }), p.area].filter(Boolean).join(" · ") || t("basicsSub")}
         leading={<RowIcon name="person-outline" />} onPress={() => openSocial("/edit?section=basics")} />
-      <ListItem title={t("foodRow")} subtitle={p.diets.map(diet.line).join("\n")} wrap leading={<RowIcon name="leaf-outline" />} onPress={() => openSocial("/edit?section=food")} />
+      <ListItem title={t("foodRow")} subtitle={p.diets.map(diet.name).join(" · ")} wrap leading={<RowIcon name="leaf-outline" />} onPress={() => openSocial("/edit?section=food")} />
       <ListItem title={t("aboutRow")} subtitle={p.about || t("aboutSub")} leading={<RowIcon name="sparkles-outline" />} onPress={() => openSocial("/edit?section=about")} />
       <ListItem title={t("askRow")} subtitle={p.opening || t("askSub")} leading={<RowIcon name="chatbubble-ellipses-outline" />} onPress={() => openSocial("/edit?section=ask")} />
     </ListGroup>

@@ -25,7 +25,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   const options = isVegOptions(venue), distance = km ? " · " + km : "";
   // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen. Other places show only proven labels.
   const labels = placeLabels(venue), dietText = useDietText();
-  const metadata = options ? t("mixedKitchenSpoken") + " · " + dishCount(venue.itemCount, language) + distance : [...labels.map(dietText.line), ...(km ? [km] : [])].join(" · ");
+  const metadata = options ? t("mixedKitchenSpoken") + " · " + dishCount(venue.itemCount, language) + distance : [...labels.map(dietText.spoken), ...(km ? [km] : [])].join(" · ");
   return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, emptyIcon: placeTileIcon(venue) }} title={venue.name}
     label={[venue.name, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint={t("cardHint")}
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
@@ -40,7 +40,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
         <T variant="caption" style={common.bold} color={theme.mediaForeground}>{review.rating?.toFixed(1)}</T>{t("qtReviewCount", { n: review.count })}
       </PostFact></View>}
     </PostFacts>
-    {!options && labels.map(label => <PostFact key={label} leading={<DietIcon diet={label} size={14} color={theme.mediaForeground} />}>{dietText.line(label)}</PostFact>)}
+    {!options && labels.length > 0 && <PostFacts>{labels.map(label => <PostFact key={label} shrink leading={<DietIcon diet={label} size={14} color={theme.mediaForeground} />}>{dietText.name(label)}</PostFact>)}</PostFacts>}
     <PostFacts>
       {options && <><VegOptionsChip /><PostFact icon="book-outline" shrink>{dishCount(venue.itemCount, language)}</PostFact></>}
       <PostFact icon="time-outline" shrink>{hoursSummary}</PostFact>

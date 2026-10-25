@@ -17,7 +17,6 @@ const en = {
   statePaused: "New main photo · verify again",
   stateRejected: "Photo check didn't pass",
   setupTitle: "Meet people for a meal",
-  setupText: "Add a few photos and details. We check your photo before you appear.",
   setupStart: "Set Up Profile",
   ageTitle: "Social is for members aged 21 to 45",
   ageText: "Local events and cooking classes are in Market.",

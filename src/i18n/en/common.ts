@@ -80,7 +80,6 @@ const en = {
   sendMessage: "Send message",
   suggestedMessages: "Suggested messages",
   filterOn: "{label}, on",
-  meButton: "Me: profile and settings",
   clearSearch: "Clear search",
   servings: "Servings",
   servingsCount: "{n} servings",

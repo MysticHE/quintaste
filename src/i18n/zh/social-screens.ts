@@ -19,7 +19,6 @@ const zh: typeof en = {
   statePaused: "已换主照片 · 请重新核实",
   stateRejected: "照片核对未通过",
   setupTitle: "约人一起吃饭",
-  setupText: "添加几张照片和一些资料。我们核对照片后，你才会出现在这里。",
   setupStart: "设置资料",
   ageTitle: "社交只限 21 至 45 岁的会员",
   ageText: "本地活动和烹饪课都在市集里。",

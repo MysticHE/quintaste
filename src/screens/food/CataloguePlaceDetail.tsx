@@ -10,7 +10,7 @@ import { Button, Icon, T, common } from "../../components/ui";
 import { EmptyState, IconButton } from "../../components/food/Controls";
 import { StatusPill } from "../../components/GroupedList";
 import { CataloguePhotoBackdrop } from "../../components/discovery/CataloguePhotoBackdrop";
-import { PhotoCredit, PlaceDetailAction, PlaceDetailSection } from "../../components/discovery/PlaceDetailParts";
+import { PhotoCredit, PlaceDetailAction, PlaceDetailSection, PlaceDivider, PlaceRow } from "../../components/discovery/PlaceDetailParts";
 import { PlaceReviews } from "../../components/discovery/PlaceReviews";
 import { GoogleReviewsLink } from "../../components/discovery/GoogleReviewsLink";
 import { PlaceFeedbackActions } from "../../components/discovery/PlaceFeedbackActions";
@@ -40,8 +40,11 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     try { await toggleSave("place", savedId, venue.name); } finally { setSaving(false); }
   };
   const directions = directionsUrl(venue?.address ?? "", venue?.googlePlaceId);
+  const branch = venue?.branch && !venue.address.toLowerCase().includes(venue.branch.toLowerCase()) ? venue.branch : "";
   return <Screen title={venue?.name ?? t("placeDetails")} header={<View style={common.row}>
     <IconButton appearance="plain" label={tc("goBack")} icon="chevron-back" onPress={() => goBack("/")} />
+    <View style={common.flex} />
+    {venue && <ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />}
   </View>}>
     {busy && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingPlaceDetails")} />}
     {offline && <T variant="caption" muted>{t(venue ? "offlineSavedDetails" : "offlineBookmarkOnly")}</T>}
@@ -50,45 +53,58 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     {!!error && !gone && (venue ? <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">{t("showingSavedDetails")}</T><Button label={tc("tryAgain")} variant="link" onPress={retry} /></View>
       : <EmptyState icon="cloud-offline-outline" title={t("couldntLoadPlace")} text={t(offline ? "offlineConnect" : "checkConnection")} primary={{ label: tc("tryAgain"), onPress: retry }}
         action={t("backToExplore")} onPress={() => router.navigate("/")} />)}
-    {venue && <>
-      <View testID={venue.photo ? "catalogue-place-photo" : "catalogue-place-tile"} style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
-        <CataloguePhotoBackdrop key={venue.photo?.path ?? "none"} path={venue.photo?.path} emptyIcon={placeTileIcon(venue)} enabled panelHeight={0} nameHeight={0} />
-      </View>
-      {venue.photo && <PhotoCredit photo={venue.photo} open={url => void open(url)} />}
-      <View style={{ gap: 4 }}>
-        <T variant="title" accessibilityRole="header">{venue.name}</T>
-        <View style={[common.row, { flexWrap: "wrap" }]}>
-          <View style={common.flex}>{isVegOptions(venue) ? <StatusPill label={t("mixedKitchen")} tone="warning" /> : <T variant="small" muted>{t("vegKitchen")}</T>}</View>
-          <ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />
+    {venue && <View style={s.page}>
+      {venue.photo && <View style={s.media}>
+        <View testID="catalogue-place-photo" style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
+          <CataloguePhotoBackdrop key={venue.photo.path} path={venue.photo.path} enabled panelHeight={0} nameHeight={0} />
         </View>
-      </View>
-      <View style={[common.row, { flexWrap: "wrap", gap: 8 }]}>
+        <PhotoCredit photo={venue.photo} open={url => void open(url)} />
+      </View>}
+      <View style={s.identity}>
+        <View style={[common.row, { gap: 12 }]}>
+          {!venue.photo && <View testID="catalogue-place-tile" style={[s.tile, { backgroundColor: theme.accentSoft }]}>
+            <Icon name={placeTileIcon(venue)} size={26} color={theme.accent} /></View>}
+          <View style={[common.flex, { gap: 2 }]}>
+            <T variant="title" accessibilityRole="header">{venue.name}</T>
+            {isVegOptions(venue) ? <View style={[common.row, { flexWrap: "wrap", gap: 6 }]}>
+              <StatusPill label={t("mixedKitchen")} tone="warning" />{!!branch && <T variant="small" muted>{branch}</T>}
+            </View> : <T variant="small" muted>{t("vegKitchen") + (branch ? " · " + branch : "")}</T>}
+          </View>
+        </View>
         {!isVegOptions(venue) && <DietLabels labels={placeLabels(venue)} />}
-        {!!venue.branch && !venue.address.toLowerCase().includes(venue.branch.toLowerCase()) && <T variant="caption" muted>{venue.branch}</T>}</View>
-      {isVegOptions(venue) && <T testID="veg-options-notice" variant="small" muted>{t("mixedKitchenSafety")}</T>}
-      <View style={s.overview}>
-        <View style={[common.row, { gap: 10, paddingHorizontal: 4 }]}><Icon name="location-outline" size={18} /><T variant="small" selectable style={common.flex}>{venue.address}</T></View>
+        {isVegOptions(venue) && <T testID="veg-options-notice" variant="small" muted>{t("mixedKitchenSafety")}</T>}
+      </View>
+      <View testID="place-primary-actions" style={s.actions}>
+        <PlaceDetailAction inline variant="primary" label={t("directions")} icon="navigate-outline" onPress={() => void open(directions)} />
+        {venue.itemCount > 0 && <PlaceDetailAction inline variant="secondary" label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })} onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />}
+        <PlaceDetailAction inline label={tc(saved ? "saved" : "save")} accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} icon={saved ? "bookmark" : "bookmark-outline"}
+          selected={saved} disabled={!readable || saving} onPress={() => void save()} />
+      </View>
+      <View>
+        <PlaceDivider />
+        <PlaceRow icon="location-outline" text={venue.address} selectable />
+        <PlaceDivider />
         <PlaceDetailSection title={t("openingHours")} summary={venue.hours?.summary || t("hoursUnconfirmed")} icon="time-outline">
           {venue.hours ? venue.hours.schedule.map((line, i) => <T variant="small" key={i}>{line}</T>) : <T variant="small" muted>{t("hoursUnconfirmed")}</T>}
         </PlaceDetailSection>
+        <PlaceDivider />
       </View>
-      <View testID="place-primary-actions" style={s.actions}>
-        <PlaceDetailAction variant="primary" label={t("directions")} icon="navigate-outline" onPress={() => void open(directions)} />
-        {venue.itemCount > 0 && <PlaceDetailAction variant="secondary" label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })} onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />}
-        <PlaceDetailAction label={tc(saved ? "saved" : "save")} accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} icon={saved ? "bookmark" : "bookmark-outline"}
-          selected={saved} disabled={!readable || saving} onPress={() => void save()} />
+      <View style={{ gap: 4 }}>
+        <PlaceReviews placeId={venue.id} />
+        <GoogleReviewsLink id={venue.googlePlaceId} name={venue.name} address={venue.address} />
       </View>
-      <PlaceReviews placeId={venue.id} />
-      <GoogleReviewsLink id={venue.googlePlaceId} name={venue.name} address={venue.address} />
-      <View style={[s.secondary, { borderTopColor: theme.divider }]}>
-        <PlaceDetailSection title={t("suggestUpdate")} icon="create-outline"><PlaceFeedbackActions name={venue.name} placeId={venue.googlePlaceId ?? venue.id} menuId={venue.id} /></PlaceDetailSection>
+      <View>
+        <PlaceDivider />
+        <PlaceFeedbackActions name={venue.name} menuId={venue.id} />
       </View>
-    </>}
+    </View>}
   </Screen>;
 }
 const s = StyleSheet.create({
-  hero: { aspectRatio: 1.65, maxHeight: 280, borderRadius: 18, overflow: "hidden" },
-  overview: { gap: 4 },
-  actions: { flexDirection: "row", gap: 8, marginBottom: 8 },
-  secondary: { borderTopWidth: 1, paddingTop: 4 },
+  page: { gap: 18 },
+  media: { gap: 2 },
+  hero: { aspectRatio: 16 / 9, maxHeight: 240, borderRadius: 18, overflow: "hidden" },
+  identity: { gap: 10 },
+  tile: { width: 56, height: 56, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  actions: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
 });

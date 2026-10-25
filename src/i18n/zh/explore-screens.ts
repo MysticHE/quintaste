@@ -51,7 +51,6 @@ const zh: typeof en = {
   openingHours: "营业时间",
   privateNoteSection: "私人笔记",
   sourcesCredits: "来源与鸣谢",
-  suggestUpdate: "建议更新",
   updatingPlace: "正在更新店家",
   refreshDetails: "刷新详情",
   openingHoursTitle: "营业时间",

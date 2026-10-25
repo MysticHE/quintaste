@@ -25,7 +25,6 @@ export const aiRecipeFeatures: readonly { icon: string; label: CookKey; detail: 
   { icon: "nutrition-outline", label: "featNutrition", detail: "featNutritionDetail" },
   { icon: "ribbon-outline", label: "featHighlights", detail: "featHighlightsDetail" },
   { icon: "leaf-outline", label: "featDiet", detail: "featDietDetail" },
-  { icon: "cart-outline", label: "featShopping", detail: "featShoppingDetail" },
   { icon: "images-outline", label: "featVideo", detail: "featVideoDetail" },
 ];
 export const paymentsLive = false;

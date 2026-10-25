@@ -126,10 +126,6 @@ const en = {
   serviceChargeNote: "Dine-in menu prices are subject to {service}% service charge and {gst}% GST.",
   fieldsNote: "FIELDS online ordering lists prices marked S$. Currency remains unconfirmed for the saved dine-in prices.",
   additionalEvidence: "Additional evidence is available in the source links.",
-  correction: "Correction",
-  suggestCorrectionA11y: "Suggest a correction",
-  reportConcern: "Report concern",
-  reportConcernA11y: "Report a concern",
   reportProblem: "Report A Problem",
   reportProblemWith: "Report a problem with {name}",
 

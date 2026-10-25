@@ -17,7 +17,6 @@ import { defaultCookBrowse } from "../../state/recipe-workspace";
 import { usePublishedRecipes } from "../../components/recipes/PublishedRecipes";
 import { useMemberRecipes } from "../../hooks/useMemberRecipes";
 import { MyRecipesContent } from "./MyRecipes";
-import { ShoppingContent } from "./Shopping";
 import { SavedRecipes } from "./SavedRecipes";
 import { useReactions } from "../../hooks/useReactions";
 import { useDaypart } from "../../hooks/useDaypart";
@@ -35,16 +34,16 @@ export function CookScreen() {
     : tab === "events" ? !!feeds.queries.events || JSON.stringify(feeds.events) !== JSON.stringify(defaultEventFilters())
     : !!feeds.queries.market || marketFilterCount(feeds.market) > 0;
   // Old bookmarks keep their standalone collection; they no longer add tabs to Feeds.
-  if (param === "mine" || param === "shopping" || param === "saved") return <LegacyCollection kind={param} />;
+  if (param === "mine" || param === "saved") return <LegacyCollection kind={param} />;
   return <Screen back={false} header={<FeedHeader tab={tab} filtered={filtered} onChange={next => router.setParams({ tab: next })} />}>
     {tab === "recipes" ? <Recipes ingredient={ingredient} /> : tab === "events" ? <EventsList query={feeds.queries.events} filters={feeds.events} />
       : <Browse query={feeds.queries.market} filters={feeds.market} setFilters={feeds.setMarket} clearQuery={() => feeds.setQueries(current => ({ ...current, market: "" }))} />}
   </Screen>;
 }
-function LegacyCollection({ kind }: { kind: "mine" | "saved" | "shopping" }) {
+function LegacyCollection({ kind }: { kind: "mine" | "saved" }) {
   const t = useT("cook");
-  return <Screen title={t(kind === "mine" ? "tabMine" : kind === "saved" ? "tabSaved" : "tabShopping")} backTo="/cook">
-    {kind === "mine" ? <MyRecipesContent query="" /> : kind === "saved" ? <SavedRecipes query="" /> : <ShoppingContent query="" />}
+  return <Screen title={t(kind === "mine" ? "tabMine" : "tabSaved")} backTo="/cook">
+    {kind === "mine" ? <MyRecipesContent query="" /> : <SavedRecipes query="" />}
   </Screen>;
 }
 function Recipes({ ingredient }: { ingredient: string }) {

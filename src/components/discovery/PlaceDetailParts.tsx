@@ -7,36 +7,60 @@ import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import type { CatalogueVenue } from "../../types/catalogue";
 import { useT } from "../../i18n";
 
-export function PlaceDetailSection({ title, summary, icon, children }: PropsWithChildren<{ title: string; summary?: string; icon: IconName }>) {
-  const { theme } = usePreferences(), [open, setOpen] = useState(false), { focused, focusProps } = useKeyboardFocus();
-  return <View style={{ gap: open ? 8 : 0 }}>
-    <Pressable {...focusProps} accessibilityRole="button" accessibilityLabel={summary ? title + ", " + summary : title} accessibilityState={{ expanded: open }} aria-expanded={open} onPress={() => setOpen(!open)}
-      style={[s.section, { borderColor: focused ? theme.accent : theme.transparent }, Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
-      <Icon name={icon} size={18} />
-      <View style={common.flex}><T variant="small" style={common.bold}>{title}</T>{!!summary && <T variant="caption" muted>{summary}</T>}</View>
-      <Icon name={open ? "chevron-up" : "chevron-down"} size={16} />
-    </Pressable>
-    <View style={{ display: open ? "flex" : "none", gap: 8, paddingHorizontal: 4 }} accessibilityElementsHidden={!open} importantForAccessibility={open ? "auto" : "no-hide-descendants"}>{children}</View>
+/**
+ * One aligned line of the place page: a fixed icon column, the text, an optional trailing icon.
+ * Pressable when `onPress` is set; `selectable` keeps static text (an address) copyable.
+ */
+export function PlaceRow({ icon, text, trailing, onPress, accessibilityLabel, expanded, selectable = false, testID }: {
+  icon: IconName; text: string; trailing?: IconName; onPress?: () => void; accessibilityLabel?: string; expanded?: boolean; selectable?: boolean; testID?: string;
+}) {
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
+  const body = <>
+    <View style={s.rowIcon}><Icon name={icon} size={20} color={theme.mutedForeground} /></View>
+    <T variant="small" selectable={selectable} style={common.flex}>{text}</T>
+    {trailing && <Icon name={trailing} size={18} color={theme.mutedForeground} />}
+  </>;
+  if (!onPress) return <View testID={testID} style={[s.row, { borderColor: theme.transparent }]}>{body}</View>;
+  return <Pressable testID={testID} {...focusProps} accessibilityRole="button" accessibilityLabel={accessibilityLabel ?? text}
+    accessibilityState={expanded === undefined ? undefined : { expanded }} aria-expanded={expanded} onPress={onPress}
+    style={({ pressed }) => [s.row, { borderColor: focused ? theme.accent : theme.transparent, backgroundColor: pressed ? theme.muted : theme.transparent },
+      Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>{body}</Pressable>;
+}
+/** A row that opens to show more lines (opening hours), indented under the row's text. */
+export function PlaceDetailSection({ title, summary, icon, children }: PropsWithChildren<{ title: string; summary: string; icon: IconName }>) {
+  const [open, setOpen] = useState(false);
+  return <View>
+    <PlaceRow icon={icon} text={summary} trailing={open ? "chevron-up" : "chevron-down"} expanded={open}
+      accessibilityLabel={title + ", " + summary} onPress={() => setOpen(!open)} />
+    <View style={[s.more, { display: open ? "flex" : "none" }]} accessibilityElementsHidden={!open} importantForAccessibility={open ? "auto" : "no-hide-descendants"}>{children}</View>
   </View>;
 }
-export function PlaceDetailAction({ label, accessibleLabel, icon, selected, disabled, onPress, variant = "default" }: {
-  label: string; accessibleLabel?: string; icon: IconName; selected?: boolean; disabled?: boolean; onPress: () => void; variant?: "default" | "primary" | "secondary";
+/** Full-width hairline between groups of rows. */
+export function PlaceDivider() {
+  const { theme } = usePreferences();
+  return <View style={[s.divider, { backgroundColor: theme.divider }]} />;
+}
+/** `inline` puts the icon beside the label in a 48-point button (place page); stacked is the taller card version. */
+export function PlaceDetailAction({ label, accessibleLabel, icon, selected, disabled, onPress, variant = "default", inline = false }: {
+  label: string; accessibleLabel?: string; icon: IconName; selected?: boolean; disabled?: boolean; onPress: () => void; variant?: "default" | "primary" | "secondary"; inline?: boolean;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
   return <Pressable {...focusProps} accessibilityRole="button" accessibilityLabel={accessibleLabel ?? label} accessibilityState={{ disabled }} disabled={disabled}
-    onPress={onPress} style={({ pressed }) => [s.action, { backgroundColor: variant === "primary" ? theme.accent : pressed || selected || variant === "secondary" ? theme.accentSoft : theme.muted,
+    onPress={onPress} style={({ pressed }) => [s.action, inline && s.inlineAction, { backgroundColor: variant === "primary" ? theme.accent : pressed || selected || variant === "secondary" ? theme.accentSoft : theme.muted,
       borderColor: focused ? theme.foreground : theme.transparent, opacity: disabled ? 0.5 : pressed ? .8 : 1 }, Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
-    <Icon name={icon} size={22} color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} />
-    <T variant="caption" color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} style={common.bold}>{label}</T>
+    <Icon name={icon} size={inline ? 19 : 22} color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} />
+    <T variant={inline ? "small" : "caption"} color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} style={[common.bold, { flexShrink: 1 }]}>{label}</T>
   </Pressable>;
 }
 /**
- * One line under the place photo. Sources & credits was removed (owner, 24 Oct 2026), but CC BY / CC BY-SA photos must
- * still name the author, licence and changes, and an approved illustration must never pass as a photo (owner, 20 Oct).
+ * One line under the place photo: CC BY / CC BY-SA and stated-permission photos must name the author, licence and
+ * changes, and an approved illustration must never pass as a photo (owner, 20 Oct). Photos whose rights the source
+ * retains show nothing (owner, 25 Oct 2026).
  */
 export function PhotoCredit({ photo, open }: { photo: NonNullable<CatalogueVenue["photo"]>; open: (url: string) => void }) {
   const t = useT("explore"), { theme } = usePreferences(), [expanded, setExpanded] = useState(false), { focused, focusProps } = useKeyboardFocus();
   if (photo.author === "QuinTaste illustration") return <T testID="place-photo-credit" variant="caption" muted>{t("illustrationNote")}</T>;
+  if (photo.license === "Source rights retained") return null;
   const credit = t("photoCreditLine", { author: photo.author, license: photo.license });
   return <View testID="place-photo-credit">
     <Pressable {...focusProps} accessibilityRole="button" accessibilityLabel={credit} accessibilityState={{ expanded }} aria-expanded={expanded} onPress={() => setExpanded(!expanded)}
@@ -54,7 +78,11 @@ export function PhotoCredit({ photo, open }: { photo: NonNullable<CatalogueVenue
   </View>;
 }
 const s = StyleSheet.create({
-  section: { flexDirection: "row", alignItems: "center", minHeight: 48, gap: 8, borderWidth: 2, borderRadius: 12, paddingHorizontal: 2 },
+  row: { flexDirection: "row", alignItems: "center", minHeight: 48, gap: 12, paddingVertical: 8, paddingHorizontal: 6, borderWidth: 2, borderRadius: 12 },
+  rowIcon: { width: 22, alignItems: "center" },
+  more: { gap: 4, paddingLeft: 42, paddingRight: 8, paddingBottom: 8 },
+  divider: { height: StyleSheet.hairlineWidth },
+  inlineAction: { flexDirection: "row", flexGrow: 1, flexShrink: 0, flexBasis: "auto", minHeight: 48, paddingVertical: 0, paddingHorizontal: 12, gap: 6, borderRadius: 14 },
   action: { flex: 1, minWidth: 0, minHeight: 68, padding: 8, alignItems: "center", justifyContent: "center", gap: 6, borderWidth: 2, borderRadius: 12 },
   credit: { flexDirection: "row", alignItems: "center", gap: 6, minHeight: 36, paddingHorizontal: 4, borderWidth: 2, borderRadius: 10 },
 });

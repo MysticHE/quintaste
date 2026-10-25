@@ -126,10 +126,6 @@ const zh: typeof en = {
   serviceChargeNote: "堂食菜单价格另加 {service}% 服务费和 {gst}% 消费税。",
   fieldsNote: "FIELDS 网上点餐的价格标示为 S$。已保存的堂食价格币种仍未确认。",
   additionalEvidence: "更多资料请见来源链接。",
-  correction: "更正",
-  suggestCorrectionA11y: "建议更正",
-  reportConcern: "反映问题",
-  reportConcernA11y: "反映问题",
   reportProblem: "报告问题",
   reportProblemWith: "报告{name}的问题",
 

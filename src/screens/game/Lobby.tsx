@@ -6,7 +6,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useGlassNavigation } from "../../components/navigation/GlassNavigation";
-import { MeButton } from "../../components/food/Controls";
 import { Icon, T } from "../../components/ui";
 import { useCafeFeedback } from "../../game/cafe-feedback";
 import { GAME_ART, GAME_ART_SIZE } from "../../game/art";
@@ -101,7 +100,6 @@ export function GameLobby() {
         <Stat icon="sparkles" text={t("credits", { n: game.credits })} label={t("cafeCredits", { n: game.credits })} />
       </View>
     </Animated.View>}
-    <View style={[s.me, { top: insets.top + 8, right: insets.right + 12 }]}><MeButton /></View>
     {box.w > 0 && <Animated.View style={[s.slide, { bottom: slideBottom, left: (box.w - slideW) / 2 }, slideIn]}>
       <SlideToEnter key={focused ? "here" : "away"} width={slideW} title={t("slideToEnter")} label={t("enterCafe", { name: game.cafeName })} onTick={() => buzz("tick")} onComplete={enter} />
     </Animated.View>}
@@ -120,7 +118,6 @@ const s = StyleSheet.create({
   cast: { position: "absolute" },
   shadeTop: { position: "absolute", left: 0, right: 0, top: 0 },
   shadeBottom: { position: "absolute", left: 0, right: 0, bottom: 0 },
-  me: { position: "absolute" },
   info: { position: "absolute", gap: 2 },
   eyebrow: { fontWeight: "800", letterSpacing: 0.6, textTransform: "uppercase", fontSize: 11 },
   name: { fontWeight: "900", fontSize: 28, lineHeight: 34 },

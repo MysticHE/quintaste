@@ -15,7 +15,7 @@ import type { MarketPractice, Slot } from "../../types/community";
 export function DietPills({ labels, practices: declared }: { labels: readonly DietLabel[]; practices: readonly MarketPractice[] }) {
   const t = useT("market");
   return <View style={s.wrap}>
-    <DietLabels labels={labels} declared />
+    <DietLabels labels={labels} />
     {declared.map(practice => <StatusPill key={practice} label={t(practiceKeys[practice])} tone="accent" />)}
     <StatusPill label={t("sellerDeclared")} />
   </View>;

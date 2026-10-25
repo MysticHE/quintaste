@@ -56,7 +56,7 @@ export function StandingRow({ data }: { data: SocialMe }) {
 /** Before the first-time setup: what Social is for and one way in. */
 export function SetupPrompt() {
   const t = useT("social");
-  return <FirstRunState icon="people-outline" title={t("setupTitle")} text={t("setupText")}
+  return <FirstRunState icon="people-outline" title={t("setupTitle")} text=""
     action={{ label: t("setupStart"), icon: "arrow-forward", onPress: () => openSocial("/setup") }} />;
 }
 /** Members outside 21 to 45: Social is not for them; Events and cooking classes are in Market. */

@@ -19,7 +19,7 @@ import { usePreferences } from "../state/Preferences";
 import { TimerDock, FoodStorageBanner } from "./food/Timers";
 import { Icon, T, common } from "./ui";
 import { PhotoScrollView } from "./discovery/PhotoScrollView";
-import { useGlassNavigation } from "./navigation/GlassNavigation";
+import { DockFollow, useDockScroll, useGlassNavigation } from "./navigation/GlassNavigation";
 import { SCREEN_GUTTER } from "../theme/layout";
 import { useT } from "../i18n";
 type ScreenProps = {
@@ -45,6 +45,7 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
   const segments = useSegments(), hasTabDock = segments.some(segment => segment === "(tabs)");
   const glass = useGlassNavigation(), { width } = useWindowDimensions(), nativeFrame = Platform.OS !== "web" || width < 600;
   const [feedbackHeight, setFeedbackHeight] = useState(0), bottomSpace = hasTabDock ? (glass?.height ?? 0) + feedbackHeight : 0;
+  const dockScroll = useDockScroll(hasTabDock), Pinned = hasTabDock ? DockFollow : View;
   const scroll = useRef<ScrollView>(null), scrollAction = useRef({ scrollToTop: () => {} });
   useEffect(() => {
     scrollAction.current.scrollToTop = () => scroll.current?.scrollTo({ y: 0, animated: !reducedMotion });
@@ -65,13 +66,13 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={common.flex}>
           <View style={common.flex}>
           {fill ? <View style={[s.content, s.compact, common.flex, contentStyle, { paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}>{contents}</View> :
-            <PhotoScrollView scrollRef={scroll} keyboardShouldPersistTaps="handled" contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}
+            <PhotoScrollView scrollRef={scroll} keyboardShouldPersistTaps="handled" {...dockScroll} contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}
               showsVerticalScrollIndicator={false}>{contents}</PhotoScrollView>}
-        {floatingAction && <View pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</View>}
-        <View pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
+        {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
+        <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
           style={hasTabDock ? { position: "absolute", bottom: glass?.height ?? 0, left: 0, right: 0 } : undefined}>
           {!hideTimers && <TimerDock />}<FoodStorageBanner /><NoticeBanner />
-        </View>
+        </Pinned>
           </View>
         </KeyboardAvoidingView>
       </LinearGradient>

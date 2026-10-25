@@ -6,7 +6,7 @@ import { ChoiceGroup } from "../../components/social/ProfileFields";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { ListGroup, ListItem, RowIcon } from "../../components/GroupedList";
 import { DietIcon } from "../../components/food/DietIcon";
-import { DietLabelHelp, useDietText } from "../../components/food/DietLabels";
+import { useDietText } from "../../components/food/DietLabels";
 import { MemberGate, SocialGate } from "../../components/social/SocialState";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { useMeet } from "../../hooks/useMeet";
@@ -26,7 +26,6 @@ export function FiltersScreen() {
       onPress={() => set({ ages: toggle(f.ages, band) })} />)}</ChoiceGroup>
     <ChoiceGroup label={t("dietFilter")} multiple>{(["Vegan", "Vegetarian"] as const).map(label => <Chip key={label} label={diet.name(label)} role="checkbox" selected={f.diets.includes(label)}
       leading={<DietIcon diet={label} size={20} color={f.diets.includes(label) ? theme.accent : theme.mutedForeground} />} onPress={() => set({ diets: toggle(f.diets, label) })} />)}</ChoiceGroup>
-    <DietLabelHelp />
     <ChoiceGroup label={t("distanceFilter")}>{distanceOptions.map(km => <Chip key={km} label={km ? t("withinKm", { km }) : t("anyDistance")} role="radio" selected={f.km === km}
       onPress={() => set({ km })} />)}</ChoiceGroup>
     <ChoiceGroup label={t("languagesFilter")} multiple>{languageOptions.map(value => <Chip key={value} label={t("optLanguage", { value })} role="checkbox" compact

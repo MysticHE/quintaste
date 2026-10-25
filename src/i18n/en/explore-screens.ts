@@ -51,7 +51,6 @@ const en = {
   openingHours: "Opening hours",
   privateNoteSection: "Private note",
   sourcesCredits: "Sources & credits",
-  suggestUpdate: "Suggest an update",
   updatingPlace: "Updating place",
   refreshDetails: "Refresh Details",
   openingHoursTitle: "Opening Hours",

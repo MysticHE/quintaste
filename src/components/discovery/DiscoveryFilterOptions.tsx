@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { FilterSection } from "../BrowseControls";
 import { Chip, Chips } from "../food/Controls";
 import { DietIcon } from "../food/DietIcon";
-import { DietLabelHelp, useDietText } from "../food/DietLabels";
+import { useDietText } from "../food/DietLabels";
 import { usePreferences } from "../../state/Preferences";
 import type { ExploreFilters } from "../../types/food";
 import type { PlaceLabel } from "../../types/discovery";
@@ -26,10 +26,9 @@ export function DiscoveryFilterOptions({ filters, change, labels, selected, disa
   return <>
     <FilterSection prominent={searchLayout} title={t("diet")} icon="leaf-outline">
       <Chips label={t("diet")} multiple><Chip label={t("any")} a11y={t("anyDiet")} compact={!searchLayout} role="checkbox" selected={!labels.length} disabled={disabled} onPress={() => change({ labels: [] })} />
-        {(searchLayout ? [...placeLabelChoices].reverse() : placeLabelChoices).map(value => <Chip compact={!searchLayout} key={value} label={dietText.line(value)} role="checkbox"
+        {(searchLayout ? [...placeLabelChoices].reverse() : placeLabelChoices).map(value => <Chip compact={!searchLayout} key={value} label={dietText.name(value)} a11y={dietText.spoken(value)} role="checkbox"
         leading={<DietIcon diet={value} color={labels.includes(value) ? theme.accent : theme.foreground} />}
         selected={labels.includes(value)} disabled={disabled} onPress={() => change({ labels: placeLabelsOf(toggleFilter(labels, value)) })} />)}</Chips>
-      <DietLabelHelp />
     </FilterSection>
     <FilterSection prominent={searchLayout} title={t("location")} icon="location-outline">
       <Chips label={t("searchAround")}>{locations.filter(item => searchLayout || item.mode !== "selected" || selected || mode === "selected").map(item => <Chip key={item.mode} label={item.label} icon={item.icon} role="radio" compact={!searchLayout} style={s.locationChoice}

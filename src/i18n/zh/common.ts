@@ -80,7 +80,6 @@ const zh: typeof en = {
   sendMessage: "发送消息",
   suggestedMessages: "推荐消息",
   filterOn: "{label}，已开启",
-  meButton: "我的：个人资料和设置",
   clearSearch: "清除搜索",
   servings: "份量",
   servingsCount: "{n} 份",

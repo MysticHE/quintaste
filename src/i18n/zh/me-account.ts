@@ -166,7 +166,7 @@ const zh: typeof en = {
   phoneDataDeleted: "这部手机上的数据已删除",
   whereDataLives: "你的数据存在哪里",
   onThisPhone: "在这部手机上",
-  onThisPhoneList: "收藏、笔记、食谱草稿、购物清单、烹饪计时器，以及你的住家和公司地址",
+  onThisPhoneList: "收藏、笔记、食谱草稿、烹饪计时器，以及你的住家和公司地址",
   inYourAccount: "在你的 QuinTaste 账户里",
   inYourAccountList: "你的个人资料、饭友安排和消息、市集店铺和订单、评价、食谱的赞和分享的食谱",
   exportMyData: "导出我的数据",

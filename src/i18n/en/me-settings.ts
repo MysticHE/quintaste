@@ -37,9 +37,9 @@ const en = {
   helpSocialQ: "How do I find people to eat with?",
   helpSocialA: "In Social, finish your profile and turn on Open to plans. Invite one, three or five people, agree a public place and time in the group chat, and everyone confirms before the meal.",
   helpDataQ: "Where is my data kept?",
-  helpDataA: "Saves, notes, recipe drafts, your shopping list and Home and Work addresses stay on this phone. Your account, Social plans, Market orders and reviews are kept by QuinTaste so other members can see them. Manage both in Privacy & Data.",
+  helpDataA: "Saves, notes, recipe drafts and Home and Work addresses stay on this phone. Your account, Social plans, Market orders and reviews are kept by QuinTaste so other members can see them. Manage both in Privacy & Data.",
   helpReportQ: "How do I report a problem?",
-  helpReportA: "On a place, use Suggest an update. On a person, item, recipe or event, use Report. Reports go to the QuinTaste team.",
+  helpReportA: "On a place, use Report A Problem. On a person, item, recipe or event, use Report. Reports go to the QuinTaste team.",
 
   yourAvatar: "Your Avatar",
   yourAvatars: "Your Avatars",

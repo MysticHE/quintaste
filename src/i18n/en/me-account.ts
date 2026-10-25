@@ -166,7 +166,7 @@ const en = {
   phoneDataDeleted: "Data on this phone was deleted",
   whereDataLives: "Where your data lives",
   onThisPhone: "On this phone",
-  onThisPhoneList: "Saves, notes, recipe drafts, shopping list, cooking timers and your Home and Work addresses",
+  onThisPhoneList: "Saves, notes, recipe drafts, cooking timers and your Home and Work addresses",
   inYourAccount: "In your QuinTaste account",
   inYourAccountList: "Your profile, Social plans and messages, Market shop and orders, reviews, recipe likes and shared recipes",
   exportMyData: "Export My Data",

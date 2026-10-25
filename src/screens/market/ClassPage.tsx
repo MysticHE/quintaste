@@ -4,6 +4,8 @@ import { Screen } from "../../components/Screen";
 import { Button, T, common } from "../../components/ui";
 import { DateTile, Initial, ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { DietLabels } from "../../components/food/DietLabels";
+import { IconButton } from "../../components/food/Controls";
+import { goBack } from "../../utils/navigation";
 import { useMinuteClock } from "../../components/food/Timers";
 import { Action, Confirm } from "../../components/Actions";
 import { RemoteStatus, ensureMember, useMember } from "../../components/CommunityGate";
@@ -29,7 +31,7 @@ function ClassView({ c, refresh }: { c: CookingClass; refresh: () => void }) {
         <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><StatusPill label={t("classTag")} tone="accent" />
           {c.status === "draft" && <StatusPill label={t("classStatusDraft")} />}{cancelled && <StatusPill label={t("classStatusCancelled")} tone="warning" />}</View></View>
     </View>
-    <DietLabels labels={c.diets} declared />
+    {c.diets.length > 0 && <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><DietLabels labels={c.diets} /><StatusPill label={t("sellerDeclared")} /></View>}
     {cancelled && <T style={common.bold}>{t("classCancelledNote")}</T>}
     <ListGroup>
       <ListItem title={formatSgText(c.starts, language) + (end ? " – " + end : "")} subtitle={t("when")} leading={<RowIcon name="time-outline" />} />
@@ -48,17 +50,19 @@ function ClassView({ c, refresh }: { c: CookingClass; refresh: () => void }) {
         : !cancelled && !past && <Confirm link label={t("cancelClass")} text={t("cancelClassText")} action={t("cancelClass")}
           run={async () => { await cancelClass(c.id); setNotice({ text: t("classCancelled") }); changed(); return true; }} />}
     </View> : !cancelled && !past && <View style={{ gap: 8 }}>
-      {c.joined ? <View style={{ alignSelf: "flex-start" }}><StatusPill label={t("classJoined")} tone="success" /></View>
-        : <Action label={t("joinClass")} icon="add-circle-outline" disabled={left <= 0} run={async () => { if (signedIn()) { await joinClass(c.id, true); changed(); } }} />}
-      <Button label={t("askTeacher")} icon="chatbubble-outline" variant="secondary" onPress={() => { if (signedIn()) openMarket("/class-chat/" + c.id); }} />
+      {c.joined && <View style={{ alignSelf: "flex-start" }}><StatusPill label={t("classJoined")} tone="success" /></View>}
+      <View style={[common.row, { gap: 8, flexWrap: "wrap" }]}>
+        {!c.joined && <View style={{ flexGrow: 1, flexBasis: 140 }}><Action label={t("joinClass")} icon="add-circle-outline" disabled={left <= 0} run={async () => { if (signedIn()) { await joinClass(c.id, true); changed(); } }} /></View>}
+        <View style={{ flexGrow: 1, flexBasis: 140 }}><Button label={t("askTeacher")} icon="chatbubble-outline" variant="secondary" onPress={() => { if (signedIn()) openMarket("/class-chat/" + c.id); }} /></View>
+      </View>
       {c.joined && <Confirm link label={t("leaveClass")} text={t("leaveClassText")} action={t("leaveClass")} run={async () => { await joinClass(c.id, false); changed(); return true; }} />}
     </View>}
   </>;
 }
 /** A cooking class: when, where, price (paid to the teacher directly), seats, and Join Class. Guests can read it. */
 export function ClassScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>(), t = useT("market"), remote = useRemote(id ? "/api/market/classes/" + id : null, signal => cookingClass(id, signal));
-  return <Screen title={t("classTag")}>
+  const { id } = useLocalSearchParams<{ id: string }>(), t = useT("market"), tc = useT("common"), remote = useRemote(id ? "/api/market/classes/" + id : null, signal => cookingClass(id, signal));
+  return <Screen title={t("classTag")} header={<View style={common.row}><IconButton appearance="plain" label={tc("goBack")} icon="chevron-back" onPress={() => goBack("/cook?tab=events")} /></View>}>
     <RemoteStatus remote={remote} icon="school-outline" returnTo={"/market/class/" + id} missing={t("classUnavailable")} />
     {remote.data && <ClassView c={remote.data} refresh={remote.refresh} />}
   </Screen>;

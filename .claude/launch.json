@@ -17,6 +17,21 @@
       "port": 8086
     },
     {
+      "name": "expo-web-watch",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "expo",
+        "start",
+        "--offline",
+        "--port",
+        "8089"
+      ],
+      "env": {
+        "BROWSER": "none"
+      },
+      "port": 8089
+    },
+    {
       "name": "expo-web-auth",
       "runtimeExecutable": "npx",
       "runtimeArgs": [

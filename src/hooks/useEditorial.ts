@@ -35,6 +35,6 @@ export function usePublishedRecipe(id: string | null) {
   const existing = id ? recipeById(id) : undefined, member = useMemberRecipe(id);
   const remote = useEditorial<Recipe>(id && !bundled && !isMemberRecipe(id) && (!existing || existing.provenance) && !id.startsWith("private-") ? "/recipes/" + encodeURIComponent(id) : null);
   if (isMemberRecipe(id)) return member;
-  if (bundled) return { loading: staff.loading && !existing, error: undefined as string | undefined, refresh: staff.refresh, recipe: existing };
-  return { ...remote, recipe: remote.data ?? existing };
+  if (bundled) return { loading: staff.loading && !existing, error: undefined as string | undefined, refresh: staff.refresh, recipe: existing, gone: false };
+  return { ...remote, recipe: remote.data ?? existing, gone: false };
 }

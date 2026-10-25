@@ -7,7 +7,7 @@ import { Button, T, common } from "../../components/ui";
 import { Initial, ListGroup, ListItem, RowIcon } from "../../components/GroupedList";
 import { IngredientSummary } from "../../components/market/Ingredients";
 import { ListingGallery } from "../../components/market/ListingGallery";
-import { MarketModal, MarketToolbar } from "../../components/market/MarketChrome";
+import { MarketToolbar } from "../../components/market/MarketChrome";
 import { DietPills, SlotOption } from "../../components/market/ShopParts";
 import { ReportSheet } from "../../components/ReportSheet";
 import { RemoteStatus, ensureMember, useMember } from "../../components/CommunityGate";
@@ -27,7 +27,7 @@ export default function ListingDetailScreen() {
 }
 function Detail({ item }: { item: ListingDetail }) {
   const member = useMember(), { theme, setNotice } = usePreferences(), t = useT("market"), language = useLanguage();
-  const [menu, setMenu] = useState(false), [report, setReport] = useState(false), [override, setOverride] = useState<{ value: boolean; base: ListingDetail }>();
+  const [report, setReport] = useState(false), [override, setOverride] = useState<{ value: boolean; base: ListingDetail }>();
   const s = item.seller, open = item.slots.filter(slot => slot.itemLeft !== 0), ordered = !item.own && open.length > 0;
   const soldOut = !item.own && item.slots.length > 0 && !open.length;
   const saving = useRef(false);
@@ -51,8 +51,8 @@ function Detail({ item }: { item: ListingDetail }) {
   const collection = [s.meetup && t("meetup"), s.delivery && [t("delivery") + (s.deliveryFeeCents ? " " + marketMoney(s.deliveryFeeCents) : ""),
     s.deliveryMinCents ? t("minAmount", { amount: marketMoney(s.deliveryMinCents) }) : "", s.deliveryAreas].filter(Boolean).join(" · ")].filter(Boolean).join(" · ");
   return <Screen fill hideTimers header={<MarketToolbar><View style={[common.row, { gap: 6, justifyContent: "flex-end" }]}>
-    <IconButton label={t("shareItem")} icon="share-outline" onPress={() => void share()} />
-    {!item.own && <IconButton label={t("moreOptions")} icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}
+    <IconButton appearance="plain" label={t("shareItem")} icon="share-outline" onPress={() => void share()} />
+    {!item.own && <IconButton appearance="plain" label={t("reportItem")} icon="flag-outline" onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) setReport(true); }} />}
   </View></MarketToolbar>}>
     <ScrollView style={common.flex} contentContainerStyle={{ gap: 14, paddingBottom: 8 }}>
       <ListingGallery name={item.name} photos={item.photos} />
@@ -83,9 +83,6 @@ function Detail({ item }: { item: ListingDetail }) {
           onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) router.push({ pathname: "/market/checkout", params: { seller: s.id, listing: item.id } }); }} /></View>
       </>}
     </View>
-    <MarketModal visible={menu} onClose={() => setMenu(false)} label={item.name}>
-      <Button label={t("reportItem")} icon="flag-outline" variant="secondary" onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) { setMenu(false); setReport(true); } }} />
-    </MarketModal>
     <ReportSheet kind="listing" targetId={item.id} name={item.name} visible={report} onClose={() => setReport(false)} />
   </Screen>;
 }

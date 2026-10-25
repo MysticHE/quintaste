@@ -2,10 +2,11 @@ import { BlurView } from "expo-blur";
 import type { Tabs } from "expo-router";
 import { useEffect, useState, type ComponentProps } from "react";
 import { Keyboard, Platform, Pressable, StyleSheet, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { useInbox } from "../InboxCounts";
 import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
-import { useGlassNavigation } from "./GlassNavigation";
+import { useDockSlideStyle, useGlassNavigation } from "./GlassNavigation";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { useT } from "../../i18n";
 
@@ -20,15 +21,17 @@ const tabs: Record<string, { label: "tabExplore" | "tabCook" | "tabSocial" | "ta
 export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
   // A dot, not a number: the counts themselves sit where each thing lives (Messages, My shop, Dining).
   const { theme } = usePreferences(), activity = (useInbox()?.total ?? 0) > 0, t = useT("common");
-  const glass = useGlassNavigation(), setHeight = glass?.setHeight;
+  const glass = useGlassNavigation(), setHeight = glass?.setHeight, setHidden = glass?.setHidden, slideStyle = useDockSlideStyle();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {
     const shown = Keyboard.addListener("keyboardDidShow", () => { setKeyboardVisible(true); setHeight?.(0); });
-    const hidden = Keyboard.addListener("keyboardDidHide", () => setKeyboardVisible(false));
+    const hidden = Keyboard.addListener("keyboardDidHide", () => { setKeyboardVisible(false); setHidden?.(false); });
     return () => { shown.remove(); hidden.remove(); };
-  }, [setHeight]);
+  }, [setHeight, setHidden]);
+  // Each tab keeps its own scroll position, so a newly opened tab always starts with the dock showing.
+  useEffect(() => { setHidden?.(false); }, [state.index, setHidden]);
   if (keyboardVisible) return null;
-  return <View testID="navigation-dock" style={s.host} pointerEvents="box-none" onLayout={event => setHeight?.(event.nativeEvent.layout.height)}>
+  return <Animated.View testID="navigation-dock" style={[s.host, slideStyle]} pointerEvents="box-none" onLayout={event => setHeight?.(event.nativeEvent.layout.height)}>
     <View testID="navigation-surface" style={[s.dock, { paddingBottom: Math.max(insets.bottom, 2),
       paddingLeft: Math.max(insets.left, 8), paddingRight: Math.max(insets.right, 8),
       backgroundColor: glass?.reduceTransparency ? theme.card : theme.transparent }]}>
@@ -47,15 +50,15 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
           const dot = route.name === "social" && activity;
           return <DockTab key={route.key} icon={item.icon} selected={selected} onPress={press} dot={dot}
             accessibilityLabel={options.tabBarAccessibilityLabel ?? t(item.label) + (dot ? t("tabActivity") : "") + t("tabPosition", { i: state.routes.filter(r => !!tabs[r.name]).findIndex(r => r.key === route.key) + 1, n: Object.keys(tabs).length })}
-            testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })} />;
+            testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })} onFocus={() => setHidden?.(false)} />;
         })}
       </View>
     </View>
-  </View>;
+  </Animated.View>;
 }
 
-function DockTab({ icon, selected, onPress, onLongPress, accessibilityLabel, testID, dot = false }: {
-  icon: QuinTasteTab; selected: boolean; onPress: () => void; onLongPress: () => void;
+function DockTab({ icon, selected, onPress, onLongPress, onFocus, accessibilityLabel, testID, dot = false }: {
+  icon: QuinTasteTab; selected: boolean; onPress: () => void; onLongPress: () => void; onFocus: () => void;
   accessibilityLabel: string; testID?: string; dot?: boolean;
 }) {
   const { theme } = usePreferences();
@@ -63,14 +66,13 @@ function DockTab({ icon, selected, onPress, onLongPress, accessibilityLabel, tes
   const color = selected ? theme.navigation.selectedForeground : theme.mutedForeground;
   return <Pressable accessibilityRole="tab" accessibilityLabel={accessibilityLabel} accessibilityState={{ selected }} aria-selected={selected} testID={testID}
     onPress={onPress} onLongPress={onLongPress}
-    {...focusProps}
+    {...focusProps} onFocus={event => { onFocus(); focusProps.onFocus(event); }}
     onHoverIn={() => setHovered(true)} onHoverOut={() => setHovered(false)}
     style={({ pressed }) => [s.tab, { backgroundColor: theme.transparent,
       borderColor: focused ? theme.accent : theme.transparent, opacity: pressed ? 0.78 : 1 },
       Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
     <View testID={"tab-highlight-" + icon} style={[s.highlight, {
       backgroundColor: selected ? theme.navigation.selection : hovered ? theme.navigation.hover : theme.transparent,
-      borderColor: selected ? theme.navigation.selectedForeground : theme.transparent,
     }]}><QuinTasteIcon name={icon} color={color} selected={selected} size={27} /></View>
     {dot && <View testID={"tab-dot-" + icon} pointerEvents="none" style={[s.dot, { backgroundColor: theme.accent, borderColor: theme.background }]} />}
   </Pressable>;
@@ -83,5 +85,5 @@ const s = StyleSheet.create({
   tab: { flex: 1, minWidth: 48, minHeight: 56, paddingHorizontal: 2,
     borderWidth: 2, borderRadius: 18, alignItems: "center", justifyContent: "center", overflow: "hidden" },
   dot: { position: "absolute", top: 8, left: "58%", width: 10, height: 10, borderRadius: 5, borderWidth: 1.5 },
-  highlight: { width: "100%", maxWidth: 68, height: 44, borderRadius: 22, borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
+  highlight: { width: "100%", maxWidth: 68, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" },
 });

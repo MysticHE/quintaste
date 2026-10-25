@@ -21,7 +21,7 @@ import { useLanguage, useT } from "../../i18n";
 export function RecipeRow({ recipe, onPress, when }: { recipe: Recipe; onPress: () => void; when?: string }) {
   const { draft, theme } = usePreferences(), save = useRecipeSave(recipe.id), cooks = useReaction("recipe", recipe.id).reaction.cooks;
   const dietText = useDietText(), t = useT("cook"), tc = useT("common"), language = useLanguage();
-  const fit = recipeFit(recipe, draft.diets, draft.excluded), diet = fit.labels.map(dietText.line).join(t("sentenceJoin"));
+  const fit = recipeFit(recipe, draft.diets, draft.excluded), diet = fit.labels.map(dietText.spoken).join(t("sentenceJoin"));
   const category = recipe.categories[0] ? categoryName(recipe.categories[0], language) : "", minutes = tc("minutes", { n: recipe.minutes });
   const facts = [category, recipe.onePot ? t("onePot") : "", recipe.member ? t("byAuthor", { author: recipe.author }) : ""].filter(Boolean).join(" · ");
   // At most two HPB badges (first two in claim order); recipes without figures show no nutrition line.
@@ -32,7 +32,7 @@ export function RecipeRow({ recipe, onPress, when }: { recipe: Recipe; onPress: 
     side={<ReactionColumn kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe, language)}
       save={save} />}>
     {!!facts && <PostFact icon="restaurant-outline">{facts}</PostFact>}
-    {fit.labels.map(label => <PostFact key={label} leading={<DietIcon diet={label} size={14} color={theme.mediaForeground} />}>{dietText.line(label)}</PostFact>)}
+    {fit.labels.length > 0 && <PostFacts>{fit.labels.map(label => <PostFact key={label} shrink leading={<DietIcon diet={label} size={14} color={theme.mediaForeground} />}>{dietText.name(label)}</PostFact>)}</PostFacts>}
     <PostFacts>
       {fit.fit === "Conflicts" && <PostFact icon="alert-circle-outline" iconColor={theme.mediaRating} shrink>{t("cardContains", { list: exclusionList(fit.conflicts, language) })}</PostFact>}
       {cooks > 0 && <PostFact icon="flame-outline" shrink>{cookedBy(cooks, language)}</PostFact>}

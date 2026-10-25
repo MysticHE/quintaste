@@ -134,7 +134,7 @@ export function themeFor(palette: Palette, dark: boolean) {
       foreground: dark ? "#fcfaf8" : "#232825",
       selectedForeground: dark ? f.accentDark : f.accent,
       border: dark ? "rgba(252,250,248,0.28)" : "rgba(255,255,255,0.52)",
-      selection: dark ? f.accentDark + "22" : f.soft + "9c",
+      selection: dark ? f.accentDark + "38" : f.soft + "c4",
       hover: dark ? f.accentDark + "15" : f.soft + "88",
       selectionBorder: dark ? f.accentDark + "65" : f.accent + "44",
       selectionGlow: dark ? f.accentDark + "42" : "rgba(255,255,255,0.84)",

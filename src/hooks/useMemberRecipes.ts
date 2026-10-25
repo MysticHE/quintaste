@@ -31,7 +31,7 @@ export function useMemberRecipe(id: string | null) {
     else if (remote.error?.status === 404) forgetPublishedRecipe(key);
   }, [key, remote.data, remote.error]);
   const gone = remote.error?.status === 404;
-  return { recipe: gone ? undefined : remote.data ?? (key ? recipeById(key) : undefined), loading: remote.loading,
+  return { recipe: gone ? undefined : remote.data ?? (key ? recipeById(key) : undefined), loading: remote.loading, gone,
     error: remote.error ? (gone ? t("errorRecipeGone") : remote.error.code === "LOAD_FAILED" ? tc("loadFailed") : remote.error.message) : undefined, refresh: remote.refresh };
 }
 /** Where each of the member's drafts stands on the server, keyed by draft id. */

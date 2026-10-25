@@ -50,7 +50,7 @@ export function LivePlaceDetailScreen({ id }: { id: string }) {
       {place.reviews?.length ? place.reviews.map((review, index) => <GoogleReview key={index} review={review} />) : <T muted>{t("noReviews")}</T>}
       <Button label={t("allReviews")} variant="link" icon="open-outline" onPress={() => void open(googlePlaceUrl(id, place.name))} />
       {place.attributions.map((item, index) => <T key={index} variant="small" muted>{item.provider}</T>)}
-      <PlaceFeedbackActions name={place.name} placeId={place.placeId} menuId={menu?.id} />
+      <PlaceFeedbackActions name={place.name} menuId={menu?.id} />
     </>}
     {!place && <OfflinePlaceBookmark placeId={id} />}
     {!place && <Button label={t("openMap")} variant="secondary" icon="open-outline" onPress={() => void open(googlePlaceUrl(id, "Saved place"))} />}

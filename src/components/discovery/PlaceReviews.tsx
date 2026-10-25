@@ -50,7 +50,7 @@ function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewS
     onEdit={write} onDelete={() => setDialog({ action: "delete", review })} onReport={() => report(review)} />;
   return <View testID="place-reviews" style={{ gap: 10 }}>
     <View style={[common.row, { flexWrap: "wrap", gap: 8 }]}><View style={[common.flex, { minWidth: 120 }]}><T variant="subtitle" style={common.bold} accessibilityRole="header">{t("reviews")}</T><T variant="caption" muted>{t("community")}</T></View>
-      <Button label={t(data?.mine ? "editReview" : "writeReview")} icon="create-outline" variant="secondary" disabled={member.pending || !member.enabled} onPress={write} />
+      <Button label={t(data?.mine ? "editReview" : "writeReview")} icon="create-outline" variant="link" disabled={member.pending || !member.enabled} onPress={write} />
     </View>
     {remote.loading && !data && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingReviews")} />}
     {!!remote.error && <View style={common.row}><T variant="small" color={theme.error} style={common.flex} accessibilityLiveRegion="polite">{remote.error.code === "LOAD_FAILED" ? tc("loadFailed") : remote.error.message}</T><Button label={t("retryReviews")} variant="link" onPress={remote.refresh} /></View>}
