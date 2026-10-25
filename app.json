@@ -41,7 +41,7 @@
           "backgroundColor": "#fffaf7",
           "dark": {
             "image": "./assets/splash-blank.png",
-            "backgroundColor": "#29212d"
+            "backgroundColor": "#fffaf7"
           }
         }
       ],

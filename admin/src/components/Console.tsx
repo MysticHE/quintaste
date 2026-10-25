@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { BrandLogo } from './BrandLogo';
 import { can, type Capability, type Role } from '../lib/permissions';
 import { api, useResource, navigateFresh } from './client';
 import { Empty, Feedback } from './Primitives';
@@ -70,7 +71,7 @@ export default function Console({ section }: { section: string }) {
   const current = visible.flatMap(g => g.sections).find(s => s.id === section);
   return <div className="shell">
     <aside className="sidebar">
-      <Link className="brand" href="/console/overview"><span className="mark"><Icon name="leaf"/></span>QuinTaste</Link>
+      <Link className="brand" href="/console/overview"><BrandLogo /></Link>
       <nav aria-label="Console">{visible.map((group, i) => <div className="nav-group" key={group.title ?? i} role="group" aria-label={group.title}>
         {group.title && <span className="nav-title" aria-hidden="true">{group.title}</span>}
         {group.sections.map(s => { const n = counts && s.count ? s.count(counts) ?? 0 : 0;

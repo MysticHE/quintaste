@@ -1,6 +1,6 @@
 /**
  * Opening screen. It mounts at the root, above sign-in restore and every provider, and starts as soon as the code
- * runs (after the device-level intro settings and the wordmark font, both local). The native splash is the plain
+ * runs (after the device-level intro settings and the logo asset, both local). The native splash is the plain
  * brand background, so the Mochi Chef drops in from above it: it lands flat, springs back up and bounces twice more
  * (./motion), its cheeks blush (./Face), with a boing (./sound) and a light tap on the first two landings, then the
  * wordmark rises in. The bounce always plays to the end. If the app is still loading, the mochi then hovers side
@@ -8,13 +8,14 @@
  * Reduced motion (system or the app's switch) shows the settled mochi without sound or haptics.
  */
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { Platform, Pressable, StyleSheet, Text, View, useColorScheme, useWindowDimensions } from "react-native";
+import { Platform, Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
 import * as Haptics from "expo-haptics";
 import * as SplashScreen from "expo-splash-screen";
-import { useFonts, Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
+import { useAssets } from "expo-asset";
 import Svg, { Defs, Ellipse, RadialGradient, Stop } from "react-native-svg";
 import Animated, { useReducedMotion, type CSSAnimationKeyframes } from "react-native-reanimated";
-import { fontNames, themeFor } from "../../theme/tokens";
+import { themeFor } from "../../theme/tokens";
+import { BrandLogo, QUINTASTE_LOGO } from '../BrandLogo';
 import { MochiFace } from "./Face";
 import { FEET_ORIGIN, HOLD, LANDINGS, SETTLED, SWAY, bodyKeyframes, shadowKeyframes, shadowSwayKeyframes, swayKeyframes } from "./motion";
 import { loadIntroSettings, type IntroSettings } from "./settings";
@@ -36,20 +37,14 @@ export function markAppReady() {
 const subscribe = (l: () => void) => { listeners.add(l); return () => { listeners.delete(l); }; };
 const isReady = () => ready;
 
-type Brand = { background: string; quin: string; taste: string; shadow: string; blush: string };
-/** The native splash's colours (the coral brand, light or dark with the phone), used before any preferences load. */
-function useBrand(): Brand {
-  const dark = useColorScheme() === "dark";
-  return useMemo(() => {
-    const t = themeFor("coral", dark), coral = t.swatches.coral;
-    // Wordmark: "Quin" in the mochi's brown (warm cream on dark), "Taste" in coral.
-    return { background: dark ? coral.dark[0] : coral.light[0], quin: dark ? coral.light[1] : t.mascot.ink, taste: dark ? coral.accentDark : coral.accent, shadow: t.shadow, blush: t.mascot.blush };
-  }, [dark]);
-}
+// The owner chose a consistently light opening screen, independent of the device or app theme.
+const openingTheme = themeFor('coral', false);
+const openingBrand = { background: openingTheme.swatches.coral.light[0], shadow: openingTheme.shadow, blush: openingTheme.mascot.blush };
+type Brand = typeof openingBrand;
 
 /** The native splash frame (plain brand background), shown while the app loads where no native splash exists (web). */
 export function SplashMark({ language = systemLanguage() }: { language?: Language }) {
-  const { background } = useBrand();
+  const { background } = openingBrand;
   return <View accessible accessibilityLabel={translate(language, "common", "loadingApp")} style={[s.fill, { backgroundColor: background }]} />;
 }
 
@@ -57,7 +52,7 @@ export function SplashMark({ language = systemLanguage() }: { language?: Languag
 export function SplashIntro() {
   const [done, setDone] = useState(false);
   const [settings, setSettings] = useState<IntroSettings | null>(null);
-  const [fonts, fontError] = useFonts({ Nunito_800ExtraBold });
+  const [assets, assetError] = useAssets([QUINTASTE_LOGO]);
   const systemStill = useReducedMotion();
   useEffect(() => {
     let live = true;
@@ -68,7 +63,7 @@ export function SplashIntro() {
     });
     return () => { live = false; };
   }, [systemStill]);
-  const go = !!settings && (fonts || !!fontError);
+  const go = !!settings && (!!assets || !!assetError);
   useEffect(() => { if (go) void SplashScreen.hideAsync().catch(() => {}); }, [go]);
   if (done) return null;
   if (!go) return <View style={StyleSheet.absoluteFill}><SplashMark /></View>;
@@ -113,11 +108,11 @@ const FADE_OUT = { to: { opacity: 0 } };
 const TITLE_IN = { from: { opacity: 0, transform: [{ translateY: 14 }] }, to: { opacity: 1, transform: [{ translateY: 0 }] } };
 
 function Play({ still, sounds, language, onDone }: { still: boolean; sounds: boolean; language: Language; onDone: () => void }) {
-  const brand = useBrand(), appReady = useSyncExternalStore(subscribe, isReady, isReady);
+  const brand = openingBrand, appReady = useSyncExternalStore(subscribe, isReady, isReady);
   const { width: W, height: H } = useWindowDimensions();
   const size = Math.min(W * 0.46, H * 0.26, 220), cx = W / 2, cy = H * 0.43;
   // The art's feet sit at 91% of its height; the shadow, squash and hover all pivot there.
-  const foot = size * 0.41, base = cy + foot, word = Math.min(44, W * 0.11), drop = cy + size * 1.2;
+  const foot = size * 0.41, base = cy + foot, word = Math.min(320, W * 0.76), drop = cy + size * 1.2;
   const frames = useMemo(() => ({
     body: bodyKeyframes(size, drop, foot), ground: shadowKeyframes(size, drop),
     swayIn: swayKeyframes(size, true), sway: swayKeyframes(size, false),
@@ -164,8 +159,7 @@ function Play({ still, sounds, language, onDone }: { still: boolean; sounds: boo
         </Animated.View>
       </Animated.View>
       <Animated.View pointerEvents="none" accessible accessibilityRole="header" accessibilityLabel="QuinTaste" style={[s.abs, s.word, { top: base + size * 0.12, width: W }, title]}>
-        <Text style={[s.wordPart, { fontSize: word, color: brand.quin }]}>Quin</Text>
-        <Text style={[s.wordPart, { fontSize: word, color: brand.taste }]}>Taste</Text>
+        <BrandLogo width={word} decorative />
       </Animated.View>
     </Pressable>
   </Animated.View>;
@@ -175,7 +169,5 @@ const s = StyleSheet.create({
   abs: { position: "absolute" },
   feet: { transformOrigin: FEET_ORIGIN },
   fill: { flex: 1, width: "100%", height: "100%" },
-  // The wordmark is two side-by-side pieces, one per colour.
   word: { left: 0, flexDirection: "row", justifyContent: "center" },
-  wordPart: { fontFamily: fontNames.display, letterSpacing: 0.5 },
 });

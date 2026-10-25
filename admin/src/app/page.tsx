@@ -4,6 +4,7 @@ import { googleConfigured } from '../lib/config';
 import { sessionFromToken, sessionName } from '../lib/session';
 import type { SignInError } from '../lib/oauth';
 import { GoogleMark, Icon } from '../components/Icon';
+import { BrandLogo } from '../components/BrandLogo';
 
 const errors: Record<SignInError, string> = {
   denied: 'This Google account is not invited.',
@@ -21,8 +22,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   // Opening the console signs in straight away; after a sign-out or a failed attempt the button waits for a click.
   if (configured && !error && !('signedout' in params)) redirect('/auth/login');
   return <main id="main" className="login"><div className="login-card">
-    <span className="mark"><Icon name="leaf"/></span>
-    <h1>QuinTaste Admin</h1>
+    <h1 className="login-brand"><BrandLogo width={264} /><span>Admin</span></h1>
     {error && <div className="notice error" role="alert"><Icon name="warning"/>{error}</div>}
     {configured ? <a className="button" href={'signedout' in params || error ? '/auth/login?choose' : '/auth/login'}><GoogleMark/>Continue with Google</a>
       : <div className="notice"><Icon name="warning"/>{errors.unavailable}</div>}
