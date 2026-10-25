@@ -8,8 +8,8 @@ import { useAuth } from '../../state/Auth';
 import { walkIn } from '../../services/walk-in';
 import { useT } from '../../i18n';
 import { T } from '../ui';
-import { AppPreview } from './AppPreviews';
-import { WelcomeBrand, WelcomeHeading } from './WelcomeUI';
+import { IntroductionArtwork } from './ReferenceArtwork';
+import { WelcomeHeading } from './WelcomeUI';
 
 const panels = [
   ['walkInDiningTitle', 'walkInDiningBody'], ['walkInRecipesTitle', 'walkInRecipesBody'],
@@ -25,11 +25,11 @@ export function WalkInExperience({ SignIn }: { SignIn: SignInComponent }) {
     void walkIn.shouldShow().then(show => { if (active) setIntroduce(username ? false : show); });
     return () => { active = false; };
   }, [username]);
-  return <View style={[s.root, { backgroundColor: theme.background }]}>
+  return <View style={[s.root, { backgroundColor: theme.welcome.background }]}>
     <StatusBar style={theme.dark ? 'light' : 'dark'} />
     <SafeAreaView style={s.safe}>
-      <View style={[s.frame, { backgroundColor: theme.background }]}>
-        {user || introduce === false ? <SignIn /> : introduce === null
+      <View style={[s.frame, { backgroundColor: theme.welcome.background }]}>
+        {user || introduce === false ? <SignIn onGalleryBack={() => setIntroduce(true)} /> : introduce === null
           ? <View style={s.loading}><ActivityIndicator color={theme.accent} /></View>
           : <Gallery SignIn={SignIn} />}
       </View>
@@ -142,11 +142,11 @@ function Gallery({ SignIn }: { SignIn: SignInComponent }) {
     {panels.map(([title, body], index) => <View key={title} style={{ width: pageWidth, height: '100%' }}
       accessibilityElementsHidden={index !== page} importantForAccessibility={index === page ? 'auto' : 'no-hide-descendants'} aria-hidden={index !== page}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={s.panel} nestedScrollEnabled>
-        <WelcomeBrand /><AppPreview page={index} width={pageWidth} />
-        <View style={s.copy}><WelcomeHeading title={t(title)} body={t(body)} /></View>
+        <IntroductionArtwork page={index} width={pageWidth} />
+        <View style={[s.copy, { paddingHorizontal: pageWidth * 0.07 }]}><WelcomeHeading title={t(title)} body={t(body)} size={index === 3 ? 'community' : 'intro'} /></View>
         <View style={s.progress} accessible={false}>
-          <View style={s.dots}>{panels.map((_, dot) => <View key={dot} style={[s.dot, { width: dot === index ? 16 : 8, backgroundColor: dot === index ? theme.accent : theme.border }]} />)}</View>
-          <T muted variant="small">{t(index === 3 ? 'walkInSignIn' : 'walkInSwipe')}</T>
+          <View style={s.dots}>{panels.map((_, dot) => <View key={dot} style={[s.dot, { width: dot === index ? 12 : 9, backgroundColor: dot === index ? theme.welcome.accent : theme.welcome.dot }]} />)}</View>
+          <T style={{ color: theme.welcome.mutedForeground, fontSize: 13 }}>{t(index === 3 ? 'walkInSignIn' : 'walkInSwipe')}</T>
         </View>
       </ScrollView>
     </View>)}
@@ -159,7 +159,7 @@ function Gallery({ SignIn }: { SignIn: SignInComponent }) {
 const s = StyleSheet.create({
   root: { flex: 1 }, safe: { flex: 1, alignItems: 'center' }, frame: { flex: 1, width: '100%', maxWidth: 480 },
   fill: { flex: 1 }, horizontal: { alignItems: 'stretch' }, loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  panel: { flexGrow: 1, paddingBottom: 12 }, copy: { paddingHorizontal: 24, paddingTop: 4 },
-  progress: { alignItems: 'center', gap: 9, paddingTop: 20, paddingBottom: 10, marginTop: 'auto' },
-  dots: { flexDirection: 'row', gap: 15, alignItems: 'center', paddingVertical: 5 }, dot: { height: 8, borderRadius: 4 },
+  panel: { flexGrow: 1, paddingBottom: 12 }, copy: { paddingTop: 4 },
+  progress: { alignItems: 'center', gap: 10, paddingTop: 12, paddingBottom: 10 },
+  dots: { flexDirection: 'row', gap: 14, alignItems: 'center', paddingVertical: 5 }, dot: { height: 9, borderRadius: 5 },
 });

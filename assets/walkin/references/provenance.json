@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-26",
+  "authority": "Owner explicitly selected all six PNGs, including their logo",
+  "assets": [
+    {
+      "file": "assets/walkin/references/01-Dining-together.webp",
+      "source": "C:\\Users\\huien\\Desktop\\QT\\QuinTaste-Four-Screen-Gallery-v4-2026-10-25\\01-Dining-together.png",
+      "sourceSha256": "e88c6017fb3af1f63418adfcbfb7665b03ed94fc3948f696b17df989c7ffda80",
+      "sha256": "01227dfab8ef41847eb87dfe52cb366b033505d10aaba51976286cab39937cf2",
+      "width": 853,
+      "height": 1844,
+      "bytes": 294324,
+      "transformation": "WebP encoding only; no cropping, compositing or resizing"
+    },
+    {
+      "file": "assets/walkin/references/02-AI-recipes.webp",
+      "source": "C:\\Users\\huien\\Desktop\\QT\\QuinTaste-Four-Screen-Gallery-v4-2026-10-25\\02-AI-recipes.png",
+      "sourceSha256": "e36d5d0f45119eb57b715f9cc927c893cbd38173d005a3c437d9060b65453f9a",
+      "sha256": "5a15060209d80c3efba6f59b96ee4830c68a7ac6127fc4360c7fa6be597de5d5",
+      "width": 853,
+      "height": 1844,
+      "bytes": 289352,
+      "transformation": "WebP encoding only; no cropping, compositing or resizing"
+    },
+    {
+      "file": "assets/walkin/references/03-Play-to-learn.webp",
+      "source": "C:\\Users\\huien\\Desktop\\QT\\QuinTaste-Four-Screen-Gallery-v4-2026-10-25\\03-Play-to-learn.png",
+      "sourceSha256": "aa0d191e1f5ee25180159909b3614d44d9d2cbb5b381baaf00c7ead5253784ba",
+      "sha256": "d933a7fa6cee6f05faf43d2e0cd306ecfae8ecd46321c411863f2930c31c4c02",
+      "width": 853,
+      "height": 1844,
+      "bytes": 294202,
+      "transformation": "WebP encoding only; no cropping, compositing or resizing"
+    },
+    {
+      "file": "assets/walkin/references/04-Community.webp",
+      "source": "C:\\Users\\huien\\Desktop\\QT\\QuinTaste-Four-Screen-Gallery-v4-2026-10-25\\04-Community.png",
+      "sourceSha256": "2da9eef6e06731f4a3e10c44261a22319975b589822e6ea837863a082f635e0d",
+      "sha256": "65b0dcbb79470ea1a7c66e29158849a8bcab3a48383c60bb5e1ca9cc39875b3c",
+      "width": 853,
+      "height": 1844,
+      "bytes": 303550,
+      "transformation": "WebP encoding only; no cropping, compositing or resizing"
+    },
+    {
+      "file": "assets/walkin/references/05-Sign-in.webp",
+      "source": "C:\\Users\\huien\\Desktop\\QT\\QuinTaste-Four-Screen-Gallery-v4-2026-10-25\\05-Sign-in.png",
+      "sourceSha256": "8d0c0cc6742cb4ef4e3d35fc9a21756a9c1bacc6f4a415383c455538e041aa2c",
+      "sha256": "c6484e28b033a549aa598cf04d1c77ecbcd9e57cb57334e80214cd6f220d8c8a",
+      "width": 853,
+      "height": 1844,
+      "bytes": 165180,
+      "transformation": "WebP encoding only; no cropping, compositing or resizing"
+    },
+    {
+      "file": "assets/walkin/references/06-Username-sign-in.webp",
+      "source": "C:\\Users\\huien\\Desktop\\QT\\QuinTaste-Four-Screen-Gallery-v4-2026-10-25\\06-Username-sign-in.png",
+      "sourceSha256": "d60aa76575e7eb6ff1322c4051f86329c1942d4356f7eb9cd5b23d5e26617f70",
+      "sha256": "8bd9fc88439a6d6f044cd7db4d24c920bb12c277a4f7605e0516881ab736c813",
+      "width": 853,
+      "height": 1843,
+      "bytes": 137056,
+      "transformation": "WebP encoding only; no cropping, compositing or resizing"
+    }
+  ]
+}

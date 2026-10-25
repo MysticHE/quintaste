@@ -15,6 +15,8 @@ import {
   View,
   type TextProps,
   type TextInputProps,
+  type StyleProp,
+  type ViewStyle,
 } from "react-native";
 import { usePreferences } from "../state/Preferences";
 import { fontNames, typeScale } from "../theme/tokens";
@@ -177,6 +179,7 @@ export function Field({
   icon,
   error,
   trailing,
+  fieldStyle,
   showLabel = true,
   ...props
 }: TextInputProps & {
@@ -184,6 +187,7 @@ export function Field({
   icon?: IconName;
   error?: string;
   trailing?: ReactNode;
+  fieldStyle?: StyleProp<ViewStyle>;
   /** False when a heading above already names the field; the label is still read aloud. */
   showLabel?: boolean;
 }) {
@@ -195,13 +199,14 @@ export function Field({
       <View
         style={[
           s.field,
+          fieldStyle,
           {
             backgroundColor: theme.card,
             borderColor: error
               ? theme.error
               : focused
                 ? theme.accent
-                : theme.border,
+                : StyleSheet.flatten(fieldStyle)?.borderColor ?? theme.border,
           },
           Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: focused ? 2 : 0, outlineColor: theme.accent, outlineOffset: 0 },
         ]}

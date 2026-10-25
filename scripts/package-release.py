@@ -22,7 +22,7 @@ FILES = (
 OPTIONAL_FILES = ("expo-env.d.ts", "metro.config.js", "babel.config.js")
 DOCUMENT_EXTENSIONS = {".md", ".mdx", ".pdf", ".doc", ".docx", ".rtf", ".rst", ".adoc", ".txt"}
 PRIVATE_DIRECTORIES = {"docs", "documentation", ".local", ".git", ".expo", "node_modules", "__pycache__"}
-LICENSE_NOTICES = {"server-assets/avatar/LICENSE.txt"}
+LICENSE_NOTICES = {"server-assets/avatar/LICENSE.txt", "assets/fonts/Fredoka-OFL.txt"}
 
 
 def excluded(relative: Path) -> bool:

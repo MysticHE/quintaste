@@ -59,6 +59,7 @@ function Navigation() {
     Nunito_600SemiBold,
     Nunito_700Bold,
     Nunito_800ExtraBold,
+    Fredoka_700Bold: require('../../assets/fonts/Fredoka_700Bold.ttf'),
   });
   const navigable = ready && !!(fontsLoaded || fontError) && collectionReady && !!navigation?.key;
   useEffect(() => {

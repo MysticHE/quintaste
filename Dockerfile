@@ -23,6 +23,7 @@ COPY src/data/recipe-library ./src/data/recipe-library
 COPY src/utils/sg-datetime.ts ./src/utils/sg-datetime.ts
 COPY dist ./dist
 COPY server-assets ./server-assets
+COPY assets/fonts/Fredoka-OFL.txt ./licenses/Fredoka-OFL.txt
 RUN mkdir -p /app/.local && chown node:node /app/.local
 USER node
 EXPOSE 3000

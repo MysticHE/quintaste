@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { BackHandler, Pressable } from 'react-native';
 import { Redirect, router, useFocusEffect, useLocalSearchParams } from 'expo-router';
-import { Field, Icon, T } from '../components/ui';
+import { Icon, T } from '../components/ui';
 import { useAuth } from '../state/Auth';
 import { GoogleSignIn } from '../components/account/GoogleSignIn';
 import { authClient } from '../services/auth-client';
@@ -10,7 +10,7 @@ import { safeReturn } from '../utils/navigation';
 import { getSignInDestination, setSignInDestination } from '../services/sign-in-destination';
 import { useT } from '../i18n';
 import { SignInScene } from '../components/walkin/SignInScene';
-import { WelcomeButton, WelcomeDivider } from '../components/walkin/WelcomeUI';
+import { WelcomeButton, WelcomeDivider, WelcomeField } from '../components/walkin/WelcomeUI';
 import { fontNames } from '../theme/tokens';
 
 /** The welcome sign-in page: Google, or a username and password form, after the walk-in introductions. */
@@ -51,11 +51,11 @@ export function ConnectedSignInScreen({ onGalleryBack }: { onGalleryBack?: () =>
   if (user) return <Redirect href={user.adultConfirmed ? (getSignInDestination() || destination) : { pathname: '/account-eligibility', params: { returnTo } }} />;
   const google = <GoogleSignIn welcome disabled={busy} returnTo={String(destination)} onBusy={setGoogleBusy} />;
   return <SignInScene title={t(formOpen ? 'welcomeBack' : 'welcomeHome')} body={t(formOpen ? 'welcomeBackBody' : 'welcomeHomeBody')}
-    onBack={formOpen ? closeForm : onGalleryBack} backLabel={t(formOpen ? 'welcomeChoices' : 'walkInBack')} busy={locked}>
+    onBack={formOpen ? closeForm : onGalleryBack} backLabel={t(formOpen ? 'welcomeChoices' : 'walkInBack')} busy={locked} compact={formOpen}>
     {formOpen ? <>
-      <Field label={t('username')} placeholder={t('welcomeUsernamePlaceholder')} value={username} onChangeText={setUsername}
+      <WelcomeField label={t('username')} placeholder={t('welcomeUsernamePlaceholder')} value={username} onChangeText={setUsername}
         autoCapitalize="none" autoCorrect={false} autoComplete="username" maxLength={30} editable={!locked} />
-      <Field label={t('password')} value={password} onChangeText={setPassword} secureTextEntry={!revealed} autoCapitalize="none"
+      <WelcomeField label={t('password')} value={password} onChangeText={setPassword} secureTextEntry={!revealed} autoCapitalize="none"
         autoComplete="current-password" maxLength={128} placeholder={t('yourPassword')} editable={!locked} returnKeyType="go"
         onSubmitEditing={() => { if (!locked && username.trim() && password) void submit(); }}
         trailing={<Pressable accessibilityRole="button" accessibilityLabel={t(revealed ? 'hidePassword' : 'showPassword')}
@@ -66,7 +66,7 @@ export function ConnectedSignInScreen({ onGalleryBack }: { onGalleryBack?: () =>
       <Pressable accessibilityRole="button" accessibilityLabel={t('forgotPassword')} disabled={locked} accessibilityState={{ disabled: locked }}
         onPress={() => router.push({ pathname: '/reset-password', params: { username } })}
         style={{ alignSelf: 'flex-end', minHeight: 48, paddingVertical: 12, justifyContent: 'center', marginTop: -8 }}>
-        <T color={theme.accent} style={{ fontFamily: fontNames.semibold }}>{t('forgotPassword')}</T>
+        <T color={theme.welcome.accent} style={{ fontFamily: fontNames.semibold }}>{t('forgotPassword')}</T>
       </Pressable>
       {!!error && <T color={theme.error} accessibilityRole="alert" accessibilityLiveRegion="polite">{error}</T>}
       <WelcomeButton label={tc('signIn')} kind="primary" busy={busy} disabled={googleBusy || !username.trim() || !password} onPress={() => void submit()} testID="welcome-sign-in" />
@@ -81,7 +81,7 @@ export function ConnectedSignInScreen({ onGalleryBack }: { onGalleryBack?: () =>
     <Pressable accessibilityRole="button" accessibilityLabel={t('welcomeCreate')} disabled={locked} accessibilityState={{ disabled: locked }}
       onPress={() => router.replace({ pathname: '/create-account', params: { returnTo: returnTo || '/' } })}
       style={{ minHeight: 48, alignItems: 'center', justifyContent: 'center', paddingVertical: 8 }}>
-      <T style={{ textAlign: 'center' }}>{t('welcomeNewHere')} <T color={theme.accent} style={{ fontFamily: fontNames.bold }}>{t('welcomeCreate')}</T></T>
+      <T style={{ textAlign: 'center', color: theme.dark ? theme.foreground : theme.mascot.ink }}>{t('welcomeNewHere')} <T color={theme.welcome.accent} style={{ fontFamily: fontNames.bold }}>{t('welcomeCreate')}</T></T>
     </Pressable>
   </SignInScene>;
 }
