@@ -6,7 +6,9 @@ import { eraseLocalExplore, completeLocalExploreErase } from "../utils/local-exp
 
 function useLocalServices() {
   const { owner, doc } = useFood(), network = useNetworkState(), [paused, setPaused] = useState(false);
-  const offline = network.isConnected === false || network.isInternetReachable === false;
+  // Offline only when the phone has no connection at all. Android's "internet reachable" needs its own connectivity check to pass,
+  // which fails behind some VPNs, Private DNS settings and Wi-Fi networks that work fine, and it then blocked every load.
+  const offline = network.isConnected === false;
   const cases = useExploreCases(offline || paused);
   const { cancel: cancelCases } = cases;
   const eraseServer = useCallback(async () => {

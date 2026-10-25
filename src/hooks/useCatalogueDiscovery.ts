@@ -68,7 +68,8 @@ export function useCatalogueDiscovery() {
       if (!cursor) acceptedCheckedAt.current = saved.checkedAt;
       setCached(offline); setBusy(false); return;
     }
-    if (offline || !force && !cursor && now - (failures.current.get(key) ?? 0) < 60_000) {
+    // Retry (force) always asks the server: the phone's own idea of being offline can be wrong.
+    if (!force && (offline || !cursor && now - (failures.current.get(key) ?? 0) < 60_000)) {
       setCached(hasSavedResults); setBusy(false);
       if (cursor && offline) setError("offlineLoadMore");
       else if (!hasSavedResults) setError(offline ? "offlineLoadLocation" : "placesUnavailable");

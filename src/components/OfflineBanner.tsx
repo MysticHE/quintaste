@@ -15,7 +15,8 @@ const SETTLE_MS = 2500;
  */
 export function OfflineBanner() {
   const { theme } = usePreferences(), t = useT("common"), focused = useIsFocused(), network = useNetworkState();
-  const down = network.isConnected === false || network.isInternetReachable === false, [settled, setSettled] = useState(false);
+  // No connection at all (see ExploreLocal): Android's "internet reachable" is false behind some VPNs and networks that work.
+  const down = network.isConnected === false, [settled, setSettled] = useState(false);
   if (!down && settled) setSettled(false);
   useEffect(() => {
     if (!down) return;
