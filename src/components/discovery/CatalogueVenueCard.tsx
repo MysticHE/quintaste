@@ -4,6 +4,8 @@ import type { CatalogueVenue } from "../../types/catalogue";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
+import { useDiscovery } from "../../state/Discovery";
+import { matchedDish } from "../../utils/menu-display";
 import { Button, Card, Icon, T, common } from "../ui";
 import type { PlaceReviewSummary } from "../../types/place-reviews";
 import { IconButton } from "../food/Controls";
@@ -25,14 +27,17 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   const options = isVegOptions(venue), distance = km ? " · " + km : "";
   // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen. Other places show only proven labels.
   const labels = placeLabels(venue), dietText = useDietText();
+  // A keyword search shows the dish that matched and carries the search into the place and its menu.
+  const { query } = useDiscovery(), dish = venue.match && matchedDish(venue.match, language), search = venue.match ? query.trim() : "";
   const metadata = options ? t("mixedKitchenSpoken") + " · " + dishCount(venue.itemCount, language) + distance : [...labels.map(dietText.spoken), ...(km ? [km] : [])].join(" · ");
   return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, thumbhash: venue.photo?.thumbhash, emptyIcon: placeTileIcon(venue) }} title={venue.name}
-    label={[venue.name, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint={t("cardHint")}
-    onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
-    topLeft={venue.itemCount > 0 && <MenuEntry menu={venue} compact />}
+    label={[venue.name, dish, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint={t("cardHint")}
+    onPress={() => router.push({ pathname: "/place/[id]", params: search ? { id, q: search } : { id } } as never)}
+    topLeft={venue.itemCount > 0 && <MenuEntry menu={venue} compact search={search} />}
     topRight={more && <IconButton label={t("moreOptionsFor", { name: venue.name })} icon="ellipsis-horizontal" appearance="media" onPress={more} />}
     side={<ReactionColumn kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)}
       save={{ saved, busy: false, disabled: !readable, onPress: () => void toggleSave("place", id, venue.name) }} />}>
+    {!!dish && <View testID="catalogue-card-dish"><PostFact icon="restaurant-outline">{dish}</PostFact></View>}
     <PostFact icon="location-outline">{venue.address}</PostFact>
     <PostFacts>
       {venue.distanceKm !== undefined && <PostFact icon="navigate-outline" shrink>{tc("kilometresAway", { km: venue.distanceKm.toFixed(1) })}</PostFact>}

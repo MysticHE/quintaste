@@ -83,6 +83,9 @@ const en = {
   tryLocationAgain: "Try location again",
   keepCurrentSearch: "Keep current search",
   placeOrPostal: "Place or postal code",
+  placeDishOrPostal: "Place, dish or postal code",
+  searchDishOrPlaceA11y: "Search by dish, place name, address or postal code",
+  dishSuggestion: "Dish",
   searchThisPlace: "Search this place or postal code",
   privateAddressA11y: "Private address or postal code",
   searchByA11y: "Search by place name, address or postal code",
@@ -92,6 +95,7 @@ const en = {
   retryLocationSuggestions: "Retry location suggestions",
   addressesSource: "Addresses · OneMap / SLA",
   matchingLocations: "Matching locations",
+  matchingDishesAndLocations: "Matching dishes and locations",
 
   searchDishes: "Search dishes",
   menuCategoriesA11y: "Menu categories, choose any",

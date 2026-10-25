@@ -9,18 +9,21 @@ import { MenuSection } from "./MenuSection";
 import { useScreenScrollToTop } from "../Screen";
 import { edgeScroll } from "../../theme/layout";
 import { useT } from "../../i18n";
+import { searchWords } from "../../utils/search-words";
 
-export function MenuDishes({ menu }: { menu: PublishedMenu; now: number }) {
-  const [query, setQuery] = useState(""), [categoriesChosen, setCategories] = useState<string[]>([]);
+/** `search` opens the menu already searched (an Explore keyword search that matched a dish here). */
+export function MenuDishes({ menu, search = "" }: { menu: PublishedMenu; now: number; search?: string }) {
+  const [query, setQuery] = useState(search), [categoriesChosen, setCategories] = useState<string[]>([]);
   const [page, setPage] = useState(0), scrollToTop = useScreenScrollToTop(), turned = useRef(false), t = useT("explore");
   const turn = (next: number) => { turned.current = true; setPage(next); };
   const active = useMemo(() => ({ ...menu.sections[0], items: menuDisplayItems(menu) }), [menu]);
   const categories = useMemo(() => [...new Set(active.items.map(item => item.category ?? "").filter(Boolean))], [active]);
   const selectedCategories = useMemo(() => categoriesChosen.filter(value => categories.includes(value)), [categoriesChosen, categories]);
   const count = active.items.length;
-  const needle = query.trim().normalize("NFKC").toLocaleLowerCase();
+  // Search words, so the spellings Explore treats as one ("wonton", "wanton") find the same dishes here.
+  const needle = searchWords(query);
   const matched = useMemo(() => active.items.filter(item => (!selectedCategories.length || selectedCategories.includes(item.category ?? ""))
-    && (!needle || (item.name + " " + (item.category ?? "")).normalize("NFKC").toLocaleLowerCase().includes(needle))),
+    && (!needle || searchWords(item.name + " " + (item.category ?? "")).includes(needle))),
   [active, selectedCategories, needle]);
   const currentPage = Math.min(page, Math.max(0, Math.ceil(matched.length / 20) - 1));
   // Scroll once the new page has rendered, so the height change cannot interrupt the scroll.

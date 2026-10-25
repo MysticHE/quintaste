@@ -19,8 +19,8 @@ export function apiRequestKind(req) {
   catch { return 'write'; }
   if (providerPaths.has(path)) return 'provider';
   if (securityPaths.has(path)) return 'security';
-  // Catalogue POST is a read containing private search coordinates, not a mutation.
-  if (['GET', 'HEAD', 'OPTIONS'].includes(req.method) || (req.method === 'POST' && path === '/api/catalogue')) return 'read';
+  // Catalogue POST is a read containing private search coordinates, not a mutation; dish suggestions are a read of the menus.
+  if (['GET', 'HEAD', 'OPTIONS'].includes(req.method) || (req.method === 'POST' && (path === '/api/catalogue' || path === '/api/dish-search'))) return 'read';
   return 'write';
 }
 

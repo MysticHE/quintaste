@@ -22,7 +22,7 @@ import { useLanguage, useT } from "../../i18n";
 const MEAT_NAMED = /\b(chicken|pork|beef|mutton|lamb|bacon|ham|duck|fish\w*|prawns?|shrimp|crab|squid|abalone|blt|steak|sausage|meat\w*)\b|[鸡鸭猪牛羊鱼虾蟹肉]/i;
 
 export function MenuScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, q } = useLocalSearchParams<{ id: string; q?: string }>();
   const { loaded, busy: indexBusy, error: indexError, now, load: loadIndex, offline } = useMenus();
   const { menu, busy: detailBusy, error, storageError, cached, load } = useMenuDetail(id);
   const { venue, busy: venueBusy, retry: retryVenue } = useCatalogueVenue(id);
@@ -67,7 +67,7 @@ export function MenuScreen() {
       {availabilityNote && <T testID="menu-availability-note" variant="small" muted>{availabilityNote}</T>}
       {cached && <View style={common.row}><T variant="caption" muted style={common.flex} accessibilityLiveRegion="polite">{t(offline ? "offlineSavedMenu" : "savedMenuMayChange")}</T>
         <Button label={tc("retry")} variant="link" loading={busy} onPress={retry} /></View>}
-      <MenuDishes key={menu.id} menu={menu} now={now} />
+      <MenuDishes key={menu.id} menu={menu} now={now} search={typeof q === "string" ? q.trim().slice(0, 100) : ""} />
       {latestSource && updated && <View testID="menu-latest-update">
         <MenuSourceLink url={latestSource.sourceUrl} publisher={latestSource.sourceLabel}
           label={t("lastUpdated", { date: language === "zh" ? zhDate(updated) : updated.toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" }) })} />

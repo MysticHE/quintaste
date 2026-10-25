@@ -1,5 +1,5 @@
 import * as Linking from "expo-linking";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { ReactionBar } from "../../components/ReactionBar";
@@ -25,6 +25,8 @@ import { goBack } from "../../utils/navigation";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   const { venue, busy, error, gone, offline, retry } = useCatalogueVenue(id);
+  // An Explore keyword search carries on into the menu.
+  const { q } = useLocalSearchParams<{ q?: string }>(), search = typeof q === "string" ? q.trim().slice(0, 100) : "";
   useReactions("place", venue ? [venue.id] : []);
   const { theme, setNotice } = usePreferences(), { isSaved, toggleSave, readable } = useFood();
   const t = useT("explore"), tc = useT("common");
@@ -76,7 +78,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
       </View>
       <View testID="place-primary-actions" style={s.actions}>
         <PlaceDetailAction inline variant="primary" label={t("directions")} icon="navigate-outline" onPress={() => void open(directions)} />
-        {venue.itemCount > 0 && <PlaceDetailAction inline variant="secondary" label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })} onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />}
+        {venue.itemCount > 0 && <PlaceDetailAction inline variant="secondary" label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })} onPress={() => router.push({ pathname: "/menu/[id]", params: search ? { id: venue.id, q: search } : { id: venue.id } } as never)} />}
         <PlaceDetailAction inline label={tc(saved ? "saved" : "save")} accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} icon={saved ? "bookmark" : "bookmark-outline"}
           selected={saved} disabled={!readable || saving} onPress={() => void save()} />
       </View>

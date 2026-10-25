@@ -83,6 +83,9 @@ const zh: typeof en = {
   tryLocationAgain: "再次尝试定位",
   keepCurrentSearch: "保留目前搜索",
   placeOrPostal: "地点或邮区编号",
+  placeDishOrPostal: "地点、菜色或邮区编号",
+  searchDishOrPlaceA11y: "按菜色、店名、地址或邮区编号搜索",
+  dishSuggestion: "菜色",
   searchThisPlace: "搜索这个地点或邮区编号",
   privateAddressA11y: "私人地址或邮区编号",
   searchByA11y: "按店名、地址或邮区编号搜索",
@@ -92,6 +95,7 @@ const zh: typeof en = {
   retryLocationSuggestions: "重新获取位置建议",
   addressesSource: "地址 · OneMap / SLA",
   matchingLocations: "相符的地点",
+  matchingDishesAndLocations: "相符的菜色和地点",
 
   searchDishes: "搜索菜色",
   menuCategoriesA11y: "菜单类别，可多选",

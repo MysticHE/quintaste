@@ -52,10 +52,15 @@ export function menuDisplayItems(menu: PublishedMenu): MenuItem[] {
   return [...result.values()];
 }
 
-export function menuDisplayPrice({ price }: MenuItem, language: Language = "en") {
+export function menuDisplayPrice({ price }: Pick<MenuItem, "price">, language: Language = "en") {
   const words = exploreWords(language);
   if (price.amount === null || price.currency !== "SGD") return words.priceUnavailable;
   if (price.maxAmount !== undefined && price.maxAmount > price.amount) return "S$" + price.amount.toFixed(2) + "–" + price.maxAmount.toFixed(2);
   const amount = "S$" + price.amount.toFixed(2);
   return price.type === "from" ? words.priceFrom({ price: amount }) : amount;
+}
+
+/** A matched dish as a search result shows it: "Char Kway Teow · S$6.00", without a price when the menu has none. */
+export function matchedDish(dish: Pick<MenuItem, "name" | "price">, language: Language = "en") {
+  return dish.price.amount === null || dish.price.currency !== "SGD" ? dish.name : dish.name + " · " + menuDisplayPrice(dish, language);
 }

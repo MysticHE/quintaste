@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Platform, Pressable, ScrollView, StyleSheet, View, type ScrollViewInstance } from "react-native";
 import { usePreferences } from "../../state/Preferences";
-import type { LocationSuggestion } from "../../types/location-search";
+import type { SearchSuggestion } from "../../types/location-search";
 import { SuggestionList } from "./SuggestionList";
 import { Icon, T, common } from "../ui";
 import { useT } from "../../i18n";
 
-type Props = { id: string; suggestions: LocationSuggestion[]; busy: boolean; error: string; index: number;
-  choose: (item: LocationSuggestion) => void; keepOpen: () => void; retry: () => void; inFlow?: boolean };
+type Props = { id: string; suggestions: SearchSuggestion[]; busy: boolean; error: string; index: number;
+  choose: (item: SearchSuggestion) => void; keepOpen: () => void; retry: () => void; inFlow?: boolean };
 export function LocationSuggestions({ id, suggestions, busy, error, index, choose, keepOpen, retry, inFlow = false }: Props) {
   const { theme } = usePreferences(), [hover, setHover] = useState(-1), t = useT("explore"), tc = useT("common");
   const scroll = useRef<ScrollViewInstance>(null), rows = useRef(new Map<string, number>());
@@ -21,8 +21,8 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
       nestedScrollEnabled style={s.scroll} showsVerticalScrollIndicator={false}>
       {busy && <View style={s.status}><ActivityIndicator size="small" color={theme.accent} accessibilityLabel={t("findingLocations")} />
         <T variant="small" muted accessibilityLiveRegion="polite">{t("findingLocationsNow")}</T></View>}
-      <SuggestionList id={id} label={t("matchingLocations")}>{suggestions.map((item, position) => <Pressable key={item.id} nativeID={id + "-" + position} role="option"
-        accessibilityLabel={item.name + " " + item.address} accessibilityState={{ selected: position === index }}
+      <SuggestionList id={id} label={t(suggestions.some(item => item.kind === "dish") ? "matchingDishesAndLocations" : "matchingLocations")}>{suggestions.map((item, position) => <Pressable key={item.id} nativeID={id + "-" + position} role="option"
+        accessibilityLabel={item.name + " " + (item.kind === "dish" ? t("dishSuggestion") : item.address)} accessibilityState={{ selected: position === index }}
         {...(Platform.OS === "web" ? { "aria-selected": position === index } : {})}
         onLayout={event => {
           const y = event.nativeEvent.layout.y; rows.current.set(item.id, y);
@@ -33,9 +33,9 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
         onFocus={() => { keepOpen(); setHover(position); }} onBlur={() => setHover(-1)}
         style={({ pressed }) => [s.option, { backgroundColor: pressed || position === hover || position === index
           ? theme.accentSoft : theme.card }]}>
-        <Icon name={item.kind === "area" ? "map-outline" : "location-outline"} size={18} />
+        <Icon name={item.kind === "dish" ? "restaurant-outline" : item.kind === "area" ? "map-outline" : "location-outline"} size={18} />
         <View style={common.flex}><T variant="small" style={common.bold}>{item.name}{" "}</T>
-          <T variant="caption" muted>{item.address}</T></View>
+          <T variant="caption" muted>{item.kind === "dish" ? t("dishSuggestion") : item.address}</T></View>
       </Pressable>)}</SuggestionList>
       {!busy && !suggestions.length && !error && <T variant="small" muted style={s.status} accessibilityLiveRegion="polite">
         {t("noMatchingLocations")}</T>}

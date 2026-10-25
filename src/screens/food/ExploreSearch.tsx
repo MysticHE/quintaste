@@ -27,14 +27,14 @@ export function ExploreSearchScreen() {
   const { filters, setFilters, doc, search, setSearch, discoveryQuery, readable } = useFood();
   const { radius, setRadius, selection, location } = useDiscovery();
   const { draft: preferences } = usePreferences(), t = useT("explore"), tc = useT("common");
-  const { choose, searchPlaces, privateKind, followingCustom } = useDiscoveryInput(useMinuteClock());
+  const { input, choose, searchPlaces, privateKind, followingCustom } = useDiscoveryInput(useMinuteClock());
   const [value, setValue] = useState(search), [edited, setEdited] = useState(false);
   const recent = useRecentPlaceSearches();
   const id = "explore-search-" + useId();
   const finish = () => { Keyboard.dismiss(); goBack("/"); };
   const control = useLocationSearchControl(value, item => {
     recent.remember(item.name); choose(item); finish();
-  }, query => { recent.remember(query); searchPlaces(query, true); finish(); });
+  }, query => { recent.remember(query); searchPlaces(query, true); finish(); }, false, input);
   const expanded = control.open && (!!locationQuery(control.displayValue) || !!control.error);
   const submit = () => {
     if (!readable) return;
@@ -52,10 +52,10 @@ export function ExploreSearchScreen() {
   };
   return <Screen back={false} hideTimers header={<View testID="explore-search-toolbar" style={s.toolbar}>
     <IconButton appearance="plain" label={tc("goBack")} icon="chevron-back" onPress={finish} />
-    <View style={s.input}><SearchField value={control.displayValue} placeholder={t("placeOrPostal")} onSubmit={submit}
+    <View style={s.input}><SearchField value={control.displayValue} placeholder={t("placeDishOrPostal")} onSubmit={submit}
       onChange={next => { control.changed(); setValue(next); setEdited(true); }}
       input={{ editable: readable, role: "combobox", "aria-expanded": expanded,
-        accessibilityLabel: t("searchByA11y"), accessibilityState: { expanded, busy: control.busy },
+        accessibilityLabel: t("searchDishOrPlaceA11y"), accessibilityState: { expanded, busy: control.busy },
         ...(Platform.OS === "web" ? { "aria-controls": id, "aria-activedescendant": expanded && control.suggestions[control.index] ? id + "-" + control.index : undefined } : {}),
         onFocus: control.focus, onBlur: control.blur,
         onKeyPress: event => { if (control.key(event.nativeEvent.key)) event.preventDefault(); } }} /></View>

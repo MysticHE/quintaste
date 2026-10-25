@@ -54,3 +54,11 @@ function searchLabels(value: Record<string, unknown>): PlaceLabel[] {
   const vegan = diets ? diets.length === 1 && diets[0] === "Vegan" : value.vegan === true;
   return placeLabelsOf([...(vegan ? ["Vegan"] : []), ...(value.alliumFree === true ? ["Vegetarian"] : [])]);
 }
+/** Adds the saved place ids a Saved only search sends (`raw.savedIds`); false when they are invalid. */
+export function addSavedIds(search: DiscoverySearch, raw: unknown): boolean {
+  const ids = object(raw) ? raw.savedIds : undefined;
+  if (ids === undefined) return true;
+  if (!Array.isArray(ids) || ids.length > 500 || ids.some(id => typeof id !== "string" || !/^[A-Za-z0-9_-]{3,160}$/.test(id))) return false;
+  search.savedIds = [...new Set(ids as string[])].sort();
+  return true;
+}

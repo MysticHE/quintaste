@@ -1,4 +1,4 @@
-import type { MenuSummary } from "./menus";
+import type { MenuItem, MenuSummary } from "./menus";
 import type { SearchPoint } from "./location-search";
 
 export type CataloguePhoto = {
@@ -31,6 +31,8 @@ export type CatalogueVenue = MenuSummary & {
   photo?: CataloguePhoto;
   hours?: CatalogueHours;
   research?: { sourceUrls: string[]; notes: string[]; checkedAt: string };
+  /** The dish that matched a keyword search, which the card shows. */
+  match?: Pick<MenuItem, "name" | "price">;
 };
 export type CataloguePage = {
   version: 1;

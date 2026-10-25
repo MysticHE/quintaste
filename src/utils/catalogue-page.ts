@@ -57,6 +57,12 @@ export function readCatalogueVenue(value: unknown): CatalogueVenue {
     || (v.kitchen !== undefined && (v.kitchen !== "options" || v.alliumFreeClaim))
     || (v.menuTotal !== undefined && (!Number.isSafeInteger(v.menuTotal) || v.menuTotal < 1 || v.menuTotal > 2000))
     || "sections" in v || "items" in v) throw new Error("Invalid venue summary");
+  if (v.match !== undefined) {
+    const { name, price } = (v.match ?? {}) as Partial<NonNullable<CatalogueVenue["match"]>>;
+    const amount = (value: unknown) => value === undefined || typeof value === "number" && Number.isFinite(value) && value >= 0;
+    if (!v.match || typeof v.match !== "object" || typeof name !== "string" || !name.trim() || name.length > 300 || !price || !(price.amount === null || amount(price.amount))
+      || !["SGD", "unknown"].includes(price.currency) || !["displayed", "from"].includes(price.type) || !amount(price.maxAmount)) throw new Error("Invalid dish match");
+  }
   if (v.photo !== undefined) readCataloguePhoto(v.photo);
   if (v.hours !== undefined) readCatalogueHours(v.hours);
   if (v.research) {

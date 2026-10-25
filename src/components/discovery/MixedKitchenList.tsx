@@ -7,7 +7,8 @@ import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { useMenuDetail } from "../../hooks/useMenuDetail";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
-import { menuDisplayItems } from "../../utils/menu-display";
+import { matchedDish, menuDisplayItems } from "../../utils/menu-display";
+import { useDiscovery } from "../../state/Discovery";
 import { dishCount } from "../../utils/venue-kitchen";
 import { useLanguage, useT } from "../../i18n";
 import { Button, T, common } from "../ui";
@@ -20,10 +21,11 @@ const previewDishes = 3;
 export function MixedKitchenRow({ venue, number, expanded, onToggle }: { venue: CatalogueVenue; number: number; expanded: boolean; onToggle: () => void }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), tc = useT("common"), language = useLanguage();
   const distance = venue.distanceKm !== undefined ? tc("kilometres", { km: venue.distanceKm.toFixed(1) }) : "", dishes = dishCount(venue.itemCount, language);
-  const detail = [venue.address, distance, venue.hours?.summary].filter(Boolean).join(" · ");
+  // A keyword search leads with the dish that matched.
+  const dish = venue.match && matchedDish(venue.match, language), detail = [dish, venue.address, distance, venue.hours?.summary].filter(Boolean).join(" · ");
   return <View testID="mixed-kitchen-row" style={[s.card, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
     <Pressable accessibilityRole="button" accessibilityState={{ expanded }} {...focusProps} onPress={onToggle}
-      accessibilityLabel={[number + ". " + venue.name, distance, dishes].filter(Boolean).join(", ")}
+      accessibilityLabel={[number + ". " + venue.name, dish, distance, dishes].filter(Boolean).join(", ")}
       style={({ pressed }) => [common.row, s.body, { opacity: pressed ? 0.75 : 1 }]}>
       <View style={[s.number, { backgroundColor: theme.muted }]}>
         <T variant="small" color={theme.foreground} style={[common.bold, s.digits]}>{number}</T>
@@ -44,6 +46,7 @@ function ExpandedVenue({ venue }: { venue: CatalogueVenue }) {
   const { theme, reducedMotion } = usePreferences(), { isSaved, toggleSave, readable } = useFood(), t = useT("explore"), tc = useT("common");
   const { menu, busy, error, load } = useMenuDetail(venue.id, venue);
   const savedId = "catalogue-" + venue.id, saved = isSaved("place", savedId);
+  const { query } = useDiscovery(), search = venue.match ? query.trim() : "", carry = search ? { q: search } : {};
   const dishes = useMemo(() => menu ? menuDisplayItems(menu) : [], [menu]), more = dishes.length - previewDishes;
   return <Animated.View entering={reducedMotion ? undefined : FadeIn.duration(160)} style={s.expanded}>
     {busy && !menu && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingDishes")} />}
@@ -55,9 +58,9 @@ function ExpandedVenue({ venue }: { venue: CatalogueVenue }) {
     <T variant="small" muted>{t("mixedKitchenSafety")}</T>
     <View style={common.row}>
       <PlaceDetailAction label={t("details")} icon="information-circle-outline" accessibleLabel={t("detailsFor", { name: venue.name })}
-        onPress={() => router.push({ pathname: "/place/[id]", params: { id: savedId } } as never)} />
+        onPress={() => router.push({ pathname: "/place/[id]", params: { id: savedId, ...carry } } as never)} />
       <PlaceDetailAction label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })}
-        onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id } } as never)} />
+        onPress={() => router.push({ pathname: "/menu/[id]", params: { id: venue.id, ...carry } } as never)} />
       <PlaceDetailAction label={tc(saved ? "saved" : "save")} icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} disabled={!readable}
         accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} onPress={() => void toggleSave("place", savedId, venue.name)} />
     </View>

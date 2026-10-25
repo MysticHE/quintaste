@@ -8,7 +8,8 @@ import { Icon, T, common } from "../ui";
 import { MenuIcon } from "./MenuIcon";
 import { useT } from "../../i18n";
 
-export function MenuEntry({ menu, compact = false }: { menu: Pick<PublishedMenu, "id" | "name" | "branch">; compact?: boolean }) {
+/** `search` opens the menu already searched for it (the keyword an Explore search matched). */
+export function MenuEntry({ menu, compact = false, search }: { menu: Pick<PublishedMenu, "id" | "name" | "branch">; compact?: boolean; search?: string }) {
   const { theme } = usePreferences(), [focused, setFocused] = useState(false), t = useT("explore");
   const content = <><MenuIcon size={compact ? 20 : 22}
     color={compact ? theme.mediaForeground : theme.actionForeground} />
@@ -16,7 +17,7 @@ export function MenuEntry({ menu, compact = false }: { menu: Pick<PublishedMenu,
       style={common.bold}>{t("menu")}</T></>;
   return <Pressable accessibilityRole="button" accessibilityLabel={t("viewMenuForBranch", { name: menu.name, branch: menu.branch })}
     testID={compact ? "place-card-menu" : "place-detail-menu"}
-    onPress={event => { event.stopPropagation(); router.push({ pathname: "/menu/[id]", params: { id: menu.id } } as never); }}
+    onPress={event => { event.stopPropagation(); router.push({ pathname: "/menu/[id]", params: search ? { id: menu.id, q: search } : { id: menu.id } } as never); }}
     onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
     style={({ pressed }) => [s.entry, compact && s.compact, { opacity: pressed ? 0.82 : 1,
       borderColor: focused ? (compact ? theme.mediaForeground : theme.foreground) : theme.transparent,
