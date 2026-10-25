@@ -57,7 +57,9 @@ profile.get('/me', async (_req, res) => {
   const handle = stored ?? await ensureHandle(pool, me.id, row.firstName || me.name).catch(error => {
     logger.warn({ event: 'social_handle_missing', error: error?.message }); return null;
   });
-  res.json({ id: me.id, accountName: me.name, handle, profile: hasProfile ? row : emptyProfile, photos, standing: state });
+  // One bio (owner, 25 Oct 2026): a bio written before About me took over starts About me until the member saves it.
+  const bio = typeof me.bio === 'string' ? me.bio.slice(0, 180) : '', profile = hasProfile ? row : emptyProfile;
+  res.json({ id: me.id, accountName: me.name, handle, hasProfile, profile: profile.about || !bio ? profile : { ...profile, about: bio }, photos, standing: state });
 });
 /** Saves the profile; `handle`, when sent (Basics), changes the member's handle in the same transaction. */
 profile.put('/me', async (req, res) => {
@@ -83,6 +85,8 @@ profile.put('/me', async (req, res) => {
     [me, p.firstName, p.gender, p.birthDate, p.area, p.diets, legacyDiet(p.diets), storedPractices(kept, p.diets), p.excluded, p.spots, p.about, p.opening, p.visible,
       p.religion, p.ethnicity, p.why, p.hobbies, p.languages, p.education, p.work, p.grewUp, p.height, p.drinking, p.smoking, p.pets, JSON.stringify(p.prompts), p.hidden]);
     if (wanted !== undefined) await changeHandle(db, me, wanted);
+    // One name (owner, 25 Oct 2026): the Basics name is also the account name, so Market and class chats show the same name.
+    if (p.firstName) await db.query('UPDATE public."user" SET name=$2, "updatedAt"=now() WHERE id=$1 AND name IS DISTINCT FROM $2', [me, p.firstName]);
     else await ensureHandle(db, me, p.firstName || res.locals.user.name);
   });
   res.json({ profile: p, standing: await standing(me) });

@@ -73,7 +73,7 @@ function DockTab({ icon, selected, onPress, onLongPress, onFocus, accessibilityL
       Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
     <View testID={"tab-highlight-" + icon} style={[s.highlight, {
       backgroundColor: selected ? theme.navigation.selection : hovered ? theme.navigation.hover : theme.transparent,
-    }]}><QuinTasteIcon name={icon} color={color} selected={selected} size={27} /></View>
+    }]}><QuinTasteIcon name={icon} color={color} selected={selected} size={25} /></View>
     {dot && <View testID={"tab-dot-" + icon} pointerEvents="none" style={[s.dot, { backgroundColor: theme.accent, borderColor: theme.background }]} />}
   </Pressable>;
 }
@@ -82,8 +82,8 @@ const s = StyleSheet.create({
   host: { position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center" },
   dock: { width: "100%", maxWidth: 760, borderWidth: 0, borderTopLeftRadius: 24, borderTopRightRadius: 24, overflow: "hidden" },
   tabs: { flexDirection: "row", gap: 6 },
-  tab: { flex: 1, minWidth: 48, minHeight: 56, paddingHorizontal: 2,
+  tab: { flex: 1, minWidth: 48, minHeight: 48, paddingHorizontal: 2,
     borderWidth: 2, borderRadius: 18, alignItems: "center", justifyContent: "center", overflow: "hidden" },
-  dot: { position: "absolute", top: 8, left: "58%", width: 10, height: 10, borderRadius: 5, borderWidth: 1.5 },
-  highlight: { width: "100%", maxWidth: 68, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" },
+  dot: { position: "absolute", top: 5, left: "58%", width: 10, height: 10, borderRadius: 5, borderWidth: 1.5 },
+  highlight: { width: "100%", maxWidth: 64, height: 38, borderRadius: 19, alignItems: "center", justifyContent: "center" },
 });

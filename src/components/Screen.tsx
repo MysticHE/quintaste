@@ -3,6 +3,7 @@ import { router, useIsFocused, useScrollToTop, useSegments, type Href } from "ex
 import { StatusBar } from "expo-status-bar";
 import Head from "expo-router/head";
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type PropsWithChildren, type ReactNode } from "react";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -18,6 +19,7 @@ import { TimerDock, FoodStorageBanner } from "./food/Timers";
 import { Icon, T, common } from "./ui";
 import { PhotoScrollView } from "./discovery/PhotoScrollView";
 import { DockFollow, useDockScroll, useGlassNavigation } from "./navigation/GlassNavigation";
+import { useHideOnScroll, useScreenReaderOn } from "../hooks/useHideOnScroll";
 import { SCREEN_GUTTER } from "../theme/layout";
 import { useT } from "../i18n";
 type ScreenProps = {
@@ -50,22 +52,31 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
   }, [reducedMotion]);
   useScrollToTop(scrollAction);
   const scrollToTop = useCallback(() => scrollAction.current.scrollToTop(), []);
-  const contents = <>{header}{!header && <ScreenHeading title={title} subtitle={subtitle} back={back} headerAction={headerAction}
-    titleAccessory={titleAccessory} compact={compact} backTo={backTo} />}
-    <View style={[common.stack, common.flex, compact && { gap: 12 }]}><ScrollTop.Provider value={scrollToTop}>{children}</ScrollTop.Provider></View>
+  const heading = header ?? (title || titleAccessory || headerAction ? <ScreenHeading title={title} subtitle={subtitle} back={back} headerAction={headerAction}
+    titleAccessory={titleAccessory} compact={compact} backTo={backTo} /> : null);
+  // The top bar sits above the scrolling page and slides away while scrolling down, back on scrolling up (owner, 25 Oct 2026);
+  // a page that does not scroll (fill: chats) keeps it in place.
+  const top = useTopBar(!fill && !!heading), onScroll = (event: Parameters<typeof top.onScroll>[0]) => { dockScroll.onScroll?.(event); top.onScroll(event); };
+  const body = <><View style={[common.stack, common.flex, compact && { gap: 12 }]}><ScrollTop.Provider value={scrollToTop}>{children}</ScrollTop.Provider></View>
     {footer && <View style={s.footer}>{footer}</View>}</>;
-  return <LinearGradient colors={theme.backdrop} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0.9 }} style={s.root}>
+  // On a phone one gradient runs from the status bar to the bottom edge, so the bars and the page are the same colour.
+  return <LinearGradient colors={nativeFrame ? theme.gradient : theme.backdrop} start={{ x: 0, y: 0 }} end={nativeFrame ? { x: 0, y: 1 } : { x: 1, y: 0.9 }} style={s.root}>
     <Head><title>{title ? title + " · QuinTaste" : "QuinTaste"}</title></Head>
     <StatusBar style={theme.dark ? "light" : "dark"} />
     <SafeAreaView edges={hasTabDock ? ["top", "left", "right"] : undefined}
       style={[s.safe, nativeFrame && { paddingHorizontal: 0, paddingVertical: 0 }]}>
-      <LinearGradient colors={theme.gradient} start={{ x: 0, y: 0 }} end={{ x: 0.85, y: 1 }}
+      <LinearGradient colors={nativeFrame ? [theme.transparent, theme.transparent] : theme.gradient} start={{ x: 0, y: 0 }} end={{ x: 0.85, y: 1 }}
         style={[s.frame, { borderColor: theme.frameBorder }, nativeFrame && { borderRadius: 0, borderWidth: 0 }]}>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={common.flex}>
           <View style={common.flex}>
-          {fill ? <View style={[s.content, s.compact, common.flex, contentStyle, { paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}>{contents}</View> :
-            <PhotoScrollView scrollRef={scroll} keyboardShouldPersistTaps="handled" {...dockScroll} contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}
-              showsVerticalScrollIndicator={false}>{contents}</PhotoScrollView>}
+          {top.enabled && <Animated.View onLayout={event => top.setHeight(event.nativeEvent.layout.height)}
+            style={[s.topBar, { backgroundColor: nativeFrame ? theme.background : theme.transparent }, top.style]}>{heading}</Animated.View>}
+          {fill ? <View style={[s.content, s.compact, common.flex, contentStyle, { paddingTop: 4, paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}>{heading}{body}</View> :
+            <PhotoScrollView scrollRef={scroll} keyboardShouldPersistTaps="handled" {...dockScroll} onScroll={onScroll}
+              onContentSizeChange={(width, height) => { dockScroll.onContentSizeChange?.(width, height); top.onContentSizeChange(width, height); }}
+              onLayout={event => { dockScroll.onLayout?.(event); top.onLayout(event); }}
+              contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingTop: top.enabled ? top.height + 8 : 6, paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}
+              showsVerticalScrollIndicator={false}>{body}</PhotoScrollView>}
         {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
         <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
           style={hasTabDock ? { position: "absolute", bottom: glass?.height ?? 0, left: 0, right: 0 } : undefined}>
@@ -76,6 +87,20 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
       </LinearGradient>
     </SafeAreaView>
   </LinearGradient>;
+}
+/** The pinned top bar's height, slide and scroll handlers; it shows again when the screen regains focus or a screen reader is on. */
+function useTopBar(enabled: boolean) {
+  const { reducedMotion } = usePreferences(), screenReader = useScreenReaderOn(), focused = useIsFocused();
+  const slide = useSharedValue(0), hidden = useRef(false), [height, setHeight] = useState(56);
+  const setHidden = useCallback((next: boolean) => {
+    if ((next && screenReader) || hidden.current === next) return;
+    hidden.current = next;
+    slide.set(withTiming(next ? 1 : 0, { duration: reducedMotion ? 0 : 220 }));
+  }, [screenReader, reducedMotion, slide]);
+  useEffect(() => { if (focused || screenReader) setHidden(false); }, [focused, screenReader, setHidden]);
+  const handlers = useHideOnScroll(enabled ? setHidden : undefined);
+  const style = useAnimatedStyle(() => ({ transform: [{ translateY: -slide.get() * height }] }), [height]);
+  return { enabled, height, setHeight, style, ...handlers };
 }
 function ScreenHeading({ title, subtitle, back, backTo, titleAccessory, headerAction, compact }: ScreenProps) {
   const { theme } = usePreferences(), t = useT("common");
@@ -151,6 +176,7 @@ const s = StyleSheet.create({
     overflow: "hidden",
   },
   content: { flexGrow: 1, padding: 20, paddingHorizontal: SCREEN_GUTTER, paddingTop: 22, gap: 22 },
+  topBar: { position: "absolute", top: 0, left: 0, right: 0, zIndex: 1, paddingHorizontal: SCREEN_GUTTER, paddingTop: 2, paddingBottom: 4 },
   compact: { padding: 16, paddingHorizontal: SCREEN_GUTTER, paddingTop: 14, gap: 14 },
   heading: { gap: 8 },
   title: { minWidth: 0, flexShrink: 1 },

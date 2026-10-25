@@ -1,10 +1,10 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Platform, Pressable, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { AvatarPortrait } from "../components/avatar/AvatarPortrait";
 import { Screen } from "../components/Screen";
 import { SettingsRow } from "../components/SettingsRow";
-import { Button, Card, Icon, T, common } from "../components/ui";
+import { Button, Card, T, common } from "../components/ui";
 import { usePreferences } from "../state/Preferences";
 import { useFood } from "../state/Food";
 import { QuinTasteIcon } from "../components/navigation/QuinTasteIcon";
@@ -32,21 +32,17 @@ export function AccountScreen() {
     return result === true;
   };
   return <Screen title={tc("settings")} backTo={origin}>
-    <Card style={s.profile}>
-      <Pressable accessibilityRole="button" accessibilityLabel={t("changeAvatar")}
-        onPress={() => router.push("/avatar")} style={({ pressed }) => [s.avatar, { opacity: pressed ? 0.7 : 1 }]}>
-        <View style={[s.portrait, { backgroundColor: theme.accentSoft }]}><AvatarPortrait avatar={doc.avatar} size={64} /></View>
-        <View style={[s.avatarEdit, { backgroundColor: theme.card, borderColor: theme.border }]}><Icon name="camera-outline" size={16} color={theme.accent} /></View>
-      </Pressable>
+    {/* Settings is the app and the account (owner, 25 Oct 2026): name, bio, photos and avatar are edited on My Profile. */}
+    {!user && <Card style={s.profile}>
+      <View style={[s.portrait, { backgroundColor: theme.accentSoft }]}><AvatarPortrait avatar={doc.avatar} size={64} /></View>
       <View style={common.flex}>
-        <T variant="subtitle">{user?.name || (preview ? draft.displayName : t("yourSpace"))}</T>
-        {!user && <T variant="small" muted>{preview ? t("localPreview") : t("guest")}</T>}
-        {!user && !preview && enabled && <Button label={t("signInOrCreate")} icon="log-in-outline" variant="link"
+        <T variant="subtitle">{preview ? draft.displayName : t("yourSpace")}</T>
+        <T variant="small" muted>{preview ? t("localPreview") : t("guest")}</T>
+        {!preview && enabled && <Button label={t("signInOrCreate")} icon="log-in-outline" variant="link"
           onPress={() => router.push({ pathname: "/login", params: { returnTo: "/account" } })} />}
-        {(preview || user?.adultConfirmed) && <Button label={t("editProfile")} icon="create-outline" variant="link" onPress={() => router.push("/profile")} />}
-        {user && !user.adultConfirmed && <Button label={tc("completeAccountSetup")} variant="link" onPress={() => router.push('/account-eligibility')} />}
       </View>
-    </Card>
+    </Card>}
+    {user && !user.adultConfirmed && <Button label={tc("completeAccountSetup")} variant="link" onPress={() => router.push('/account-eligibility')} />}
     <LotusSlot />
     <Card style={s.group}>
       <SettingsRow label={tc("saved")} leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
@@ -62,6 +58,7 @@ export function AccountScreen() {
       <TimerAlertControl label={t("notifications")} />
     </Card>
     <Card style={s.group}>
+      {user && <SettingsRow label={t("account")} icon="person-circle-outline" onPress={() => router.push("/profile")} />}
       <SettingsRow label={t("privacyData")} icon="shield-checkmark-outline" onPress={() => router.push("/privacy")} />
       <SettingsRow label={t("help")} icon="help-circle-outline" last={!user} onPress={() => router.push("/help")} />
       {user && <SettingsRow label={t("bringInGuestSaves")} icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
@@ -80,8 +77,6 @@ export function AccountScreen() {
 
 const s = StyleSheet.create({
   profile: { flexDirection: "row", alignItems: "center", gap: 16, padding: 16 },
-  avatar: { width: 68, height: 68, alignItems: "center", justifyContent: "center" },
   portrait: { borderRadius: 32, overflow: "hidden" },
-  avatarEdit: { position: "absolute", bottom: 0, right: 0, width: 26, height: 26, borderRadius: 13, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   group: { paddingVertical: 4 },
 });

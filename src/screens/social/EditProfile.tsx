@@ -14,9 +14,12 @@ import { useT } from "../../i18n";
 import type { SocialMe, SocialProfile } from "../../types/community";
 import { openSocial } from "../../components/social/Shared";
 import { ListGroup, ListItem, RowIcon } from "../../components/GroupedList";
+import { AvatarPortrait } from "../../components/avatar/AvatarPortrait";
+import { useFood } from "../../state/Food";
+import { View } from "react-native";
 
 type Section = "basics" | "food" | "about" | "ask";
-const titles = { basics: "basicsRow", food: "foodRow", about: "aboutRow", ask: "askRow" } as const;
+const titles = { basics: "basicsRow", food: "favouritePlaces", about: "aboutRow", ask: "askRow" } as const;
 const readSection = (value: string | undefined): Section => value === "food" || value === "about" || value === "ask" ? value : "basics";
 function Editor({ me, section }: { me: SocialMe; section: Section }) {
   const t = useT("social"), { theme, setNotice } = usePreferences(), problem = useSocialError();
@@ -49,11 +52,14 @@ export function EditProfileScreen() {
 }
 /** Photos: up to six; the first is the main photo. A new main photo pauses the ✓ until a new selfie is checked. */
 export function PhotosScreen() {
-  const t = useT("social"), me = useSocialMe();
+  const t = useT("social"), me = useSocialMe(), { doc } = useFood();
   return <Screen title={t("photosTitle")}><MemberGate returnTo="/social/photos">
     {me.data ? <>
       <T muted>{t("stepPhotosText")}</T>
       <PhotoGrid photos={me.data.photos} verified={me.data.standing.verified} onSaved={() => invalidate("/api/social")} />
+      {/* The cartoon avatar shows on the profile until there is a photo; it is made here now that Settings has no profile card. */}
+      <ListGroup><ListItem title={t("avatarRow")} leading={<View style={{ width: 44, height: 44, borderRadius: 22, overflow: "hidden" }}><AvatarPortrait avatar={doc.avatar} size={44} /></View>}
+        onPress={() => router.push("/avatar")} /></ListGroup>
       {me.data.standing.verification === "paused" && <ListGroup><ListItem title={t("verifyAction")} subtitle={t("pausedText")} wrap
         leading={<RowIcon name="camera-outline" tone="warning" />} onPress={() => openSocial("/verify")} /></ListGroup>}
     </> : <RemoteStatus remote={me} icon="images-outline" returnTo="/social/photos" />}

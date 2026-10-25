@@ -9,7 +9,6 @@ import { useDietText } from "../food/DietLabels";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
 import { dietLabels, toggleLabel } from "../../config/diet-labels";
-import { marketIngredients, type MarketIngredient } from "../../config/market-ingredients";
 import { educationOptions, ethnicities, genderOptions, habitOptions, hobbyOptions, languageOptions, petOptions, religions, whyPlantBased,
   type HideableField } from "../../config/social-profile";
 import { sgAreas } from "../../config/sg-areas";
@@ -73,13 +72,11 @@ function One({ label, options, value, onChange, word }: { label: string; options
     onPress={() => onChange(value === option ? "" : option)} />)}</ChoiceGroup>;
 }
 /** Diet, ingredients to avoid and up to three favourite catalogue places. */
+/** Favourite places only (owner, 25 Oct 2026): the profile's diet labels follow Food Choices (useProfileDietSync). */
 export function FoodFields({ value: p, onChange, places }: Edit & { places: SocialPlace[] }) {
   const t = useT("social"), [picking, setPicking] = useState(false), [added, setAdded] = useState<SocialPlace[]>([]);
   const known = [...places, ...added.filter(a => !places.some(place => place.id === a.id))];
   return <View style={{ gap: 14 }}>
-    <DietChoices value={p.diets} onChange={diets => onChange({ ...p, diets })} />
-    <Multi label={t("avoid")} options={marketIngredients} value={p.excluded} word={value => t("optIngredient", { value })}
-      onChange={excluded => onChange({ ...p, excluded: excluded as MarketIngredient[] })} />
     <View style={{ gap: 8 }}>
       <FieldLabel>{t("favouritePlaces")}</FieldLabel>
       {!!p.spots.length && <ListGroup inset={64}>{p.spots.map(id => known.find(place => place.id === id)).filter((place): place is SocialPlace => !!place).map(place =>

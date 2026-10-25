@@ -5,12 +5,11 @@ import { Button, T, common } from "../../components/ui";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { ListGroup, ListItem, RowIcon, StatusPill, ThemedSwitch } from "../../components/GroupedList";
 import { MemberGate, standingLabel, useSocialError, useSocialMe } from "../../components/social/SocialState";
-import { Avatar } from "../../components/social/SocialPhoto";
+import { ProfilePicture } from "../../components/social/ProfilePicture";
 import { openSocial } from "../../components/social/Shared";
 import { invalidate } from "../../hooks/useRemote";
 import { saveProfile } from "../../services/social-api";
 import { usePreferences } from "../../state/Preferences";
-import { useDietText } from "../../components/food/DietLabels";
 import { useT } from "../../i18n";
 import type { SocialMe } from "../../types/community";
 
@@ -27,11 +26,11 @@ function PublicSwitch({ me }: { me: SocialMe }) {
 }
 /** My Profile: how others find you, then each part of the profile, your cooking classes and blocked people. */
 function ProfileHub({ me }: { me: SocialMe }) {
-  const t = useT("social"), diet = useDietText(), p = me.profile, s = me.standing, [label, tone] = standingLabel(s);
+  const t = useT("social"), p = me.profile, s = me.standing, [label, tone] = standingLabel(s);
   const name = p.firstName || t("yourProfile"), check = s.verification === "rejected" || s.verification === "paused" || s.step === "verify";
   return <>
     <View style={{ alignItems: "center", gap: 8, paddingTop: 4 }}>
-      <Avatar uri={me.photos[0]?.thumb} name={name} size={96} />
+      <ProfilePicture data={me} name={name} size={96} />
       <T variant="title" style={common.bold}>{s.age ? t("nameAge", { name, age: s.age }) : name}</T>
       <StatusPill label={s.verified ? t("verifiedStatus") : s.step === "waiting" ? t("checkingStatus") : t("notVerified")} tone={s.verified ? "success" : s.step === "waiting" ? "warning" : "muted"} />
     </View>
@@ -42,7 +41,8 @@ function ProfileHub({ me }: { me: SocialMe }) {
       <ListItem title={t("photosRow")} subtitle={t("photosCount", { n: me.photos.length })} leading={<RowIcon name="images-outline" />} onPress={() => openSocial("/photos")} />
       <ListItem title={t("basicsRow")} subtitle={[p.firstName, me.handle && "@" + me.handle, s.age, p.gender && t("optGender", { value: p.gender }), p.area].filter(Boolean).join(" · ") || t("basicsSub")}
         leading={<RowIcon name="person-outline" />} onPress={() => openSocial("/edit?section=basics")} />
-      <ListItem title={t("foodRow")} subtitle={p.diets.map(diet.name).join(" · ")} wrap leading={<RowIcon name="leaf-outline" />} onPress={() => openSocial("/edit?section=food")} />
+      {/* Diet labels come from Food Choices (useProfileDietSync); this row keeps only favourite places. */}
+      <ListItem title={t("favouritePlaces")} subtitle={t("placesCount", { n: p.spots.length })} leading={<RowIcon name="location-outline" />} onPress={() => openSocial("/edit?section=food")} />
       <ListItem title={t("aboutRow")} subtitle={p.about || t("aboutSub")} leading={<RowIcon name="sparkles-outline" />} onPress={() => openSocial("/edit?section=about")} />
       <ListItem title={t("askRow")} subtitle={p.opening || t("askSub")} leading={<RowIcon name="chatbubble-ellipses-outline" />} onPress={() => openSocial("/edit?section=ask")} />
     </ListGroup>

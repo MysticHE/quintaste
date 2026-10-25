@@ -1,49 +1,29 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { router } from 'expo-router';
 import { Platform, Share } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Screen } from '../components/Screen';
 import { Button, Card, Field, T, common } from '../components/ui';
-import { accountRequest, authClient, refreshAccountSession } from '../services/auth-client';
+import { accountRequest, authClient } from '../services/auth-client';
 import { useAuth } from '../state/Auth';
 import { usePreferences } from '../state/Preferences';
 import { foodKey } from '../state/useFoodStorage';
-import { useAutosave } from '../hooks/useAutosave';
 import { lotusTierKey } from '../hooks/useLotus';
-import { AutosaveStatus } from '../components/AutosaveStatus';
 import { useT } from '../i18n';
 
 export function ConnectedProfileScreen() {
   const { user, pending } = useAuth();
   const { theme } = usePreferences(), t = useT('me'), tc = useT('common');
-  const [name, setName] = useState(user?.name || ''), [bio, setBio] = useState(user?.bio || '');
   const [ready, setReady] = useState(false), [busy, setBusy] = useState(false);
   const [message, setMessage] = useState(''), [error, setError] = useState('');
   const [confirm, setConfirm] = useState(false), [password, setPassword] = useState('');
   const [retry, setRetry] = useState(0);
   const userId = user?.id;
-  const identity = useRef(userId);
-  useLayoutEffect(() => { identity.current = userId; }, [userId]);
-  const edited = useRef(false);
-  const autosave = useAutosave(async (profile: { name: string; bio: string; accountId: string }) => {
-    if (identity.current !== profile.accountId) return false;
-    const session = await authClient.getSession({ fetchOptions: { throw: true } });
-    if (session?.user.id !== profile.accountId) return false;
-    await accountRequest('profile', { method: 'PATCH', body: JSON.stringify({ name: profile.name, bio: profile.bio }) });
-    await refreshAccountSession(profile.accountId);
-    return true;
-  });
-  const change = (nextName: string, nextBio: string) => {
-    edited.current = true; setName(nextName); setBio(nextBio);
-    if (ready && user && nextName.trim()) autosave.change({ name: nextName.trim(), bio: nextBio, accountId: user.id });
-  };
   const [access,setAccess]=useState<{role:string;unlimitedUsage:boolean;passwordLogin:boolean;googleLogin:boolean}>();
   useEffect(() => {
     let active = true;
-    if (userId) void Promise.all([accountRequest<{ name: string; bio: string }>('profile'),
-      accountRequest<NonNullable<typeof access>>('access')]).then(([profile,permissions]) => {
-      if (active) setAccess(permissions);
-      if (active) { if (!edited.current) { setName(profile.name); setBio(profile.bio); } setReady(true); setError(''); }
+    if (userId) void accountRequest<NonNullable<typeof access>>('access').then(permissions => {
+      if (active) { setAccess(permissions); setReady(true); setError(''); }
     }).catch(() => { if (active) setError(t('profileLoadFailed')); });
     return () => { active = false; };
   }, [userId, retry, t]);
@@ -75,15 +55,12 @@ export function ConnectedProfileScreen() {
   });
   if (!user) return <Screen title={t('account')}><T>{pending ? t('checkingSession') : t('signInToManage')}</T>
     <Button label={tc('signIn')} onPress={() => router.push({ pathname: '/login', params: { returnTo: '/profile' } })} /></Screen>;
-  return <Screen title={t('editProfile')}>
+  // Account only (owner, 25 Oct 2026): the name and bio are edited on My Profile (Basics, About me).
+  return <Screen title={t('account')}>
     {access?.unlimitedUsage&&<T>{t('masterAccount')}</T>}
-    <AutosaveStatus saving={autosave.saving} local={false} error={autosave.failed ? t('profileSaveFailed') : undefined} />
-    <Field label={t('displayName')} value={name} onChangeText={value => change(value, bio)} maxLength={50} editable={ready && !busy} error={!name.trim() ? t('enterDisplayName') : undefined} onBlur={() => void autosave.flush()} />
-    <Field label={t('aboutYouOptional')} value={bio} onChangeText={value => change(name, value)} multiline maxLength={160} editable={ready && !busy} onBlur={() => void autosave.flush()} />
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     {!!message && <T accessibilityLiveRegion="polite">{message}</T>}
-    {!ready && <Button label={t('retryLoadingProfile')} variant="secondary" onPress={() => setRetry(value => value + 1)} />}
-    {autosave.failed && <Button label={tc('retry')} variant="link" onPress={() => void autosave.flush()} />}
+    {!ready && !!error && <Button label={t('retryLoadingProfile')} variant="secondary" onPress={() => setRetry(value => value + 1)} />}
     <Card style={common.stack}><T variant="subtitle">{t('accountData')}</T>
       <T muted>{t('accountDataNote')}</T>
       {access?.passwordLogin?<Button label={t('recoveryCodes')} variant="secondary" disabled={busy} onPress={() => router.push('/recovery-codes')} />

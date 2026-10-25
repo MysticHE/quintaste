@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { Pressable, View } from "react-native";
 import { Icon, T, common } from "../ui";
-import { Avatar } from "./SocialPhoto";
+import { ProfilePicture } from "./ProfilePicture";
 import { usePostCount } from "./ProfileGrid";
 import { useDietText } from "../food/DietLabels";
 import { useRemote } from "../../hooks/useRemote";
@@ -26,7 +26,7 @@ export function ProfileSummary({ data, name, onEdit, onPosts }: { data: SocialMe
   const area = data?.profile.area ?? "", diets = area ? (data?.profile.diets ?? []).map(diet.name).join(" · ") : "";
   return <>
     <View style={[common.row, { gap: 18, paddingTop: 4 }]}>
-      <View><Avatar uri={data?.photos[0]?.thumb} name={name} size={88} /><EditBadge label={t("edit")} onPress={onEdit} /></View>
+      <View><ProfilePicture data={data} name={name} size={88} /><EditBadge label={t("edit")} onPress={onEdit} /></View>
       <View style={[common.flex, { gap: 8, minWidth: 0 }]}>
         <View style={[common.row, { gap: 18, flexWrap: "wrap" }]}>{stats.map(s => <StatButton key={s.label} stat={s} />)}</View>
         {!!area && <View style={[common.row, { gap: 4, flexWrap: "wrap" }]}>

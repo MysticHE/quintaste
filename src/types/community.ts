@@ -90,7 +90,7 @@ export type Standing = { step: SocialStep; age: number | null; gender: Gender; v
   pausedUntil: string | null; canMeet: boolean };
 export type SocialPhoto = { id: string; position: number; url: string; thumb: string };
 /** `handle` is the member's public handle (made from their name on first use), separate from the private sign-in username. */
-export type SocialMe = { id: string; accountName: string; handle: string; profile: SocialProfile; photos: SocialPhoto[]; standing: Standing };
+export type SocialMe = { id: string; accountName: string; handle: string; hasProfile: boolean; profile: SocialProfile; photos: SocialPhoto[]; standing: Standing };
 export type PhotoLink = { url: string; thumb: string };
 /** Another member as the server shares them: hidden fields come back empty, the birth date as `age`. */
 export type Person = Omit<SocialProfile, "birthDate" | "hidden" | "visible" | "excluded"> & { id: string; age: number | null; photos: PhotoLink[]; km: number | null };

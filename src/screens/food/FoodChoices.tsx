@@ -9,11 +9,14 @@ import { DietIcon } from "../../components/food/DietIcon";
 import { useDietText } from "../../components/food/DietLabels";
 import { usePreferences } from "../../state/Preferences";
 import { useFood } from "../../state/Food";
+import { useProfileDietSync } from "../../hooks/useProfileDietSync";
 import { goBack } from "../../utils/navigation";
 import { useT } from "../../i18n";
 
 export function FoodChoicesScreen({ onboarding = false }: { onboarding?: boolean }) {
   const { draft, patch, save, storageReady, theme } = usePreferences(), dietText = useDietText(), t = useT("me"), tc = useT("common");
+  // Food Choices is the one diet setting; the Social profile's labels follow it.
+  useProfileDietSync();
   const { patchDocument } = useFood();
   const [busy, setBusy] = useState(false);
   const apply = async () => {

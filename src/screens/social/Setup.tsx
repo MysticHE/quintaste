@@ -6,7 +6,7 @@ import { Button, Field, T, common } from "../../components/ui";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { MemberGate, AgeNotice, useSocialError, useSocialMe } from "../../components/social/SocialState";
 import { PhotoGrid } from "../../components/social/PhotoGrid";
-import { AboutFields, BasicsFields, DietChoices } from "../../components/social/ProfileFields";
+import { AboutFields, BasicsFields } from "../../components/social/ProfileFields";
 import { invalidate } from "../../hooks/useRemote";
 import { saveProfile } from "../../services/social-api";
 import { usePreferences } from "../../state/Preferences";
@@ -29,12 +29,13 @@ function Progress({ step }: { step: Step }) {
 function SetupFlow({ me }: { me: SocialMe }) {
   const t = useT("social"), tc = useT("common"), { theme } = usePreferences(), problem = useSocialError(), { step: asked } = useLocalSearchParams<{ step?: string }>();
   const [step, setStep] = useState<Step>(() => asked === "verify" ? 4 : firstStep(me)), [draft, setDraft] = useState<SocialProfile>(() => ({ ...me.profile, visible: true }));
+  const foodChoices = usePreferences().draft.diets;
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [outsideAge, setOutsideAge] = useState(me.standing.step === "age"), [sent, setSent] = useState(false);
   const photos = me.photos, locked = me.standing.verification !== "none";
   const save = async (next: Step) => {
     setBusy(true); setError("");
     try {
-      const result = await saveProfile(draft);
+      const result = await saveProfile({ ...draft, diets: foodChoices });
       invalidate("/api/social");
       if (result.standing.step === "age") setOutsideAge(true); else setStep(next);
     } catch (failure) { setError(problem(failure)); }
@@ -55,7 +56,6 @@ function SetupFlow({ me }: { me: SocialMe }) {
     </>}
     {step === 2 && <><T muted>{t("stepBasicsText")}</T><BasicsFields value={draft} onChange={setDraft} locked={locked} /></>}
     {step === 3 && <>
-      <DietChoices value={draft.diets} onChange={diets => setDraft({ ...draft, diets })} />
       <Field label={t("askRow")} value={draft.opening} onChangeText={opening => setDraft({ ...draft, opening })} placeholder={t("askMeHint")} maxLength={120} />
       <AboutFields value={draft} onChange={setDraft} />
     </>}
