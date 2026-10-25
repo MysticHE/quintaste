@@ -97,8 +97,9 @@ export function useCatalogueDiscovery() {
       if (alive.current && active.current === controller) {
         failures.current.set(key, Date.now());
         while (failures.current.size > 8) failures.current.delete(failures.current.keys().next().value!);
+        // Results already on screen stay without a notice; the next focus or resume tries again after the short backoff.
         setCached(hasSavedResults); setError(problem instanceof Error && problem.message === "Search changed. Refresh results."
-          ? "searchChanged" : hasSavedResults ? "showingSavedResults" : "placesUnavailable");
+          ? "searchChanged" : hasSavedResults ? "" : "placesUnavailable");
       }
     } finally {
       clearTimeout(timeout);

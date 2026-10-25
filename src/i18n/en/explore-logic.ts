@@ -53,7 +53,6 @@ const en = {
   offlineLoadLocation: "Offline. Connect to load places for this location.",
   placesUnavailable: "Places unavailable. Please retry.",
   searchChanged: "Search changed. Refresh results.",
-  showingSavedResults: "Showing saved results. Could not refresh.",
   menuNoLongerPublished: "Menu no longer published.",
   menuUnavailable: "Menu unavailable. Please retry.",
   youreOffline: "You’re offline",

@@ -89,11 +89,8 @@ export function ExploreScreen() {
           count={3} shape={() => discovery.mixed ? <RowSkeleton /> : <PostCardSkeleton />} />}
         {currentRequest && !!discovery.error && <View style={common.row}><T variant="caption" accessibilityLiveRegion="polite" style={common.flex}>{discovery.error}</T>
           <IconButton label={t("retryPlaces")} icon="refresh-outline" onPress={() => { if (eligible) void discovery.load(input, true); }} /></View>}
-        {accepted && discovery.cached && <T variant="caption" muted>{t(discovery.offline ? "offlineSavedResults" : "savedResultsChecking")}</T>}
       </>}
       footer={<>
-        {accepted && !!venues.length && <View style={common.row}><T variant="caption" muted style={common.flex}>{t("shownOfPublished", { shown: venues.length, total: discovery.catalogue?.total ?? "" })}</T>
-          <IconButton label={t("refreshPlaces")} icon="refresh-outline" loading={discovery.busy} onPress={() => void discovery.load(input, true)} /></View>}
         {accepted && discovery.capped && <Button label={t("loadMorePlaces")} variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
         {accepted && !discovery.busy && !venues.length && discovery.mixed && <View style={common.stack}>
           <T variant="subtitle" accessibilityRole="header">{t("noMixedHere")}</T>
@@ -105,7 +102,6 @@ export function ExploreScreen() {
           <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
         {!!mixedCount && <LinkRow label={t("mixedNearby", { n: mixedCount })}
           icon="arrow-forward" hint={t("mixedNearbyHint")} onPress={() => discovery.setMixed(true)} />}
-        {accepted && !!discovery.catalogue?.locationGaps && <T variant="caption" muted>{t("locationGaps")}</T>}
       </>} />
   </Screen>;
 }

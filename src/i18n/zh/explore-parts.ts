@@ -3,7 +3,6 @@ import type en from "../en/explore-parts";
 /** 简体中文：店家卡片、照片、菜单、评价、位置搜索、区域和示例项目。 */
 const zh: typeof en = {
   photoUnavailable: "暂无照片",
-  loadingPhoto: "正在加载照片…",
   cardHint: "打开这家分店的位置和详情",
   branchHint: "打开这家分店的详情",
   moreOptionsFor: "{name}的更多选项",
@@ -68,9 +67,6 @@ const zh: typeof en = {
   shareUnavailableConnected: "无法分享，请连接网络后再试。",
   savedOn: "收藏于 {date} · {list}",
   sharePlaceLink: "分享店家链接",
-  offlineBookmark: "离线收藏",
-  liveOnOpen: "打开后可查看最新详情",
-  viewBookmark: "查看收藏",
   openPlace: "打开店家",
   labelLimit: "私人标签已达上限。",
   labelFailed: "无法保存标签，请重试。",

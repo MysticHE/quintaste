@@ -14,7 +14,7 @@ import { usePreferences } from '../state/Preferences';
 import { useAvatarPhoto } from '../hooks/useAvatarPhoto';
 import { useAvatarGeneration } from '../hooks/useAvatarGeneration';
 import { useAvatarEditor } from '../hooks/useAvatarEditor';
-import { AutosaveStatus } from '../components/AutosaveStatus';
+import { AutosaveStatus, SavingIndicator } from '../components/AutosaveStatus';
 import { useT } from '../i18n';
 
 export function AvatarScreen() {
@@ -63,7 +63,7 @@ export function AvatarScreen() {
     <AvatarCreate photo={photo} generation={generation} agreed={agreed} onAgree={setAgreed} disabled={disabled}
       hasPending={!!editor.pending} onGenerate={() => { if (photo.photo && agreed) void generation.start(photo.photo); }} />
   </Screen>;
-  return <Screen title={t('yourAvatar')} backTo="/account">
+  return <Screen title={t('yourAvatar')} backTo="/account" headerAction={<SavingIndicator saving={editor.busy || saving || avatarLibrary.loading} />}>
     <View style={{ gap: 10, alignItems: 'center', paddingVertical: 8, backgroundColor: theme.accentSoft, borderRadius: 20 }}
       onLayout={event => setWidth(Math.min(224, event.nativeEvent.layout.width - 24))}>
       <AvatarPortrait key={selected} avatar={editor.preview} size={width} animate={moving} speaking={speaking} label={editor.preview ? t('selectedAvatarPreview') : t('lianMascot')} />
@@ -72,7 +72,7 @@ export function AvatarScreen() {
         <Button label={speaking ? t('stopTalking') : t('talkingPreview')} variant="link" disabled={reducedMotion} onPress={() => { setMoving(true); setSpeaking(value => !value); }} />
       </View>}
     </View>
-    <AutosaveStatus saving={editor.busy || saving || avatarLibrary.loading} local={!avatarLibrary.connected} error={syncError || undefined} />
+    <AutosaveStatus error={syncError || undefined} />
     {!!syncError && <Button label={tc('retry')} variant="link" disabled={disabled} onPress={() => { if (editor.error) void editor.apply(); else void avatarLibrary.refresh(); }} />}
     {!!info && <T variant="small" muted accessibilityLiveRegion="polite">{info}</T>}
     <AvatarLibrary items={items} pending={editor.pending} selected={selected} disabled={disabled} onSelect={select} />

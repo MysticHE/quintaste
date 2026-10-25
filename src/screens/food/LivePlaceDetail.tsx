@@ -28,8 +28,8 @@ export function LivePlaceDetailScreen({ id }: { id: string }) {
     catch { setNotice({ text: t("linkFailedConnection"), error: true }); }
   };
   return <Screen title={place?.name ?? t("placeDetails")}>
-    {busy && <ActivityIndicator color={theme.accent} accessibilityLabel={t("updatingPlace")} />}
-    {offline && <T variant="caption" muted>{t(place ? "offlineLastDetails" : "offlineBookmarkOnly")}</T>}
+    {/* A refresh of details already shown stays quiet; the spinner is only for a first load. */}
+    {busy && !place && <ActivityIndicator color={theme.accent} accessibilityLabel={t("updatingPlace")} />}
     {!!error && !offline && <View style={common.stack}><T color={theme.error} accessibilityLiveRegion="polite">{error}</T>
       <Button label={tc("retry")} variant="secondary" onPress={() => void load()} /></View>}
     {expired && <Button label={t("refreshDetails")} variant="secondary" onPress={() => void load()} />}

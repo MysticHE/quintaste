@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PreferenceSaveStatus } from "../../components/AutosaveStatus";
+import { PreferenceSaveStatus, PreferenceSavingIndicator } from "../../components/AutosaveStatus";
 import { Screen } from "../../components/Screen";
 import { Button, Card, T, common } from "../../components/ui";
 import { Chips, Chip } from "../../components/food/Controls";
@@ -27,7 +27,7 @@ export function FoodChoicesScreen({ onboarding = false }: { onboarding?: boolean
       }
     } finally { setBusy(false); }
   };
-  return <Screen title={onboarding ? t("yourFoodChoices") : t("foodChoices")} >
+  return <Screen title={onboarding ? t("yourFoodChoices") : t("foodChoices")} headerAction={<PreferenceSavingIndicator />}>
     <PreferenceSaveStatus />
     <Card style={common.stack}><T variant="subtitle" accessibilityRole="header">{t("eatingStyleTitle")}</T>
       <Chips multiple label={t("eatingStyle")}>{dietLabels.map(label => { const selected = draft.diets.includes(label);

@@ -54,8 +54,6 @@ const en = {
   retrySavingPreferences: "Retry saving preferences",
   retryLoadingPreferences: "Retry loading preferences",
   savingChanges: "Saving changes…",
-  savesOnDevice: "Changes save automatically on this device",
-  savesAutomatically: "Changes save automatically",
   loadChoicesFirst: "Load your saved choices before editing",
   actionFailed: "That did not work. Try again.",
   appearOffline: "You appear to be offline. Try again.",

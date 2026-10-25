@@ -48,7 +48,8 @@ function PlaceEditor({ target }: { target: PlaceTarget }) {
       <LocationSearchField value={editor.address} onChange={editor.changeAddress} onChoose={editor.choose} addressesOnly suggestionsInFlow
         disabled={!editor.readable} placeholder={t("addressPlaceholder")} /></View>
     <Field label={t("unitOptional")} value={editor.details} maxLength={100} editable={editor.readable} placeholder="#05-12" onChangeText={editor.setDetails} />
-    <SaveState editor={editor} />
+    {/* One fixed line, so switching between Saving, Saved, a hint and nothing never moves the switch below. */}
+    <View style={{ minHeight: 24, justifyContent: "center" }}><SaveState editor={editor} /></View>
     {saved && <ListGroup><ListItem title={t("defaultLocation")} leading={<RowIcon name="navigate-outline" />}
       trailing={<ThemedSwitch label={t("defaultLocationSwitch")} value={saved.isDefault} disabled={saved.isDefault || editor.busy} onChange={on => { if (on) void editor.makeDefault(); }} />} /></ListGroup>}
     {saved && (editor.kind === "home" || editor.kind === "work") && <AreaParticipationRow layer={editor.kind} point={saved.point} />}

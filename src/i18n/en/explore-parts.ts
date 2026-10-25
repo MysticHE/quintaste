@@ -3,7 +3,6 @@ import type { Vars } from "..";
 /** Place cards, photos, menus, reviews, location search, areas and sample-item parts. */
 const en = {
   photoUnavailable: "Photo unavailable",
-  loadingPhoto: "Loading photo…",
   cardHint: "Opens this branch's location and details",
   branchHint: "Opens this branch's details",
   moreOptionsFor: "More options for {name}",
@@ -68,9 +67,6 @@ const en = {
   shareUnavailableConnected: "Sharing unavailable. Try again when connected.",
   savedOn: "Saved {date} · {list}",
   sharePlaceLink: "Share Place Link",
-  offlineBookmark: "Offline bookmark",
-  liveOnOpen: "Live details available on open",
-  viewBookmark: "View Bookmark",
   openPlace: "Open Place",
   labelLimit: "You have reached the private label limit.",
   labelFailed: "Label could not be saved. Retry.",

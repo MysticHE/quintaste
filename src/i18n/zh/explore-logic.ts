@@ -55,7 +55,6 @@ const zh: typeof en = {
   offlineLoadLocation: "离线中，请连接网络以加载这个位置的店家。",
   placesUnavailable: "无法加载店家，请重试。",
   searchChanged: "搜索已变更，请刷新结果。",
-  showingSavedResults: "正在显示已保存的结果，无法刷新。",
   menuNoLongerPublished: "菜单已不再发布。",
   menuUnavailable: "无法加载菜单，请重试。",
   youreOffline: "你目前离线",

@@ -24,7 +24,7 @@ const en = {
   moreRecipes: "More Recipes",
   narrowSearch: "Narrow your search to see more recipes.",
   awakeError: "Screen may sleep. Check your device settings.",
-  cookingComplete: "Cooking complete · Logged on this device",
+  cookingComplete: "Cooking complete",
   cookingTitle: "Cooking",
   noCooking: "No Cooking In Progress",
   viewRecipe: "View recipe",

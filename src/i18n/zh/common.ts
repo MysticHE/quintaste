@@ -54,8 +54,6 @@ const zh: typeof en = {
   retrySavingPreferences: "重试保存偏好",
   retryLoadingPreferences: "重试加载偏好",
   savingChanges: "正在保存更改…",
-  savesOnDevice: "更改会自动保存在这部设备上",
-  savesAutomatically: "更改会自动保存",
   loadChoicesFirst: "请先加载你保存的选择，再编辑",
   actionFailed: "没有成功，请再试一次。",
   appearOffline: "你好像没有连上网络，请再试一次。",

@@ -1,5 +1,4 @@
 import { SavedPlaceLabel } from "../../components/discovery/SavedPlaceLabel";
-import { useExploreLocal } from "../../state/ExploreLocal";
 import { SavedPlaceCard } from "../../components/discovery/SavedPlaceCard";
 import { SavedCatalogueVenue } from "../../components/discovery/CatalogueVenueCard";
 import { recalledPlace, savedGoogleId } from "../../utils/live-place-cache";
@@ -39,7 +38,7 @@ function itemName(kind: SavedKind, id: string, now: number, workspace: RecipeWor
 }
 export function SavedScreen() {
   const { doc, undo, undoRemove, dismissUndo, patchDocument, ready, error, savedSelection, savedSearch: query, setSavedSearch: setQuery } = useFood();
-  const { preview } = usePreferences(), { offline } = useExploreLocal();
+  const { preview } = usePreferences();
   const now = useMinuteClock(), t = useT("explore");
   const { category } = savedSelection;
   const list = category === "Notes" ? "" : savedSelection.list;
@@ -66,7 +65,6 @@ export function SavedScreen() {
     <View style={common.flex}><SearchField value={query} onChange={setQuery} placeholder={t("searchSaved")}
       trailing={<FilterButton label={t("savedFilters")} count={category !== "All" || !!list ? 1 : 0} onPress={() => router.push("/saved/filters")} />} /></View>
   </View>}>
-    {offline && <T variant="small" muted accessibilityLiveRegion="polite">{t("offlineOnDevice")}</T>}
     {(category !== "All" || !!list) && <T variant="small" muted>{[category !== "All" ? t("savedCategory", { name: category }) : "", list].filter(Boolean).join(" · ")}</T>}
     {undo && <InfoBox title={t("itemRemoved")} text={itemName(undo.kind, undo.id, now, doc.recipes, doc.exploreLocal.labels, t)}>
       <Chips><Chip label={t("undo")} icon="arrow-undo-outline" onPress={() => void undoRemove()} /><Chip label={t("dismiss")} onPress={dismissUndo} /></Chips>
@@ -96,7 +94,6 @@ export function SavedScreen() {
         </Card>}
       </View>)}
     </>}
-    {!!doc.saves.length && <T variant="small" muted>{t("savedOnPhone")}</T>}
     {!preview && <Button label={t("profileOptions")} variant="link" onPress={() => router.push({ pathname: "/login", params: { returnTo: "/saved" } })} />}
   </Screen>;
 }

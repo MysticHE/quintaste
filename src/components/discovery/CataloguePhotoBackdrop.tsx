@@ -5,7 +5,6 @@ import { usePreferences } from "../../state/Preferences";
 import { apiUrl } from "../../utils/api-url";
 import { Icon, T, type IconName } from "../ui";
 import { PhotoBlend } from "./PhotoBlend";
-import { useT } from "../../i18n";
 
 /**
  * `source` is a photo bundled with the app; `fallback` names what a photo-less item is (a recipe's category);
@@ -15,7 +14,7 @@ import { useT } from "../../i18n";
 export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, emptyIcon, enabled, panelHeight }: {
   path?: string; source?: ImageSourcePropType; thumbhash?: string; fallback?: string; emptyIcon?: IconName; enabled: boolean; panelHeight: number;
 }) {
-  const { theme, reducedMotion } = usePreferences(), t = useT("explore");
+  const { theme, reducedMotion } = usePreferences();
   const [failed, setFailed] = useState(false), [loaded, setLoaded] = useState(false), [height, setHeight] = useState(260), [attempt, setAttempt] = useState(0);
   // Leaving the screen ends a failed attempt (and unloads the photo), so coming back tries again at once.
   const [shown, setShown] = useState(enabled);
@@ -39,26 +38,26 @@ export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, empt
   const photo = (blurred: boolean) => <Image key={attempt} source={(blurred && !loaded ? null : image) ?? null} placeholder={placeholder} placeholderContentFit="cover"
     contentFit="cover" cachePolicy="memory-disk" recyclingKey={path} transition={reducedMotion ? 0 : 150} blurRadius={blurred ? 5 : undefined}
     style={StyleSheet.absoluteFill} accessible={false} alt="" onLoad={blurred ? undefined : () => setLoaded(true)} onError={fail} />;
-  const loadingLabel = <View style={s.label}>
-    <Icon name="image-outline" color={theme.mediaMutedForeground} />
-    <T variant="small" color={theme.mediaMutedForeground}>{t(!url || failed ? "photoUnavailable" : "loadingPhoto")}</T>
+  // While a photo loads the card shows its colour preview (or the plain dark frame), never a "Loading" caption. A photo that cannot
+  // load shows the same tile as a place without one.
+  const tile = (icon: IconName) => <View testID="photo-empty-tile" style={StyleSheet.absoluteFill}>
+    <View style={[StyleSheet.absoluteFill, s.tint, { backgroundColor: theme.accent }]} />
+    <View style={[panelHeight > 0 ? s.fallback : [StyleSheet.absoluteFill, s.centred], s.emptyIcon]}>
+      <Icon name={icon} size={56} color={theme.mediaMutedForeground} />
+    </View>
   </View>;
   return <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden
     onLayout={event => setHeight(event.nativeEvent.layout.height)}
     style={[StyleSheet.absoluteFill, { backgroundColor: theme.mediaSurface }]}>
-    {image || placeholder ? <>{!placeholder && !source && loadingLabel}{photo(false)}
+    {image || placeholder ? <>{photo(false)}
       {panelHeight > 0 && <View testID="photo-soft-blur" style={{ position: "absolute", left: 0, right: 0, top: start, bottom: 0, overflow: "hidden" }}>
         <PhotoBlend fadeAt={32 / Math.max(32, height - start)}><View style={{ position: "absolute", top: -start, height, left: 0, right: 0 }}>
           {photo(true)}
         </View></PhotoBlend>
-      </View>}</> : emptyIcon && !path && !source ? <View testID="photo-empty-tile" style={StyleSheet.absoluteFill}>
-      <View style={[StyleSheet.absoluteFill, s.tint, { backgroundColor: theme.accent }]} />
-      <View style={[panelHeight > 0 ? s.fallback : [StyleSheet.absoluteFill, s.centred], s.emptyIcon]}>
-        <Icon name={emptyIcon} size={56} color={theme.mediaMutedForeground} />
-      </View>
-    </View> : fallback && (!url || failed) ? <View style={s.fallback}>
+      </View>}</> : emptyIcon && !source && (!path || failed) ? tile(emptyIcon)
+    : fallback && (!url || failed) ? <View style={s.fallback}>
       <T variant="title" color={theme.mediaMutedForeground} numberOfLines={2} style={s.fallbackText}>{fallback}</T>
-    </View> : loadingLabel}
+    </View> : !url || failed ? tile("image-outline") : null}
   </View>;
 }
 const s = StyleSheet.create({
@@ -67,5 +66,4 @@ const s = StyleSheet.create({
   tint: { opacity: 0.18 },
   centred: { alignItems: "center", justifyContent: "center" },
   emptyIcon: { opacity: 0.72 },
-  label: { position: "absolute", top: 76, left: 16, right: 16, flexDirection: "row", alignItems: "center", gap: 8 },
 });

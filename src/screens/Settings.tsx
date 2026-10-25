@@ -1,7 +1,7 @@
 import { Screen } from "../components/Screen";
 import { Appearance, Choices, Row } from "../components/PreferenceControls";
 import { Card, Divider, Icon, T, common } from "../components/ui";
-import { PreferenceSaveStatus } from "../components/AutosaveStatus";
+import { PreferenceSaveStatus, PreferenceSavingIndicator } from "../components/AutosaveStatus";
 import { usePreferences } from "../state/Preferences";
 import { Pressable, StyleSheet, View } from "react-native";
 import { languageChoices, type LanguageChoice } from "../config/preferences";
@@ -43,7 +43,7 @@ const s = StyleSheet.create({
 });
 export function SettingsScreen() {
   const t = useT("me");
-  return <Screen title={t("appearance")}>
+  return <Screen title={t("appearance")} headerAction={<PreferenceSavingIndicator />}>
     <PreferenceSaveStatus />
     <Card><Appearance /></Card>
   </Screen>;
@@ -53,7 +53,7 @@ export function AccessibilityScreen() {
   return (
     <Screen
       title={t("accessibility")}
-
+      headerAction={<PreferenceSavingIndicator />}
     >
       <PreferenceSaveStatus />
       <Card>

@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { ActivityIndicator, Pressable, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { MenuDishes } from "../../components/discovery/MenuDishes";
-import { Button, Icon, T, common } from "../../components/ui";
+import { Icon, T, common } from "../../components/ui";
 import { EmptyState, IconButton } from "../../components/food/Controls";
 import { MenuSourceLink } from "../../components/discovery/MenuSourceLink";
 import { useMenus } from "../../state/Menus";
@@ -23,8 +23,8 @@ const MEAT_NAMED = /\b(chicken|pork|beef|mutton|lamb|bacon|ham|duck|fish\w*|praw
 
 export function MenuScreen() {
   const { id, q } = useLocalSearchParams<{ id: string; q?: string }>();
-  const { loaded, busy: indexBusy, error: indexError, now, load: loadIndex, offline } = useMenus();
-  const { menu, busy: detailBusy, error, storageError, cached, load } = useMenuDetail(id);
+  const { loaded, busy: indexBusy, error: indexError, now, load: loadIndex } = useMenus();
+  const { menu, busy: detailBusy, error, load } = useMenuDetail(id);
   const { venue, busy: venueBusy, retry: retryVenue } = useCatalogueVenue(id);
   // The kitchen decides how the menu reads, so hold the menu back until the place has answered (a failed lookup still shows it, unstyled).
   const venuePending = venueBusy && !venue, busy = indexBusy || detailBusy || venuePending, ready = !!menu && !venuePending;
@@ -65,15 +65,12 @@ export function MenuScreen() {
       </View>
       {mockNamed && <T variant="small" muted>{t("mockMeatNote")}</T>}
       {availabilityNote && <T testID="menu-availability-note" variant="small" muted>{availabilityNote}</T>}
-      {cached && <View style={common.row}><T variant="caption" muted style={common.flex} accessibilityLiveRegion="polite">{t(offline ? "offlineSavedMenu" : "savedMenuMayChange")}</T>
-        <Button label={tc("retry")} variant="link" loading={busy} onPress={retry} /></View>}
       <MenuDishes key={menu.id} menu={menu} now={now} search={typeof q === "string" ? q.trim().slice(0, 100) : ""} />
       {latestSource && updated && <View testID="menu-latest-update">
         <MenuSourceLink url={latestSource.sourceUrl} publisher={latestSource.sourceLabel}
           label={t("lastUpdated", { date: language === "zh" ? zhDate(updated) : updated.toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" }) })} />
       </View>}
       {options && <T testID="veg-options-footnote" variant="caption" muted>{t("labelledMeatFree")}</T>}
-      {storageError && <T variant="caption" muted>{t("offlineCopyFailed")}</T>}
     </> : !busy && (loaded && !error && !indexError
       // Loaded fine, nothing published: not an error, so no retry; point to what the member can do instead.
       ? <EmptyState icon="book-outline" title={t("noMenuYet")} text={t("noMenuPublished")} action={tc("back")} onPress={() => goBack("/")} />

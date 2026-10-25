@@ -22,6 +22,7 @@ import { DockFollow, useDockScroll, useGlassNavigation } from "./navigation/Glas
 import { useHideOnScroll, useScreenReaderOn } from "../hooks/useHideOnScroll";
 import { SCREEN_GUTTER } from "../theme/layout";
 import { LIST_GAP, ScreenListContext, type ScreenListFrame } from "./ScreenList";
+import { OfflineBanner } from "./OfflineBanner";
 import { useT } from "../i18n";
 type ScreenProps = {
   title?: string;
@@ -99,7 +100,7 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
         {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
         <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
           style={hasTabDock ? { position: "absolute", bottom: glass?.height ?? 0, left: 0, right: 0 } : undefined}>
-          {!hideTimers && <TimerDock />}<FoodStorageBanner /><NoticeBanner />
+          {!hideTimers && <TimerDock />}<FoodStorageBanner /><OfflineBanner /><NoticeBanner />
         </Pinned>
           </View>
         </KeyboardAvoidingView>

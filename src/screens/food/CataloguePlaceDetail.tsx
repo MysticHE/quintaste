@@ -48,8 +48,8 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     <View style={common.flex} />
     {venue && <ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />}
   </View>}>
-    {busy && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingPlaceDetails")} />}
-    {offline && <T variant="caption" muted>{t(venue ? "offlineSavedDetails" : "offlineBookmarkOnly")}</T>}
+    {/* A refresh of details already shown stays quiet; the spinner is only for a first load. */}
+    {busy && !venue && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingPlaceDetails")} />}
     {gone && <EmptyState icon="close-circle-outline" title={t("noLongerInExplore")} text={t("removedOrClosed")}
       primary={{ label: t("backToExplore"), onPress: () => router.navigate("/") }} />}
     {!!error && !gone && (venue ? <View style={common.row}><T variant="small" muted style={common.flex} accessibilityLiveRegion="polite">{t("showingSavedDetails")}</T><Button label={tc("tryAgain")} variant="link" onPress={retry} /></View>

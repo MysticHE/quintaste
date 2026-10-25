@@ -24,7 +24,7 @@ const zh: typeof en = {
   moreRecipes: "更多食谱",
   narrowSearch: "缩小搜索范围，就能看到更多食谱。",
   awakeError: "屏幕可能会自动熄灭，请检查手机设置。",
-  cookingComplete: "完成烹饪 · 已记录在这部手机",
+  cookingComplete: "完成烹饪",
   cookingTitle: "烹饪中",
   noCooking: "目前没有在烹饪",
   viewRecipe: "查看食谱",

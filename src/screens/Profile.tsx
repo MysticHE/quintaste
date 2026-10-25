@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Screen } from "../components/Screen";
 import { Card, Field, T, common } from "../components/ui";
 import { usePreferences } from "../state/Preferences";
-import { PreferenceSaveStatus } from "../components/AutosaveStatus";
+import { PreferenceSaveStatus, PreferenceSavingIndicator } from "../components/AutosaveStatus";
 import { accountsEnabled } from "../services/auth-client";
 import { ConnectedProfileScreen } from "./ConnectedProfile";
 import { useT } from "../i18n";
@@ -12,7 +12,7 @@ function PreviewProfileScreen() {
   return (
     <Screen
       title={t("editProfile")}
-
+      headerAction={<PreferenceSavingIndicator />}
     >
       <PreferenceSaveStatus />
       <Field
