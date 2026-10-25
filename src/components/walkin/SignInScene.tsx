@@ -20,7 +20,7 @@ export function SignInScene({ children, title, body, onBack, backLabel, busy, co
   return <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
     <ScrollView ref={scroll} testID="signin-scroll" scrollEnabled={keyboardVisible} bounces={false}
       keyboardShouldPersistTaps="handled" contentContainerStyle={{ height }} showsVerticalScrollIndicator={false}>
-      <FittedWelcomePage testID="walkin-signin-page" artwork={(width, availableHeight) => {
+      <FittedWelcomePage testID="walkin-signin-page" artworkAspectRatio={853 / (compact ? 657 : 849)} artwork={(width, availableHeight) => {
         const aspect = (compact ? 657 : 849) / 853;
         const artWidth = Math.min(width, availableHeight / aspect);
         return <View style={{ width: artWidth, height: artWidth * aspect }}>

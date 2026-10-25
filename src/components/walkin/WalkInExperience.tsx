@@ -142,7 +142,7 @@ function Gallery({ SignIn }: { SignIn: SignInComponent }) {
     onScroll={event => { const x = event.nativeEvent.contentOffset.x; if (Math.abs(x / pageWidth - Math.round(x / pageWidth)) < 0.005) settled(x); }}>
     {panels.map(([title, body], index) => <View key={title} style={{ width: pageWidth, height: '100%' }}
       accessibilityElementsHidden={index !== page} importantForAccessibility={index === page ? 'auto' : 'no-hide-descendants'} aria-hidden={index !== page}>
-      <FittedWelcomePage testID={`walkin-page-${index + 1}`} artwork={(width, height) => <IntroductionArtwork page={index} width={width} height={height} />}>
+      <FittedWelcomePage testID={`walkin-page-${index + 1}`} artworkAspectRatio={853 / 1256} artwork={(width, height) => <IntroductionArtwork page={index} width={width} height={height} />}>
         <View style={[s.copy, { paddingHorizontal: 24 }]}><WelcomeHeading title={t(title)} body={t(body)} size={index === 3 ? 'community' : 'intro'} /></View>
         <View style={[s.progress, compact && { gap: 5, paddingTop: 6, paddingBottom: 6 }]} accessible={false}>
           <View style={s.dots}>{panels.map((_, dot) => <View key={dot} style={[s.dot, { width: dot === index ? 12 : 9, backgroundColor: dot === index ? theme.welcome.accent : theme.welcome.dot }]} />)}</View>
