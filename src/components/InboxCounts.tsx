@@ -3,7 +3,7 @@ import { useMember } from "./CommunityGate";
 import { onInvalidate, useRemote } from "../hooks/useRemote";
 import { communityRequest } from "../services/community-api";
 
-/** Server counts from /api/inbox (server/community/inbox.mjs); `messages` is unread conversations, `total` everything waiting. */
+/** Server counts from /api/inbox (server/community/inbox.mjs); `messages` is chats that need the member (unread, or a seller's new order not yet answered), `total` everything waiting. */
 export type InboxCounts = { friends: number; market: number; classes: number; messages: number; orders: number; requests: number; dinners: number; total: number };
 export const inboxPath = "/api/inbox";
 const load = (signal: AbortSignal) => communityRequest<InboxCounts>(inboxPath, { signal });

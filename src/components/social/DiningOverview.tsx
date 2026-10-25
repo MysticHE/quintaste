@@ -37,11 +37,11 @@ export function DiningOverview() {
   const all = () => router.push("/social/community?tab=dinners");
   return <>
     <View style={[common.row, { gap: 8 }]}><View style={common.flex}><Button label={t("findPeople")} icon="person-add-outline" variant="secondary" onPress={() => router.push("/social/community?tab=people")} /></View>
-      <View style={common.flex}><Button label={t("friends")} icon="people-outline" variant="secondary" onPress={() => router.push("/social/community?tab=friends")} /></View></View>
+      <View style={common.flex}><Button label={t("friends")} icon="people-outline" variant="secondary" onPress={() => router.push("/social/friends")} /></View></View>
     <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social?tab=dining" />
     <ProfileSection title={t("comingUp")} action={t("viewAll")} onPress={all} />
     {next ? <DinnerSummary dinner={next} /> : data && <EmptyState title={t("noDinner")} text={t("noDinnerText")} icon="restaurant-outline" />}
-    <Button label={t("invite")} icon="person-add-outline" onPress={() => router.push("/social/community?tab=friends")} />
+    <Button label={t("invite")} icon="person-add-outline" onPress={() => router.push("/social/friends")} />
     {!!invitations.length && <><ProfileSection title={t("invitations")} action={t("viewAll")} onPress={all} />{invitations.slice(0, 2).map(d => <DinnerSummary key={d.id} dinner={d} compact />)}</>}
     <Button label={t("past")} icon="time-outline" variant="secondary" onPress={all} />
   </>;

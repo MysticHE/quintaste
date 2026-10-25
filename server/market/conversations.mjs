@@ -27,20 +27,30 @@ async function participant(db, id, me) {
 }
 const unreadFor = `EXISTS (SELECT 1 FROM market.message m WHERE m.conversation_id=c.id AND (m.sender_id IS NULL OR m.sender_id<>$1)
   AND m.created_at > CASE WHEN c.buyer_id=$1 THEN c.buyer_read_at ELSE c.seller_read_at END)`;
+/** Item photo links: buyers see the shop's public photo, sellers their own (which also works while the item is paused). */
+const photoLink = (photo, role) => photo ? `/api/market/${role === 'seller' ? 'seller/' : ''}photos/${photo.id}/item?v=${photo.digest.slice(0, 12)}` : null;
+/** The latest order between the pair: its status, day, item names and the first item's photo. */
+const latestOrder = `LEFT JOIN LATERAL (SELECT o.status, o.starts,
+    (SELECT string_agg(i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=o.id) AS items,
+    (SELECT json_build_object('id', ph.listing_id, 'digest', ph.digest) FROM market.order_item i JOIN market.photo ph ON ph.listing_id=i.listing_id AND ph.slot='item'
+      WHERE i.order_id=o.id ORDER BY i.name LIMIT 1) AS photo
+  FROM market."order" o WHERE o.buyer_id=c.buyer_id AND o.seller_id=c.seller_id ORDER BY o.created_at DESC LIMIT 1) lo ON true`;
 conversations.get('/conversations', async (_req, res) => {
   const me = res.locals.user.id;
   const rows = (await pool.query(`SELECT c.id, c.seller_id AS "sellerId", c.updated_at AS "updatedAt", CASE WHEN c.buyer_id=$1 THEN 'buyer' ELSE 'seller' END AS role,
       CASE WHEN c.buyer_id=$1 THEN s.trading_name ELSE u.name END AS "otherName",
       (SELECT body FROM market.message m WHERE m.conversation_id=c.id ORDER BY created_at DESC LIMIT 1) AS last, ${unreadFor} AS unread,
-      (SELECT string_agg(i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=(SELECT o.id FROM market."order" o
-        WHERE o.buyer_id=c.buyer_id AND o.seller_id=c.seller_id ORDER BY o.created_at DESC LIMIT 1)) AS context
-    FROM market.conversation c JOIN market.seller s ON s.user_id=c.seller_id JOIN public."user" u ON u.id=c.buyer_id
+      lo.items AS context, lo.status AS "orderStatus", ${sgText('lo.starts')} AS "orderStarts", lo.photo
+    FROM market.conversation c JOIN market.seller s ON s.user_id=c.seller_id JOIN public."user" u ON u.id=c.buyer_id ${latestOrder}
     WHERE c.buyer_id=$1 OR c.seller_id=$1 ORDER BY c.updated_at DESC LIMIT 100`, [me])).rows;
-  res.json({ items: rows });
+  res.json({ items: rows.map(({ photo, ...row }) => ({ ...row, photo: photoLink(photo, row.role) })) });
 });
 /** Counts for member $1, shared with the app-wide inbox count (server/community/inbox.mjs). */
 export const unreadMarketChatsSql = `(SELECT count(*)::int FROM market.conversation c WHERE (c.buyer_id=$1 OR c.seller_id=$1) AND ${unreadFor})`;
 export const newOrdersSql = `(SELECT count(*)::int FROM market."order" o WHERE o.seller_id=$1 AND o.status='requested')`;
+/** Market chats that need the member: unread, or (as the seller) holding a new order not yet answered, even once read. */
+export const marketAttentionSql = `(SELECT count(*)::int FROM market.conversation c WHERE (c.buyer_id=$1 OR c.seller_id=$1) AND (${unreadFor}
+  OR (c.seller_id=$1 AND EXISTS (SELECT 1 FROM market."order" o WHERE o.buyer_id=c.buyer_id AND o.seller_id=c.seller_id AND o.status='requested'))))`;
 /** Kept for app builds released before /api/inbox. */
 conversations.get('/unread', async (_req, res) => {
   const row = (await pool.query(`SELECT ${unreadMarketChatsSql} AS messages, ${newOrdersSql} AS orders`, [res.locals.user.id])).rows[0];
@@ -65,12 +75,14 @@ conversations.get('/conversations/:id', async (req, res) => {
     pool.query(`SELECT id, sender_id AS "senderId", kind, order_id AS "orderId", body, created_at AS "createdAt" FROM
       (SELECT * FROM market.message WHERE conversation_id=$1 ORDER BY created_at DESC LIMIT 200) m ORDER BY created_at`, [c.id]),
     pool.query(`SELECT 1 WHERE ${notBlocked('$1', '$2')}`, [other, me]),
-    pool.query(`SELECT o.id, o.status, o.total_cents AS "totalCents", ${sgText('o.starts')} AS starts,
-        (SELECT string_agg(i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=o.id) AS items
+    pool.query(`SELECT o.id, o.status, o.total_cents AS "totalCents", ${sgText('o.starts')} AS starts, ${sgText('o.ends')} AS ends, o.mode, o.place, o.payment,
+        (SELECT string_agg(i.quantity || ' × ' || i.name, ', ' ORDER BY i.name) FROM market.order_item i WHERE i.order_id=o.id) AS items,
+        (SELECT json_build_object('id', ph.listing_id, 'digest', ph.digest) FROM market.order_item i JOIN market.photo ph ON ph.listing_id=i.listing_id AND ph.slot='item'
+          WHERE i.order_id=o.id ORDER BY i.name LIMIT 1) AS photo
       FROM market."order" o WHERE o.buyer_id=$1 AND o.seller_id=$2 AND o.status IN ('requested','confirmed','ready') ORDER BY o.starts`, [c.buyer_id, c.seller_id]),
   ]);
   res.json({ id: c.id, role: buyer ? 'buyer' : 'seller', sellerId: c.seller_id, other: { id: other, name: buyer ? c.sellerName : c.buyerName },
-    blocked: blocked.rowCount === 0, openOrders: orders.rows, messages: messages.rows.map(m => ({ ...m, mine: m.senderId === me })) });
+    blocked: blocked.rowCount === 0, openOrders: orders.rows.map(({ photo, ...o }) => ({ ...o, photo: photoLink(photo, buyer ? 'buyer' : 'seller') })), messages: messages.rows.map(m => ({ ...m, mine: m.senderId === me })) });
 });
 conversations.post('/conversations/:id/messages', async (req, res) => {
   const me = res.locals.user.id, body = noContactDetails(text(req.body?.text, 1000, { min: 1, field: 'Message' }));

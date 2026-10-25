@@ -7,7 +7,7 @@ const en = {
   tabSocial: "Social",
   tabMarket: "Market",
   tabGame: "Game",
-  me: "Me",
+  settings: "Settings",
   meHint: "Profile and settings",
   save: "Save",
   saved: "Saved",

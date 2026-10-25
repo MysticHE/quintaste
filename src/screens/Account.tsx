@@ -31,7 +31,7 @@ export function AccountScreen() {
     else if (result === true) { setUnsaved(false); router.dismissTo("/"); }
     return result === true;
   };
-  return <Screen title={tc("me")} backTo={origin}>
+  return <Screen title={tc("settings")} backTo={origin}>
     <Card style={s.profile}>
       <Pressable accessibilityRole="button" accessibilityLabel={t("changeAvatar")}
         onPress={() => router.push("/avatar")} style={({ pressed }) => [s.avatar, { opacity: pressed ? 0.7 : 1 }]}>

@@ -14,24 +14,26 @@ import { useRemote } from "../../hooks/useRemote";
 import { badges as loadBadges } from "../../services/social-api";
 import { useT } from "../../i18n";
 import { PeopleTab, activePeopleFilters } from "./PeopleTab";
-import { FriendsTab } from "./FriendsTab";
 import { DinnersTab } from "./DinnersTab";
 
-export type SocialTab = "people" | "friends" | "dinners";
-const tabKeys = { people: "tabPeople", friends: "tabFriends", dinners: "tabDinners" } as const;
-const findKeys = { people: "findPeople", friends: "findFriends", dinners: "findDinners" } as const;
-/** Links from before 24 Oct 2026 (Nearby, My plans) land on the closest tab; Events and Tables now live in Feeds. */
-export function readTab(tab: string | undefined): SocialTab | "market" {
+export type SocialTab = "people" | "dinners";
+const tabKeys = { people: "tabPeople", dinners: "tabDinners" } as const;
+const findKeys = { people: "findPeople", dinners: "findDinners" } as const;
+/**
+ * Links from before 24 Oct 2026 (Nearby, My plans) land on the closest tab; Events and Tables now live in Feeds. Friends left
+ * Dining on 25 Oct 2026: requests are on Add friend, chats in Messages and the list behind the profile's Friends count.
+ */
+export function readTab(tab: string | undefined): SocialTab | "market" | "friends" {
   if (tab === "plans") return "dinners";
   if (tab === "tables" || tab === "events") return "market";
   return tab === "friends" || tab === "dinners" ? tab : "people";
 }
 const showEvents = () => router.push("/cook?tab=events");
 
-/** Social, for members aged 21 to 45: People to meet, Friends (requests and chats) and Dinners. Events and cooking classes are in Feeds. */
+/** Dining, for members aged 21 to 45: People to meet and Dinners. Events and cooking classes are in Feeds. */
 export function SocialCommunityScreen() {
   const { tab } = useLocalSearchParams<{ tab?: string }>(), read = readTab(tab);
-  return read === "market" ? <Redirect href="/cook?tab=events" /> : <SocialHome section={read} />;
+  return read === "market" ? <Redirect href="/cook?tab=events" /> : read === "friends" ? <Redirect href="/social/friends" /> : <SocialHome section={read} />;
 }
 function SocialHome({ section }: { section: SocialTab }) {
   const t = useT("social"), tc = useT("common");
@@ -39,7 +41,7 @@ function SocialHome({ section }: { section: SocialTab }) {
   const counts = useRemote(member && me.data?.standing.canMeet ? "/api/social/badges" : null, loadBadges, 30000).data;
   const select = (value: SocialTab) => { if (value === section) return; router.setParams({ tab: value }); setQuery(""); };
   const tabs = useMemo(() => (Object.keys(tabKeys) as SocialTab[]).map(id => {
-    const badge = id === "friends" ? (counts?.requests ?? 0) + (counts?.messages ?? 0) : id === "dinners" ? counts?.dinners ?? 0 : 0;
+    const badge = id === "dinners" ? counts?.dinners ?? 0 : 0;
     return { id, badge, label: t(tabKeys[id]), accessibleLabel: badge ? t("tabBadge", { label: t(tabKeys[id]), n: badge }) : undefined };
   }), [counts, t]);
   // Members outside 21 to 45 see only the notice that points them to Events in Feeds: no search, filters or tabs.
@@ -53,7 +55,7 @@ function SocialHome({ section }: { section: SocialTab }) {
     <MemberGate returnTo={"/social?tab=" + section}>
       {!me.data && <RemoteStatus remote={me} icon="people-outline" returnTo={"/social?tab=" + section} />}
       <MeetGate data={me.data} onEvents={showEvents}>
-        {section === "people" ? <PeopleTab query={query} me={me.data!} /> : section === "friends" ? <FriendsTab query={query} /> : <DinnersTab query={query} />}
+        {section === "people" ? <PeopleTab query={query} me={me.data!} /> : <DinnersTab query={query} />}
       </MeetGate>
     </MemberGate>
   </Screen>;

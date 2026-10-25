@@ -4,7 +4,7 @@ import { CommunityError, requireUser } from '../community/http.mjs';
 import { hobbies, languages } from './options.mjs';
 import { readDiets } from './rules.mjs';
 import { ageFrom, meetAgeSql, friendsSql, pausedUntilSql, reachableSql, requireBrowse, seeableSql, standing, verifiedSql } from './access.mjs';
-import { hideable, meetColumns, photoUrl } from './profile.mjs';
+import { emptyProfile, hideable, meetColumns, photoUrl } from './profile.mjs';
 import { readFileSync } from 'node:fs';
 
 export const people = express.Router();
@@ -76,19 +76,25 @@ people.get('/people', async (req, res) => {
   res.json({ items: rows.map(({ km: distance, updated_at: _updated, ...row }) => ({ ...shareable(row, photos.get(row.id)), km: distance })), canAppear: state.canMeet });
 });
 
-/** One profile, with how the viewer stands with them: friends, a request either way, and whether a dinner invite is possible. */
+/**
+ * One profile, with how the viewer stands with them: friends, a request either way, and whether a dinner invite is possible.
+ * A member who never filled in a Social profile still has a page (their account name and handle), so Add friend can open it.
+ */
 people.get('/people/:id', async (req, res) => {
   const me = res.locals.user.id, id = requireUser(req.params.id);
-  const row = (await pool.query(`SELECT p.user_id AS id, ${meetColumns}, ${friendsSql('p.user_id', '$1')} AS friend, ${verifiedSql('p.user_id')} AS verified,
-      ${meetAgeSql('p.user_id')} AS adult, ${pausedUntilSql('p.user_id')} > now() AS "theyPaused",
+  const row = (await pool.query(`SELECT u.id, u.name AS "accountName", p.user_id IS NOT NULL AS "hasProfile", ${meetColumns}, ${friendsSql('u.id', '$1')} AS friend,
+      ${verifiedSql('u.id')} AS verified, (SELECT h.handle FROM social.handle h WHERE h.user_id=u.id) AS handle,
+      ${meetAgeSql('u.id')} AS adult, ${pausedUntilSql('u.id')} > now() AS "theyPaused",
       EXISTS (SELECT 1 FROM social.dinner d WHERE d.status='invited' AND d.expires_at > now() AND d.starts > now()
-        AND ((d.host_id=$1 AND d.guest_id=p.user_id) OR (d.host_id=p.user_id AND d.guest_id=$1))) AS "openInvite",
+        AND ((d.host_id=$1 AND d.guest_id=u.id) OR (d.host_id=u.id AND d.guest_id=$1))) AS "openInvite",
       (SELECT json_build_object('id', r.id, 'mine', r.from_id=$1, 'note', r.note) FROM social.friend_request r WHERE r.status='pending'
-        AND ((r.from_id=$1 AND r.to_id=p.user_id) OR (r.from_id=p.user_id AND r.to_id=$1)) LIMIT 1) AS request
-    FROM social.profile p WHERE p.user_id=$2 AND ${seeableSql('p.user_id', '$1')}`, [me, id])).rows[0];
+        AND ((r.from_id=$1 AND r.to_id=u.id) OR (r.from_id=u.id AND r.to_id=$1)) LIMIT 1) AS request
+    FROM public."user" u LEFT JOIN social.profile p ON p.user_id=u.id WHERE u.id=$2 AND ${seeableSql('u.id', '$1')}`, [me, id])).rows[0];
   if (!row) throw new CommunityError(404, 'This profile is unavailable.');
   const [state, photos] = await Promise.all([standing(me), photosOf([id])]);
-  const { friend, verified, adult, request, theyPaused, openInvite, ...profile } = row;
+  const { friend, verified, adult, request, theyPaused, openInvite, accountName, hasProfile, ...stored } = row;
+  // Without a Social profile every field is empty but the name, which comes from the account.
+  const profile = hasProfile ? stored : { ...emptyProfile, ...Object.fromEntries(Object.entries(stored).filter(([, value]) => value !== null)), firstName: accountName || 'Member' };
   const opposite = !!state.gender && !!profile.gender && state.gender !== profile.gender;
   // The same rules the server applies when an invite is sent (dinners.mjs requirePair), plus one open invite per pair.
   res.json({ ...shareable(profile, photos.get(id)), km: areaKm(state.area, profile.area), verified, friend, request, openInvite,

@@ -1,11 +1,13 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { Platform, Pressable, ScrollView, StyleSheet, View, type ViewInstance, type ScrollViewInstance } from "react-native";
+import type { WebOnlyProps } from "../types/web-props";
 import { T, common } from "./ui";
 import { useOnAccent } from "./BrowseControls";
 import { usePreferences } from "../state/Preferences";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 
-export type TopTab<V extends string> = { id: V; label: string; accessibleLabel?: string; badge?: number };
+/** `badge` shows a count; `dot` marks something new without a number (Messages). */
+export type TopTab<V extends string> = { id: V; label: string; accessibleLabel?: string; badge?: number; dot?: boolean };
 
 /**
  * The one screen-level section switcher (Explore, Feeds, Social, Dining, Market): text tabs with a bar under the selected tab.
@@ -47,8 +49,7 @@ function TabButton<V extends string>({ tab, selected, onPress, onLayout, control
   controlRef: (node: ViewInstance | null) => void; onKeyDown: (event: KeyboardEvent) => void;
 }) {
   const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus();
-  // Web-only DOM props; typed `object` so React Native 0.88's own onKeyDown type does not apply.
-  const keyboardProps: object = Platform.OS === "web" ? { tabIndex: selected ? 0 : -1, onKeyDown } : {};
+  const keyboardProps: WebOnlyProps = Platform.OS === "web" ? { tabIndex: selected ? 0 : -1, onKeyDown } : {};
   return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="tab" accessibilityLabel={tab.accessibleLabel ?? tab.label} accessibilityState={{ selected }} aria-selected={selected}
     onPress={onPress} onLayout={event => onLayout(event.nativeEvent.layout.x)} {...focusProps}
     style={({ pressed }) => [s.tab, { borderColor: focused ? theme.accent : theme.transparent, backgroundColor: pressed ? theme.accentSoft : theme.transparent },
@@ -57,6 +58,7 @@ function TabButton<V extends string>({ tab, selected, onPress, onLayout, control
       <T variant="button" numberOfLines={1} color={selected ? theme.accent : theme.mutedForeground} style={common.bold}>{tab.label}</T>
       {!!tab.badge && <View style={[s.badge, { backgroundColor: theme.accent }]}>
         <T variant="caption" color={onAccent} style={common.bold}>{tab.badge > 99 ? "99+" : tab.badge}</T></View>}
+      {!tab.badge && tab.dot && <View style={[s.dot, { backgroundColor: theme.accent }]} />}
     </View>
     <View pointerEvents="none" style={[s.indicator, { backgroundColor: selected ? theme.accent : theme.transparent }]} />
   </Pressable>;
@@ -71,4 +73,5 @@ const s = StyleSheet.create({
   tab: { flexGrow: 1, flexShrink: 0, minWidth: 64, minHeight: 50, paddingHorizontal: 10, alignItems: "center", justifyContent: "center", borderWidth: 2, borderRadius: 12 },
   indicator: { position: "absolute", left: "24%", right: "24%", bottom: 1, height: 3, borderRadius: 2 },
   badge: { minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 5, alignItems: "center", justifyContent: "center" },
+  dot: { width: 8, height: 8, borderRadius: 4 },
 });

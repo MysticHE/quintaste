@@ -6,7 +6,7 @@ import { T, common } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { DinnerSummary } from "../../components/social/DiningOverview";
-import { SocialGate, useSocialError, useSocialMe } from "../../components/social/SocialState";
+import { MemberGate, useSocialError, useSocialMe } from "../../components/social/SocialState";
 import { ChatThread, useLineText } from "../../components/social/ChatThread";
 import { AnswerButtons } from "../../components/social/DinnerParts";
 import { FlagSheet } from "../../components/social/PersonSheets";
@@ -27,7 +27,7 @@ function useInviteBlock() {
 }
 /** The open invite or next dinner with this friend, pinned above the chat, with Accept / Suggest / Decline when it waits on you. */
 function DinnerBar({ friendId }: { friendId: string }) {
-  const remote = useRemote("/api/social/dinners", dinners), list = remote.data?.upcoming ?? [];
+  const canMeet = !!useSocialMe().data?.standing.canMeet, remote = useRemote(canMeet ? "/api/social/dinners" : null, dinners), list = remote.data?.upcoming ?? [];
   const current = list.find(d => d.withId === friendId && d.status === "invited") ?? list.find(d => d.withId === friendId && d.status === "accepted" && !d.past);
   if (!current) return null;
   return <View style={{ gap: 8 }}>
@@ -35,7 +35,7 @@ function DinnerBar({ friendId }: { friendId: string }) {
     {current.status === "invited" && current.yourTurn && <AnswerButtons dinner={current} onDone={remote.refresh} />}
   </View>;
 }
-/** A chat with one friend. Chat any time; Invite is offered for friends of the opposite gender when both of you can meet. */
+/** A chat with one friend, at any age (owner, 25 Oct 2026). Invite is offered for friends of the opposite gender when both of you can use Dining. */
 export function ChatScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), t = useT("social"), { setNotice } = usePreferences(), problem = useSocialError(), describe = useLineText();
   const me = useSocialMe().data, profile = useRemote(id ? "/api/social/people/" + id : null, signal => person(id, signal)), p = profile.data;
@@ -53,11 +53,11 @@ export function ChatScreen() {
   return <Screen hideTimers backTo="/messages" title={title ? undefined : name} fill titleAccessory={title} headerAction={p ? <View style={[common.row, { gap: 6 }]}>
       <IconButton label={t("inviteToDinner")} icon="restaurant-outline" onPress={invite} />
       <IconButton label={t("flagLabel", { name })} icon="flag-outline" onPress={() => setFlag(true)} /></View> : undefined}>
-    <SocialGate returnTo={"/social/chat/" + id}>
-      <RemoteStatus remote={lines} icon="chatbubbles-outline" returnTo="/social?tab=friends" missing={t("profileUnavailable")} />
+    <MemberGate returnTo={"/social/chat/" + id}>
+      <RemoteStatus remote={lines} icon="chatbubbles-outline" returnTo="/social/friends" missing={t("profileUnavailable")} />
       {lines.data && <ChatThread lines={lines.data.items} name={name} describe={line => describe(line, name)} onSend={send} empty={t("chatEmpty", { name })}
-        placeholder={tp("messagePerson", { name })} top={<DinnerBar friendId={id} />} disabled={!me?.standing.canMeet} />}
+        placeholder={tp("messagePerson", { name })} top={<DinnerBar friendId={id} />} />}
       {p && <FlagSheet person={p} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
-    </SocialGate>
+    </MemberGate>
   </Screen>;
 }

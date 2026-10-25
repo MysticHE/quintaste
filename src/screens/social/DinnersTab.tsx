@@ -28,6 +28,6 @@ export function DinnersTab({ query }: { query: string }) {
     {!!past.length && <ListGroup title={t("pastHeading")} inset={72}>{past.map(d => <DinnerRow key={d.id} dinner={d} />)}</ListGroup>}
     {remote.data && !shown.length && (q ? <T muted style={{ textAlign: "center" }}>{t("noMatchingDinners")}</T>
       : <FirstRunState icon="restaurant-outline" title={t("dinnersNoneTitle")} text={t("dinnersNoneText")}
-        action={{ label: t("openFriends"), icon: "chatbubbles-outline", onPress: () => router.setParams({ tab: "friends" }) }} />)}
+        action={{ label: t("openFriends"), icon: "chatbubbles-outline", onPress: () => router.push("/social/friends") }} />)}
   </>;
 }

@@ -1,6 +1,7 @@
 import { communityRequest as call } from "./community-api";
-import type { ClassInput, ClassLine, ClassPerson, CookingClass, Teacher, TeacherApplication } from "../types/community";
-export type ClassConversation = { id: string; classId: string; title: string; starts: string; memberId: string; hosting: boolean; updatedAt: string; name: string; last: string | null; unread: boolean };
+import type { ClassInput, ClassLine, ClassPerson, ClassSeat, CookingClass, Teacher, TeacherApplication } from "../types/community";
+export type ClassConversation = { id: string; classId: string; title: string; starts: string; memberId: string; hosting: boolean; updatedAt: string; name: string; last: string | null; unread: boolean;
+  seat: ClassSeat | null };
 export const classConversations = (signal: AbortSignal) => call<{ items: ClassConversation[] }>("/api/market/class-conversations", { signal });
 
 /** Cooking classes in Market > Events (server/market/classes.mjs, teaching.mjs). Browsing works for guests; joining, questions and teaching need a member. */
@@ -10,7 +11,7 @@ export const myClasses = (signal: AbortSignal) => call<{ items: CookingClass[] }
 export const joinClass = (id: string, join: boolean) => call("/api/market/classes/" + id + (join ? "/join" : "/leave"), { method: "POST" });
 /** The chat about one class: a member with the teacher, or (for the teacher) with `member`. */
 export const classChatKey = (id: string, member?: string | null) => "/api/market/classes/" + id + "/chat" + (member ? "?member=" + encodeURIComponent(member) : "");
-export const classChat = (path: string, signal: AbortSignal) => call<{ items: ClassLine[] }>(path, { signal });
+export const classChat = (path: string, signal: AbortSignal) => call<{ items: ClassLine[]; seat: ClassSeat | null }>(path, { signal });
 export const sendClassChat = (id: string, body: string, member?: string | null) => call("/api/market/classes/" + id + "/chat", { method: "POST", body: { body, member: member ?? undefined } });
 export const teaching = (signal: AbortSignal) => call<{ host: Teacher | null; classes: CookingClass[] }>("/api/market/teaching", { signal });
 export const applyToTeach = (input: TeacherApplication) => call<{ host: Teacher }>("/api/market/teaching/apply", { method: "POST", body: input });

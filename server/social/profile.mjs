@@ -1,5 +1,5 @@
 import express from 'express';
-import { pool } from '../config.mjs';
+import { logger, pool } from '../config.mjs';
 import { CommunityError, list, requireId, text, throttle, transaction } from '../community/http.mjs';
 import { publishedPlaceIds } from '../catalogue-places.mjs';
 import { placeView } from './places.mjs';
@@ -8,6 +8,7 @@ import { fivePungent, readDiets, readPrompts, legacyDiet, storedPractices } from
 import { ingredients } from '../market/rules.mjs';
 import { ageFrom, seeableSql, standing } from './access.mjs';
 import { profilePhoto } from './media.mjs';
+import { changeHandle, ensureHandle } from './handles.mjs';
 
 export const profile = express.Router();
 /** Optional fields a member may hide from others; name, age, gender, area, photos and food always show on a public profile. */
@@ -38,7 +39,7 @@ export function readMeetProfile(body) {
 export const meetColumns = `p.first_name AS "firstName", p.gender, to_char(p.birth_date, 'YYYY-MM-DD') AS "birthDate", p.area, p.diets, p.excluded, p.spots,
   p.about, p.opening, p.visible, p.religion, p.ethnicity, p.why, p.hobbies, p.languages, p.education, p.work, p.grew_up AS "grewUp", p.height, p.drinking,
   p.smoking, p.pets, p.prompts, p.hidden`;
-const empty = { firstName: '', gender: '', birthDate: null, area: '', diets: ['Plant-Based'], excluded: [], spots: [], about: '', opening: '', visible: true,
+export const emptyProfile = { firstName: '', gender: '', birthDate: null, area: '', diets: ['Plant-Based'], excluded: [], spots: [], about: '', opening: '', visible: true,
   religion: '', ethnicity: '', why: [], hobbies: [], languages: [], education: '', work: '', grewUp: '', height: null, drinking: '', smoking: '', pets: [],
   prompts: [], hidden: ['ethnicity'] };
 export const photoUrl = (photo, size) => `/api/social/photos/${photo.id}?v=${photo.digest.slice(0, 12)}${size === 'thumb' ? '&size=thumb' : ''}`;
@@ -47,12 +48,20 @@ const myPhotos = async (me, db = pool) => (await db.query('SELECT id, position, 
 
 profile.get('/me', async (_req, res) => {
   const me = res.locals.user;
-  const row = (await pool.query(`SELECT ${meetColumns} FROM social.profile p WHERE p.user_id=$1`, [me.id])).rows[0];
+  const found = (await pool.query(`SELECT p.user_id IS NOT NULL AS "hasProfile", ${meetColumns}, (SELECT h.handle FROM social.handle h WHERE h.user_id=me.id) AS handle
+    FROM (SELECT $1::text AS id) me LEFT JOIN social.profile p ON p.user_id=me.id`, [me.id])).rows[0];
   const [state, photos] = await Promise.all([standing(me.id), myPhotos(me.id)]);
-  res.json({ id: me.id, accountName: me.name, profile: row ?? empty, photos, standing: state });
+  const { hasProfile, handle: stored, ...row } = found;
+  // Every member has a handle so friends can find them; handles.sql gave existing accounts one, and this makes the rest. A
+  // failure leaves it empty rather than breaking Social, and Basics lets the member choose one.
+  const handle = stored ?? await ensureHandle(pool, me.id, row.firstName || me.name).catch(error => {
+    logger.warn({ event: 'social_handle_missing', error: error?.message }); return null;
+  });
+  res.json({ id: me.id, accountName: me.name, handle, profile: hasProfile ? row : emptyProfile, photos, standing: state });
 });
+/** Saves the profile; `handle`, when sent (Basics), changes the member's handle in the same transaction. */
 profile.put('/me', async (req, res) => {
-  const me = res.locals.user.id, p = readMeetProfile(req.body?.profile);
+  const me = res.locals.user.id, p = readMeetProfile(req.body?.profile), wanted = req.body?.handle;
   await throttle('social-profile:' + me, 120, 3600);
   p.spots = (await publishedPlaceIds(p.spots)).filter(id => id && placeView(id));
   await transaction(async db => {
@@ -73,6 +82,8 @@ profile.put('/me', async (req, res) => {
         smoking=$24, pets=$25, prompts=$26, hidden=$27, updated_at=now()`,
     [me, p.firstName, p.gender, p.birthDate, p.area, p.diets, legacyDiet(p.diets), storedPractices(kept, p.diets), p.excluded, p.spots, p.about, p.opening, p.visible,
       p.religion, p.ethnicity, p.why, p.hobbies, p.languages, p.education, p.work, p.grewUp, p.height, p.drinking, p.smoking, p.pets, JSON.stringify(p.prompts), p.hidden]);
+    if (wanted !== undefined) await changeHandle(db, me, wanted);
+    else await ensureHandle(db, me, p.firstName || res.locals.user.name);
   });
   res.json({ profile: p, standing: await standing(me) });
 });

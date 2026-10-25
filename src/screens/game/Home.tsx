@@ -33,8 +33,12 @@ import { FindReveal, type Find } from "./home/FindReveal";
 import { Art, LOTUS_TIER_KEYS, type GameT } from "./home/bits";
 import { useT } from "../../i18n";
 
-/** Runs after the current frame and its closing animation start, as InteractionManager.runAfterInteractions did. */
-const afterInteractions = (run: () => void) => requestAnimationFrame(() => setTimeout(run, 0));
+/**
+ * Navigates once a closing sheet has gone (InteractionManager is removed in React Native 0.88). iOS drops a push made
+ * while a Modal is still dismissing, so it waits out the ~300 ms dismissal there; elsewhere the next frame is enough.
+ */
+const SHEET_DISMISS_MS = Platform.OS === "ios" ? 350 : 0;
+const afterInteractions = (run: () => void) => requestAnimationFrame(() => setTimeout(run, SHEET_DISMISS_MS));
 
 /** Stored in `seen` once the chalkboard menu has been opened, so its steady "something new" sparkle stops. */
 const MENU_SEEN = "hot:menu";

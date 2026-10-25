@@ -52,7 +52,9 @@ dinners.get('/dinners', async (_req, res) => {
     AND (d.status='invited' OR (d.status IN ('accepted','declined','cancelled','expired') AND d.starts > now() - interval '1 year'))
     ORDER BY d.starts DESC LIMIT 200`, [me])).rows.map(shape);
   const live = row => row.status === 'invited' || (row.status === 'accepted' && !row.past);
-  res.json({ upcoming: rows.filter(live).reverse(), past: rows.filter(row => !live(row)) });
+  // The profile's Dinners count: every dinner the member said they went to, not only this year's list.
+  const met = (await pool.query("SELECT count(*)::int AS n FROM social.dinner_report WHERE user_id=$1 AND met='yes'", [me])).rows[0].n;
+  res.json({ upcoming: rows.filter(live).reverse(), past: rows.filter(row => !live(row)), met });
 });
 /**
  * One dinner. After it, each person sees only their own report and the note the other person left for them. "Eat

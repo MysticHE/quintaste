@@ -1,58 +1,74 @@
-import { router, useLocalSearchParams, type Href } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Pressable, View } from "react-native";
+import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { MemberGate } from "../../components/social/SocialState";
-import { Avatar } from "../../components/social/SocialPhoto";
-import { useLineText } from "../../components/social/ChatThread";
-import { ChoiceChips } from "../../components/social/ProfileControls";
-import { Button, Icon, T, common } from "../../components/ui";
-import { SearchField, EmptyState } from "../../components/food/Controls";
-import { ThemedSwitch } from "../../components/GroupedList";
+import { ThreadRow, useThreads, type MessageSide, type MessageTab, type Thread } from "../../components/social/MessageThreads";
+import { TopBar, TopTabs } from "../../components/TopTabs";
+import { SegmentedTabs } from "../../components/SegmentedTabs";
+import { IconButton, SearchField, EmptyState } from "../../components/food/Controls";
 import { useMessages } from "../../hooks/useMessages";
-import { usePreferences } from "../../state/Preferences";
-import { useLanguage, useT } from "../../i18n";
-import { chatTime } from "../../utils/chat-time";
+import { useRemote } from "../../hooks/useRemote";
+import { dinners as loadDinners } from "../../services/social-api";
+import { useT } from "../../i18n";
 
-type Kind = "all" | "friends" | "market" | "classes";
-type Thread = { id: string; kind: Kind; name: string; label: string; context: string; preview: string; at: string; unread: boolean; photo?: string | null; href: Href };
-const kinds = ["all", "friends", "market", "classes"] as const;
+const sides: Record<"market" | "events", readonly [MessageSide, MessageSide]> = { market: ["buy", "sell"], events: ["join", "host"] };
+const empties = { buy: "noBuy", sell: "noSell", join: "noJoin", host: "noHost" } as const;
+/** Older links: ?kind=market (from /market/inbox) and ?kind=classes keep working. */
+const readTab = (kind: string | undefined): MessageTab | null => kind === "friends" || kind === "market" ? kind : kind === "classes" || kind === "events" ? "events" : null;
+const readSide = (side: string | undefined): MessageSide | null => side === "buy" || side === "sell" || side === "join" || side === "host" ? side : null;
+/** Where Messages first opens: the first tab, and side within it, with something waiting. */
+function landing(rows: Thread[], tabs: MessageTab[]): { tab: MessageTab; side: MessageSide | null } {
+  const tab = tabs.find(id => rows.some(r => r.tab === id && r.attention)) ?? tabs[0];
+  return { tab, side: tab === "friends" ? null : sideFor(rows, tab) };
+}
+const sideFor = (rows: Thread[], tab: "market" | "events") => sides[tab].find(id => rows.some(r => r.side === id && r.attention)) ?? sides[tab][0];
+
+/**
+ * Messages (owner, 25 Oct 2026): Friends (friend chats and dinner plans), Market split into Buy and Sell, and Events split into
+ * Join and Host, because one account can buy and sell, join and teach. New orders and class bookings arrive in these chats.
+ */
 export function MessagesScreen() {
-  const t = useT("profile"), { theme } = usePreferences(), language = useLanguage(), data = useMessages(), describe = useLineText();
-  // Older Market and Social inbox links open their own kind (/market/inbox → ?kind=market).
-  const { kind: initial } = useLocalSearchParams<{ kind?: string }>();
-  const [kind, setKind] = useState<Kind>(kinds.find(k => k === initial) ?? "all"), [query, setQuery] = useState(""), [unreadOnly, setUnreadOnly] = useState(false);
-  const rows: Thread[] = [
-    ...(data.allowed ? data.friends.data?.friends ?? [] : []).filter(f => !!f.threadId).map(f => ({ id: "f:" + f.id, kind: "friends" as const, name: f.firstName, label: t("friend"), context: "", photo: f.photo,
-      preview: f.last ? describe(f.last, f.firstName) : "", at: f.last?.at ?? f.updatedAt, unread: f.unread > 0, href: ("/social/chat/" + f.id) as Href })),
-    ...(data.market.data?.items ?? []).map(c => ({ id: "m:" + c.id, kind: "market" as const, name: c.otherName, label: t(c.role === "buyer" ? "buying" : "selling"), context: c.context ?? "",
-      preview: c.last ?? "", at: c.updatedAt, unread: c.unread, href: ("/market/chat/" + c.id) as Href })),
-    ...(data.classes.data?.items ?? []).map(c => ({ id: "c:" + c.id, kind: "classes" as const, name: c.name, label: t(c.hosting ? "classMember" : "classTeacher"), context: c.title,
-      preview: c.last ?? t("classUpdate"), at: c.updatedAt, unread: c.unread,
-      href: { pathname: "/market/class-chat/[id]", params: { id: c.classId, ...(c.hosting ? { member: c.memberId, name: c.name } : {}) } } as Href })),
-  ];
-  const term = query.trim().toLowerCase(), visible = rows.filter(r => (kind === "all" || r.kind === kind) && (!unreadOnly || r.unread)
-    && (!term || [r.name, r.context, r.preview].join(" ").toLowerCase().includes(term))).sort((a, b) => Date.parse(b.at) - Date.parse(a.at));
-  const sources = [ ...(kind === "all" || kind === "friends" ? [data.me, ...(data.allowed ? [data.friends] : [])] : []),
-    ...(kind === "all" || kind === "market" ? [data.market] : []), ...(kind === "all" || kind === "classes" ? [data.classes] : []) ];
+  const t = useT("profile"), data = useMessages(), params = useLocalSearchParams<{ kind?: string; side?: string }>();
+  // Dinner plans exist only for members who can use Dining.
+  const dinners = useRemote(data.me.data?.standing.canMeet ? "/api/social/dinners" : null, loadDinners, 30000);
+  const rows = useThreads({ friends: data.allowed ? data.friends.data?.friends ?? [] : [], dinners: dinners.data?.upcoming ?? [],
+    market: data.market.data?.items ?? [], classes: data.classes.data?.items ?? [] });
+  const tabs: MessageTab[] = ["friends", "market", "events"];
+  const [chosen, setChosen] = useState(() => ({ tab: readTab(params.kind), side: readSide(params.side) }));
+  const [searching, setSearching] = useState(false), [query, setQuery] = useState("");
+  // Pick the landing tab once everything has loaded, then keep it: reading a chat must not move the screen.
+  const settled = [data.market, data.classes, ...(data.allowed ? [data.friends] : [])].every(s => s.data || s.error) && !!data.me.data;
+  const [landed, setLanded] = useState<ReturnType<typeof landing> | null>(null);
+  // A link that names the tab (an older Market inbox link) lands on that tab, on the side with something waiting.
+  if (!landed && settled) setLanded(landing(rows, chosen.tab && tabs.includes(chosen.tab) ? [chosen.tab] : tabs));
+  const tab = chosen.tab && tabs.includes(chosen.tab) ? chosen.tab : landed?.tab ?? tabs[0];
+  const pair = tab === "friends" ? null : sides[tab];
+  const side = !pair ? null : chosen.side && pair.includes(chosen.side) ? chosen.side : landed?.tab === tab && landed.side ? landed.side : pair[0];
+  const pickTab = (next: MessageTab) => setChosen({ tab: next, side: next === "friends" ? null : sideFor(rows, next) });
+  const term = query.trim().toLowerCase();
+  // A search looks through every conversation, as its hint says; otherwise the list is the selected tab and side.
+  const visible = rows.filter(r => term ? [r.name, r.context, r.preview].join(" ").toLowerCase().includes(term) : r.tab === tab && (!side || r.side === side));
+  const sources = term ? [data.market, data.classes, data.friends] : tab === "friends" ? [data.me, data.friends] : [tab === "market" ? data.market : data.classes];
   const loading = sources.some(s => s.loading && !s.data), failed = sources.some(s => s.error);
-  return <Screen title={t("messages")} backTo="/social" hideTimers>
+  const label = (id: MessageTab | MessageSide) => t(id === "friends" ? "friends" : id);
+  return <Screen title={t("messages")} backTo="/social" hideTimers headerAction={<IconButton appearance="plain" icon={searching ? "close" : "search-outline"}
+    label={t(searching ? "closeSearch" : "searchToggle")} onPress={() => { setSearching(!searching); setQuery(""); }} />}>
     <MemberGate returnTo="/messages">
-      <SearchField value={query} onChange={setQuery} placeholder={t("searchMessages")} />
-      <ChoiceChips options={kinds.map(id => ({ id, label: t(id === "classes" ? "classChats" : id) }))} value={kind} onChange={setKind} label={t("messages")} />
-      <View style={[common.row, { justifyContent: "flex-end", gap: 8 }]}><T variant="small" muted>{t("unreadOnly")}</T><ThemedSwitch label={t("unreadOnly")} value={unreadOnly} onChange={setUnreadOnly} /></View>
+      {searching && <SearchField value={query} onChange={setQuery} placeholder={t("searchMessages")} input={{ autoFocus: true }} />}
+      {!term && <TopBar><TopTabs label={t("messages")} value={tab} onChange={pickTab} tabs={tabs.map(id => {
+        const dot = id !== tab && rows.some(r => r.tab === id && r.attention);
+        return { id, label: label(id), dot, accessibleLabel: dot ? t("hasNew", { label: label(id) }) : undefined };
+      })} /></TopBar>}
+      {/* SegmentedTabs fills its row; the wrapper keeps it from growing down the page. */}
+      {!term && pair && <View style={{ flexDirection: "row" }}><SegmentedTabs label={label(tab)} value={side!} onChange={next => setChosen({ tab, side: next })} options={pair.map(id => {
+        const dot = id !== side && rows.some(r => r.side === id && r.attention);
+        return { id, label: label(id), dot, accessibleLabel: dot ? t("hasNew", { label: label(id) }) : undefined };
+      })} /></View>}
       {sources.map((remote, i) => <RemoteStatus key={i} remote={remote} icon="chatbubble-outline" returnTo="/messages" />)}
-      {visible.map(r => <Pressable key={r.id} accessibilityRole="button" accessibilityLabel={[r.name, r.label, r.context, r.preview, r.unread ? t("unreadOnly") : ""].filter(Boolean).join(", ")}
-        onPress={() => router.push(r.href)} style={({ pressed }) => ({ flexDirection: "row", gap: 12, paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: theme.divider, backgroundColor: pressed ? theme.accentSoft : theme.transparent })}>
-        {r.kind === "friends" ? <Avatar uri={r.photo} name={r.name} size={48} /> : <View style={{ width: 48, height: 48, borderRadius: 12, backgroundColor: theme.muted, alignItems: "center", justifyContent: "center" }}><Icon name={r.kind === "market" ? "storefront-outline" : "school-outline"} /></View>}
-        <View style={[common.flex, { gap: 4 }]}><View style={[common.row, { gap: 6 }]}><T style={[common.flex, r.unread && common.bold]}>{r.name}</T><T variant="caption" muted>{chatTime(r.at, language)}</T></View>
-          <T variant="caption" color={theme.accent}>{r.label}</T><T variant="small" numberOfLines={2}>{r.preview}</T>
-          {!!r.context && <T variant="caption" muted numberOfLines={2}>{r.context}</T>}</View>
-        {r.unread && <View style={{ alignSelf: "center", width: 8, height: 8, borderRadius: 4, backgroundColor: theme.accent }} />}
-      </Pressable>)}
-      {!loading && !failed && !visible.length && <EmptyState icon="chatbubbles-outline" title={t(term ? "noMessageMatch" : unreadOnly ? "noUnread" : "noMessages")} text={term || unreadOnly ? "" : t("noMessagesText")} />}
-      <Button variant="link" label={t("findFriends")} icon="people-outline" onPress={() => router.push("/social/community?tab=friends")} />
+      {visible.map(r => <ThreadRow key={r.id} thread={r} />)}
+      {!loading && !failed && !visible.length && <EmptyState icon="chatbubbles-outline" title={t(term ? "noMessageMatch" : side ? empties[side] : "noFriendChats")} text="" />}
     </MemberGate>
   </Screen>;
 }

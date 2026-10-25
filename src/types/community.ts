@@ -59,9 +59,14 @@ export type Order = {
   items: { listingId: string | null; name: string; priceCents: number; quantity: number; dateMark: string | null; lot: string }[];
 };
 export type ChatMessage = { id: string; senderId: string | null; senderName?: string; kind: "text" | "event"; body: string; createdAt: string; mine: boolean; orderId?: string | null };
-export type ConversationSummary = { id: string; sellerId: string; role: "buyer" | "seller"; otherName: string; context?: string | null; last: string | null; unread: boolean; updatedAt: string };
+/** One Market chat in Messages, with the latest order between the pair (its status, day and first item photo). */
+export type ConversationSummary = { id: string; sellerId: string; role: "buyer" | "seller"; otherName: string; context?: string | null; last: string | null; unread: boolean; updatedAt: string;
+  orderStatus: OrderStatus | null; orderStarts: string | null; photo: string | null };
 export type Conversation = { id: string; role: "buyer" | "seller"; sellerId: string; other: { id: string; name: string }; blocked: boolean;
-  openOrders: { id: string; items?: string | null; status: OrderStatus; totalCents: number; starts: string }[]; messages: ChatMessage[] };
+  openOrders: ChatOrder[]; messages: ChatMessage[] };
+/** An open order shown as a card at the top of its chat. */
+export type ChatOrder = { id: string; items?: string | null; status: OrderStatus; totalCents: number; starts: string; ends: string; mode: SlotMode; place: string;
+  payment: "cash" | "paynow"; photo: string | null };
 export type ShopFilter = {
   category: "All" | ShopCategory; sort: "Newest" | "Soonest" | "Lowest first" | "Highest first"; labels: MarketLabel[]; practices: MarketPractice[]; exclude: MarketIngredient[];
   price?: "any" | "under10" | "10to20" | "over20"; collection?: "any" | "today" | "weekend" | "date"; date?: string;
@@ -84,15 +89,19 @@ export type Verification = "none" | "pending" | "approved" | "rejected" | "pause
 export type Standing = { step: SocialStep; age: number | null; gender: Gender; verified: boolean; verification: Verification; reason: string; public: boolean;
   pausedUntil: string | null; canMeet: boolean };
 export type SocialPhoto = { id: string; position: number; url: string; thumb: string };
-export type SocialMe = { id: string; accountName: string; profile: SocialProfile; photos: SocialPhoto[]; standing: Standing };
+/** `handle` is the member's public handle (made from their name on first use), separate from the private sign-in username. */
+export type SocialMe = { id: string; accountName: string; handle: string; profile: SocialProfile; photos: SocialPhoto[]; standing: Standing };
 export type PhotoLink = { url: string; thumb: string };
 /** Another member as the server shares them: hidden fields come back empty, the birth date as `age`. */
 export type Person = Omit<SocialProfile, "birthDate" | "hidden" | "visible" | "excluded"> & { id: string; age: number | null; photos: PhotoLink[]; km: number | null };
-export type PersonPage = Person & { verified: boolean; friend: boolean; request: { id: string; mine: boolean; note: string } | null; openInvite: boolean; canInvite: boolean };
+export type PersonPage = Person & { handle: string | null; verified: boolean; friend: boolean; request: { id: string; mine: boolean; note: string } | null; openInvite: boolean; canInvite: boolean };
 export type LineKind = "text" | "event" | "dinner";
-export type Friend = { id: string; firstName: string; since: string; photo: string | null; verified: boolean; threadId: string | null; updatedAt: string;
+export type Friend = { id: string; firstName: string; handle: string | null; area: string; since: string; photo: string | null; verified: boolean; threadId: string | null; updatedAt: string;
   last: { kind: LineKind; body: string; mine: boolean; at: string } | null; unread: number; opposite: boolean };
-export type FriendRequest = { id: string; note: string; createdAt: string; userId: string; firstName: string; photo: string | null };
+export type FriendRequest = { id: string; note: string; createdAt: string; userId: string; firstName: string; handle: string | null; area: string; verified: boolean; photo: string | null };
+/** An Add friend search result and how the member stands with them. */
+export type HandleMatch = { id: string; handle: string; firstName: string; area: string; verified: boolean; photo: string | null;
+  state: "friend" | "sent" | "received" | "none"; requestId: string | null };
 export type Friends = { friends: Friend[]; received: FriendRequest[]; sent: FriendRequest[] };
 /** Event and dinner lines carry keys (friends, invited, suggested, accepted, declined, cancelled, again) the app words. */
 export type ChatLine = { id: string; kind: LineKind; body: string; dinnerId: string | null; mine: boolean; createdAt: string };
@@ -116,4 +125,6 @@ export type TeacherStatus = "pending" | "approved" | "rejected" | "suspended";
 export type Teacher = { status: TeacherStatus; displayName: string; area: string; experience: string; teaches: string; reason: string; appliedAt: string; decidedAt: string | null };
 export type TeacherApplication = { displayName: string; area: string; experience: string; teaches: string; consent: boolean };
 export type ClassLine = { id: string; kind: "text" | "event"; body: string; mine: boolean; createdAt: string };
+/** A member's seat in a class; null when they only asked about it. */
+export type ClassSeat = "joined" | "left" | "removed";
 export type ClassPerson = { id: string; name: string; seat: "joined" | "left" | "removed" | null; joinedAt: string | null; lastMessage: string | null; unread: number };

@@ -1,4 +1,4 @@
-import { useMemo, useState, type PropsWithChildren } from "react";
+import { useMemo, useState, type PropsWithChildren, type ReactNode } from "react";
 import { View } from "react-native";
 import { Button, Field, Icon, T } from "../ui";
 import { Chip, Chips, IconButton, SearchField } from "../food/Controls";
@@ -41,10 +41,12 @@ export function AreaField({ value, onChange, label }: { value: string; onChange:
   </View>;
 }
 /** Name, gender, birth date (18+; only the age is shown) and area. Gender and birth date lock once a selfie is sent. */
-export function BasicsFields({ value: p, onChange, locked }: Edit & { locked: boolean }) {
+/** `afterName` sits under First name (the handle on My Profile > Basics; setup leaves it out). */
+export function BasicsFields({ value: p, onChange, locked, afterName }: Edit & { locked: boolean; afterName?: ReactNode }) {
   const t = useT("social");
   return <View style={{ gap: 14 }}>
     <Field label={t("firstName")} value={p.firstName} onChangeText={firstName => onChange({ ...p, firstName })} maxLength={40} autoCapitalize="words" />
+    {afterName}
     <ChoiceGroup label={t("gender")}>{genderOptions.map(g => <Chip key={g.id} label={t("optGender", { value: g.id })} role="radio" disabled={locked}
       selected={p.gender === g.id} onPress={() => onChange({ ...p, gender: g.id })} />)}</ChoiceGroup>
     <DateField label={t("birthDate")} value={p.birthDate ?? ""} onChange={birthDate => onChange({ ...p, birthDate })} disabled={locked}

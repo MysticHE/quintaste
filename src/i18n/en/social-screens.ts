@@ -54,6 +54,7 @@ const en = {
   stepFood: "Food and you",
   stepVerify: "Check it's you",
   firstName: "First name",
+  handle: "Handle", handleHint: "3–24 letters, numbers, . or _ · no spaces", handleAvailable: "Available", handleTaken: "Taken", handleInvalid: "Not allowed", handleChecking: "Checking…",
   gender: "Gender",
   birthDate: "Birth date",
   genderLock: "Gender and birth date can't change after your photo check.",

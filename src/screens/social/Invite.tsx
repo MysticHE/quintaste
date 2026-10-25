@@ -50,7 +50,7 @@ function InviteForm({ p }: { p: PersonPage }) {
 export function InviteScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), t = useT("social"), remote = useRemote(id ? "/api/social/people/" + id : null, signal => person(id, signal));
   return <Screen title={t("inviteTitle")}><SocialGate returnTo={"/social/invite/" + id}>
-    <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social?tab=friends" missing={t("profileUnavailable")} />
+    <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social/friends" missing={t("profileUnavailable")} />
     {remote.data && <InviteForm p={remote.data} />}
   </SocialGate></Screen>;
 }

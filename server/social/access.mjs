@@ -55,21 +55,20 @@ export async function standing(userId, db = pool) {
   return { step, age, gender: row.gender || '', area: row.area || '', verified, verification, reason: verification === 'rejected' ? row.reason : '', public: !!row.visible && verified,
     pausedUntil, canMeet: step === 'ready' };
 }
-/** Browsing People needs a finished profile and age 21 to 45; appearing there, adding friends, chat and invites also need the ✓. */
+/** Browsing People needs a finished profile and age 21 to 45; appearing there and dinner invites also need the ✓. */
 export function requireBrowse(state) {
   if (['verify', 'waiting', 'ready'].includes(state.step)) return state;
   return requireMeet(state);
 }
 /**
- * SQL: the viewer `param` may see the profile and photos of `column`: themselves; or, while the viewer is 21 to 45, a friend,
- * someone they have an open friend request with, or a public, verified member of the opposite gender aged 21 to 45.
+ * SQL: the viewer `param` may see the profile and photos of `column`: themselves; a friend; someone they have an open friend
+ * request with; or anyone whose profile is public (the default; members without a Social profile count as public). Any age
+ * and gender (owner, 25 Oct 2026): only Dining (People to meet, dinner invites) is limited to 21 to 45 with a checked photo.
  */
-export const seeableSql = (column, param) => `(${column}=${param} OR (${reachableSql(column, param)} AND ${meetAgeSql(param)} AND (${friendsSql(column, param)}
+export const seeableSql = (column, param) => `(${column}=${param} OR (${reachableSql(column, param)} AND (${friendsSql(column, param)}
   OR EXISTS (SELECT 1 FROM social.friend_request sr_ WHERE sr_.status='pending' AND ((sr_.from_id=${column} AND sr_.to_id=${param}) OR (sr_.from_id=${param} AND sr_.to_id=${column})))
-  OR (EXISTS (SELECT 1 FROM social.profile sp_ JOIN social.profile sv_ ON sv_.user_id=${param} WHERE sp_.user_id=${column} AND sp_.visible
-      AND sp_.gender IN ('woman','man') AND sv_.gender IN ('woman','man') AND sp_.gender<>sv_.gender)
-    AND ${verifiedSql(column)} AND ${meetAgeSql(column)} AND ${meetAgeSql(param)}))))`;
-/** Refuses unless the member may use People, friends, chat and invites; the code tells the app which screen to open. */
+  OR NOT EXISTS (SELECT 1 FROM social.profile sp_ WHERE sp_.user_id=${column} AND NOT sp_.visible))))`;
+/** Refuses unless the member may use Dining (People and dinner invites); the code tells the app which screen to open. */
 export function requireMeet(state) {
   if (state.step === 'ready') return state;
   if (state.step === 'age') throw new CommunityError(403, 'Social is for members aged 21 to 45.', 'SOCIAL_AGE');

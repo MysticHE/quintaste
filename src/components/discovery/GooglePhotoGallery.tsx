@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Platform, Pressable, ScrollView, StyleSheet, View, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollViewInstance } from "react-native";
+import type { WebOnlyProps } from "../../types/web-props";
 import type { LivePhoto } from "../../types/discovery";
 import { usePreferences } from "../../state/Preferences";
 import { T } from "../ui";
@@ -30,8 +31,7 @@ export function GooglePhotoGallery({ photos, name, expiresAt }: { photos: LivePh
   useEffect(() => { if (width) scroll.current?.scrollTo({ x: current.current * width, animated: false }); }, [width]);
   const photo = photos[index] ?? photos[0];
   if (!photo) return null;
-  // Web-only DOM props; typed `object` so React Native 0.88's own onKeyDown type does not apply.
-  const keyboard: object = Platform.OS === "web" ? { tabIndex: 0, "aria-valuemin": 1, "aria-valuemax": photos.length, "aria-valuenow": index + 1, "aria-valuetext": t("photoPosition", { n: index + 1, total: photos.length }), onKeyDown: (event: { key: string; preventDefault: () => void }) => {
+  const keyboard: WebOnlyProps = Platform.OS === "web" ? { tabIndex: 0, "aria-valuemin": 1, "aria-valuemax": photos.length, "aria-valuenow": index + 1, "aria-valuetext": t("photoPosition", { n: index + 1, total: photos.length }), onKeyDown: (event: { key: string; preventDefault: () => void }) => {
     if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); move(event.key === "ArrowRight" ? 1 : -1); }
   } } : {};
   return <View style={s.gallery} testID="place-photo-gallery" onLayout={event => setWidth(event.nativeEvent.layout.width)}>

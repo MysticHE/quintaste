@@ -6,7 +6,7 @@ import { Button, T, common } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
-import { SocialGate, useSocialError, useSocialMe } from "../../components/social/SocialState";
+import { MemberGate, useSocialError, useSocialMe } from "../../components/social/SocialState";
 import { AskBox, NameOnPhoto, PersonPills, useWhere } from "../../components/social/PersonCard";
 import { FlagSheet, RequestSheet } from "../../components/social/PersonSheets";
 import { OnPhoto, PhotoCarousel } from "../../components/social/SocialPhoto";
@@ -54,7 +54,7 @@ function Actions({ p, me, onChange }: { p: PersonPage; me: SocialMe; onChange: (
     <Button label={t("acceptRequest")} icon="checkmark" loading={busy} onPress={() => void run(() => acceptRequest(p.request!.id))} />
   </View>;
   return <>
-    <Button label={t("addFriend")} icon="person-add-outline" disabled={!me.standing.canMeet} onPress={() => setAdding(true)} />
+    <Button label={t("addFriend")} icon="person-add-outline" onPress={() => setAdding(true)} />
     <RequestSheet person={p} visible={adding} onClose={() => setAdding(false)} onSent={onChange} />
   </>;
 }
@@ -79,11 +79,11 @@ function PersonView({ p, me, refresh }: { p: PersonPage; me: SocialMe; refresh: 
 export function PersonScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), t = useT("social"), me = useSocialMe().data;
   const remote = useRemote(id ? "/api/social/people/" + id : null, signal => loadPerson(id, signal)), [flag, setFlag] = useState(false), p = remote.data;
-  return <Screen title={p?.firstName ?? ""} headerAction={p && me && p.id !== me.id ? <IconButton label={t("flagLabel", { name: p.firstName })} icon="flag-outline" onPress={() => setFlag(true)} /> : undefined}>
-    <SocialGate returnTo={"/social/person/" + id}>
+  return <Screen title={p?.firstName ?? ""} subtitle={p?.handle ? "@" + p.handle : undefined} headerAction={p && me && p.id !== me.id ? <IconButton label={t("flagLabel", { name: p.firstName })} icon="flag-outline" onPress={() => setFlag(true)} /> : undefined}>
+    <MemberGate returnTo={"/social/person/" + id}>
       <RemoteStatus remote={remote} icon="person-outline" returnTo="/social" missing={t("profileUnavailable")} />
       {p && me && <PersonView p={p} me={me} refresh={remote.refresh} />}
       {p && <FlagSheet person={p} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
-    </SocialGate>
+    </MemberGate>
   </Screen>;
 }

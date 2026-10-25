@@ -56,6 +56,7 @@ const zh: typeof en = {
   stepFood: "饮食与你",
   stepVerify: "确认是你本人",
   firstName: "名字",
+  handle: "用户名", handleHint: "3–24 个字母、数字、. 或 _，不能有空格", handleAvailable: "可以使用", handleTaken: "已被使用", handleInvalid: "不可使用", handleChecking: "正在检查…",
   gender: "性别",
   birthDate: "出生日期",
   genderLock: "照片核对后，性别和出生日期不能更改。",

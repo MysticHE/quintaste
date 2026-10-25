@@ -1,4 +1,3 @@
-import { ChatContext } from "../../components/social/ChatContext";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { ScrollView, View, type ScrollViewInstance } from "react-native";
@@ -9,6 +8,7 @@ import { ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { ChatBubble, ChatComposer } from "../../components/Chat";
 import { Confirm } from "../../components/Actions";
 import { MarketModal, MarketToolbar } from "../../components/market/MarketChrome";
+import { OrderCard } from "../../components/market/ChatCards";
 import { ReportSheet } from "../../components/ReportSheet";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
 import { invalidate, useRemote } from "../../hooks/useRemote";
@@ -16,9 +16,8 @@ import { usePreferences } from "../../state/Preferences";
 import { conversation as loadConversation, markRead, sendMessage } from "../../services/market-api";
 import { block } from "../../services/social-api";
 import { ApiError } from "../../services/community-api";
-import { orderLabelKey } from "../../config/market";
 import { chatTime } from "../../utils/chat-time";
-import { marketMoney, messageTime, slotDay } from "../../utils/market";
+import { messageTime } from "../../utils/market";
 import { useLanguage, useT } from "../../i18n";
 import type { Conversation } from "../../types/community";
 
@@ -46,9 +45,7 @@ function Thread({ c, refresh }: { c: Conversation; refresh: () => void }) {
     headerAction={<View style={[common.row, { gap: 4 }]}>{buyer && <IconButton label={t("viewShop")} icon="storefront-outline" onPress={() => router.push({ pathname: "/market/shop/[id]", params: { id: c.sellerId } })} />}
       {!c.blocked && <IconButton label={t("moreOptions")} icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}</View>}>
     {c.openOrders.length > 0 && <ScrollView style={{ maxHeight: "40%", flexGrow: 0 }} contentContainerStyle={{ gap: 8 }}>
-      {c.openOrders.map(o => <ChatContext key={o.id} title={o.items || tp("order", { id: o.id.slice(0, 8) })}
-        detail={slotDay(o.starts, language) + " \u00b7 " + marketMoney(o.totalCents)} status={t(orderLabelKey(o.status, c.role))} action={tp("viewOrder")} icon="receipt-outline"
-        onPress={() => router.push({ pathname: "/market/order/[id]", params: { id: o.id } })} />)}
+      {c.openOrders.map(o => <OrderCard key={o.id} order={o} seller={!buyer} onChanged={refresh} />)}
     </ScrollView>}
     <Button label={tp("allOrders")} variant="link" onPress={() => router.push(buyer ? "/market/orders" : "/market?tab=shop")} />
     <ScrollView ref={scroll} style={common.flex} contentContainerStyle={{ gap: 8, paddingVertical: 8 }} onContentSizeChange={() => scroll.current?.scrollToEnd({ animated: false })}>

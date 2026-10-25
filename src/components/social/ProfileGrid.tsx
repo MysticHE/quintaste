@@ -81,6 +81,14 @@ function RecipeTile({ id, query = "", saved = false, report, onGone }: { id: str
     <ReactionBar kind="recipe" id={id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe, language)} />
   </GridTile>;
 }
+/** What others can see: live recipes, items on sale and posted classes (drafts and paused items are not counted). Null until something loads. */
+export function usePostCount() {
+  const status = useMyRecipeStatus(), seller = useRemote("/api/market/seller", sellerState);
+  const items = useRemote(seller.data?.seller ? "/api/market/seller/listings" : null, ownListings), classes = useRemote("/api/market/teaching", teaching);
+  if (!status.data && !items.data && !classes.data) return null;
+  return (status.data?.items ?? []).filter(r => r.live && !r.hidden).length + (items.data?.items ?? []).filter(l => l.status === "active").length
+    + (classes.data?.classes ?? []).filter(c => c.status === "posted").length;
+}
 export function MyPostGrid({ kind }: { kind: ContentKind }) {
   const { workspace, ready } = useRecipeWorkspace(), status = useMyRecipeStatus(), t = useT("profile"), tm = useT("market"), language = useLanguage();
   const seller = useRemote(kind === "all" || kind === "market" ? "/api/market/seller" : null, sellerState);

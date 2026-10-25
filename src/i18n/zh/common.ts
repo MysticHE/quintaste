@@ -7,7 +7,7 @@ const zh: typeof en = {
   tabSocial: "饭友",
   tabMarket: "市集",
   tabGame: "游戏",
-  me: "我的",
+  settings: "设置",
   meHint: "个人资料和设置",
   save: "收藏",
   saved: "已收藏",

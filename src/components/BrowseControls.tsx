@@ -1,5 +1,6 @@
-import type { PropsWithChildren, ReactNode } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { useRef, type PropsWithChildren, type ReactNode } from "react";
+import { Platform, Pressable, StyleSheet, View, type ViewInstance } from "react-native";
+import type { WebOnlyProps } from "../types/web-props";
 import { SearchField } from "./food/Controls";
 import { Icon, T, common, type IconName } from "./ui";
 import { usePreferences } from "../state/Preferences";
@@ -36,25 +37,41 @@ export function FilterButton({ label, count, onPress }: BrowseFilter) {
 }
 
 export type IconTab<T extends string> = { id: T; label: string; icon: IconName; activeIcon: IconName; badge?: number };
-/** Icon-only section tabs: the selected icon is filled with a bar beneath it; labels are for screen readers. */
+/**
+ * Icon-only section tabs (the Social profile): the selected icon is filled with a bar beneath it; labels are for screen readers.
+ * On the web it is one tab stop; Arrow keys, Home and End move between tabs, as in TopTabs.
+ */
 export function IconTabs<T extends string>({ tabs, value, onChange, label }: { tabs: readonly IconTab<T>[]; value: T; onChange: (value: T) => void; label: string }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), items = useRef<(ViewInstance | null)[]>([]);
+  const keyDown = (event: KeyboardEvent, index: number) => {
+    const count = tabs.length;
+    const next = event.key === "ArrowRight" ? (index + 1) % count : event.key === "ArrowLeft" ? (index + count - 1) % count
+      : event.key === "Home" ? 0 : event.key === "End" ? count - 1 : -1;
+    if (next < 0) return;
+    event.preventDefault(); onChange(tabs[next].id); items.current[next]?.focus();
+  };
   return <View>
     <View accessibilityRole="tablist" accessibilityLabel={label} style={s.tabs}>
-      {tabs.map(tab => <TabButton key={tab.id} tab={tab} selected={tab.id === value} onPress={() => onChange(tab.id)} />)}
+      {tabs.map((tab, index) => <TabButton key={tab.id} tab={tab} selected={tab.id === value} onPress={() => onChange(tab.id)}
+        controlRef={node => { items.current[index] = node; }} onKeyDown={event => keyDown(event, index)} />)}
     </View>
     <View style={[s.rule, { backgroundColor: theme.divider }]} />
   </View>;
 }
-function TabButton<T extends string>({ tab, selected, onPress }: { tab: IconTab<T>; selected: boolean; onPress: () => void }) {
+function TabButton<T extends string>({ tab, selected, onPress, controlRef, onKeyDown }: {
+  tab: IconTab<T>; selected: boolean; onPress: () => void; controlRef: (node: ViewInstance | null) => void; onKeyDown: (event: KeyboardEvent) => void;
+}) {
   const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus(), badge = tab.badge ?? 0;
-  return <Pressable accessibilityRole="tab" accessibilityLabel={tab.label + (badge ? `, ${badge}` : "")} accessibilityState={{ selected }} onPress={onPress} {...focusProps}
-    style={({ pressed }) => [s.tab, { borderColor: focused ? theme.accent : theme.transparent, opacity: pressed ? 0.7 : 1 }]}>
+  const keyboardProps: WebOnlyProps = Platform.OS === "web" ? { tabIndex: selected ? 0 : -1, onKeyDown } : {};
+  return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="tab" accessibilityLabel={tab.label + (badge ? `, ${badge}` : "")} accessibilityState={{ selected }}
+    aria-selected={selected} onPress={onPress} {...focusProps}
+    style={({ pressed }) => [s.tab, { borderColor: focused ? theme.accent : theme.transparent, opacity: pressed ? 0.7 : 1 },
+      Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
     <View>
       <Icon name={selected ? tab.activeIcon : tab.icon} size={26} color={selected ? theme.foreground : theme.mutedForeground} />
       {badge > 0 && <View style={[s.tabBadge, { backgroundColor: theme.accent }]}><T variant="small" color={onAccent} style={[common.bold, s.dotText]}>{badge > 99 ? "99+" : badge}</T></View>}
     </View>
-    {selected && <View style={[s.indicator, { backgroundColor: theme.foreground }]} />}
+    {selected && <View style={[s.indicator, { backgroundColor: theme.accent }]} />}
   </Pressable>;
 }
 

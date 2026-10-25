@@ -6,6 +6,7 @@
  */
 import { useEffect, useState } from "react";
 import { Platform, StyleSheet, View, type GestureResponderEvent } from "react-native";
+import type { WebOnlyProps } from "../../../types/web-props";
 import Animated, { cancelAnimation, Easing, interpolate, runOnJS, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withSequence, withSpring, withTiming } from "react-native-reanimated";
 import { Icon, T } from "../../../components/ui";
 import { usePreferences } from "../../../state/Preferences";
@@ -58,8 +59,7 @@ export function SlideToEnter({ title, label, width, onTick, onComplete }: Props)
   const thumb = useAnimatedStyle(() => ({ transform: [{ translateX: x.value + nudge.value * 8 }] }));
   const trail = useAnimatedStyle(() => ({ width: PAD * 2 + THUMB + x.value, opacity: Math.min(1, (x.value / travel) * 3) * 0.95 }));
   const words = useAnimatedStyle(() => ({ opacity: Math.max(0, 1 - (x.value / travel) * 1.8) }));
-  // Web-only DOM props; typed `object` so React Native 0.88's own onKeyDown type does not apply.
-  const keys: object = Platform.OS === "web" ? { tabIndex: 0, onKeyDown: (e: { key: string; preventDefault(): void }) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(true); } } } : {};
+  const keys: WebOnlyProps = Platform.OS === "web" ? { tabIndex: 0, onKeyDown: (e: { key: string; preventDefault(): void }) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(true); } } } : {};
 
   return <View {...drag} {...keys} accessible accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: done }}
     accessibilityActions={[{ name: "activate" }]} onAccessibilityAction={() => go(true)}

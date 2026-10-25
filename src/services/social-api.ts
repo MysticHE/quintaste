@@ -1,11 +1,18 @@
 import { communityRequest as call } from "./community-api";
-import type { Badges, ChatLine, Dinner, DinnerDetail, DinnerPay, Friends, Met, Person, PersonPage, SocialMe, SocialPhoto, SocialPlace, SocialProfile, Standing } from "../types/community";
+import type { Badges, ChatLine, Dinner, DinnerDetail, DinnerPay, Friends, HandleMatch, Met, Person, PersonPage, SocialMe, SocialPhoto, SocialPlace, SocialProfile, Standing } from "../types/community";
 import type { MeetFilters } from "../types/meet";
 import type { SearchPoint } from "../types/location-search";
 
 /** Social on the account (server/social). Every call needs a signed-in, age-checked member; People, friends, chat and dinners also need 21+ and a checked photo. */
 export const me = (signal: AbortSignal) => call<SocialMe>("/api/social/me", { signal });
-export const saveProfile = (profile: SocialProfile) => call<{ profile: SocialProfile; standing: Standing }>("/api/social/me", { method: "PUT", body: { profile } });
+/** Saves the profile; Basics also sends the handle, which the server changes in the same save (409 HANDLE_TAKEN when someone has it). */
+export const saveProfile = (profile: SocialProfile, handle?: string) =>
+  call<{ profile: SocialProfile; standing: Standing }>("/api/social/me", { method: "PUT", body: handle === undefined ? { profile } : { profile, handle } });
+export const handleCheckKey = (handle: string) => "/api/social/handles/check?handle=" + encodeURIComponent(handle);
+export const checkHandle = (handle: string, signal: AbortSignal) => call<{ handle: string; valid: boolean; available: boolean }>(handleCheckKey(handle), { signal });
+/** Add friend: people whose handle contains `q` (typed without @). */
+export const findKey = (q: string) => "/api/social/people/find?q=" + encodeURIComponent(q);
+export const findPeople = (q: string, signal: AbortSignal) => call<{ items: HandleMatch[] }>(findKey(q), { signal });
 type Photos = { photos: SocialPhoto[]; standing: Standing };
 /** One photo per request (the edge caps request size); added after the last, up to six. */
 export const addPhoto = (image: string) => call<Photos>("/api/social/me/photos", { method: "POST", body: { image } });
@@ -36,7 +43,8 @@ export const chatKey = (id: string) => "/api/social/chats/" + id;
 export const chat = (id: string, signal: AbortSignal) => call<{ items: ChatLine[]; more: boolean }>(chatKey(id), { signal });
 export const sendChat = (id: string, body: string) => call<{ id: string; createdAt: string }>(chatKey(id), { method: "POST", body: { body } });
 
-export const dinners = (signal: AbortSignal) => call<{ upcoming: Dinner[]; past: Dinner[] }>("/api/social/dinners", { signal });
+/** `met`: every dinner the member reported going to (the profile's Dinners count). */
+export const dinners = (signal: AbortSignal) => call<{ upcoming: Dinner[]; past: Dinner[]; met: number }>("/api/social/dinners", { signal });
 export const dinner = (id: string, signal: AbortSignal) => call<DinnerDetail>("/api/social/dinners/" + id, { signal });
 export type DinnerInput = { userId: string; placeId: string; starts: string; pay: DinnerPay; message: string };
 export const inviteDinner = (input: DinnerInput) => call<{ id: string }>("/api/social/dinners", { method: "POST", body: input });

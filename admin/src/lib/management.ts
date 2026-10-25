@@ -2,25 +2,39 @@ import 'server-only';
 import { query, transaction } from './db';
 import { audit } from './audit';
 import { authorize, lockPermission, type Session } from './session';
+import { randomInt } from 'node:crypto';
 import { choice, HttpError, integer, text, uuid } from './http';
 import { roles } from './permissions';
 
 export async function accounts(member: Session, search: string) {
   authorize(member, 'accounts');
-  const term = text(search, 'username search', 30, 2);
-  await transaction(db => audit(db, member.id, 'account.search', 'customers', 'Searched customer usernames'));
-  return (await query(`SELECT u.id,u.username,u.name,u."createdAt" AS created_at,coalesce(r.active,false) AS restricted
-    FROM public."user" u LEFT JOIN ops.restriction r ON r.user_id=u.id
-    WHERE u.username ILIKE $1 ESCAPE '\\' ORDER BY u.username LIMIT 50`, [term.replace(/[\\%_]/g, '\\$&') + '%'])).rows;
+  // A report may name the public handle (server/social/handles.mjs) rather than the sign-in username, so both are searched.
+  const term = text(search, 'username search', 30, 2).replace(/^@/, '');
+  await transaction(db => audit(db, member.id, 'account.search', 'customers', 'Searched customer usernames and handles'));
+  return (await query(`SELECT u.id,u.username,u.name,h.handle,u."createdAt" AS created_at,coalesce(r.active,false) AS restricted
+    FROM public."user" u LEFT JOIN ops.restriction r ON r.user_id=u.id LEFT JOIN social.handle h ON h.user_id=u.id
+    WHERE u.username ILIKE $1 ESCAPE '\\' OR h.handle ILIKE $1 ESCAPE '\\' ORDER BY u.username LIMIT 50`, [term.replace(/[\\%_]/g, '\\$&') + '%'])).rows;
 }
 export async function accountAction(member: Session, input: Record<string, unknown>, reason: string) {
   authorize(member, 'accounts');
   const id = text(input.id, 'account id', 128);
-  const action = choice(input.action, ['suspend','restore','revoke_sessions'] as const, 'account action');
+  const action = choice(input.action, ['suspend','restore','revoke_sessions','reset_handle'] as const, 'account action');
   return transaction(async db => {
     await lockPermission(db, member, 'accounts');
     const found = await db.query('SELECT id FROM public."user" WHERE id=$1', [id]);
     if (!found.rowCount) throw new HttpError(404, 'Account not found.');
+    if (action === 'reset_handle') {
+      // A neutral handle the member can change later in Basics; a clash with another member's handle just tries again.
+      for (let tries = 0; tries < 8; tries++) {
+        const handle = 'member' + randomInt(100000, 1000000);
+        if ((await db.query('SELECT 1 FROM social.handle WHERE handle=$1', [handle])).rowCount) continue;
+        const reset = await db.query('UPDATE social.handle SET handle=$2, updated_at=now() WHERE user_id=$1 RETURNING handle', [id, handle]);
+        if (!reset.rowCount) throw new HttpError(404, 'This account has no handle.');
+        await audit(db, member.id, 'account.reset_handle', id, reason, { handle });
+        return { saved: true, handle };
+      }
+      throw new HttpError(503, 'No free handle was found. Try again.');
+    }
     if (action !== 'revoke_sessions') await db.query(`INSERT INTO ops.restriction(user_id,reason,active) VALUES($1,$2,$3)
       ON CONFLICT(user_id) DO UPDATE SET reason=$2,active=$3,updated_at=now()`, [id,reason,action === 'suspend']);
     if (action !== 'restore') await db.query('DELETE FROM public.session WHERE "userId"=$1', [id]);

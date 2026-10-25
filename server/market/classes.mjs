@@ -16,6 +16,8 @@ const classChatsFrom = `social.class_chat ch JOIN social.class c ON c.id=ch.clas
 const classChatsWhere = `(ch.member_id=$1 OR c.host_id=$1) AND ${notRestricted('c.host_id')} AND ${notBlocked('c.host_id', 'ch.member_id')}`;
 const classUnreadSql = `EXISTS (SELECT 1 FROM social.class_message m WHERE m.chat_id=ch.id AND m.sender_id IS DISTINCT FROM $1
   AND m.created_at > CASE WHEN c.host_id=$1 THEN ch.host_read_at ELSE ch.member_read_at END)`;
+/** The member's seat in the class: 'joined', 'left', 'removed', or null when they only asked. */
+const seatSql = (classId, memberId) => `(SELECT s.status FROM social.class_seat s WHERE s.class_id=${classId} AND s.user_id=${memberId})`;
 /** For the app-wide inbox count (server/community/inbox.mjs). */
 export const unreadClassChatsSql = `(SELECT count(*)::int FROM ${classChatsFrom} WHERE ${classChatsWhere} AND ${classUnreadSql})`;
 /** Every existing private class conversation, including enquiries before joining.
@@ -26,7 +28,7 @@ classes.get('/class-conversations', signedIn, async (_req, res) => {
       ch.member_id AS "memberId", c.host_id=$1 AS hosting, ch.updated_at AS "updatedAt",
       CASE WHEN c.host_id=$1 THEN coalesce(nullif(p.first_name,''), u.name, 'Member') ELSE h.display_name END AS name,
       (SELECT body FROM social.class_message m WHERE m.chat_id=ch.id AND m.kind='text' ORDER BY m.created_at DESC, m.id DESC LIMIT 1) AS last,
-      ${classUnreadSql} AS unread
+      ${classUnreadSql} AS unread, ${seatSql('c.id', 'ch.member_id')} AS seat
     FROM ${classChatsFrom} LEFT JOIN social.profile p ON p.user_id=ch.member_id WHERE ${classChatsWhere}
     ORDER BY ch.updated_at DESC, ch.id DESC LIMIT 200`, [me])).rows;
   res.json({ items: rows });
@@ -101,13 +103,13 @@ async function chatFor(me, classId, memberParam) {
 classes.get('/classes/:id/chat', signedIn, async (req, res) => {
   const me = res.locals.user.id, id = requireId(req.params.id, 'This class is unavailable.'), { hosting, member } = await chatFor(me, id, req.query.member);
   const read = hosting ? 'host_read_at' : 'member_read_at';
-  const chat = (await pool.query(`SELECT id, ${read} AS read_at FROM social.class_chat WHERE class_id=$1 AND member_id=$2`, [id, member])).rows[0];
-  if (!chat) return res.json({ items: [] });
+  const chat = (await pool.query(`SELECT id, ${read} AS read_at, ${seatSql('$1', '$2')} AS seat FROM social.class_chat WHERE class_id=$1 AND member_id=$2`, [id, member])).rows[0];
+  if (!chat) return res.json({ items: [], seat: null });
   const rows = (await pool.query(`SELECT m.id, m.kind, m.body, m.sender_id=$2 AS mine, m.created_at AS "createdAt" FROM social.class_message m WHERE m.chat_id=$1
     ORDER BY m.created_at DESC LIMIT 100`, [chat.id, me])).rows.reverse();
   // Polled while open: write the read time only when something newer arrived.
   if (rows.length && new Date(rows.at(-1).createdAt) > new Date(chat.read_at)) await pool.query(`UPDATE social.class_chat SET ${read}=now() WHERE id=$1`, [chat.id]);
-  res.json({ items: rows });
+  res.json({ items: rows, seat: chat.seat });
 });
 /** Members may ask before joining, but only about a class they can see; teachers reply to anyone who wrote or joined. */
 classes.post('/classes/:id/chat', signedIn, async (req, res) => {

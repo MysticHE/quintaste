@@ -42,9 +42,9 @@ function Navigation() {
   const { user } = useAuth();
   const segments = useSegments();
   const params = useGlobalSearchParams(), pathname = usePathname();
+  // The URL the app opened on, kept in case the stack, which mounts only after sign-in is restored, starts elsewhere.
   const [initial] = useState(() => ({
-    // A tab deep link (for example /social?tab=areas) is lost when restoring an account remounts the stack.
-    tabLink: segments[0] === "(tabs)" && pathname !== "/" ? { pathname, params } as Href : null,
+    link: pathname !== "/" ? { href: { pathname, params } as Href, pathname, tab: segments[0] === "(tabs)" } : null,
   }));
   const restored = useRef(false);
   const { ready, theme, reducedMotion } = usePreferences(), language = useLanguage();
@@ -65,10 +65,11 @@ function Navigation() {
       router.replace(user?.adultConfirmed ? destination : { pathname: '/account-eligibility', params: { returnTo: String(destination) } });
     } else if (!restored.current) {
       restored.current = true;
-      const link = initial.tabLink as { pathname: string } | null;
-      if (link && pathname !== link.pathname) router.replace(initial.tabLink as Href);
+      // A tab link reopens in place; any other screen goes on top of the tabs so Back still returns to them.
+      const link = initial.link;
+      if (link && pathname !== link.pathname) { if (link.tab) router.replace(link.href); else router.push(link.href); }
     }
-  }, [ready, fontsLoaded, fontError, collectionReady, navigation?.key, user, initial.tabLink, pathname]);
+  }, [ready, fontsLoaded, fontError, collectionReady, navigation?.key, user, initial.link, pathname]);
   useEffect(() => {
     if (ready && (fontsLoaded || fontError) && owner === "profile" && collectionReady && navigation?.key && profileRoute) {
       router.replace(profileRoute); clearProfileRoute();
