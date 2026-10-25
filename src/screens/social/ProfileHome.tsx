@@ -32,13 +32,14 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
   const waiting = (inbox?.requests ?? 0) + (inbox?.dinners ?? 0), orders = inbox?.orders ?? 0;
   const [kind, setKind] = useState<ContentKind>("all"), [query, setQuery] = useState("");
   const data = me.data, name = data?.profile.firstName || user?.name || t("profileFallback"), bio = data?.profile.about || user?.bio;
-  const edit = () => router.push(data?.standing.step === "age" ? "/settings" : !data || ["photos", "basics"].includes(data.standing.step) ? "/social/setup" : "/social/profile");
+  const edit = () => router.push(data?.standing.step === "age" ? "/account-eligibility" : !data || ["photos", "basics"].includes(data.standing.step) ? "/social/setup" : "/social/profile");
   const select = (next: ProfileTab) => { router.setParams({ tab: next }); setKind("all"); setQuery(""); };
   const kinds = (tab === "saved" ? savedKinds : postKinds).map(id => ({ id, label: t(id) }));
   return <Screen back={false} hideTimers header={<View style={[common.row, { minHeight: 48 }]}>
     <View style={common.flex} />
     <MessagesButton unread={inbox?.messages ?? 0} />
-    <IconButton appearance="plain" icon="settings-outline" label={t("settings")} onPress={() => router.push("/settings")} />
+    {/* The full Me menu (Saved, Food choices, Location, Appearance, Privacy, Help, sign-out); this is its only entry point. */}
+    <IconButton appearance="plain" icon="settings-outline" label={t("settings")} onPress={() => router.push({ pathname: "/account", params: { returnTo: "/social" } })} />
   </View>}>
     <MemberGate returnTo="/social">
       <View testID="social-profile-header" style={{ alignItems: "center", gap: 2, paddingBottom: 4 }}>
