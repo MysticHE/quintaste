@@ -40,7 +40,6 @@ const zh: typeof en = {
   useMyLocation: "用我的位置",
   photoOf: "第 {n} 张，共 {total} 张",
   photosOfName: "{name}的照片",
-  noPhoto: "没有照片",
   addFriend: "加好友",
   addFriendNamed: "加{name}为好友",
   askMeAbout: "可以问我",

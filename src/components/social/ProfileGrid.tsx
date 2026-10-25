@@ -22,7 +22,7 @@ import { browse, browseKey, ownListings, sellerState, toggleSaved } from "../../
 import { cookingClass, teaching } from "../../services/classes-api";
 import { communityRequest } from "../../services/community-api";
 import type { ExternalEvent } from "../../services/editorial";
-import { defaultShopFilter } from "../../types/community";
+import { defaultShopFilter, type PersonPosts } from "../../types/community";
 import { photos } from "../../data/photos";
 import { ReactionBar } from "../ReactionBar";
 import { recipeShareMessage } from "../../utils/recipe-share";
@@ -128,6 +128,23 @@ export function MyPostGrid({ kind }: { kind: ContentKind }) {
         href={("/market/class/" + c.id) as Href} />)}
     </View>
   </>;
+}
+/**
+ * Another member's posts (their profile's grid), drawn from the summaries their profile request carries, so no tile loads on
+ * its own: live recipes with likes and shares, items on sale and classes (the date sits on the class tile).
+ */
+export function PersonPostGrid({ posts, kind }: { posts: PersonPosts; kind: ContentKind }) {
+  const t = useT("profile"), language = useLanguage();
+  const recipes = kind === "all" || kind === "recipes" ? posts.recipes : [];
+  const items = kind === "all" || kind === "market" ? posts.items : [], hosted = kind === "all" || kind === "events" ? posts.classes : [];
+  useReactions("recipe", recipes.map(r => r.id));
+  return <View testID="person-post-grid" style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start" }}>
+    {recipes.map(r => <GridTile key={r.id} title={r.name} type={t("recipe")} path={r.image} icon="restaurant-outline" href={("/cook/recipe/" + r.id) as Href}>
+      <ReactionBar kind="recipe" id={r.id} name={r.name} shareMessage={() => r.name + " " + Linking.createURL("/cook/recipe/" + r.id)} />
+    </GridTile>)}
+    {items.map(l => <GridTile key={l.id} title={l.name} type={t("market")} path={l.photo} icon="storefront-outline" note={marketMoney(l.priceCents)} href={("/market/listing/" + l.id) as Href} />)}
+    {hosted.map(c => <GridTile key={c.id} title={c.title} type={t("event")} date={formatSgShort(c.starts, language)} href={("/market/class/" + c.id) as Href} />)}
+  </View>;
 }
 export function SavedGrid({ kind, query }: { kind: ContentKind; query: string }) {
   const { doc } = useFood(), feeds = useFeeds(), t = useT("profile"), q = useDebounced(query).trim().toLowerCase(), [limit, setLimit] = useState(6);

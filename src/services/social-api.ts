@@ -1,5 +1,5 @@
 import { communityRequest as call } from "./community-api";
-import type { Badges, ChatLine, Dinner, DinnerDetail, DinnerPay, Friends, HandleMatch, Met, Person, PersonPage, SocialMe, SocialPhoto, SocialPlace, SocialProfile, Standing } from "../types/community";
+import type { Badges, ChatLine, Dinner, DinnerDetail, DinnerPay, Friends, HandleMatch, Met, Person, PersonPage, PersonWithPosts, SocialMe, SocialPhoto, SocialPlace, SocialProfile, Standing } from "../types/community";
 import type { MeetFilters } from "../types/meet";
 import type { SearchPoint } from "../types/location-search";
 
@@ -31,6 +31,9 @@ export function peopleKey(q: string, f: MeetFilters) {
 }
 export const people = (path: string, signal: AbortSignal) => call<{ items: Person[]; canAppear: boolean }>(path, { signal });
 export const person = (id: string, signal: AbortSignal) => call<PersonPage>("/api/social/people/" + id, { signal });
+/** The person with their posts and friend count, for their profile page. */
+export const personPageKey = (id: string) => "/api/social/people/" + id + "?posts=1";
+export const personWithPosts = (id: string, signal: AbortSignal) => call<PersonWithPosts>(personPageKey(id), { signal });
 
 export const badges = (signal: AbortSignal) => call<Badges>("/api/social/badges", { signal });
 export const friends = (signal: AbortSignal) => call<Friends>("/api/social/friends", { signal });

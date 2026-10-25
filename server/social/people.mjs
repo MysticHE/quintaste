@@ -5,6 +5,11 @@ import { hobbies, languages } from './options.mjs';
 import { readDiets } from './rules.mjs';
 import { ageFrom, meetAgeSql, friendsSql, pausedUntilSql, reachableSql, requireBrowse, seeableSql, standing, verifiedSql } from './access.mjs';
 import { emptyProfile, hideable, meetColumns, photoUrl } from './profile.mjs';
+import { notRestricted } from '../community/router.mjs';
+import { allowed } from '../operations.mjs';
+import { recipesBy } from '../recipes/router.mjs';
+import { itemsBy } from '../market/shop.mjs';
+import { classesBy } from '../market/classes.mjs';
 import { readFileSync } from 'node:fs';
 
 export const people = express.Router();
@@ -77,6 +82,11 @@ people.get('/people', async (req, res) => {
 });
 
 /**
+ * Lifestyle details are for Dining (owner, 26 Oct 2026): a profile carries them only for its owner, or for a member who can use
+ * Dining looking at a photo-checked member of the opposite gender aged 21 to 45, so both can weigh them before a dinner invite.
+ */
+const noLifestyle = { work: '', education: '', grewUp: '', languages: [], why: [], height: null, drinking: '', smoking: '', pets: [], religion: '', ethnicity: '' };
+/**
  * One profile, with how the viewer stands with them: friends, a request either way, and whether a dinner invite is possible.
  * A member who never filled in a Social profile still has a page (their account name and handle), so Add friend can open it.
  */
@@ -91,12 +101,25 @@ people.get('/people/:id', async (req, res) => {
         AND ((r.from_id=$1 AND r.to_id=u.id) OR (r.from_id=u.id AND r.to_id=$1)) LIMIT 1) AS request
     FROM public."user" u LEFT JOIN social.profile p ON p.user_id=u.id WHERE u.id=$2 AND ${seeableSql('u.id', '$1')}`, [me, id])).rows[0];
   if (!row) throw new CommunityError(404, 'This profile is unavailable.');
-  const [state, photos] = await Promise.all([standing(me), photosOf([id])]);
+  const [state, photos, posts] = await Promise.all([standing(me), photosOf([id]), req.query.posts === '1' ? postsOf(id, me) : null]);
   const { friend, verified, adult, request, theyPaused, openInvite, accountName, hasProfile, ...stored } = row;
   // Without a Social profile every field is empty but the name, which comes from the account.
   const profile = hasProfile ? stored : { ...emptyProfile, ...Object.fromEntries(Object.entries(stored).filter(([, value]) => value !== null)), firstName: accountName || 'Member' };
   const opposite = !!state.gender && !!profile.gender && state.gender !== profile.gender;
   // The same rules the server applies when an invite is sent (dinners.mjs requirePair), plus one open invite per pair.
-  res.json({ ...shareable(profile, photos.get(id)), km: areaKm(state.area, profile.area), verified, friend, request, openInvite,
-    canInvite: friend && opposite && verified && adult && !theyPaused && !openInvite && state.canMeet && !state.pausedUntil });
+  const dining = id === me || (state.canMeet && opposite && verified && adult), shared = shareable(profile, photos.get(id));
+  res.json({ ...(dining ? shared : { ...shared, ...noLifestyle }), km: areaKm(state.area, profile.area), verified, friend, request, openInvite,
+    canInvite: friend && opposite && verified && adult && !theyPaused && !openInvite && state.canMeet && !state.pausedUntil, ...(posts ? { posts } : {}) });
 });
+
+/**
+ * With `?posts=1` (their profile page) the person also carries their posts, as their own Social profile shows them: live
+ * recipes, items on sale and classes, each only while its service is on and its own rules let the viewer open it, plus their
+ * friend count (never the friends). Called only after the seeable check above passed.
+ */
+async function postsOf(id, me) {
+  const [recipesOn, marketOn, friends] = await Promise.all([allowed('recipes'), allowed('market'),
+    pool.query(`SELECT count(*)::int AS n FROM social.friend f WHERE (f.a_id=$1 OR f.b_id=$1) AND ${notRestricted('CASE WHEN f.a_id=$1 THEN f.b_id ELSE f.a_id END')}`, [id])]);
+  const [recipes, items, classes] = await Promise.all([recipesOn ? recipesBy(id, me) : [], marketOn ? itemsBy(id, me) : [], marketOn ? classesBy(id, me) : []]);
+  return { friends: friends.rows[0].n, recipes, items, classes };
+}

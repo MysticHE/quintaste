@@ -40,7 +40,6 @@ const en = {
   useMyLocation: "Use my location",
   photoOf: "Photo {n} of {total}",
   photosOfName: "Photos of {name}",
-  noPhoto: "No photo",
   addFriend: "Add Friend",
   addFriendNamed: "Add {name} as a friend",
   askMeAbout: "Ask me about",

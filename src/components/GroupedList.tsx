@@ -70,6 +70,12 @@ export function ThemedSwitch({ label, value, onChange, disabled = false }: { lab
   return <Switch accessibilityLabel={label} value={value} disabled={disabled} onValueChange={onChange}
     trackColor={{ false: theme.mutedForeground, true: theme.accent }} thumbColor={theme.card} {...{ activeThumbColor: theme.card }} />;
 }
+/** A switch with its label beside it on screen (the switch alone is unlabelled to sighted members). */
+export function SwitchRow({ label, value, onChange, disabled = false, bold = false }: { label: string; value: boolean; onChange: (value: boolean) => void; disabled?: boolean; bold?: boolean }) {
+  return <View style={[common.spread, { minHeight: 48, gap: 12 }]}>
+    <T style={[common.flex, bold && common.bold]}>{label}</T><ThemedSwitch label={label} value={value} onChange={onChange} disabled={disabled} />
+  </View>;
+}
 /** Visible label for a chip group or control, matching Field labels. */
 export const FieldLabel = ({ children }: { children: string }) => <T variant="small" style={common.bold}>{children}</T>;
 /** Small labelled heading above a block of form fields. */

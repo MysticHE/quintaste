@@ -11,7 +11,7 @@ import { Confirm } from "./Shared";
 import { Sheet } from "./Sheet";
 
 /** Add Friend with an optional hello (200 characters). If they already asked you, this makes you friends straight away. */
-export function RequestSheet({ person, visible, onClose, onSent }: { person: { id: string; firstName: string }; visible: boolean; onClose: () => void; onSent: () => void }) {
+export function RequestSheet({ person, visible, onClose, onSent }: { person: { id: string; firstName: string }; visible: boolean; onClose: () => void; onSent?: () => void }) {
   const t = useT("social"), { setNotice } = usePreferences(), problem = useSocialError();
   const [note, setNote] = useState(""), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const send = async () => {
@@ -20,7 +20,7 @@ export function RequestSheet({ person, visible, onClose, onSent }: { person: { i
       const result = await requestFriend(person.id, note);
       setNotice({ text: t(result.friends ? "friendsNowNotice" : "requestSentNotice", { name: person.firstName }) });
       invalidate("/api/social/friends", "/api/social/badges", "/api/social/people");
-      setNote(""); onSent(); onClose();
+      setNote(""); onSent?.(); onClose();
     } catch (failure) { setError(problem(failure, person.firstName)); }
     finally { setBusy(false); }
   };
@@ -29,8 +29,10 @@ export function RequestSheet({ person, visible, onClose, onSent }: { person: { i
     <Field label={t("sayHello")} value={note} onChangeText={setNote} placeholder={t("helloHint")} maxLength={200} multiline editable={!busy} error={error || undefined} />
   </Sheet>;
 }
-/** The flag on profiles, chats and invites: Report (with "Not their photo") or Block. */
-export function FlagSheet({ person, visible, onClose, onBlocked }: { person: { id: string; firstName: string }; visible: boolean; onClose: () => void; onBlocked: () => void }) {
+/** The flag on profiles, chats and invites: Report (with "Not their photo" when they have one) or Block. */
+export function FlagSheet({ person, hasPhoto, visible, onClose, onBlocked }: {
+  person: { id: string; firstName: string }; hasPhoto: boolean; visible: boolean; onClose: () => void; onBlocked: () => void;
+}) {
   const t = useT("social"), { setNotice } = usePreferences(), [reporting, setReporting] = useState(false);
   const blocked = () => {
     setNotice({ text: t("blockedNotice", { name: person.firstName }) });
@@ -44,6 +46,6 @@ export function FlagSheet({ person, visible, onClose, onBlocked }: { person: { i
       <Confirm label={t("blockName", { name: person.firstName })} text={t("blockConfirmText")} action={t("blockAction")}
         run={async () => { await block(person.id); onClose(); blocked(); return true; }} />
     </Sheet>
-    <ReportSheet kind="person" targetId={person.id} name={person.firstName} visible={reporting} onClose={() => { setReporting(false); onClose(); }} onBlocked={blocked} />
+    <ReportSheet kind="person" targetId={person.id} name={person.firstName} hasPhoto={hasPhoto} visible={reporting} onClose={() => { setReporting(false); onClose(); }} onBlocked={blocked} />
   </>;
 }

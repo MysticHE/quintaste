@@ -34,7 +34,7 @@ function InviteForm({ p }: { p: PersonPage }) {
     finally { setBusy(false); }
   };
   return <>
-    <ListGroup><ListItem title={p.firstName} subtitle={t("inviteWho")} leading={<Avatar uri={p.photos[0]?.thumb} name={p.firstName} size={44} />} /></ListGroup>
+    <ListGroup><ListItem title={p.firstName} subtitle={t("inviteWho")} leading={<Avatar uri={p.photos[0]?.thumb} size={44} />} /></ListGroup>
     <SlotPicker label={t("when")} slots={slots} value={starts} onChange={setStarts} />
     <FieldLabel>{t("whereLabel")}</FieldLabel>
     <PlaceRow place={place} onChange={() => setPicking(true)} />

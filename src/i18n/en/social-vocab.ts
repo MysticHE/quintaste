@@ -5,6 +5,7 @@ const same = (v: Vars) => String(v.value);
 /** Poses for the photo check (server/social/verify.mjs); the member copies one in a live selfie. */
 const poses: Record<string, string> = { "thumbs-up": "Thumbs up", "peace-sign": "Peace sign", "hand-on-chin": "Hand on your chin", "point-up": "Point up",
   wave: "Wave", "touch-ear": "Touch your ear", "three-fingers": "Three fingers up", "hand-on-head": "Hand on your head" };
+const phrase = (map: Record<string, string>) => (v: Vars) => map[String(v.value)] ?? String(v.value);
 /** Fixed Social vocabulary stored as English values (English shows the value itself), plus words several Social screens share. */
 const en = {
   optGender: (v: Vars) => genderOptions.find(option => option.id === v.value)?.label ?? String(v.value),
@@ -16,6 +17,10 @@ const en = {
   optEducation: same,
   optHabit: same,
   optPet: same,
+  /** Drinking, smoking and pets as short phrases on a profile. */
+  drinkPhrase: phrase({ No: "Doesn't drink", Sometimes: "Drinks sometimes", Yes: "Drinks" }),
+  smokePhrase: phrase({ No: "Doesn't smoke", Sometimes: "Smokes sometimes", Yes: "Smokes" }),
+  petPhrase: phrase({ Other: "Other pets", None: "No pets" }),
   optAge: same,
   optIngredient: same,
   optPose: (v: Vars) => poses[String(v.value)] ?? String(v.value),

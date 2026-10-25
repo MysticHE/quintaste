@@ -95,6 +95,11 @@ export type PhotoLink = { url: string; thumb: string };
 /** Another member as the server shares them: hidden fields come back empty, the birth date as `age`. */
 export type Person = Omit<SocialProfile, "birthDate" | "hidden" | "visible" | "excluded"> & { id: string; age: number | null; photos: PhotoLink[]; km: number | null };
 export type PersonPage = Person & { handle: string | null; verified: boolean; friend: boolean; request: { id: string; mine: boolean; note: string } | null; openInvite: boolean; canInvite: boolean };
+/** Another member's posts on their profile (GET /api/social/people/:id?posts=1): recipes, items on sale and classes, plus their friend count. */
+export type PersonPosts = { friends: number; recipes: { id: string; name: string; image: string | null }[];
+  items: { id: string; name: string; priceCents: number; photo: string | null }[]; classes: { id: string; title: string; starts: string }[] };
+/** Their profile page: the person with their posts. */
+export type PersonWithPosts = PersonPage & { posts: PersonPosts };
 export type LineKind = "text" | "event" | "dinner";
 export type Friend = { id: string; firstName: string; handle: string | null; area: string; since: string; photo: string | null; verified: boolean; threadId: string | null; updatedAt: string;
   last: { kind: LineKind; body: string; mine: boolean; at: string } | null; unread: number; opposite: boolean };

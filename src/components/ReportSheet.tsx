@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { Chip } from "./food/Controls";
 import { Button, Field, T } from "./ui";
-import { FieldLabel, ThemedSwitch } from "./GroupedList";
+import { FieldLabel, SwitchRow } from "./GroupedList";
 import { MarketModal } from "./market/MarketChrome";
 import { usePreferences } from "../state/Preferences";
 import { report } from "../services/social-api";
@@ -26,9 +26,12 @@ const reasonKeys: Record<Reason, keyof typeof commonMessages> = {
   "Address or location": "reasonAddress", "Menu or prices": "reasonMenu", "Closed or moved": "reasonClosed", "Not meat-free": "reasonNotMeatFree",
   "Unsafe instructions": "reasonUnsafe", "Not their recipe": "reasonNotTheirs", "Wrong ingredients": "reasonWrongIngredients", "Inappropriate name": "reasonInappropriateName",
 };
-/** Sends a report to the staff review queue; a person report can also block them, a place report suggests an update. */
-export function ReportSheet({ kind, targetId, name, visible, onClose, onBlocked, initialReason = "" }: {
-  kind: keyof typeof reasons; targetId: string; name: string; visible: boolean; onClose: () => void; onBlocked?: () => void; initialReason?: string;
+/**
+ * Sends a report to the staff review queue; a person report can also block them, a place report suggests an update.
+ * "Not their photo" is left out when the caller knows the person has no photo (`hasPhoto={false}`, Social profiles and chats).
+ */
+export function ReportSheet({ kind, targetId, name, visible, onClose, onBlocked, initialReason = "", hasPhoto = true }: {
+  kind: keyof typeof reasons; targetId: string; name: string; visible: boolean; onClose: () => void; onBlocked?: () => void; initialReason?: string; hasPhoto?: boolean;
 }) {
   const { theme, setNotice } = usePreferences(), t = useT("common");
   const [reason, setReason] = useState(initialReason), [details, setDetails] = useState(""), [block, setBlock] = useState(false);
@@ -44,10 +47,10 @@ export function ReportSheet({ kind, targetId, name, visible, onClose, onBlocked,
   };
   return <MarketModal visible={visible} onClose={() => { if (!busy) onClose(); }} label={t(kind === "place" ? "updateNamed" : "reportNamed", { name })}>
     <View style={{ gap: 6 }}><FieldLabel>{t("reportReason")}</FieldLabel>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>{reasons[kind].map(item =>
+      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>{reasons[kind].filter(item => hasPhoto || item !== "Not their photo").map(item =>
         <Chip key={item} label={t(reasonKeys[item])} compact role="radio" selected={reason === item} disabled={busy} onPress={() => setReason(item)} />)}</View></View>
     <Field label={t("reportDetails")} value={details} onChangeText={setDetails} maxLength={1000} multiline editable={!busy} />
-    {kind === "person" && <ThemedSwitch label={t("alsoBlock", { name })} value={block} onChange={setBlock} disabled={busy} />}
+    {kind === "person" && <SwitchRow label={t("alsoBlock", { name })} value={block} onChange={setBlock} disabled={busy} />}
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     <Button label={kind === "place" ? t("sendUpdate") : t("sendReport")} icon={kind === "place" ? "send-outline" : "flag-outline"} loading={busy} disabled={!reason} onPress={() => void send()} />
   </MarketModal>;

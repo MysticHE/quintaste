@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import { FieldLabel, ThemedSwitch } from "../../../components/GroupedList";
+import { FieldLabel, SwitchRow } from "../../../components/GroupedList";
 import { RemoteStatus } from "../../../components/CommunityGate";
 import { ReportSheet } from "../../../components/ReportSheet";
 import { Button, Field, Icon, T } from "../../../components/ui";
@@ -83,8 +83,8 @@ function CafeForm({ saved, shelf, own, fallbackName, onSaved }: { saved: MyCafe;
       </Pressable>; })}
     {!canOpen ? <T variant="small" muted>{t("updateToOpen")}</T>
       : !accepted && <View style={{ gap: 4 }}><FieldLabel>{t("cafeTerms")}</FieldLabel>{CAFE_TERMS.map(term => <T key={term} variant="small" muted>• {t(term)}</T>)}
-        <ThemedSwitch label={t("acceptTerms")} value={agree} onChange={setAgree} disabled={busy} /></View>}
-    <ThemedSwitch label={t("openToVisitors")} value={open && canOpen} onChange={setOpen} disabled={busy || !canOpen || !!saved.cafe?.hidden} />
+        <SwitchRow label={t("acceptTerms")} value={agree} onChange={setAgree} disabled={busy} /></View>}
+    <SwitchRow label={t("openToVisitors")} value={open && canOpen} onChange={setOpen} disabled={busy || !canOpen || !!saved.cafe?.hidden} />
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     <Button label={t("saveCafe")} icon="storefront-outline" loading={busy} onPress={() => void save()} />
   </Section>;

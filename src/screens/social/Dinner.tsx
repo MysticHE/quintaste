@@ -12,10 +12,13 @@ import { AfterDinnerSheet, AnswerButtons, DinnerReminder, useDinnerStatus, usePa
 import { FlagSheet } from "../../components/social/PersonSheets";
 import { PlaceThumb } from "../../components/social/Face";
 import { Avatar } from "../../components/social/SocialPhoto";
+import { LifestyleDetails, PersonAbout } from "../../components/social/PersonDetails";
+import { useWhere } from "../../components/social/PersonCard";
+import { useDietText } from "../../components/food/DietLabels";
 import { Confirm, openSocial } from "../../components/social/Shared";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { useReminderSync } from "../../hooks/useReminderSync";
-import { cancelDinner, dinner as loadDinner, places, placesByIdKey } from "../../services/social-api";
+import { cancelDinner, dinner as loadDinner, person as loadPerson, places, placesByIdKey } from "../../services/social-api";
 import { exportCalendarEvent } from "../../services/calendar-export";
 import { usePreferences } from "../../state/Preferences";
 import { useLanguage, useT } from "../../i18n";
@@ -23,6 +26,26 @@ import { directionsUrl } from "../../utils/directions";
 import { formatSgDateTime, formatSgText, parseSgDateTime } from "../../utils/sg-datetime";
 import type { DinnerDetail, SocialPlace } from "../../types/community";
 
+/**
+ * Who the dinner is with: their picture, name and age, area and diet (a tap opens their profile), then their bio, hobbies and
+ * lifestyle details, so an invite can be weighed on this page (owner, 26 Oct 2026). Until their profile loads, the name row;
+ * if it fails to load, Try again (a profile that is gone keeps just the name row).
+ */
+function WithPerson({ d }: { d: DinnerDetail }) {
+  const t = useT("social"), diet = useDietText(), whereOf = useWhere();
+  const remote = useRemote("/api/social/people/" + d.withId, signal => loadPerson(d.withId, signal)), p = remote.data;
+  const where = p ? [whereOf(p), ...p.diets.map(diet.name)].filter(Boolean).join(" · ") : "";
+  const name = p?.age ? t("nameAge", { name: p.firstName, age: p.age }) : d.withName;
+  return <>
+    <ListGroup title={t("withLabel")}>
+      <ListItem title={name} subtitle={where || undefined} wrap
+        leading={<Avatar uri={p?.photos[0]?.thumb ?? d.photo} size={48} />} onPress={() => openSocial("/person/" + d.withId)} />
+    </ListGroup>
+    {!p && remote.error?.status !== 404 && <RemoteStatus remote={remote} icon="person-outline" returnTo={"/social/dinner/" + d.id} placeholder={null} />}
+    {p && <PersonAbout p={p} />}
+    {p && <LifestyleDetails p={p} />}
+  </>;
+}
 /** After the dinner: your own answer, the note they left you, and the mutual card only when you both said yes. */
 function Afterwards({ d }: { d: DinnerDetail }) {
   const t = useT("social"), { theme } = usePreferences(), [open, setOpen] = useState(false);
@@ -38,7 +61,7 @@ function Afterwards({ d }: { d: DinnerDetail }) {
       {d.mine.eatAgain !== null && <ListItem title={t(d.mine.eatAgain ? "eatAgainYes" : "eatAgainNo")} subtitle={t("eatAgainNote")} wrap leading={<RowIcon name="heart-outline" tone="muted" />} />}
       {!!d.mine.note && <ListItem title={d.mine.note} subtitle={t("noteTo", { name: d.withName })} wrap leading={<RowIcon name="create-outline" tone="muted" />} />}
     </ListGroup>
-    {!!d.theirNote && <ListGroup title={t("theirNote", { name: d.withName })}><ListItem title={d.theirNote} wrap leading={<Avatar uri={d.photo} name={d.withName} size={36} />} /></ListGroup>}
+    {!!d.theirNote && <ListGroup title={t("theirNote", { name: d.withName })}><ListItem title={d.theirNote} wrap leading={<Avatar uri={d.photo} size={36} />} /></ListGroup>}
   </>;
 }
 function DinnerView({ d, place, refresh }: { d: DinnerDetail; place: SocialPlace | null; refresh: () => void }) {
@@ -60,10 +83,10 @@ function DinnerView({ d, place, refresh }: { d: DinnerDetail; place: SocialPlace
       <ListItem title={place?.address || d.placeName} subtitle={t("whereLabel")} wrap leading={<RowIcon name="location-outline" />}
         trailing={place?.address ? <IconButton label={t("directions")} icon="navigate-outline" appearance="plain" onPress={() => open(directionsUrl(place.address))} /> : undefined} />
       <ListItem title={pay} subtitle={t("payLabel")} leading={<RowIcon name="wallet-outline" />} />
-      <ListItem title={d.withName} subtitle={t("withLabel")} leading={<Avatar uri={d.photo} name={d.withName} size={36} />} onPress={() => openSocial("/person/" + d.withId)} />
       {!!d.message && <ListItem title={d.message} subtitle={t("messageLabel")} wrap leading={<RowIcon name="chatbubble-outline" tone="muted" />} />}
       {upcoming && <DinnerReminder dinner={d} />}
     </ListGroup>
+    <WithPerson d={d} />
     {d.status === "invited" && d.yourTurn && <><T variant="small" muted>{t("answerBy", { date: formatSgDateTime(Date.parse(d.expiresAt), language) })}</T>
       <AnswerButtons dinner={d} onDone={refresh} /></>}
     {upcoming && <Button label={t("addToCalendar")} icon="calendar-outline" variant="secondary" onPress={() => void calendar()} />}
@@ -81,7 +104,7 @@ export function DinnerScreen() {
     <SocialGate returnTo={"/social/dinner/" + id}>
       <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social?tab=dinners" missing={t("dinnerUnavailable")} />
       {d && <DinnerView d={d} place={place} refresh={remote.refresh} />}
-      {d && <FlagSheet person={{ id: d.withId, firstName: d.withName }} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
+      {d && <FlagSheet person={{ id: d.withId, firstName: d.withName }} hasPhoto={!!d.photo} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
     </SocialGate>
   </Screen>;
 }

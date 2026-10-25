@@ -111,7 +111,9 @@ function Details({ value: p, onChange }: Edit) {
       onChangeText={text => { const n = Number(text.replace(/\D/g, "")); set({ height: n >= 120 && n <= 230 ? n : null }); }} />
     <One label={t("drinking")} options={habitOptions} value={p.drinking} word={value => t("optHabit", { value })} onChange={drinking => set({ drinking })} />
     <One label={t("smoking")} options={habitOptions} value={p.smoking} word={value => t("optHabit", { value })} onChange={smoking => set({ smoking })} />
-    <Multi label={t("pets")} options={petOptions} value={p.pets} word={value => t("optPet", { value })} onChange={pets => set({ pets })} />
+    {/* None is exclusive: choosing it clears the pets, choosing a pet clears None. */}
+    <Multi label={t("pets")} options={petOptions} value={p.pets} word={value => t("optPet", { value })}
+      onChange={pets => set({ pets: pets.includes("None") && !p.pets.includes("None") ? ["None"] : pets.length > 1 ? pets.filter(pet => pet !== "None") : pets })} />
     <One label={t("religion")} options={religions} value={p.religion} word={value => t("optReligion", { value })} onChange={religion => set({ religion })} />
     <One label={t("ethnicity")} options={ethnicities} value={p.ethnicity} word={value => t("optEthnicity", { value })} onChange={ethnicity => set({ ethnicity })} />
     <ListGroup title={t("showOnProfile")}>{shownFields.map(([field, key]) => <ListItem key={field} title={t(key)}

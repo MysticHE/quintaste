@@ -26,6 +26,13 @@ function summary(row) {
     image: row.cover ? photoPath(row.id, 'cover', row.cover) : null, ingredientNames: r.ingredients.map(i => i.name) };
 }
 
+/** An author's recipes the viewer can open, newest first, as grid tiles need them (the posts on their Social profile). */
+export async function recipesBy(authorId, viewer) {
+  const rows = (await pool.query(`SELECT mr.id, mr.live->>'title' AS name, ${coverColumn} FROM recipes.recipe mr WHERE mr.author_id=$1 AND ${live}
+    AND ${notBlocked('mr.author_id', '$2')} ORDER BY mr.published_at DESC, mr.id LIMIT 60`, [authorId, viewer])).rows;
+  return rows.map(row => ({ id: publicId(row.id), name: row.name, image: row.cover ? photoPath(row.id, 'cover', row.cover) : null }));
+}
+
 recipes.get('/', async (req, res) => {
   const viewer = res.locals.user?.id ?? null, q = req.query, params = [], where = [live];
   const add = value => { params.push(value); return '$' + params.length; };

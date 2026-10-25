@@ -2,11 +2,11 @@ import { router } from "expo-router";
 import { useId, useState } from "react";
 import { Keyboard, Platform, StyleSheet, View } from "react-native";
 import { Screen } from "../../components/Screen";
-import { Button, T, common } from "../../components/ui";
+import { Button } from "../../components/ui";
 import { Chip, Chips, IconButton, SearchField } from "../../components/food/Controls";
 import { RecentSearches } from "../../components/RecentSearches";
 import { FilterSection } from "../../components/BrowseControls";
-import { ThemedSwitch } from "../../components/GroupedList";
+import { SwitchRow } from "../../components/GroupedList";
 import { DiscoveryFilterOptions } from "../../components/discovery/DiscoveryFilterOptions";
 import { LocationSuggestions } from "../../components/discovery/LocationSuggestions";
 import { useFood } from "../../state/Food";
@@ -74,11 +74,8 @@ export function ExploreSearchScreen() {
         label={tc("kilometres", { km: distance / 1000 })} selected={radius === distance} disabled={!readable}
         onPress={() => { void setRadius(distance); }} />)}</Chips>
     </FilterSection>
-    <View style={[common.spread, { minHeight: 48 }]}>
-      <T style={[common.bold, common.flex]}>{t("savedPlacesOnly")}</T>
-      <ThemedSwitch label={t("savedPlacesOnly")} value={filters.savedOnly} disabled={!readable}
-        onChange={savedOnly => { void setFilters({ savedOnly }); }} />
-    </View>
+    <SwitchRow bold label={t("savedPlacesOnly")} value={filters.savedOnly} disabled={!readable}
+      onChange={savedOnly => { void setFilters({ savedOnly }); }} />
   </Screen>;
 }
 const s = StyleSheet.create({

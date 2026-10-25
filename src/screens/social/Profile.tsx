@@ -30,7 +30,7 @@ function ProfileHub({ me }: { me: SocialMe }) {
   const name = p.firstName || t("yourProfile"), check = s.verification === "rejected" || s.verification === "paused" || s.step === "verify";
   return <>
     <View style={{ alignItems: "center", gap: 8, paddingTop: 4 }}>
-      <ProfilePicture data={me} name={name} size={96} />
+      <ProfilePicture data={me} size={96} />
       <T variant="title" style={common.bold}>{s.age ? t("nameAge", { name, age: s.age }) : name}</T>
       <StatusPill label={s.verified ? t("verifiedStatus") : s.step === "waiting" ? t("checkingStatus") : t("notVerified")} tone={s.verified ? "success" : s.step === "waiting" ? "warning" : "muted"} />
     </View>

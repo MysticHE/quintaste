@@ -48,6 +48,13 @@ export async function visibleListings(ids, sellerId, viewer) {
   viewer ? [ids, sellerId, viewer] : [ids, sellerId])).rows;
   return new Map(rows.map(row => [row.id, row]));
 }
+/** A member's items on sale that the viewer can open, newest first (the posts on their Social profile). */
+export async function itemsBy(sellerId, viewer) {
+  const rows = (await pool.query(`SELECT l.id, l.name, l.price_cents AS "priceCents", (SELECT digest FROM market.photo p WHERE p.listing_id=l.id AND p.slot='item') AS digest
+    FROM market.listing l JOIN market.seller s ON s.user_id=l.seller_id WHERE l.seller_id=$1 AND ${visible} AND ${notBlocked('s.user_id', '$2')}
+    ORDER BY l.updated_at DESC LIMIT 60`, [sellerId, viewer])).rows;
+  return rows.map(({ digest, ...row }) => ({ ...row, photo: photoUrl(row.id, 'item', digest) }));
+}
 /** A seller's shop name when buyers can see the shop, else null. */
 export async function visibleShop(sellerId) {
   const row = (await pool.query(`SELECT s.user_id AS id, s.trading_name AS name FROM market.seller s WHERE s.user_id=$1 AND ${liveSeller('s')} AND ${notRestricted('s.user_id')}`, [sellerId])).rows[0];

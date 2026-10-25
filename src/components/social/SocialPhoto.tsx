@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useMemo, useState, type ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { Icon, T, common } from "../ui";
-import { Initial } from "../GroupedList";
+import { DefaultPicture } from "../avatar/AvatarPortrait";
 import { useT } from "../../i18n";
 import { usePreferences } from "../../state/Preferences";
 import { useSessionHeaders } from "../../hooks/useRemote";
@@ -15,10 +15,10 @@ export function useSocialSource(path: string | null | undefined) {
   const headers = useSessionHeaders();
   return useMemo(() => photoSource(path, headers), [path, headers]);
 }
-/** A member's main photo thumbnail as a circle, or their initial. */
-export function Avatar({ uri, name, size = 44 }: { uri: string | null | undefined; name: string; size?: number }) {
+/** A member's main photo thumbnail as a circle, or Lian when they have none (or it fails to load). */
+export function Avatar({ uri, size = 44 }: { uri: string | null | undefined; size?: number }) {
   const source = useSocialSource(uri), [failed, setFailed] = useState<string | null>(null), { theme } = usePreferences();
-  if (!source || failed === uri) return <Initial name={name} size={size} />;
+  if (!source || failed === uri) return <DefaultPicture size={size} />;
   return <View style={{ width: size, height: size, borderRadius: size / 2, overflow: "hidden", backgroundColor: theme.muted }}>
     <Image source={source} style={StyleSheet.absoluteFill} contentFit="cover" onError={() => setFailed(uri ?? null)} accessible={false} cachePolicy="memory-disk" />
   </View>;
@@ -34,7 +34,9 @@ export function PhotoCarousel({ photos, name, height, radius = 0, children }: { 
   return <View style={{ height, borderRadius: radius, overflow: "hidden", backgroundColor: theme.muted }}>
     {source && failed !== photos[at]?.url ? <Image source={source} style={StyleSheet.absoluteFill} contentFit="cover" transition={120} onError={() => setFailed(photos[at]?.url ?? null)}
       accessible={false} cachePolicy="memory-disk" />
-      : <View style={[StyleSheet.absoluteFill, s.center]}><Icon name="person-outline" size={56} color={theme.mutedForeground} /></View>}
+      // No photos: Lian, the default picture. A photo that failed to load keeps a plain frame, so it never looks like they have none.
+      : count ? <View style={[StyleSheet.absoluteFill, s.center]}><Icon name="image-outline" size={48} color={theme.mutedForeground} /></View>
+      : <View style={[StyleSheet.absoluteFill, s.center, { backgroundColor: theme.accentSoft }]}><DefaultPicture size={Math.min(220, height * 0.55)} /></View>}
     <LinearGradient colors={theme.photoBlend} locations={[0.45, 0.78, 1]} style={StyleSheet.absoluteFill} pointerEvents="none" />
     {count > 1 && <View style={s.bars} pointerEvents="none">{photos.map((photo, i) =>
       <View key={photo.url} style={[s.bar, { backgroundColor: i === at ? theme.mediaForeground : theme.mediaDivider }]} />)}</View>}
@@ -42,7 +44,6 @@ export function PhotoCarousel({ photos, name, height, radius = 0, children }: { 
       accessibilityRole="adjustable" accessibilityLabel={t("photosOfName", { name })} accessibilityValue={{ text: t("photoOf", { n: at + 1, total: count }) }}
       accessibilityActions={[{ name: "increment" }, { name: "decrement" }]} onAccessibilityAction={event => step(event.nativeEvent.actionName === "increment" ? 1 : -1)} />}
     {!!children && <View style={s.over} pointerEvents="box-none">{children}</View>}
-    {!count && <T variant="small" color={theme.mediaForeground} style={s.none}>{t("noPhoto")}</T>}
   </View>;
 }
 /** White text for the shaded lower part of a photo. */
@@ -55,5 +56,4 @@ const s = StyleSheet.create({
   bars: { position: "absolute", top: 10, left: 10, right: 10, flexDirection: "row", gap: 4 },
   bar: { flex: 1, height: 3, borderRadius: 2 },
   over: { position: "absolute", left: 16, right: 16, bottom: 14, gap: 2 },
-  none: { position: "absolute", alignSelf: "center", top: "60%" },
 });

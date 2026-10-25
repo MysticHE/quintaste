@@ -62,7 +62,7 @@ export function ThreadRow({ thread: r }: { thread: Thread }) {
   const { theme } = usePreferences(), language = useLanguage(), t = useT("profile");
   return <Pressable accessibilityRole="button" accessibilityLabel={[r.name, r.pill?.[0], r.preview, r.context, r.unread ? t("unreadRow") : ""].filter(Boolean).join(", ")}
     onPress={() => router.push(r.href)} style={({ pressed }) => [s.row, { borderBottomColor: theme.divider, backgroundColor: pressed ? theme.accentSoft : theme.transparent }]}>
-    {r.person ? <Avatar uri={r.photo} name={r.name} size={50} /> : <ListingThumb path={r.photo} icon={r.icon} size={50} />}
+    {r.person ? <Avatar uri={r.photo} size={50} /> : <ListingThumb path={r.photo} icon={r.icon} size={50} />}
     <View style={[common.flex, { gap: 2, minWidth: 0 }]}>
       <View style={[common.row, { gap: 8 }]}><T numberOfLines={1} style={[common.flex, common.bold]}>{r.name}</T>{r.pill && <StatusPill label={r.pill[0]} tone={r.pill[1]} />}</View>
       {!!r.preview && <T variant="small" numberOfLines={1} color={r.unread ? theme.foreground : theme.mutedForeground} style={r.unread && common.bold}>{r.preview}</T>}

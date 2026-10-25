@@ -49,7 +49,7 @@ export function ChatScreen() {
   const invite = () => blocked ? setNotice({ text: blocked }) : openSocial("/invite/" + id);
   const name = p?.firstName ?? "", tp = useT("profile");
   const title = p ? <Pressable onPress={() => openSocial("/person/" + id)} accessibilityRole="button" accessibilityLabel={t("openPerson", { name })} style={[common.row, { gap: 8, flex: 1, minWidth: 0 }]}>
-    <Avatar uri={p.photos[0]?.thumb} name={name} size={36} /><View style={{ flex: 1 }}><T variant="subtitle" numberOfLines={1}>{name}</T><T variant="caption" muted>{tp("friend")}</T></View></Pressable> : null;
+    <Avatar uri={p.photos[0]?.thumb} size={36} /><View style={{ flex: 1 }}><T variant="subtitle" numberOfLines={1}>{name}</T><T variant="caption" muted>{tp("friend")}</T></View></Pressable> : null;
   return <Screen hideTimers backTo="/messages" title={title ? undefined : name} fill titleAccessory={title} headerAction={p ? <View style={[common.row, { gap: 6 }]}>
       <IconButton label={t("inviteToDinner")} icon="restaurant-outline" onPress={invite} />
       <IconButton label={t("flagLabel", { name })} icon="flag-outline" onPress={() => setFlag(true)} /></View> : undefined}>
@@ -57,7 +57,7 @@ export function ChatScreen() {
       <RemoteStatus remote={lines} icon="chatbubbles-outline" returnTo="/social/friends" missing={t("profileUnavailable")} />
       {lines.data && <ChatThread lines={lines.data.items} name={name} describe={line => describe(line, name)} onSend={send} empty={t("chatEmpty", { name })}
         placeholder={tp("messagePerson", { name })} top={<DinnerBar friendId={id} />} />}
-      {p && <FlagSheet person={p} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
+      {p && <FlagSheet person={p} hasPhoto={!!p.photos.length} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
     </MemberGate>
   </Screen>;
 }

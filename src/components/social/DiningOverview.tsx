@@ -21,7 +21,7 @@ export function DinnerSummary({ dinner: d, compact = false }: { dinner: Dinner; 
     onPress={() => router.push({ pathname: "/social/dinner/[id]", params: { id: d.id } })} style={({ pressed }) => ({ backgroundColor: pressed ? theme.accentSoft : theme.card, borderColor: theme.border, borderWidth: 1, borderRadius: 14, padding: compact ? 12 : 16, gap: 12 })}>
     <View style={[common.row, { gap: 12, alignItems: "flex-start" }]}>
       {!compact && tile && <DateTile day={tile.day} month={tile.month} />}
-      <View style={[common.flex, { gap: 6 }]}><View style={[common.row, { gap: 8, flexWrap: "wrap" }]}><Avatar uri={d.photo} name={d.withName} size={30} /><T style={[common.bold, common.flex]}>{t("dinnerWith", { name: d.withName })}</T></View>
+      <View style={[common.flex, { gap: 6 }]}><View style={[common.row, { gap: 8, flexWrap: "wrap" }]}><Avatar uri={d.photo} size={30} /><T style={[common.bold, common.flex]}>{t("dinnerWith", { name: d.withName })}</T></View>
         <StatusPill label={status} tone={tone} /><T variant="small">{formatSgShort(d.starts, language)}</T>
         <View style={[common.row, { gap: 5 }]}><Icon name="location-outline" size={16} /><T variant="small" style={common.flex}>{d.placeName}</T></View>
         <T variant="small" muted>{pay}</T>

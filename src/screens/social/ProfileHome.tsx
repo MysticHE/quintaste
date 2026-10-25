@@ -42,7 +42,7 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
   const dinners = inbox?.dinners ?? 0, orders = inbox?.orders ?? 0;
   return <Screen back={false} hideTimers header={<TopRow name={name} data={data} />}>
     <MemberGate returnTo="/social">
-      <ProfileSummary data={data} name={name} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} />
+      <ProfileSummary data={data} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} />
       <View testID="social-profile-tabs"><IconTabs label={t("profile")} value={tab} onChange={select} tabs={[
         { id: "posts", label: t("posts"), icon: "grid-outline", activeIcon: "grid" },
         { id: "saved", label: t("saved"), icon: "bookmark-outline", activeIcon: "bookmark" },

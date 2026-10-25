@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { Chip, Chips } from "../food/Controls";
 import { FilterSection } from "../BrowseControls";
-import { T, common } from "../ui";
-import { ThemedSwitch } from "../GroupedList";
+import { T } from "../ui";
+import { SwitchRow } from "../GroupedList";
 import { DateField } from "../DateField";
 import { AreaField } from "../market/AreaField";
 import { MarketFilters } from "../market/MarketFilters";
@@ -65,7 +65,7 @@ export function EventSearchFilters({ value, change }: { value: EventFilters; cha
     <FilterSection prominent title={t("price")} icon="pricetag-outline"><Chips label={t("price")}>
       {(["any", "free", "paid"] as const).map(price => <Chip key={price} label={t(price === "any" ? "anyPrice" : price)} role="radio" selected={value.price === price} onPress={() => change({ price })} />)}
     </Chips></FilterSection>
-    <SwitchRow label={t("savedEvents")} value={value.savedOnly} change={savedOnly => change({ savedOnly })} />
+    <SwitchRow bold label={t("savedEvents")} value={value.savedOnly} onChange={savedOnly => change({ savedOnly })} />
   </View>;
 }
 export function MarketSearchFilters({ value, change }: { value: ShopFilter; change: (patch: Partial<ShopFilter>) => void }) {
@@ -86,11 +86,8 @@ export function MarketSearchFilters({ value, change }: { value: ShopFilter; chan
       {(["any", "under10", "10to20", "over20"] as const).map(price => <Chip key={price} label={t(({ any: "anyPrice", under10: "underTen", "10to20": "tenToTwenty", over20: "overTwenty" } as const)[price])}
         role="radio" selected={(value.price ?? "any") === price} onPress={() => change({ price })} />)}
     </Chips></FilterSection>
-    <SwitchRow label={t("available")} value={value.available} change={available => change({ available })} />
+    <SwitchRow bold label={t("available")} value={value.available} onChange={available => change({ available })} />
     <Chip label={t("moreFilters")} icon="options-outline" onPress={() => setMore(true)} />
     {more && <MarketFilters value={value} onApply={change} onClose={() => setMore(false)} />}
   </View>;
-}
-export function SwitchRow({ label, value, change }: { label: string; value: boolean; change: (next: boolean) => void }) {
-  return <View style={[common.spread, { minHeight: 48 }]}><T style={[common.flex, common.bold]}>{label}</T><ThemedSwitch label={label} value={value} onChange={change} /></View>;
 }

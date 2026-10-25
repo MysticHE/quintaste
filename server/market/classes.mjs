@@ -50,6 +50,12 @@ export async function classLine(db, classId, memberId, { kind = 'event', body, s
   return chat;
 }
 
+/** A teacher's classes the viewer can open, latest first (the posts on their Social profile). */
+export async function classesBy(hostId, viewer) {
+  return (await pool.query(`SELECT c.id, c.title, ${sgText('c.starts')} AS starts FROM social.class c WHERE c.host_id=$1 AND ${listedSql('$2::text')}
+    ORDER BY c.starts DESC LIMIT 30`, [hostId, viewer])).rows;
+}
+
 classes.get('/classes', async (_req, res) => {
   const rows = (await pool.query(`SELECT ${classView('$1::text')} FROM social.class c WHERE ${listedSql('$1::text')} AND c.starts > now() ORDER BY c.starts LIMIT 100`,
     [res.locals.user?.id ?? null])).rows;

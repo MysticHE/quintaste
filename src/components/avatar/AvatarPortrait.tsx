@@ -61,9 +61,19 @@ export function AvatarPortrait({ avatar, size = 280, animate = false, speaking =
     </Animated.View>
   </View>;
 }
-/** Lian, the QuinTaste mascot: every member's picture until they choose their own. Small pictures show her head and shoulders. */
-function Lian({ size }: { size: number }) {
-  if (size > 120) return <Image source={GAME_ART["avatar-lian"]} resizeMode="contain" accessible={false} style={[StyleSheet.absoluteFill, { width: size, height: size }]} />;
+/** Lian in a round frame: the picture of any member who has not added a photo (lists, profiles, chats). */
+export function DefaultPicture({ size }: { size: number }) {
+  const { theme } = usePreferences();
+  return <View accessible={false} style={{ width: size, height: size, borderRadius: size / 2, overflow: "hidden", backgroundColor: theme.accentSoft }}>
+    <Lian size={size} bust />
+  </View>;
+}
+/**
+ * Lian, the QuinTaste mascot: every member's picture until they choose their own. Small pictures, and round frames at any size
+ * (`bust`), show her head and shoulders so the circle never cuts her off.
+ */
+function Lian({ size, bust = false }: { size: number; bust?: boolean }) {
+  if (size > 120 && !bust) return <Image source={GAME_ART["avatar-lian"]} resizeMode="contain" accessible={false} style={[StyleSheet.absoluteFill, { width: size, height: size }]} />;
   const [w, h] = GAME_ART_SIZE["avatar-lian"], height = size / 0.72, width = height * w / h;
   return <Image source={GAME_ART["avatar-lian"]} resizeMode="contain" accessible={false} style={{ position: "absolute", width, height, top: -0.02 * height, left: (size - width) / 2 }} />;
 }

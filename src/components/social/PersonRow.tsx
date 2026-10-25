@@ -14,7 +14,7 @@ export function PersonRow({ id, name, photo, verified, line, spoken, trailing }:
   return <View style={[common.row, { gap: 12, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: theme.divider }]}>
     <Pressable accessibilityRole="button" accessibilityLabel={[name, verified ? t("verifiedTick") : "", spoken ?? ""].filter(Boolean).join(", ")}
       onPress={() => openSocial("/person/" + id)} style={[common.row, common.flex, { gap: 12, minHeight: 48 }]}>
-      <Avatar uri={photo} name={name} size={46} />
+      <Avatar uri={photo} size={46} />
       <View style={[common.flex, { minWidth: 0 }]}><View style={[common.row, { gap: 4 }]}><T style={common.bold} numberOfLines={1}>{name}</T>
         {verified && <Icon name="checkmark-circle" size={15} color={theme.success} />}</View>{line}</View>
     </Pressable>

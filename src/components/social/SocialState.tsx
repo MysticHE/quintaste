@@ -49,7 +49,7 @@ export function standingLabel(s: Standing): readonly [keyof typeof socialMessage
 /** Your profile as one row: main photo, name and how others find you; opens My Profile, or the photo check when that is the next step. */
 export function StandingRow({ data }: { data: SocialMe }) {
   const t = useT("social"), [key, tone] = standingLabel(data.standing), name = data.profile.firstName || t("yourProfile");
-  return <ListGroup><ListItem title={name} leading={<Avatar uri={data.photos[0]?.thumb} name={name} size={44} />}
+  return <ListGroup><ListItem title={name} leading={<Avatar uri={data.photos[0]?.thumb} size={44} />}
     trailing={<StatusPill label={t(key)} tone={tone} />} label={name + ", " + t(key)}
     onPress={() => openSocial(data.standing.step === "verify" ? "/verify" : "/profile")} /></ListGroup>;
 }

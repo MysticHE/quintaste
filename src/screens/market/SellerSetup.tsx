@@ -1,9 +1,8 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { View } from "react-native";
 import { Screen } from "../../components/Screen";
-import { Button, Field, T, common } from "../../components/ui";
-import { FormSection, ThemedSwitch } from "../../components/GroupedList";
+import { Button, Field, T } from "../../components/ui";
+import { FormSection, SwitchRow } from "../../components/GroupedList";
 import { CheckRow } from "../../components/recipes/CheckRow";
 import { AreaField } from "../../components/market/AreaField";
 import { MemberPrompt, RemoteStatus, useMember } from "../../components/CommunityGate";
@@ -24,9 +23,6 @@ export default function SellerSetupScreen() {
   </Screen>;
 }
 const empty: SellerInput = { tradingName: "", about: "", area: "", meetup: true, delivery: false, deliveryFeeCents: 0, deliveryMinCents: 0, deliveryAreas: "", payCash: true, payPaynow: false };
-function Toggle({ label, value, onChange, disabled }: { label: string; value: boolean; onChange: (value: boolean) => void; disabled: boolean }) {
-  return <View style={[common.spread, { minHeight: 48 }]}><T>{label}</T><ThemedSwitch label={label} value={value} onChange={onChange} disabled={disabled} /></View>;
-}
 /** Shop details, collection and payment. Opening needs the declarations this app shows; there is no staff review. */
 function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) {
   const { theme, setNotice } = usePreferences(), t = useT("market"), existing = state.seller, open = existing?.status === "active" && existing.declarationsVersion === declarationsVersion;
@@ -56,15 +52,15 @@ function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) 
       <Field label={t("aboutOptional")} value={form.about} onChangeText={about => set({ about })} maxLength={300} multiline editable={!busy} />
     </FormSection>
     <FormSection title={t("collection")}>
-      <Toggle label={t("meetupCollection")} value={form.meetup} onChange={meetup => set({ meetup })} disabled={busy} />
-      <Toggle label={t("deliveryAtDoor")} value={form.delivery} onChange={delivery => set({ delivery })} disabled={busy} />
+      <SwitchRow label={t("meetupCollection")} value={form.meetup} onChange={meetup => set({ meetup })} disabled={busy} />
+      <SwitchRow label={t("deliveryAtDoor")} value={form.delivery} onChange={delivery => set({ delivery })} disabled={busy} />
       {form.delivery && <><Field label={t("deliveryFee")} value={fee} onChangeText={setFee} error={feeInvalid ? t("feeHint") : undefined} keyboardType="decimal-pad" maxLength={6} editable={!busy} />
         <Field label={t("deliveryMinimum")} placeholder={t("noMinimum")} value={minimum} onChangeText={setMinimum} error={minimumInvalid ? t("minimumHint") : undefined} keyboardType="decimal-pad" maxLength={7} editable={!busy} />
         <Field label={t("deliveryAreas")} placeholder={t("deliveryAreasPlaceholder")} value={form.deliveryAreas} onChangeText={deliveryAreas => set({ deliveryAreas })} maxLength={160} editable={!busy} /></>}
     </FormSection>
     <FormSection title={t("paymentAtCollection")}>
-      <Toggle label={t("payCash")} value={form.payCash} onChange={payCash => set({ payCash })} disabled={busy} />
-      <Toggle label={t("paynowInPerson")} value={form.payPaynow} onChange={payPaynow => set({ payPaynow })} disabled={busy} />
+      <SwitchRow label={t("payCash")} value={form.payCash} onChange={payCash => set({ payCash })} disabled={busy} />
+      <SwitchRow label={t("paynowInPerson")} value={form.payPaynow} onChange={payPaynow => set({ payPaynow })} disabled={busy} />
     </FormSection>
     {!open && <FormSection title={t("declarationsTitle")}>{declarationKeys.map((key, i) => <CheckRow key={key} label={t(key)} size="small" checked={agreed.includes(i)} disabled={busy}
       onPress={() => setAgreed(current => current.includes(i) ? current.filter(x => x !== i) : [...current, i])} />)}</FormSection>}
