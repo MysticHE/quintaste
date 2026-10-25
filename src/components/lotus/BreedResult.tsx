@@ -4,7 +4,7 @@
  * only sets the account's avatar. Up to two free tries with a new selfie, and Report stays available.
  */
 import { useRef, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, View, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollViewInstance } from "react-native";
 import { Pill } from "../../screens/game/home/Controls";
 import type { Tier } from "../../game/content/cosmetics";
 import { useLotusForms } from "../../hooks/useLotusForms";
@@ -24,7 +24,7 @@ export function BreedResult({ breed, tier, reveal, onAgain }: { breed: LotusBree
   const { theme, reducedMotion, setNotice } = usePreferences(), { doc, avatarLibrary } = useFood();
   const forms = useLotusForms(breed.adultId, breed.miniId), [page, setPage] = useState(0), [width, setWidth] = useState(0);
   const [choosing, setChoosing] = useState(""), [error, setError] = useState("");
-  const pager = useRef<ScrollView>(null), t = useT("game"), tc = useT("common");
+  const pager = useRef<ScrollViewInstance>(null), t = useT("game"), tc = useT("common");
   const formTabs = FORMS.map(f => ({ id: f.key, label: t(f.name) }));
   const show = (index: number) => { setPage(index); pager.current?.scrollTo({ x: index * width, animated: !reducedMotion }); };
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => { if (width) setPage(Math.round(event.nativeEvent.contentOffset.x / width)); };

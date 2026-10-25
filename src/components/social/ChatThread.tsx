@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, type ScrollViewInstance } from "react-native";
 import { Icon, T, common } from "../ui";
 import { ChatBubble, ChatComposer } from "../Chat";
 import { usePreferences } from "../../state/Preferences";
@@ -37,7 +37,7 @@ function SystemLine({ text, at }: { text: string; at: string }) {
 export function ChatThread({ lines, describe, name, onSend, empty, top, disabled = false, placeholder }: {
   lines: Line[]; describe: (line: Line) => string; name: string; onSend: (text: string) => Promise<boolean>; empty: string; top?: ReactNode; disabled?: boolean; placeholder?: string;
 }) {
-  const scroll = useRef<ScrollView>(null), t = useT("social"), language = useLanguage();
+  const scroll = useRef<ScrollViewInstance>(null), t = useT("social"), language = useLanguage();
   return <View style={[common.flex, { gap: 8, minHeight: 0 }]}>
     {top && <ScrollView style={{ maxHeight: "45%", flexGrow: 0 }} contentContainerStyle={{ paddingBottom: 6 }}>{top}</ScrollView>}
     <ScrollView ref={scroll} style={common.flex} contentContainerStyle={{ gap: 8, paddingVertical: 4 }} keyboardShouldPersistTaps="handled"

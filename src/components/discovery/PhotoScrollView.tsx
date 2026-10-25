@@ -1,12 +1,12 @@
 import { createContext, useContext, useLayoutEffect, useRef, useState, useCallback, type Ref } from "react";
-import { Dimensions, ScrollView, View, type ScrollViewProps } from "react-native";
+import { Dimensions, ScrollView, View, type ScrollViewProps, type ViewInstance, type ScrollViewInstance } from "react-native";
 
 type Item = { top: number; height: number; show: (visible: boolean) => void; continuous?: boolean; refresh: () => void };
 type Viewport = ReturnType<typeof createViewport>;
 const Context = createContext<Viewport | null>(null);
 
 function createViewport() {
-  let content: View | null = null;
+  let content: ViewInstance | null = null;
   const items = new Map<symbol, Item>(), pending = new Map<symbol, () => void>();
   let offset = 0, height = 0;
   const check = () => {
@@ -21,7 +21,7 @@ function createViewport() {
   return {
     getContent: () => content,
     // Children lay out before the content container's ref attaches; their first measurements wait for it here.
-    setContent: (node: View | null) => {
+    setContent: (node: ViewInstance | null) => {
       content = node;
       if (node) { const waiting = [...pending.values()]; pending.clear(); waiting.forEach(run => run()); }
     },
@@ -36,7 +36,7 @@ function createViewport() {
 }
 
 export function PhotoScrollView({ children, scrollRef, contentContainerStyle, onScroll, onLayout, onContentSizeChange, ...props }: ScrollViewProps & {
-  scrollRef?: Ref<ScrollView>;
+  scrollRef?: Ref<ScrollViewInstance>;
 }) {
   const [viewport] = useState(createViewport);
   return <Context.Provider value={viewport}>
@@ -52,7 +52,7 @@ export function PhotoScrollView({ children, scrollRef, contentContainerStyle, on
 }
 
 export function usePhotoVisibility(continuous = false) {
-  const viewport = useContext(Context), ref = useRef<View>(null), id = useRef(Symbol("photo"));
+  const viewport = useContext(Context), ref = useRef<ViewInstance>(null), id = useRef(Symbol("photo"));
   const alive = useRef(true), [seen, setSeen] = useState(!viewport), latest = useRef<() => void>(() => {});
   const measure = useCallback(() => {
     const parent = viewport?.getContent();
@@ -69,6 +69,6 @@ export function usePhotoVisibility(continuous = false) {
     const key = id.current;
     return () => { alive.current = false; viewport?.remove(key); };
   }, [viewport, measure]);
-  const attach = useCallback((node: View | null) => { ref.current = node; }, []);
+  const attach = useCallback((node: ViewInstance | null) => { ref.current = node; }, []);
   return { attach, onLayout: measure, visible: seen };
 }

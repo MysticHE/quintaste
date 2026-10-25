@@ -2,15 +2,15 @@ import { BlurTargetView } from "expo-blur";
 import { useIsFocused } from "expo-router";
 import Animated from "react-native-reanimated";
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ComponentProps, type PropsWithChildren, type RefObject } from "react";
-import { AccessibilityInfo, Platform, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
+import { AccessibilityInfo, Platform, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent, type ViewInstance } from "react-native";
 import { useAnimatedStyle, useSharedValue, withTiming, type SharedValue } from "react-native-reanimated";
 import { usePreferences } from "../../state/Preferences";
 
 type GlassState = {
-  target: RefObject<View | null> | undefined;
+  target: RefObject<ViewInstance | null> | undefined;
   height: number;
   setHeight: (height: number) => void;
-  register: (target: RefObject<View | null>) => () => void;
+  register: (target: RefObject<ViewInstance | null>) => () => void;
   reduceTransparency: boolean;
   /** 0 = dock shown, 1 = slid below the screen. */
   slide: SharedValue<number>;
@@ -20,7 +20,7 @@ const Context = createContext<GlassState | null>(null);
 const SCROLL_STEP = 24;
 
 export function GlassNavigationProvider({ children }: PropsWithChildren) {
-  const [target, setTarget] = useState<RefObject<View | null>>(), [height, setHeight] = useState(0);
+  const [target, setTarget] = useState<RefObject<ViewInstance | null>>(), [height, setHeight] = useState(0);
   const [reduceTransparency, setReduceTransparency] = useState(false);
   const { reducedMotion } = usePreferences(), slide = useSharedValue(0);
   const hidden = useRef(false), motion = useRef({ reduced: reducedMotion, screenReader: false });
@@ -31,7 +31,7 @@ export function GlassNavigationProvider({ children }: PropsWithChildren) {
     hidden.current = next;
     slide.set(withTiming(next ? 1 : 0, { duration: motion.current.reduced ? 0 : 220 }));
   }, [slide]);
-  const register = useCallback((next: RefObject<View | null>) => {
+  const register = useCallback((next: RefObject<ViewInstance | null>) => {
     setTarget(next);
     return () => setTarget(current => current === next ? undefined : current);
   }, []);
@@ -56,7 +56,7 @@ export function GlassNavigationProvider({ children }: PropsWithChildren) {
 }
 
 export function TabBackdrop({ children }: PropsWithChildren) {
-  const state = useContext(Context), focused = useIsFocused(), target = useRef<View | null>(null);
+  const state = useContext(Context), focused = useIsFocused(), target = useRef<ViewInstance | null>(null);
   const register = state?.register;
   useEffect(() => { if (focused && register) return register(target); }, [focused, register]);
   return <BlurTargetView ref={target} style={{ flex: 1 }}>{children}</BlurTargetView>;

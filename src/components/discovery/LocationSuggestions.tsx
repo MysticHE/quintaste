@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Platform, Pressable, ScrollView, StyleSheet, View, type ScrollViewInstance } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import type { LocationSuggestion } from "../../types/location-search";
 import { SuggestionList } from "./SuggestionList";
@@ -10,7 +10,7 @@ type Props = { id: string; suggestions: LocationSuggestion[]; busy: boolean; err
   choose: (item: LocationSuggestion) => void; keepOpen: () => void; retry: () => void; inFlow?: boolean };
 export function LocationSuggestions({ id, suggestions, busy, error, index, choose, keepOpen, retry, inFlow = false }: Props) {
   const { theme } = usePreferences(), [hover, setHover] = useState(-1), t = useT("explore"), tc = useT("common");
-  const scroll = useRef<ScrollView>(null), rows = useRef(new Map<string, number>());
+  const scroll = useRef<ScrollViewInstance>(null), rows = useRef(new Map<string, number>());
   useEffect(() => {
     const selected = suggestions[index], y = selected ? rows.current.get(selected.id) : undefined;
     if (y !== undefined) scroll.current?.scrollTo({ y, animated: false });

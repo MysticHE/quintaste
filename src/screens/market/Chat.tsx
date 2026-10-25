@@ -1,7 +1,7 @@
 import { ChatContext } from "../../components/social/ChatContext";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, type ScrollViewInstance } from "react-native";
 import { Screen } from "../../components/Screen";
 import { IconButton } from "../../components/food/Controls";
 import { Button, T, common } from "../../components/ui";
@@ -31,7 +31,7 @@ export default function MarketChatScreen() {
 }
 /** Open orders on top, then messages and order updates, then the composer. */
 function Thread({ c, refresh }: { c: Conversation; refresh: () => void }) {
-  const { setNotice } = usePreferences(), scroll = useRef<ScrollView>(null), t = useT("market"), tp = useT("profile"), language = useLanguage();
+  const { setNotice } = usePreferences(), scroll = useRef<ScrollViewInstance>(null), t = useT("market"), tp = useT("profile"), language = useLanguage();
   const starters = [t("starterNuts"), t("starterSweet"), t("starterPickup"), t("starterAllium")];
   const [menu, setMenu] = useState(false), [report, setReport] = useState(false);
   const last = c.messages[c.messages.length - 1]?.id;

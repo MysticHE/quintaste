@@ -93,6 +93,22 @@
         ".local/admin-dev/start.mjs"
       ],
       "port": 3100
+    },
+    {
+      "name": "expo-go",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "expo",
+        "start",
+        "--go",
+        "--lan",
+        "--port",
+        "8083"
+      ],
+      "env": {
+        "CI": "1"
+      },
+      "port": 8083
     }
   ]
 }

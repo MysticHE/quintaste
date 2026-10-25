@@ -7,13 +7,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   View,
   useWindowDimensions,
   type StyleProp,
-  type ViewStyle,
-} from "react-native";
+  type ViewStyle, type ScrollViewInstance } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { usePreferences } from "../state/Preferences";
 import { TimerDock, FoodStorageBanner } from "./food/Timers";
@@ -46,7 +44,7 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
   const glass = useGlassNavigation(), { width } = useWindowDimensions(), nativeFrame = Platform.OS !== "web" || width < 600;
   const [feedbackHeight, setFeedbackHeight] = useState(0), bottomSpace = hasTabDock ? (glass?.height ?? 0) + feedbackHeight : 0;
   const dockScroll = useDockScroll(hasTabDock), Pinned = hasTabDock ? DockFollow : View;
-  const scroll = useRef<ScrollView>(null), scrollAction = useRef({ scrollToTop: () => {} });
+  const scroll = useRef<ScrollViewInstance>(null), scrollAction = useRef({ scrollToTop: () => {} });
   useEffect(() => {
     scrollAction.current.scrollToTop = () => scroll.current?.scrollTo({ y: 0, animated: !reducedMotion });
   }, [reducedMotion]);

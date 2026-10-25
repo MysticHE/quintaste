@@ -1,6 +1,6 @@
 import { Redirect, router, useIsFocused } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
-import { Alert, BackHandler, InteractionManager, Platform, StyleSheet, View, type LayoutChangeEvent } from "react-native";
+import { Alert, BackHandler, Platform, StyleSheet, View, type LayoutChangeEvent } from "react-native";
 import Animated, { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DestinationScreen } from "../../components/navigation/DestinationScreen";
@@ -32,6 +32,9 @@ import { PlaySettingsSheet } from "./home/PlaySettingsSheet";
 import { FindReveal, type Find } from "./home/FindReveal";
 import { Art, LOTUS_TIER_KEYS, type GameT } from "./home/bits";
 import { useT } from "../../i18n";
+
+/** Runs after the current frame and its closing animation start, as InteractionManager.runAfterInteractions did. */
+const afterInteractions = (run: () => void) => requestAnimationFrame(() => setTimeout(run, 0));
 
 /** Stored in `seen` once the chalkboard menu has been opened, so its steady "something new" sparkle stops. */
 const MENU_SEEN = "hot:menu";
@@ -95,11 +98,11 @@ function CafeHome() {
   };
   // Navigate once the sheet's Modal has gone: on iOS a push during a Modal dismissal can be dropped.
   const playMission = (pack: string, tier: string) => { setSheet(null);
-    InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { pack, tier, run: String(Date.now()) } })); };
+    afterInteractions(() => router.push({ pathname: "/game/play", params: { pack, tier, run: String(Date.now()) } })); };
   const playSeason = (season: string, n: number) => { setSheet(null);
-    InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { season, n: String(n), run: String(Date.now()) } })); };
+    afterInteractions(() => router.push({ pathname: "/game/play", params: { season, n: String(n), run: String(Date.now()) } })); };
   const play = (level: number, special?: string) => { setSheet(null);
-    InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { level: String(level), run: String(Date.now()), ...(special ? { special } : {}) } })); };
+    afterInteractions(() => router.push({ pathname: "/game/play", params: { level: String(level), run: String(Date.now()), ...(special ? { special } : {}) } })); };
   // Android Back leaves decorate mode, asking first when there are unsaved changes.
   useEffect(() => {
     if (!deco) return;
@@ -162,7 +165,7 @@ function HomeSheets({ sheet, setSheet, game, set, buy, play, playMission, playSe
   if (sheet === "settings") return <PlaySettingsSheet settings={game.settings} onChange={next => set(g => ({ ...g, settings: next }))} onClose={close} />;
   if (sheet === "avatar") return <AvatarSheet onClose={close} onCompanion={() => setSheet("companion")} />;
   if (sheet === "lotus") return <LotusSheet tier={game.tier} member={member} onClose={close} />;
-  if (sheet === "window") return <OutAndAboutSheet onClose={close} onVisit={host => { close(); InteractionManager.runAfterInteractions(() => router.push({ pathname: "/game/play", params: { cafe: host, run: String(Date.now()) } })); }} />;
+  if (sheet === "window") return <OutAndAboutSheet onClose={close} onVisit={host => { close(); afterInteractions(() => router.push({ pathname: "/game/play", params: { cafe: host, run: String(Date.now()) } })); }} />;
   return null;
 }
 

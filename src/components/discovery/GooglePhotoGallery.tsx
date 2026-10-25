@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Platform, Pressable, ScrollView, StyleSheet, View, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, View, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollViewInstance } from "react-native";
 import type { LivePhoto } from "../../types/discovery";
 import { usePreferences } from "../../state/Preferences";
 import { T } from "../ui";
@@ -9,7 +9,7 @@ import { useT } from "../../i18n";
 
 export function GooglePhotoGallery({ photos, name, expiresAt }: { photos: LivePhoto[]; name: string; expiresAt: number }) {
   const { theme, reducedMotion } = usePreferences(), t = useT("explore");
-  const scroll = useRef<ScrollView>(null), current = useRef(0);
+  const scroll = useRef<ScrollViewInstance>(null), current = useRef(0);
   const [width, setWidth] = useState(0), [index, setIndex] = useState(0), [viewing, setViewing] = useState(false);
   const [visited, setVisited] = useState(() => new Set([0]));
   const visit = (values: number[]) => setVisited(previous => {
@@ -30,7 +30,8 @@ export function GooglePhotoGallery({ photos, name, expiresAt }: { photos: LivePh
   useEffect(() => { if (width) scroll.current?.scrollTo({ x: current.current * width, animated: false }); }, [width]);
   const photo = photos[index] ?? photos[0];
   if (!photo) return null;
-  const keyboard = Platform.OS === "web" ? { tabIndex: 0 as const, "aria-valuemin": 1, "aria-valuemax": photos.length, "aria-valuenow": index + 1, "aria-valuetext": t("photoPosition", { n: index + 1, total: photos.length }), onKeyDown: (event: { key: string; preventDefault: () => void }) => {
+  // Web-only DOM props; typed `object` so React Native 0.88's own onKeyDown type does not apply.
+  const keyboard: object = Platform.OS === "web" ? { tabIndex: 0, "aria-valuemin": 1, "aria-valuemax": photos.length, "aria-valuenow": index + 1, "aria-valuetext": t("photoPosition", { n: index + 1, total: photos.length }), onKeyDown: (event: { key: string; preventDefault: () => void }) => {
     if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); move(event.key === "ArrowRight" ? 1 : -1); }
   } } : {};
   return <View style={s.gallery} testID="place-photo-gallery" onLayout={event => setWidth(event.nativeEvent.layout.width)}>

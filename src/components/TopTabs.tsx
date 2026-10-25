@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, View, type ViewInstance, type ScrollViewInstance } from "react-native";
 import { T, common } from "./ui";
 import { useOnAccent } from "./BrowseControls";
 import { usePreferences } from "../state/Preferences";
@@ -14,7 +14,7 @@ export type TopTab<V extends string> = { id: V; label: string; accessibleLabel?:
 export function TopTabs<V extends string>({ tabs, value, onChange, label }: {
   tabs: readonly TopTab<V>[]; value: V; onChange: (id: V) => void; label: string;
 }) {
-  const scroll = useRef<ScrollView>(null), offsets = useRef<Partial<Record<V, number>>>({}), items = useRef<(View | null)[]>([]);
+  const scroll = useRef<ScrollViewInstance>(null), offsets = useRef<Partial<Record<V, number>>>({}), items = useRef<(ViewInstance | null)[]>([]);
   // Large text can overflow the row; keep the selected tab in view when it changes and when it is first laid out.
   const reveal = (x: number | undefined) => { if (x !== undefined) scroll.current?.scrollTo({ x: Math.max(0, x - 24), animated: false }); };
   useEffect(() => { reveal(offsets.current[value]); }, [value]);
@@ -44,10 +44,11 @@ export function TopBar({ children, actions, testID }: { children: ReactNode; act
 
 function TabButton<V extends string>({ tab, selected, onPress, onLayout, controlRef, onKeyDown }: {
   tab: TopTab<V>; selected: boolean; onPress: () => void; onLayout: (x: number) => void;
-  controlRef: (node: View | null) => void; onKeyDown: (event: KeyboardEvent) => void;
+  controlRef: (node: ViewInstance | null) => void; onKeyDown: (event: KeyboardEvent) => void;
 }) {
   const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus();
-  const keyboardProps = Platform.OS === "web" ? { tabIndex: selected ? 0 as const : -1 as const, onKeyDown } : {};
+  // Web-only DOM props; typed `object` so React Native 0.88's own onKeyDown type does not apply.
+  const keyboardProps: object = Platform.OS === "web" ? { tabIndex: selected ? 0 : -1, onKeyDown } : {};
   return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="tab" accessibilityLabel={tab.accessibleLabel ?? tab.label} accessibilityState={{ selected }} aria-selected={selected}
     onPress={onPress} onLayout={event => onLayout(event.nativeEvent.layout.x)} {...focusProps}
     style={({ pressed }) => [s.tab, { borderColor: focused ? theme.accent : theme.transparent, backgroundColor: pressed ? theme.accentSoft : theme.transparent },

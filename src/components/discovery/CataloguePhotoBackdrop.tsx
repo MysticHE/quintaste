@@ -1,4 +1,4 @@
-import { Image } from "expo-image";
+import { Image, type ImageProps } from "expo-image";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, type ImageSourcePropType } from "react-native";
 import { usePreferences } from "../../state/Preferences";
@@ -32,7 +32,8 @@ export function CataloguePhotoBackdrop({ path, source, fallback, emptyIcon, enab
   const start = panelHeight > 0 ? Math.max(0, height - panelHeight + 8 - 32) : height;
   const fail = () => setState({ failed: true });
   // A bundled photo is used unless it failed to load; a failed or missing photo shows the fallback name when there is one.
-  const image = state.failed ? undefined : source ?? (state.uri ? { uri: state.uri } : undefined);
+  // Bundled photos are require() numbers; React Native types them with readonly arrays that expo-image 58 does not take.
+  const image = (state.failed ? undefined : source ?? (state.uri ? { uri: state.uri } : undefined)) as ImageProps["source"];
   return <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden
     onLayout={event => setHeight(event.nativeEvent.layout.height)}
     style={[StyleSheet.absoluteFill, { backgroundColor: theme.mediaSurface }]}>

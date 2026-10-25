@@ -1,5 +1,5 @@
 import { useId, useRef, useState, type ReactNode } from "react";
-import { Keyboard, Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { Keyboard, Platform, Pressable, StyleSheet, TextInput, View, type TextInputInstance } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { fontNames } from "../../theme/tokens";
 import type { LocationSuggestion } from "../../types/location-search";
@@ -15,7 +15,7 @@ export function LocationSearchField({ value, onChange, onChoose, onSearch, addre
   addressesOnly?: boolean; placeholder?: string; disabled?: boolean; suggestionsInFlow?: boolean; trailing?: ReactNode;
 }) {
   const { theme, textMultiplier } = usePreferences(), [focused, setFocused] = useState(false), t = useT("explore");
-  const input = useRef<TextInput>(null), id = "location-" + useId();
+  const input = useRef<TextInputInstance>(null), id = "location-" + useId();
   const dismiss = () => { input.current?.blur(); Keyboard.dismiss(); };
   const choose = (item: LocationSuggestion) => { if (!disabled) { onChoose(item); dismiss(); } };
   const control = useLocationSearchControl(value, choose, onSearch ? query => { onSearch(query); dismiss(); } : undefined, addressesOnly);

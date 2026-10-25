@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { Platform, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { Platform, Pressable, StyleSheet, TextInput, View, type TextInputInstance } from "react-native";
 import { Chip, HorizontalChips, IconButton } from "./food/Controls";
 import { Icon, T, common } from "./ui";
 import { usePreferences } from "../state/Preferences";
@@ -23,7 +23,7 @@ export function ChatComposer({ onSend, starters = [], sendLabel, disabled = fals
 }) {
   const { theme, textMultiplier } = usePreferences(), t = useT("common");
   const [text, setText] = useState(""), [open, setOpen] = useState(false), [focused, setFocused] = useState(false), [busy, setBusy] = useState(false);
-  const input = useRef<TextInput>(null), [inputHeight, setInputHeight] = useState(48);
+  const input = useRef<TextInputInstance>(null), [inputHeight, setInputHeight] = useState(48);
   const measureWeb = useCallback(() => {
     if (Platform.OS !== "web") return;
     const node = input.current as unknown as HTMLTextAreaElement | null;

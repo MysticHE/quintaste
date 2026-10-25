@@ -1,5 +1,5 @@
 import { useRef, type KeyboardEvent } from "react";
-import { Platform, Pressable, StyleSheet, View } from "react-native";
+import { Platform, Pressable, StyleSheet, View, type ViewInstance } from "react-native";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 import { usePreferences } from "../state/Preferences";
 import { T, common } from "./ui";
@@ -9,7 +9,7 @@ export type SegmentOption<V extends string> = { id: V; label: string };
 export function SegmentedTabs<V extends string>({ options, value, onChange, label }: {
   options: readonly SegmentOption<V>[]; value: V; onChange: (value: V) => void; label: string;
 }) {
-  const { theme } = usePreferences(), items = useRef<(View | null)[]>([]);
+  const { theme } = usePreferences(), items = useRef<(ViewInstance | null)[]>([]);
   const keyDown = (event: KeyboardEvent, index: number) => {
     const count = options.length;
     const next = event.key === "ArrowRight" ? (index + 1) % count : event.key === "ArrowLeft" ? (index + count - 1) % count
@@ -23,10 +23,11 @@ export function SegmentedTabs<V extends string>({ options, value, onChange, labe
   </View>;
 }
 function Segment({ label, selected, onPress, controlRef, onKeyDown }: {
-  label: string; selected: boolean; onPress: () => void; controlRef: (node: View | null) => void; onKeyDown: (event: KeyboardEvent) => void;
+  label: string; selected: boolean; onPress: () => void; controlRef: (node: ViewInstance | null) => void; onKeyDown: (event: KeyboardEvent) => void;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
-  const keyboardProps = Platform.OS === "web" ? { tabIndex: selected ? 0 as const : -1 as const, onKeyDown } : {};
+  // Web-only DOM props; typed `object` so React Native 0.88's own onKeyDown type does not apply.
+  const keyboardProps: object = Platform.OS === "web" ? { tabIndex: selected ? 0 : -1, onKeyDown } : {};
   return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="radio" accessibilityLabel={label} accessibilityState={{ checked: selected }} aria-checked={selected}
     onPress={onPress} {...focusProps}
     style={({ pressed }) => [s.tab, { backgroundColor: selected ? theme.card : theme.transparent,

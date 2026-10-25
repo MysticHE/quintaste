@@ -1,8 +1,10 @@
-import MaskedView from "@react-native-masked-view/masked-view";
+import MaskedViewClass from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
-import type { PropsWithChildren } from "react";
-import { StyleSheet } from "react-native";
+import type { ComponentType, PropsWithChildren, ReactElement } from "react";
+import { StyleSheet, type ViewProps } from "react-native";
 import { usePreferences } from "../../state/Preferences";
+
+const MaskedView = MaskedViewClass as unknown as ComponentType<ViewProps & { maskElement: ReactElement }>;
 
 export function PhotoBlend({ children, fadeAt }: PropsWithChildren<{ fadeAt: number }>) {
   const { theme } = usePreferences();

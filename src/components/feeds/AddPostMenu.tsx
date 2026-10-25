@@ -1,6 +1,6 @@
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Modal, Platform, Pressable, ScrollView, StyleSheet, View, useWindowDimensions } from "react-native";
+import { Modal, Platform, Pressable, ScrollView, StyleSheet, View, useWindowDimensions, type ViewInstance } from "react-native";
 import { Icon, T, common, type IconName } from "../ui";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
@@ -10,7 +10,7 @@ import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 /** The one Add post control (Feeds and Social): a + button that drops a menu of what a member can post. */
 export function AddPostMenu() {
   const t = useT("feeds"), tc = useT("common"), { theme, reducedMotion } = usePreferences(), { width, height } = useWindowDimensions();
-  const [anchor, setAnchor] = useState<{ x: number; y: number } | null>(null), button = useRef<View>(null), first = useRef<View>(null);
+  const [anchor, setAnchor] = useState<{ x: number; y: number } | null>(null), button = useRef<ViewInstance>(null), first = useRef<ViewInstance>(null);
   const { create, readable } = useCreateRecipe(), { focused, focusProps } = useKeyboardFocus();
   useFocusEffect(useCallback(() => () => setAnchor(null), []));
   const close = useCallback(() => { setAnchor(null); if (Platform.OS === "web") (button.current as unknown as HTMLElement)?.focus?.(); }, []);

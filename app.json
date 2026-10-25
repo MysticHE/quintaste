@@ -26,11 +26,11 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "server",
+      "output": "static",
       "favicon": "./assets/chef.png"
     },
     "plugins": [
-      "expo-router",
+      ["expo-router", { "apiRoutes": true }],
       "expo-font",
       [
         "expo-splash-screen",
@@ -75,7 +75,8 @@
           "recordAudioAndroid": false,
           "enableBackgroundPlayback": false
         }
-      ]
+      ],
+      "expo-status-bar"
     ],
     "owner": "mystiche",
     "scheme": "quintaste",

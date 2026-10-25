@@ -5,7 +5,7 @@ import {
   Nunito_700Bold,
   Nunito_800ExtraBold,
 } from "@expo-google-fonts/nunito";
-import { router, Stack, useGlobalSearchParams, usePathname, useRootNavigationState, useSegments, useSitemap, type Href, type SitemapType } from "expo-router";
+import { router, Stack, useGlobalSearchParams, usePathname, useRootNavigationState, useSegments, type Href } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, View, Text, Pressable } from "react-native";
@@ -33,31 +33,16 @@ const presentations = {
   'food-choices': 'modal', login: 'formSheet',
   'create-account': 'formSheet', 'cooking/[id]': 'fullScreenModal',
 } as const;
-/** Screen names of the root stack, from the route files: `saved/_layout.tsx` is "saved", `market/listing/[id].tsx` is itself. */
-const rootScreens = (sitemap: SitemapType | null) => new Set((sitemap?.children ?? []).map(child =>
-  child.contextKey.replace(/^\.\//, "").replace(/(\.(web|ios|android|native))?\.[jt]sx?$/, "").replace(/\/_layout$/, "")));
 /**
- * The root stack screen that holds the current URL, used as the first screen when the stack mounts or remounts: the route
- * itself, its folder index, or the folder whose own _layout nests it (a reload of /saved/filters opens "saved", which
- * restores its own screen from the URL). Only an exact match takes the URL's params.
+ * Expo Router 58 restores the open screen from the URL when the stack mounts or remounts; the tabs sit beneath a deep link
+ * so Back returns to them (this replaces SDK 57's initialRouteName / initialParams).
  */
-function rootRoute(segments: string[], screens: Set<string>) {
-  if (!segments.length || segments[0] === "(tabs)") return { route: "(tabs)", exact: true };
-  if (!screens.size) return { route: segments.join("/"), exact: true };
-  for (let n = segments.length; n > 0; n--) {
-    const name = segments.slice(0, n).join("/");
-    if (screens.has(name)) return { route: name, exact: n === segments.length };
-    if (n === segments.length && screens.has(name + "/index")) return { route: name + "/index", exact: true };
-  }
-  return { route: "(tabs)", exact: false };
-}
+export const unstable_settings = { anchor: "(tabs)" };
 function Navigation() {
   const { user } = useAuth();
-  const segments = useSegments(), sitemap = useSitemap();
+  const segments = useSegments();
   const params = useGlobalSearchParams(), pathname = usePathname();
   const [initial] = useState(() => ({
-    ...rootRoute(segments, rootScreens(sitemap)),
-    params,
     // A tab deep link (for example /social?tab=areas) is lost when restoring an account remounts the stack.
     tabLink: segments[0] === "(tabs)" && pathname !== "/" ? { pathname, params } as Href : null,
   }));
@@ -115,17 +100,14 @@ function Navigation() {
     );
   return (
     <Stack
-      initialRouteName={initial.route}
       screenOptions={{
         headerShown: false,
         animation: reducedMotion ? "none" : "slide_from_right",
         contentStyle: { backgroundColor: theme.background },
       }}
     >
-      {[...new Set(['(tabs)', ...Object.keys(presentations), initial.route])].map(name => (
-        <Stack.Screen key={name} name={name}
-          initialParams={name === initial.route && initial.exact ? initial.params : undefined}
-          options={{ presentation: presentations[name as keyof typeof presentations] }} />
+      {['(tabs)', ...Object.keys(presentations)].map(name => (
+        <Stack.Screen key={name} name={name} options={{ presentation: presentations[name as keyof typeof presentations] }} />
       ))}
     </Stack>
   );

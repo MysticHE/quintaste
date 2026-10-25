@@ -40,7 +40,7 @@ export function SlideToEnter({ title, label, width, onTick, onComplete }: Props)
     onStartShouldSetResponder: () => !done,
     onMoveShouldSetResponder: () => !done,
     onResponderTerminationRequest: () => false,
-    onResponderGrant: (e: GestureResponderEvent) => { startX.set(e.nativeEvent.pageX); startT.set(Date.now()); ticked.set(0); cancelAnimation(nudge); nudge.set(0); },
+    onResponderGrant: (e: GestureResponderEvent) => { startX.set(e.nativeEvent.pageX); startT.set(e.nativeEvent.timestamp); ticked.set(0); cancelAnimation(nudge); nudge.set(0); },
     onResponderMove: (e: GestureResponderEvent) => {
       const at = Math.max(0, Math.min(travel, e.nativeEvent.pageX - startX.get()));
       x.set(at);
@@ -48,7 +48,7 @@ export function SlideToEnter({ title, label, width, onTick, onComplete }: Props)
     },
     onResponderRelease: (e: GestureResponderEvent) => {
       const dx = e.nativeEvent.pageX - startX.get();
-      if (Math.abs(dx) < 8 && Date.now() - startT.get() < 350) go(true);
+      if (Math.abs(dx) < 8 && e.nativeEvent.timestamp - startT.get() < 350) go(true);
       else if (dx > travel * 0.75) go(false);
       else back();
     },
@@ -58,7 +58,8 @@ export function SlideToEnter({ title, label, width, onTick, onComplete }: Props)
   const thumb = useAnimatedStyle(() => ({ transform: [{ translateX: x.value + nudge.value * 8 }] }));
   const trail = useAnimatedStyle(() => ({ width: PAD * 2 + THUMB + x.value, opacity: Math.min(1, (x.value / travel) * 3) * 0.95 }));
   const words = useAnimatedStyle(() => ({ opacity: Math.max(0, 1 - (x.value / travel) * 1.8) }));
-  const keys = Platform.OS === "web" ? { tabIndex: 0 as const, onKeyDown: (e: { key: string; preventDefault(): void }) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(true); } } } : {};
+  // Web-only DOM props; typed `object` so React Native 0.88's own onKeyDown type does not apply.
+  const keys: object = Platform.OS === "web" ? { tabIndex: 0, onKeyDown: (e: { key: string; preventDefault(): void }) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(true); } } } : {};
 
   return <View {...drag} {...keys} accessible accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: done }}
     accessibilityActions={[{ name: "activate" }]} onAccessibilityAction={() => go(true)}

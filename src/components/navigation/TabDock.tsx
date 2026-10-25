@@ -18,7 +18,7 @@ const tabs: Record<string, { label: "tabExplore" | "tabCook" | "tabSocial" | "ta
   game: { label: "tabGame", icon: "game" },
 };
 
-export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
+export function TabDock({ state, descriptors, emitter, navigateToTab, insets }: DockProps) {
   // A dot, not a number: the counts themselves sit where each thing lives (Messages, My shop, Dining).
   const { theme } = usePreferences(), activity = (useInbox()?.total ?? 0) > 0, t = useT("common");
   const glass = useGlassNavigation(), setHeight = glass?.setHeight, setHidden = glass?.setHidden, slideStyle = useDockSlideStyle();
@@ -44,13 +44,13 @@ export function TabDock({ state, descriptors, navigation, insets }: DockProps) {
           const item = tabs[route.name], { options } = descriptors[route.key], selected = state.index === index;
           if (!item) return null;
           const press = () => {
-            const event = navigation.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
-            if (!selected && !event.defaultPrevented) navigation.navigate(route.name, route.params);
+            const event = emitter.emit({ type: "tabPress", target: route.key, canPreventDefault: true });
+            if (!selected && !event.defaultPrevented) navigateToTab(route.key);
           };
           const dot = route.name === "social" && activity;
           return <DockTab key={route.key} icon={item.icon} selected={selected} onPress={press} dot={dot}
             accessibilityLabel={options.tabBarAccessibilityLabel ?? t(item.label) + (dot ? t("tabActivity") : "") + t("tabPosition", { i: state.routes.filter(r => !!tabs[r.name]).findIndex(r => r.key === route.key) + 1, n: Object.keys(tabs).length })}
-            testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })} onFocus={() => setHidden?.(false)} />;
+            testID={options.tabBarButtonTestID ?? "tab-" + item.icon} onLongPress={() => emitter.emit({ type: "tabLongPress", target: route.key })} onFocus={() => setHidden?.(false)} />;
         })}
       </View>
     </View>
