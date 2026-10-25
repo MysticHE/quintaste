@@ -102,7 +102,7 @@ const zh: typeof en = {
   signingInLabel: "正在登录",
   signInAgain: "请重新登录。",
 
-  account: "账户",
+  account: "账户", googleAccount: "Google",
   checkingSession: "正在检查登录状态…",
   signInToManage: "登录后可管理或删除你的账户。",
   masterAccount: "主账户 · 不限用量",

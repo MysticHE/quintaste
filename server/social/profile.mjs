@@ -48,17 +48,18 @@ const myPhotos = async (me, db = pool) => (await db.query('SELECT id, position, 
 
 profile.get('/me', async (_req, res) => {
   const me = res.locals.user;
-  const found = (await pool.query(`SELECT p.user_id IS NOT NULL AS "hasProfile", ${meetColumns}, (SELECT h.handle FROM social.handle h WHERE h.user_id=me.id) AS handle
+  const found = (await pool.query(`SELECT p.user_id IS NOT NULL AS "hasProfile", ${meetColumns}, (SELECT h.handle FROM social.handle h WHERE h.user_id=me.id) AS handle,
+      (SELECT u.bio FROM public."user" u WHERE u.id=me.id) AS "accountBio"
     FROM (SELECT $1::text AS id) me LEFT JOIN social.profile p ON p.user_id=me.id`, [me.id])).rows[0];
   const [state, photos] = await Promise.all([standing(me.id), myPhotos(me.id)]);
-  const { hasProfile, handle: stored, ...row } = found;
+  const { hasProfile, handle: stored, accountBio, ...row } = found;
   // Every member has a handle so friends can find them; handles.sql gave existing accounts one, and this makes the rest. A
   // failure leaves it empty rather than breaking Social, and Basics lets the member choose one.
   const handle = stored ?? await ensureHandle(pool, me.id, row.firstName || me.name).catch(error => {
     logger.warn({ event: 'social_handle_missing', error: error?.message }); return null;
   });
-  // One bio (owner, 25 Oct 2026): a bio written before About me took over starts About me until the member saves it.
-  const bio = typeof me.bio === 'string' ? me.bio.slice(0, 180) : '', profile = hasProfile ? row : emptyProfile;
+  // One bio (owner, 25 Oct 2026): a bio written before About me took over starts About me until the next profile save, which clears it.
+  const bio = typeof accountBio === 'string' ? accountBio.slice(0, 180) : '', profile = hasProfile ? row : emptyProfile;
   res.json({ id: me.id, accountName: me.name, handle, hasProfile, profile: profile.about || !bio ? profile : { ...profile, about: bio }, photos, standing: state });
 });
 /** Saves the profile; `handle`, when sent (Basics), changes the member's handle in the same transaction. */
@@ -67,7 +68,7 @@ profile.put('/me', async (req, res) => {
   await throttle('social-profile:' + me, 120, 3600);
   p.spots = (await publishedPlaceIds(p.spots)).filter(id => id && placeView(id));
   await transaction(async db => {
-    const stored = (await db.query(`SELECT p.gender, to_char(p.birth_date, 'YYYY-MM-DD') AS birth, p.practices, v.status FROM social.profile p
+    const stored = (await db.query(`SELECT p.first_name AS name, p.gender, to_char(p.birth_date, 'YYYY-MM-DD') AS birth, p.practices, v.status FROM social.profile p
       LEFT JOIN social.verification v ON v.user_id=p.user_id WHERE p.user_id=$1 FOR UPDATE OF p`, [me])).rows[0];
     // Gender decides who sees whom and age decides who may meet, so both are fixed once a selfie has been sent for checking.
     if (stored?.status && stored.status !== 'none' && (stored.gender !== p.gender || stored.birth !== p.birthDate)) {
@@ -85,9 +86,12 @@ profile.put('/me', async (req, res) => {
     [me, p.firstName, p.gender, p.birthDate, p.area, p.diets, legacyDiet(p.diets), storedPractices(kept, p.diets), p.excluded, p.spots, p.about, p.opening, p.visible,
       p.religion, p.ethnicity, p.why, p.hobbies, p.languages, p.education, p.work, p.grewUp, p.height, p.drinking, p.smoking, p.pets, JSON.stringify(p.prompts), p.hidden]);
     if (wanted !== undefined) await changeHandle(db, me, wanted);
-    // One name (owner, 25 Oct 2026): the Basics name is also the account name, so Market and class chats show the same name.
-    if (p.firstName) await db.query('UPDATE public."user" SET name=$2, "updatedAt"=now() WHERE id=$1 AND name IS DISTINCT FROM $2', [me, p.firstName]);
     else await ensureHandle(db, me, p.firstName || res.locals.user.name);
+    // One name (owner, 25 Oct 2026): a name the member changes in Basics also becomes the account name, so Market and class chats
+    // show the same name. Other saves (visibility, Food Choices) resend the stored name and leave the account name alone.
+    if (p.firstName && p.firstName !== (stored?.name ?? '')) await db.query('UPDATE public."user" SET name=$2, "updatedAt"=now() WHERE id=$1 AND name IS DISTINCT FROM $2', [me, p.firstName]);
+    // The old account bio only seeded About me; once the profile is saved, About me is the one bio.
+    await db.query(`UPDATE public."user" SET bio='', "updatedAt"=now() WHERE id=$1 AND COALESCE(bio, '')<>''`, [me]);
   });
   res.json({ profile: p, standing: await standing(me) });
 });

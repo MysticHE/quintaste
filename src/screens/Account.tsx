@@ -40,6 +40,8 @@ export function AccountScreen() {
         <T variant="small" muted>{preview ? t("localPreview") : t("guest")}</T>
         {!preview && enabled && <Button label={t("signInOrCreate")} icon="log-in-outline" variant="link"
           onPress={() => router.push({ pathname: "/login", params: { returnTo: "/account" } })} />}
+        {/* Without accounts (preview, or accounts switched off) the device profile is still edited here. */}
+        {(preview || !enabled) && <Button label={t("editProfile")} icon="create-outline" variant="link" onPress={() => router.push("/profile")} />}
       </View>
     </Card>}
     {user && !user.adultConfirmed && <Button label={tc("completeAccountSetup")} variant="link" onPress={() => router.push('/account-eligibility')} />}
@@ -58,7 +60,7 @@ export function AccountScreen() {
       <TimerAlertControl label={t("notifications")} />
     </Card>
     <Card style={s.group}>
-      {user && <SettingsRow label={t("account")} icon="person-circle-outline" onPress={() => router.push("/profile")} />}
+      {user && <SettingsRow label={t("account")} icon="person-circle-outline" value={signedInAs(user, t("googleAccount"))} onPress={() => router.push("/profile")} />}
       <SettingsRow label={t("privacyData")} icon="shield-checkmark-outline" onPress={() => router.push("/privacy")} />
       <SettingsRow label={t("help")} icon="help-circle-outline" last={!user} onPress={() => router.push("/help")} />
       {user && <SettingsRow label={t("bringInGuestSaves")} icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
@@ -73,6 +75,11 @@ export function AccountScreen() {
       <Button label={t("staySignedIn")} variant="link" onPress={() => setUnsaved(false)} />
     </MarketModal>
   </Screen>;
+}
+
+/** How the member signs in: their username, or "Google" for Google sign-ins, whose username is an internal google_ id. */
+function signedInAs(user: { name: string; username?: string | null }, google: string) {
+  return user.username?.startsWith("google_") ? google : user.username || user.name;
 }
 
 const s = StyleSheet.create({

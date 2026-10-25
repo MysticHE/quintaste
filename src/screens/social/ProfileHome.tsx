@@ -13,7 +13,6 @@ import { ProfileSummary } from "../../components/social/ProfileSummary";
 import { DiningOverview } from "../../components/social/DiningOverview";
 import { ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { useInbox } from "../../components/InboxCounts";
-import { useProfileDietSync } from "../../hooks/useProfileDietSync";
 import { useAuth } from "../../state/Auth";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
@@ -35,7 +34,6 @@ const editTarget = "/social/profile";
 function ProfileHome({ tab }: { tab: ProfileTab }) {
   const t = useT("profile"), { user } = useAuth(), me = useSocialMe(), inbox = useInbox();
   const [kind, setKind] = useState<ContentKind>("all");
-  useProfileDietSync();
   const data = me.data, name = data?.profile.firstName || user?.name || t("profileFallback");
   const select = (next: ProfileTab) => { router.setParams({ tab: next }); setKind("all"); };
   const kinds = (tab === "saved" ? savedKinds : postKinds).map(id => ({ id, label: t(id) }));

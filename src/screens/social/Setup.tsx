@@ -29,7 +29,9 @@ function Progress({ step }: { step: Step }) {
 function SetupFlow({ me }: { me: SocialMe }) {
   const t = useT("social"), tc = useT("common"), { theme } = usePreferences(), problem = useSocialError(), { step: asked } = useLocalSearchParams<{ step?: string }>();
   const [step, setStep] = useState<Step>(() => asked === "verify" ? 4 : firstStep(me)), [draft, setDraft] = useState<SocialProfile>(() => ({ ...me.profile, visible: true }));
-  const foodChoices = usePreferences().draft.diets;
+  const { draft: choices, storageReady } = usePreferences();
+  // The profile's diet labels are Food Choices'; until they have loaded, the profile keeps its own.
+  const foodChoices = storageReady && choices.diets.length ? choices.diets : draft.diets;
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [outsideAge, setOutsideAge] = useState(me.standing.step === "age"), [sent, setSent] = useState(false);
   const photos = me.photos, locked = me.standing.verification !== "none";
   const save = async (next: Step) => {

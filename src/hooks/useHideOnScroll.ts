@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useSyncExternalStore } from "react";
 import { AccessibilityInfo, Platform, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
 
 const SCROLL_STEP = 24;
@@ -29,16 +29,20 @@ export function useHideOnScroll(setHidden: ((hidden: boolean) => void) | undefin
   return { onScroll, onContentSizeChange, onLayout };
 }
 
-/** Whether a screen reader is on; moving bars stay put for its users, since a moving target is hard to find by swipe. */
+let screenReader = false, listening = false;
+const listeners = new Set<() => void>();
+const setScreenReader = (on: boolean) => { if (on !== screenReader) { screenReader = on; listeners.forEach(listener => listener()); } };
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  // React Native Web always answers "enabled", which would pin the bars for everyone in a browser.
+  if (!listening && Platform.OS !== "web") {
+    listening = true;
+    void AccessibilityInfo.isScreenReaderEnabled().then(setScreenReader).catch(() => setScreenReader(false));
+    AccessibilityInfo.addEventListener("screenReaderChanged", setScreenReader);
+  }
+  return () => { listeners.delete(listener); };
+}
+/** Whether a screen reader is on; moving bars stay put for its users, since a moving target is hard to find by swipe. One app-wide subscription. */
 export function useScreenReaderOn() {
-  const [on, setOn] = useState(false);
-  useEffect(() => {
-    // React Native Web always answers "enabled", which would pin the bars for everyone in a browser.
-    if (Platform.OS === "web") return;
-    let alive = true;
-    void AccessibilityInfo.isScreenReaderEnabled().then(value => { if (alive) setOn(value); }).catch(() => { if (alive) setOn(false); });
-    const subscription = AccessibilityInfo.addEventListener("screenReaderChanged", setOn);
-    return () => { alive = false; subscription.remove(); };
-  }, []);
-  return on;
+  return useSyncExternalStore(subscribe, () => screenReader, () => false);
 }

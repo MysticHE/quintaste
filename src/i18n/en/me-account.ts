@@ -102,7 +102,7 @@ const en = {
   signingInLabel: "Signing in",
   signInAgain: "Please sign in again.",
 
-  account: "Account",
+  account: "Account", googleAccount: "Google",
   checkingSession: "Checking your session…",
   signInToManage: "Sign in to manage or delete your account.",
   masterAccount: "Master account · Unlimited usage",

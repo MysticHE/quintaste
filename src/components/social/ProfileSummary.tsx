@@ -6,7 +6,6 @@ import { usePostCount } from "./ProfileGrid";
 import { useDietText } from "../food/DietLabels";
 import { useRemote } from "../../hooks/useRemote";
 import { dinners as loadDinners, friends as loadFriends } from "../../services/social-api";
-import { useAuth } from "../../state/Auth";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
 import type { SocialMe } from "../../types/community";
@@ -47,8 +46,8 @@ function StatButton({ stat: s }: { stat: Stat }) {
 }
 /** Bio and hobbies when filled; otherwise one tap target: "Add bio · My hobbies are…". Both open About me. */
 function AboutRow({ data, onEdit }: { data: SocialMe | undefined; onEdit: () => void }) {
-  const t = useT("profile"), ts = useT("social"), { theme } = usePreferences(), { user } = useAuth();
-  const bio = data?.profile.about || user?.bio || "", hobbies = (data?.profile.hobbies ?? []).map(value => ts("optHobby", { value }));
+  const t = useT("profile"), ts = useT("social"), { theme } = usePreferences();
+  const bio = data?.profile.about || "", hobbies = (data?.profile.hobbies ?? []).map(value => ts("optHobby", { value }));
   // Every member can edit About me (owner, 25 Oct 2026); before the profile has loaded the pencil's screen is the fallback.
   const open = () => data ? router.push("/social/edit?section=about") : onEdit();
   if (bio || hobbies.length) return <Pressable accessibilityRole="button" accessibilityLabel={[bio, hobbies.join(", ")].filter(Boolean).join(". ")} onPress={open}

@@ -70,12 +70,12 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={common.flex}>
           <View style={common.flex}>
           {top.enabled && <Animated.View onLayout={event => top.setHeight(event.nativeEvent.layout.height)}
-            style={[s.topBar, { backgroundColor: nativeFrame ? theme.background : theme.transparent }, top.style]}>{heading}</Animated.View>}
+            style={[s.topBar, top.height !== null && s.pinned, { backgroundColor: theme.background }, top.style]}>{heading}</Animated.View>}
           {fill ? <View style={[s.content, s.compact, common.flex, contentStyle, { paddingTop: 4, paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}>{heading}{body}</View> :
             <PhotoScrollView scrollRef={scroll} keyboardShouldPersistTaps="handled" {...dockScroll} onScroll={onScroll}
               onContentSizeChange={(width, height) => { dockScroll.onContentSizeChange?.(width, height); top.onContentSizeChange(width, height); }}
               onLayout={event => { dockScroll.onLayout?.(event); top.onLayout(event); }}
-              contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingTop: top.enabled ? top.height + 8 : 6, paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}
+              contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingTop: top.enabled ? (top.height ?? 0) + 8 : 6, paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}
               showsVerticalScrollIndicator={false}>{body}</PhotoScrollView>}
         {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
         <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
@@ -88,10 +88,13 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
     </SafeAreaView>
   </LinearGradient>;
 }
-/** The pinned top bar's height, slide and scroll handlers; it shows again when the screen regains focus or a screen reader is on. */
+/**
+ * The pinned top bar's height, slide and scroll handlers; it shows again when the screen regains focus or a screen reader is on.
+ * Until its first layout the height is unknown (null) and the bar sits in the page flow, so the page starts in the same place.
+ */
 function useTopBar(enabled: boolean) {
   const { reducedMotion } = usePreferences(), screenReader = useScreenReaderOn(), focused = useIsFocused();
-  const slide = useSharedValue(0), hidden = useRef(false), [height, setHeight] = useState(56);
+  const slide = useSharedValue(0), hidden = useRef(false), [height, setHeight] = useState<number | null>(null);
   const setHidden = useCallback((next: boolean) => {
     if ((next && screenReader) || hidden.current === next) return;
     hidden.current = next;
@@ -99,7 +102,7 @@ function useTopBar(enabled: boolean) {
   }, [screenReader, reducedMotion, slide]);
   useEffect(() => { if (focused || screenReader) setHidden(false); }, [focused, screenReader, setHidden]);
   const handlers = useHideOnScroll(enabled ? setHidden : undefined);
-  const style = useAnimatedStyle(() => ({ transform: [{ translateY: -slide.get() * height }] }), [height]);
+  const style = useAnimatedStyle(() => ({ transform: [{ translateY: -slide.get() * (height ?? 0) }] }), [height]);
   return { enabled, height, setHeight, style, ...handlers };
 }
 function ScreenHeading({ title, subtitle, back, backTo, titleAccessory, headerAction, compact }: ScreenProps) {
@@ -176,7 +179,8 @@ const s = StyleSheet.create({
     overflow: "hidden",
   },
   content: { flexGrow: 1, padding: 20, paddingHorizontal: SCREEN_GUTTER, paddingTop: 22, gap: 22 },
-  topBar: { position: "absolute", top: 0, left: 0, right: 0, zIndex: 1, paddingHorizontal: SCREEN_GUTTER, paddingTop: 2, paddingBottom: 4 },
+  topBar: { zIndex: 1, paddingHorizontal: SCREEN_GUTTER, paddingTop: 2, paddingBottom: 4 },
+  pinned: { position: "absolute", top: 0, left: 0, right: 0 },
   compact: { padding: 16, paddingHorizontal: SCREEN_GUTTER, paddingTop: 14, gap: 14 },
   heading: { gap: 8 },
   title: { minWidth: 0, flexShrink: 1 },

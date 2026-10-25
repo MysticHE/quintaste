@@ -52,14 +52,13 @@ export function ExploreScreen() {
   const wider = point ? discoveryRadii.find(value => value > input.radius) : undefined;
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
-  return <Screen back={false} compact>
-    <TopBar testID="explore-toolbar" actions={<>
+  return <Screen back={false} compact header={<TopBar testID="explore-toolbar" actions={<>
       <IconButton appearance="plain" label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
         dot={count > 0} onPress={() => router.push("/explore-search")} />
       <IconButton appearance="plain" label={t("searchByLocation")} icon="locate-outline" disabled={!readable} loading={nearby.busy}
         selected={!!input.origin} onPress={() => void nearby.locate()} /></>}>
       <TopTabs label={t("kitchenTabs")} tabs={kitchens} value={discovery.mixed ? "mixed" : "veg"} onChange={id => discovery.setMixed(id === "mixed")} />
-    </TopBar>
+    </TopBar>}>
     <View testID="explore-search-context" style={s.context}>
     {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
       <Icon name="location-outline" size={14} color={theme.foreground} />
