@@ -89,7 +89,6 @@ const en = {
   findingLocations: "Finding locations",
   findingLocationsNow: "Finding locations…",
   retryLocationSuggestions: "Retry location suggestions",
-  addressesSource: "Addresses · OneMap / SLA",
   matchingLocations: "Matching locations",
   matchingDishesAndLocations: "Matching dishes and locations",
 

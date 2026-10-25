@@ -89,7 +89,6 @@ const zh: typeof en = {
   findingLocations: "正在查找位置",
   findingLocationsNow: "正在查找位置…",
   retryLocationSuggestions: "重新获取位置建议",
-  addressesSource: "地址 · OneMap / SLA",
   matchingLocations: "相符的地点",
   matchingDishesAndLocations: "相符的菜色和地点",
 

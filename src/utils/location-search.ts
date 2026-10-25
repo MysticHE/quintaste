@@ -10,6 +10,11 @@ export function locationQuery(value: unknown): string | undefined {
   const postal = /^(?:singapore\s*|s\s*\(?\s*)?(\d{6})\)?$/i.exec(query);
   return postal ? postal[1] : query;
 }
+/** The line under a suggestion's name: OneMap's address ends with the building name, which the row already shows (saved addresses keep it). */
+export function addressLine(item: Pick<LocationSuggestion, "name" | "address">) {
+  const at = item.address.toLowerCase().lastIndexOf(" " + item.name.toLowerCase());
+  return at > 0 ? (item.address.slice(0, at) + item.address.slice(at + 1 + item.name.length)).trim() : item.address;
+}
 export function matchingAreas(query: string): LocationSuggestion[] {
   const words = query.toLowerCase().split(/\s+/);
   return areas.filter(area => words.every(word => (area.name + " " + area.mrt).toLowerCase().includes(word)))
