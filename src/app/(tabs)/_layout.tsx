@@ -11,7 +11,8 @@ export default function TabLayout() {
   const { theme } = usePreferences(), { owner } = useFood(), t = useT("common");
   return <GlassNavigationProvider key={owner}><InboxProvider><Tabs backBehavior="history" tabBar={props => <TabDock {...props} />}
     screenLayout={({ children }) => <TabBackdrop>{children}</TabBackdrop>} screenOptions={{
-    headerShown: false, sceneStyle: { backgroundColor: theme.background }, animation: "none",
+    // Hidden tabs stop redrawing (phones only); they catch up when shown again.
+    headerShown: false, sceneStyle: { backgroundColor: theme.background }, animation: "none", freezeOnBlur: true,
   }}>
     <Tabs.Screen name="(explore)" options={{ title: t("tabExplore") }} />
     <Tabs.Screen name="cook" options={{ title: t("tabCook") }} />

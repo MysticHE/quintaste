@@ -6,6 +6,8 @@ export type CataloguePhoto = {
   sourceUrl: string; license: string; licenseUrl: string | null;
   capturedAt: string | null; checkedAt: string; changes: string;
   provider?: "Google Maps";
+  /** Base64 ThumbHash of the photo, drawn as a soft preview while the photo loads (packaged photos only). */
+  thumbhash?: string;
 };
 
 export type CatalogueHours = {

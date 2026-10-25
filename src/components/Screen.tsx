@@ -2,7 +2,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { router, useIsFocused, useScrollToTop, useSegments, type Href } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import Head from "expo-router/head";
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type PropsWithChildren, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type PropsWithChildren, type ReactNode } from "react";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import {
   KeyboardAvoidingView,
@@ -21,12 +21,12 @@ import { PhotoScrollView } from "./discovery/PhotoScrollView";
 import { DockFollow, useDockScroll, useGlassNavigation } from "./navigation/GlassNavigation";
 import { useHideOnScroll, useScreenReaderOn } from "../hooks/useHideOnScroll";
 import { SCREEN_GUTTER } from "../theme/layout";
+import { LIST_GAP, ScreenListContext, type ScreenListFrame } from "./ScreenList";
 import { useT } from "../i18n";
 type ScreenProps = {
   title?: string;
   subtitle?: string;
   back?: boolean;
-  footer?: ReactNode;
   floatingAction?: ReactNode;
   headerAction?: ReactNode;
   titleAccessory?: ReactNode;
@@ -35,28 +35,46 @@ type ScreenProps = {
   backTo?: Href;
   hideTimers?: boolean;
   fill?: boolean;
+  /** Styles the scrolling page's content; a list page takes its padding and spacing from the list instead. */
   contentStyle?: StyleProp<ViewStyle>;
-};
+} & (
+  { list?: false; footer?: ReactNode }
+  /** The page is one long list: a ScreenList among the children scrolls it (header content goes in its `header`, buttons in its `footer`). */
+  | { list: true; footer?: never }
+);
 const ScrollTop = createContext<() => void>(() => {});
 /** Scrolls the enclosing screen back to its top, for example after changing a results page. */
 export const useScreenScrollToTop = () => useContext(ScrollTop);
-export function Screen({ children, title, subtitle, back = true, footer, headerAction, titleAccessory, compact = true, header, backTo, hideTimers = false, fill = false, contentStyle, floatingAction }: PropsWithChildren<ScreenProps>) {
+export function Screen({ children, title, subtitle, back = true, footer, headerAction, titleAccessory, compact = true, header, backTo, hideTimers = false, fill = false, list = false, contentStyle, floatingAction }: PropsWithChildren<ScreenProps>) {
   const { theme, reducedMotion } = usePreferences();
   const segments = useSegments(), hasTabDock = segments.some(segment => segment === "(tabs)");
   const glass = useGlassNavigation(), { width } = useWindowDimensions(), nativeFrame = Platform.OS !== "web" || width < 600;
   const [feedbackHeight, setFeedbackHeight] = useState(0), bottomSpace = hasTabDock ? (glass?.height ?? 0) + feedbackHeight : 0;
   const dockScroll = useDockScroll(hasTabDock), Pinned = hasTabDock ? DockFollow : View;
   const scroll = useRef<ScrollViewInstance>(null), scrollAction = useRef({ scrollToTop: () => {} });
+  // A ScreenList registers its own scroller; otherwise the page's scroll view goes back to the top.
+  const [scroller, setScrollerState] = useState<((animated: boolean) => void) | null>(null);
   useEffect(() => {
-    scrollAction.current.scrollToTop = () => scroll.current?.scrollTo({ y: 0, animated: !reducedMotion });
-  }, [reducedMotion]);
+    scrollAction.current.scrollToTop = () => scroller ? scroller(!reducedMotion) : scroll.current?.scrollTo({ y: 0, animated: !reducedMotion });
+  }, [reducedMotion, scroller]);
   useScrollToTop(scrollAction);
   const scrollToTop = useCallback(() => scrollAction.current.scrollToTop(), []);
   const heading = header ?? (title || titleAccessory || headerAction ? <ScreenHeading title={title} subtitle={subtitle} back={back} headerAction={headerAction}
     titleAccessory={titleAccessory} compact={compact} backTo={backTo} /> : null);
   // The top bar sits above the scrolling page and slides away while scrolling down, back on scrolling up (owner, 25 Oct 2026);
   // a page that does not scroll (fill: chats) keeps it in place.
-  const top = useTopBar(!fill && !!heading), onScroll = (event: Parameters<typeof top.onScroll>[0]) => { dockScroll.onScroll?.(event); top.onScroll(event); };
+  const top = useTopBar(!fill && !!heading);
+  const { onScroll: dockOnScroll, onLayout: dockOnLayout, onContentSizeChange: dockOnSize } = dockScroll;
+  const { onScroll: topOnScroll, onLayout: topOnLayout, onContentSizeChange: topOnSize } = top;
+  const onScroll = useCallback((event: Parameters<typeof topOnScroll>[0]) => { dockOnScroll?.(event); topOnScroll(event); }, [dockOnScroll, topOnScroll]);
+  const onContentSizeChange = useCallback((width: number, height: number) => { dockOnSize?.(width, height); topOnSize(width, height); }, [dockOnSize, topOnSize]);
+  const onLayout = useCallback((event: Parameters<typeof topOnLayout>[0]) => { dockOnLayout?.(event); topOnLayout(event); }, [dockOnLayout, topOnLayout]);
+  const paddingTop = top.enabled ? (top.height ?? 0) + 8 : 6, paddingBottom = 16 + bottomSpace + (floatingAction ? 72 : 0);
+  const setDockHidden = glass?.setHidden, showTop = top.show;
+  const reveal = useCallback(() => { showTop(); setDockHidden?.(false); }, [showTop, setDockHidden]);
+  const setScroller = useCallback((next: ((animated: boolean) => void) | null) => setScrollerState(() => next), []);
+  const frame = useMemo<ScreenListFrame | null>(() => list ? { padding: { paddingTop, paddingBottom, paddingHorizontal: SCREEN_GUTTER }, gap: LIST_GAP,
+    onScroll, onLayout, onContentSizeChange, setScroller, reveal } : null, [list, paddingTop, paddingBottom, onScroll, onLayout, onContentSizeChange, setScroller, reveal]);
   const body = <><View style={[common.stack, common.flex, compact && { gap: 12 }]}><ScrollTop.Provider value={scrollToTop}>{children}</ScrollTop.Provider></View>
     {footer && <View style={s.footer}>{footer}</View>}</>;
   // On a phone one gradient runs from the status bar to the bottom edge, so the bars and the page are the same colour.
@@ -71,11 +89,12 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
           <View style={common.flex}>
           {top.enabled && <Animated.View onLayout={event => top.setHeight(event.nativeEvent.layout.height)}
             style={[s.topBar, top.height !== null && s.pinned, { backgroundColor: theme.background }, top.style]}>{heading}</Animated.View>}
-          {fill ? <View style={[s.content, s.compact, common.flex, contentStyle, { paddingTop: 4, paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}>{heading}{body}</View> :
-            <PhotoScrollView scrollRef={scroll} keyboardShouldPersistTaps="handled" {...dockScroll} onScroll={onScroll}
-              onContentSizeChange={(width, height) => { dockScroll.onContentSizeChange?.(width, height); top.onContentSizeChange(width, height); }}
-              onLayout={event => { dockScroll.onLayout?.(event); top.onLayout(event); }}
-              contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingTop: top.enabled ? (top.height ?? 0) + 8 : 6, paddingBottom: 16 + bottomSpace + (floatingAction ? 72 : 0) }]}
+          {fill ? <View style={[s.content, s.compact, common.flex, contentStyle, { paddingTop: 4, paddingBottom }]}>{heading}{body}</View>
+            : frame ? <ScreenListContext.Provider value={frame}><View style={common.flex}>
+              <ScrollTop.Provider value={scrollToTop}>{children}</ScrollTop.Provider></View></ScreenListContext.Provider>
+            : <PhotoScrollView scrollRef={scroll} keyboardShouldPersistTaps="handled" {...dockScroll} onScroll={onScroll}
+              onContentSizeChange={onContentSizeChange} onLayout={onLayout}
+              contentContainerStyle={[s.content, compact && s.compact, contentStyle, { paddingTop, paddingBottom }]}
               showsVerticalScrollIndicator={false}>{body}</PhotoScrollView>}
         {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
         <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
@@ -103,7 +122,8 @@ function useTopBar(enabled: boolean) {
   useEffect(() => { if (focused || screenReader) setHidden(false); }, [focused, screenReader, setHidden]);
   const handlers = useHideOnScroll(enabled ? setHidden : undefined);
   const style = useAnimatedStyle(() => ({ transform: [{ translateY: -slide.get() * (height ?? 0) }] }), [height]);
-  return { enabled, height, setHeight, style, ...handlers };
+  const show = useCallback(() => setHidden(false), [setHidden]);
+  return { enabled, height, setHeight, style, show, ...handlers };
 }
 function ScreenHeading({ title, subtitle, back, backTo, titleAccessory, headerAction, compact }: ScreenProps) {
   const { theme } = usePreferences(), t = useT("common");

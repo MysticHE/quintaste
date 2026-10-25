@@ -3,6 +3,7 @@ import { EventsList } from "../../components/market/EventsList";
 import { Browse, marketFilterCount } from "../market/Market";
 import { useFeeds, defaultEventFilters, type FeedTab } from "../../state/Feeds";
 import { router, useLocalSearchParams } from "expo-router";
+import { useDeferredValue, useEffect, useState } from "react";
 import { View } from "react-native";
 import { CookLayout as Screen } from "../../components/recipes/CookLayout";
 import { Button, Icon, T, common } from "../../components/ui";
@@ -23,6 +24,8 @@ import { useDaypart } from "../../hooks/useDaypart";
 import { useSearchLog } from "../../hooks/useRecipeSearch";
 import { daypartName, daypartScore } from "../../utils/daypart";
 import { useLanguage, useT } from "../../i18n";
+import { ScreenList } from "../../components/ScreenList";
+import { PostCardSkeleton, SkeletonList } from "../../components/Skeleton";
 
 /** Feeds keeps existing cards and routes, with one top selection row. */
 export function CookScreen() {
@@ -33,10 +36,12 @@ export function CookScreen() {
   const filtered = tab === "recipes" ? !!cookSearch || activeFilterCount(cookBrowse) > 0 || cookBrowse.category !== "All"
     : tab === "events" ? !!feeds.queries.events || JSON.stringify(feeds.events) !== JSON.stringify(defaultEventFilters())
     : !!feeds.queries.market || marketFilterCount(feeds.market) > 0;
+  // The tab bar moves at once; the new list renders just after, so a tap never waits on a whole list being built.
+  const shown = useDeferredValue(tab);
   // Old bookmarks keep their standalone collection; they no longer add tabs to Feeds.
   if (param === "mine" || param === "saved") return <LegacyCollection kind={param} />;
-  return <Screen back={false} header={<FeedHeader tab={tab} filtered={filtered} onChange={next => router.setParams({ tab: next })} />}>
-    {tab === "recipes" ? <Recipes ingredient={ingredient} /> : tab === "events" ? <EventsList query={feeds.queries.events} filters={feeds.events} />
+  return <Screen back={false} list header={<FeedHeader tab={tab} filtered={filtered} onChange={next => router.setParams({ tab: next })} />}>
+    {shown === "recipes" ? <Recipes ingredient={ingredient} /> : shown === "events" ? <EventsList query={feeds.queries.events} filters={feeds.events} />
       : <Browse query={feeds.queries.market} filters={feeds.market} setFilters={feeds.setMarket} clearQuery={() => feeds.setQueries(current => ({ ...current, market: "" }))} />}
   </Screen>;
 }
@@ -48,7 +53,7 @@ function LegacyCollection({ kind }: { kind: "mine" | "saved" }) {
 }
 function Recipes({ ingredient }: { ingredient: string }) {
   const { doc, cookSearch: query, setCookSearch: setQuery, cookBrowse: browse, setCookBrowse } = useFood();
-  const { draft } = usePreferences(), { now, at } = useDaypart(), t = useT("cook"), language = useLanguage();
+  const { draft } = usePreferences(), { now, at } = useDaypart(), t = useT("cook"), tc = useT("common"), language = useLanguage();
   const published = usePublishedRecipes(), members = useMemberRecipes();
   const hasMore = published.hasMore || members.hasMore, limited = published.limited || members.limited;
   const more = () => { if (published.hasMore) published.more(); if (members.hasMore) members.more(); };
@@ -63,16 +68,34 @@ function Recipes({ ingredient }: { ingredient: string }) {
   // The first card names the meal when it suits this time of day: "Dinner · 25 min".
   const first = visible[0], when = browse.sort === "Fit" && first && daypartScore(first, now) < 2 ? daypartName(now.part, language) : undefined;
   const showAll = () => { setQuery(""); if (ingredient) router.setParams({ ingredient: undefined }); void setCookBrowse({ ...defaultCookBrowse, sort: browse.sort }); };
-  return <>
-    <ContinueCooking />
-    {!!ingredient && <View style={common.row}><Chip compact selected label={t("withIngredient", { name: ingredient })} a11y={t("withIngredientHint", { name: ingredient })}
-      trailing={<Icon name="close" size={16} />} onPress={() => router.setParams({ ingredient: undefined })} /></View>}
-    {published.error && <><T variant="small" muted>{published.error}</T><Button label={t("retryNewRecipes")} variant="link" onPress={published.refresh} /></>}
-    {!visible.length && !loading && <EmptyState title={t("noMatchingRecipes")} text={typed.length >= 3 ? t("weCanWrite") : t("tryAnother")} icon="restaurant-outline"
-      primary={typed.length >= 3 ? { label: t("getAiRecipe"), onPress: () => router.push({ pathname: "/cook/ai" as never, params: { dish: typed.slice(0, 300) } }) } : undefined}
-      action={narrowed || !!query || !!ingredient ? t("showAllRecipes") : undefined} onPress={showAll} />}
-    {visible.map((recipe, index) => <RecipeRow key={recipe.id} recipe={recipe} when={index === 0 ? when : undefined} onPress={() => router.push("/cook/recipe/" + recipe.id as never)} />)}
-    {hasMore && !limited && <Button label={t("moreRecipes")} variant="secondary" disabled={published.loading || members.loading} onPress={more} />}
-    {hasMore && limited && <T variant="small" muted>{t("narrowSearch")}</T>}
-  </>;
+  // The first visit waits briefly for the newest recipes, showing card shapes, so they do not reshuffle the list as they arrive.
+  const firstLoad = (published.loading && published.data === undefined) || members.firstLoad, waiting = usePatience(firstLoad);
+  return <ScreenList data={waiting ? [] : visible} keyExtractor={recipe => recipe.id} dimmed={!!published.stale}
+    renderItem={({ item, index }) => <RecipeRow recipe={item} when={index === 0 ? when : undefined} onPress={() => router.push("/cook/recipe/" + item.id as never)} />}
+    header={<>
+      <ContinueCooking />
+      {!!ingredient && <View style={common.row}><Chip compact selected label={t("withIngredient", { name: ingredient })} a11y={t("withIngredientHint", { name: ingredient })}
+        trailing={<Icon name="close" size={16} />} onPress={() => router.setParams({ ingredient: undefined })} /></View>}
+      {published.error && <><T variant="small" muted>{published.error}</T><Button label={t("retryNewRecipes")} variant="link" onPress={published.refresh} /></>}
+      {!visible.length && !loading && <EmptyState title={t("noMatchingRecipes")} text={typed.length >= 3 ? t("weCanWrite") : t("tryAnother")} icon="restaurant-outline"
+        primary={typed.length >= 3 ? { label: t("getAiRecipe"), onPress: () => router.push({ pathname: "/cook/ai" as never, params: { dish: typed.slice(0, 300) } }) } : undefined}
+        action={narrowed || !!query || !!ingredient ? t("showAllRecipes") : undefined} onPress={showAll} />}
+      {waiting && <SkeletonList label={tc("loadingLabel")} count={3} shape={() => <PostCardSkeleton />} />}
+    </>}
+    footer={hasMore && !waiting ? limited ? <T variant="small" muted>{t("narrowSearch")}</T>
+      : <Button label={t("moreRecipes")} variant="secondary" disabled={published.loading || members.loading} onPress={more} /> : null} />;
+}
+/**
+ * True while `loading` holds, for at most 2.5 seconds: a slow connection then shows what is already here instead of waiting on.
+ * Only the first visit of a session waits, since later visits read the recipes from memory; each new wait starts fresh.
+ */
+function usePatience(loading: boolean) {
+  const [expired, setExpired] = useState(false);
+  if (!loading && expired) setExpired(false);
+  useEffect(() => {
+    if (!loading) return;
+    const timer = setTimeout(() => setExpired(true), 2500);
+    return () => clearTimeout(timer);
+  }, [loading]);
+  return loading && !expired;
 }

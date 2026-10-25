@@ -5,9 +5,12 @@ import { usePreferences } from "../../state/Preferences";
 import type { ListingCard as Listing } from "../../types/community";
 
 /** Two columns, three from 900 wide, one when large text would crowd the cards. */
-export function ListingGrid({ items, onSave }: { items: Listing[]; onSave?: (item: Listing) => void }) {
+export function useListingColumns() {
   const { textMultiplier } = usePreferences(), { width, fontScale } = useWindowDimensions();
-  const [gridWidth, setGridWidth] = useState(0), columns = textMultiplier * fontScale >= 1.3 ? 1 : width >= 900 ? 3 : 2;
+  return textMultiplier * fontScale >= 1.3 ? 1 : width >= 900 ? 3 : 2;
+}
+export function ListingGrid({ items, onSave }: { items: Listing[]; onSave?: (item: Listing) => void }) {
+  const [gridWidth, setGridWidth] = useState(0), columns = useListingColumns();
   return <View onLayout={event => setGridWidth(event.nativeEvent.layout.width)} style={s.grid}>
     {items.map(item => <View key={item.id} style={{ width: gridWidth ? (gridWidth - 12 * (columns - 1)) / columns : "48%" }}>
       <ListingCard listing={item} onSave={onSave ? () => onSave(item) : undefined} />

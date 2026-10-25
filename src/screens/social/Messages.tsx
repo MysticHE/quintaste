@@ -3,6 +3,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { RemoteStatus } from "../../components/CommunityGate";
+import { RowSkeleton, SkeletonList } from "../../components/Skeleton";
 import { MemberGate } from "../../components/social/SocialState";
 import { ThreadRow, useThreads, type MessageSide, type MessageTab, type Thread } from "../../components/social/MessageThreads";
 import { TopBar, TopTabs } from "../../components/TopTabs";
@@ -30,7 +31,7 @@ const sideFor = (rows: Thread[], tab: "market" | "events") => sides[tab].find(id
  * Join and Host, because one account can buy and sell, join and teach. New orders and class bookings arrive in these chats.
  */
 export function MessagesScreen() {
-  const t = useT("profile"), data = useMessages(), params = useLocalSearchParams<{ kind?: string; side?: string }>();
+  const t = useT("profile"), tc = useT("common"), data = useMessages(), params = useLocalSearchParams<{ kind?: string; side?: string }>();
   // Dinner plans exist only for members who can use Dining.
   const dinners = useRemote(data.me.data?.standing.canMeet ? "/api/social/dinners" : null, loadDinners, 30000);
   const rows = useThreads({ friends: data.allowed ? data.friends.data?.friends ?? [] : [], dinners: dinners.data?.upcoming ?? [],
@@ -66,7 +67,8 @@ export function MessagesScreen() {
         const dot = id !== side && rows.some(r => r.side === id && r.attention);
         return { id, label: label(id), dot, accessibleLabel: dot ? t("hasNew", { label: label(id) }) : undefined };
       })} /></View>}
-      {sources.map((remote, i) => <RemoteStatus key={i} remote={remote} icon="chatbubble-outline" returnTo="/messages" />)}
+      {sources.map((remote, i) => <RemoteStatus key={i} remote={remote} icon="chatbubble-outline" returnTo="/messages" placeholder={null} />)}
+      {loading && !failed && <SkeletonList label={tc("loadingLabel")} count={4} shape={() => <RowSkeleton />} />}
       {visible.map(r => <ThreadRow key={r.id} thread={r} />)}
       {!loading && !failed && !visible.length && <EmptyState icon="chatbubbles-outline" title={t(term ? "noMessageMatch" : side ? empties[side] : "noFriendChats")} text="" />}
     </MemberGate>

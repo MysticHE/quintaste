@@ -2,7 +2,6 @@ import { Image, type ImageProps } from "expo-image";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, type ImageSourcePropType } from "react-native";
 import { usePreferences } from "../../state/Preferences";
-import { subscribeCataloguePhoto } from "../../services/catalogue-photo-cache";
 import { apiUrl } from "../../utils/api-url";
 import { Icon, T, type IconName } from "../ui";
 import { PhotoBlend } from "./PhotoBlend";
@@ -11,48 +10,55 @@ import { useT } from "../../i18n";
 /**
  * `source` is a photo bundled with the app; `fallback` names what a photo-less item is (a recipe's category);
  * `emptyIcon` draws a plain tile with that icon when there is no photo at all (a failed photo still says so).
+ * `thumbhash` draws a soft preview of the photo at once, until the photo itself fades in.
  */
-export function CataloguePhotoBackdrop({ path, source, fallback, emptyIcon, enabled, panelHeight, nameHeight }: {
-  path?: string; source?: ImageSourcePropType; fallback?: string; emptyIcon?: IconName; enabled: boolean; panelHeight: number; nameHeight: number;
+export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, emptyIcon, enabled, panelHeight }: {
+  path?: string; source?: ImageSourcePropType; thumbhash?: string; fallback?: string; emptyIcon?: IconName; enabled: boolean; panelHeight: number;
 }) {
-  const { theme } = usePreferences(), t = useT("explore");
-  const [state, setState] = useState<{ uri?: string; failed: boolean }>({ failed: false });
-  const [height, setHeight] = useState(260), [attempt, setAttempt] = useState(0);
+  const { theme, reducedMotion } = usePreferences(), t = useT("explore");
+  const [failed, setFailed] = useState(false), [loaded, setLoaded] = useState(false), [height, setHeight] = useState(260), [attempt, setAttempt] = useState(0);
+  // Leaving the screen ends a failed attempt (and unloads the photo), so coming back tries again at once.
+  const [shown, setShown] = useState(enabled);
+  if (enabled !== shown) { setShown(enabled); if (!enabled) { setFailed(false); setLoaded(false); } }
   let url: string | undefined;
   try { if (path) url = apiUrl(path); } catch { /* Missing API configuration uses the fallback. */ }
-  useEffect(() => {
-    if (url && enabled) return subscribeCataloguePhoto(url, setState);
-  }, [url, enabled, attempt]);
   // A failed photo on screen tries again shortly, e.g. after a dropped connection.
   useEffect(() => {
-    if (!state.failed || !url || !enabled) return;
-    const timer = setTimeout(() => setAttempt(n => n + 1), 15000);
+    if (!failed || !url || !enabled) return;
+    const timer = setTimeout(() => { setFailed(false); setLoaded(false); setAttempt(n => n + 1); }, 15000);
     return () => clearTimeout(timer);
-  }, [state.failed, url, enabled]);
+  }, [failed, url, enabled]);
   const start = panelHeight > 0 ? Math.max(0, height - panelHeight + 8 - 32) : height;
-  const fail = () => setState({ failed: true });
+  const fail = () => setFailed(true);
   // A bundled photo is used unless it failed to load; a failed or missing photo shows the fallback name when there is one.
+  // Our photos never change at a path, so expo-image keeps them on disk and a card shown again draws straight away.
   // Bundled photos are require() numbers; React Native types them with readonly arrays that expo-image 58 does not take.
-  const image = (state.failed ? undefined : source ?? (state.uri ? { uri: state.uri } : undefined)) as ImageProps["source"];
+  const image = (failed ? undefined : source ?? (url && enabled ? { uri: url } : undefined)) as ImageProps["source"];
+  const placeholder = !failed && !source && thumbhash ? { thumbhash } : undefined;
+  // The blurred copy asks for the photo only once the sharp one has it, so the photo is downloaded once and then read from cache.
+  const photo = (blurred: boolean) => <Image key={attempt} source={(blurred && !loaded ? null : image) ?? null} placeholder={placeholder} placeholderContentFit="cover"
+    contentFit="cover" cachePolicy="memory-disk" recyclingKey={path} transition={reducedMotion ? 0 : 150} blurRadius={blurred ? 5 : undefined}
+    style={StyleSheet.absoluteFill} accessible={false} alt="" onLoad={blurred ? undefined : () => setLoaded(true)} onError={fail} />;
+  const loadingLabel = <View style={s.label}>
+    <Icon name="image-outline" color={theme.mediaMutedForeground} />
+    <T variant="small" color={theme.mediaMutedForeground}>{t(!url || failed ? "photoUnavailable" : "loadingPhoto")}</T>
+  </View>;
   return <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden
     onLayout={event => setHeight(event.nativeEvent.layout.height)}
     style={[StyleSheet.absoluteFill, { backgroundColor: theme.mediaSurface }]}>
-    {image ? <><Image source={image} cachePolicy="none" contentFit="cover" style={StyleSheet.absoluteFill} accessible={false} alt="" onError={fail} />
+    {image || placeholder ? <>{!placeholder && !source && loadingLabel}{photo(false)}
       {panelHeight > 0 && <View testID="photo-soft-blur" style={{ position: "absolute", left: 0, right: 0, top: start, bottom: 0, overflow: "hidden" }}>
         <PhotoBlend fadeAt={32 / Math.max(32, height - start)}><View style={{ position: "absolute", top: -start, height, left: 0, right: 0 }}>
-          <Image source={image} cachePolicy="none" contentFit="cover" blurRadius={5} style={StyleSheet.absoluteFill} accessible={false} alt="" onError={fail} />
+          {photo(true)}
         </View></PhotoBlend>
       </View>}</> : emptyIcon && !path && !source ? <View testID="photo-empty-tile" style={StyleSheet.absoluteFill}>
       <View style={[StyleSheet.absoluteFill, s.tint, { backgroundColor: theme.accent }]} />
       <View style={[panelHeight > 0 ? s.fallback : [StyleSheet.absoluteFill, s.centred], s.emptyIcon]}>
         <Icon name={emptyIcon} size={56} color={theme.mediaMutedForeground} />
       </View>
-    </View> : fallback && (!url || state.failed) ? <View style={s.fallback}>
+    </View> : fallback && (!url || failed) ? <View style={s.fallback}>
       <T variant="title" color={theme.mediaMutedForeground} numberOfLines={2} style={s.fallbackText}>{fallback}</T>
-    </View> : <View style={{ position: "absolute", top: 76, left: 16, right: 16, flexDirection: "row", alignItems: "center", gap: 8 }}>
-      <Icon name="image-outline" color={theme.mediaMutedForeground} />
-      <T variant="small" color={theme.mediaMutedForeground}>{t(!url || state.failed ? "photoUnavailable" : "loadingPhoto")}</T>
-    </View>}
+    </View> : loadingLabel}
   </View>;
 }
 const s = StyleSheet.create({
@@ -61,4 +67,5 @@ const s = StyleSheet.create({
   tint: { opacity: 0.18 },
   centred: { alignItems: "center", justifyContent: "center" },
   emptyIcon: { opacity: 0.72 },
+  label: { position: "absolute", top: 76, left: 16, right: 16, flexDirection: "row", alignItems: "center", gap: 8 },
 });

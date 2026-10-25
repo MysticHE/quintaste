@@ -1,12 +1,13 @@
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
-import { useCallback, useEffect } from "react";
-import { ActivityIndicator, View, AppState, StyleSheet } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { View, AppState, StyleSheet } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, Icon, T, common } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { LocationFeedback } from "../../components/discovery/LocationFeedback";
 import { CatalogueVenueCard } from "../../components/discovery/CatalogueVenueCard";
-import { MixedKitchenList } from "../../components/discovery/MixedKitchenList";
+import { MixedKitchenRow } from "../../components/discovery/MixedKitchenList";
+import { ScreenList } from "../../components/ScreenList";
 import { useMinuteClock } from "../../components/food/Timers";
 import { useDiscovery } from "../../state/Discovery";
 import { useDiscoveryInput } from "../../hooks/useDiscoveryInput";
@@ -20,6 +21,7 @@ import { useReactions } from "../../hooks/useReactions";
 import { useMixedKitchenCount } from "../../hooks/useMixedKitchenCount";
 import { TopBar, TopTabs } from "../../components/TopTabs";
 import { LinkRow } from "../../components/LinkRow";
+import { PostCardSkeleton, RowSkeleton, SkeletonBlock, SkeletonList } from "../../components/Skeleton";
 import { discoveryRadii } from "../../config/discovery";
 import { useT } from "../../i18n";
 
@@ -52,55 +54,67 @@ export function ExploreScreen() {
   const wider = point ? discoveryRadii.find(value => value > input.radius) : undefined;
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
-  return <Screen back={false} compact header={<TopBar testID="explore-toolbar" actions={<>
+  const [selected, setSelected] = useState<string | null>(null);
+  const loading = !ready || (currentRequest && discovery.busy && !venues.length);
+  return <Screen back={false} compact list header={<TopBar testID="explore-toolbar" actions={<>
       <IconButton appearance="plain" label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
         dot={count > 0} onPress={() => router.push("/explore-search")} />
       <IconButton appearance="plain" label={t("searchByLocation")} icon="locate-outline" disabled={!readable} loading={nearby.busy}
         selected={!!input.origin} onPress={() => void nearby.locate()} /></>}>
       <TopTabs label={t("kitchenTabs")} tabs={kitchens} value={discovery.mixed ? "mixed" : "veg"} onChange={id => discovery.setMixed(id === "mixed")} />
     </TopBar>}>
-    <View testID="explore-search-context" style={s.context}>
-    {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
-      <Icon name="location-outline" size={14} color={theme.foreground} />
-      <T variant="caption" style={{ flexShrink: 1 }}><T variant="caption" style={common.bold}>{areaLabel}</T>
-        <T variant="caption">{" · " + tc("kilometres", { km: input.radius / 1000 })}</T></T>
-    </View>}
-    {accepted && <View testID="explore-places-count" style={[s.countLabel, { backgroundColor: theme.accentSoft }]}>
-      <Icon name="storefront-outline" size={14} color={theme.foreground} />
-      <T variant="caption" accessibilityLiveRegion="polite"><T variant="caption" style={common.bold}>{discovery.catalogue?.total ?? 0}</T>{t("placeCountSuffix", { n: discovery.catalogue?.total ?? 0 })}</T>
-    </View>}
-    </View>
-    <LocationFeedback nearby={nearby} />
-    {privateMissing && <Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"
-      onPress={() => router.push({ pathname: "/location-place", params: { kind: privateKind } })} />}
-    {locationExpired && <Button label={t("updateMyLocation")} variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} />}
-    {!ready && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingSettings")} />}
-    {currentRequest && discovery.busy && !venues.length && <ActivityIndicator color={theme.accent} accessibilityLabel={t("loadingPlaces")} />}
-    {currentRequest && !!discovery.error && <View style={common.row}><T variant="caption" accessibilityLiveRegion="polite" style={common.flex}>{discovery.error}</T>
-      <IconButton label={t("retryPlaces")} icon="refresh-outline" onPress={() => { if (eligible) void discovery.load(input, true); }} /></View>}
-    {accepted && discovery.cached && <T variant="caption" muted>{t(discovery.offline ? "offlineSavedResults" : "savedResultsChecking")}</T>}
-    {discovery.mixed ? <MixedKitchenList venues={venues} />
-      : venues.map(venue => <CatalogueVenueCard key={venue.id} venue={venue} review={reviews.data?.items.find(item => item.id === venue.id)} />)}
-    {accepted && !!venues.length && <View style={common.row}><T variant="caption" muted style={common.flex}>{t("shownOfPublished", { shown: venues.length, total: discovery.catalogue?.total ?? "" })}</T>
-      <IconButton label={t("refreshPlaces")} icon="refresh-outline" loading={discovery.busy} onPress={() => void discovery.load(input, true)} /></View>}
-    {accepted && discovery.capped && <Button label={t("loadMorePlaces")} variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
-    {accepted && !discovery.busy && !venues.length && discovery.mixed && <View style={common.stack}>
-      <T variant="subtitle" accessibilityRole="header">{t("noMixedHere")}</T>
-      {!!wider && <Button label={t("widenArea")} variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
-      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
-    {accepted && !discovery.busy && !venues.length && !discovery.mixed && <View style={common.stack}>
-      <T variant="subtitle" accessibilityRole="header">{t("noPublishedMatch")}</T>
-      <T muted>{t("tryWider")}</T>
-      <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
-    {!!mixedCount && <LinkRow label={t("mixedNearby", { n: mixedCount })}
-      icon="arrow-forward" hint={t("mixedNearbyHint")} onPress={() => discovery.setMixed(true)} />}
-    {accepted && !!discovery.catalogue?.locationGaps && <T variant="caption" muted>{t("locationGaps")}</T>}
+    {/* Each kitchen is its own list, so switching starts at the top with the bars showing. Only cards near the screen are drawn. */}
+    <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={[selected, reviews.data]}
+      renderItem={({ item, index }) => discovery.mixed
+        ? <MixedKitchenRow venue={item} number={index + 1} expanded={selected === item.id} onToggle={() => setSelected(selected === item.id ? null : item.id)} />
+        : <CatalogueVenueCard venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />}
+      header={<>
+        <View testID="explore-search-context" style={s.context}>
+        {!!point && !privateMissing && <View testID="explore-location-label" style={[s.locationLabel, { backgroundColor: theme.accentSoft }]}>
+          <Icon name="location-outline" size={14} color={theme.foreground} />
+          <T variant="caption" style={{ flexShrink: 1 }}><T variant="caption" style={common.bold}>{areaLabel}</T>
+            <T variant="caption">{" · " + tc("kilometres", { km: input.radius / 1000 })}</T></T>
+        </View>}
+        {accepted ? <View testID="explore-places-count" style={[s.countLabel, { backgroundColor: theme.accentSoft }]}>
+          <Icon name="storefront-outline" size={14} color={theme.foreground} />
+          <T variant="caption" accessibilityLiveRegion="polite"><T variant="caption" style={common.bold}>{discovery.catalogue?.total ?? 0}</T>{t("placeCountSuffix", { n: discovery.catalogue?.total ?? 0 })}</T>
+        </View> : loading && <SkeletonBlock style={s.countShape} />}
+        </View>
+        <LocationFeedback nearby={nearby} />
+        {privateMissing && <Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"
+          onPress={() => router.push({ pathname: "/location-place", params: { kind: privateKind } })} />}
+        {locationExpired && <Button label={t("updateMyLocation")} variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} />}
+        {/* Cards (or Mixed Kitchen rows) the size of the results, so the list does not grow from a spinner when places arrive. */}
+        {loading && <SkeletonList testID="explore-loading" label={t(ready ? "loadingPlaces" : "loadingSettings")}
+          count={3} shape={() => discovery.mixed ? <RowSkeleton /> : <PostCardSkeleton />} />}
+        {currentRequest && !!discovery.error && <View style={common.row}><T variant="caption" accessibilityLiveRegion="polite" style={common.flex}>{discovery.error}</T>
+          <IconButton label={t("retryPlaces")} icon="refresh-outline" onPress={() => { if (eligible) void discovery.load(input, true); }} /></View>}
+        {accepted && discovery.cached && <T variant="caption" muted>{t(discovery.offline ? "offlineSavedResults" : "savedResultsChecking")}</T>}
+      </>}
+      footer={<>
+        {accepted && !!venues.length && <View style={common.row}><T variant="caption" muted style={common.flex}>{t("shownOfPublished", { shown: venues.length, total: discovery.catalogue?.total ?? "" })}</T>
+          <IconButton label={t("refreshPlaces")} icon="refresh-outline" loading={discovery.busy} onPress={() => void discovery.load(input, true)} /></View>}
+        {accepted && discovery.capped && <Button label={t("loadMorePlaces")} variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
+        {accepted && !discovery.busy && !venues.length && discovery.mixed && <View style={common.stack}>
+          <T variant="subtitle" accessibilityRole="header">{t("noMixedHere")}</T>
+          {!!wider && <Button label={t("widenArea")} variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
+          <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
+        {accepted && !discovery.busy && !venues.length && !discovery.mixed && <View style={common.stack}>
+          <T variant="subtitle" accessibilityRole="header">{t("noPublishedMatch")}</T>
+          <T muted>{t("tryWider")}</T>
+          <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
+        {!!mixedCount && <LinkRow label={t("mixedNearby", { n: mixedCount })}
+          icon="arrow-forward" hint={t("mixedNearbyHint")} onPress={() => discovery.setMixed(true)} />}
+        {accepted && !!discovery.catalogue?.locationGaps && <T variant="caption" muted>{t("locationGaps")}</T>}
+      </>} />
   </Screen>;
 }
 
 const s = StyleSheet.create({
   context: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 6 },
   countLabel: { flexDirection: "row", alignItems: "center", gap: 5, minHeight: 32, paddingHorizontal: 9, paddingVertical: 6, borderRadius: 10 },
+  // Holds the place count's space while places load, so the cards arrive where their shapes were.
+  countShape: { width: 96, height: 32, borderRadius: 10 },
   locationLabel: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 6,
     flexShrink: 1, paddingHorizontal: 10, paddingVertical: 6, minHeight: 32, borderRadius: 10 },
 });

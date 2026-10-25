@@ -14,18 +14,20 @@ import { usePhotoVisibility } from "./PhotoScrollView";
  * The whole photo opens the item; the corner controls and strip work on their own.
  */
 export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, topRight, side, footer, children, testID, titleTestID = "post-card-title" }: {
-  photo: { path?: string; source?: ImageSourcePropType; fallback?: string; emptyIcon?: IconName }; title: string; label: string; hint: string; onPress: () => void;
+  photo: { path?: string; source?: ImageSourcePropType; thumbhash?: string; fallback?: string; emptyIcon?: IconName }; title: string; label: string; hint: string; onPress: () => void;
   topLeft?: ReactNode; topRight?: ReactNode; side?: ReactNode; footer?: ReactNode; children?: ReactNode; testID?: string; titleTestID?: string;
 }) {
   const { theme, textMultiplier } = usePreferences(), visibility = usePhotoVisibility(true);
   const [focused, setFocused] = useState(false), [pressed, setPressed] = useState(false);
-  const [panelHeight, setPanelHeight] = useState(140), [nameHeight, setNameHeight] = useState(24);
+  // The first guess matches a typical card (title and three fact lines), so the soft blur barely moves once the panel is measured.
+  const [panelHeight, setPanelHeight] = useState(104);
   // Start above the first line so multi-line titles retain contrast at larger text sizes.
   const fadeHeight = Math.max(32, panelHeight - 8 + 32);
   return <View style={[s.card, { backgroundColor: theme.card, borderColor: focused || pressed ? theme.accent : theme.border }]}>
     <View testID={testID} ref={node => visibility.attach(node)} onLayout={visibility.onLayout} collapsable={false} style={{ backgroundColor: theme.mediaSurface }}>
-      <CataloguePhotoBackdrop key={(photo.path || (photo.source ? "bundled" : "missing")) + visibility.visible} path={photo.path} source={photo.source} fallback={photo.fallback} emptyIcon={photo.emptyIcon}
-        enabled={visibility.visible} panelHeight={panelHeight} nameHeight={nameHeight} />
+      {/* Leaving the screen only unloads the photo (enabled); the preview stays, so scrolling back does not flash an empty card. */}
+      <CataloguePhotoBackdrop key={photo.path || (photo.source ? "bundled" : "missing")} path={photo.path} source={photo.source} thumbhash={photo.thumbhash}
+        fallback={photo.fallback} emptyIcon={photo.emptyIcon} enabled={visibility.visible} panelHeight={panelHeight} />
       <View pointerEvents="none" style={[s.blend, { height: fadeHeight }]} testID="photo-blend">
         <LinearGradient colors={theme.photoBlend} locations={[0, 32 / fadeHeight, 1]} style={StyleSheet.absoluteFill} />
       </View>
@@ -34,8 +36,7 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
       <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden>
         <View style={{ height: 156 }} />
         <View onLayout={event => setPanelHeight(event.nativeEvent.layout.height)} style={[s.information, !!side && s.besideSide]}>
-          <T testID={titleTestID} variant="place" style={[s.name, { fontSize: 20 * textMultiplier, lineHeight: 26 * textMultiplier }]} color={theme.mediaForeground}
-            onLayout={event => setNameHeight(event.nativeEvent.layout.height)}>{title}</T>
+          <T testID={titleTestID} variant="place" style={[s.name, { fontSize: 20 * textMultiplier, lineHeight: 26 * textMultiplier }]} color={theme.mediaForeground}>{title}</T>
           {children}
         </View>
       </View>

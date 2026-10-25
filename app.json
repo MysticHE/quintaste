@@ -78,6 +78,9 @@
       ],
       "expo-status-bar"
     ],
+    "experiments": {
+      "reactCompiler": true
+    },
     "owner": "mystiche",
     "scheme": "quintaste",
     "extra": {

@@ -56,7 +56,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     {venue && <View style={s.page}>
       {venue.photo && <View style={s.media}>
         <View testID="catalogue-place-photo" style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
-          <CataloguePhotoBackdrop key={venue.photo.path} path={venue.photo.path} enabled panelHeight={0} nameHeight={0} />
+          <CataloguePhotoBackdrop key={venue.photo.path} path={venue.photo.path} thumbhash={venue.photo.thumbhash} enabled panelHeight={0} />
         </View>
         <PhotoCredit photo={venue.photo} open={url => void open(url)} />
       </View>}

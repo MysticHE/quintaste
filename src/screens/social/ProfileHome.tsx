@@ -1,5 +1,5 @@
 import { Redirect, router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useDeferredValue, useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Icon, T, common } from "../../components/ui";
@@ -36,7 +36,9 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
   const [kind, setKind] = useState<ContentKind>("all");
   const data = me.data, name = data?.profile.firstName || user?.name || t("profileFallback");
   const select = (next: ProfileTab) => { router.setParams({ tab: next }); setKind("all"); };
-  const kinds = (tab === "saved" ? savedKinds : postKinds).map(id => ({ id, label: t(id) }));
+  // The tab moves at once; its grid renders just after, so the tap is never held up by building the grid.
+  const shown = useDeferredValue(tab);
+  const kinds = (shown === "saved" ? savedKinds : postKinds).map(id => ({ id, label: t(id) }));
   const dinners = inbox?.dinners ?? 0, orders = inbox?.orders ?? 0;
   return <Screen back={false} hideTimers header={<TopRow name={name} data={data} />}>
     <MemberGate returnTo="/social">
@@ -47,9 +49,9 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
         // Dinner invites to answer and dinners to tell us about wait on Dining; friend requests wait on Add friend.
         { id: "dining", label: t("dining"), icon: "restaurant-outline", activeIcon: "restaurant", badge: dinners },
       ]} /></View>
-      {tab === "dining" ? <><RemoteStatus remote={me} icon="restaurant-outline" returnTo="/social?tab=dining" /><MeetGate data={data} onEvents={() => router.push("/cook?tab=events")}><DiningOverview /></MeetGate></> : <>
-        <ChoiceChips clearable label={t(tab)} options={kinds} value={kind} onChange={next => setKind(next === kind ? "all" : next)} />
-        {tab === "posts" ? <>
+      {shown === "dining" ? <><RemoteStatus remote={me} icon="restaurant-outline" returnTo="/social?tab=dining" /><MeetGate data={data} onEvents={() => router.push("/cook?tab=events")}><DiningOverview /></MeetGate></> : <>
+        <ChoiceChips clearable label={t(shown)} options={kinds} value={kind} onChange={next => setKind(next === kind ? "all" : next)} />
+        {shown === "posts" ? <>
           {/* Your shop and classes open from your own Market items and events (owner, 25 Oct 2026); new orders also arrive in Messages. */}
           {kind === "market" && <ListGroup><ListItem title={t("shop")} leading={<RowIcon name="storefront-outline" />} onPress={() => router.push("/market?tab=shop")}
             badge={orders ? <StatusPill label={t("newCount", { n: orders })} tone="accent" /> : undefined} /></ListGroup>}

@@ -2,10 +2,11 @@ import { Image, type ImageSource } from "expo-image";
 import { router, type Href } from "expo-router";
 import * as Linking from "expo-linking";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Button, Icon, T, common, type IconName } from "../ui";
 import { EmptyState, IconButton } from "../food/Controls";
 import { RemoteStatus } from "../CommunityGate";
+import { GridTileSkeleton, LoadingShapes, SkeletonList } from "../Skeleton";
 import { useListingSource } from "../market/ListingPhoto";
 import { usePreferences } from "../../state/Preferences";
 import { useFood } from "../../state/Food";
@@ -31,8 +32,8 @@ import { formatSgShort } from "../../utils/sg-datetime";
 import { useLanguage, useT } from "../../i18n";
 
 export type ContentKind = "all" | "places" | "recipes" | "market" | "events";
-export function GridTile({ title, type, path, source, note, href, onPress, save, children, date, icon = "image-outline" }: {
-  title: string; type: string; path?: string | null; source?: ImageSource | number; note?: string; href?: Href; onPress?: () => void; icon?: IconName;
+export function GridTile({ title, type, path, source, thumbhash, note, href, onPress, save, children, date, icon = "image-outline" }: {
+  title: string; type: string; path?: string | null; source?: ImageSource | number; thumbhash?: string; note?: string; href?: Href; onPress?: () => void; icon?: IconName;
   save?: () => Promise<unknown>; children?: ReactNode; date?: string;
 }) {
   const { theme, setNotice } = usePreferences(), image = useListingSource(), t = useT("profile"), [busy, setBusy] = useState(false), [failed, setFailed] = useState(false);
@@ -40,7 +41,7 @@ export function GridTile({ title, type, path, source, note, href, onPress, save,
   return <View style={{ width: "48%", flexGrow: 0, gap: 4, marginBottom: 12 }}>
     <View><Pressable accessibilityRole="button" accessibilityLabel={[title, type, note].filter(Boolean).join(", ")} onPress={onPress ?? (() => href && router.push(href))}>
       <View style={{ aspectRatio: 1.12, borderRadius: 12, overflow: "hidden", backgroundColor: imageSource && !failed ? theme.muted : theme.accentSoft, alignItems: "center", justifyContent: "center", gap: 8 }}>
-        {imageSource && !failed ? <Image source={imageSource} contentFit="cover" style={StyleSheet.absoluteFill} onError={() => setFailed(true)} />
+        {imageSource && !failed ? <Image source={imageSource} placeholder={thumbhash ? { thumbhash } : undefined} placeholderContentFit="cover" contentFit="cover" style={StyleSheet.absoluteFill} onError={() => setFailed(true)} />
           : <><Icon name={date ? "calendar-outline" : icon} size={34} color={theme.accent} />{!!date && <T variant="small" style={{ textAlign: "center", paddingHorizontal: 8 }}>{date}</T>}</>}
         <View style={{ position: "absolute", bottom: 8, left: 8, borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3, backgroundColor: theme.card }}><T variant="caption">{type}</T></View>
       </View><T numberOfLines={2} style={[common.bold, { paddingTop: 6 }]}>{title}</T>
@@ -50,6 +51,11 @@ export function GridTile({ title, type, path, source, note, href, onPress, save,
         if (busy) return; setBusy(true); void save().catch(() => setNotice({ text: t("savedFailed"), error: true })).finally(() => setBusy(false));
       }} /></View>}</View>{children}
   </View>;
+}
+/** A tile still loading, the same size as the tile that replaces it. */
+function TileLoading() {
+  const t = useT("common");
+  return <View style={{ width: "48%" }}><LoadingShapes label={t("loadingLabel")}><GridTileSkeleton /></LoadingShapes></View>;
 }
 /** The tile's footprint for an item that could not load. */
 function UnavailableTile({ retry, remove }: { retry?: () => void; remove?: () => void }) {
@@ -72,7 +78,7 @@ function RecipeTile({ id, query = "", saved = false, report, onGone }: { id: str
   const count = recipe ? (!query || recipe.name.toLowerCase().includes(query) ? 1 : 0) : loading ? -2 : -1;
   useEffect(() => { report?.("r:" + id, count); }, [report, id, count]);
   useEffect(() => { if (gone) onGone?.(id); }, [gone, onGone, id]);
-  if (loading && !recipe) return <View style={{ width: "48%", minHeight: 100, justifyContent: "center" }}><ActivityIndicator /></View>;
+  if (loading && !recipe) return <TileLoading />;
   if (!recipe && gone && !saved) return null;
   if (!recipe) return <UnavailableTile retry={error && !gone ? refresh : undefined} remove={saved ? () => void food.toggleSave("recipe", id) : undefined} />;
   if (query && !recipe.name.toLowerCase().includes(query)) return null;
@@ -100,12 +106,16 @@ export function MyPostGrid({ kind }: { kind: ContentKind }) {
   const drafts = recipes ? workspace.drafts : [], remoteOnly = recipes ? (status.data?.items ?? []).filter(r => r.live && !r.hidden && !gone.has(r.id) && !workspace.drafts.some(d => d.id === r.draftKey)) : [];
   const listings = market ? items.data?.items ?? [] : [], hosted = events ? classes.data?.classes ?? [] : [];
   const busy = !ready || (recipes && status.loading) || (market && (seller.loading || items.loading)) || (events && classes.loading);
+  // The first load draws tile shapes in place of the grid; each source's own spinner stays off.
+  const t0 = useT("common"), firstLoad = !ready || [recipes && status, market && seller, market && items, events && classes]
+    .some(remote => remote && remote.loading && remote.data === undefined && !remote.error);
   const error = (recipes && status.error) || (market && (seller.error || items.error)) || (events && classes.error);
   useReactions("recipe", drafts.map(d => status.byDraft.get(d.id)).filter(r => r?.live).map(r => r!.id));
   return <>
-    {recipes && <RemoteStatus remote={status} icon="book-outline" returnTo="/social" />}
-    {market && <><RemoteStatus remote={seller} icon="storefront-outline" returnTo="/social" /><RemoteStatus remote={items} icon="storefront-outline" returnTo="/social" /></>}
-    {events && <RemoteStatus remote={classes} icon="calendar-outline" returnTo="/social" />}
+    {recipes && <RemoteStatus remote={status} icon="book-outline" returnTo="/social" placeholder={null} />}
+    {market && <><RemoteStatus remote={seller} icon="storefront-outline" returnTo="/social" placeholder={null} /><RemoteStatus remote={items} icon="storefront-outline" returnTo="/social" placeholder={null} /></>}
+    {events && <RemoteStatus remote={classes} icon="calendar-outline" returnTo="/social" placeholder={null} />}
+    {firstLoad && !drafts.length && <SkeletonList label={t0("loadingLabel")} count={4} columns={2} shape={() => <GridTileSkeleton />} />}
     {!busy && !error && !drafts.length && !remoteOnly.length && !listings.length && !hosted.length && <EmptyState title={t("noPosts")} text={t("noPostsText")} icon="grid-outline" />}
     <View testID="profile-post-grid" style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start" }}>
       {drafts.map(d => { const live = status.byDraft.get(d.id); return <GridTile key={d.id} title={d.title || t("untitled")} type={t("recipe")} path={d.photo} icon="restaurant-outline"
@@ -158,10 +168,10 @@ function SavedPlace({ id, query, report }: { id: string; query: string; report: 
   const { venue, busy, error, retry } = useCatalogueVenue(id), t = useT("profile"), food = useFood(), savedId = "catalogue-" + id;
   const count = venue ? (!query || (venue.name + " " + venue.address).toLowerCase().includes(query) ? 1 : 0) : busy ? -2 : -1;
   useEffect(() => { report("p:" + id, count); }, [report, id, count]);
-  if (!venue && busy) return <View style={{ width: "48%", minHeight: 100, justifyContent: "center" }}><ActivityIndicator /></View>;
+  if (!venue && busy) return <TileLoading />;
   if (!venue) return <UnavailableTile retry={error ? retry : undefined} remove={() => void food.toggleSave("place", savedId)} />;
   if (!count) return null;
-  return <GridTile title={venue.name} type={t("place")} path={venue.photo?.path} icon="location-outline" note={venue.address}
+  return <GridTile title={venue.name} type={t("place")} path={venue.photo?.path} thumbhash={venue.photo?.thumbhash} icon="location-outline" note={venue.address}
     href={("/place/" + savedId) as Href} save={() => food.toggleSave("place", savedId)} />;
 }
 function SavedMarket({ query, report }: { query: string; report: ResultReporter }) {
@@ -171,7 +181,8 @@ function SavedMarket({ query, report }: { query: string; report: ResultReporter 
   const items = [...current.prior, ...(remote.data?.items ?? [])];
   const count = remote.data && !remote.error ? items.length : remote.loading ? -2 : -1;
   useEffect(() => { report("market", count); }, [report, count]);
-  return <>{(remote.loading && !remote.data || remote.error) && <View style={{ width: "100%" }}><RemoteStatus remote={remote} icon="bookmark-outline" returnTo="/social?tab=saved" /></View>}
+  return <>{remote.loading && !remote.data && !remote.error ? <TileLoading />
+    : remote.error && <View style={{ width: "100%" }}><RemoteStatus remote={remote} icon="bookmark-outline" returnTo="/social?tab=saved" /></View>}
     {items.map(l => <GridTile key={l.id} title={l.name} type={t("market")} path={l.photo} note={marketMoney(l.priceCents)} href={("/market/listing/" + l.id) as Href}
       save={async () => { await toggleSaved(l.id); setPage({ base, cursor: null, prior: [] }); invalidate("/api/market/listings"); }} />)}
     {remote.data?.next != null && <View style={{ width: "100%" }}><Button label={t("more")} variant="link" onPress={() => setPage({ base, cursor: remote.data!.next, prior: items })} /></View>}
@@ -184,6 +195,7 @@ function SavedEvent({ id, query, report }: { id: string; query: string; report: 
   const remote = isClass ? cls : event, name = isClass ? cls.data?.title : event.data?.title;
   const count = name ? (!query || name.toLowerCase().includes(query) ? 1 : 0) : remote.loading ? -2 : -1;
   useEffect(() => { report(id, count); }, [report, id, count]);
+  if (!name && remote.loading && !remote.error) return <TileLoading />;
   if (!name) return <View style={{ width: "48%", gap: 6 }}><RemoteStatus remote={remote} icon="calendar-outline" returnTo="/social?tab=saved" />
     {!remote.loading && <Button label={t("remove")} variant="link" onPress={() => void feeds.toggleEvent(id).catch(() => setNotice({ text: t("savedFailed"), error: true }))} />}</View>;
   if (query && !name.toLowerCase().includes(query)) return null;

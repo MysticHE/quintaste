@@ -29,11 +29,12 @@ export function AddFriendScreen() {
   </Screen>;
 }
 function Results({ q }: { q: string }) {
-  const t = useT("profile"), found = useRemote(findKey(q), signal => findPeople(q, signal)), items = found.data?.items ?? [];
+  const t = useT("profile"), found = useRemote(findKey(q), signal => findPeople(q, signal), { keepPrevious: true }), items = found.data?.items ?? [];
   return <>
     <RemoteStatus remote={found} icon="search-outline" returnTo="/social/add-friend" />
-    {found.data && (items.length ? <Section title={t("results")}>{items.map(m => <MatchRow key={m.id} match={m} q={q} />)}</Section>
-      : <T muted style={{ textAlign: "center", paddingVertical: 16 }}>{t("noHandleMatch")}</T>)}
+    {/* While a new search loads, the last results stay, faded; "no match" waits for this search's own answer. */}
+    {found.data && (items.length ? <View style={{ opacity: found.stale ? 0.55 : 1 }}><Section title={t("results")}>{items.map(m => <MatchRow key={m.id} match={m} q={q} />)}</Section></View>
+      : !found.stale && <T muted style={{ textAlign: "center", paddingVertical: 16 }}>{t("noHandleMatch")}</T>)}
   </>;
 }
 function Requests() {

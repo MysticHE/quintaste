@@ -1,14 +1,13 @@
 import { BlurTargetView } from "expo-blur";
 import { useIsFocused } from "expo-router";
 import Animated from "react-native-reanimated";
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ComponentProps, type PropsWithChildren, type RefObject } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ComponentProps, type PropsWithChildren, type RefObject } from "react";
 import { AccessibilityInfo, Platform, type ViewInstance } from "react-native";
 import { useAnimatedStyle, useSharedValue, withTiming, type SharedValue } from "react-native-reanimated";
 import { usePreferences } from "../../state/Preferences";
 import { useHideOnScroll, useScreenReaderOn } from "../../hooks/useHideOnScroll";
 
 type GlassState = {
-  target: RefObject<ViewInstance | null> | undefined;
   height: number;
   setHeight: (height: number) => void;
   register: (target: RefObject<ViewInstance | null>) => () => void;
@@ -17,7 +16,11 @@ type GlassState = {
   slide: SharedValue<number>;
   setHidden: (hidden: boolean) => void;
 };
-const Context = createContext<GlassState | null>(null);
+/**
+ * The blur target changes on every tab switch and only the dock reads it, so it has its own context: screens that read the
+ * dock height or scroll handlers no longer redraw on each switch.
+ */
+const Context = createContext<GlassState | null>(null), Target = createContext<RefObject<ViewInstance | null> | undefined>(undefined);
 
 export function GlassNavigationProvider({ children }: PropsWithChildren) {
   const [target, setTarget] = useState<RefObject<ViewInstance | null>>(), [height, setHeight] = useState(0);
@@ -44,7 +47,8 @@ export function GlassNavigationProvider({ children }: PropsWithChildren) {
     return () => { alive = false; subscription.remove(); };
   }, []);
   useEffect(() => { motion.current.screenReader = screenReader; if (screenReader) setHidden(false); }, [screenReader, setHidden]);
-  return <Context.Provider value={{ target, height, setHeight, register, reduceTransparency, slide, setHidden }}>{children}</Context.Provider>;
+  const value = useMemo(() => ({ height, setHeight, register, reduceTransparency, slide, setHidden }), [height, register, reduceTransparency, slide, setHidden]);
+  return <Context.Provider value={value}><Target.Provider value={target}>{children}</Target.Provider></Context.Provider>;
 }
 
 export function TabBackdrop({ children }: PropsWithChildren) {
@@ -55,6 +59,8 @@ export function TabBackdrop({ children }: PropsWithChildren) {
 }
 
 export function useGlassNavigation() { return useContext(Context); }
+/** The focused tab's content, which the dock blurs behind it. */
+export function useBlurTarget() { return useContext(Target); }
 
 /**
  * Scroll handlers for a tab screen: scrolling down hides the dock, scrolling back up (or reaching the top) shows it

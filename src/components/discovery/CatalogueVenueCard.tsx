@@ -26,7 +26,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen. Other places show only proven labels.
   const labels = placeLabels(venue), dietText = useDietText();
   const metadata = options ? t("mixedKitchenSpoken") + " · " + dishCount(venue.itemCount, language) + distance : [...labels.map(dietText.spoken), ...(km ? [km] : [])].join(" · ");
-  return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, emptyIcon: placeTileIcon(venue) }} title={venue.name}
+  return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, thumbhash: venue.photo?.thumbhash, emptyIcon: placeTileIcon(venue) }} title={venue.name}
     label={[venue.name, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint={t("cardHint")}
     onPress={() => router.push({ pathname: "/place/[id]", params: { id } } as never)}
     topLeft={venue.itemCount > 0 && <MenuEntry menu={venue} compact />}

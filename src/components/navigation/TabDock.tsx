@@ -6,7 +6,7 @@ import Animated from "react-native-reanimated";
 import { useInbox } from "../InboxCounts";
 import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
-import { useDockSlideStyle, useGlassNavigation } from "./GlassNavigation";
+import { useBlurTarget, useDockSlideStyle, useGlassNavigation } from "./GlassNavigation";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { useT } from "../../i18n";
 
@@ -21,7 +21,7 @@ const tabs: Record<string, { label: "tabExplore" | "tabCook" | "tabSocial" | "ta
 export function TabDock({ state, descriptors, emitter, navigateToTab, insets }: DockProps) {
   // A dot, not a number: the counts themselves sit where each thing lives (Messages, My shop, Dining).
   const { theme } = usePreferences(), activity = (useInbox()?.total ?? 0) > 0, t = useT("common");
-  const glass = useGlassNavigation(), setHeight = glass?.setHeight, setHidden = glass?.setHidden, slideStyle = useDockSlideStyle();
+  const glass = useGlassNavigation(), target = useBlurTarget(), setHeight = glass?.setHeight, setHidden = glass?.setHidden, slideStyle = useDockSlideStyle();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {
     const shown = Keyboard.addListener("keyboardDidShow", () => { setKeyboardVisible(true); setHeight?.(0); });
@@ -35,8 +35,8 @@ export function TabDock({ state, descriptors, emitter, navigateToTab, insets }: 
     <View testID="navigation-surface" style={[s.dock, { paddingBottom: Math.max(insets.bottom, 2),
       paddingLeft: Math.max(insets.left, 8), paddingRight: Math.max(insets.right, 8),
       backgroundColor: glass?.reduceTransparency ? theme.card : theme.transparent }]}>
-      {!glass?.reduceTransparency && (Platform.OS !== "android" || !!glass?.target) &&
-        <BlurView testID="navigation-blur" blurTarget={glass?.target} blurMethod="dimezisBlurView" intensity={70}
+      {!glass?.reduceTransparency && (Platform.OS !== "android" || !!target) &&
+        <BlurView testID="navigation-blur" blurTarget={target} blurMethod="dimezisBlurView" intensity={70}
           tint={theme.dark ? "dark" : "light"} style={StyleSheet.absoluteFill} pointerEvents="none" />}
       {!glass?.reduceTransparency && <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: theme.navigation.glassTint }]} />}
       <View style={s.tabs} accessibilityRole="tablist" accessibilityLabel={t("mainNavigation")}>

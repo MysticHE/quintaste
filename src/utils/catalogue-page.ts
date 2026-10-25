@@ -18,7 +18,8 @@ export function readCataloguePhoto(value: unknown): CataloguePhoto {
     || !link(p.sourceUrl) || (p.licenseUrl !== null && !link(p.licenseUrl))
     || (p.capturedAt !== null && !validDate(p.capturedAt)) || !validDate(p.checkedAt)
     || (p.provider !== undefined && p.provider !== "Google Maps")
-    || Object.keys(p).some(key => !["path", "width", "height", "author", "sourceUrl", "license", "licenseUrl", "capturedAt", "checkedAt", "changes", "provider"].includes(key))) {
+    || (p.thumbhash !== undefined && (typeof p.thumbhash !== "string" || !/^[A-Za-z0-9+/]{16,64}={0,2}$/.test(p.thumbhash)))
+    || Object.keys(p).some(key => !["path", "width", "height", "author", "sourceUrl", "license", "licenseUrl", "capturedAt", "checkedAt", "changes", "provider", "thumbhash"].includes(key))) {
     throw new Error("Invalid catalogue photo");
   }
   return p;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { View } from "react-native";
 import { EmptyState } from "../../components/food/Controls";
 import { FirstRunState } from "../../components/BrowseControls";
 import { RemoteStatus } from "../../components/CommunityGate";
@@ -19,13 +20,14 @@ export const activePeopleFilters = (f: MeetFilters) => f.diets.length > 0 || f.a
 export function PeopleTab({ query, me }: { query: string; me: SocialMe }) {
   const { network: n, commit } = useMeet(), t = useT("social"), search = useDebounced(query), key = peopleKey(search, n.filters);
   // Sending a request refetches People, and the server leaves out anyone with an open request, so the card simply goes.
-  const remote = useRemote(key, signal => people(key, signal)), [adding, setAdding] = useState<Person | null>(null);
+  const remote = useRemote(key, signal => people(key, signal), { keepPrevious: true }), [adding, setAdding] = useState<Person | null>(null);
   const filtered = activePeopleFilters(n.filters) || !!search.trim(), items = remote.data?.items ?? [];
   return <>
     <StandingRow data={me} />
     <RemoteStatus remote={remote} icon="people-outline" returnTo="/social" />
-    {remote.data && (items.length ? items.map(person => <PersonCard key={person.id} person={person} onAdd={() => setAdding(person)} />)
-      : filtered ? <EmptyState title={t("peopleNoneFiltered")} text="" action={activePeopleFilters(n.filters) ? t("clearFilters") : undefined}
+    {/* New filters keep the last people, faded, until their own results arrive; empty states wait for those results. */}
+    {remote.data && (items.length ? <View style={{ gap: 12, opacity: remote.stale ? 0.55 : 1 }}>{items.map(person => <PersonCard key={person.id} person={person} onAdd={() => setAdding(person)} />)}</View>
+      : remote.stale ? null : filtered ? <EmptyState title={t("peopleNoneFiltered")} text="" action={activePeopleFilters(n.filters) ? t("clearFilters") : undefined}
         onPress={() => void commit({ type: "filters", filters: defaultMeetFilters() })} />
       : <FirstRunState icon="people-outline" title={t("peopleNoneTitle")} text={t("peopleNoneText")} />)}
     {adding && <RequestSheet person={adding} visible onClose={() => setAdding(null)} onSent={() => setAdding(null)} />}

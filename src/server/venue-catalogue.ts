@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import index from "../../data/menus/catalogue-index.json";
 import aliases from "../../data/menus/catalogue-aliases.json";
+import previews from "../../data/menus/catalogue-photo-previews.json";
 import { areas } from "../data/areas";
 import type { CataloguePage, CatalogueVenue } from "../types/catalogue";
 import type { DiscoverySearch } from "../types/discovery";
@@ -13,6 +14,15 @@ const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(valu
 const words = (value: string) => value.normalize("NFKD").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 const catalogue = index.venues as CatalogueVenue[];
 const revision = index.revision;
+const photoPreviews: Record<string, string> = previews.previews, previewRevision = hash(photoPreviews);
+/**
+ * Adds a packaged photo's ThumbHash (scripts/build-photo-previews.ts) after the editorial and staff overlays, which are tied to the
+ * exact catalogue index venue hashes and so must never see it.
+ */
+function withPreview(venue: CatalogueVenue): CatalogueVenue {
+  const sha = venue.photo?.path.match(/([a-f0-9]{64})\.jpg$/)?.[1], thumbhash = sha ? photoPreviews[sha] : undefined;
+  return thumbhash && venue.photo ? { ...venue, photo: { ...venue.photo, thumbhash } } : venue;
+}
 const hiddenAliases = new Map(aliases.entries.filter(alias => {
   const old = catalogue.find(venue => venue.id === alias.aliasId), next = catalogue.find(venue => venue.id === alias.canonicalId);
   return old?.name === alias.name && next?.name === alias.name && old?.address === alias.address && next?.address === alias.address;
@@ -71,7 +81,8 @@ export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>, staff
   if (withdrawn.has(id) || withdrawn.has(hiddenAliases.get(id) ?? id)) return undefined;
   const venue = catalogue.find(venue => venue.id === id), content = editorialContent(), place = venue ? undefined : editorialPlaces(content).get(id);
   const base = venue ? editorialVenue(venue, true, content) : place ? editorialPlaceVenue(place, true) : undefined;
-  return kitchenVenue(staffVenue(id, base, staff, content), staff, content);
+  const found = kitchenVenue(staffVenue(id, base, staff, content), staff, content);
+  return found && withPreview(found);
 }
 
 const hiddenAliasEntries = [...hiddenAliases];
@@ -91,7 +102,7 @@ function listedVenues(staff: StaffContent, content: ReturnType<typeof editorialC
   const venues: Listed[] = [];
   for (const source of sources) {
     const venue = kitchenVenue(source, staff, content);
-    if (venue && !hiddenAliases.has(venue.id)) venues.push({ venue, text: words([venue.name, venue.branch, venue.address, ...venue.aliases].join(" ")) });
+    if (venue && !hiddenAliases.has(venue.id)) venues.push({ venue: withPreview(venue), text: words([venue.name, venue.branch, venue.address, ...venue.aliases].join(" ")) });
   }
   listed = { key, venues };
   return venues;
@@ -102,7 +113,7 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
   const query = words(search.query), area = words(search.area);
   const known = areas.find(item => words(item.name) === area);
   const center = search.center ?? search.origin ?? (known?.lat && known.lng ? { latitude: known.lat, longitude: known.lng } : undefined);
-  const searchRevision = hash({ revision, editorialRevision: content.revision, staffRevision: staff.catalogueRevision, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
+  const searchRevision = hash({ revision, previewRevision, editorialRevision: content.revision, staffRevision: staff.catalogueRevision, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
     ? { latitude: search.origin.latitude, longitude: search.origin.longitude } : undefined }, withdrawn: [...withdrawn].sort() });
   let offset = 0;
   if (cursor) {

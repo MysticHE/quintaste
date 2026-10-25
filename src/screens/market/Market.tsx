@@ -7,7 +7,10 @@ import { TopBar, TopTabs } from "../../components/TopTabs";
 import { View } from "react-native";
 import { Button, T, common } from "../../components/ui";
 import { goBack } from "../../utils/navigation";
-import { ListingGrid } from "../../components/market/ListingGrid";
+import { useListingColumns } from "../../components/market/ListingGrid";
+import { ListingCard as ListingTile } from "../../components/market/ListingCard";
+import { ScreenList } from "../../components/ScreenList";
+import { GridTileSkeleton, SkeletonList } from "../../components/Skeleton";
 import { RemoteStatus, ensureMember, useMember } from "../../components/CommunityGate";
 import { OrdersContent } from "./Orders";
 import { MyShopContent, useShopAdd, type ShopTab } from "./MyShop";
@@ -69,10 +72,10 @@ function MarketHub({ tab }: { tab: MarketTab }) {
 }
 /** The listing grid in Feeds > Market; with savedOnly it lists the member's hearts. */
 export function Browse({ query, filters, setFilters, clearQuery }: { query: string; filters: ShopFilter; setFilters: (filters: ShopFilter) => void; clearQuery?: () => void }) {
-  const member = useMember(), { setNotice } = usePreferences(), t = useT("market");
+  const member = useMember(), { setNotice } = usePreferences(), t = useT("market"), tc = useT("common"), columns = useListingColumns();
   // Heart overrides bridge the refetch after a toggle; a newer first page from the server wins for its own items.
   const [saved, setSaved] = useState<Record<string, { value: boolean; base: unknown }>>({}), saving = useRef(new Set<string>());
-  const key = browseKey(useDebounced(query), filters), remote = useRemote(key, signal => browse(key, signal)), more = useMore(key);
+  const key = browseKey(useDebounced(query), filters), remote = useRemote(key, signal => browse(key, signal), { keepPrevious: true }), more = useMore(key);
   const firstPage = new Set(remote.data?.items.map(item => item.id));
   const items = [...new Map([...(remote.data?.items ?? []), ...(more.extra?.items ?? [])].map(item => [item.id, item])).values()]
     .map(item => item.id in saved && (saved[item.id].base === remote.data || !firstPage.has(item.id)) ? { ...item, saved: saved[item.id].value } : item)
@@ -88,13 +91,17 @@ export function Browse({ query, filters, setFilters, clearQuery }: { query: stri
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("tryAgainSave"), error: true }); }
     finally { saving.current.delete(item.id); }
   };
-  if (paused) return <FirstRunState icon="storefront-outline" title={t("opensSoon")} text={t("opensSoonText")} />;
-  return <>
-    <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/cook?tab=market" />
-    {remote.data && (items.length ? <ListingGrid items={items} onSave={item => void save(item)} />
-      : filtered ? <EmptyState title={t("noMatchingFood")} text="" icon="search-outline" action={t("clearFilters")} onPress={clear} />
-      : filters.savedOnly ? <FirstRunState icon="bookmark-outline" title={t("savedEmptyTitle")} text={t("savedEmptyText")} action={{ label: t("browseFood"), icon: "grid-outline", onPress: clear }} />
-      : <FirstRunState icon="storefront-outline" title={t("emptyTitle")} text={t("emptyText")} action={{ label: t("sellOnMarket"), icon: "storefront-outline", onPress: () => router.push("/market?tab=shop") }} />)}
-    {next !== null && <Button label={t("showMore")} variant="secondary" loading={more.busy} onPress={() => void more.load(next)} />}
-  </>;
+  // A grid list: only the cards near the screen are drawn; a new search keeps the old cards, faded, until it loads.
+  // A new column count (rotation, larger text) starts a fresh grid rather than reflowing the old one.
+  return <ScreenList key={columns} data={paused || !remote.data ? [] : items} keyExtractor={item => item.id} numColumns={columns} columnGap={12} rowGap={20} dimmed={remote.stale}
+    renderItem={({ item }) => <ListingTile listing={item} onSave={() => void save(item)} />}
+    header={paused ? <FirstRunState icon="storefront-outline" title={t("opensSoon")} text={t("opensSoonText")} /> : <>
+      <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/cook?tab=market"
+        placeholder={<SkeletonList label={tc("loadingLabel")} count={columns * 2} columns={columns} shape={() => <GridTileSkeleton ratio={1} />} />} />
+      {/* Empty states wait for this search's own results, never the faded ones from the last search. */}
+      {remote.data && !remote.stale && !items.length && (filtered ? <EmptyState title={t("noMatchingFood")} text="" icon="search-outline" action={t("clearFilters")} onPress={clear} />
+        : filters.savedOnly ? <FirstRunState icon="bookmark-outline" title={t("savedEmptyTitle")} text={t("savedEmptyText")} action={{ label: t("browseFood"), icon: "grid-outline", onPress: clear }} />
+        : <FirstRunState icon="storefront-outline" title={t("emptyTitle")} text={t("emptyText")} action={{ label: t("sellOnMarket"), icon: "storefront-outline", onPress: () => router.push("/market?tab=shop") }} />)}
+    </>}
+    footer={!paused && next !== null ? <Button label={t("showMore")} variant="secondary" loading={more.busy} onPress={() => void more.load(next)} /> : null} />;
 }

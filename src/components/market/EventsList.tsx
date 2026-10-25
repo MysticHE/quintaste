@@ -1,6 +1,6 @@
 import * as Linking from "expo-linking";
 import { useEffect, useState, type ReactNode } from "react";
-import { View } from "react-native";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { useEditorial } from "../../hooks/useEditorial";
 import { useRemote } from "../../hooks/useRemote";
 import { useDebounced } from "../../hooks/useDebounced";
@@ -17,6 +17,8 @@ import { IconButton, EmptyState } from "../food/Controls";
 import { Button, T } from "../ui";
 import { sgDateTile, formatSgShort } from "../../utils/sg-datetime";
 import { useLanguage, useT } from "../../i18n";
+import { ScreenList } from "../ScreenList";
+import { RowSkeleton, SkeletonList } from "../Skeleton";
 import { money } from "../../utils/food-format";
 import { usePreferences } from "../../state/Preferences";
 import { openMarket } from "./ClassParts";
@@ -45,7 +47,7 @@ function classPlace(c: CookingClass): Place {
 const matches = (c: CookingClass, q: string) => !q || [c.title, c.makes, c.venue, c.area, c.teacher.name].join(" ").toLowerCase().includes(q.toLowerCase());
 
 function ExternalCard({ event, open, expanded, onPress, action, distance }: { action?: ReactNode; event: ExternalEvent; open: (url: string) => void; expanded: boolean; onPress: () => void; distance?: string }) {
-  const t = useT("market"), language = useLanguage(), localTime = event.startsAt.slice(0, 16).replace("T", " "), tile = sgDateTile(localTime, language);
+  const t = useT("market"), language = useLanguage(), { reducedMotion } = usePreferences(), localTime = event.startsAt.slice(0, 16).replace("T", " "), tile = sgDateTile(localTime, language);
   const endTime = event.endsAt ? sgDateTile(event.endsAt.slice(0, 16).replace("T", " "), language)?.time : undefined;
   // The venue line is skipped when it only repeats the organiser.
   const sameVenue = event.location.toLowerCase().includes(event.organiser.toLowerCase()), feeNote = event.feeNote === LEGACY_FEE_NOTE ? "" : event.feeNote;
@@ -54,11 +56,11 @@ function ExternalCard({ event, open, expanded, onPress, action, distance }: { ac
     ? t(/\d[\d.,]*\D+\d/.test(feeNote) ? "fromPrice" : "priceAmount", { amount: event.feeAmount }) : "";
   return <EventCard action={action} starts={localTime} title={readableTitle(event.title)} time={(tile?.time ?? formatSgShort(localTime, language)) + (endTime ? " – " + endTime : "")}
     place={(sameVenue ? event.organiser : event.location + " · " + event.organiser) + (distance ? " · " + distance : "")} tags={fee ? [{ label: fee, tone: free ? "success" : "accent" }] : []} onPress={onPress}>
-    {expanded && <View style={{ paddingHorizontal: 12, paddingBottom: 12, gap: 8 }}><T>{event.address}</T><T variant="small">{event.dietEvidence}</T>
+    {expanded && <Animated.View entering={reducedMotion ? undefined : FadeIn.duration(160)} style={{ paddingHorizontal: 12, paddingBottom: 12, gap: 8 }}><T>{event.address}</T><T variant="small">{event.dietEvidence}</T>
       {!!feeNote && <T variant="small">{feeNote}</T>}
       <T variant="small" muted>{t("checkedNote", { date: event.checkedAt })}</T>
       <Button label={t("organiser")} icon="open-outline" variant="secondary" onPress={() => open(event.registrationUrl ?? event.sources[0])} />
-    </View>}
+    </Animated.View>}
   </EventCard>;
 }
 function ClassCard({ item, action, distance }: { item: CookingClass; action?: ReactNode; distance?: string }) {
@@ -77,7 +79,7 @@ export function EventsList({ query, filters: active }: { query: string; filters:
   const q = useDebounced(query).trim(), base = "/events?q=" + encodeURIComponent(q);
   const [page, setPage] = useState<{ base: string; cursor: string | null; prior: ExternalEvent[] }>({ base, cursor: null, prior: [] });
   const own = page.base === base ? page : { base, cursor: null, prior: [] };
-  const remote = useEditorial<EditorialPage<ExternalEvent>>(base + (own.cursor ? "&cursor=" + encodeURIComponent(own.cursor) : ""));
+  const remote = useEditorial<EditorialPage<ExternalEvent>>(base + (own.cursor ? "&cursor=" + encodeURIComponent(own.cursor) : ""), true);
   const classes = useRemote("/api/market/classes", loadClasses);
   const [selected, setSelected] = useState<string | null>(null), { setNotice } = usePreferences();
   const t = useT("market"), tc = useT("common"), [now, setNow] = useState(Date.now);
@@ -100,23 +102,26 @@ export function EventsList({ query, filters: active }: { query: string; filters:
   // A paused Market (SERVICE_PAUSED) simply has no classes to show; only a real failure is an error.
   const failed = (kind !== "classes" && !!remote.error) || (kind !== "local" && !!classes.error && classes.error.code !== "SERVICE_PAUSED");
   const retry = () => { remote.refresh(); classes.refresh(); };
-  return <>
-    {loading && <T muted>{t("loadingEvents")}</T>}
-    {failed && <EmptyState icon="cloud-offline-outline" title={t("eventsFailed")} text={t("eventsFailedText")} primary={{ label: tc("tryAgain"), onPress: retry }} />}
-    {!loading && !items.length && !failed && <EmptyState icon="megaphone-outline" title={t(q ? "noMatchingEvents" : "noLocalEvents")} text="" />}
-    {byWhen(items, item => item.at.replace(" ", "T") + ":00+08:00", now).map(group => <View key={group.title} style={{ gap: 10 }}>
-      {group.items.map(item => {
-        const id = item.kind === "class" ? "c:" + item.item.id : "e:" + item.event.id;
-        const name = item.kind === "class" ? item.item.title : item.event.title, saved = feeds.savedEvents.includes(id);
-        const action = <IconButton appearance="plain" label={tf(saved ? "unsaveEvent" : "saveEvent", { name })} icon={saved ? "bookmark" : "bookmark-outline"} disabled={!feeds.savesReady}
-          onPress={() => void feeds.toggleEvent(id).catch(() => setNotice({ text: tf("eventSaveFailed"), error: true }))} />;
-        const km = distances.get(item), distance = km != null ? tc("kilometres", { km: km.toFixed(1) }) : undefined;
-        return item.kind === "class" ? <ClassCard key={id} item={item.item} action={action} distance={distance} />
-          : <ExternalCard key={id} event={item.event} action={action} open={open} expanded={selected === item.event.id} onPress={() => setSelected(selected === item.event.id ? null : item.event.id)}
-            distance={distance} />;
-      })}
-    </View>)}
-    {kind !== "classes" && remote.data?.nextCursor && events.length < 80 && <Button label={t("moreEvents")} variant="secondary" disabled={remote.loading}
-      onPress={() => setPage({ base, prior: events, cursor: remote.data!.nextCursor })} />}
-  </>;
+  // This week first, then later; one list so only the cards near the screen are drawn.
+  const rows = byWhen(items, item => item.at.replace(" ", "T") + ":00+08:00", now).flatMap(group => group.items);
+  const row = (item: Item) => {
+    const id = item.kind === "class" ? "c:" + item.item.id : "e:" + item.event.id;
+    const name = item.kind === "class" ? item.item.title : item.event.title, saved = feeds.savedEvents.includes(id);
+    const action = <IconButton appearance="plain" label={tf(saved ? "unsaveEvent" : "saveEvent", { name })} icon={saved ? "bookmark" : "bookmark-outline"} disabled={!feeds.savesReady}
+      onPress={() => void feeds.toggleEvent(id).catch(() => setNotice({ text: tf("eventSaveFailed"), error: true }))} />;
+    const km = distances.get(item), distance = km != null ? tc("kilometres", { km: km.toFixed(1) }) : undefined;
+    return item.kind === "class" ? <ClassCard item={item.item} action={action} distance={distance} />
+      : <ExternalCard event={item.event} action={action} open={open} expanded={selected === item.event.id} onPress={() => setSelected(selected === item.event.id ? null : item.event.id)}
+        distance={distance} />;
+  };
+  return <ScreenList data={rows} keyExtractor={item => item.kind === "class" ? "c:" + item.item.id : "e:" + item.event.id} getItemType={item => item.kind}
+    renderItem={({ item }) => row(item)} extraData={[selected, feeds.savedEvents, feeds.savesReady]} dimmed={!!remote.stale}
+    header={<>
+      {loading && <SkeletonList label={t("loadingEvents")} count={4} shape={() => <RowSkeleton />} />}
+      {/* A failure shows once nothing is still loading, so it does not appear under the shapes and then jump up. */}
+      {failed && !loading && <EmptyState icon="cloud-offline-outline" title={t("eventsFailed")} text={t("eventsFailedText")} primary={{ label: tc("tryAgain"), onPress: retry }} />}
+      {!loading && !remote.stale && !items.length && !failed && <EmptyState icon="megaphone-outline" title={t(q ? "noMatchingEvents" : "noLocalEvents")} text="" />}
+    </>}
+    footer={kind !== "classes" && remote.data?.nextCursor && events.length < 80 ? <Button label={t("moreEvents")} variant="secondary" disabled={remote.loading}
+      onPress={() => setPage({ base, prior: events, cursor: remote.data!.nextCursor })} /> : null} />;
 }

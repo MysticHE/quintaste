@@ -16,9 +16,9 @@ export function useMemberRecipes() {
   const [page, setPage] = useState<{ base: string; cursor: number | null; prior: Recipe[] }>({ base, cursor: null, prior: [] });
   const own = page.base === base ? page : { base, cursor: null, prior: [] };
   const path = accountsEnabled ? browsePath(q, category, own.cursor) : null;
-  const remote = useRemote(path, signal => memberRecipes(path!, signal));
+  const remote = useRemote(path, signal => memberRecipes(path!, signal), { keepPrevious: true });
   const all = [...own.prior, ...(remote.data?.items ?? []).map(memberSummary)].filter((r, index, rows) => rows.findIndex(x => x.id === r.id) === index);
-  return { recipes: all, loading: remote.loading, hasMore: remote.data?.next != null, limited: all.length >= 80,
+  return { recipes: all, loading: remote.loading, firstLoad: !!path && remote.data === undefined && !remote.error, hasMore: remote.data?.next != null, limited: all.length >= 80,
     more: () => setPage({ base, prior: all, cursor: remote.data?.next ?? null }) };
 }
 /** One published member recipe with its live shop labels; remembered so Cook mode and Shopping can use it. */

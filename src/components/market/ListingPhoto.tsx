@@ -18,7 +18,8 @@ export function ListingPhoto({ path, contain = false, label, round = 16, icon }:
   const { theme } = usePreferences(), source = useListingSource(), t = useT("market");
   const [failed, setFailed] = useState(""), broken = !!path && failed === path;
   return <View style={[s.frame, { backgroundColor: theme.muted, borderRadius: round }]}>
-    {path && !broken ? <Image source={source(path)} contentFit={contain ? "contain" : "cover"} style={StyleSheet.absoluteFill} onError={() => setFailed(path)}
+    {/* recyclingKey: a list cell reused for another item clears the old photo instead of showing it until the new one loads. */}
+    {path && !broken ? <Image source={source(path)} recyclingKey={path} contentFit={contain ? "contain" : "cover"} style={StyleSheet.absoluteFill} onError={() => setFailed(path)}
       accessible={!!label} accessibilityLabel={label} transition={120} />
       : <View style={s.empty}><Icon name={icon ?? "image-outline"} size={round > 12 ? 30 : 20} color={icon ? theme.accent : undefined} />
         {round > 12 && !icon && <T variant="small" muted>{t(broken ? "photoUnavailable" : "noPhoto")}</T>}</View>}

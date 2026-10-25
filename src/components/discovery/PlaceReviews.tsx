@@ -21,7 +21,7 @@ export function PlaceReviews({ placeId }: { placeId: string }) {
 function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewSort; setSort: (value: ReviewSort) => void }) {
   const { theme } = usePreferences(), member = useMember(), params = useLocalSearchParams<{ review?: string }>(), t = useT("explore"), tc = useT("common");
   const prefix = "place-reviews:" + placeId + ":", key = prefix + (member.userId ?? "guest") + ":" + sort;
-  const remote = useRemote(key, signal => placeReviews(reviewsPath(placeId, sort), signal)), data = remote.data;
+  const remote = useRemote(key, signal => placeReviews(reviewsPath(placeId, sort), signal), { keepPrevious: true }), data = remote.data;
   const latest = useRef(data);
   useEffect(() => { latest.current = data; }, [data]);
   const [extra, setExtra] = useState<{ base: PlaceReviewsPage; items: PlaceReview[]; nextCursor: string | null } | null>(null);
@@ -36,7 +36,8 @@ function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewS
   const closeDialog = () => { setDialog(null); if (params.review) router.setParams({ review: undefined }); };
   const write = () => { if (ensureMember(member, "/place/catalogue-" + placeId + "?review=1")) setDialog({ action: "write", review: data?.mine ?? undefined }); };
   const more = async () => {
-    if (!cursor || !data || busy) return;
+    // The faded list from the last sort has that sort's cursor; more pages wait for the new sort.
+    if (!cursor || !data || busy || remote.stale) return;
     const base = data, request = new AbortController(); controller.current = request; setBusy(true); setError("");
     try {
       const page = await placeReviews(reviewsPath(placeId, sort, cursor), request.signal);
@@ -61,10 +62,10 @@ function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewS
       {data.count > 1 && <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>{([['newest', 'sortNewest'], ['highest', 'sortHighest'], ['lowest', 'sortLowest']] as const).map(([value, label]) =>
         <Chip key={value} label={t(label)} compact role="radio" selected={sort === value} onPress={() => setSort(value)} />)}</View>}
       {data.mine && card(data.mine, true)}
-      {(showAll ? items : items.slice(0, 2)).map(item => card(item))}
+      {items.length > 0 && <View style={{ gap: 10, opacity: remote.stale ? 0.55 : 1 }}>{(showAll ? items : items.slice(0, 2)).map(item => card(item))}</View>}
       {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
       {!showAll && (items.length > 2 || !!cursor) && <Button label={t("seeAllReviews")} variant="link" onPress={() => setShowAll(true)} />}
-      {showAll && !!cursor && <Button label={t(error ? "retryMoreReviews" : "moreReviews")} variant="link" loading={busy} onPress={() => void more()} />}
+      {showAll && !!cursor && <Button label={t(error ? "retryMoreReviews" : "moreReviews")} variant="link" loading={busy} disabled={remote.stale} onPress={() => void more()} />}
       {showAll && <Button label={t("showFewerReviews")} variant="link" onPress={() => setShowAll(false)} />}
     </>}
     {activeDialog && <PlaceReviewDialog {...activeDialog} placeId={placeId} onClose={closeDialog} onSaved={saved} />}
