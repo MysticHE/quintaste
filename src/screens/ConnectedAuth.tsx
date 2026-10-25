@@ -12,11 +12,12 @@ import { safeReturn } from '../utils/navigation';
 import { getSignInDestination, setSignInDestination } from '../services/sign-in-destination';
 import { useT } from '../i18n';
 
-export function ConnectedAuthScreen({ signup = false }: { signup?: boolean }) {
+/** Create an account: Google, or a name, date of birth, username and password, then the recovery codes. Sign-in is ConnectedSignIn.tsx. */
+export function ConnectedSignUpScreen() {
   const { returnTo, username: initialUsername } = useLocalSearchParams<{ returnTo?: string; username?: string }>();
   const { theme } = usePreferences(), t = useT('me'), tc = useT('common');
   const { user } = useAuth();
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(!!initialUsername);
   const [googleBusy, setGoogleBusy] = useState(false);
   const [name, setName] = useState(''), [username, setUsername] = useState(initialUsername || ''), [password, setPassword] = useState('');
   const [codes, setCodes] = useState<string[]>([]);
@@ -28,19 +29,12 @@ export function ConnectedAuthScreen({ signup = false }: { signup?: boolean }) {
     if (busy) return;
     setBusy(true); setError(''); setMessage('');
     try {
-      if (signup) {
-        const result = await accountRequest<{ username: string; codes: string[]; message?: string }>('register', { method: 'POST',
-          body: JSON.stringify({ name, username: username.trim(), password, dateOfBirth }) });
-        credentials.current = { username: result.username, password };
-        setUsername(result.username); setCodes(result.codes); setCreated(true);
-        setDateOfBirth(''); setPassword(''); setMessage(result.message || '');
-      } else {
-        setSignInDestination(safeReturn(returnTo));
-        const result = await authClient.signIn.username({ username: username.trim(), password });
-        if (result.error) throw new Error(t('signInFailed'));
-        setPassword('');
-      }
-    } catch (problem) { setSignInDestination(undefined); setError(problem instanceof Error ? problem.message : t('unableToConnect')); }
+      const result = await accountRequest<{ username: string; codes: string[]; message?: string }>('register', { method: 'POST',
+        body: JSON.stringify({ name, username: username.trim(), password, dateOfBirth }) });
+      credentials.current = { username: result.username, password };
+      setUsername(result.username); setCodes(result.codes); setCreated(true);
+      setDateOfBirth(''); setPassword(''); setMessage(result.message || '');
+    } catch (problem) { setError(problem instanceof Error ? problem.message : t('unableToConnect')); }
     finally { setBusy(false); }
   };
   const finishSignup = async () => {
@@ -62,26 +56,23 @@ export function ConnectedAuthScreen({ signup = false }: { signup?: boolean }) {
     </>}
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
   </Screen>;
-  return <Screen title={signup ? t('createAccount') : tc('signIn')}>
-    {!(signup && passwordVisible) && <GoogleSignIn disabled={busy} returnTo={returnTo} onBusy={setGoogleBusy} />}
+  return <Screen title={t('createAccount')}>
+    {!passwordVisible && <GoogleSignIn disabled={busy} returnTo={returnTo} onBusy={setGoogleBusy} />}
     {!googleBusy && <>
-    <Button label={passwordVisible ? (signup ? t('otherSignUp') : t('hidePasswordSignIn')) : (signup ? t('createWithUsername') : t('useUsernamePassword'))}
+    <Button label={passwordVisible ? t('otherSignUp') : t('createWithUsername')}
       variant="link" disabled={busy} onPress={() => { setPasswordVisible(value => !value); setDateOfBirth(''); setPassword(''); setError(''); }} />
     {passwordVisible && <>
-    {signup && <><Field label={t('displayName')} value={name} onChangeText={setName} maxLength={50} />
-      <DateOfBirthField value={dateOfBirth} onChange={setDateOfBirth} disabled={busy} />
-      <T variant="small" muted>{t('ageRule')}</T></>}
+    <Field label={t('displayName')} value={name} onChangeText={setName} maxLength={50} />
+    <DateOfBirthField value={dateOfBirth} onChange={setDateOfBirth} disabled={busy} />
+    <T variant="small" muted>{t('ageRule')}</T>
     <Field label={t('username')} value={username} onChangeText={setUsername} autoCapitalize="none" autoCorrect={false} autoComplete="username" maxLength={30} />
-    {signup && <T variant="small" muted>{t('usernameRule')}</T>}
-    <Field label={t('password')} value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete={signup ? 'new-password' : 'current-password'} maxLength={128} placeholder={signup ? t('atLeast15') : t('yourPassword')} />
+    <T variant="small" muted>{t('usernameRule')}</T>
+    <Field label={t('password')} value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="new-password" maxLength={128} placeholder={t('atLeast15')} />
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     {!!message && <Card><T accessibilityLiveRegion="polite">{message}</T></Card>}
-    <Button label={signup ? t('createAccount') : tc('signIn')} loading={busy} disabled={!username.trim() || !password || (signup && (!name.trim() || !dateOfBirth))} onPress={() => void submit()} />
-    {!signup && <Button label={t('forgotPassword')} variant="link" disabled={busy} onPress={() => router.push({ pathname: '/reset-password', params: { username } })} />}
+    <Button label={t('createAccount')} loading={busy} disabled={!username.trim() || !password || !name.trim() || !dateOfBirth} onPress={() => void submit()} />
     </>}
-    <Button label={signup ? t('haveAccount') : t('createAnAccount')} variant="link" disabled={busy}
-      onPress={() => router.replace({ pathname: signup ? '/login' : '/create-account', params: { returnTo } })} />
-    <Button label={t('continueAsGuest')} variant="secondary" disabled={busy} onPress={() => router.dismissTo(safeReturn(returnTo))} />
+    <Button label={t('haveAccount')} variant="link" disabled={busy} onPress={() => router.replace({ pathname: '/login', params: { returnTo } })} />
     </>}
   </Screen>;
 }

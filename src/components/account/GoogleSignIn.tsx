@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Platform } from 'react-native';
-import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import { router } from 'expo-router';
 import { Button, T } from '../ui';
@@ -8,9 +7,11 @@ import { accountRequest } from '../../services/auth-client';
 import { rememberGoogleSignIn, forgetGoogleSignIn } from '../../services/google-sign-in';
 import { usePreferences } from '../../state/Preferences';
 import { safeReturn } from '../../utils/navigation';
+import { appLink } from '../../utils/expo-go';
 import { useT } from '../../i18n';
+import { WelcomeButton } from '../walkin/WelcomeUI';
 
-export function GoogleSignIn({ disabled = false, returnTo, onBusy }: { disabled?: boolean; returnTo?: string; onBusy?: (busy: boolean) => void }) {
+export function GoogleSignIn({ disabled = false, returnTo, onBusy, welcome = false }: { disabled?: boolean; returnTo?: string; onBusy?: (busy: boolean) => void; welcome?: boolean }) {
   const { theme } = usePreferences(), t = useT('me');
   const [busy, setBusy] = useState(false), [error, setError] = useState('');
   const alive = useRef(true), running = useRef(false);
@@ -19,7 +20,7 @@ export function GoogleSignIn({ disabled = false, returnTo, onBusy }: { disabled?
     if (running.current) return;
     running.current = true; setBusy(true); onBusy?.(true); setError('');
     try {
-      const returnURL = Platform.OS === 'web' ? undefined : Linking.createURL('auth-return');
+      const returnURL = Platform.OS === 'web' ? undefined : appLink('auth-return');
       const flow = await accountRequest<{ id: string; proof: string; url: string }>('google/start', {
         method: 'POST', body: JSON.stringify({ platform: Platform.OS === 'web' ? 'web' : 'native', returnTo: String(safeReturn(returnTo)), returnURL }),
       });
@@ -38,7 +39,8 @@ export function GoogleSignIn({ disabled = false, returnTo, onBusy }: { disabled?
     finally { running.current = false; if (alive.current) { setBusy(false); onBusy?.(false); } }
   };
   return <>
-    <Button label={busy ? t('signingIn') : t('continueWithGoogle')} icon="logo-google" loading={busy} disabled={disabled || busy} onPress={() => void start()} />
+    {welcome ? <WelcomeButton label={busy ? t('signingIn') : t('welcomeGoogle')} kind="google" busy={busy} disabled={disabled} onPress={() => void start()} />
+      : <Button label={busy ? t('signingIn') : t('continueWithGoogle')} icon="logo-google" loading={busy} disabled={disabled || busy} onPress={() => void start()} />}
     {!!error && <T color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
   </>;
 }

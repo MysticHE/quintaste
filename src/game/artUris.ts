@@ -1,8 +1,7 @@
 import { Asset } from "expo-asset";
-import Constants, { ExecutionEnvironment } from "expo-constants";
-import { Platform } from "react-native";
 import { GAME_ART } from "./art";
 import { apiUrl } from "../utils/api-url";
+import { inExpoClient } from "../utils/expo-go";
 
 /** The app's Nunito weights, passed into the game webview, which cannot see fonts loaded by expo-font. */
 const FONTS: Record<string, number> = {
@@ -22,8 +21,7 @@ export const GAME_PAGE_PATH = "/game-dom/rush-hour.html";
  * dev server serves the page) and installed builds (the page is packaged) keep Expo's default.
  */
 export function gameHost(): string | null {
-  if (Platform.OS === "web" || (typeof __DEV__ !== "undefined" && __DEV__)) return null;
-  if (Constants.executionEnvironment !== ExecutionEnvironment.StoreClient) return null;
+  if ((typeof __DEV__ !== "undefined" && __DEV__) || !inExpoClient()) return null;
   try {
     const url = new URL(process.env.EXPO_PUBLIC_API_URL ?? "");
     return url.protocol === "https:" && !url.username && !url.password ? url.origin : null;

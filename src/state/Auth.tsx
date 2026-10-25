@@ -3,17 +3,19 @@ import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { accountsEnabled, authClient } from '../services/auth-client';
 import { clearRemoteCache } from '../hooks/useRemote';
+import { walkIn } from '../services/walk-in';
 
 type AccountUser = { id: string; name: string; username?: string | null; bio?: string; adultConfirmed?: boolean };
-type AuthState = { enabled: boolean; user: AccountUser | null; pending: boolean; unavailable?: boolean; retry?: () => void; openGuest?: () => void };
+type AuthState = { enabled: boolean; user: AccountUser | null; pending: boolean; unavailable?: boolean; retry?: () => void };
 const Context = createContext<AuthState>({ enabled: false, user: null, pending: false });
 const presenceKey = '@quintaste/auth-presence-v1';
 let presenceWrites: Promise<unknown> = Promise.resolve();
 function ConnectedAuth({ children }: PropsWithChildren) {
   const { data, isPending, error, refetch } = authClient.useSession();
   const [presence, setPresence] = useState<'unknown' | 'guest' | 'account'>('unknown');
-  const [offlineGuest, setOfflineGuest] = useState(false);
   const userId = data?.user?.id;
+  // Covers restored sessions, username sign-in and Google callbacks. Sign-out never clears this device flag.
+  useEffect(() => { if (userId) void walkIn.signedIn().catch(() => {}); }, [userId]);
   // Community data is cached per session; a different account must never see the previous one's.
   useEffect(() => { clearRemoteCache(); }, [userId]);
   useEffect(() => {
@@ -34,15 +36,16 @@ function ConnectedAuth({ children }: PropsWithChildren) {
     const next = data?.user ? 'account' : 'guest';
     // This is only a routing hint, never account identity or authorization.
     presenceWrites = presenceWrites.catch(() => {}).then(async () => {
-      if (active) { setPresence(next); setOfflineGuest(false); }
+      if (active) setPresence(next);
       if (Platform.OS === 'web') await AsyncStorage.setItem(presenceKey, next);
     });
     void presenceWrites.catch(() => {});
     return () => { active = false; };
   }, [data?.user, isPending, error]);
-  const guestAllowed = !data?.user && (presence === 'guest' || offlineGuest);
+  // A device last used signed out goes straight to sign-in instead of waiting on, or failing, the session check.
+  const guestAllowed = !data?.user && presence === 'guest';
   return <Context.Provider value={{ enabled: true, user: data?.user || null, pending: isPending && !guestAllowed,
-    unavailable: !!error && !guestAllowed, retry: () => void refetch(), openGuest: () => setOfflineGuest(true) }}>{children}</Context.Provider>;
+    unavailable: !!error && !guestAllowed, retry: () => void refetch() }}>{children}</Context.Provider>;
 }
 export function AuthProvider({ children }: PropsWithChildren) {
   return accountsEnabled ? <ConnectedAuth>{children}</ConnectedAuth> : children;

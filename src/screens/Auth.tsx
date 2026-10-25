@@ -9,8 +9,10 @@ import {
 } from "./AuthParts";
 import { usePreviewAuth } from "./usePreviewAuth";
 import { accountsEnabled } from "../services/auth-client";
-import { ConnectedAuthScreen } from "./ConnectedAuth";
+import { ConnectedSignUpScreen } from "./ConnectedAuth";
+import { ConnectedSignInScreen } from "./ConnectedSignIn";
 import { useT } from "../i18n";
+import { WalkInExperience } from "../components/walkin/WalkInExperience";
 function PreviewAuthScreen({ signup = false }: { signup?: boolean }) {
   const state = usePreviewAuth(signup), t = useT("me");
   return (
@@ -47,5 +49,7 @@ function PreviewAuthScreen({ signup = false }: { signup?: boolean }) {
   );
 }
 export function AuthScreen({ signup = false }: { signup?: boolean }) {
-  return accountsEnabled ? <ConnectedAuthScreen signup={signup} /> : <PreviewAuthScreen signup={signup} />;
+  if (!accountsEnabled) return <PreviewAuthScreen signup={signup} />;
+  if (signup) return <ConnectedSignUpScreen />;
+  return <WalkInExperience SignIn={ConnectedSignInScreen} />;
 }

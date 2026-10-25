@@ -89,7 +89,6 @@ const en = {
   restoringSignIn: "Restoring sign-in",
   reconnectFailed: "Unable to reconnect. Your sign-in is kept on this device.",
   retryConnection: "Retry connection",
-  openGuestOffline: "Open guest collection offline",
 
   likeName: "Like {name}",
   unlikeName: "Unlike {name}",

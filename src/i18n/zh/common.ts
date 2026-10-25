@@ -89,7 +89,6 @@ const zh: typeof en = {
   restoringSignIn: "正在恢复登录",
   reconnectFailed: "无法重新连接。你的登录状态仍保留在这部设备上。",
   retryConnection: "重试连接",
-  openGuestOffline: "离线打开访客收藏",
 
   likeName: "赞 {name}",
   unlikeName: "取消赞 {name}",
