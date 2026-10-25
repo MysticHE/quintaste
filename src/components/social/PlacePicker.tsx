@@ -77,7 +77,7 @@ export function PlacePicker({ visible, onClose, onPick, title, selectedId }: {
     {items.map(place => <PlaceItem key={place.id} place={place} origin={origin?.point} selected={place.id === selectedId} onPress={() => pick(place)} />)}
   </ListGroup>;
   const locationList = !!addresses.length && <ListGroup title={t("locationsHeading")}>
-    {addresses.map(item => <ListItem key={item.id} title={item.name} subtitle={addressLine(item)} leading={<RowIcon name="location-outline" tone="muted" />}
+    {addresses.map(item => <ListItem key={item.id} title={item.name} subtitle={addressLine(item) || undefined} leading={<RowIcon name="location-outline" tone="muted" />}
       label={t("showPlacesNear", { name: item.name })} onPress={() => nearLocation(item)} />)}
   </ListGroup>;
   // A postal code is almost always a location to search near, so its matches lead; a word is usually a place name.

@@ -27,14 +27,19 @@ export function normalizeLocations(value: unknown, query: string): LocationSugge
     const point = { latitude: Number(item.LATITUDE), longitude: Number(item.LONGITUDE) };
     const postal = label(item.POSTAL, 6), building = label(item.BUILDING, 100);
     if (!inSingapore(point) || (/^\d{6}$/.test(query) && postal !== query)) return [];
-    const address = readable(label(item.ADDRESS, 300));
-    const name = readable(building && !["NIL", "NA"].includes(building.toUpperCase()) ? building
-      : label(item.SEARCHVAL, 100) || address.slice(0, 100));
+    const rawAddress = label(item.ADDRESS, 300), rawName = building && !["NIL", "NA"].includes(building.toUpperCase()) ? building
+      : label(item.SEARCHVAL, 100) || rawAddress.slice(0, 100);
+    const address = readable(rawAddress), name = readable(rawName);
     if (!name || !address) return [];
+    // OneMap's address ends with the building or place name the row already shows (before any "SINGAPORE 123456"), so the
+    // line under it is the rest ("2 Seah Im Road"), else the postal code. The full address is kept for saving Home or Work.
+    const postalTail = / SINGAPORE \d{6}$/.exec(rawAddress)?.[0] ?? "", body = rawAddress.slice(0, rawAddress.length - postalTail.length);
+    const rest = body === rawName ? postalTail.trim() : body.endsWith(" " + rawName) ? body.slice(0, -rawName.length - 1) + postalTail : rawAddress;
+    const street = readable(rest || (/^\d{6}$/.test(postal) ? "SINGAPORE " + postal : ""));
     const id = "onemap-" + point.latitude + "-" + point.longitude;
     if (seen.has(id)) return [];
     seen.add(id);
-    return [{ kind: "address", id, name, address, ...point, ...(/^\d{6}$/.test(postal) ? { postalCode: postal } : {}) }];
+    return [{ kind: "address", id, name, address, street, ...point, ...(/^\d{6}$/.test(postal) ? { postalCode: postal } : {}) }];
   }).slice(0, 8);
 }
 async function requestLocations(query: string): Promise<LocationSearchResult> {

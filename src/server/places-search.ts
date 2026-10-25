@@ -1,9 +1,6 @@
-import { ID_FIELDS, searchIds } from "../../scripts/places-client";
 import type { SearchBounds } from "../types/discovery";
 import { validSearchArea } from "../utils/discovery-search";
 
-export { ID_FIELDS };
-let windowStarted = 0, requests = 0;
 const point = (value: unknown): value is { latitude: number; longitude: number } => !!value && typeof value === "object"
   && typeof (value as SearchBounds["low"]).latitude === "number" && typeof (value as SearchBounds["low"]).longitude === "number";
 export function validatedSearch(value: unknown) {
@@ -23,17 +20,4 @@ export function validatedSearch(value: unknown) {
   }
   const words = input.query.trim() ? "vegetarian " + input.query.trim() : "vegetarian restaurants";
   return { query: words + " in " + input.area + (input.area === "Singapore" ? "" : ", Singapore"), bounds };
-}
-export function allowSearch() {
-  const now = Date.now();
-  if (now - windowStarted >= 60000) { windowStarted = now; requests = 0; }
-  if (requests >= 15) return false;
-  requests += 1;
-  return true;
-}
-export async function liveSearch(query: string, bounds?: SearchBounds) {
-  const key = process.env.GOOGLE_PLACES_API_KEY;
-  if (!key || !/^AIza[A-Za-z0-9_-]{30,60}$/.test(key)) return null;
-  const page = await searchIds(key, query, undefined, bounds);
-  return { placeIds: [...new Set((page.places ?? []).map(place => place.id))], capped: !!page.nextPageToken };
 }

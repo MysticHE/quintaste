@@ -10,10 +10,9 @@ export function locationQuery(value: unknown): string | undefined {
   const postal = /^(?:singapore\s*|s\s*\(?\s*)?(\d{6})\)?$/i.exec(query);
   return postal ? postal[1] : query;
 }
-/** The line under a suggestion's name: OneMap's address ends with the building name, which the row already shows (saved addresses keep it). */
-export function addressLine(item: Pick<LocationSuggestion, "name" | "address">) {
-  const at = item.address.toLowerCase().lastIndexOf(" " + item.name.toLowerCase());
-  return at > 0 ? (item.address.slice(0, at) + item.address.slice(at + 1 + item.name.length)).trim() : item.address;
+/** The line under a suggestion's name: the server's street line for an address (no repeated name), else the area's MRT. */
+export function addressLine(item: LocationSuggestion) {
+  return item.kind === "address" && item.street !== undefined ? item.street : item.address;
 }
 export function matchingAreas(query: string): LocationSuggestion[] {
   const words = query.toLowerCase().split(/\s+/);
@@ -28,7 +27,8 @@ export function isLocationSuggestion(value: unknown): value is LocationSuggestio
     || item.name.length > 100 || typeof item.address !== "string" || item.address.length > 300) return false;
   return item.kind === "area" ? areas.some(area => area.id === item.areaId && area.name === item.name)
     : item.kind === "address" && inSingapore(item)
-      && (item.postalCode === undefined || /^\d{6}$/.test(item.postalCode));
+      && (item.postalCode === undefined || /^\d{6}$/.test(item.postalCode))
+      && (item.street === undefined || typeof item.street === "string" && item.street.length <= 300);
 }
 export function readLocationSearch(value: unknown): LocationSearchResult {
   const result = value as LocationSearchResult | null;

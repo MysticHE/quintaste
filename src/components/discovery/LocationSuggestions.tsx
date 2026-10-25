@@ -23,7 +23,7 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
       {busy && <View style={s.status}><ActivityIndicator size="small" color={theme.accent} accessibilityLabel={t("findingLocations")} />
         <T variant="small" muted accessibilityLiveRegion="polite">{t("findingLocationsNow")}</T></View>}
       <SuggestionList id={id} label={t(suggestions.some(item => item.kind === "dish") ? "matchingDishesAndLocations" : "matchingLocations")}>{suggestions.map((item, position) => <Pressable key={item.id} nativeID={id + "-" + position} role="option"
-        accessibilityLabel={item.name + " " + (item.kind === "dish" ? t("dishSuggestion") : addressLine(item))} accessibilityState={{ selected: position === index }}
+        accessibilityLabel={[item.name, item.kind === "dish" ? t("dishSuggestion") : addressLine(item)].filter(Boolean).join(", ")} accessibilityState={{ selected: position === index }}
         {...(Platform.OS === "web" ? { "aria-selected": position === index } : {})}
         onLayout={event => {
           const y = event.nativeEvent.layout.y; rows.current.set(item.id, y);
@@ -36,7 +36,7 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
           ? theme.accentSoft : theme.card }]}>
         <Icon name={item.kind === "dish" ? "restaurant-outline" : item.kind === "area" ? "map-outline" : "location-outline"} size={18} />
         <View style={common.flex}><T variant="small" style={common.bold}>{item.name}{" "}</T>
-          <T variant="caption" muted>{item.kind === "dish" ? t("dishSuggestion") : addressLine(item)}</T></View>
+          {(item.kind === "dish" || !!addressLine(item)) && <T variant="caption" muted>{item.kind === "dish" ? t("dishSuggestion") : addressLine(item)}</T>}</View>
       </Pressable>)}</SuggestionList>
       {!busy && !suggestions.length && !error && <T variant="small" muted style={s.status} accessibilityLiveRegion="polite">
         {t("noMatchingLocations")}</T>}

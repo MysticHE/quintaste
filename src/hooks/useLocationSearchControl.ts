@@ -24,7 +24,8 @@ export function useLocationSearchControl(value: string, onChoose: (item: Locatio
   const dishes = onSearch ? dishScope : undefined;
   const dishRows = useDishSuggestions(displayValue, dishes, !!dishes && open && !resolving);
   const locations = addressesOnly ? result.suggestions.filter(item => item.kind === "address") : result.suggestions;
-  const suggestions = ordered(locations, dishRows.dishes, displayValue);
+  // While the dish lookup runs, OneMap's rows wait, so a business named after a dish never flashes up first.
+  const suggestions = ordered(locations, dishRows.dishes, displayValue, dishRows.busy);
   const looking = result.busy || dishRows.busy;
   const active = useRef<AbortController | null>(null);
   const cancel = () => { active.current?.abort(); active.current = null; };
@@ -77,8 +78,12 @@ export function useLocationSearchControl(value: string, onChoose: (item: Locatio
     changed, choose, submit, keepOpen, focus: nav.focus, blur: nav.blur, key: (key: string) => nav.key(key, suggestions.length) };
 }
 
-/** Dish rows lead, except that a location named exactly the typed text stays first. */
-function ordered(locations: LocationSuggestion[], dishes: SearchSuggestion[], typed: string): SearchSuggestion[] {
+/**
+ * Dish rows lead, except that a location named exactly the typed text stays first. When the words match dishes, OneMap's
+ * other rows (mostly businesses named after the dish, such as a wanton mee stall) are left out; our area names stay.
+ */
+function ordered(locations: LocationSuggestion[], dishes: SearchSuggestion[], typed: string, dishesPending = false): SearchSuggestion[] {
   const text = searchWords(typed), exact = locations.filter(item => searchWords(item.name) === text);
-  return [...exact, ...dishes, ...locations.filter(item => !exact.includes(item))];
+  const others = locations.filter(item => !exact.includes(item) && (item.kind === "area" || !dishes.length && !dishesPending));
+  return [...exact, ...dishes, ...others];
 }

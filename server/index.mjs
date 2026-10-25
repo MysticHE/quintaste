@@ -103,7 +103,8 @@ app.use('/api/auth/get-session', async (req, res, next) => {
 app.all('/api/auth/{*splat}', toNodeHandler(auth));
 app.use('/api/account', accounts);
 app.use('/api/operations', operations);
-app.use(['/api/live-places','/api/place-search','/api/place-details','/api/place-photo','/api/location-search'], featureGate('discovery'));
+// Google place details and photos remain only for places members saved from Google before the catalogue (owner, 25 Oct 2026).
+app.use(['/api/place-details','/api/place-photo','/api/location-search'], featureGate('discovery'));
 app.use(['/api/menus', '/api/catalogue', '/api/dish-search'], featureGate('menus'));
 app.use('/api/avatar', avatars);
 app.use('/api/lotus', lotus);

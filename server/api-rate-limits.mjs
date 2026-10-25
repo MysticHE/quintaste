@@ -10,7 +10,7 @@ export const apiRatePolicies = Object.freeze({
 });
 const context = Symbol('verified rate-limit principal');
 const authCookie = /(?:^|;\s*)(?:__Secure-)?quintaste\.session_token=/;
-const providerPaths = new Set(['/api/live-places', '/api/place-search', '/api/place-details', '/api/place-photo', '/api/location-search']);
+const providerPaths = new Set(['/api/place-details', '/api/place-photo', '/api/location-search']);
 const securityPaths = new Set(['/api/auth/delete-user', '/api/auth/revoke-session', '/api/auth/revoke-sessions', '/api/auth/revoke-other-sessions']);
 
 export function apiRequestKind(req) {
