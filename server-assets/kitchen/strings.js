@@ -53,7 +53,7 @@ const UI = {
     opening: 'The kitchen opens soon', watchAgain: 'Watch again', openTicket: 'Open', sfaLink: 'Read on SFA',
     pass: (out, back) => out + ' out today · ' + back + ' sent back', sentBack: 'Sent back today', scene: 'The Mochi kitchen. Choose a chef to see their tickets.',
     working: 'Working', reviewing: 'Checking plates', resting: 'Resting', waiting: n => n + ' waiting for the owner', soon: 'Joining soon', unknown: 'Off duty',
-    since: t => 'since ' + t, back: t => 'back at ' + t, online: 'Online', offline: 'Offline',
+    since: t => 'since ' + t, back: t => 'back at ' + t, online: 'On shift', offline: 'Off shift', onShift: 'On shift',
     howTitle: 'How this kitchen works',
     how: [
       ['Chefs find and check.', 'Menus, prices, hours, recipes and events, from each place’s own pages and listings.'],
@@ -72,7 +72,7 @@ const UI = {
     opening: '厨房即将开张', watchAgain: '再看一次', openTicket: '打开', sfaLink: '在食品局网站阅读',
     pass: (out, back) => '今天出菜 ' + out + ' · 退回 ' + back, sentBack: '今天退回', scene: 'Mochi 厨房。选择一位厨师，查看他的单据。',
     working: '忙碌中', reviewing: '检查菜品', resting: '休息中', waiting: n => n + ' 项等店主确认', soon: '即将加入', unknown: '未上班',
-    since: t => t + ' 开始', back: t => t + ' 回来', online: '在线', offline: '离线',
+    since: t => t + ' 开始', back: t => t + ' 回来', online: '值班中', offline: '下班', onShift: '值班中',
     howTitle: '这间厨房怎么运作',
     how: [
       ['小厨师查找并核对。', '菜单、价格、营业时间、食谱和活动，都以店家自己的页面和资料为准。'],

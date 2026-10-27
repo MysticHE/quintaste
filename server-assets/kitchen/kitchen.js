@@ -66,6 +66,7 @@ function renderChefs() {
     button.setAttribute('aria-pressed', String(state.chef === id));
     button.querySelector('.chef-name').textContent = CHEFS[id].name[state.lang];
     button.querySelector('.chef-role').textContent = CHEFS[id].role[state.lang];
+    button.querySelector('.chef-state').textContent = stateWords(chef);
     const status = (on ? t[on] + ', ' : '') + stateWords(chef);
     button.setAttribute('aria-label', `${chefTitle(id, state.lang)}, ${status}. ${CHEFS[id].job[state.lang]}`);
     scene.querySelectorAll(`.prop[data-for="${id}"]`).forEach(prop => { prop.dataset.state = chef.state; });

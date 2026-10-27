@@ -67,6 +67,10 @@
         </div>
         <p class="pass-count" id="pass-count" hidden></p>
       </div>
+      <p class="legend" aria-hidden="true">
+        <span data-presence="online"><span class="dot"></span><span data-i18n="onShift">On shift</span></span>
+        <span data-presence="offline"><span class="dot"></span><span data-i18n="resting">Resting</span></span>
+      </p>
     </section>
 
     <section class="rail-wrap" aria-labelledby="rail-title">
@@ -100,7 +104,7 @@
 
   <template id="chef-template">
     <span class="chef-figure"><span class="zz" aria-hidden="true">z z</span></span>
-    <span class="chef-plate"><span class="dot" aria-hidden="true"></span><span class="chef-name"></span><span class="chef-role"></span></span>
+    <span class="chef-plate"><span class="dot" aria-hidden="true"></span><span class="chef-name"></span><span class="chef-role"></span><span class="chef-state"></span></span>
   </template>
   <template id="ticket-template">
     <li class="ticket">
