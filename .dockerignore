@@ -52,3 +52,4 @@ deploy/*.local
 **/provenance.json
 !server-assets/avatar/LICENSE.txt
 !assets/fonts/Fredoka-OFL.txt
+!server-assets/kitchen/fonts/*-OFL.txt

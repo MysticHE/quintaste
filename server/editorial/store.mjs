@@ -181,7 +181,7 @@ export async function publish(root, baseline, batch) {
       next.records[r.kind + ':' + r.id].change = {
         changeId: hash({ batchHash, kind: r.kind, id: r.id }), kind: r.kind, id: r.id,
         name: (after.data.name ?? after.data.title ?? r.id) + (['venue', 'place'].includes(r.kind) && after.data.branch ? ' — ' + after.data.branch : ''), parent: current.revision,
-        reviewedParent: batch.parent, beforeHash: before.hash, afterHash: after.hash,
+        reviewedParent: batch.parent, beforeHash: before.hash, afterHash: after.hash, created: before.hash === null,
         dataHash: hash(r.data), proposalHash: r.proposalHash ?? null, fields,
         retainedSourceUrls: (r.data.sourceUrls ?? []).filter(url => retainedUrls.has(url) && !capturedUrls.has(url)),
         before: Object.fromEntries(fields.map(k => [k, before.data?.[k] ?? null])),

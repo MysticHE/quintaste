@@ -30,6 +30,7 @@ import { startAvatarWorker } from './avatar/worker.mjs';
 import { aiRecipes } from './ai-recipes/router.mjs';
 import { aiRecipeBots } from './ai-recipes/bot-router.mjs';
 import { creatorBots } from './creators/bot-router.mjs';
+import { kitchen, kitchenPage } from './kitchen/router.mjs';
 import { gameArt, gameArtBots } from './game/art.mjs';
 import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
 import { startLevelWorker } from './game/levels-worker.mjs';
@@ -121,6 +122,8 @@ app.use('/api/recipes', (req, res, next) => req.method === 'DELETE' ? next() : r
 app.use('/api/ai-recipes/bot', aiRecipeBots);
 // Creator library (docs/COOKER_CREATOR_LIBRARY_PLAN.md): signed QT Cooker routes only; staff use the admin console.
 app.use('/api/creators/bot', creatorBots);
+// The public Mochi kitchen page and its feed (docs/MOCHI_KITCHEN_PLAN.md); the push route is signed like the other bot routes.
+app.use('/api/kitchen', kitchen);
 app.use('/api/ai-recipes', aiRecipes);
 // Cook search suggestions and the settled-search log for wanted recipes (docs/COOK_DISCOVERY_PLAN.md); not behind the recipes control.
 app.use('/api/cook-search', cookSearch);
@@ -141,6 +144,7 @@ app.use('/api/staff-base', (_req, res) => res.sendStatus(404));
 // never points at a removed script; the scripts are content-hashed.
 app.use('/game-dom', express.static(path.resolve('dist/client/game-dom'), { index: false, fallthrough: false,
   setHeaders: (res, file) => res.setHeader('Cache-Control', file.endsWith('.html') ? 'no-cache' : 'public, max-age=31536000, immutable') }));
+app.use('/kitchen', kitchenPage);
 app.use(express.static(path.resolve('dist/client'), { maxAge: '1h', extensions: ['html'], index: false }));
 app.all('/{*all}', createRequestHandler({ build: path.resolve('dist/server') }));
 app.use((err, _req, res, _next) => {

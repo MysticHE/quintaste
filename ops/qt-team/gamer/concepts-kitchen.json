@@ -1,0 +1,125 @@
+{
+ "version": 1,
+ "note": "Mochi kitchen web page: Mochi Chef turnaround, hand and cheek icons (owner, 27 Oct 2026).",
+ "assets": [
+  {
+   "id": "kitchen-mochi-turn",
+   "kind": "turnaround",
+   "chroma": "green",
+   "aspect": "landscape",
+   "reference": false,
+   "refs": [
+    "ref-mochi-chef.png",
+    "style-board.webp"
+   ],
+   "subject": "the Mochi Chef from the first attached picture, shown in five views",
+   "details": "Exactly the same character, proportions, clay material and colours as the first attached picture: a soft ivory steamed-dumpling body with pleats gathered at the top, a white puffy chef's hat, closed happy upturned-arc eyes, a small closed smile and soft peach blush on both cheeks. The face never changes: the eyes stay closed arcs and the mouth stays the same small closed smile. No arms, no hands, no legs and no feet. From left to right: 1) facing the viewer; 2) three-quarter view turned to the viewer's left; 3) side profile facing left, with one closed eye arc, part of the smile and one cheek visible; 4) three-quarter back view turned to the left, no face visible; 5) back view, the hat and gathered pleats seen from behind, no face. Ignore any words in the pictures.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen raw-1."
+  },
+  {
+   "id": "kitchen-mochi-hand",
+   "kind": "prop",
+   "chroma": "green",
+   "reference": false,
+   "refs": [
+    "ref-mochi-chef.png",
+    "style-board.webp"
+   ],
+   "subject": "one tiny round hand for the Mochi Chef from the first attached picture",
+   "details": "A small soft ivory clay ball like a rounded mitten with no fingers and a tiny thumb bump, in exactly the same material, colour and lighting as the dumpling body in the first picture. Shown alone, facing the viewer, small in the frame with a wide margin.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen raw-1."
+  },
+  {
+   "id": "kitchen-icon-head",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny five-point star sticker in warm gold",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-icons2 raw-1."
+  },
+  {
+   "id": "kitchen-icon-scout",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny map pin sticker in coral red with a cream dot",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen raw-1."
+  },
+  {
+   "id": "kitchen-icon-wok",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny flame sticker in orange and gold",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-icons2 raw-2."
+  },
+  {
+   "id": "kitchen-icon-host",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny five-petal flower sticker in soft pink with a yellow centre",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen raw-1."
+  },
+  {
+   "id": "kitchen-icon-artist",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny paint droplet sticker in lavender",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-icons2 raw-1."
+  },
+  {
+   "id": "kitchen-icon-writer",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny heart sticker in coral pink",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen raw-1."
+  },
+  {
+   "id": "kitchen-icon-storyteller",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny crescent moon sticker in pale gold",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-icons2 raw-1."
+  },
+  {
+   "id": "kitchen-icon-fixer",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny crossed sticking-plaster sticker in peach with two dots",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen raw-1."
+  },
+  {
+   "id": "kitchen-icon-safety",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a tiny snowflake sticker in icy blue",
+   "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-icons2 raw-1."
+  }
+ ]
+}

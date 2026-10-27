@@ -128,6 +128,20 @@ saves it. There is no fallback to Gemini. Every call goes in `state/usage.jsonl`
 `ai-recipes/last.json`. Install with `deploy_videomaker.py` after the app's schema v3 and release
 (`docs/AI_RECIPES_PLAN.md` §4). It adds `qt-ai-recipes-bridge.service` on the host and touches no research schedule.
 
+## Mochi kitchen feed (27 October 2026, built, not deployed)
+
+`kitchen_feed.py` builds the public snapshot behind the app's `/kitchen` page (`docs/MOCHI_KITCHEN_PLAN.md` §4) and pushes it to
+the signed `/api/kitchen/bot/feed` route with the publisher key.
+
+- **Sources:** verified receipts in `state/publications/`, Manager outcomes (each hold reduced to a fixed category), QT Gamer's
+  owner-approved pictures, `ai-recipes/done.jsonl` (counts only) and the run folders for each chef's working or resting state.
+- **Checks:** it reads the live editorial state first and drops anything the owner reverted or deleted, or staff hid. Items
+  appear 30 minutes after publication, and the snapshot stays under 16 KB.
+- **Run:** `python kitchen_feed.py` prints the snapshot; `--push` sends it.
+- **Install:** `deploy_kitchen_feed.py` installs it with a 15-minute `qt-kitchen-feed.timer`. Deploy the app first.
+- **AI recipe counts:** `ai_recipes_bridge.py` now appends one `{at, ok}` line per task to `ai-recipes/done.jsonl` for these counts.
+  It needs its own redeploy (`deploy_videomaker.py`).
+
 ## Isolation and storage
 
 The existing Hermes container executes the QT workflows as UID 10000. The four
