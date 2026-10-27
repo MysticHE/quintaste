@@ -5,7 +5,7 @@ replace, an import check as the hermes user and automatic restore on failure. Th
 and qt-kitchen-feed.timer (every 15 minutes) on the host. Each push runs inside the Hermes container as uid 10000, reads state
 only and signs with the publisher key; it publishes nothing. `systemctl disable --now qt-kitchen-feed.timer` stops it.
 
-Deploy the app first: the push needs /api/kitchen/bot/feed (server/kitchen/router.mjs). Not run yet (owner: "don't deploy").
+Deploy the app first: the push needs /api/kitchen/bot/feed (server/kitchen/router.mjs). Run on 27 Oct 2026 at the owner's request.
 """
 import base64
 from pathlib import Path

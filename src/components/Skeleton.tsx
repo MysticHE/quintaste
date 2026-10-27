@@ -18,9 +18,9 @@ export function LoadingShapes({ label, children, grid = false, testID }: { label
   </View>;
 }
 /** A photo post (Explore place or recipe card): 156-point clear photo, then the title and facts panel. */
-export function PostCardSkeleton() {
+export function PostCardSkeleton({ edgeToEdge = false }: { edgeToEdge?: boolean } = {}) {
   const { theme, textMultiplier } = usePreferences();
-  return <View style={[s.card, { borderColor: theme.border, backgroundColor: theme.card }]}>
+  return <View style={[s.card, edgeToEdge && { marginHorizontal: 0, borderRadius: 0, borderWidth: 0 }, { borderColor: theme.border, backgroundColor: theme.card }]}>
     <View style={{ height: 156, backgroundColor: theme.muted }} />
     <View style={[s.panel, { minHeight: 104 * textMultiplier }]}>
       <SkeletonBlock style={{ width: "62%", height: 20 * textMultiplier }} />
@@ -39,10 +39,10 @@ export function GridTileSkeleton({ ratio = 1.12 }: { ratio?: number }) {
   </View>;
 }
 /** A list row with a leading picture and two lines (chats, people, events). */
-export function RowSkeleton() {
+export function RowSkeleton({ leading = true }: { leading?: boolean } = {}) {
   const { textMultiplier } = usePreferences();
   return <View style={s.row}>
-    <SkeletonBlock style={s.avatar} />
+    {leading && <SkeletonBlock style={s.avatar} />}
     <View style={s.lines}>
       <SkeletonBlock style={{ width: "55%", height: 14 * textMultiplier }} />
       <SkeletonBlock style={{ width: "80%", height: 12 * textMultiplier }} />

@@ -8,5 +8,5 @@
       "node"
     ]
   },
-  "exclude": ["node_modules", "dist", ".local", ".impeccable", "admin"]
+  "exclude": ["node_modules", "dist", ".local", ".impeccable", "admin", "marketing"]
 }

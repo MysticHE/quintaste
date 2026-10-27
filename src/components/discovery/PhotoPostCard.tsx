@@ -13,9 +13,10 @@ import { usePhotoVisibility } from "./PhotoScrollView";
  * on its blurred lower part, a chip top-left, and like / save / share stacked down the right edge (`side`).
  * The whole photo opens the item; the corner controls and strip work on their own.
  */
-export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, topRight, side, footer, children, testID, titleTestID = "post-card-title" }: {
+export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, topRight, side, footer, children, testID, titleTestID = "post-card-title", edgeToEdge = false }: {
   photo: { path?: string; source?: ImageSourcePropType; thumbhash?: string; fallback?: string; emptyIcon?: IconName }; title: string; label: string; hint: string; onPress: () => void;
   topLeft?: ReactNode; topRight?: ReactNode; side?: ReactNode; footer?: ReactNode; children?: ReactNode; testID?: string; titleTestID?: string;
+  edgeToEdge?: boolean;
 }) {
   const { theme, textMultiplier } = usePreferences(), visibility = usePhotoVisibility(true);
   const [focused, setFocused] = useState(false), [pressed, setPressed] = useState(false);
@@ -23,7 +24,8 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
   const [panelHeight, setPanelHeight] = useState(104);
   // Start above the first line so multi-line titles retain contrast at larger text sizes.
   const fadeHeight = Math.max(32, panelHeight - 8 + 32);
-  return <View style={[s.card, { backgroundColor: theme.card, borderColor: focused || pressed ? theme.accent : theme.border }]}>
+  return <View style={[s.card, edgeToEdge && s.edge, { backgroundColor: theme.card, borderColor: focused || pressed ? theme.accent : theme.border },
+    edgeToEdge && (focused || pressed) && { borderWidth: 1 }]}>
     <View testID={testID} ref={node => visibility.attach(node)} onLayout={visibility.onLayout} collapsable={false} style={{ backgroundColor: theme.mediaSurface }}>
       {/* Leaving the screen only unloads the photo (enabled); the preview stays, so scrolling back does not flash an empty card. */}
       <CataloguePhotoBackdrop key={photo.path || (photo.source ? "bundled" : "missing")} path={photo.path} source={photo.source} thumbhash={photo.thumbhash}
@@ -64,6 +66,7 @@ export function PostChip({ icon, label }: { icon: IconName; label: string }) {
 }
 const s = StyleSheet.create({
   card: { borderRadius: 22, overflow: "hidden", borderWidth: 1, ...photoCardBleed },
+  edge: { marginHorizontal: 0, borderRadius: 0, borderWidth: 0 },
   blend: { position: "absolute", bottom: 0, left: 0, right: 0 },
   information: { paddingHorizontal: 12, paddingTop: 8, paddingBottom: 12, gap: 3 },
   name: { fontFamily: fontNames.bold },

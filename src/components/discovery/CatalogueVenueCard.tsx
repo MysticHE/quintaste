@@ -18,7 +18,7 @@ import { useDietText } from "../food/DietLabels";
 import { MenuEntry } from "./MenuEntry";
 import { PhotoPostCard, PostFact, PostFacts } from "./PhotoPostCard";
 
-export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVenue; more?: () => void; review?: PlaceReviewSummary }) {
+export function CatalogueVenueCard({ venue, more, review, edgeToEdge = false }: { venue: CatalogueVenue; more?: () => void; review?: PlaceReviewSummary; edgeToEdge?: boolean }) {
   const { isSaved, toggleSave, readable } = useFood(), { theme } = usePreferences();
   const t = useT("explore"), tc = useT("common"), language = useLanguage();
   const id = "catalogue-" + venue.id, saved = isSaved("place", id), hours = venue.hours;
@@ -30,7 +30,7 @@ export function CatalogueVenueCard({ venue, more, review }: { venue: CatalogueVe
   // A keyword search shows the dish that matched and carries the search into the place and its menu.
   const { query } = useDiscovery(), dish = venue.match && matchedDish(venue.match, language), search = venue.match ? query.trim() : "";
   const metadata = options ? t("mixedKitchenSpoken") + " · " + dishCount(venue.itemCount, language) + distance : [...labels.map(dietText.spoken), ...(km ? [km] : [])].join(" · ");
-  return <PhotoPostCard testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, thumbhash: venue.photo?.thumbhash, emptyIcon: placeTileIcon(venue) }} title={venue.name}
+  return <PhotoPostCard edgeToEdge={edgeToEdge} testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, thumbhash: venue.photo?.thumbhash, emptyIcon: placeTileIcon(venue) }} title={venue.name}
     label={[venue.name, dish, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint={t("cardHint")}
     onPress={() => router.push({ pathname: "/place/[id]", params: search ? { id, q: search } : { id } } as never)}
     topLeft={venue.itemCount > 0 && <MenuEntry menu={venue} compact search={search} />}

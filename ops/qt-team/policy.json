@@ -27,7 +27,7 @@
   "externalMessages": false,
   "maxArtifactBytes": 2000000,
   "minimumFreeBytes": 2147483648,
-  "maxRunStorageBytes": 536870912,
+  "maxRunStorageBytes": 2147483648,
   "sourceChecks": {
     "avoidDuplicateMenuExtraction": true,
     "blockedSourceRetryDays": 30,

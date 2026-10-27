@@ -20,21 +20,19 @@ import { PlaceDetailAction } from "./PlaceDetailParts";
 const previewDishes = 3;
 
 /** Photo-free Explore results share the compact disclosure layout, keeping each kitchen's own claims. */
-export function CatalogueVenueRow({ venue, number, expanded, onToggle, review }: {
-  venue: CatalogueVenue; number: number; expanded: boolean; onToggle: () => void; review?: PlaceReviewSummary;
+export function CatalogueVenueRow({ venue, expanded, onToggle, review, edgeToEdge = false }: {
+  venue: CatalogueVenue; expanded: boolean; onToggle: () => void; review?: PlaceReviewSummary; edgeToEdge?: boolean;
 }) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), tc = useT("common"), t = useT("explore"), language = useLanguage();
   const options = isVegOptions(venue), labels = placeLabels(venue), dietText = useDietText();
   const distance = venue.distanceKm !== undefined ? tc("kilometres", { km: venue.distanceKm.toFixed(1) }) : "", dishes = venue.itemCount > 0 ? dishCount(venue.itemCount, language) : "";
   // A keyword search leads with the dish that matched.
   const dish = venue.match && matchedDish(venue.match, language), detail = [dish, venue.address, distance, venue.hours?.summary].filter(Boolean).join(" · ");
-  return <View testID={options ? "mixed-kitchen-row" : "catalogue-venue-row"} style={[s.card, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
+  return <View testID={options ? "mixed-kitchen-row" : "catalogue-venue-row"} style={[s.card, edgeToEdge && s.edge,
+    { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }, edgeToEdge && focused && { borderWidth: 1 }]}>
     <Pressable accessibilityRole="button" accessibilityState={{ expanded }} aria-expanded={expanded} {...focusProps} onPress={onToggle}
-      accessibilityLabel={[number + ". " + venue.name, detail, dishes, ...labels.map(dietText.spoken)].filter(Boolean).join(", ")}
+      accessibilityLabel={[venue.name, detail, dishes, ...labels.map(dietText.spoken)].filter(Boolean).join(", ")}
       style={({ pressed }) => [common.row, s.body, { opacity: pressed ? 0.75 : 1 }]}>
-      <View style={[s.number, { backgroundColor: theme.muted }]}>
-        <T variant="small" color={theme.foreground} style={[common.bold, s.digits]}>{number}</T>
-      </View>
       <View style={[common.flex, s.text]}>
         <T variant="subtitle" numberOfLines={expanded ? undefined : 2}>{venue.name}</T>
         <T variant="small" muted numberOfLines={1}>{detail}</T>
@@ -99,8 +97,7 @@ function MenuPreview({ venue }: { venue: CatalogueVenue }) {
 const s = StyleSheet.create({
   card: { borderWidth: 1, borderRadius: 18, overflow: "hidden" },
   body: { gap: 12, padding: 12, minHeight: 56 },
-  number: { width: 40, height: 40, borderRadius: 12, alignItems: "center", justifyContent: "center" },
-  digits: { fontVariant: ["tabular-nums"] },
+  edge: { borderRadius: 0, borderWidth: 0 },
   text: { gap: 2, minWidth: 0 },
   facts: { paddingHorizontal: 12, paddingBottom: 12, gap: 6 },
   rating: { flexDirection: "row", alignItems: "center", gap: 4, flexWrap: "wrap" },

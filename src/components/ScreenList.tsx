@@ -1,6 +1,7 @@
 import { FlashList, type FlashListProps, type FlashListRef, type ListRenderItem } from "@shopify/flash-list";
 import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
-import { View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
+import { StyleSheet, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
+import { usePreferences } from "../state/Preferences";
 
 /** What a `Screen` with `list` hands its one ScreenList: the page padding, item gap, scroll handlers and scroll-to-top. */
 export type ScreenListFrame = {
@@ -28,6 +29,8 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
   /** Space between grid columns; rows are spaced by `rowGap` (default: the page gap). */
   columnGap?: number;
   rowGap?: number;
+  /** Single-column feed rows meet across a hairline instead of a blank spacer. */
+  lineDividers?: boolean;
   /** The items belong to the previous search while the new one loads: they stay put, faded, instead of collapsing. */
   dimmed?: boolean;
 };
@@ -37,7 +40,7 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
  * switching a tab or filter mounts a handful of cards rather than every card at once. It keeps the screen's sliding top bar,
  * dock, padding and scroll-to-top. Outside such a Screen it lays the items out in place (no virtualisation) instead of failing.
  */
-export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, dimmed = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
+export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, lineDividers = false, dimmed = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
   const frame = useContext(ScreenListContext), list = useRef<FlashListRef<T>>(null);
   const setScroller = frame?.setScroller, reveal = frame?.reveal;
   useEffect(() => {
@@ -55,13 +58,14 @@ export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, dimmed = 
   const top = header ? <View style={{ gap, paddingHorizontal: half }}>{header}<View /></View> : null;
   const bottom = footer ? <View style={{ gap, paddingHorizontal: half }}>{!grid && <View />}{footer}</View> : null;
   if (!frame) return <View style={{ gap }}>{top}
-    <View style={grid ? { flexDirection: "row", flexWrap: "wrap", marginHorizontal: -half } : { gap }}>
+    <View style={grid ? { flexDirection: "row", flexWrap: "wrap", marginHorizontal: -half } : { gap: lineDividers ? 0 : gap }}>
       {data.map((item, index) => <View key={props.keyExtractor?.(item, index) ?? index} style={grid ? { width: `${100 / numColumns}%` } : undefined}>
+        {!grid && lineDividers && index > 0 && <LineSeparator />}
         {cell({ item, index, target: "Cell", extraData: props.extraData })}</View>)}
     </View>{bottom}</View>;
   return <FlashList ref={list} {...props} data={data} numColumns={numColumns} renderItem={cell}
     contentContainerStyle={{ ...frame.padding, paddingHorizontal: frame.padding.paddingHorizontal - half }}
-    ListHeaderComponent={top} ListFooterComponent={bottom} ItemSeparatorComponent={grid ? null : Separator}
+    ListHeaderComponent={top} ListFooterComponent={bottom} ItemSeparatorComponent={grid ? null : lineDividers ? LineSeparator : Separator}
     // Near the top, content that grows above the items (a notice, a chip row) stays in view; further down, the visible item holds still.
     maintainVisibleContentPosition={{ autoscrollToTopThreshold: 32 }}
     onScroll={frame.onScroll} onLayout={frame.onLayout} onContentSizeChange={frame.onContentSizeChange} scrollEventThrottle={64}
@@ -70,4 +74,8 @@ export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, dimmed = 
 /** The page gap between list items (a stable component, so separators are not remounted on each render). */
 function Separator() {
   return <View style={{ height: useContext(ScreenListContext)?.gap ?? LIST_GAP }} />;
+}
+function LineSeparator() {
+  const { theme } = usePreferences();
+  return <View testID="feed-row-divider" style={{ height: StyleSheet.hairlineWidth, backgroundColor: theme.border }} />;
 }
