@@ -6,7 +6,7 @@ import { Button, Icon, T, common } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { LocationFeedback } from "../../components/discovery/LocationFeedback";
 import { CatalogueVenueCard } from "../../components/discovery/CatalogueVenueCard";
-import { MixedKitchenRow } from "../../components/discovery/MixedKitchenList";
+import { CatalogueVenueRow } from "../../components/discovery/MixedKitchenList";
 import { ScreenList } from "../../components/ScreenList";
 import { useMinuteClock } from "../../components/food/Timers";
 import { useDiscovery } from "../../state/Discovery";
@@ -65,8 +65,9 @@ export function ExploreScreen() {
     </TopBar>}>
     {/* Each kitchen is its own list, so switching starts at the top with the bars showing. Only cards near the screen are drawn. */}
     <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={[selected, reviews.data]}
-      renderItem={({ item, index }) => discovery.mixed
-        ? <MixedKitchenRow venue={item} number={index + 1} expanded={selected === item.id} onToggle={() => setSelected(selected === item.id ? null : item.id)} />
+      renderItem={({ item, index }) => discovery.mixed || !item.photo?.path
+        ? <CatalogueVenueRow venue={item} number={index + 1} expanded={selected === item.id} onToggle={() => setSelected(selected === item.id ? null : item.id)}
+            review={reviews.data?.items.find(review => review.id === item.id)} />
         : <CatalogueVenueCard venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />}
       header={<>
         <View testID="explore-search-context" style={s.context}>
