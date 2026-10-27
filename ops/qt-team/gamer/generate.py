@@ -23,25 +23,35 @@ HERMES_SRC = os.environ.get("HERMES_SRC", r"C:\Users\huien\AppData\Local\hermes\
 TIERS = ("gpt-image-2-low", "gpt-image-2-medium", "gpt-image-2-high")
 
 
+# A merchandise mockup ("photo") is a real-photo look: never a cut-out background, never the game style board.
+PHOTO = {"chroma": None, "reference": False}
+
+
+def settled(asset):
+    """The asset with its kind's fixed settings applied, so a manifest entry cannot get them wrong."""
+    return {**asset, **PHOTO} if asset["kind"] == "photo" else asset
+
+
 def build_prompt(style, asset):
-    if asset.get("chroma", "magenta") is None:  # full-frame scene or surface: no cut-out background
-        kind = style["kinds"][asset["kind"]].format(subject=asset["subject"], details=asset.get("details", ""))
-        base, note = style["base"], style["referenceNote"]
-        if asset.get("reference") is False:  # text-only: an attached screenshot gets redrawn as a whole kitchen
-            base, note = base.replace(" in the style of the reference image", ""), ""
-        parts = [base, kind, style["sceneNegatives"], note]
-        return " ".join(p.strip() for p in parts if p.strip())
-    chroma_name = asset.get("chroma", "magenta")
-    chroma_hex = style["chroma"][chroma_name]
+    asset = settled(asset)
     kind = style["kinds"][asset["kind"]].format(subject=asset["subject"], details=asset.get("details", ""))
-    base, note = style["base"], style["referenceNote"]
-    if asset.get("reference") is False:  # the asset's own refs describe what to copy
-        base, note = base.replace(" in the style of the reference image", ""), ""
-    parts = [base, kind,
-             style["background"].format(chromaName=chroma_name, chromaHex=chroma_hex),
-             style["negatives"].format(chromaName=chroma_name),
-             note]
+    if asset["kind"] == "photo":
+        parts = [kind, style["photoNegatives"]]
+    else:
+        base, note = style["base"], style["referenceNote"]
+        if asset.get("reference") is False:  # the asset's own refs (or none) describe what to copy
+            base, note = base.replace(" in the style of the reference image", ""), ""
+        chroma = asset.get("chroma", "magenta")
+        if chroma is None:  # full-frame scene or surface: no cut-out background
+            parts = [base, kind, style["sceneNegatives"], note]
+        else:
+            parts = [base, kind, style["background"].format(chromaName=chroma, chromaHex=style["chroma"][chroma]),
+                     style["negatives"].format(chromaName=chroma), note]
     return " ".join(p.strip() for p in parts if p.strip())
+
+
+def sha256(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def asset_refs(asset):
@@ -90,14 +100,15 @@ def main():
     manifest = json.loads((HERE / args.manifest).read_text(encoding="utf-8"))
     wanted = {s.strip() for s in args.only.split(",") if s.strip()}
     if wanted:
-        assets = [a for a in manifest["assets"] if a["id"] in wanted]
+        assets = [settled(a) for a in manifest["assets"] if a["id"] in wanted]
     else:
-        assets = [a for a in manifest["assets"] if a.get("status") == "todo"]
+        assets = [settled(a) for a in manifest["assets"] if a.get("status") == "todo"]
     unknown = wanted - {a["id"] for a in manifest["assets"]}
     if unknown:
         raise SystemExit("Unknown asset ids: " + ", ".join(sorted(unknown)))
     reference = HERE / style["reference"]
-    if not reference.is_file():
+    styled_run = any(a.get("reference") is not False for a in assets)
+    if styled_run and not reference.is_file():
         raise SystemExit("Missing style reference " + str(reference))
 
     run_dir = HERE / "runs" / args.run
@@ -109,8 +120,13 @@ def main():
     os.environ["OPENAI_IMAGE_MODEL"] = args.tier
     provider = load_provider()
     summary = []
+    board_sha = sha256(reference) if styled_run else None  # hashed once: the same file for the whole run
     for a in assets:
         prompt = build_prompt(style, a)
+        styled = a.get("reference") is not False
+        extra = asset_refs(a)
+        # Each extra reference with its hash, since files in references/ can be replaced by a later round.
+        extra_meta = [{"file": r.name, "sha256": sha256(r)} for r in extra]
         out = run_dir / a["id"]
         out.mkdir(parents=True, exist_ok=True)
         for n in range(1, args.variants + 1):
@@ -119,12 +135,13 @@ def main():
                 summary.append({"id": a["id"], "variant": n, "status": "exists"})
                 continue
             started = time.time()
-            refs = ([] if a.get("reference") is False else [str(reference)]) + [str(r) for r in asset_refs(a)]
+            refs = ([str(reference)] if styled else []) + [str(r) for r in extra]
             result = provider.generate(prompt, a.get("aspect", "square"), reference_image_urls=refs or None)
             meta = {"assetId": a["id"], "variant": n, "kind": a["kind"], "chroma": a.get("chroma", "magenta"),
                     "aspect": a.get("aspect", "square"),
-                    "prompt": prompt, "tier": args.tier, "reference": style["reference"],
-                    "referenceSha256": hashlib.sha256(reference.read_bytes()).hexdigest(),
+                    "prompt": prompt, "tier": args.tier, "reference": style["reference"] if styled else None,
+                    "referenceSha256": board_sha if styled else None,
+                    "refs": extra_meta,
                     "requestedAt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
                     "seconds": round(time.time() - started, 1)}
             if not result.get("success"):
@@ -137,7 +154,7 @@ def main():
             shutil.copyfile(src, raw)
             meta.update(status="generated", provider=result.get("provider"), model=result.get("model"),
                         pixelSize=result.get("pixel_size") or result.get("extra", {}).get("pixel_size"),
-                        rawSha256=hashlib.sha256(raw.read_bytes()).hexdigest())
+                        rawSha256=sha256(raw))
             (out / f"request-{n}.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
             summary.append({"id": a["id"], "variant": n, "status": "generated", "seconds": meta["seconds"]})
             print(json.dumps(summary[-1]), flush=True)

@@ -9,7 +9,8 @@ Status: built and tested locally only. Not deployed to the VPS.
 - `style.json`: the style guide. Base style, one prompt template per kind (ingredient, packaged, dish, character, prop), chroma backgrounds, negatives, output size and quality checks.
 - `assets.json`: the asset list. Adding an ingredient means adding one entry.
 - `references/style-reference.webp`: the owner's concept art (18 October 2026). It is sent as a style reference with every request.
-- `generate.py`: runs in Hermes's Python and writes `runs/<run>/<asset>/raw-<n>.png` plus `request-<n>.json` provenance (prompt, tier, reference hash, timing).
+- `generate.py`: runs in Hermes's Python and writes `runs/<run>/<asset>/raw-<n>.png` plus `request-<n>.json` provenance (prompt, tier, the style board's hash, each extra reference with its hash, timing). Kind `photo` (merchandise mockups) always gets a full-frame real-photo prompt with no style board and no cut-out background, whatever its manifest entry says.
+- This folder is the source. A working copy elsewhere (for example `HA/companion-api/ops/qt-team/gamer`) gets `generate.py`, `process.py` and `style.json` copied from here before a run.
 - `process.py`: runs in any Python with OpenCV and writes `sprite-<n>.webp`, `report.json` and `contact-sheet.png` for each run.
 - `../roles/qt-gamer.md`: the role prompt for the future Hermes profile.
 

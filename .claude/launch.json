@@ -109,6 +109,14 @@
         "CI": "1"
       },
       "port": 8083
+    },
+    {
+      "name": "kitchen-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/kitchen-preview.mjs"
+      ],
+      "port": 8095
     }
   ]
 }
