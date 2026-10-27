@@ -13,8 +13,6 @@ Built and checked locally only; not deployed. Run as the hermes user: `python ga
 from __future__ import annotations
 import argparse
 import datetime as dt
-import hashlib
-import hmac
 import json
 import os
 from pathlib import Path
@@ -25,7 +23,7 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
-ORIGIN = os.environ.get('QT_APP_ORIGIN', 'https://quintaste.srv1902914.hstgr.cloud')
+from app_signing import open_signed  # noqa: E402  (the shared signer)
 PROFILE = 'qt-gamer'
 ROUTES = ('/api/game-levels/bot/claim', '/api/game-levels/bot/jobs/')
 RUN_SECONDS, MAX_TURNS, IDLE_SECONDS = 300, 3, 30
@@ -34,23 +32,12 @@ MAX_ANSWER = 28_000  # the app accepts 30 KB of answer
 ALLOWED = ('tool_search', 'tool_describe')
 
 
-class NoRedirect(urllib.request.HTTPRedirectHandler):
-    def redirect_request(self, *args, **kwargs):
-        return None  # the signature must never follow a redirect
-
-
 def signed(route: str, data=None):
     """One signed POST to the app (server/bot-signature.mjs). Returns parsed JSON."""
     if not route.startswith(ROUTES):
         raise ValueError('Unapproved app route')
     raw = json.dumps(data, separators=(',', ':'), ensure_ascii=False).encode() if data is not None else b''
-    stamp = str(int(time.time()))
-    key = (ROOT / 'private/publisher.key').read_text().strip()
-    message = stamp + '\nPOST\n' + route + '\n' + hashlib.sha256(raw).hexdigest()
-    signature = hmac.new(key.encode(), message.encode(), hashlib.sha256).hexdigest()
-    request = urllib.request.Request(ORIGIN + route, data=raw, method='POST',
-        headers={'Content-Type': 'application/json', 'X-QT-Time': stamp, 'X-QT-Signature': signature})
-    with urllib.request.build_opener(NoRedirect).open(request, timeout=60) as response:
+    with open_signed(ROOT, 'POST', route, raw) as response:
         return json.loads(response.read(1_000_001))
 
 

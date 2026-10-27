@@ -13,7 +13,7 @@ from pathlib import Path
 import setup
 
 HERE = Path(__file__).resolve().parent
-NAMES = ['ai_recipes_bridge.py', 'roles/qt-videomaker.md']
+NAMES = ['ai_recipes_bridge.py', 'app_signing.py', 'roles/qt-videomaker.md']  # app_signing.py: the shared signer the bridge imports
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 CONTAINER = 'hermes-agent-yril-hermes-agent-1'
 

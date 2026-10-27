@@ -16,7 +16,7 @@ import setup
 HERE = Path(__file__).resolve().parent
 # gamer/generate.py: the art bridge runs it with --manifest (one picture per job) and extra reference images; QT Gamer's own runs
 # keep working unchanged (the manifest defaults to assets.json).
-NAMES = ['game_level_bridge.py', 'game_art_bridge.py', 'roles/qt-gamer.md', 'gamer/generate.py']
+NAMES = ['game_level_bridge.py', 'game_art_bridge.py', 'app_signing.py', 'roles/qt-gamer.md', 'gamer/generate.py']  # app_signing.py: shared signer
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 
 code = r'''

@@ -13,8 +13,6 @@ Built and checked locally only; not deployed. Run with Hermes's Python (generate
 from __future__ import annotations
 import argparse
 import base64
-import hashlib
-import hmac
 import io
 import json
 import os
@@ -26,7 +24,7 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
-ORIGIN = os.environ.get('QT_APP_ORIGIN', 'https://quintaste.srv1902914.hstgr.cloud')
+from app_signing import open_signed  # noqa: E402  (the shared signer)
 GAMER = Path(__file__).resolve().parent / 'gamer'
 ROUTES = ('/api/game-art/bot/claim', '/api/game-art/bot/jobs/')
 VARIANTS, TIER, RUN_SECONDS, IDLE_SECONDS = 2, os.environ.get('QT_GAMER_TIER', 'gpt-image-2-high'), 900, 30
@@ -39,24 +37,13 @@ sys.path.insert(0, str(GAMER))
 from process_lite import process  # noqa: E402  (QT Gamer's own checks)
 
 
-class NoRedirect(urllib.request.HTTPRedirectHandler):
-    def redirect_request(self, *args, **kwargs):
-        return None  # the signature must never follow a redirect
-
-
 def signed(route: str, data=None):
     """One signed POST to the app (server/bot-signature.mjs). Returns parsed JSON."""
     if not route.startswith(ROUTES):
         raise ValueError('Unapproved app route')
     raw = json.dumps(data, separators=(',', ':')).encode() if data is not None else b''
-    stamp = str(int(time.time()))
-    key = (ROOT / 'private/publisher.key').read_text().strip()
-    message = stamp + '\nPOST\n' + route + '\n' + hashlib.sha256(raw).hexdigest()
-    signature = hmac.new(key.encode(), message.encode(), hashlib.sha256).hexdigest()
-    request = urllib.request.Request(ORIGIN + route, data=raw, method='POST',
-        headers={'Content-Type': 'application/json', 'X-QT-Time': stamp, 'X-QT-Signature': signature})
     try:
-        with urllib.request.build_opener(NoRedirect).open(request, timeout=60) as response:
+        with open_signed(ROOT, 'POST', route, raw) as response:
             return json.loads(response.read(1_000_001))
     except urllib.error.HTTPError as exc:
         if exc.code == 422:  # the app refused every variant; its reasons are in the body

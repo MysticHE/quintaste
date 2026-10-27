@@ -12,8 +12,6 @@ once: the app hands each task to exactly one of them.
 from __future__ import annotations
 import argparse
 import datetime as dt
-import hashlib
-import hmac
 import json
 import os
 from pathlib import Path
@@ -26,7 +24,7 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
-ORIGIN = os.environ.get('QT_APP_ORIGIN', 'https://quintaste.srv1902914.hstgr.cloud')
+from app_signing import open_signed  # noqa: E402  (the shared signer)
 PROFILE = 'qt-videomaker'
 ROUTES = ('/api/ai-recipes/bot/claim', '/api/ai-recipes/bot/tasks/')
 MAX_VIDEO = 32 * 1024 * 1024
@@ -36,23 +34,12 @@ DISCOVERY = ('tool_search', 'tool_describe')
 ALLOWED = {'video': ('video_analyze',) + DISCOVERY, 'web': ('web_search', 'web_extract') + DISCOVERY}
 
 
-class NoRedirect(urllib.request.HTTPRedirectHandler):
-    def redirect_request(self, *args, **kwargs):
-        return None  # the signature must never follow a redirect
-
-
 def signed(method: str, route: str, data=None, save_to: Path | None = None):
     """One signed call to the app. Returns parsed JSON, or the number of bytes written when `save_to` is given."""
     if not route.startswith(ROUTES):
         raise ValueError('Unapproved app route')
     raw = json.dumps(data, ensure_ascii=False, separators=(',', ':')).encode() if data is not None else b''
-    stamp = str(int(time.time()))
-    key = (ROOT / 'private/publisher.key').read_text().strip()
-    message = stamp + '\n' + method + '\n' + route + '\n' + hashlib.sha256(raw).hexdigest()
-    signature = hmac.new(key.encode(), message.encode(), hashlib.sha256).hexdigest()
-    request = urllib.request.Request(ORIGIN + route, data=raw if method == 'POST' else None, method=method,
-        headers={'Content-Type': 'application/json', 'X-QT-Time': stamp, 'X-QT-Signature': signature})
-    with urllib.request.build_opener(NoRedirect).open(request, timeout=60) as response:
+    with open_signed(ROOT, method, route, raw) as response:
         if save_to is None:
             return json.loads(response.read(1_000_001))
         written = 0
@@ -78,7 +65,7 @@ def prompt_for(task: dict, video: Path | None) -> str:
         how = ('Watch the video with the video_analyze tool, video_url set to the absolute path ' + str(video) + '. '
                'Ask it for every step in order with the second it starts and a second where a still frame shows that step clearly, '
                'every ingredient with the amount shown, spoken or written on screen, and the second that best shows the finished dish. '
-               'Call it again with a narrower question if something is unclear (at most three calls). Write the recipe from what it reports.')
+               'Call it exactly once (each call is billed per second of video), asking for everything in that one question. Write the recipe from what it reports.')
     else:
         how = 'Research with web_search and read pages with web_extract (at most about 12 calls).'
     return (brief['system'] + '\n\n' + how + '\n\nTask: ' + brief['prompt'] + '\n\nReturn ONLY one JSON object, no Markdown: '
@@ -194,6 +181,9 @@ def once() -> bool:
             if wait is None:
                 raise
         time.sleep(wait)
+    # Counts for the Mochi kitchen page (no ids): only answers the app received, judged by what was finally sent.
+    with (ROOT / 'ai-recipes' / 'done.jsonl').open('a', encoding='utf-8') as ledger:
+        ledger.write(json.dumps({'at': dt.datetime.now(dt.timezone.utc).isoformat(), 'ok': 'error' not in answer}) + '\n')
     return True
 
 
