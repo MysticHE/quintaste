@@ -92,7 +92,6 @@ const en = {
   matchingLocations: "Matching locations",
   matchingDishesAndLocations: "Matching dishes and locations",
 
-  searchDishes: "Search dishes",
   menuCategoriesA11y: "Menu categories, choose any",
   allDishes: "All dishes",
   dishMatches: (v: Vars) => String(v.n) + " " + (v.n === 1 ? "dish" : "dishes") + (v.found ? " found" : ""),

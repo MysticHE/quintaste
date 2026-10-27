@@ -49,7 +49,8 @@ export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, empt
   return <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden
     onLayout={event => setHeight(event.nativeEvent.layout.height)}
     style={[StyleSheet.absoluteFill, { backgroundColor: theme.mediaSurface }]}>
-    {image || placeholder ? <>{photo(false)}
+    {/* Until a photo without a colour preview arrives, the card shows its place tile, never an empty dark frame (owner, 28 Oct 2026). */}
+    {image || placeholder ? <>{!placeholder && !source && tile(emptyIcon ?? "image-outline")}{photo(false)}
       {panelHeight > 0 && <View testID="photo-soft-blur" style={{ position: "absolute", left: 0, right: 0, top: start, bottom: 0, overflow: "hidden" }}>
         <PhotoBlend fadeAt={32 / Math.max(32, height - start)}><View style={{ position: "absolute", top: -start, height, left: 0, right: 0 }}>
           {photo(true)}

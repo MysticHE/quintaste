@@ -1,5 +1,5 @@
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { View, AppState, StyleSheet } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, T, common } from "../../components/ui";
@@ -54,7 +54,6 @@ export function ExploreScreen() {
   const wider = point ? discoveryRadii.find(value => value > input.radius) : undefined;
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
-  const [selected, setSelected] = useState<string | null>(null);
   const loading = !ready || (currentRequest && discovery.busy && !venues.length);
   const showHeader = privateMissing || locationExpired || loading || currentRequest && !!discovery.error;
   const showFooter = accepted && (discovery.capped || !discovery.busy && !venues.length) || !!mixedCount;
@@ -68,10 +67,9 @@ export function ExploreScreen() {
     {/* Each kitchen is its own list, so switching starts at the top with the bars showing. Only cards near the screen are drawn. */}
     <LocationFeedback nearby={nearby} />
     <View testID="explore-feed" style={common.flex}>
-    <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={[selected, reviews.data]} lineDividers
+    <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={reviews.data} lineDividers
       renderItem={({ item }) => discovery.mixed || !item.photo?.path
-        ? <CatalogueVenueRow edgeToEdge venue={item} expanded={selected === item.id} onToggle={() => setSelected(selected === item.id ? null : item.id)}
-            review={reviews.data?.items.find(review => review.id === item.id)} />
+        ? <CatalogueVenueRow venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />
         : <CatalogueVenueCard edgeToEdge venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />}
       header={showHeader ? <>
         {privateMissing && <View style={s.feedback}><Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"

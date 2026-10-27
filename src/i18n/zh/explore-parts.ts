@@ -92,7 +92,6 @@ const zh: typeof en = {
   matchingLocations: "相符的地点",
   matchingDishesAndLocations: "相符的菜色和地点",
 
-  searchDishes: "搜索菜色",
   menuCategoriesA11y: "菜单类别，可多选",
   allDishes: "全部菜色",
   dishMatches: v => (v.found ? "找到 " : "") + String(v.n) + " 道菜",

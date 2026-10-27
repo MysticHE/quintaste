@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { Chip, IconButton, SearchField } from "../food/Controls";
+import { Chip, IconButton } from "../food/Controls";
 import { Button, T, common } from "../ui";
 import { toggleFilter } from "../../utils/discovery-filters";
 import type { PublishedMenu } from "../../types/menus";
@@ -11,7 +11,7 @@ import { edgeScroll } from "../../theme/layout";
 import { useT } from "../../i18n";
 import { searchWords } from "../../utils/search-words";
 
-/** `search` opens the menu already searched (an Explore keyword search that matched a dish here). */
+/** `search` opens the menu filtered to an Explore keyword that matched a dish here; the menu has no search box of its own (owner, 28 Oct 2026). */
 export function MenuDishes({ menu, search = "" }: { menu: PublishedMenu; now: number; search?: string }) {
   const [query, setQuery] = useState(search), [categoriesChosen, setCategories] = useState<string[]>([]);
   const [page, setPage] = useState(0), scrollToTop = useScreenScrollToTop(), turned = useRef(false), t = useT("explore");
@@ -19,7 +19,6 @@ export function MenuDishes({ menu, search = "" }: { menu: PublishedMenu; now: nu
   const active = useMemo(() => ({ ...menu.sections[0], items: menuDisplayItems(menu) }), [menu]);
   const categories = useMemo(() => [...new Set(active.items.map(item => item.category ?? "").filter(Boolean))], [active]);
   const selectedCategories = useMemo(() => categoriesChosen.filter(value => categories.includes(value)), [categoriesChosen, categories]);
-  const count = active.items.length;
   // Search words, so the spellings Explore treats as one ("wonton", "wanton") find the same dishes here.
   const needle = searchWords(query);
   const matched = useMemo(() => active.items.filter(item => (!selectedCategories.length || selectedCategories.includes(item.category ?? ""))
@@ -30,8 +29,6 @@ export function MenuDishes({ menu, search = "" }: { menu: PublishedMenu; now: nu
   useEffect(() => { if (turned.current) { turned.current = false; scrollToTop(); } }, [currentPage, scrollToTop]);
   const sections = matched.length ? [{ ...active, items: matched.slice(currentPage * 20, (currentPage + 1) * 20) }] : [];
   return <View testID="menu-dishes" style={{ gap: 12 }}>
-    {(count > 12 || !!query) && <SearchField placeholder={t("searchDishes")} value={query}
-      onChange={value => { setQuery(value); setPage(0); }} />}
     {categories.length > 1 && <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={edgeScroll.row} contentContainerStyle={edgeScroll.content}>
       <View accessibilityLabel={t("menuCategoriesA11y")} style={{ flexDirection: "row", gap: 8, paddingVertical: 2 }}>
         <Chip label={t("allDishes")} selected={!selectedCategories.length} compact onPress={() => { setCategories([]); setPage(0); }} />
@@ -39,7 +36,10 @@ export function MenuDishes({ menu, search = "" }: { menu: PublishedMenu; now: nu
           onPress={() => { setCategories(toggleFilter(selectedCategories, value)); setPage(0); }} />)}
       </View>
     </ScrollView>}
-    <View style={common.spread}><T variant="caption" muted accessibilityLiveRegion="polite">{t("dishMatches", { n: matched.length, found: needle || selectedCategories.length ? 1 : 0 })}</T><T variant="caption" muted>{t("price")}</T></View>
+    {/* The header already counts the dishes; a count here shows only while a keyword or category narrows them. */}
+    {(!!needle || !!selectedCategories.length) && <View style={[common.row, { gap: 8 }]}>
+      <T variant="caption" muted accessibilityLiveRegion="polite" style={common.flex}>{t("dishMatches", { n: matched.length, found: 1 })}</T>
+      {!!needle && <Button label={t("clearDishSearch")} variant="link" onPress={() => { setQuery(""); setPage(0); }} />}</View>}
     {sections.length ? sections.map(section => <MenuSection key={section.id} section={section} />) : <View style={common.stack}>
       <T muted>{t("noMatchingDishes")}</T><Button label={t("clearDishSearch")} variant="link" onPress={() => { setQuery(""); setCategories([]); setPage(0); }} />
     </View>}
