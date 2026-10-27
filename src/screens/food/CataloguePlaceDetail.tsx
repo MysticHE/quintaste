@@ -22,6 +22,7 @@ import { isVegOptions, placeLabels, placeTileIcon } from "../../utils/venue-kitc
 import { directionsUrl } from "../../utils/directions";
 import { useT } from "../../i18n";
 import { goBack } from "../../utils/navigation";
+import { catalogueLayout } from "../../theme/layout";
 
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   const { venue, busy, error, gone, offline, retry } = useCatalogueVenue(id);
@@ -43,7 +44,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   };
   const directions = directionsUrl(venue?.address ?? "", venue?.googlePlaceId);
   const branch = venue?.branch && !venue.address.toLowerCase().includes(venue.branch.toLowerCase()) ? venue.branch : "";
-  return <Screen title={venue?.name ?? t("placeDetails")} header={<View style={common.row}>
+  return <Screen title={venue?.name ?? t("placeDetails")} contentInset={catalogueLayout.gap} header={<View style={common.row}>
     <IconButton appearance="plain" label={tc("goBack")} icon="chevron-back" onPress={() => goBack("/")} />
     <View style={common.flex} />
     {venue && <ReactionBar kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)} />}
@@ -67,7 +68,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
           {!venue.photo && <View testID="catalogue-place-tile" style={[s.tile, { backgroundColor: theme.accentSoft }]}>
             <Icon name={placeTileIcon(venue)} size={26} color={theme.accent} /></View>}
           <View style={[common.flex, { gap: 2 }]}>
-            <T variant="title" accessibilityRole="header">{venue.name}</T>
+            <T variant="subtitle" style={common.bold} accessibilityRole="header">{venue.name}</T>
             {isVegOptions(venue) ? <View style={[common.row, { flexWrap: "wrap", gap: 6 }]}>
               <StatusPill label={t("mixedKitchen")} tone="warning" />{!!branch && <T variant="small" muted>{branch}</T>}
             </View> : <T variant="small" muted>{t("vegKitchen") + (branch ? " · " + branch : "")}</T>}
@@ -103,10 +104,10 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
   </Screen>;
 }
 const s = StyleSheet.create({
-  page: { gap: 18 },
+  page: { gap: catalogueLayout.gap },
   media: { gap: 2 },
-  hero: { aspectRatio: 16 / 9, maxHeight: 240, borderRadius: 18, overflow: "hidden" },
-  identity: { gap: 10 },
-  tile: { width: 56, height: 56, borderRadius: 14, alignItems: "center", justifyContent: "center" },
-  actions: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  hero: { aspectRatio: 16 / 9, maxHeight: 180, borderRadius: catalogueLayout.radius, overflow: "hidden" },
+  identity: { gap: 8 },
+  tile: { width: 40, height: 40, borderRadius: catalogueLayout.radius, alignItems: "center", justifyContent: "center" },
+  actions: { flexDirection: "row", flexWrap: "wrap", gap: catalogueLayout.gap },
 });

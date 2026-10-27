@@ -6,6 +6,7 @@ import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import type { CatalogueVenue } from "../../types/catalogue";
 import { useT } from "../../i18n";
+import { catalogueLayout } from "../../theme/layout";
 
 /**
  * One aligned line of the place page: a fixed icon column, the text, an optional trailing icon.
@@ -54,12 +55,12 @@ export function PlaceDetailAction({ label, accessibleLabel, icon, selected, disa
 }
 /**
  * One line under the place photo: CC BY / CC BY-SA and stated-permission photos must name the author, licence and
- * changes, and an approved illustration must never pass as a photo (owner, 20 Oct). Photos whose rights the source
- * retains show nothing (owner, 25 Oct 2026).
+ * changes. QuinTaste illustrations omit the caption (owner, 28 Oct 2026); their provenance stays in the catalogue.
+ * Photos whose rights the source retains show nothing (owner, 25 Oct 2026).
  */
 export function PhotoCredit({ photo, open }: { photo: NonNullable<CatalogueVenue["photo"]>; open: (url: string) => void }) {
   const t = useT("explore"), { theme } = usePreferences(), [expanded, setExpanded] = useState(false), { focused, focusProps } = useKeyboardFocus();
-  if (photo.author === "QuinTaste illustration") return <T testID="place-photo-credit" variant="caption" muted>{t("illustrationNote")}</T>;
+  if (photo.author === "QuinTaste illustration") return null;
   if (photo.license === "Source rights retained") return null;
   const credit = t("photoCreditLine", { author: photo.author, license: photo.license });
   return <View testID="place-photo-credit">
@@ -78,11 +79,11 @@ export function PhotoCredit({ photo, open }: { photo: NonNullable<CatalogueVenue
   </View>;
 }
 const s = StyleSheet.create({
-  row: { flexDirection: "row", alignItems: "center", minHeight: 48, gap: 12, paddingVertical: 8, paddingHorizontal: 6, borderWidth: 2, borderRadius: 12 },
+  row: { flexDirection: "row", alignItems: "center", minHeight: 48, gap: 12, paddingVertical: 8, paddingHorizontal: 0, borderWidth: 2, borderRadius: catalogueLayout.radius },
   rowIcon: { width: 22, alignItems: "center" },
   more: { gap: 4, paddingLeft: 42, paddingRight: 8, paddingBottom: 8 },
   divider: { height: StyleSheet.hairlineWidth },
-  inlineAction: { flexDirection: "row", flexGrow: 1, flexShrink: 0, flexBasis: "auto", minHeight: 48, paddingVertical: 0, paddingHorizontal: 12, gap: 6, borderRadius: 14 },
+  inlineAction: { flexDirection: "row", flexGrow: 1, flexShrink: 0, flexBasis: "auto", minHeight: 48, paddingVertical: 0, paddingHorizontal: 12, gap: 6, borderRadius: catalogueLayout.radius },
   action: { flex: 1, minWidth: 0, minHeight: 68, padding: 8, alignItems: "center", justifyContent: "center", gap: 6, borderWidth: 2, borderRadius: 12 },
   credit: { flexDirection: "row", alignItems: "center", gap: 6, minHeight: 36, paddingHorizontal: 4, borderWidth: 2, borderRadius: 10 },
 });
