@@ -9,7 +9,6 @@ const zh: typeof en = {
   mixedKitchenSafety: "也卖荤食或海鲜，厨具可能共用。",
   mixedKitchenSpoken: "荤店素菜，不是素食厨房",
   dishCount: v => String(v.n) + " 道菜",
-  moreDishes: v => "还有 " + String(v.n) + " 道菜",
   savedPlace: "已收藏的店家",
 
   hoursUnknown: "营业时间不详",

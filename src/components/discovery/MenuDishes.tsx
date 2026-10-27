@@ -39,7 +39,7 @@ export function MenuDishes({ menu, search = "" }: { menu: PublishedMenu; now: nu
     {/* The header already counts the dishes; a count here shows only while a keyword or category narrows them. */}
     {(!!needle || !!selectedCategories.length) && <View style={[common.row, { gap: 8 }]}>
       <T variant="caption" muted accessibilityLiveRegion="polite" style={common.flex}>{t("dishMatches", { n: matched.length, found: 1 })}</T>
-      {!!needle && <Button label={t("clearDishSearch")} variant="link" onPress={() => { setQuery(""); setPage(0); }} />}</View>}
+      {!!needle && matched.length > 0 && <Button label={t("clearDishSearch")} variant="link" onPress={() => { setQuery(""); setPage(0); }} />}</View>}
     {sections.length ? sections.map(section => <MenuSection key={section.id} section={section} />) : <View style={common.stack}>
       <T muted>{t("noMatchingDishes")}</T><Button label={t("clearDishSearch")} variant="link" onPress={() => { setQuery(""); setCategories([]); setPage(0); }} />
     </View>}

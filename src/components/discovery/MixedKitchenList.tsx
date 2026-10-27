@@ -28,7 +28,7 @@ export function CatalogueVenueRow({ venue, review }: { venue: CatalogueVenue; re
   const distance = venue.distanceKm !== undefined ? tc("kilometres", { km: venue.distanceKm.toFixed(1) }) : "";
   // A keyword search leads with the dish that matched.
   const line = [venue.match && matchedDish(venue.match, language), distance, shortAddress(venue.address)].filter(Boolean).join(" · ");
-  const dishes = venue.itemCount > 0 ? dishCount(venue.itemCount, language) : "", rated = !!review?.count;
+  const dishes = venue.itemCount > 0 ? dishCount(venue.itemCount, language) : "", rated = !!review?.count && review.rating !== null;
   return <View testID={options ? "mixed-kitchen-row" : "catalogue-venue-row"} style={[s.row, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.transparent }]}>
     <Pressable accessibilityRole="link" {...focusProps} accessibilityHint={t("cardHint")}
       accessibilityLabel={[venue.name, line, dishes, ...labels.map(dietText.spoken), rated ? review!.rating?.toFixed(1) + t("qtReviewCount", { n: review!.count }) : ""].filter(Boolean).join(", ")}

@@ -55,7 +55,9 @@ export function ExploreScreen() {
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   const loading = !ready || (currentRequest && discovery.busy && !venues.length);
-  const showHeader = privateMissing || locationExpired || loading || currentRequest && !!discovery.error;
+  // Mixed Kitchen rows open to a place page with the full notice; the list keeps it in view above the places.
+  const mixedNotice = discovery.mixed && accepted && venues.length > 0;
+  const showHeader = privateMissing || locationExpired || loading || currentRequest && !!discovery.error || mixedNotice;
   const showFooter = accepted && (discovery.capped || !discovery.busy && !venues.length) || !!mixedCount;
   return <Screen back={false} compact list contentInset={0} header={<TopBar testID="explore-toolbar" actions={<>
       <IconButton appearance="plain" label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
@@ -68,10 +70,13 @@ export function ExploreScreen() {
     <LocationFeedback nearby={nearby} />
     <View testID="explore-feed" style={common.flex}>
     <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={reviews.data} lineDividers
+      // Rows and photo cards recycle in their own pools, so a scroll never rebuilds a row's cell as a card.
+      getItemType={item => discovery.mixed || !item.photo?.path ? "row" : "card"}
       renderItem={({ item }) => discovery.mixed || !item.photo?.path
         ? <CatalogueVenueRow venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />
         : <CatalogueVenueCard edgeToEdge venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />}
       header={showHeader ? <>
+        {mixedNotice && <View style={s.feedback}><T testID="mixed-kitchen-notice" variant="small" muted>{t("mixedKitchenSafety")}</T></View>}
         {privateMissing && <View style={s.feedback}><Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"
           onPress={() => router.push({ pathname: "/location-place", params: { kind: privateKind } })} /></View>}
         {locationExpired && <View style={s.feedback}><Button label={t("updateMyLocation")} variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} /></View>}

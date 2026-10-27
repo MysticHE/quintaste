@@ -104,9 +104,7 @@ const en = {
   menuSource: "Menu source",
   menuSourceFailed: "Menu source could not open. Check your connection.",
   sourceLinkA11y: "{label}, {publisher}, opens in browser",
-  loadingDishes: "Loading dishes",
   details: "Details",
-  detailsFor: "Details for {name}",
 
   hours: "Hours",
   checkedSgTime: "Checked {date} · Singapore time. Holiday hours may differ.",

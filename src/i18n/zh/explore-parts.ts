@@ -104,9 +104,7 @@ const zh: typeof en = {
   menuSource: "菜单来源",
   menuSourceFailed: "无法打开菜单来源，请检查网络连接。",
   sourceLinkA11y: "{label}，{publisher}，在浏览器中打开",
-  loadingDishes: "正在加载菜色",
   details: "详情",
-  detailsFor: "{name}的详情",
 
   hours: "营业时间",
   checkedSgTime: "{date} 核实 · 新加坡时间。公共假期的营业时间可能不同。",

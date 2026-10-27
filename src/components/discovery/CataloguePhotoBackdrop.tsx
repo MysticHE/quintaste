@@ -1,5 +1,5 @@
 import { Image, type ImageProps } from "expo-image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet, View, type ImageSourcePropType } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { apiUrl } from "../../utils/api-url";
@@ -16,9 +16,10 @@ export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, empt
 }) {
   const { theme, reducedMotion } = usePreferences();
   const [failed, setFailed] = useState(false), [loaded, setLoaded] = useState(false), [height, setHeight] = useState(260), [attempt, setAttempt] = useState(0);
+  const [displayed, setDisplayed] = useState(false), redraws = useRef(0);
   // Leaving the screen ends a failed attempt (and unloads the photo), so coming back tries again at once.
   const [shown, setShown] = useState(enabled);
-  if (enabled !== shown) { setShown(enabled); if (!enabled) { setFailed(false); setLoaded(false); } }
+  if (enabled !== shown) { setShown(enabled); if (!enabled) { setFailed(false); setLoaded(false); setDisplayed(false); } }
   let url: string | undefined;
   try { if (path) url = apiUrl(path); } catch { /* Missing API configuration uses the fallback. */ }
   // A failed photo on screen tries again shortly, e.g. after a dropped connection.
@@ -27,6 +28,12 @@ export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, empt
     const timer = setTimeout(() => { setFailed(false); setLoaded(false); setAttempt(n => n + 1); }, 15000);
     return () => clearTimeout(timer);
   }, [failed, url, enabled]);
+  // A photo that loaded but was never drawn (seen on Android phones while scrolling) is mounted again, at most twice per card.
+  useEffect(() => {
+    if (!loaded || displayed || redraws.current >= 2) return;
+    const timer = setTimeout(() => { redraws.current++; setLoaded(false); setAttempt(n => n + 1); }, 1500);
+    return () => clearTimeout(timer);
+  }, [loaded, displayed]);
   const start = panelHeight > 0 ? Math.max(0, height - panelHeight + 8 - 32) : height;
   const fail = () => setFailed(true);
   // A bundled photo is used unless it failed to load; a failed or missing photo shows the fallback name when there is one.
@@ -38,8 +45,9 @@ export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, empt
   // The blurred copy asks for the photo only once the sharp one has it, so the photo is downloaded once and then read from cache.
   const photo = (blurred: boolean) => <Image key={attempt} source={(blurred && !loaded ? null : image) ?? null} placeholder={placeholder} placeholderContentFit="cover"
     contentFit="cover" cachePolicy="memory-disk" recyclingKey={path} transition={reducedMotion || Platform.OS === "android" ? 0 : 150} blurRadius={blurred ? 5 : undefined}
-    style={StyleSheet.absoluteFill} accessible={false} alt="" onLoad={blurred ? undefined : () => setLoaded(true)} onError={fail} />;
-  // While a photo loads the card shows its colour preview (or the plain dark frame), never a "Loading" caption. A photo that cannot
+    style={StyleSheet.absoluteFill} accessible={false} alt="" onLoad={blurred ? undefined : () => setLoaded(true)}
+    onDisplay={blurred ? undefined : () => setDisplayed(true)} onError={fail} />;
+  // While a photo loads the card shows its colour preview, or its place tile when it has none, never a "Loading" caption. A photo that cannot
   // load shows the same tile as a place without one.
   const tile = (icon: IconName) => <View testID="photo-empty-tile" style={StyleSheet.absoluteFill}>
     <View style={[StyleSheet.absoluteFill, s.tint, { backgroundColor: theme.accent }]} />

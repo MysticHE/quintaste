@@ -35,7 +35,11 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
         <LinearGradient colors={theme.photoBlend} locations={[0, 32 / fadeHeight, 1]} style={StyleSheet.absoluteFill} />
       </View>
       <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityHint={hint} onPress={onPress}
-        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} onPressIn={() => setPressed(true)} onPressOut={() => setPressed(false)} style={StyleSheet.absoluteFill} />
+        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} style={StyleSheet.absoluteFill}
+        // An edge-to-edge card draws its press outline inside the Pressable, so a touch while scrolling never re-renders the card.
+        onPressIn={edgeToEdge ? undefined : () => setPressed(true)} onPressOut={edgeToEdge ? undefined : () => setPressed(false)}>
+        {({ pressed: down }) => edgeToEdge && down ? <View pointerEvents="none" style={[StyleSheet.absoluteFill, s.outline, { borderColor: theme.accent }]} /> : null}
+      </Pressable>
       <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden>
         <View style={{ height: 156 }} />
         <View onLayout={event => setPanelHeight(event.nativeEvent.layout.height)} style={[s.information, !!side && s.besideSide]}>
@@ -48,7 +52,7 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
       {side && <View style={s.side} pointerEvents="box-none">{side}</View>}
     </View>
     {footer && <View style={s.footer}>{footer}</View>}
-    {edgeToEdge && (focused || pressed) && <View pointerEvents="none" style={[StyleSheet.absoluteFill, s.outline, { borderColor: theme.accent }]} />}
+    {edgeToEdge && focused && <View pointerEvents="none" style={[StyleSheet.absoluteFill, s.outline, { borderColor: theme.accent }]} />}
   </View>;
 }
 /** One white fact on the photo: an icon and its text. */

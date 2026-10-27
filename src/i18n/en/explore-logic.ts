@@ -7,7 +7,6 @@ const en = {
   mixedKitchenSafety: "Also serves meat or seafood. Cooking tools may be shared.",
   mixedKitchenSpoken: "Mixed Kitchen, not a vegetarian kitchen",
   dishCount: (v: Vars) => String(v.n) + (v.n === 1 ? " dish" : " dishes"),
-  moreDishes: (v: Vars) => String(v.n) + " more" + (v.n === 1 ? " dish" : " dishes"),
   savedPlace: "Saved place",
 
   hoursUnknown: "Hours unknown",
