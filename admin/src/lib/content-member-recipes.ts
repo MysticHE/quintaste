@@ -1,6 +1,7 @@
 import 'server-only';
+import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
-import { audit } from './audit';
+import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, integer, pageSize, text, uuid } from './http';
 import { search } from './content-members';
@@ -39,26 +40,47 @@ export async function memberRecipePhoto(member: Session, id: string, version: st
 }
 /** Publish or decline a submission, or hide or restore a published recipe. Publishing replaces the live version and its photos. */
 export async function memberRecipeAction(member: Session, input: Record<string, unknown>, reason: string) {
-  const act = choice(input.action, ['publish', 'decline', 'hide', 'restore'] as const, 'action'), id = uuid(input.id, 'recipe');
   authorize(member, 'content');
   return transaction(async db => {
     await lockPermission(db, member, 'content');
-    let result;
-    if (act === 'publish' || act === 'decline') {
-      const revision = integer(input.revision, 'revision', 1, 10000);
-      result = act === 'publish'
-        ? await db.query(`UPDATE recipes.recipe SET live=pending, live_revision=pending_revision, pending=NULL, pending_revision=NULL, pending_state=NULL,
-            decision_note='', published_at=now(), updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`, [id, revision])
-        : await db.query(`UPDATE recipes.recipe SET pending_state='declined', decision_note=$3, updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`,
-          [id, revision, text(input.note, 'note shown to the author', 300, 5)]);
-      if (result.rowCount && act === 'publish') {
-        await db.query("DELETE FROM recipes.photo WHERE recipe_id=$1 AND version='live'", [id]);
-        await db.query("UPDATE recipes.photo SET version='live' WHERE recipe_id=$1 AND version='pending'", [id]);
-      }
-    } else result = await db.query(`UPDATE recipes.recipe SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2, updated_at=now()
-      WHERE id=$1 AND live IS NOT NULL AND (hidden_at IS NULL)=$3`, [id, act === 'hide' ? reason : null, act === 'hide']);
-    if (!result.rowCount) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
-    await audit(db, member.id, 'content.member-recipe.' + act, 'member-recipe:' + id, reason, { note: input.note ?? null, revision: input.revision ?? null });
-    return { saved: true, note: act === 'publish' ? 'Published. Members see it in Cook within a minute.' : undefined };
+    return (await applyMemberRecipe(db, { id: member.id }, input, reason)).reply;
   });
+}
+
+/**
+ * One recipe review decision by staff or a chef (docs/ADMIN_CHEFS_PLAN.md). A chef's publish is undone by hiding the recipe, and
+ * a decline by sending it back to review while its author has not changed it.
+ */
+export async function applyMemberRecipe(db: PoolClient, actor: Actor, input: Record<string, unknown>, reason: string) {
+  const act = choice(input.action, ['publish', 'decline', 'hide', 'restore'] as const, 'action'), id = uuid(input.id, 'recipe');
+  let result, revision: number | null = null, update = false;
+  if (act === 'publish' || act === 'decline') {
+    revision = integer(input.revision, 'revision', 1, 10000);
+    update = act === 'publish' && !!(await db.query('SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL', [id])).rowCount;
+    result = act === 'publish'
+      ? await db.query(`UPDATE recipes.recipe SET live=pending, live_revision=pending_revision, pending=NULL, pending_revision=NULL, pending_state=NULL,
+          decision_note='', published_at=now(), updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`, [id, revision])
+      : await db.query(`UPDATE recipes.recipe SET pending_state='declined', decision_note=$3, updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`,
+        [id, revision, text(input.note, 'note shown to the author', 300, 5)]);
+    if (result.rowCount && act === 'publish') {
+      await db.query("DELETE FROM recipes.photo WHERE recipe_id=$1 AND version='live'", [id]);
+      await db.query("UPDATE recipes.photo SET version='live' WHERE recipe_id=$1 AND version='pending'", [id]);
+    }
+  } else result = await db.query(`UPDATE recipes.recipe SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2, updated_at=now()
+    WHERE id=$1 AND live IS NOT NULL AND (hidden_at IS NULL)=$3`, [id, act === 'hide' ? reason : null, act === 'hide']);
+  if (!result.rowCount) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
+  await audit(db, actor.id, 'content.member-recipe.' + act, 'member-recipe:' + id, reason, { note: input.note ?? null, revision: input.revision ?? null }, actor.bot);
+  return { reply: { saved: true, note: act === 'publish' ? 'Published. Members see it in Cook within a minute.' : undefined },
+    // Publishing an update replaces the live version, which cannot be brought back, so it has no undo.
+    undo: (act === 'publish' && !update) || act === 'decline' ? { action: act, revision } : null };
+}
+/** Hides a chef-published recipe, or returns a declined one to review while its author has not sent a new version. */
+export async function undoMemberRecipe(db: PoolClient, actor: Actor, id: string, undo: { action: string; revision: number }, reason: string) {
+  const done = undo.action === 'publish'
+    ? await db.query(`UPDATE recipes.recipe SET hidden_at=now(), hidden_reason=$3, updated_at=now() WHERE id=$1 AND live_revision=$2 AND hidden_at IS NULL`,
+      [id, undo.revision, reason])
+    : await db.query(`UPDATE recipes.recipe SET pending_state='review', decision_note='', updated_at=now()
+      WHERE id=$1 AND pending_state='declined' AND pending_revision=$2`, [id, undo.revision]);
+  if (!done.rowCount) throw new HttpError(409, 'This recipe changed since the chef decided. Nothing was undone.');
+  await audit(db, actor.id, 'content.member-recipe.undo', 'member-recipe:' + id, reason, { undid: undo.action }, actor.bot);
 }

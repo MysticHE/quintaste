@@ -4,7 +4,7 @@ import { CommunityError, communityRouter, errors, member, throttle, transaction,
 import { notBlocked, notRestricted } from '../community/router.mjs';
 import { encodePhoto } from '../market/rules.mjs';
 import { like, visibleListings, visibleShop } from '../market/shop.mjs';
-import { categories, draftKey, publicId, readRecipe, rowId } from './rules.mjs';
+import { categories, draftKey, publicId, readRecipe, rowId, submitKey } from './rules.mjs';
 import { animal, containsFor, labelsFor } from '../diet-labels.mjs';
 
 /**
@@ -80,7 +80,7 @@ async function readPhotos(body, steps) {
 }
 /** Submits a recipe, or an update to one, for staff review. A published version stays live until staff publish the update. */
 recipes.put('/mine/:key', member, async (req, res) => {
-  const me = res.locals.user.id, key = draftKey(req.params.key), recipe = readRecipe(req.body?.recipe);
+  const me = res.locals.user.id, key = submitKey(req.params.key), recipe = readRecipe(req.body?.recipe);
   await throttle('recipe-submit:' + me, 20, 86400, 'You can submit 20 recipes a day. Try again tomorrow.');
   const photos = await readPhotos(req.body, recipe.steps.length);
   const id = await transaction(async db => {

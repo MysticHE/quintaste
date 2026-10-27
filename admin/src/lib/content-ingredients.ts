@@ -1,6 +1,7 @@
 import 'server-only';
+import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
-import { audit } from './audit';
+import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, pageSize, text } from './http';
 import { search } from './content-members';
@@ -49,39 +50,60 @@ function per100(value: unknown) {
 
 /** approve, reject, retry (ask the AI again with a note) or edit (weights, figures of a food USDA lacks). */
 export async function ingredientAction(member: Session, input: Record<string, unknown>, reason: string) {
-  const act = choice(input.action, ['approve', 'reject', 'retry', 'edit'] as const, 'action');
-  const key = text(input.id, 'ingredient', 80), version = text(input.version, 'version', 40);
   authorize(member, 'content');
   return transaction(async db => {
     await lockPermission(db, member, 'content');
-    const row = (await db.query<{ status: string; usda: string | null; food_id: string | null; negligible: boolean }>(
-      'SELECT status, usda, food_id, negligible FROM nutrition.ingredient WHERE name_key=$1 AND updated_at::text=$2 FOR UPDATE', [key, version])).rows[0];
-    if (!row) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
-    const sourced = !!row.usda || !!row.food_id || row.negligible;
-    let note: string | undefined;
-    if (act === 'approve') {
-      if (!sourced) throw new HttpError(409, 'There is no food to approve. Ask the AI again instead.');
-      await db.query("UPDATE nutrition.ingredient SET status='approved', reviewed_by=$2, reviewed_at=now(), updated_at=now() WHERE name_key=$1", [key, member.id]);
-    } else if (act === 'reject') {
-      await db.query("UPDATE nutrition.ingredient SET status='rejected', reviewed_by=$2, reviewed_at=now(), updated_at=now() WHERE name_key=$1", [key, member.id]);
-      note = 'Rejected. Recipes stop using it at the next hourly refresh.';
-    } else if (act === 'retry') {
-      const staffNote = text(input.note, 'what was wrong', 300, 5);
-      await db.query("UPDATE nutrition.ingredient SET status='retry', staff_note=$2, reviewed_by=$3, reviewed_at=now(), updated_at=now() WHERE name_key=$1", [key, staffNote, member.id]);
-      note = 'The AI will look again within an hour.';
-    } else {
-      if (!sourced) throw new HttpError(409, 'There is no food to correct. Ask the AI again instead.');
-      const negligible = input.negligible === true, density = optionalNumber(input.gPerMl, 'grams per ml', 0.05, 3), weights = unitWeights(input.units ?? {});
-      // Without a USDA or researched food, "No nutrients" is the only thing this row says; clearing it leaves nothing to approve.
-      if (!negligible && !row.usda && !row.food_id) throw new HttpError(409, 'This ingredient has no food to use. Ask the AI again instead.');
-      if (row.food_id && input.per100 !== undefined) {
-        await db.query('UPDATE nutrition.food SET per100=$2, updated_at=now() WHERE id=$1', [row.food_id, JSON.stringify(per100(input.per100))]);
-      }
-      await db.query(`UPDATE nutrition.ingredient SET status='approved', negligible=$2, g_per_ml=$3, units=$4, reviewed_by=$5, reviewed_at=now(), updated_at=now()
-        WHERE name_key=$1`, [key, negligible, density, JSON.stringify(weights), member.id]);
-      note = 'Saved and approved. Recipes update at the next hourly refresh.';
-    }
-    await audit(db, member.id, 'content.ingredient.' + act, 'ingredient:' + key, reason, { note: input.note ?? null });
-    return { saved: true, note };
+    return (await applyIngredient(db, { id: member.id }, input, reason)).reply;
   });
+}
+
+type Prior = { status: string; staff_note: string | null; reviewed_by: string | null; reviewed_at: string | null };
+/**
+ * One ingredient decision inside the caller's transaction, by a staff member or a chef (docs/ADMIN_CHEFS_PLAN.md). Returns the
+ * row as it was, so a chef's approve, reject or retry can be undone while nobody has changed the row since.
+ */
+export async function applyIngredient(db: PoolClient, actor: Actor, input: Record<string, unknown>, reason: string) {
+  const act = choice(input.action, ['approve', 'reject', 'retry', 'edit'] as const, 'action');
+  const key = text(input.id, 'ingredient', 80), version = text(input.version, 'version', 40), by = actor.id;
+  const row = (await db.query<Prior & { usda: string | null; food_id: string | null; negligible: boolean }>(
+    `SELECT status, usda, food_id, negligible, staff_note, reviewed_by, reviewed_at::text AS reviewed_at FROM nutrition.ingredient
+      WHERE name_key=$1 AND updated_at::text=$2 FOR UPDATE`, [key, version])).rows[0];
+  if (!row) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
+  const prior: Prior = { status: row.status, staff_note: row.staff_note, reviewed_by: row.reviewed_by, reviewed_at: row.reviewed_at };
+  const sourced = !!row.usda || !!row.food_id || row.negligible;
+  let note: string | undefined;
+  if (act === 'approve') {
+    if (!sourced) throw new HttpError(409, 'There is no food to approve. Ask the AI again instead.');
+    await db.query("UPDATE nutrition.ingredient SET status='approved', reviewed_by=$2, reviewed_at=now(), updated_at=now() WHERE name_key=$1", [key, by]);
+  } else if (act === 'reject') {
+    await db.query("UPDATE nutrition.ingredient SET status='rejected', reviewed_by=$2, reviewed_at=now(), updated_at=now() WHERE name_key=$1", [key, by]);
+    note = 'Rejected. Recipes stop using it at the next hourly refresh.';
+  } else if (act === 'retry') {
+    const staffNote = text(input.note, 'what was wrong', 300, 5);
+    await db.query("UPDATE nutrition.ingredient SET status='retry', staff_note=$2, reviewed_by=$3, reviewed_at=now(), updated_at=now() WHERE name_key=$1", [key, staffNote, by]);
+    note = 'The AI will look again within an hour.';
+  } else {
+    if (!sourced) throw new HttpError(409, 'There is no food to correct. Ask the AI again instead.');
+    const negligible = input.negligible === true, density = optionalNumber(input.gPerMl, 'grams per ml', 0.05, 3), weights = unitWeights(input.units ?? {});
+    // Without a USDA or researched food, "No nutrients" is the only thing this row says; clearing it leaves nothing to approve.
+    if (!negligible && !row.usda && !row.food_id) throw new HttpError(409, 'This ingredient has no food to use. Ask the AI again instead.');
+    if (row.food_id && input.per100 !== undefined) {
+      await db.query('UPDATE nutrition.food SET per100=$2, updated_at=now() WHERE id=$1', [row.food_id, JSON.stringify(per100(input.per100))]);
+    }
+    await db.query(`UPDATE nutrition.ingredient SET status='approved', negligible=$2, g_per_ml=$3, units=$4, reviewed_by=$5, reviewed_at=now(), updated_at=now()
+      WHERE name_key=$1`, [key, negligible, density, JSON.stringify(weights), by]);
+    note = 'Saved and approved. Recipes update at the next hourly refresh.';
+  }
+  await audit(db, by, 'content.ingredient.' + act, 'ingredient:' + key, reason, { note: input.note ?? null }, actor.bot);
+  const after = (await db.query<{ version: string }>('SELECT updated_at::text AS version FROM nutrition.ingredient WHERE name_key=$1', [key])).rows[0].version;
+  return { reply: { saved: true, note }, undo: { prior, version: after } };
+}
+
+/** Puts an ingredient back as it was before a chef's decision, unless someone changed it since. */
+export async function undoIngredient(db: PoolClient, actor: Actor, key: string, undo: { prior: Prior; version: string }, reason: string) {
+  const { prior } = undo;
+  const done = await db.query(`UPDATE nutrition.ingredient SET status=$3, staff_note=$4, reviewed_by=$5, reviewed_at=$6::timestamptz, updated_at=now()
+    WHERE name_key=$1 AND updated_at::text=$2`, [key, undo.version, prior.status, prior.staff_note, prior.reviewed_by, prior.reviewed_at]);
+  if (!done.rowCount) throw new HttpError(409, 'This ingredient changed since the chef decided. Nothing was undone.');
+  await audit(db, actor.id, 'content.ingredient.undo', 'ingredient:' + key, reason, { restored: prior.status }, actor.bot);
 }

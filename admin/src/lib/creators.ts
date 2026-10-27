@@ -1,6 +1,7 @@
 import 'server-only';
+import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
-import { audit } from './audit';
+import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, integer, pageSize, text } from './http';
 import { search } from './content-members';
@@ -98,19 +99,41 @@ export async function creatorAction(member: Session, input: Record<string, unkno
         await audit(db, member.id, 'content.creator.' + act, 'creator:' + id, reason, { platform, handle });
         return { saved: true, note: act === 'channel' ? 'Channel saved' : 'Channel removed' };
       }
+      if (act in STATES) return (await applyCreatorState(db, { id: member.id }, id, act as CreatorState, reason)).reply;
       const set = act === 'edit' ? (() => { const f = fields(input);
           return { sql: 'name=$2, kind=$3, country=$4, region=$5, languages=$6, diets=$7, cuisines=$8, website=$9, note=$10',
             values: [f.name, f.kind, f.country, f.region, f.languages, f.diets, f.cuisines, f.website, f.note] }; })()
         : act === 'invite' ? { sql: 'invite=$2', values: [choice(input.invite, ['not-yet', 'ready', 'invited', 'declined'] as const, 'invite')] }
-        : { sql: { pin: 'pinned=true', unpin: 'pinned=false', pause: "status='paused'", activate: "status='active'", block: "status='blocked', pinned=false" }[act], values: [] };
+        : null;
+      if (!set) throw new HttpError(400, 'Check action.');
       const result = await db.query(`UPDATE creators.creator SET ${set.sql}, updated_at=now() WHERE id=$1`, [id, ...set.values]);
       if (!result.rowCount) throw new HttpError(404, 'This creator is no longer in the library.');
       await audit(db, member.id, 'content.creator.' + act, 'creator:' + id, reason, act === 'invite' ? { invite: set.values[0] } : {});
-      return { saved: true, note: { edit: 'Saved', pin: 'Pinned: searched first', unpin: 'Unpinned', pause: 'Paused: not searched', activate: 'Active again',
-        block: 'Blocked: never searched', invite: 'Saved' }[act] };
+      return { saved: true, note: 'Saved' };
     });
   } catch (error) {
     if (missing(error)) throw notInstalled();
     throw error;
   }
+}
+
+const STATES = { pin: 'pinned=true', unpin: 'pinned=false', pause: "status='paused'", activate: "status='active'", block: "status='blocked', pinned=false" } as const;
+const STATE_NOTES = { pin: 'Pinned: searched first', unpin: 'Unpinned', pause: 'Paused: not searched', activate: 'Active again', block: 'Blocked: never searched' };
+export type CreatorState = keyof typeof STATES;
+type Prior = { status: string; pinned: boolean };
+/** Pin, unpin, pause, reactivate or block a creator, by staff or a chef (docs/ADMIN_CHEFS_PLAN.md); returns the creator as it was. */
+export async function applyCreatorState(db: PoolClient, actor: Actor, id: string, act: CreatorState, reason: string) {
+  const prior = (await db.query<Prior>('SELECT status, pinned FROM creators.creator WHERE id=$1 FOR UPDATE', [id])).rows[0];
+  if (!prior) throw new HttpError(404, 'This creator is no longer in the library.');
+  const after = (await db.query<{ version: string }>(`UPDATE creators.creator SET ${STATES[act]}, updated_at=now() WHERE id=$1
+    RETURNING updated_at::text AS version`, [id])).rows[0];
+  await audit(db, actor.id, 'content.creator.' + act, 'creator:' + id, reason, {}, actor.bot);
+  return { reply: { saved: true, note: STATE_NOTES[act] }, undo: { prior, version: after.version } };
+}
+/** Puts a creator back as it was before a chef's change, unless someone changed it since. */
+export async function undoCreatorState(db: PoolClient, actor: Actor, id: string, undo: { prior: Prior; version: string }, reason: string) {
+  const done = await db.query('UPDATE creators.creator SET status=$3, pinned=$4, updated_at=now() WHERE id=$1 AND updated_at::text=$2',
+    [id, undo.version, undo.prior.status, undo.prior.pinned]);
+  if (!done.rowCount) throw new HttpError(409, 'This creator changed since the chef decided. Nothing was undone.');
+  await audit(db, actor.id, 'content.creator.undo', 'creator:' + id, reason, { restored: undo.prior }, actor.bot);
 }

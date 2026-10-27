@@ -17,11 +17,12 @@ HOST = "root@100.64.190.112"
 CONTAINER = "hermes-agent-yril-hermes-agent-1"
 
 
-def remote(code: str) -> str:
+def remote(code: str, timeout: int = 120) -> str:
+    """Runs `code` with python3 on the VPS. A longer `timeout` lets the code wait for the team's run lock."""
     result = subprocess.run(
         ["ssh", "-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes",
          "-o", "ConnectTimeout=15", HOST, "python3 -"],
-        input=code, text=True, encoding="utf-8", capture_output=True, timeout=120,
+        input=code, text=True, encoding="utf-8", capture_output=True, timeout=timeout,
     )
     if result.returncode:
         raise RuntimeError(f"Remote operation failed ({result.returncode}): {result.stderr[:1200]}")

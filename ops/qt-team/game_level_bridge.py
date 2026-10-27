@@ -16,20 +16,19 @@ import datetime as dt
 import json
 import os
 from pathlib import Path
-import signal
-import subprocess
 import time
 import urllib.error
 import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 from app_signing import open_signed  # noqa: E402  (the shared signer)
+import hermes_run  # noqa: E402  (the shared Hermes runner)
 PROFILE = 'qt-gamer'
 ROUTES = ('/api/game-levels/bot/claim', '/api/game-levels/bot/jobs/')
 RUN_SECONDS, MAX_TURNS, IDLE_SECONDS = 300, 3, 30
 MAX_ANSWER = 28_000  # the app accepts 30 KB of answer
 # Hermes always offers tool discovery; anything beyond it means the model went looking for data it was not given.
-ALLOWED = ('tool_search', 'tool_describe')
+ALLOWED = hermes_run.DISCOVERY
 
 
 def signed(route: str, data=None):
@@ -54,49 +53,11 @@ def prompt_for(job: dict) -> str:
 
 
 def run_hermes(prompt: str, folder: Path) -> dict:
-    (folder / 'prompt.txt').write_text(prompt, encoding='utf-8')
-    env = {k: v for k, v in os.environ.items() if not k.startswith(('HERMES_CRON_', 'HERMES_SESSION_', 'HERMES_TASK_'))}
-    env.update(HERMES_HOME='/opt/data', HERMES_TIMEZONE='Asia/Singapore')
-    args = ['hermes', '-p', PROFILE, 'chat', '--query-file', str(folder / 'prompt.txt'), '--oneshot', '--format', 'stream-json',
-            '--max-turns', str(MAX_TURNS), '--run-budget', str(RUN_SECONDS), '-t', 'web', '--in', str(folder)]
-    reserve()
-    with (folder / 'stream.jsonl').open('w', encoding='utf-8') as out, (folder / 'stderr.log').open('w', encoding='utf-8') as err:
-        # Its own process group, so a timeout stops Hermes and anything it started (as workflow.py does).
-        proc = subprocess.Popen(args, stdout=out, stderr=err, env=env, start_new_session=True)
-        try:
-            proc.wait(timeout=RUN_SECONDS + 60)
-        except subprocess.TimeoutExpired:
-            os.killpg(proc.pid, signal.SIGTERM)
-            try:
-                proc.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait()
-            raise RuntimeError('hermes timed out')
-    events = []
-    for line in (folder / 'stream.jsonl').read_text(encoding='utf-8').splitlines():
-        try:
-            events.append(json.loads(line))
-        except json.JSONDecodeError:
-            continue
-    final = next((e for e in reversed(events) if e.get('type') == 'result'), None)
-    if proc.returncode != 0 or not final or final.get('exit_code') != 0:
-        raise RuntimeError('hermes did not complete (exit %s)' % proc.returncode)
-    used = sorted({str(e.get('name')) for e in events if e.get('type') == 'tool_use'} - set(ALLOWED))
-    if used:
-        raise RuntimeError('used tools it was not given: ' + ', '.join(used)[:120])
-    return final
+    return hermes_run.run(PROFILE, prompt, folder, toolset='web', allowed=ALLOWED, seconds=RUN_SECONDS, turns=MAX_TURNS, grace=60,
+                          reserve=reserve)[0]
 
 
-def parse(text: str) -> dict:
-    text = text.strip()
-    if text.startswith('```'):
-        text = text.split('\n', 1)[1] if '\n' in text else ''
-        text = text.rsplit('```', 1)[0]
-    value = json.loads(text)
-    if not isinstance(value, dict):
-        raise ValueError('expected one JSON object')
-    return value
+parse = hermes_run.parse
 
 
 def handle(job: dict) -> dict:

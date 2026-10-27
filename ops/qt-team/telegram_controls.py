@@ -111,10 +111,15 @@ def callback(state, data, uid):
     if len(parts) == 3 and parts[0] == 'manage' and parts[1] in ('recipe','event') and parts[2].isdigit() and int(parts[2]) <= 2000:
         text, buttons = menu(state, parts[1], int(parts[2]))
     elif len(parts) == 2 and parts[0] in ('select','confirm','cancel','delete','revert','cover-ok','cover-no','game-ok','game-no','keep',
-                                          'vk-veg','vk-vegan','vk-mixed','vk-skip'):
-        action = state.get('moderation', {}).get(parts[1])
-        if not action or action['expires'] <= time.time():
+                                          'vk-veg','vk-vegan','vk-mixed','vk-skip','chef-ok','chef-no'):
+        chef = parts[0] in ('chef-ok','chef-no')
+        action = state.get('chefTokens' if chef else 'moderation', {}).get(parts[1])
+        if (not action or action['expires'] <= time.time()) and chef:
+            text, buttons = CHEF_EXPIRED, [[chef_admin_button()]]
+        elif not action or action['expires'] <= time.time():
             text, buttons = 'This action expired. Use /manage to select the item again.', []
+        elif chef and action.get('mode') == 'chef' and action['stage'] == 'direct':
+            text, buttons = chef_answer(t, action, parts[0] == 'chef-ok', data)
         elif parts[0] in ('game-ok','game-no') and action.get('mode') == 'game' and action['stage'] == 'direct':
             import gamer
             outcome = gamer.decide(t.ROOT, action['id'], action['hash'], parts[0] == 'game-ok', parts[1])
@@ -288,6 +293,90 @@ def gamer_requests(state):
         state['moderation'] = dict(list(actions.items())[-400:])
         t.enqueue(state, key, gamer.caption(t.ROOT, asset_id, entry), str(folder / 'candidate.jpg'),
                   buttons=[[{'text':'Approve art', 'callback_data':'game-ok:' + token}, {'text':'Reject', 'callback_data':'game-no:' + token}]])
+
+
+CHEF_WHY = {'disagree': 'Kaya disagreed', 'weak': 'not sure enough', 'no-to-member': "it's a no to a member",
+            'irreversible': "it can't be undone", 'rule': 'this lane asks you first',
+            'batch': "the item's lot and date mark differ from the notice"}
+CHEF_CARDS_PER_DAY = 20   # single ask cards a day (Singapore); more go into one card that points to admin
+CHEF_BURST = 5            # more new asks than this at once also go into that one card
+CHEF_TOKENS = 400         # chef buttons kept apart from other owner buttons, so a burst of asks never pushes out Revert or Delete
+CHEF_TOKEN_DAYS = 30
+CHEF_EXPIRED = 'This question can no longer be answered here. Answer it on the Chef decisions page in admin.'
+
+
+def chef_admin_button():
+    import chef_admin
+    return {'text': 'Open in admin', 'url': chef_admin.ADMIN_ORIGIN + '/console/chefs'}
+
+
+def chef_requests(state):
+    """Cards for decisions the chefs asked about (docs/ADMIN_CHEFS_PLAN.md §4), with Approve / Turn down. Lanes about members'
+    own content come without an item name or the chef's reason; admin leaves them out. A backlog never floods the chat: a burst of
+    new asks, or more than the day's single cards, goes into one card with counts per lane and a link to admin."""
+    import datetime as dt
+    import telegram_reporter as t
+    import chef_admin
+    if not chef_admin.has_key(t.ROOT, 'head'):
+        return
+    # A cursor, so new asks are carded even while older ones wait unanswered; each card is sent once.
+    asks, after = [], state.get('chefAsksAfter')
+    for _ in range(25):
+        page = chef_admin.asks(t.ROOT, after)
+        asks += page
+        if len(page) < 20:
+            break
+        after = page[-1]['at']
+    if not asks:
+        return
+    # Saved as each card is queued, and the cursor only moves once all are: a full queue (enqueue raises) loses no card or button.
+    last, asks = asks[-1]['at'], [ask for ask in asks if 'chef:' + ask['id'] not in state['deliveries']]
+    day = dt.datetime.now(t.SG).date().isoformat()
+    sent = state['chefCards'] = {day: state.get('chefCards', {}).get(day, 0)}
+    single = asks if len(asks) <= CHEF_BURST and len(asks) <= CHEF_CARDS_PER_DAY - sent[day] else []
+    tokens = state['chefTokens'] = {k: v for k, v in state.get('chefTokens', {}).items() if v['expires'] > time.time()}
+    for ask in single:
+        item = ask.get('item') or "a member's item"
+        token = secrets.token_hex(12)
+        tokens[token] = {'mode': 'chef', 'kind': 'chef', 'id': ask['id'], 'name': f"{ask['action']} {item}"[:120],
+                         'expires': time.time() + CHEF_TOKEN_DAYS * 86400, 'stage': 'direct', 'actionId': 'owner-chef-' + token}
+        sure = f" ({round(ask['confidence'] * 100)}% sure)" if isinstance(ask.get('confidence'), (int, float)) else ''
+        lines = [f"QT Manager · {ask['chef']} asks you", f"{ask['lane']}: {ask['action']} {item}",
+                 'Why: ' + CHEF_WHY.get(ask.get('why'), 'unclear') + sure]
+        if ask.get('reason'):
+            lines.append(f"{ask['chef']}: {ask['reason']}")
+        t.enqueue(state, 'chef:' + ask['id'], '\n'.join(lines), buttons=[
+            [{'text': 'Approve', 'callback_data': 'chef-ok:' + token}, {'text': 'Turn down', 'callback_data': 'chef-no:' + token}],
+            [chef_admin_button()]])
+        sent[day] += 1
+    rest = asks[len(single):]
+    if rest:
+        lanes = {}
+        for ask in rest:
+            lanes[ask['lane']] = lanes.get(ask['lane'], 0) + 1
+        t.enqueue(state, 'chef-digest:' + rest[-1]['id'], f"QT Manager · The chefs have {len(rest)} more "
+                  + ('question' if len(rest) == 1 else 'questions') + ' for you\n'
+                  + '\n'.join(f'• {lane}: {n}' for lane, n in sorted(lanes.items())) + '\nAnswer them on the Chef decisions page.',
+                  buttons=[[chef_admin_button()]])
+    state['chefTokens'] = dict(list(tokens.items())[-CHEF_TOKENS:])
+    state['chefAsksAfter'] = last
+
+
+def chef_answer(t, action, yes, data):
+    """The owner's tap: admin carries the decision out (or records the no) and says what happened."""
+    import chef_admin
+    try:
+        result = chef_admin.answer(t.ROOT, action['id'], yes)
+    except Exception:
+        return 'Could not reach admin. Nothing was changed; try again.', [[{'text': 'Retry', 'callback_data': data}]]
+    action['stage'] = 'done'
+    note = (' ' + result['note']) if result.get('note') and not result.get('handled') else ''
+    if result.get('handled'):
+        return 'This was already answered. Nothing was changed.', []
+    return {'approved': 'Done: ' + action['name'] + '.' + note,
+            'rejected': 'Turned down: ' + action['name'] + '. Nothing was changed.',
+            'failed': "Couldn't apply: " + action['name'] + '.' + note + ' Nothing was changed.'}.get(
+        result.get('outcome'), 'Admin answered: ' + str(result.get('outcome'))), []
 
 
 def _remove_or_keep(state, t, kind, rid, row, key, text, route, **extra):

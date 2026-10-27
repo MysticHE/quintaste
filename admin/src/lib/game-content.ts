@@ -1,6 +1,7 @@
 import 'server-only';
+import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
-import { audit } from './audit';
+import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, pageSize, text } from './http';
 import { openReports, search } from './content-members';
@@ -45,15 +46,30 @@ export async function gameLevelAction(member: Session, input: Record<string, unk
   authorize(member, 'content');
   return guard(() => transaction(async db => {
     await lockPermission(db, member, 'content');
-    const from = { approve: "status = 'review'", hide: "status <> 'hidden'", restore: "status = 'hidden'", public: "status = 'ready' AND owner_id IS NOT NULL" }[act];
-    const changed = act === 'public'
-      ? await db.query(`UPDATE game.recipe_level SET owner_id = NULL, reviewed_at = now(), reviewed_by = $2 WHERE hash = $1 AND ${from}`, [id, member.email.slice(0, 120)])
-      : await db.query(`UPDATE game.recipe_level SET status = $2, reviewed_at = now(), reviewed_by = $3 WHERE hash = $1 AND ${from}`,
-        [id, act === 'hide' ? 'hidden' : 'ready', member.email.slice(0, 120)]);
-    if (!changed.rowCount) throw new HttpError(409, 'This level changed since you opened it. Refresh the list.');
-    await audit(db, member.id, 'content.game_level.' + act, 'game-level:' + id, reason, {});
-    return { saved: true, note: { approve: 'Live: members can play it', hide: 'Hidden: no new plays, open ones are refused', restore: 'Live again', public: 'Public: everyone can play it' }[act] };
+    return (await applyGameLevel(db, { id: member.id, email: member.email }, id, act, reason)).reply;
   }));
+}
+
+/** One level decision by staff or a chef (docs/ADMIN_CHEFS_PLAN.md); an approval can be undone while nobody has reviewed it again. */
+export async function applyGameLevel(db: PoolClient, actor: Actor, id: string, act: 'approve' | 'hide' | 'restore' | 'public', reason: string) {
+  const by = (actor.email ?? (actor.bot ? 'chef:' + actor.bot : 'owner')).slice(0, 120);
+  const from = { approve: "status = 'review'", hide: "status <> 'hidden'", restore: "status = 'hidden'", public: "status = 'ready' AND owner_id IS NOT NULL" }[act];
+  const changed = act === 'public'
+    ? await db.query<{ version: string }>(`UPDATE game.recipe_level SET owner_id = NULL, reviewed_at = now(), reviewed_by = $2 WHERE hash = $1 AND ${from}
+      RETURNING reviewed_at::text AS version`, [id, by])
+    : await db.query<{ version: string }>(`UPDATE game.recipe_level SET status = $2, reviewed_at = now(), reviewed_by = $3 WHERE hash = $1 AND ${from}
+      RETURNING reviewed_at::text AS version`, [id, act === 'hide' ? 'hidden' : 'ready', by]);
+  if (!changed.rowCount) throw new HttpError(409, 'This level changed since you opened it. Refresh the list.');
+  await audit(db, actor.id, 'content.game_level.' + act, 'game-level:' + id, reason, {}, actor.bot);
+  return { reply: { saved: true, note: { approve: 'Live: members can play it', hide: 'Hidden: no new plays, open ones are refused', restore: 'Live again', public: 'Public: everyone can play it' }[act] },
+    undo: act === 'approve' ? { version: changed.rows[0].version } : null };
+}
+/** Sends a chef-approved level back to review, unless it was reviewed again since. */
+export async function undoGameLevel(db: PoolClient, actor: Actor, id: string, undo: { version: string }, reason: string) {
+  const done = await db.query(`UPDATE game.recipe_level SET status = 'review', reviewed_at = NULL, reviewed_by = NULL
+    WHERE hash = $1 AND status = 'ready' AND reviewed_at::text = $2`, [id, undo.version]);
+  if (!done.rowCount) throw new HttpError(409, 'This level changed since the chef decided. Nothing was undone.');
+  await audit(db, actor.id, 'content.game_level.undo', 'game-level:' + id, reason, {}, actor.bot);
 }
 
 /**

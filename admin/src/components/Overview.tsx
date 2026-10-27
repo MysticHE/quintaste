@@ -9,7 +9,7 @@ import type { AiSummary } from './content/AiRecipes';
 
 export type OverviewData = { users: number | null; queues: { kind: string; count: number; overdue: number }[] | null; features: { key: string; enabled: boolean }[] | null;
   memberRecipes: number | null; reviews: number | null; listings: number | null; places: { total: number; explorer: number; mixed: number } | null; ai: AiSummary | null;
-  game?: { levels: number; pictures: number } | null; social?: { checks: number | null; teachers: number | null } | null };
+  game?: { levels: number; pictures: number } | null; social?: { checks: number | null; teachers: number | null } | null; chefs?: number | null };
 type Resource = { data: OverviewData | null; error: string; loading: boolean; reload: () => void };
 type Task = { href: string; icon: IconName; label: string; count: number; detail?: string; urgent?: boolean };
 

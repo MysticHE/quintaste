@@ -1,7 +1,7 @@
 import 'server-only';
 import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
-import { audit } from './audit';
+import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, pageSize, text } from './http';
 import { search } from './content-members';
@@ -46,20 +46,36 @@ export async function demandList(member: Session, status: string, q: string, ski
 
 /** make: the worker starts it within a minute; skip: never made automatically; link: an existing recipe answers it; reopen: back to waiting. */
 export async function demandAction(member: Session, input: Record<string, unknown>, reason: string) {
-  const act = choice(input.action, ['make', 'skip', 'link', 'reopen'] as const, 'action'), term = text(input.id, 'term', 60, 3);
   authorize(member, 'content');
+  return transaction(async db => {
+    await lockPermission(db, member, 'content');
+    return (await applyDemand(db, { id: member.id }, input, reason)).reply;
+  });
+}
+
+const DEMAND_STATUS = { make: 'requested', skip: 'skipped', link: 'linked', reopen: 'open' } as const;
+/** One wanted-recipe decision by staff or a chef (docs/ADMIN_CHEFS_PLAN.md); returns the term's status before, so it can be undone. */
+export async function applyDemand(db: PoolClient, actor: Actor, input: Record<string, unknown>, reason: string) {
+  const act = choice(input.action, ['make', 'skip', 'link', 'reopen'] as const, 'action'), term = text(input.id, 'term', 60, 3);
   const from = { make: ['open', 'skipped'], skip: ['open', 'requested'], link: ['open', 'requested', 'skipped', 'review'], reopen: ['skipped', 'linked'] }[act];
   const recipe = act === 'link' ? text(input.recipe, 'recipe id', 120, 3) : null;
   if (recipe && !/^[a-z0-9][a-z0-9-]{2,119}$/.test(recipe)) throw new HttpError(400, 'Use the recipe id from its Cook link, for example member-… or a QuinTaste recipe id.');
-  return transaction(async db => {
-    await lockPermission(db, member, 'content');
-    const result = await db.query(`UPDATE recipes.demand SET status=$2, note=$3, recipe_id=CASE WHEN $2 = 'linked' THEN $4 WHEN $2 = 'open' THEN NULL ELSE recipe_id END,
-        failures=CASE WHEN $2 IN ('requested','open') THEN 0 ELSE failures END, updated_at=now()
-      WHERE term=$1 AND status = ANY($5::text[])`,
-      [term, { make: 'requested', skip: 'skipped', link: 'linked', reopen: 'open' }[act], act === 'skip' ? text(input.note, 'note', 300, 0) : '', recipe, from]);
-    if (!result.rowCount) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
-    await audit(db, member.id, 'content.recipe-demand.' + act, 'recipe-demand:' + term, reason, { recipe });
-    if (act === 'make') return { saved: true, note: await makeNote(db) };
-    return { saved: true, note: { skip: 'Skipped', link: 'Linked. Cook suggests that recipe for this name within five minutes.', reopen: 'Back in the waiting list' }[act] };
-  });
+  const prior = (await db.query<{ status: string; note: string; recipe_id: string | null }>(
+    'SELECT status, note, recipe_id FROM recipes.demand WHERE term=$1 FOR UPDATE', [term])).rows[0];
+  const result = await db.query(`UPDATE recipes.demand SET status=$2, note=$3, recipe_id=CASE WHEN $2 = 'linked' THEN $4 WHEN $2 = 'open' THEN NULL ELSE recipe_id END,
+      failures=CASE WHEN $2 IN ('requested','open') THEN 0 ELSE failures END, updated_at=now()
+    WHERE term=$1 AND status = ANY($5::text[])`,
+    [term, DEMAND_STATUS[act], act === 'skip' ? text(input.note ?? '', 'note', 300, 0) : '', recipe, from]);
+  if (!result.rowCount || !prior) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
+  await audit(db, actor.id, 'content.recipe-demand.' + act, 'recipe-demand:' + term, reason, { recipe }, actor.bot);
+  const reply = act === 'make' ? { saved: true, note: await makeNote(db) }
+    : { saved: true, note: { skip: 'Skipped', link: 'Linked. Cook suggests that recipe for this name within five minutes.', reopen: 'Back in the waiting list' }[act] };
+  return { reply, undo: { prior, status: DEMAND_STATUS[act] } };
+}
+/** Puts a wanted recipe back as it was before a chef's decision, while nothing has moved it on (a made one is not started yet). */
+export async function undoDemand(db: PoolClient, actor: Actor, term: string, undo: { prior: { status: string; note: string; recipe_id: string | null }; status: string }, reason: string) {
+  const done = await db.query('UPDATE recipes.demand SET status=$3, note=$4, recipe_id=$5, updated_at=now() WHERE term=$1 AND status=$2',
+    [term, undo.status, undo.prior.status, undo.prior.note, undo.prior.recipe_id]);
+  if (!done.rowCount) throw new HttpError(409, 'This wanted recipe moved on since the chef decided. Nothing was undone.');
+  await audit(db, actor.id, 'content.recipe-demand.undo', 'recipe-demand:' + term, reason, { restored: undo.prior.status }, actor.bot);
 }

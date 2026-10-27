@@ -1,6 +1,7 @@
 import 'server-only';
+import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
-import { audit } from './audit';
+import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, pageSize, text, uuid } from './http';
 import { removeListing } from './sellers';
@@ -77,12 +78,12 @@ export async function memberAction(member: Session, kind: keyof typeof memberAct
   authorize(member, 'content');
   return transaction(async db => {
     await lockPermission(db, member, 'content');
+    if (kind === 'review' || kind === 'gathering') {
+      await applyMemberPost(db, { id: member.id }, kind, act as 'hide' | 'restore', id, reason, input.note);
+      return { saved: true, note: undefined };
+    }
     let result, note: string | undefined;
-    if (kind === 'review') result = await db.query(`UPDATE community.place_review SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2 WHERE id=$1 AND (hidden_at IS NULL)=$3`,
-      [id, act === 'hide' ? reason : null, act === 'hide']);
-    else if (kind === 'gathering') result = await db.query(`UPDATE social.gathering SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2, updated_at=now() WHERE id=$1 AND (hidden_at IS NULL)=$3`,
-      [id, act === 'hide' ? reason : null, act === 'hide']);
-    else if (kind === 'market-review') result = await db.query('UPDATE market."order" SET review_hidden=$2 WHERE id=$1 AND review_hidden<>$2', [id, act === 'hide']);
+    if (kind === 'market-review') result = await db.query('UPDATE market."order" SET review_hidden=$2 WHERE id=$1 AND review_hidden<>$2', [id, act === 'hide']);
     else {
       const item = (await db.query('SELECT seller_id,status FROM market.listing WHERE id=$1 FOR UPDATE', [id])).rows[0];
       if (!item) throw new HttpError(404, 'Item not found.');
@@ -94,4 +95,20 @@ export async function memberAction(member: Session, kind: keyof typeof memberAct
     await audit(db, member.id, `content.${kind}.${act}`, kind + ':' + id, reason, { note: input.note ?? null });
     return { saved: true, note };
   });
+}
+
+/**
+ * Hides or restores a place review or a gathering, by staff or by the owner answering a chef's ask (docs/ADMIN_CHEFS_PLAN.md step
+ * 4); a chef never hides a member's post on its own. Undo of a hide restores it.
+ */
+export async function applyMemberPost(db: PoolClient, actor: Actor, kind: 'review' | 'gathering', act: 'hide' | 'restore', id: string,
+  reason: string, note: unknown = null) {
+  const result = kind === 'review'
+    ? await db.query(`UPDATE community.place_review SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2 WHERE id=$1 AND (hidden_at IS NULL)=$3`,
+      [id, act === 'hide' ? reason : null, act === 'hide'])
+    : await db.query(`UPDATE social.gathering SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2, updated_at=now() WHERE id=$1 AND (hidden_at IS NULL)=$3`,
+      [id, act === 'hide' ? reason : null, act === 'hide']);
+  if (!result.rowCount) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
+  await audit(db, actor.id, `content.${kind}.${act}`, kind + ':' + id, reason, { note: note ?? null }, actor.bot);
+  return { note: undefined, undo: act === 'hide' ? { hidden: true } : null };
 }

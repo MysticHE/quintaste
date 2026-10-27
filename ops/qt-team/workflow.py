@@ -509,6 +509,9 @@ def contract(role):
             "Verified means exact dish name, exact branch/channel and explicit SGD price matched in captured source text. " + \
             "The venue's own recorded menu (often a PDF; web_extract reads PDFs, including scanned ones) may print bare prices such as 19.9: these are SGD when the price ends the dish's line, so record {amount:19.9,currency:'SGD',type:'displayed'}. A page containing only categories or a few popular dishes does NOT verify the other dishes: mark each missing match held. " + \
             "If dietChecks lists the venue, also return dietReview as its instruction says (the coordinator checks the quote against the stored page). " + \
+            "If memberReports lists the venue, members reported a change there and each note says what to recheck (hours, menu or prices, address, closure or diet label): " \
+            "check those first against the venue's own pages and its Google Maps listing, propose a change only with source evidence, otherwise mark that checklist " \
+            "item confirmed or unchanged. If knownMenuItems assigns the venue no dishes, return menuReview:{items:[]}. " + \
             "Google Maps is allowed when it helps: web_extract https://www.google.com/maps/search/?api=1&query=<venue name + full address> (or a /maps/place/ link from its results) stores the listing. " + \
             "Its signed-out view shows the business's category, address and postcode, open/closed status (including Permanently closed), hours, website and phone, but no menu or reviews. " + \
             "Use it to confirm the branch, closure, hours and official website (then follow that website for the menu), whenever the venue's own pages are missing, dead or disagree, and for diet checks: " + \
@@ -1034,20 +1037,16 @@ def live_health():
         return {"url": endpoint, "status": "unverified", "errorType": type(exc).__name__, "checkedAt": now()}
 
 
-ARCHIVE_AFTER_DAYS = 14  # run folders older than this are compressed into archive/, so the run archive never fills
+ARCHIVE_AFTER_DAYS = 3  # owner, 27 Oct 2026: run folders older than this are compressed into archive/ every tick
 
 
 def rotate_runs(policy):
     """Compress old run folders (not referenced by the review queue) so research never stops on archive capacity."""
     import tarfile
-    cap = policy.get('maxRunStorageBytes', 536870912)
     runs = ROOT / 'runs'
     if not runs.is_dir():
         return
     folders = sorted(p for p in runs.iterdir() if p.is_dir() and not p.is_symlink())
-    size = sum(p.stat().st_size for p in runs.rglob('*') if p.is_file() and not p.is_symlink())
-    if size < cap * 0.6:
-        return
     state = read(ROOT / 'state' / 'checkpoint.json', {})
     referenced = {Path(p).relative_to(runs).parts[0] for p in state.get('pendingReview', []) + state.get('quarantinedReview', [])
                   if str(p).startswith(str(runs))}
@@ -1085,6 +1084,7 @@ class Round:
         self.image_result = {'status': 'not-run'}
         self.publication = {'status': 'disabled', 'productionWrites': 0}
         self.discovery_due, self.upcoming = False, []
+        self.rechecks = {}  # venueId -> {venue, cases, notes}: members' reports Coco triaged (rechecks.py)
 
     def production(self):
         return bool(self.policy.get('automaticProductionWrites'))
@@ -1217,6 +1217,14 @@ class Round:
         else:
             pending = [v for v in self.venues if not self.in_month(state["explorerReviewed"].get(v["venueId"]))]
         pending.sort(key=lambda v: state.get('explorerAttempted', state['explorerReviewed']).get(v['venueId'], ''))
+        if not self.trial:
+            # Places from members' reports that Coco triaged go first, whether or not their menu is due (docs/ADMIN_CHEFS_PLAN.md).
+            import rechecks
+            first, skipped = rechecks.due(ROOT, self.venues)
+            if skipped:
+                self.note('qt-explorer', f'{len(skipped)} reported place(s) are not in Explore, so they cannot be rechecked')
+            self.rechecks = {r['venue']['venueId']: r for r in first}
+            pending = [r['venue'] for r in first] + [v for v in pending if v['venueId'] not in self.rechecks]
         if self.trial:
             chosen = {"whole-earth-peck-seah", "bodhi-deli-fortune-centre"}
             pending = [v for v in pending if v["venueId"] in chosen][:2] or pending[:2]
@@ -1575,6 +1583,7 @@ class Round:
     def explorer(self):
         import learning
         import menu_coverage
+        import rechecks
         state, policy = self.state, self.policy
         batches = 1 if self.trial else policy["maxExploreBatchesPerRun"]
         in_review = {r['id'] for p in state.get('pendingReview', []) for r in (read(Path(p), {}) or {}).get('records', [])
@@ -1590,14 +1599,19 @@ class Round:
             budget = self.explorer_budget(CAPTURE_ALLOWANCE) - (self.explorer_queue_reserve() if batch else 0)
             if not self.research_due("qt-explorer") or not batch or budget < MIN_EXPLORER_SECONDS:
                 break
+            # A recheck runs even when no dish is due: the member's report may be about hours, address, a closure or a diet label.
+            asked = [self.rechecks[v['venueId']] for v in batch if v['venueId'] in self.rechecks]
+            cases = [c for r in asked for c in r['cases']]
             try:
                 from publisher import menu_context
                 held_retries = learning.due_retries(ROOT, 'qt-explorer', {v['venueId'] for v in batch})
                 assignment = menu_context(batch) if self.production() else []
-                if assignment and (any('assignedItems' not in x for x in assignment) or not any(x['assignedItems'] for x in assignment)):
+                if assignment and (any('assignedItems' not in x for x in assignment) or (not asked and not any(x['assignedItems'] for x in assignment))):
                     for venue in batch:
                         state.setdefault('explorerAttempted',{})[venue['venueId']] = now()  # sorts behind other venues next round
                     self.note("qt-explorer", 'Menu inventory unavailable or no due dish work: ' + ','.join(v['venueId'] for v in batch))
+                    if cases:
+                        rechecks.mark(ROOT, cases, ok=False)
                     continue
                 import outlet_capture
                 captures = outlet_capture.ensure(ROOT, assignment) if assignment else []
@@ -1607,10 +1621,14 @@ class Round:
                 import diet_review
                 diet_checks = {v['venueId']: diet_review.context(v, [i.get('name', '') for i in (read(menu_coverage.filename(ROOT, v['venueId']), {}) or {}).get('inventory', [])])
                                for v in batch if self.production() and diet_review.due(ROOT, v['venueId'])}
-                packet = worker("qt-explorer", {"venues": batch, "baselineDate": self.baseline["checkedAt"], "preservedHolds": self.baseline["holds"], "heldRetries": held_retries, "knownMenuItems": assignment, "sourceCaptures": captures, "dietChecks": diet_checks}, self.folder / f"explorer-{b}", dict(policy, workerSeconds=min(policy.get('workerSeconds', budget), budget)))
+                packet = worker("qt-explorer", {"venues": batch, "baselineDate": self.baseline["checkedAt"], "preservedHolds": self.baseline["holds"], "heldRetries": held_retries, "knownMenuItems": assignment, "sourceCaptures": captures, "dietChecks": diet_checks,
+                                                 **({"memberReports": {r['venue']['venueId']: r['notes'] for r in asked}} if asked else {})}, self.folder / f"explorer-{b}", dict(policy, workerSeconds=min(policy.get('workerSeconds', budget), budget)))
                 self.succeeded("qt-explorer")
                 learning.note_retry(ROOT, [r for r in held_retries if r['id'] in {x['id'] for x in packet['records']}])
                 self.packets.append(packet)
+                found = {r.get('id'): r for r in packet['records'] if isinstance(r, dict)}
+                for r in asked:  # with what Explorer found, so Coco can later suggest closing the report
+                    rechecks.mark(ROOT, r['cases'], ok=True, record=found.get(r['venue']['venueId']))
                 if self.trial:
                     state["trialExplorerComplete"] = True
                 for venue in batch:
@@ -1621,7 +1639,9 @@ class Round:
             except Exception as exc:
                 self.error("qt-explorer", str(exc))
                 if any(marker in str(exc) for marker in WINDOW_ERRORS):
-                    break
+                    break  # the round ran out of time: not the place's fault, so a recheck keeps its tries
+                if cases:
+                    rechecks.mark(ROOT, cases, ok=False)
                 budget_timeout = 'timed out' in str(exc) and budget < policy.get('workerSeconds', budget)
                 if not isinstance(exc, (ValueError, KeyError, TypeError)) and not budget_timeout:
                     self.failed("qt-explorer")  # model/provider failure, not a venue-specific validation problem

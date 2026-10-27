@@ -10,6 +10,7 @@ import Overview, { type OverviewData } from './Overview';
 import Accounts from './Accounts';
 import Cases from './Cases';
 import { Controls } from './Operations';
+import { Chefs } from './Chefs';
 import { Events, Places, Recipes } from './content/ContentConsole';
 import { Gatherings, Listings, Reviews } from './content/MemberContent';
 import { MemberRecipes } from './content/MemberRecipes';
@@ -22,7 +23,8 @@ import { PhotoChecks, Teachers } from './Social';
 import { Audit, Integrations, Staff } from './Administration';
 
 type StaffSession = { member: { id: string; email: string; role: Role } };
-type Section = { id: string; title: string; icon: IconName; capability?: Capability; count?: (d: OverviewData) => number | null | undefined };
+/** A section shows for staff with its `capability`, or with any of `anyOf` when its parts need different ones. */
+type Section = { id: string; title: string; icon: IconName; capability?: Capability; anyOf?: Capability[]; count?: (d: OverviewData) => number | null | undefined };
 /** Grouped by the job staff are doing: deciding on the catalogue, on what members post, on Market, on safety, and running the service. */
 const groups: { title?: string; sections: Section[] }[] = [
   { sections: [{ id: 'overview', title: 'Overview', icon: 'overview' }] },
@@ -47,6 +49,8 @@ const groups: { title?: string; sections: Section[] }[] = [
   { title: 'Safety', sections: [
     { id: 'cases', title: 'Cases', icon: 'cases', capability: 'cases', count: d => d.queues?.reduce((sum, q) => sum + q.count, 0) },
     { id: 'accounts', title: 'Accounts', icon: 'accounts', capability: 'accounts' }] },
+  { title: 'Kitchen', sections: [
+    { id: 'chefs', title: 'Chef decisions', icon: 'chef', anyOf: ['content', 'cases', 'sellers'], count: d => d.chefs }] },
   { title: 'Service', sections: [
     { id: 'features', title: 'Features', icon: 'controls', capability: 'operations' },
     { id: 'integrations', title: 'Integrations', icon: 'integrations', capability: 'integrations' },
@@ -66,7 +70,7 @@ export default function Console({ section }: { section: string }) {
     catch { setSignOutError('Could not sign out. Try again.'); }
   }
   if (!member) return <main id="main" className="login"><div className="login-card"><Feedback {...resource} retry={resource.reload}/></div></main>;
-  const allowed = (s: Section) => !s.capability || can(member.role, s.capability);
+  const allowed = (s: Section) => s.anyOf ? s.anyOf.some(c => can(member.role, c)) : !s.capability || can(member.role, s.capability);
   const visible = groups.map(g => ({ ...g, sections: g.sections.filter(allowed) })).filter(g => g.sections.length);
   const current = visible.flatMap(g => g.sections).find(s => s.id === section);
   return <div className="shell">
@@ -93,7 +97,7 @@ export default function Console({ section }: { section: string }) {
         {section === 'photo-checks' && <PhotoChecks/>}{section === 'teachers' && <Teachers/>}
         {section === 'shops' && <Sellers/>}{section === 'listings' && <Listings/>}
         {section === 'accounts' && <Accounts/>}{section === 'cases' && <Cases canAssign={can(member.role, 'operations')}/>}
-        {section === 'features' && <Controls/>}{section === 'integrations' && <Integrations/>}
+        {section === 'chefs' && <Chefs/>}{section === 'features' && <Controls/>}{section === 'integrations' && <Integrations/>}
         {section === 'staff' && <Staff self={member.id}/>}{section === 'audit' && <Audit/>}
       </>}
     </main>

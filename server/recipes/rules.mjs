@@ -71,6 +71,13 @@ export const draftKey = value => {
   if (typeof value !== 'string' || !key.test(value)) throw new CommunityError(404, 'That recipe is unavailable.');
   return value;
 };
+/** A key a member submits under. AI recipes are kept under ai-<job id>, so members never write into one or pass their own
+ * recipe off as an AI recipe (admin's chef lanes tell them apart: admin/src/lib/chef-lanes.ts). The app names drafts recipe-…. */
+export const submitKey = value => {
+  const submitted = draftKey(value);
+  if (submitted.startsWith('ai-')) throw new CommunityError(404, 'That recipe is unavailable.');
+  return submitted;
+};
 /** Public id: the row id with a prefix, so member recipes never collide with editorial ones. */
 export const publicId = id => 'member-' + id;
 export function rowId(value) {

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { date, useResource } from './client';
 import { Feedback, IconButton, Mutation, SearchField, Table, reveal } from './Primitives';
 import { Icon } from './Icon';
+import { CHEFS } from '../lib/chef-names';
 
 type Staff = { id: string; email: string; role: string; active: boolean; created_at: string };
 const roles = ['owner', 'operator', 'support', 'reviewer', 'auditor'];
@@ -38,7 +39,7 @@ export function Audit() {
       <SearchField label="Action" value={search} onChange={setSearch} maxLength={100}/><button>Search</button></form>
     <Feedback {...resource} retry={resource.reload}/>
     {resource.data && <div className="panel"><Table headings={['Time', 'Staff', 'Action', 'Target', 'Reason']} empty="No events"
-      rows={resource.data.map(r => [date(r.occurred_at), r.actor || 'System', <span key="a" className="code">{r.action}</span>, <span key="t" className="code">{r.target}</span>,
+      rows={resource.data.map(r => [date(r.occurred_at), (r.actor && CHEFS[r.actor]) || r.actor || 'System', <span key="a" className="code">{r.action}</span>, <span key="t" className="code">{r.target}</span>,
         <div key="d">{r.reason}{Object.keys(r.details).length > 0 && <details><summary>Details</summary><div className="code">{JSON.stringify(r.details)}</div></details>}</div>])}/>
       <div className="form-actions"><button type="button" disabled={!before} onClick={() => setBefore('')}><Icon name="back" size={16}/>Latest</button>
         <button type="button" disabled={resource.data.length < 100} onClick={() => setBefore(resource.data?.at(-1)?.id || '')}>Older<Icon name="forward" size={16}/></button></div></div>}

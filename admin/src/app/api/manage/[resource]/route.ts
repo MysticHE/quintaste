@@ -10,6 +10,7 @@ import { providerKeyStatus, setProviderKey, removeProviderKey } from '../../../.
 import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers';
 import { setDailyCap } from '../../../../lib/ai-recipes';
 import { photoCheck, photoCheckAction, photoCheckImage, photoChecks, teacher, teacherAction, teachers } from '../../../../lib/social';
+import { chefDecisions, staffChefAction } from '../../../../lib/chefs';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -28,6 +29,7 @@ export function GET(request: Request, context: Context) { return route(async () 
     if (!bytes) throw new HttpError(404, 'Photo not found.');
     return new Response(new Uint8Array(bytes), { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
   }
+  if (resource === 'chef-decisions') return json(await chefDecisions(member, params.get('view') || '', offset(params.get('page'))));
   if (resource === 'teachers') return json(params.has('id') ? await teacher(member, text(params.get('id'),'member id',64)) : await teachers(member, params.get('status') || ''));
   if (resource === 'staff') return json(await staffList(member));
   if (resource === 'assignees') {
@@ -40,7 +42,8 @@ export function GET(request: Request, context: Context) { return route(async () 
     const before = params.get('before') || '9223372036854775807';
     if (!/^\d{1,19}$/.test(before) || BigInt(before) > 9223372036854775807n) throw new HttpError(400, 'Invalid cursor.');
     const action = text(params.get('q') || '', 'audit search', 100, 0);
-    return json((await query(`SELECT a.id,a.occurred_at,a.action,a.target,a.reason,a.details,m.email AS actor FROM staff.audit a
+    const chefs = (await query("SELECT 1 FROM information_schema.columns WHERE table_schema='staff' AND table_name='audit' AND column_name='bot'")).rowCount;
+    return json((await query(`SELECT a.id,a.occurred_at,a.action,a.target,a.reason,a.details,${chefs ? 'coalesce(m.email,a.bot)' : 'm.email'} AS actor FROM staff.audit a
       LEFT JOIN staff.member m ON m.id=a.actor_id WHERE a.id<$1 AND strpos(a.action,$2)>0 ORDER BY a.id DESC LIMIT 100`, [before,action])).rows);
   }
   throw new HttpError(404, 'Not found.');
@@ -50,7 +53,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   await throttle('write:' + member.id, 30);
   // Provider key changes are audited with a fixed reason (owner decision: no reason box on that panel); everything else needs one.
   const what = resource === 'integrations' && input.provider ? 'Gemini key ' + (input.action === 'remove' ? 'removed' : 'saved')
-    : resource === 'controls' ? (input.enabled ? 'Turned on ' : 'Turned off ') + String(input.key ?? '')
+    : resource === 'controls' ? (typeof input.mode === 'string' ? 'Set ' + String(input.key ?? '') + ' to ' + input.mode : (input.enabled ? 'Turned on ' : 'Turned off ') + String(input.key ?? ''))
     : resource === 'ai-limit' ? 'AI recipes daily limit ' + String(input.dailyCap ?? '')
     : resource + (typeof input.action === 'string' ? ' ' + input.action : '');
   const reason = reasonText(input.reason, what + ' (no reason given)');
@@ -59,6 +62,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'photo-checks') return json(await photoCheckAction(member,input,reason));
   if (resource === 'teachers') return json(await teacherAction(member,input,reason));
+  if (resource === 'chef-decisions') return json(await staffChefAction(member,input,reason));
   if (resource === 'controls') return json(await changeControl(member,input,reason));
   if (resource === 'ai-limit') return json(await setDailyCap(member,input,reason));
   if (resource === 'staff') return json(await changeStaff(member,input,reason));

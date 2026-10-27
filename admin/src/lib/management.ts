@@ -5,6 +5,8 @@ import { authorize, lockPermission, type Session } from './session';
 import { randomInt } from 'node:crypto';
 import { choice, HttpError, integer, text, uuid } from './http';
 import { roles } from './permissions';
+import { LANES, controlKey } from './chef-lanes';
+import { plainNote } from './chef-names';
 
 export async function accounts(member: Session, search: string) {
   authorize(member, 'accounts');
@@ -42,24 +44,28 @@ export async function accountAction(member: Session, input: Record<string, unkno
     return { saved: true };
   });
 }
+const chefControls = Object.keys(LANES).map(controlKey);
 export async function changeControl(member: Session, input: Record<string, unknown>, reason: string) {
   authorize(member, 'operations');
-  const key = choice(input.key, ['registration','discovery','menus','avatars','ai_recipes','ai_recipes_bots','recipe_demand','social','market','market_sellers','recipes','areas','games','game_levels','game_seasons'] as const, 'feature');
-  if (typeof input.enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
+  const key = choice(input.key, ['registration','discovery','menus','avatars','ai_recipes','ai_recipes_bots','recipe_demand','social','market','market_sellers','recipes','areas','games','game_levels','game_seasons', ...chefControls] as const, 'feature');
+  // A chef lane is Off, Watch or On (docs/ADMIN_CHEFS_PLAN.md §6): on while watching or acting, with the mode kept in the note.
+  const mode = chefControls.includes(key) ? choice(input.mode, ['off', 'watch', 'on'] as const, 'mode') : null;
+  const enabled = mode ? mode !== 'off' : input.enabled;
+  if (typeof enabled !== 'boolean') throw new HttpError(400, 'Choose enabled or disabled.');
   const version = integer(input.version, 'control version', 1);
-  const typed = text(input.notice || '', 'staff note', 300, 0).replace(/\s*daily=\d+\s*/g, ' ').trim();
+  const typed = plainNote(text(input.notice || '', 'staff note', 300, 0));
   return transaction(async db => {
     await lockPermission(db, member, 'operations');
     // The AI recipes daily limit is stored in this note (set on the AI recipes page); a toggle keeps it.
     const kept = key === 'ai_recipes' ? /daily=\d+/.exec((await db.query('SELECT notice FROM ops.control WHERE key=$1', [key])).rows[0]?.notice ?? '')?.[0] : undefined;
-    const notice = [typed, kept].filter(Boolean).join(' ');
+    const notice = [typed, kept, mode && mode !== 'off' ? 'mode=' + mode : ''].filter(Boolean).join(' ');
     if (notice.length > 300) throw new HttpError(400, 'Shorten the note.');
-    const result = await db.query('UPDATE ops.control SET enabled=$1,notice=$2,version=version+1,updated_at=now() WHERE key=$3 AND version=$4', [input.enabled,notice,key,version]);
+    const result = await db.query('UPDATE ops.control SET enabled=$1,notice=$2,version=version+1,updated_at=now() WHERE key=$3 AND version=$4', [enabled,notice,key,version]);
     if (!result.rowCount) {
       const exists = await db.query('SELECT 1 FROM ops.control WHERE key=$1', [key]);
       throw exists.rowCount ? new HttpError(409, 'This setting changed. Refresh before saving.') : new HttpError(404, 'This feature is not installed.');
     }
-    await audit(db, member.id, 'control.changed', key, reason, { enabled: input.enabled, notice });
+    await audit(db, member.id, 'control.changed', key, reason, { enabled, notice, ...(mode ? { mode } : {}) });
     return { saved: true };
   });
 }

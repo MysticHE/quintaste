@@ -637,7 +637,16 @@ def completion_reports(state):
     if (now.hour, now.minute) >= (DAILY_SUMMARY_HOUR, 5) and 'daily-summary:' + now.date().isoformat() not in state['deliveries']:
         since = (now - dt.timedelta(days=1)).isoformat()
         enqueue(state, 'daily-summary:' + now.date().isoformat(),
-                'QT Manager — daily summary (Explorer 24 h; Cooker and Event 6–10 pm)\n' + summary() + menu_digest(since) + cover_line())
+                'QT Manager — daily summary (Explorer 24 h; Cooker and Event 6–10 pm)\n' + summary() + menu_digest(since) + cover_line()
+                + staff_line(state))
+
+
+def staff_line(state):
+    try:
+        import staff_alerts
+        return staff_alerts.summary_line(state)
+    except Exception:
+        return ''
 
 
 def cover_line():
@@ -689,7 +698,8 @@ def menu_digest(since):
 def deliver(state, config, interactive_only=False):
     def interactive(key):
         return key.startswith(('control:', 'control-error:', 'command:')) or key == 'paired'
-    for key, item in sorted(state['deliveries'].items(), key=lambda pair: not interactive(pair[0])):
+    # Owner replies first, then urgent staff alerts (harm, privacy, critical), then everything else.
+    for key, item in sorted(state['deliveries'].items(), key=lambda pair: (not interactive(pair[0]), not pair[0].startswith('staff:urgent:'))):
         if interactive_only and not interactive(key):
             continue
         if item['status'] == 'sending':
@@ -839,6 +849,17 @@ def tick():
                 telegram_controls.gamer_requests(state)
             except Exception as exc:  # nor may a game-art request
                 state['gamerRequestError'] = type(exc).__name__
+            try:
+                import staff_alerts
+                staff_alerts.check(state, ROOT)
+                state.pop('staffAlertError', None)
+            except Exception as exc:  # nor may staff alerts
+                state['staffAlertError'] = type(exc).__name__
+            try:
+                telegram_controls.chef_requests(state)
+                state.pop('chefAskError', None)
+            except Exception as exc:  # nor a chef's question
+                state['chefAskError'] = type(exc).__name__
             publication_updates(state)
             completion_reports(state)
             deliver(state, config)

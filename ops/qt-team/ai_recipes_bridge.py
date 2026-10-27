@@ -16,8 +16,6 @@ import json
 import os
 from pathlib import Path
 import shutil
-import signal
-import subprocess
 import sys
 import time
 import urllib.error
@@ -25,6 +23,7 @@ import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 from app_signing import open_signed  # noqa: E402  (the shared signer)
+import hermes_run  # noqa: E402  (the shared Hermes runner)
 PROFILE = 'qt-videomaker'
 ROUTES = ('/api/ai-recipes/bot/claim', '/api/ai-recipes/bot/tasks/')
 MAX_VIDEO = 32 * 1024 * 1024
@@ -74,52 +73,15 @@ def prompt_for(task: dict, video: Path | None) -> str:
 
 
 def run_hermes(prompt: str, folder: Path, toolset: str):
-    (folder / 'prompt.txt').write_text(prompt, encoding='utf-8')
-    env = {k: v for k, v in os.environ.items() if not k.startswith(('HERMES_CRON_', 'HERMES_SESSION_', 'HERMES_TASK_'))}
-    env.update(HERMES_HOME='/opt/data', HERMES_TIMEZONE='Asia/Singapore')
-    args = ['hermes', '-p', PROFILE, 'chat', '--query-file', str(folder / 'prompt.txt'), '--oneshot', '--format', 'stream-json',
-            '--max-turns', str(MAX_TURNS), '--run-budget', str(RUN_SECONDS), '-t', toolset, '--in', str(folder)]
-    reserve()
-    with (folder / 'stream.jsonl').open('w', encoding='utf-8') as out, (folder / 'stderr.log').open('w', encoding='utf-8') as err:
-        # Its own process group, so a timeout stops Hermes and every tool process it started (as workflow.py does).
-        proc = subprocess.Popen(args, stdout=out, stderr=err, env=env, start_new_session=True)
-        try:
-            proc.wait(timeout=RUN_SECONDS + 90)
-        except subprocess.TimeoutExpired:
-            os.killpg(proc.pid, signal.SIGTERM)
-            try:
-                proc.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait()
-            raise RuntimeError('hermes timed out')
-    events = []
-    for line in (folder / 'stream.jsonl').read_text(encoding='utf-8').splitlines():
-        try:
-            events.append(json.loads(line))
-        except json.JSONDecodeError:
-            continue
-    final = next((e for e in reversed(events) if e.get('type') == 'result'), None)
-    tools = [e for e in events if e.get('type') == 'tool_use']
-    if proc.returncode != 0 or not final or final.get('exit_code') != 0:
-        raise RuntimeError('hermes did not complete (exit %s)' % proc.returncode)
-    unexpected = sorted({str(t.get('name')) for t in tools} - set(ALLOWED[toolset]))
-    if unexpected:
-        raise RuntimeError('unexpected tools: ' + ', '.join(unexpected)[:120])
-    if toolset == 'video' and not any(t.get('name') == 'video_analyze' for t in tools) and '"error"' not in final.get('text', ''):
+    final, events = hermes_run.run(PROFILE, prompt, folder, toolset=toolset, allowed=ALLOWED[toolset], seconds=RUN_SECONDS,
+                                   turns=MAX_TURNS, grace=90, reserve=reserve)
+    if toolset == 'video' and not any(e.get('type') == 'tool_use' and e.get('name') == 'video_analyze' for e in events) \
+            and '"error"' not in final.get('text', ''):
         raise RuntimeError('video_analyze was not called')
     return final, events
 
 
-def parse(text: str) -> dict:
-    text = text.strip()
-    if text.startswith('```'):
-        text = text.split('\n', 1)[1] if '\n' in text else ''
-        text = text.rsplit('```', 1)[0]
-    value = json.loads(text)
-    if not isinstance(value, dict):
-        raise ValueError('expected one JSON object')
-    return value
+parse = hermes_run.parse
 
 
 def sources(events) -> list[str]:
