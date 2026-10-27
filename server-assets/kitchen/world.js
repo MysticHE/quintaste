@@ -9,7 +9,8 @@ import { buildNook, layoutNook, bedDepth, pressBeds } from './nook.js';
 /**
  * The kitchen as a small game world: each chef walks the floor on its own habits (behaviour.js), turns through eight directions
  * using the turnaround art, swings its hands (pose.js) and reacts when poked (reactions.js). Real tickets are carried to the
- * Head Chef in a text bubble above the carrier's head (speech.js). With reduced motion the chefs stand still at home and only their bubbles appear.
+ * Head Chef in a text bubble above the carrier's head (speech.js). Off-shift chefs sit in the nap nook (nook.js). With reduced
+ * motion nobody walks: off-shift chefs sit straight in their beds, the rest stand at home, and only their bubbles appear.
  */
 const AWAKE = ['working', 'reviewing', 'waiting'];
 
@@ -53,7 +54,7 @@ function render(w, chef, time) {
   const still = w.reduced.matches, width = SIZE[w.layout].width * w.W / 100 * (chef.habit.scale ?? 1);
   put(chef.el, 'width', width.toFixed(1) + 'px');
   put(chef.el, 'transform', `translate(${(chef.x * w.W / 100 - width / 2).toFixed(1)}px, ${(chef.y * w.H / 100 - width).toFixed(1)}px) scale(${depth(w, chef.y).toFixed(3)})`);
-  put(chef.el, 'zIndex', String(bedDepth(chef, AWAKE.includes(chef.state)) ?? Math.round(chef.y * 10)));  // on a bed: between it and its rim
+  put(chef.el, 'zIndex', String(bedDepth(chef) ?? Math.round(chef.y * 10)));  // on a bed: between it and its rim
   if (chef.napClass !== Boolean(chef.napping)) { chef.napClass = Boolean(chef.napping); chef.el.classList.toggle('is-napping', chef.napClass); }
   let [view, flip] = RING[chef.ring];
   if (!w.views.has(view)) { view = 'front'; flip = chef.ring >= 5; }
@@ -73,6 +74,12 @@ function render(w, chef, time) {
   if (at) put(chef.icon, 'transform', `translate(${(at[0] * width / 100).toFixed(1)}px, ${(at[1] * width / 100).toFixed(1)}px) translate(-50%, -50%)`);
 }
 
+/**
+ * With reduced motion nobody walks, so a chef is re-seated only when its state, the room's size, a bed's picture or who has
+ * which bed changes.
+ */
+const settleKey = (w, chef) => [chef.state, w.layout, w.W, w.H, w.nook.version, w.nook.claims.join()].join('|');
+
 function frame(w, now) {
   requestAnimationFrame(next => frame(w, next));  // scheduled first, so one chef's error never stops the kitchen
   const dt = Math.min(0.05, (now - w.last) / 1000);
@@ -81,7 +88,10 @@ function frame(w, now) {
   for (const chef of w.chefs) {
     try {
       if (chef.hop > 0) chef.hop = Math.max(0, chef.hop - dt / 0.55);
-      if (w.reduced.matches) settle(w, chef); else step(w, chef, now, dt);
+      if (!w.reduced.matches) { chef.settled = null; step(w, chef, now, dt); } else if (chef.settled !== settleKey(w, chef)) {
+        settle(w, chef);
+        chef.settled = settleKey(w, chef);  // taken after settling, which may itself claim or free a bed
+      }
       render(w, chef, now);
     } catch (error) {
       console.error('Mochi kitchen: chef ' + chef.id + ' reset', error);
@@ -137,12 +147,14 @@ async function deliver(w, item, text) {
   if (!arrived) { say.el.remove(); return false; }
   head.task = null;
   head.queue = [{ face: ringFor(chef.x - head.x, chef.y - head.y) ?? 2 }, { wait: 300 }, { act: 'stamp', ms: 700 }, { face: 0 }];
-  const [cx, cy] = COUNTER[w.layout], headWidth = SIZE[w.layout].width * w.W / 100 * (head.habit.scale ?? 1);
+  const where = () => {  // read again at each stage, so a resize during the hand-over still lands in the right places
+    const [cx, cy] = COUNTER[w.layout], headWidth = SIZE[w.layout].width * w.W / 100 * (head.habit.scale ?? 1);
+    return { sceneWidth: w.W, counter: { x: cx * w.W / 100, y: cy * w.H / 100 },
+      tray: { x: head.x * w.W / 100, y: head.y * w.H / 100 - headWidth * depth(w, head.y) * 0.3 } };
+  };
   w.scene.classList.add('has-handover');  // the day's count steps aside while the ticket sits on the counter
   try {
-    await handOver(say, { x: cx * w.W / 100, y: cy * w.H / 100 },
-      { x: head.x * w.W / 100, y: head.y * w.H / 100 - headWidth * depth(w, head.y) * 0.3 },
-      () => burst(w.scene, { x: head.x, y: head.y - 14, icon: 'check', count: 1, rise: 6 }));
+    await handOver(say, where, () => burst(w.scene, { x: head.x, y: head.y - 14, icon: 'check', count: 1, rise: 6 }));
   } finally {
     w.scene.classList.remove('has-handover');
   }

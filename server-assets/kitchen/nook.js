@@ -15,7 +15,9 @@ const DENT = {
   cushion: { cx: 50, cy: 38, rx: 38, ry: 11, sink: 9 },
   steamer: { cx: 50, cy: 37, rx: 45, ry: 20, sink: 9 },
 };
-const dentFor = picture => (picture.startsWith('steamer') ? DENT.steamer : DENT.cushion);
+/** Without its sat-on picture a bed keeps its plump one: the chef sits on top, 60% of the way up, and there is no rim over it. */
+const ON_TOP = { cx: 50, cy: 40, rx: 0, ry: 0, sink: 0 };
+const dentFor = (bed, picture) => (bed.noSat === bed.art ? ON_TOP : picture.startsWith('steamer') ? DENT.steamer : DENT.cushion);
 
 /** The squash as a chef lands, and the spring back as it gets up. */
 const LAND = [{ scale: '1 1' }, { scale: '1.08 .86', offset: 0.35 }, { scale: '.98 1.03', offset: 0.7 }, { scale: '1 1' }];
@@ -32,11 +34,18 @@ function holder(className, ...children) {
   return el;
 }
 
-function buildBed() {
+function buildBed(nook) {
   const soft = picture('nook-soft'), sat = picture('nook-sat'), rim = picture('nook-rim');
   const bed = { el: holder('nook-bed', soft, sat), lip: holder('nook-lip', rim), soft, sat, rim, art: null, down: false };
-  soft.onerror = () => { bed.failed = bed.art; bed.el.hidden = bed.lip.hidden = true; };  // missing art: no bed
-  sat.onerror = () => { if (sat.src !== soft.src) sat.src = rim.src = soft.src; };  // no sat-on picture: the plump one squashes
+  soft.onerror = () => { bed.failed = bed.art; bed.el.hidden = bed.lip.hidden = true; nook.version++; };  // missing art: no bed
+  sat.onerror = () => {  // no sat-on picture: the plump one squashes, with the chef on top and no rim
+    if (sat.src === soft.src) return;
+    bed.noSat = bed.art;
+    bed.lip.hidden = true;
+    sat.src = soft.src;
+    nook.version++;
+  };
+  soft.onload = sat.onload = () => { nook.version++; };  // a picture's real size moves its seat
   return bed;
 }
 
@@ -46,9 +55,13 @@ export function buildNook(scene, artBase) {
   const rug = holder('nook-rug', picture('')), plant = holder('nook-plant', picture(''));
   rug.firstChild.src = artBase + 'rug.webp';
   plant.firstChild.src = artBase + 'plant.webp';
-  const beds = Array.from({ length: MOST_BEDS }, buildBed);
-  scene.append(rug, plant, ...beds.flatMap(b => [b.el, b.lip]));
-  return { rug, plant, beds, artBase, layout: null, claims: beds.map(() => null) };
+  const nook = { rug, plant, artBase, layout: null, version: 0 };
+  nook.beds = Array.from({ length: MOST_BEDS }, () => buildBed(nook));
+  nook.claims = nook.beds.map(() => null);
+  // Before the chefs in the page, so a chef standing level with a bed's rim is drawn over it.
+  const pieces = [rug, plant, ...nook.beds.flatMap(b => [b.el, b.lip])], first = scene.querySelector('.chef');
+  if (first) first.before(...pieces); else scene.append(...pieces);
+  return nook;
 }
 
 function set(el, [x, y, w], z) {
@@ -67,35 +80,40 @@ export function layoutNook(nook, layout) {
   if (n.plant) set(nook.plant, n.plant, Math.round(n.plant[1] * 10));
   nook.beds.forEach((bed, i) => {
     const b = n.beds[i], art = b ? nook.artBase + b[3] : null;
-    bed.el.hidden = bed.lip.hidden = !b || bed.failed === art;  // this layout has fewer beds, or the picture failed to load
+    bed.el.hidden = !b || bed.failed === art;  // this layout has fewer beds, or the picture failed to load
+    bed.lip.hidden = bed.el.hidden || bed.noSat === art;
     if (!b) return;
     if (bed.art !== art) {
       bed.art = art;
       bed.soft.src = art + '.webp';
       bed.sat.src = bed.rim.src = art + '-sat.webp';
-      const d = dentFor(b[3]);
+      const d = dentFor(bed, b[3]);
       for (const [k, v] of Object.entries(d)) bed.lip.style.setProperty('--' + k, v + '%');
     }
-    const z = Math.round(b[1] * 10);
-    set(bed.el, b, z);
-    set(bed.lip, b, z + 2);  // over the sitter (z + 1), under anyone standing in front
+    const front = Math.round(b[1] * 10);
+    set(bed.el, b, front - 2);  // bed, sitter (front - 1), rim, then anyone standing level with or in front of the rim
+    set(bed.lip, b, front);
   });
-  if (nook.layout !== layout) nook.claims = nook.claims.map(() => null);
+  if (nook.layout !== layout) {  // the chefs are re-placed at home, so the beds are emptied without a spring-back
+    nook.claims = nook.claims.map(() => null);
+    nook.beds.forEach(bed => { bed.down = false; bed.el.classList.remove('is-down'); bed.lip.classList.remove('is-down'); });
+  }
   nook.layout = layout;
 }
 
 /** Where a chef sits in bed `i` (in % of the scene), the depth that keeps it between the bed and its rim, and the bed's footprint. */
 function seat(nook, i, W, H) {
   const [x, y, w, name] = NOOK[nook.layout].beds[i], bed = nook.beds[i], img = bed.sat.naturalWidth ? bed.sat : bed.soft;
-  const aspect = img.naturalWidth ? img.naturalHeight / img.naturalWidth : 0.6;  // the bed's own picture gives its height
-  const height = w * W / 100 * aspect / H * 100, d = dentFor(name);
-  return { x, y: y - height * (1 - (d.cy + d.ry + d.sink) / 100), face: 'front', z: Math.round(y * 10) + 1, front: y, half: w / 2 };
+  const aspect = img.naturalWidth ? img.naturalHeight / img.naturalWidth : 0.6;  // until a picture loads; plan() re-seats after
+  const height = w * W / 100 * aspect / H * 100, d = dentFor(bed, name);
+  return { x, y: y - height * (1 - (d.cy + d.ry + d.sink) / 100), face: 'front', z: Math.round(y * 10) - 1, front: y, half: w / 2 };
 }
 
 /** The bed this chef naps in, claiming a free one; null when every bed is taken, the chef stays at the pass or no bed is shown. */
 export function napSpot(nook, chef, W, H) {
   if (!nook?.layout || chef.habit.stays) return null;  // not placed yet (first frame) or the chef keeps to the pass
   let i = nook.claims.indexOf(chef.id);
+  if (i >= 0 && nook.beds[i].el.hidden) { nook.claims[i] = null; i = -1; }  // its bed's picture failed after it was claimed
   if (i < 0) {
     i = nook.claims.findIndex((id, j) => !id && j < NOOK[nook.layout].beds.length && !nook.beds[j].el.hidden);
     if (i < 0) return null;
@@ -109,16 +127,15 @@ export function leaveBed(nook, chef) {
   if (i >= 0) nook.claims[i] = null;
 }
 
-/**
- * The depth to draw a chef at while it sits on its bed or climbs on or off it, so it never slips behind the bed's front;
- * null elsewhere. Once an awake chef has stepped off, it forgets the bed.
- */
-export function bedDepth(chef, awake) {
+/** True while a chef sits on its bed or is climbing on or off it (inside the bed's footprint, behind its front edge). */
+export function onBed(chef) {
   const b = chef.bed;
-  if (!b) return null;
-  if (chef.napping || (Math.abs(chef.x - b.x) < b.half && chef.y <= b.front)) return b.z;
-  if (awake) chef.bed = null;
-  return null;
+  return Boolean(b && (chef.napping || (Math.abs(chef.x - b.x) < b.half && chef.y <= b.front)));
+}
+
+/** The depth to draw a chef at while on its bed, so it never slips behind the bed's front; null elsewhere. */
+export function bedDepth(chef) {
+  return onBed(chef) ? chef.bed.z : null;
 }
 
 /** Squashes each bed whose chef is sitting in it and springs back the ones just left. */

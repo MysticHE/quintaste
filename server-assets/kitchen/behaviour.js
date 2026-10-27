@@ -1,6 +1,6 @@
 import { SIZE, spot } from './chefs.js';
 import { FACE, ringFor, turnToward } from './pose.js';
-import { napSpot, leaveBed } from './nook.js';
+import { napSpot, leaveBed, onBed } from './nook.js';
 
 /** What each chef does next: wander between its spots on its own habits, then work its tasks one at a time. */
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -25,12 +25,14 @@ export function plan(w, chef, now) {
     const bed = napSpot(w.nook, chef, w.W, w.H), rest = bed ?? h;
     const there = Math.hypot(chef.x - rest.x, chef.y - rest.y) <= 1;
     chef.napping = there && Boolean(bed);
-    chef.bed = bed;  // kept after waking until the chef steps off (nook.bedDepth)
+    chef.bed = bed;  // kept after waking until the chef steps off
+    if (chef.napping) { chef.x = bed.x; chef.y = bed.y; }  // settles into the seat once the bed's real size is known
     if (!there) chef.queue.push({ walk: [rest.x, rest.y] }, { face: FACE[rest.face] });
     return;
   }
   chef.napping = false;
   leaveBed(w.nook, chef);  // back on shift: the bed is free for someone else
+  if (chef.bed && !onBed(chef)) chef.bed = null;  // stepped off: drawn by its own depth from now on
   if (now < chef.nextIdle) return;
   chef.nextIdle = now + rand(...chef.habit.every);
   const options = chef.habit.spots.filter(name => {

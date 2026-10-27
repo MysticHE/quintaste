@@ -43,17 +43,29 @@ export function placeSay(say, x, top, sceneWidth) {
   apply(say, anchor(say, x, top - GAP));
 }
 
-/** Sets the bubble down on the counter (`counter`), stamps it there (`onStamp`), then tucks it into the tray (`tray`). */
-export async function handOver(say, counter, tray, onStamp) {
-  const onCounter = anchor(say, counter.x, counter.y);
-  await say.el.animate([{ transform: say.last }, { transform: onCounter.transform }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' }).finished;
-  apply(say, onCounter);  // the tail turns to its new spot only once the bubble is there
+/** Where the bubble sits on the counter now, measured afresh (the kitchen may have been resized since the last stage). */
+function counterSpot(say, where) {
+  const now = where();
+  if (now.sceneWidth !== say.sceneWidth) { say.sceneWidth = now.sceneWidth; say.width = say.el.offsetWidth; }
+  return { now, spot: anchor(say, now.counter.x, now.counter.y) };
+}
+
+/**
+ * Sets the bubble down on the counter, stamps it there (`onStamp`), then tucks it into the Head Chef's tray. `where()` gives the
+ * scene width, counter and tray in px, read as each stage starts.
+ */
+export async function handOver(say, where, onStamp) {
+  const first = counterSpot(say, where).spot;
+  await say.el.animate([{ transform: say.last }, { transform: first.transform }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' }).finished;
+  apply(say, first);  // the tail turns to its new spot only once the bubble is there
   say.el.classList.add('is-stamped');
   onStamp();
   await wait(700);
+  const { now, spot } = counterSpot(say, where);
+  apply(say, spot);
   await say.el.animate([
-    { transform: onCounter.transform, opacity: 1 },
-    { transform: `translate(${tray.x.toFixed(1)}px, ${tray.y.toFixed(1)}px) translate(-50%, -100%) scale(.35)`, opacity: 0 },
+    { transform: spot.transform, opacity: 1 },
+    { transform: `translate(${now.tray.x.toFixed(1)}px, ${now.tray.y.toFixed(1)}px) translate(-50%, -100%) scale(.35)`, opacity: 0 },
   ], { duration: 460, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' }).finished;
   say.el.remove();
 }
