@@ -28,6 +28,7 @@
   --font-display: "Fredoka", "Nunito", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   --font-body: "Nunito", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
   --radius: 14px;
+  --mask-solid: #000;  /* mask alpha only, never painted */
   --gutter: 16px;
 }
 @media (prefers-color-scheme: dark) {
@@ -109,6 +110,29 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
 .prop, .pass { position: absolute; left: var(--x); top: var(--y); width: var(--w); translate: -50% -100%; }
 .prop { pointer-events: none; filter: drop-shadow(0 6px 6px rgb(var(--scene-shadow) / .28)); }
 .prop img { width: 100%; }
+/* The nap nook (nook.js): the rug lies flat under everyone; beds and the plant stand by depth. */
+.nook-rug { transform: scaleY(var(--flat, .5)); transform-origin: 50% 100%; filter: none; }
+/* A chef sitting in a bed (is-down) swaps it to its sat-on picture, squashed, and the lip (the same picture masked to the rim in
+   front of the dent) is drawn over the chef's base, so it sinks in. Without mask support the lip stays off and the chef sits on top. */
+.nook-bed, .nook-lip { transform-origin: 50% 100%; }
+.nook-bed img, .nook-lip img { display: block; }
+.nook-soft { position: absolute; left: 0; bottom: 0; transition: opacity .2s ease; }
+.nook-sat { opacity: 0; transition: opacity .2s ease .15s; }
+.nook-bed.is-down .nook-sat { opacity: 1; transition-delay: 0s; }
+.nook-bed.is-down .nook-soft { opacity: 0; transition-delay: .15s; }
+.nook-lip { display: none; filter: none; opacity: 0; transition: opacity .15s ease; }
+.nook-lip.is-down { opacity: 1; }
+@supports (mask-composite: intersect) {
+  .nook-lip:not([hidden]) { display: block; }
+  .nook-rim {
+    mask-image: radial-gradient(var(--rx) var(--ry) at var(--cx) var(--cy), transparent 88%, var(--mask-solid) 100%),
+      linear-gradient(transparent var(--cy), var(--mask-solid) calc(var(--cy) + 5%));
+    mask-composite: intersect;
+  }
+}
+.chef.is-napping .chef-shadow { opacity: 0; }
+/* A napping chef keeps its name to itself until hovered, focused or chosen; its z z says who it is. */
+.chef.is-napping:not(:hover):not(:focus-visible):not([aria-pressed="true"]) .chef-plate { opacity: 0; }
 
 /* Chefs are placed and animated by world.js: the button sits at the chef's feet and scales with depth. */
 .chef {
@@ -131,6 +155,8 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
   font: 700 .72rem/1.2 var(--font-body); box-shadow: 0 4px 12px -6px rgb(var(--shadow) / .7); transition: background-color .2s ease, opacity .3s ease;
 }
 .chef-state { display: none; color: var(--muted-foreground); font-weight: 400; }
+/* The Storyteller sits on the window sill: its tag goes above it, so it never hangs into the nap nook below. */
+.chef--storyteller .chef-plate { top: auto; bottom: 100%; translate: -50% -4px; }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--resting); flex: none; }
 .chef[data-state="working"] .dot, .chef[data-state="reviewing"] .dot { background: var(--working); }
 .chef[data-state="waiting"] .dot { background: var(--waiting); }
@@ -158,24 +184,37 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
 .particle img, .particle svg { width: 100%; height: 100%; display: block; }
 .particle--sparkle, .particle--star { color: var(--sparkle); }
 .particle--check { color: var(--working); }
-.slip {
-  position: absolute; left: 58%; top: 34%; z-index: 6; width: 120%; padding: 6% 8%; border-radius: 8px; pointer-events: none;
-  background: var(--card); color: var(--foreground); border: 1px solid var(--border); box-shadow: 0 10px 20px -12px rgb(var(--shadow) / .7);
-  display: grid; gap: 1px; font-size: clamp(8px, .7rem, 11px); line-height: 1.25; rotate: -6deg;
+/* The ticket a chef carries: a cream text bubble above its head with its hat badge and a tail pointing at it (speech.js). */
+.say-layer { position: absolute; inset: 0; z-index: 988; pointer-events: none; }
+.say {
+  position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 7px; width: max-content; max-width: min(46%, 220px);
+  padding: 7px 12px 7px 8px; border-radius: 18px; background: var(--card); color: var(--foreground);
+  box-shadow: 0 10px 22px -12px rgb(var(--shadow) / .8), 0 2px 6px -3px rgb(var(--shadow) / .35);
+  font: 700 .74rem/1.28 var(--font-body); transform-origin: 50% 100%; will-change: transform;
 }
-.slip-who { font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .04em; font-size: .9em; }
-.slip-line { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.slip::after {
-  content: ""; position: absolute; right: -10px; top: -10px; width: 22px; height: 22px; border-radius: 50%; background: var(--working);
-  scale: 0; transition: scale .35s cubic-bezier(.16,1,.3,1);
+.say::after {
+  content: ""; position: absolute; left: calc(50% + var(--tail, 0px)); bottom: -6px; width: 13px; height: 13px; border-radius: 0 0 4px 0;
+  background: var(--card); translate: -50% 0; rotate: 45deg;
 }
-.slip.is-stamped::after { scale: 1; }
-.slip--flying { position: fixed; z-index: 50; rotate: 0deg; }
+.say-icon { position: relative; z-index: 1; width: 20px; height: 20px; flex: none; object-fit: contain; }
+.say-text { position: relative; z-index: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.say-stamp {
+  position: absolute; z-index: 2; right: -7px; top: -8px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--working); color: var(--card); box-shadow: 0 3px 8px -3px rgb(var(--shadow) / .6); scale: 0;
+}
+.say.is-stamped .say-stamp { scale: 1; }
+@container (min-width: 640px) { .say { font-size: .8rem; max-width: min(30%, 250px); } }
+@media (prefers-reduced-motion: no-preference) {
+  .say { animation: say-in .42s cubic-bezier(.16,1,.3,1) both; }
+  .say-stamp { transition: scale .32s cubic-bezier(.16,1,.3,1); }
+}
+@keyframes say-in { from { opacity: 0; scale: .6; } to { opacity: 1; scale: 1; } }
 
 .pass { z-index: 7; pointer-events: none; }
 .pass-counter { width: 100%; filter: drop-shadow(0 10px 10px rgb(var(--scene-shadow) / .3)); }
 .pass-tray { position: absolute; left: 22%; bottom: 58%; width: 24%; }
-.pass-count { left: var(--pass-x, 55%); bottom: 2.5%; translate: -50% 0; white-space: nowrap; }
+.pass-count { left: var(--pass-x, 55%); bottom: 2.5%; translate: -50% 0; white-space: nowrap; transition: opacity .25s ease; }
+.scene.has-handover .pass-count { opacity: 0; }
 
 /* Props in the tall room (phones): x, y = where they stand in % of the painting; w = width in % of the scene. */
 .prop-teaset { --x: 49%; --y: 47.6%; --w: 12%; }
@@ -199,7 +238,7 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
   .prop-painting { --x: 66%; --y: 61.5%; --w: 5%; }
   .prop-lanterns { --x: 77%; --y: 40%; --w: 7%; }
   .prop-laksa { --x: 34%; --y: 80.5%; --w: 5%; }
-  .prop-pot { --x: 47.4%; --y: 71.5%; --w: 5.5%; }
+  .prop-pot { --x: 47.4%; --y: 74%; --w: 5.5%; }
   .prop-stove { --x: 89.5%; --y: 82.5%; --w: 8.5%; }
   .prop-spatula { --x: 21.2%; --y: 93%; --w: 4.5%; }
   .pass { --x: 57%; --y: 100.5%; --w: 28%; }
@@ -229,20 +268,6 @@ h2 { font-size: clamp(1.5rem, 1.2vw + 1.2rem, 2rem); }
 .ticket-link { min-height: 44px; display: inline-flex; align-items: center; font-weight: 700; font-size: .9rem; }
 .rail-empty { margin: 14px 0 0; color: var(--muted-foreground); }
 .more { margin-top: 6px; }
-
-/* The slip that flies from a chef to the pass. */
-.flight {
-  position: fixed; left: 0; top: 0; z-index: 50; width: 176px; padding: 9px 11px 10px; border-radius: 10px; pointer-events: none;
-  background: var(--card); color: var(--foreground); border: 1px solid var(--border); box-shadow: 0 14px 28px -12px rgb(var(--shadow) / .65);
-  display: grid; gap: 2px; opacity: 0; will-change: transform, opacity;
-}
-.flight-who { font: 700 .7rem var(--font-body); color: var(--accent); text-transform: uppercase; letter-spacing: .04em; }
-.flight-line { font-size: .78rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.flight-stamp {
-  position: absolute; right: -10px; top: -10px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--working); color: var(--card); scale: 0; transition: scale .35s cubic-bezier(.16,1,.3,1);
-}
-.flight.is-stamped .flight-stamp { scale: 1; }
 
 .how { padding: 30px 0 10px; }
 .how-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 22px; }

@@ -32,7 +32,7 @@ Never say the app is "run by bots". Staff handle reports about people, seller su
 - Every chef is the same Mochi with the same face: closed happy eyes and a small closed smile. Chefs differ only by hat colour, apron and prop.
 - QT Gamer draws the variants from `gamer/style.json`, with `assets/chef.png` as the face reference. The owner approves each one with the existing game-art Approve / Reject.
 - A resting chef wears a nightcap; the eyes are already closed, so nothing changes on the face.
-- Mochi never speaks, so the page uses order tickets and clipboards, never speech bubbles.
+- **Tickets travel in a text bubble (owner, 27 Oct 2026):** a carrying chef's ticket floats above its head with the chef's hat badge and a tail. At the pass it is set down on the counter front, below the Head Chef, stamped and tucked into the tray, so it never covers a chef (`speech.js`). Mochi still never speaks in the videos.
 
 ## 3. The new chefs
 
@@ -213,7 +213,7 @@ If the feed is more than 2 h old, the page shows *Kitchen update delayed · last
   - Head Chef keeps to the pass.
 - **Telling chefs apart:** each wears its own badge on its chef hat, seen from every side (owner: on the hat, not the cheek; no faces on the badges). The eyes and smile never change.
 - **Real tickets:** the chef carries the slip to the Head Chef, who stamps it.
-- **Resting:** chefs nap at home; joining-soon chefs stay faded.
+- **Resting:** off-shift chefs walk to the nap nook under the window (owner, 27 Oct 2026: make it a cosy home). It has the game's coral rug and window plant, three velvet QT Gamer cushions and a bamboo steamer bed (`nook.js`); phones show two beds, wider screens four. Each bed has a plump picture and a matching sat-on picture (`*-sat.webp`, made from the plump one as a reference); all eight approved by the owner on 27 Oct 2026. Owner, 27 Oct 2026: a chef must sit comfortably in its bed, look realistic, and its face must never be hidden. So when a chef sits, the bed swaps to its sat-on picture with a soft squash, the chef sinks into the dent, and the bed's front rim (the sat-on picture masked below the dent) is drawn over the chef's base; the bed springs back when the chef's shift starts. Beds are a little wider than a chef so its sides bulge out round it. Without CSS mask support the rim stays off and the chef sits on top. The Head Chef rests at the pass; joining-soon chefs stay faded where they are; chefs beyond the free beds doze at home.
 - **Taps:**
   - A tap gives the chef's signature reaction, then a spin, jump or wave.
   - Four quick taps make the chef dizzy.
@@ -256,7 +256,7 @@ Nothing is deployed or pushed until the owner asks. Run the existing qt-team sui
 ## 8. Not doing
 
 - No transcripts, prompts, model names, usage or costs on the page.
-- No chatting with the chefs and no speech bubbles.
+- No chatting with the chefs; the only text bubbles carry real tickets.
 - No fake activity: when nothing happened, the chefs rest.
 - No member, seller, reporter or Market item details anywhere on the page.
 - No new bots just to fill stations. Explorer's tasks show as one chef's activities.

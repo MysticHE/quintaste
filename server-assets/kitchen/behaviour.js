@@ -1,5 +1,6 @@
 import { SIZE, spot } from './chefs.js';
 import { FACE, ringFor, turnToward } from './pose.js';
+import { napSpot, leaveBed } from './nook.js';
 
 /** What each chef does next: wander between its spots on its own habits, then work its tasks one at a time. */
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -16,14 +17,20 @@ export function depth(w, y) {
   return s.far + (1 - s.far) * Math.max(0, Math.min(1, (y - s.horizon) / (100 - s.horizon)));
 }
 
-/** Queues the chef's next walk: home when off duty, otherwise one of its spots (sometimes home) and its habit there. */
+/** Queues the chef's next walk: to a bed in the nap nook (or home) when off duty, otherwise one of its spots and its habit there. */
 export function plan(w, chef, now) {
   if (w.reduced.matches || chef.habit.speed === 0) return;
   const h = home(w, chef);
   if (!AWAKE.includes(chef.state)) {
-    if (Math.hypot(chef.x - h.x, chef.y - h.y) > 1) chef.queue.push({ walk: [h.x, h.y] }, { face: FACE[h.face] });
+    const bed = napSpot(w.nook, chef, w.W, w.H), rest = bed ?? h;
+    const there = Math.hypot(chef.x - rest.x, chef.y - rest.y) <= 1;
+    chef.napping = there && Boolean(bed);
+    chef.bed = bed;  // kept after waking until the chef steps off (nook.bedDepth)
+    if (!there) chef.queue.push({ walk: [rest.x, rest.y] }, { face: FACE[rest.face] });
     return;
   }
+  chef.napping = false;
+  leaveBed(w.nook, chef);  // back on shift: the bed is free for someone else
   if (now < chef.nextIdle) return;
   chef.nextIdle = now + rand(...chef.habit.every);
   const options = chef.habit.spots.filter(name => {
@@ -34,6 +41,15 @@ export function plan(w, chef, now) {
   if (!goHome && !options.length) return;
   const [x, y, face] = goHome ? [h.x, h.y, h.face] : spot(w.layout, options[Math.floor(Math.random() * options.length)]);
   chef.queue.push({ walk: [x, y] }, { face: FACE[face] }, { act: chef.habit.act, ms: rand(...chef.habit.linger) });
+}
+
+/** With reduced motion nobody walks: an off-shift chef simply sits in its bed, and an on-shift one stands at home. */
+export function settle(w, chef) {
+  if (chef.habit.speed === 0) return;
+  const bed = AWAKE.includes(chef.state) ? null : napSpot(w.nook, chef, w.W, w.H);
+  if (!bed) leaveBed(w.nook, chef);
+  const spot = bed ?? home(w, chef);
+  Object.assign(chef, { x: spot.x, y: spot.y, ring: FACE[spot.face], napping: Boolean(bed), bed, walking: false, queue: [], task: null });
 }
 
 /** Advances the current task by `dt` seconds; picks the next task, or plans, when there is none. */

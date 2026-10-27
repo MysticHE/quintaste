@@ -129,5 +129,53 @@
   "source": "runs/kitchen-icons2/kitchen-icon-safety/raw-1.png",
   "method": "QT Gamer sprite (no face, owner 27 Oct 2026), keyed and cropped.",
   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "rug.webp": {
+  "source": "assets/game/decor-rug.webp",
+  "method": "Re-encoded, WebP quality 86 (owner-approved Rush Hour decor)."
+ },
+ "plant.webp": {
+  "source": "assets/game/decor-windowplant.webp",
+  "method": "Re-encoded, WebP quality 86 (owner-approved Rush Hour decor)."
+ },
+ "cushion-coral.webp": {
+  "source": "runs/kitchen-nook2/kitchen-cushion-coral/raw-2.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; redesigned plump cushion.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "cushion-peach.webp": {
+  "source": "runs/kitchen-nook2/kitchen-cushion-peach/raw-1.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; redesigned plump cushion.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "cushion-sage.webp": {
+  "source": "runs/kitchen-nook2/kitchen-cushion-sage/raw-1.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; redesigned plump cushion.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "steamer-bed.webp": {
+  "source": "runs/kitchen-nook2/kitchen-steamer-bed/raw-2.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; redesigned steamer bed.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "cushion-coral-sat.webp": {
+  "source": "runs/kitchen-nook2-sat/kitchen-cushion-coral-sat/raw-1.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; sat-on version made from cushion-coral as a reference.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "cushion-peach-sat.webp": {
+  "source": "runs/kitchen-nook2-sat/kitchen-cushion-peach-sat/raw-1.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; sat-on version made from cushion-peach as a reference.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "cushion-sage-sat.webp": {
+  "source": "runs/kitchen-nook2-sat/kitchen-cushion-sage-sat/raw-1.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; sat-on version made from cushion-sage as a reference.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
+ },
+ "steamer-bed-sat.webp": {
+  "source": "runs/kitchen-nook2-sat/kitchen-steamer-bed-sat/raw-1.png",
+  "method": "QT Gamer sprite, keyed, cropped and resized to 320 px wide; sat-on version made from steamer-bed as a reference.",
+  "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page."
  }
 }

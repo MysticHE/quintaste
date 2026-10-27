@@ -74,7 +74,7 @@ export function ticketLine(item, lang) {
   const zh = lang === 'zh', p = item.place, t = item.title, n = item.n;
   const day = item.date ? formatDay(item.date, lang) : '';
   switch (item.type) {
-    case 'menu-prices': return zh ? `核对了 ${p} 的 ${n} 个菜价` : `Checked ${n} menu prices at ${p}`;
+    case 'menu-prices': return zh ? `核对了 ${p} 的 ${n} 个菜价` : `Checked ${n} menu ${n === 1 ? 'price' : 'prices'} at ${p}`;
     case 'hours': return zh ? `核对了 ${p} 的营业时间` : `Checked opening hours at ${p}`;
     case 'new-place': return zh ? `把 ${p} 加入了探索` : `Added ${p} to Explore`;
     case 'cover': return zh ? `为 ${p} 添上了封面图` : `Added a cover picture for ${p}`;
@@ -86,7 +86,7 @@ export function ticketLine(item, lang) {
     case 'member-recipes': return zh ? `为会员写了 ${n} 份食谱` : `Wrote ${n} ${n === 1 ? 'recipe' : 'recipes'} members asked for`;
     case 'fixed': return zh ? `根据会员反馈，修正了 ${p} 的${FIELDS[item.field]?.zh ?? ''}` : `Fixed ${FIELDS[item.field]?.en ?? ''} at ${p} after a member’s report`;
     case 'sfa-notice': return zh ? `阅读了食品局通告：${t}` : `Read SFA’s notice: ${t}`;
-    case 'lunar-picks': return zh ? `为${day}挑选了 ${n} 家素食摊` : `Picked ${n} vegetarian stalls for ${day}`;
+    case 'lunar-picks': return zh ? `为${day}挑选了 ${n} 家素食摊` : `Picked ${n} vegetarian ${n === 1 ? 'stall' : 'stalls'} for ${day}`;
     default: return null;
   }
 }

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "note": "Mochi kitchen web page: Mochi Chef turnaround, hand and cheek icons (owner, 27 Oct 2026).",
+ "note": "Mochi kitchen web page: Mochi Chef turnaround, hand and cheek icons (owner, 27 Oct 2026). Nap nook cushions and steamer bed (owner, 27 Oct 2026).",
  "assets": [
   {
    "id": "kitchen-mochi-turn",
@@ -120,6 +120,94 @@
    "details": "A cute rounded clay-like badge meant to sit on the band of a chef's hat, simple bold shape, thick soft edges, readable when tiny. A plain object only: no face, no eyes, no mouth, no cheeks and no expression. Facing the viewer, flat-on.",
    "status": "done",
    "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-icons2 raw-1."
+  },
+  {
+   "id": "kitchen-cushion-coral",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a big plump coral floor cushion",
+   "details": "A big, overstuffed round floor cushion (a plump pouf) for a tiny round dumpling chef to sit on, soft and squashy like a marshmallow. A thick rounded disc about 40% as tall as it is wide, its top gently domed, with a deep tufted centre button that pulls the fabric into soft radial gathers and eight puffy segments around it, a neat piped seam running round its rounded side, and fine visible fabric texture like brushed cotton velvet with tiny soft highlights. Soft contact shading where its base meets the floor. Seen from the front and slightly above (about 25 degrees), the whole cushion visible. Empty: nothing on it. A plain object only: no face, no eyes, no mouth. Warm coral pink fabric with a cream button and cream piping.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2 raw-2."
+  },
+  {
+   "id": "kitchen-cushion-peach",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [],
+   "subject": "a big plump peach floor cushion",
+   "details": "A big, overstuffed round floor cushion (a plump pouf) for a tiny round dumpling chef to sit on, soft and squashy like a marshmallow. A thick rounded disc about 40% as tall as it is wide, its top gently domed, with a deep tufted centre button that pulls the fabric into soft radial gathers and eight puffy segments around it, a neat piped seam running round its rounded side, and fine visible fabric texture like brushed cotton velvet with tiny soft highlights. Soft contact shading where its base meets the floor. Seen from the front and slightly above (about 25 degrees), the whole cushion visible. Empty: nothing on it. A plain object only: no face, no eyes, no mouth. Soft peach fabric with a coral button and coral piping.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2 raw-1."
+  },
+  {
+   "id": "kitchen-cushion-sage",
+   "kind": "prop",
+   "chroma": "magenta",
+   "refs": [],
+   "subject": "a big plump sage floor cushion",
+   "details": "A big, overstuffed round floor cushion (a plump pouf) for a tiny round dumpling chef to sit on, soft and squashy like a marshmallow. A thick rounded disc about 40% as tall as it is wide, its top gently domed, with a deep tufted centre button that pulls the fabric into soft radial gathers and eight puffy segments around it, a neat piped seam running round its rounded side, and fine visible fabric texture like brushed cotton velvet with tiny soft highlights. Soft contact shading where its base meets the floor. Seen from the front and slightly above (about 25 degrees), the whole cushion visible. Empty: nothing on it. A plain object only: no face, no eyes, no mouth. Pale sage-green fabric with a cream button and cream piping.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2 raw-1."
+  },
+  {
+   "id": "kitchen-steamer-bed",
+   "kind": "prop",
+   "chroma": "magenta",
+   "refs": [],
+   "subject": "a small round bamboo steamer basket used as a cosy bed for a tiny dumpling chef",
+   "details": "A round open bamboo steamer basket made into a cosy bed for a tiny round dumpling chef: warm honey-coloured woven bamboo slats with a neat bound rim, no lid, filled almost to the brim with a thick, soft, puffy cream quilted cloth with diamond stitching that spills over the rim in soft folds, and a small round cream pillow resting on it. The cloth looks deep and squashy. Seen from the front and slightly above (about 25 degrees), the whole basket visible. Empty: nobody in it. A plain object only: no face, no eyes, no mouth.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2 raw-2."
+  },
+  {
+   "id": "kitchen-cushion-coral-sat",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [
+    "ref-cushion-coral.png"
+   ],
+   "subject": "the same coral floor cushion, squashed where someone sits",
+   "details": "Exactly the same cushion as the attached cushion picture (same colour, velvet fabric, puffy segments, piping and button), but now squashed under the weight of an invisible round dumpling-shaped sitter: the cushion is flatter, about 30% as tall as it is wide, and slightly wider, its rounded sides bulging outward; the middle of the top is pressed down into a wide, deep, soft round hollow about 70% of the cushion's width, the velvet pulled into soft wrinkles and creases that radiate out from the hollow, the button sunk out of sight at its bottom, and the stuffing pushed up into a puffy raised ridge around the back and sides of the hollow. The near front rim of the hollow stays round and plump. Same viewpoint and lighting as the attached cushion. Empty: nobody on it, no character, only the squashed cushion. A plain object only: no face, no eyes, no mouth.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2-sat raw-1."
+  },
+  {
+   "id": "kitchen-cushion-peach-sat",
+   "kind": "prop",
+   "chroma": "green",
+   "refs": [
+    "ref-cushion-peach.png"
+   ],
+   "subject": "the same peach floor cushion, squashed where someone sits",
+   "details": "Exactly the same cushion as the attached cushion picture (same colour, velvet fabric, puffy segments, piping and button), but now squashed under the weight of an invisible round dumpling-shaped sitter: the cushion is flatter, about 30% as tall as it is wide, and slightly wider, its rounded sides bulging outward; the middle of the top is pressed down into a wide, deep, soft round hollow about 70% of the cushion's width, the velvet pulled into soft wrinkles and creases that radiate out from the hollow, the button sunk out of sight at its bottom, and the stuffing pushed up into a puffy raised ridge around the back and sides of the hollow. The near front rim of the hollow stays round and plump. Same viewpoint and lighting as the attached cushion. Empty: nobody on it, no character, only the squashed cushion. A plain object only: no face, no eyes, no mouth.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2-sat raw-1."
+  },
+  {
+   "id": "kitchen-cushion-sage-sat",
+   "kind": "prop",
+   "chroma": "magenta",
+   "refs": [
+    "ref-cushion-sage.png"
+   ],
+   "subject": "the same sage floor cushion, squashed where someone sits",
+   "details": "Exactly the same cushion as the attached cushion picture (same colour, velvet fabric, puffy segments, piping and button), but now squashed under the weight of an invisible round dumpling-shaped sitter: the cushion is flatter, about 30% as tall as it is wide, and slightly wider, its rounded sides bulging outward; the middle of the top is pressed down into a wide, deep, soft round hollow about 70% of the cushion's width, the velvet pulled into soft wrinkles and creases that radiate out from the hollow, the button sunk out of sight at its bottom, and the stuffing pushed up into a puffy raised ridge around the back and sides of the hollow. The near front rim of the hollow stays round and plump. Same viewpoint and lighting as the attached cushion. Empty: nobody on it, no character, only the squashed cushion. A plain object only: no face, no eyes, no mouth.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2-sat raw-1."
+  },
+  {
+   "id": "kitchen-steamer-bed-sat",
+   "kind": "prop",
+   "chroma": "magenta",
+   "refs": [
+    "ref-steamer-bed.png"
+   ],
+   "subject": "the same bamboo steamer bed, its cloth pressed down where someone sits",
+   "details": "Exactly the same steamer bed as the attached steamer picture (same bamboo basket and bound rim, same cream quilted cloth and small round pillow), but the cloth is pressed down into a wide, deep round hollow in the middle by an invisible round dumpling-shaped sitter: the quilted cloth sinks into the hollow and bunches up in soft folds around its back and sides, and the small pillow is pushed to the back edge and squashed flatter. The bamboo basket itself is unchanged. Same viewpoint and lighting as the attached steamer. Empty: nobody in it, no character. A plain object only: no face, no eyes, no mouth.",
+   "status": "done",
+   "approved": "Approved by the owner in chat, 27 Oct 2026, for the Mochi kitchen page. Used: runs/kitchen-nook2-sat raw-1."
   }
  ]
 }

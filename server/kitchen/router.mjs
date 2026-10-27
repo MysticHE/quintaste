@@ -1,4 +1,5 @@
 import express from 'express';
+import { randomUUID } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { json, raw, signed } from '../bot-signature.mjs';
@@ -104,7 +105,7 @@ kitchen.post('/bot/feed', raw('16kb'), signed, async (req, res) => {
     throw error;
   }
   await fs.mkdir(root, { recursive: true });
-  const temporary = feedFile + '.' + process.pid + '.tmp';
+  const temporary = feedFile + '.' + randomUUID() + '.tmp';  // unique, so two pushes at once never share a file
   await fs.writeFile(temporary, JSON.stringify(feed));
   await fs.rename(temporary, feedFile);
   res.json({ ok: true, items: feed.items.length });

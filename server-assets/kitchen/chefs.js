@@ -9,13 +9,13 @@ export const VIEWS = ['front', 'three-quarter', 'side', 'back-three-quarter', 'b
 
 const SPOTS = {
   tall: {
-    window: [40, 61, 'back'], shelves: [16, 69, 'left'], fridge: [19, 66, 'left'], painting: [72, 62.5, 'right'], door: [88, 70, 'right'],
-    centre: [50, 69, 'front'], pot: [50, 75, 'right'], stove: [81, 84, 'right'], fetch: [22, 67, 'left'], pass: [33, 87, 'right'],
+    window: [70, 71, 'right'], shelves: [16, 69, 'left'], fridge: [19, 66, 'left'], painting: [72, 62.5, 'right'], door: [88, 70, 'right'],
+    centre: [38, 75, 'front'], pot: [50, 75, 'right'], stove: [81, 84, 'right'], fetch: [20, 70, 'left'], pass: [33, 87, 'right'],
     passLeft: [47, 92, 'left'], passRight: [63, 92, 'right'], front: [24, 82, 'front'], sill: [35, 47.6, 'front'], laksa: [17, 79, 'right'], corner: [13, 95, 'front'],
   },
   wide: {
-    window: [47, 59, 'back'], shelves: [26, 64, 'left'], fridge: [13, 71, 'left'], painting: [61.5, 62, 'right'], door: [75, 64, 'back'],
-    centre: [50, 68, 'front'], pot: [41, 71, 'right'], stove: [81, 82, 'right'], fetch: [16, 71, 'left'], pass: [40, 85, 'right'],
+    window: [63, 71, 'back'], shelves: [26, 64, 'left'], fridge: [13, 71, 'left'], painting: [61.5, 62, 'right'], door: [75, 64, 'back'],
+    centre: [55, 76, 'front'], pot: [41, 73.5, 'right'], stove: [81, 82, 'right'], fetch: [16, 71, 'left'], pass: [75.5, 88, 'left'],
     passLeft: [53, 89, 'left'], passRight: [61, 89, 'right'], front: [30, 86, 'front'], sill: [44, 47.8, 'front'], laksa: [28, 80, 'right'], corner: [15, 94, 'front'],
   },
 };
@@ -25,6 +25,22 @@ export const FLOOR = {
   tall: [[20, 60], [80, 60], [95, 66], [95, 97], [80, 97], [80, 88], [30, 88], [30, 97], [6, 97], [6, 70], [18, 64]],
   wide: [[30, 58], [70, 58], [88, 62], [95, 80], [95, 97], [72, 97], [72, 85], [42, 85], [42, 97], [8, 97], [5, 74], [22, 64]],
 };
+
+/**
+ * The nap nook under the window (owner, 27 Oct 2026): a rug, a plant and beds where off-shift chefs sit and doze. Laid out so no
+ * bed, napping chef, prop or chef's usual spot overlaps another: one row under the window (two big cushions on phones), and on
+ * wide screens a fourth bed by the side table. Beds are a little wider than a chef, so its sides bulge out round it. Rug and plant are [x, y, w]: the middle of the bottom edge in % of the scene, and the width in % of its
+ * width; `flat` squashes the rug onto the far floor. Beds add the picture to use.
+ */
+export const NOOK = {
+  tall: { rug: [45.3, 67.5, 42], flat: 0.52, plant: null,
+    beds: [[35, 66.5, 17, 'cushion-coral'], [55.5, 66.5, 16.5, 'steamer-bed']] },
+  wide: { rug: [46.2, 63.5, 28], flat: 0.24, plant: [31.6, 62, 4.6],
+    beds: [[38.1, 62.5, 7.8, 'cushion-coral'], [46.2, 62.5, 7.6, 'steamer-bed'], [54.3, 62.5, 7.8, 'cushion-peach'], [90, 70.5, 8.6, 'cushion-sage']] },
+};
+
+/** Where a carried ticket is set down at the pass (tail tip, in % of the scene): the counter's front, below the Head Chef. */
+export const COUNTER = { tall: [55, 99], wide: [57, 98.5] };
 
 /** Chef width in % of the scene at the front of the room, and how much smaller it gets at the back wall. */
 export const SIZE = { tall: { width: 17, horizon: 57, far: 0.74 }, wide: { width: 8.6, horizon: 56, far: 0.68 } };
