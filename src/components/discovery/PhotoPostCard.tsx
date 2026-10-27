@@ -24,8 +24,9 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
   const [panelHeight, setPanelHeight] = useState(104);
   // Start above the first line so multi-line titles retain contrast at larger text sizes.
   const fadeHeight = Math.max(32, panelHeight - 8 + 32);
-  return <View style={[s.card, edgeToEdge && s.edge, { backgroundColor: theme.card, borderColor: focused || pressed ? theme.accent : theme.border },
-    edgeToEdge && (focused || pressed) && { borderWidth: 1 }]}>
+  // An edge-to-edge card never changes its border width: a touch while scrolling would resize the photo and leave it blank on
+  // Android (owner, 28 Oct 2026). Its focus and press show as an outline drawn on top instead.
+  return <View style={[s.card, edgeToEdge && s.edge, { backgroundColor: theme.card, borderColor: focused || pressed ? theme.accent : theme.border }]}>
     <View testID={testID} ref={node => visibility.attach(node)} onLayout={visibility.onLayout} collapsable={false} style={{ backgroundColor: theme.mediaSurface }}>
       {/* Leaving the screen only unloads the photo (enabled); the preview stays, so scrolling back does not flash an empty card. */}
       <CataloguePhotoBackdrop key={photo.path || (photo.source ? "bundled" : "missing")} path={photo.path} source={photo.source} thumbhash={photo.thumbhash}
@@ -47,6 +48,7 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
       {side && <View style={s.side} pointerEvents="box-none">{side}</View>}
     </View>
     {footer && <View style={s.footer}>{footer}</View>}
+    {edgeToEdge && (focused || pressed) && <View pointerEvents="none" style={[StyleSheet.absoluteFill, s.outline, { borderColor: theme.accent }]} />}
   </View>;
 }
 /** One white fact on the photo: an icon and its text. */
@@ -67,6 +69,7 @@ export function PostChip({ icon, label }: { icon: IconName; label: string }) {
 const s = StyleSheet.create({
   card: { borderRadius: 22, overflow: "hidden", borderWidth: 1, ...photoCardBleed },
   edge: { marginHorizontal: 0, borderRadius: 0, borderWidth: 0 },
+  outline: { borderWidth: 2 },
   blend: { position: "absolute", bottom: 0, left: 0, right: 0 },
   information: { paddingHorizontal: 12, paddingTop: 8, paddingBottom: 12, gap: 3 },
   name: { fontFamily: fontNames.bold },

@@ -1,6 +1,6 @@
 import { Image, type ImageProps } from "expo-image";
 import { useEffect, useState } from "react";
-import { StyleSheet, View, type ImageSourcePropType } from "react-native";
+import { Platform, StyleSheet, View, type ImageSourcePropType } from "react-native";
 import { usePreferences } from "../../state/Preferences";
 import { apiUrl } from "../../utils/api-url";
 import { Icon, T, type IconName } from "../ui";
@@ -30,13 +30,14 @@ export function CataloguePhotoBackdrop({ path, source, thumbhash, fallback, empt
   const start = panelHeight > 0 ? Math.max(0, height - panelHeight + 8 - 32) : height;
   const fail = () => setFailed(true);
   // A bundled photo is used unless it failed to load; a failed or missing photo shows the fallback name when there is one.
+  // No fade on Android: a photo resized or recycled mid-fade could stay blank there while its blurred copy showed.
   // Our photos never change at a path, so expo-image keeps them on disk and a card shown again draws straight away.
   // Bundled photos are require() numbers; React Native types them with readonly arrays that expo-image 58 does not take.
   const image = (failed ? undefined : source ?? (url && enabled ? { uri: url } : undefined)) as ImageProps["source"];
   const placeholder = !failed && !source && thumbhash ? { thumbhash } : undefined;
   // The blurred copy asks for the photo only once the sharp one has it, so the photo is downloaded once and then read from cache.
   const photo = (blurred: boolean) => <Image key={attempt} source={(blurred && !loaded ? null : image) ?? null} placeholder={placeholder} placeholderContentFit="cover"
-    contentFit="cover" cachePolicy="memory-disk" recyclingKey={path} transition={reducedMotion ? 0 : 150} blurRadius={blurred ? 5 : undefined}
+    contentFit="cover" cachePolicy="memory-disk" recyclingKey={path} transition={reducedMotion || Platform.OS === "android" ? 0 : 150} blurRadius={blurred ? 5 : undefined}
     style={StyleSheet.absoluteFill} accessible={false} alt="" onLoad={blurred ? undefined : () => setLoaded(true)} onError={fail} />;
   // While a photo loads the card shows its colour preview (or the plain dark frame), never a "Loading" caption. A photo that cannot
   // load shows the same tile as a place without one.
