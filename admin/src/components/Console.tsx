@@ -10,6 +10,7 @@ import Overview, { type OverviewData } from './Overview';
 import Accounts from './Accounts';
 import Cases from './Cases';
 import { Controls } from './Operations';
+import { ChefJobs } from './ChefJobs';
 import { Chefs } from './Chefs';
 import { Events, Places, Recipes } from './content/ContentConsole';
 import { Gatherings, Listings, Reviews } from './content/MemberContent';
@@ -50,7 +51,8 @@ const groups: { title?: string; sections: Section[] }[] = [
     { id: 'cases', title: 'Cases', icon: 'cases', capability: 'cases', count: d => d.queues?.reduce((sum, q) => sum + q.count, 0) },
     { id: 'accounts', title: 'Accounts', icon: 'accounts', capability: 'accounts' }] },
   { title: 'Kitchen', sections: [
-    { id: 'chefs', title: 'Chef decisions', icon: 'chef', anyOf: ['content', 'cases', 'sellers'], count: d => d.chefs }] },
+    { id: 'chefs', title: 'Chef decisions', icon: 'chef', anyOf: ['content', 'cases', 'sellers'], count: d => d.chefs },
+    { id: 'chef-jobs', title: 'Chefs', icon: 'group', capability: 'operations' }] },
   { title: 'Service', sections: [
     { id: 'features', title: 'Features', icon: 'controls', capability: 'operations' },
     { id: 'integrations', title: 'Integrations', icon: 'integrations', capability: 'integrations' },
@@ -97,7 +99,7 @@ export default function Console({ section }: { section: string }) {
         {section === 'photo-checks' && <PhotoChecks/>}{section === 'teachers' && <Teachers/>}
         {section === 'shops' && <Sellers/>}{section === 'listings' && <Listings/>}
         {section === 'accounts' && <Accounts/>}{section === 'cases' && <Cases canAssign={can(member.role, 'operations')}/>}
-        {section === 'chefs' && <Chefs/>}{section === 'features' && <Controls/>}{section === 'integrations' && <Integrations/>}
+        {section === 'chefs' && <Chefs/>}{section === 'chef-jobs' && <ChefJobs/>}{section === 'features' && <Controls/>}{section === 'integrations' && <Integrations/>}
         {section === 'staff' && <Staff self={member.id}/>}{section === 'audit' && <Audit/>}
       </>}
     </main>

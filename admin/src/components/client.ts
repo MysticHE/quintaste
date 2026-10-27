@@ -16,6 +16,8 @@ export function signInAgain() {
   const here = window.location.pathname + window.location.search;
   navigateFresh('/auth/login' + (here.startsWith('/console/') ? '?next=' + encodeURIComponent(here) : ''));
 }
+/** The message to show for a failed request. */
+export const failure = (error: unknown) => error instanceof Error ? error.message : 'Request failed. Try again.';
 export async function api<T>(path: string, input?: unknown, signal?: AbortSignal): Promise<T> {
   const response = await fetch(path, { method: input === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store', signal,
     headers: input === undefined ? {} : { 'Content-Type': 'application/json', 'x-quintaste-admin': '1' },

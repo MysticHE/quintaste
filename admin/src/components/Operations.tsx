@@ -1,62 +1,111 @@
 'use client';
-import { useState } from 'react';
-import { date, useResource } from './client';
-import { Feedback, Mutation } from './Primitives';
+import { Fragment, useState, type ReactNode } from 'react';
+import Link from 'next/link';
+import { api, date, failure, useResource } from './client';
+import { Empty, Feedback, IconButton, Segmented, Switch } from './Primitives';
 import { Icon } from './Icon';
-import { modeOf, plainNote } from '../lib/chef-names';
+import { plainNote } from '../lib/chef-names';
+import { AI_SETTINGS, FEATURES, GROUPS, NEEDS, featureName, isFeature } from '../lib/features';
 
-type Control ={ key: string; enabled: boolean; notice: string; version: number; updated_at: string };
-const names: Record<string, string> = { registration: 'Registration', discovery: 'Live Google search', menus: 'Places and menus', avatars: 'Avatars', ai_recipes: 'AI recipes', ai_recipes_bots: 'AI recipes by QT bots', recipe_demand: 'Wanted recipes', social: 'Social',
-  market: 'Market buying', market_sellers: 'Market selling', recipes: 'Member recipes', areas: 'Area counts', games: 'Game progress', game_levels: 'Recipe levels', game_seasons: 'Seasons',
-  chef_ingredients: 'Mango · Ingredients', chef_creators: 'Mango · Creators', chef_game_levels: 'Taro · Game levels',
-  chef_ai_recipes: 'Peach · AI recipes', chef_wanted: 'Peach · Wanted recipes', chef_member_recipes: 'Peach · Member recipes',
-  chef_reviews: 'Coco · Place reviews', chef_gatherings: 'Lychee · Gatherings', chef_place_reports: 'Coco · Place reports', chef_recalls: 'Mint · Recall matches' };
-/** What members lose when a feature is off (server/index.mjs featureGate and the routes that check it). */
-const effects: Record<string, string> = { registration: 'New accounts', discovery: 'Google search, place photos and address lookup in Explore',
-  menus: 'Explore places, menus and place reviews', avatars: 'Avatar portraits', ai_recipes: 'Asking for a recipe or reading one from a video', ai_recipes_bots: 'On: the QT bots write AI recipes. Off: Gemini does',
-  recipe_demand: 'Writing recipes members search Cook for and cannot find (up to 10 a day, each waits for review; needs AI recipes)',
-  social: 'Profiles, invitations, chats and gatherings', market: 'Browsing and ordering in Market', market_sellers: 'Opening and running a shop',
-  recipes: 'Sharing recipes from Cook (AI recipes need this too)', areas: 'Home and Work area counts', games: 'Saving Rush Hour progress and café credits (the game still plays)',
-  game_levels: 'QT Gamer turning recipes staff choose into game levels (each waits for review; needs Game progress)',
-  game_seasons: 'The Seasons shelf in Rush Hour and new season runs (signed-off seasons only; runs already started still settle)',
-  chef_ingredients: 'Approves ingredient matches or asks the AI again; asks you before rejecting one',
-  chef_creators: 'Pins, pauses or reactivates recipe creators; asks you before blocking one',
-  chef_game_levels: 'Approves recipe levels that pass the level checks',
-  chef_ai_recipes: 'Publishes AI recipes that pass the recipe rules; asks you before declining one',
-  chef_wanted: 'Makes, links or skips wanted recipes',
-  chef_member_recipes: 'Publishes member recipes that pass the rules; asks you before declining one (needs the privacy notice first)',
-  chef_reviews: 'Flags reviews with links, phone numbers, emails or payment details; asks you before hiding one',
-  chef_gatherings: 'Flags gatherings with links, phone numbers, emails or payment details; asks you before hiding one',
-  chef_place_reports: 'Sends members\' place reports for a recheck with a note; asks you before dismissing one (needs the privacy notice first)',
-  chef_recalls: 'Files a critical case when an SFA recall may match a sealed Market item; never removes the item (needs the privacy notice first)' };
-/** The AI recipes daily limit ("daily=N", edited on the AI recipes page) and a chef lane's mode live in the note, not shown in it. */
-const noteOf = (row: { notice: string }) => plainNote(row.notice);
-/** Chef lanes are Off, Watch (records what the chef would do) or On (acts), docs/ADMIN_CHEFS_PLAN.md §6. */
-const isChef = (key: string) => key.startsWith('chef_');
-const MODES = [['off', 'Off'], ['watch', 'Watch'], ['on', 'On']] as const;
-const modeLabel = (row: Control) => isChef(row.key) ? { off: 'Off', watch: 'Watching', on: 'On' }[modeOf(row)] : row.enabled ? 'On' : 'Off';
-/** Retired controls (owner, 19 Oct 2026): "AI features" and "Identity review" were Phase 4 placeholders that gated nothing. */
-const hidden = ['ai', 'identity'];
-export const featureName = (key: string) => names[key] ?? key.replaceAll('_', ' ');
+export type Control = { key: string; enabled: boolean; notice: string; version: number; updated_at: string };
+type Rows = Map<string, Control>;
+/** Day and month, with the year when it is not this year (the full time is in the tooltip). */
+const shortDate = (value: string) => {
+  const day = new Date(value);
+  return day.toLocaleDateString(undefined, { day: 'numeric', month: 'short', ...(day.getFullYear() === new Date().getFullYear() ? {} : { year: 'numeric' }) });
+};
+const list = (names: string[]) => names.length < 2 ? names.join('') : names.slice(0, -1).join(', ') + ' and ' + names.at(-1);
 
+/**
+ * Saves one switch and holds its open panel (a note, or a confirm step). Opening a panel starts from the switch's current note,
+ * so a note someone else changed meanwhile is never saved back over theirs. Shared by Features and Kitchen › Chefs.
+ */
+export function useControl(row: Control, onSaved: () => void) {
+  const [busy, setBusy] = useState(false); const [error, setError] = useState('');
+  const [panel, setPanel] = useState<string | null>(null); const [note, setNote] = useState('');
+  const open = (next: string | null) => { setPanel(next); setNote(plainNote(row.notice)); setError(''); };
+  async function save(change: { enabled: boolean } | { mode: string }, notice = plainNote(row.notice)) {
+    if (busy) return;
+    setBusy(true); setError('');
+    try { await api('/api/manage/controls', { key: row.key, version: row.version, notice: notice.trim(), ...change }); setPanel(null); onSaved(); }
+    catch (e) { setError(failure(e)); }
+    finally { setBusy(false); }
+  }
+  return { busy, error, save, panel, open, note, setNote };
+}
+
+/** A switch's open panel: what is about to happen, the staff note, and its action. */
+export function ControlPanel({ control, label, tone = 'primary', onConfirm, children }: {
+  control: ReturnType<typeof useControl>; label: string; tone?: 'primary' | 'danger'; onConfirm: () => void; children?: ReactNode }) {
+  return <div className="confirm">{children}
+    <input aria-label="Note for staff" placeholder="Note for staff: why, and until when" maxLength={280} value={control.note} onChange={e => control.setNote(e.target.value)}/>
+    <div className="form-actions"><button type="button" onClick={() => control.open(null)}>Cancel</button>
+      <button type="button" className={tone} disabled={control.busy} onClick={onConfirm}>{label}</button></div>
+  </div>;
+}
+export const ControlError = ({ error }: { error: string }) => error ? <div className="notice error" role="alert"><Icon name="warning"/>{error}</div> : null;
+
+/** Service switches by area (lib/features.ts). Turning one on is immediate; turning one off asks first, since members lose it at once. */
 export function Controls() {
-  const resource = useResource<Control[]>('/api/manage/controls'); const [open, setOpen] = useState<string | null>(null);
-  return <><Feedback {...resource} retry={resource.reload}/>{resource.data && <ul className="list">{resource.data.filter(row => !hidden.includes(row.key)).map(row => <li key={row.key} className={open === row.key ? 'open' : undefined}>
-    <div className="row spread">
-      <div className="label"><strong>{featureName(row.key)}</strong><small>{effects[row.key] ?? ''}</small>
-        <small>{[row.key === 'ai_recipes' && /daily=\d+/.test(row.notice) ? 'Daily limit ' + /daily=(\d+)/.exec(row.notice)![1] : '', noteOf(row), 'Changed ' + date(row.updated_at)].filter(Boolean).join(' · ')}</small></div>
-      <div className="row"><span className={'badge ' + (row.enabled ? 'good' : '')}>{modeLabel(row)}</span>
-        <button type="button" aria-expanded={open === row.key} onClick={() => setOpen(open === row.key ? null : row.key)}>{open === row.key ? 'Close' : isChef(row.key) ? 'Change' : row.enabled ? 'Turn off' : 'Turn on'}</button></div>
+  const resource = useResource<Control[]>('/api/manage/controls');
+  const rows: Rows = new Map(resource.data?.map(r => [r.key, r]));
+  const placed = new Set<string>([...GROUPS.flatMap(([, keys]) => keys), ...AI_SETTINGS]);
+  const groups = [...GROUPS, ['Other', resource.data?.filter(r => isFeature(r.key) && !placed.has(r.key)).map(r => r.key) ?? []] as const]
+    .map(([title, keys]) => [title, keys.filter(k => rows.has(k))] as const).filter(([, keys]) => keys.length);
+  return <>
+    <Feedback {...resource} retry={resource.reload}/>
+    {resource.data && !groups.length && <div className="panel"><Empty icon="controls">No features installed</Empty></div>}
+    {resource.data && groups.map(([title, keys]) => <section className="stack compact" key={title} aria-labelledby={'g-' + title}>
+      <h2 id={'g-' + title} className="section-title">{title}</h2>
+      <ul className="list features">{keys.map(k => <Fragment key={k}>
+        <FeatureRow row={rows.get(k)!} rows={rows} onSaved={resource.reload}/>
+        {k === 'ai_recipes' && <AiSettings rows={rows} onSaved={resource.reload}/>}
+      </Fragment>)}</ul>
+    </section>)}
+  </>;
+}
+
+function FeatureRow({ row, rows, onSaved, sub }: { row: Control; rows: Rows; onSaved: () => void; sub?: boolean }) {
+  const control = useControl(row, onSaved), { busy, error, save, panel, open } = control;
+  const name = featureName(row.key), effect = FEATURES[row.key]?.effect ?? '', current = plainNote(row.notice);
+  const waiting = (NEEDS[row.key] ?? []).filter(k => rows.get(k)?.enabled === false);
+  // Features that need this one and are on now: they stop with it (the server checks every switch they need).
+  const stops = Object.entries(NEEDS).filter(([k, needs]) => needs.includes(row.key) && rows.get(k)?.enabled).map(([k]) => featureName(k));
+  return <li className={['feature', sub && 'sub', panel && 'open'].filter(Boolean).join(' ')}>
+    <div className="feature-row">
+      <span className="label grow"><strong>{name}</strong><small>{effect}</small>{current && <small className="note">{current}</small>}</span>
+      {row.enabled && waiting.length > 0 && <span className="badge warn">Waits for {list(waiting.map(featureName))}</span>}
+      <time className="changed" dateTime={row.updated_at} title={'Changed ' + date(row.updated_at)}>{shortDate(row.updated_at)}</time>
+      <IconButton icon="edit" label={'Note on ' + name} onClick={() => open(panel === 'note' ? null : 'note')}/>
+      <Switch on={row.enabled} label={name} busy={busy} onChange={on => on ? save({ enabled: true }) : open('off')}/>
     </div>
-    {open === row.key && <div className="editor" style={{ marginTop: 12 }}>{isChef(row.key)
-      ? <Mutation key={row.key + row.version} endpoint="controls" label="Save" onSaved={() => { setOpen(null); resource.reload(); }}
-        values={f => ({ key: row.key, version: row.version, mode: f.get('mode'), notice: f.get('notice') })}>
-        <label>Mode<select name="mode" defaultValue={modeOf(row)}>{MODES.map(([value, text]) => <option key={value} value={value}>{text}</option>)}</select></label>
-        <label>Note for staff<textarea name="notice" rows={2} maxLength={280} defaultValue={noteOf(row)} placeholder="Why, and until when"/></label>
-      </Mutation>
-      : <Mutation key={row.key + row.version} endpoint="controls" label={row.enabled ? 'Turn off' : 'Turn on'} tone={row.enabled ? 'danger' : 'primary'}
-        onSaved={() => { setOpen(null); resource.reload(); }} values={f => ({ key: row.key, version: row.version, enabled: !row.enabled, notice: f.get('notice') })}>
-        <label>Note for staff<textarea name="notice" rows={2} maxLength={280} defaultValue={noteOf(row)} placeholder="Why, and until when"/></label>
-      </Mutation>}</div>}
-  </li>)}</ul>}{resource.data && !resource.data.length && <div className="panel"><div className="empty"><Icon name="controls" size={34}/>No features</div></div>}</>;
+    {panel === 'off' && <ControlPanel control={control} label="Turn off" tone="danger" onConfirm={() => save({ enabled: false }, control.note)}>
+      <span className="label"><strong>Turn off {name}?</strong><small>{effect}. Members lose this at once.</small>
+        {stops.length > 0 && <small className="tag">Also stops {list(stops)}.</small>}</span>
+    </ControlPanel>}
+    {panel === 'note' && <ControlPanel control={control} label="Save note" onConfirm={() => save({ enabled: row.enabled }, control.note)}/>}
+    <ControlError error={error}/>
+  </li>;
+}
+
+/** AI recipes' own settings, under it: which engine writes, Wanted recipes, and the daily limit kept on the AI recipes page. */
+function AiSettings({ rows, onSaved }: { rows: Rows; onSaved: () => void }) {
+  const engine = rows.get('ai_recipes_bots'), demand = rows.get('recipe_demand'), daily = /daily=(\d+)/.exec(rows.get('ai_recipes')?.notice ?? '')?.[1];
+  return <>
+    {engine && <EngineRow row={engine} onSaved={onSaved}/>}
+    {demand && <FeatureRow row={demand} rows={rows} onSaved={onSaved} sub/>}
+    <li className="feature sub"><div className="feature-row">
+      <span className="label grow"><strong>Daily limit</strong><small>{daily ? `${daily} AI recipes a day across all members` : 'AI recipes a day across all members'}</small></span>
+      <Link className="button plain" href="/console/ai-recipes">Change<Icon name="forward" size={14}/></Link>
+    </div></li>
+  </>;
+}
+
+function EngineRow({ row, onSaved }: { row: Control; onSaved: () => void }) {
+  const { busy, error, save } = useControl(row, onSaved);
+  return <li className="feature sub"><div className="feature-row">
+    <span className="label grow"><strong>Written by</strong><small>No fallback: a failed recipe fails</small></span>
+    <span aria-busy={busy || undefined}><Segmented label="Written by" value={row.enabled ? 'bots' : 'gemini'}
+      options={[['gemini', 'Gemini'], ['bots', 'QT bots']]} onChange={v => { if ((v === 'bots') !== row.enabled) save({ enabled: v === 'bots' }); }}/></span>
+  </div><ControlError error={error}/></li>;
 }

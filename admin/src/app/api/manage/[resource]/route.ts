@@ -3,7 +3,7 @@ import { session, authorize } from '../../../../lib/session';
 import { body, HttpError, json, offset, text, throttle, reasonText } from '../../../../lib/http';
 import { query } from '../../../../lib/db';
 import { overview } from '../../../../lib/overview';
-import { accounts, accountAction, changeControl, staffList, changeStaff } from '../../../../lib/management';
+import { accounts, accountAction, changeControl, chefLanes, staffList, changeStaff } from '../../../../lib/management';
 import { caseList, caseDetails, createCase, updateCase } from '../../../../lib/cases';
 import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
 import { providerKeyStatus, setProviderKey, removeProviderKey } from '../../../../lib/provider-keys';
@@ -36,6 +36,7 @@ export function GET(request: Request, context: Context) { return route(async () 
     authorize(member, 'operations');
     return json((await query("SELECT id,email FROM staff.member WHERE active AND role<>'auditor' ORDER BY email LIMIT 100")).rows);
   }
+  if (resource === 'chef-lanes') return json(await chefLanes(member));
   if (resource === 'controls') { authorize(member, 'operations'); return json((await query("SELECT * FROM ops.control WHERE key NOT IN ('ai','identity') ORDER BY key")).rows); }
   if (resource === 'audit') {
     authorize(member, 'audit');

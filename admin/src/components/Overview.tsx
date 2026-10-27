@@ -4,7 +4,7 @@ import type { Role } from '../lib/permissions';
 import { can } from '../lib/permissions';
 import { Feedback } from './Primitives';
 import { Icon, type IconName } from './Icon';
-import { featureName } from './Operations';
+import { featureName } from '../lib/features';
 import type { AiSummary } from './content/AiRecipes';
 
 export type OverviewData = { users: number | null; queues: { kind: string; count: number; overdue: number }[] | null; features: { key: string; enabled: boolean }[] | null;

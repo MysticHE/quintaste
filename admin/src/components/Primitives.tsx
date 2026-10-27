@@ -1,6 +1,6 @@
 'use client';
 import { useState, type ReactNode, type FormEvent } from 'react';
-import { api } from './client';
+import { api, failure } from './client';
 import { Icon, type IconName } from './Icon';
 import { pageSize } from '../lib/paging';
 
@@ -26,7 +26,7 @@ export function Mutation({ endpoint, values, onSaved, children, label = 'Save', 
       const result = await api<{ note?: string; status?: string }>(`/api/manage/${endpoint}`, values(data));
       if (reset) form.reset();
       setMessage(result.note || (result.status ? result.status.replaceAll('_',' ') : 'Saved')); onSaved();
-    } catch(error) { setError(error instanceof Error ? error.message : 'Request failed.'); }
+    } catch(error) { setError(failure(error)); }
     finally { setBusy(false); }
   }
   return <form onSubmit={submit} className="stack">{children}
@@ -53,6 +53,10 @@ export function Pager({ page, setPage, count }: { page: number; setPage: (page: 
   if (!page && count < pageSize) return null;
   return <div className="form-actions pager"><button type="button" disabled={!page} onClick={() => setPage(page - 1)}><Icon name="back" size={16}/>Previous</button>
     <small>Page {page + 1}</small><button type="button" disabled={count < pageSize} onClick={() => setPage(page + 1)}>Next<Icon name="forward" size={16}/></button></div>;
+}
+export function Switch({ on, label, onChange, busy }: { on: boolean; label: string; onChange: (on: boolean) => void; busy?: boolean }) {
+  return <button type="button" role="switch" className="switch" aria-checked={on} aria-label={label} aria-busy={busy || undefined}
+    onClick={() => { if (!busy) onChange(!on); }}><span/></button>;
 }
 export function IconButton({ icon, label, onClick, disabled }: { icon: IconName; label: string; onClick: () => void; disabled?: boolean }) {
   return <button type="button" className="icon-button" aria-label={label} title={label} disabled={disabled} onClick={onClick}><Icon name={icon}/></button>;

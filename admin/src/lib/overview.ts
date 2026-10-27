@@ -7,6 +7,7 @@ import { aiSummary } from './ai-recipes';
 import { gameWaiting } from './game-content';
 import { socialWaiting } from './social';
 import { chefWaiting } from './chefs';
+import { isFeature } from './features';
 
 const count = async (sql: string, values: unknown[] = []) => {
   try { return (await query<{ count: number }>(sql, values)).rows[0]?.count ?? 0; }
@@ -22,7 +23,7 @@ export async function overview(member: Session) {
       count(*) FILTER(WHERE due_at<now())::int AS overdue FROM ops.case_record
       WHERE status NOT IN ('resolved','dismissed') AND ($1 IN ('owner','operator') OR assigned_to=$2) GROUP BY kind ORDER BY kind`, [member.role, member.id]).then(r => r.rows) : null,
     can(member.role, 'accounts') ? count('SELECT count(*)::int AS count FROM public."user"') : null,
-    can(member.role, 'operations') ? query<{ key: string; enabled: boolean }>("SELECT key,enabled FROM ops.control WHERE key NOT IN ('ai','identity') ORDER BY key").then(r => r.rows) : null,
+    can(member.role, 'operations') ? query<{ key: string; enabled: boolean }>('SELECT key,enabled FROM ops.control ORDER BY key').then(r => r.rows.filter(row => isFeature(row.key))) : null,
     content ? count("SELECT count(*)::int AS count FROM recipes.recipe WHERE pending_state='review' AND draft_key NOT LIKE 'ai-%'") : null,
     content ? count(openReport('place:review:')) : null,
     sellers ? count(openReport('market:listing:')) : null,

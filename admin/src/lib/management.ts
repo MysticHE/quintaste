@@ -7,6 +7,7 @@ import { choice, HttpError, integer, text, uuid } from './http';
 import { roles } from './permissions';
 import { LANES, controlKey } from './chef-lanes';
 import { plainNote } from './chef-names';
+import { FEATURES } from './features';
 
 export async function accounts(member: Session, search: string) {
   authorize(member, 'accounts');
@@ -45,9 +46,15 @@ export async function accountAction(member: Session, input: Record<string, unkno
   });
 }
 const chefControls = Object.keys(LANES).map(controlKey);
+/** Every chef lane's switch, in lane order, with its chef and title (Kitchen › Chefs). */
+export async function chefLanes(member: Session) {
+  authorize(member, 'operations');
+  const rows = new Map((await query<{ key: string }>('SELECT key,enabled,notice,version,updated_at FROM ops.control WHERE key = ANY($1)', [chefControls])).rows.map(r => [r.key, r]));
+  return Object.entries(LANES).flatMap(([lane, l]) => { const row = rows.get(controlKey(lane)); return row ? [{ ...row, lane, chef: l.chef, title: l.title }] : []; });
+}
 export async function changeControl(member: Session, input: Record<string, unknown>, reason: string) {
   authorize(member, 'operations');
-  const key = choice(input.key, ['registration','discovery','menus','avatars','ai_recipes','ai_recipes_bots','recipe_demand','social','market','market_sellers','recipes','areas','games','game_levels','game_seasons', ...chefControls] as const, 'feature');
+  const key = choice(input.key, [...Object.keys(FEATURES), ...chefControls], 'feature');
   // A chef lane is Off, Watch or On (docs/ADMIN_CHEFS_PLAN.md §6): on while watching or acting, with the mode kept in the note.
   const mode = chefControls.includes(key) ? choice(input.mode, ['off', 'watch', 'on'] as const, 'mode') : null;
   const enabled = mode ? mode !== 'off' : input.enabled;

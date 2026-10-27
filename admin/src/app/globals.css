@@ -138,7 +138,7 @@ details[open] > summary { margin-bottom: 12px; }
 .segmented::-webkit-scrollbar, .tabs::-webkit-scrollbar { display: none; }
 .segmented button, .tabs button { min-height: 28px; padding: 0 12px; border-radius: 7px; background: transparent; font-size: 13px; color: var(--foreground); }
 .segmented button:hover, .tabs button:hover { background: var(--fill); }
-.segmented button[aria-pressed="true"], .tabs button[aria-selected="true"] { background: var(--card); box-shadow: var(--raised); font-weight: 600; }
+.segmented button[aria-pressed="true"], .tabs button[aria-selected="true"] { background: var(--segment-selected); box-shadow: var(--raised); font-weight: 600; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chips button { min-height: 28px; padding: 0 12px; border-radius: 999px; font-size: 13px; }
 .chips button[aria-pressed="true"] { background: var(--accent-fill); color: var(--accent-foreground); }
@@ -287,3 +287,63 @@ details[open] > summary { margin-bottom: 12px; }
 .notice { flex-wrap: nowrap; }
 .notice > button { margin-left: auto; flex: none; }
 .pager { align-items: center; justify-content: flex-end; }
+
+/* Switches (Features, Kitchen › Chefs) */
+.switch { width: 44px; height: 26px; min-height: 26px; padding: 2px; flex: none; justify-content: flex-start; border-radius: 999px; background: var(--fill-strong);
+  transition: background-color 200ms ease-out; }
+.switch:hover { background: var(--fill-strong); filter: brightness(1.04); }
+.switch:active:not(:disabled) { transform: none; }
+.switch span { width: 22px; height: 22px; border-radius: 50%; background: var(--knob); box-shadow: var(--knob-shadow); transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.switch[aria-checked="true"], .switch[aria-checked="true"]:hover { background: var(--switch-on); }
+.switch[aria-checked="true"] span { transform: translateX(18px); }
+.switch[aria-busy="true"], [aria-busy="true"] > .segmented { opacity: 0.55; cursor: progress; }
+.lede { margin-top: -8px; }
+
+/* Features: rows of switches, settings indented beneath their feature */
+.list > li.feature, .list > li.job, .list > li.chef { display: block; padding: 0; min-height: 0; }
+.feature-row { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 12px 8px 16px; }
+.feature-row .label { display: grid; gap: 1px; min-width: 0; }
+.feature-row .label strong { font-weight: 600; font-size: 14px; }
+.feature-row .label small { white-space: normal; overflow: visible; }
+.feature-row .note { color: var(--foreground); opacity: 0.8; }
+.feature-row .tag, .confirm .tag { color: var(--warning); font-weight: 600; }
+.feature-row .icon-button { width: 28px; min-height: 28px; }
+/* With a mouse the note pencil shows on hover; touch screens of any width always show it. */
+@media (hover: hover) and (pointer: fine) {
+  .feature-row .icon-button { opacity: 0; }
+  .feature-row:hover .icon-button, .feature-row .icon-button:focus-visible, li.open > .feature-row .icon-button { opacity: 1; }
+}
+.changed { font-size: 12px; color: var(--muted-foreground); white-space: nowrap; min-width: 48px; text-align: right; }
+.list > li.sub .feature-row { padding-left: 40px; min-height: 46px; }
+.list.features > li.sub::before { left: 40px; }
+.list > li.sub .label strong { font-weight: 500; }
+.confirm { display: grid; gap: 10px; margin: 0 12px 12px 16px; padding: 12px; border-radius: 10px; background: var(--fill); }
+.list > li.sub .confirm { margin-left: 40px; }
+.confirm .label { display: grid; gap: 2px; }
+.list .confirm .label small { white-space: normal; overflow: visible; }
+.confirm input { background: var(--card); }
+.confirm .form-actions { justify-content: flex-end; }
+.list > li > .notice { margin: 0 12px 12px 16px; }
+
+/* Kitchen › Chefs: one row per chef, its jobs beneath */
+.chef-head { width: 100%; min-height: 60px; line-height: 1.35; padding: 10px 14px 10px 14px; gap: 12px; justify-content: flex-start; text-align: left; white-space: normal;
+  border-radius: 0; background: transparent; font-weight: 400; }
+.chef-head:hover { background: var(--fill); }
+.chef-head:active:not(:disabled) { transform: none; }
+.chef-head .label { display: grid; gap: 1px; }
+.chef-head .label strong { font-size: 15px; font-weight: 600; }
+.chef-head .badge { text-transform: none; }
+.chef-head > .icon:last-child { color: var(--muted-foreground); }
+.chef-icon { width: 36px; height: 36px; padding: 4px; border-radius: 10px; background: var(--fill); object-fit: contain; flex: none;
+  display: grid; place-items: center; font-weight: 700; }
+.jobs { list-style: none; margin: 0 0 6px; padding: 0; }
+.jobs .feature-row { padding-left: 62px; }
+.jobs .confirm, .jobs > li > .notice { margin-left: 62px; }
+.jobs > li { position: relative; }
+.jobs > li::before { content: ""; position: absolute; top: 0; left: 62px; right: 0; height: 1px; background: var(--separator); }
+@media (max-width: 860px) {
+  .changed { display: none; }
+  .jobs .feature-row { padding-left: 16px; flex-wrap: wrap; }
+  .jobs .confirm, .jobs > li > .notice { margin-left: 16px; }
+  .jobs > li::before { left: 16px; }
+}
