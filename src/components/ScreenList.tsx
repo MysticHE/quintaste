@@ -28,8 +28,6 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
   /** Space between grid columns; rows are spaced by `rowGap` (default: the page gap). */
   columnGap?: number;
   rowGap?: number;
-  /** A grid without footer content uses the screen's bottom inset instead of adding another row gap. */
-  trimEndGap?: boolean;
   /** The items belong to the previous search while the new one loads: they stay put, faded, instead of collapsing. */
   dimmed?: boolean;
 };
@@ -39,7 +37,7 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
  * switching a tab or filter mounts a handful of cards rather than every card at once. It keeps the screen's sliding top bar,
  * dock, padding and scroll-to-top. Outside such a Screen it lays the items out in place (no virtualisation) instead of failing.
  */
-export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, trimEndGap = false, dimmed = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
+export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, dimmed = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
   const frame = useContext(ScreenListContext), list = useRef<FlashListRef<T>>(null);
   const setScroller = frame?.setScroller, reveal = frame?.reveal;
   useEffect(() => {
@@ -50,8 +48,7 @@ export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, trimEndGa
   }, [setScroller, reveal]);
   const gap = frame?.gap ?? LIST_GAP, half = columnGap / 2, grid = numColumns > 1;
   // Every cell keeps the same wrapper, so fading old results changes a style, never the element: the cards are not rebuilt.
-  const cell: ListRenderItem<T> = info => <View style={[grid && { paddingHorizontal: half,
-    paddingBottom: trimEndGap && !footer && info.index >= data.length - (data.length % numColumns || numColumns) ? 0 : rowGap ?? gap }, { opacity: dimmed ? 0.55 : 1 }]}>
+  const cell: ListRenderItem<T> = info => <View style={[grid && { paddingHorizontal: half, paddingBottom: rowGap ?? gap }, { opacity: dimmed ? 0.55 : 1 }]}>
     {renderItem(info)}</View>;
   // The empty spacer after the header (before the footer) takes a gap only when real content sits beside it; children that
   // render nothing add no space.

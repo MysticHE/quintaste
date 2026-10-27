@@ -6,7 +6,6 @@ import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import type { CatalogueVenue } from "../../types/catalogue";
 import { useT } from "../../i18n";
-import { catalogueLayout } from "../../theme/layout";
 
 /**
  * One aligned line of the place page: a fixed icon column, the text, an optional trailing icon.
@@ -79,11 +78,11 @@ export function PhotoCredit({ photo, open }: { photo: NonNullable<CatalogueVenue
   </View>;
 }
 const s = StyleSheet.create({
-  row: { flexDirection: "row", alignItems: "center", minHeight: 48, gap: 12, paddingVertical: 8, paddingHorizontal: 0, borderWidth: 2, borderRadius: catalogueLayout.radius },
+  row: { flexDirection: "row", alignItems: "center", minHeight: 48, gap: 12, paddingVertical: 8, paddingHorizontal: 6, borderWidth: 2, borderRadius: 12 },
   rowIcon: { width: 22, alignItems: "center" },
   more: { gap: 4, paddingLeft: 42, paddingRight: 8, paddingBottom: 8 },
   divider: { height: StyleSheet.hairlineWidth },
-  inlineAction: { flexDirection: "row", flexGrow: 1, flexShrink: 0, flexBasis: "auto", minHeight: 48, paddingVertical: 0, paddingHorizontal: 12, gap: 6, borderRadius: catalogueLayout.radius },
+  inlineAction: { flexDirection: "row", flexGrow: 1, flexShrink: 0, flexBasis: "auto", minHeight: 48, paddingVertical: 0, paddingHorizontal: 12, gap: 6, borderRadius: 14 },
   action: { flex: 1, minWidth: 0, minHeight: 68, padding: 8, alignItems: "center", justifyContent: "center", gap: 6, borderWidth: 2, borderRadius: 12 },
   credit: { flexDirection: "row", alignItems: "center", gap: 6, minHeight: 36, paddingHorizontal: 4, borderWidth: 2, borderRadius: 10 },
 });
