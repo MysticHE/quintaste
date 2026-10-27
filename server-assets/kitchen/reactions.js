@@ -4,7 +4,10 @@ const SVG = {
   check: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M6.8 12.4l3.4 3.4 7-7.2" fill="none" stroke="var(--card)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   star: '<svg viewBox="0 0 24 24"><path d="M12 2.8l2.7 5.6 6.1.8-4.4 4.3 1 6.1L12 16.7l-5.4 2.9 1-6.1-4.4-4.3 6.1-.8z" fill="currentColor"/></svg>',
 };
-let layer = null;
+let layer = null, art = '/kitchen/art/';
+
+/** Points the icons and dream pictures at the kitchen's art folder (createWorld's `artBase`). */
+export function setArtBase(base) { art = base; }
 
 function fxLayer(scene) {
   if (!layer || !scene.contains(layer)) {
@@ -20,7 +23,7 @@ function particle(icon) {
   el.className = 'particle particle--' + (SVG[icon] ? icon : 'art');
   if (SVG[icon]) el.innerHTML = SVG[icon];
   else {
-    const img = Object.assign(document.createElement('img'), { src: `/kitchen/art/icon-${icon}.webp`, alt: '' });
+    const img = Object.assign(document.createElement('img'), { src: `${art}icon-${icon}.webp`, alt: '' });
     img.onerror = () => { el.className = 'particle particle--sparkle'; el.innerHTML = SVG.sparkle; };
     el.append(img);
   }
@@ -44,16 +47,26 @@ export function burst(scene, { x, y, icon, count = 5, rise = 14, spread = 9 }) {
   }
 }
 
-/** A thought bubble with the chef's icon above its head (Mochi never speaks). */
-export function bubble(scene, chef, kind) {
+/** The picture a chef dreams of (one of the kitchen's own pieces of art), in a dream bubble. */
+function dreamOf(picture) {
+  const img = Object.assign(document.createElement('img'), { className: 'bubble-art', src: `${art}${picture}.webp`, alt: '' });
+  img.onerror = () => img.replaceWith(Object.assign(document.createElement('span'), { className: 'bubble-z', textContent: 'z z' }));
+  return img;
+}
+
+/** A thought bubble above the chef's head (Mochi never speaks): its icon, a sleepy "z z", or a dream of `picture`. */
+export function bubble(scene, chef, kind, picture) {
   chef.el.querySelector('.bubble')?.remove();
-  const el = Object.assign(document.createElement('span'), { className: 'bubble' });
+  const el = Object.assign(document.createElement('span'), { className: 'bubble' + (kind === 'dream' ? ' bubble--dream' : '') });
   el.setAttribute('aria-hidden', 'true');
-  el.append(kind === 'sleepy' ? Object.assign(document.createElement('span'), { className: 'bubble-z', textContent: 'z z' }) : particle(chef.id));
+  el.append(kind === 'sleepy' ? Object.assign(document.createElement('span'), { className: 'bubble-z', textContent: 'z z' })
+    : kind === 'dream' ? dreamOf(picture) : particle(chef.id));
   chef.el.append(el);
-  el.animate([{ opacity: 0, transform: 'translate(-50%, 8%) scale(.6)' }, { opacity: 1, transform: 'translate(-50%, 0) scale(1)', offset: 0.2 },
-    { opacity: 1, transform: 'translate(-50%, 0) scale(1)', offset: 0.8 }, { opacity: 0, transform: 'translate(-50%, -10%) scale(.9)' }],
-  { duration: 1700, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' }).finished.then(() => el.remove());
+  // The pop-in eases on its own keyframe; easing the whole timeline would leave the bubble fading for most of its life.
+  el.animate([{ opacity: 0, transform: 'translate(-50%, 8%) scale(.6)', easing: 'cubic-bezier(.16,1,.3,1)' },
+    { opacity: 1, transform: 'translate(-50%, 0) scale(1)', offset: 0.15 }, { opacity: 1, transform: 'translate(-50%, 0) scale(1)', offset: 0.8, easing: 'ease-in' },
+    { opacity: 0, transform: 'translate(-50%, -10%) scale(.9)' }],
+  { duration: kind === 'dream' ? 2600 : 1700, fill: 'both' }).finished.then(() => el.remove());
 }
 
 const head = (chef, layout) => ({ x: chef.x, y: chef.y - (layout === 'wide' ? 15 : 13) * (chef.habit.scale ?? 1) });
@@ -72,6 +85,8 @@ export const REACTIONS = {
   moon: (chef, ctx) => [{ then: () => { ctx.hop(); bubble(ctx.scene, chef); } }, { act: 'look', ms: 1200 }],
   plaster: (chef, ctx) => [{ then: () => { ctx.hop(); pop(ctx, chef, 'fixer', 4)(); } }, { act: 'cheer', ms: 600 }],
   snow: (chef, ctx) => [{ then: pop(ctx, chef, 'safety', 6) }, { act: 'shiver', ms: 900 }],
-  sleepy: (chef, ctx) => [{ then: () => { ctx.hop(); bubble(ctx.scene, chef, 'sleepy'); } }, { act: 'look', ms: 900 }],
+  // A resting chef woken by a tap: a sleepy hop and "z z", then a yawn, a stretch or rolling over.
+  sleepy: (chef, ctx) => [{ then: () => { ctx.hop(); bubble(ctx.scene, chef, 'sleepy'); } },
+    [{ act: 'yawn', ms: 1300 }, { act: 'stretch', ms: 1500 }, { act: 'roll', ms: 1600 }][Math.floor(Math.random() * 3)]],
   dizzy: (chef, ctx) => [{ then: () => { ctx.hop(); pop(ctx, chef, 'star', 6)(); } }, { spin: 40, left: 16 }, { act: 'wobble', ms: 1400 }],
 };

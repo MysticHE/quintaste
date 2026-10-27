@@ -101,12 +101,19 @@ export function layoutNook(nook, layout) {
   nook.layout = layout;
 }
 
-/** Where a chef sits in bed `i` (in % of the scene), the depth that keeps it between the bed and its rim, and the bed's footprint. */
+/** How far in front of a bed's front edge its step is (in % of the scene's height): chefs climb in and out from there. */
+const STEP = 2.5;
+
+/**
+ * Where a chef sits in bed `i` (in % of the scene), the depth that keeps it between the bed and its rim, the bed's footprint and
+ * the step in front of it (`door`).
+ */
 function seat(nook, i, W, H) {
   const [x, y, w, name] = NOOK[nook.layout].beds[i], bed = nook.beds[i], img = bed.sat.naturalWidth ? bed.sat : bed.soft;
   const aspect = img.naturalWidth ? img.naturalHeight / img.naturalWidth : 0.6;  // until a picture loads; plan() re-seats after
   const height = w * W / 100 * aspect / H * 100, d = dentFor(bed, name);
-  return { x, y: y - height * (1 - (d.cy + d.ry + d.sink) / 100), face: 'front', z: Math.round(y * 10) - 1, front: y, half: w / 2 };
+  return { i, x, y: y - height * (1 - (d.cy + d.ry + d.sink) / 100), face: 'front', z: Math.round(y * 10) - 1, front: y, half: w / 2,
+    door: [x, y + STEP] };
 }
 
 /** The bed this chef naps in, claiming a free one; null when every bed is taken, the chef stays at the pass or no bed is shown. */
@@ -127,15 +134,74 @@ export function leaveBed(nook, chef) {
   if (i >= 0) nook.claims[i] = null;
 }
 
-/** True while a chef sits on its bed or is climbing on or off it (inside the bed's footprint, behind its front edge). */
+/** Bed `i` on screen, in % of the scene: its sides, its top and its front edge. */
+function box(nook, i, W, H) {
+  const [x, y, w] = NOOK[nook.layout].beds[i], bed = nook.beds[i], img = bed.sat.naturalWidth ? bed.sat : bed.soft;
+  const aspect = img.naturalWidth ? img.naturalHeight / img.naturalWidth : 0.6;
+  return { left: x - w / 2, right: x + w / 2, top: y - w * W / 100 * aspect / H * 100, front: y };
+}
+
+const within = (b, [x, y]) => x > b.left && x < b.right && y > b.top && y < b.front;
+
+/** True when the straight walk from `a` to `c` passes through box `b` (clipping the segment against it). */
+function crosses(a, c, b) {
+  let t0 = 0, t1 = 1;
+  const d = [c[0] - a[0], c[1] - a[1]];
+  for (const [p, q] of [[-d[0], a[0] - b.left], [d[0], b.right - a[0]], [-d[1], a[1] - b.top], [d[1], b.front - a[1]]]) {
+    if (p === 0) { if (q < 0) return false; continue; }
+    const r = q / p;
+    if (p < 0) t0 = Math.max(t0, r); else t1 = Math.min(t1, r);
+    if (t0 > t1) return false;
+  }
+  return true;
+}
+
+/**
+ * Where a walk from `from` to `to` should turn so it passes in front of a bed rather than behind it (drawn under it), or null.
+ * A bed the walk starts or ends inside (climbing on or off it) is left out: those steps go straight up or down its front.
+ */
+export function detour(nook, W, H, from, to) {
+  const beds = nook?.layout ? NOOK[nook.layout].beds : [];
+  for (let i = 0; i < beds.length; i++) {
+    if (nook.beds[i].el.hidden) continue;
+    const b = box(nook, i, W, H);
+    if (within(b, from) || within(b, to) || !crosses(from, to, b)) continue;
+    // Behind the bed, step out round the corner on its own side; already in front, go to the corner nearest where it is going.
+    const side = from[1] >= b.front ? to[0] : from[0];
+    return [side < (b.left + b.right) / 2 ? b.left - 1 : b.right + 1, b.front + STEP];
+  }
+  return null;
+}
+
+/** True when a point (in % of the scene) is inside a bed's footprint: level with it and behind its front edge. */
+export const inFootprint = (b, [x, y]) => Math.abs(x - b.x) < b.half && y <= b.front;
+
+/** True while a chef sits on its bed or is climbing on or off it. */
 export function onBed(chef) {
   const b = chef.bed;
-  return Boolean(b && (chef.napping || (Math.abs(chef.x - b.x) < b.half && chef.y <= b.front)));
+  return Boolean(b && (chef.napping || inFootprint(b, [chef.x, chef.y])));
 }
 
 /** The depth to draw a chef at while on its bed, so it never slips behind the bed's front; null elsewhere. */
 export function bedDepth(chef) {
   return onBed(chef) ? chef.bed.z : null;
+}
+
+/** A quick plump-up of the chef's own bed (it squashes and springs back once). */
+export function fluffBed(nook, chef, still) {
+  const bed = nook.beds[nook.claims.indexOf(chef.id)];
+  if (!bed || still || bed.el.hidden) return;
+  for (const el of [bed.el, bed.lip]) el.animate(LIFT, { duration: 520, easing: 'ease-out' });
+}
+
+/** Moves the chef's claim to another free, shown bed; false when there is none. plan() then walks it over. */
+export function swapBed(nook, chef) {
+  const from = nook.claims.indexOf(chef.id), count = NOOK[nook.layout]?.beds.length ?? 0;
+  const free = nook.claims.map((id, j) => j).filter(j => j !== from && j < count && !nook.claims[j] && !nook.beds[j].el.hidden);
+  if (from < 0 || !free.length) return false;
+  nook.claims[from] = null;
+  nook.claims[free[Math.floor(Math.random() * free.length)]] = chef.id;
+  return true;
 }
 
 /** Squashes each bed whose chef is sitting in it and springs back the ones just left. */

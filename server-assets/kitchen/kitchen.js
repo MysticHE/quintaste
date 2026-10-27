@@ -1,5 +1,5 @@
-import { CHEFS, PROPS, ticketLine, ticketKey as keyOf, clock, ago, reason, ui } from './strings.js';
-import { LIVE } from './chefs.js';
+import { CHEFS, PROPS, chefTitle, ticketLine, ticketKey as keyOf, clock, ago, reason, ui } from './strings.js';
+import { LIVE, ON_SHIFT } from './chefs.js';
 import { createWorld } from './world.js';
 import { createTickets } from './tickets.js';
 
@@ -31,11 +31,13 @@ function chefState(id) {
   if (!fresh(state.feed)) return { state: 'resting' };
   return state.feed.chefs.find(c => c.id === id) ?? { state: 'resting' };
 }
-function stateWords(chef, long) {
+/** Online means the bot is on shift (working, checking plates or waiting on the owner); the light on each tag shows it. */
+const presence = chef => (chef.state === 'soon' ? null : ON_SHIFT.includes(chef.state) ? 'online' : 'offline');
+
+function stateWords(chef) {
   const t = ui(state.lang);
-  if (chef.state === 'waiting') return long ? t.waiting(chef.waiting ?? 0) : t.waitingShort;
+  if (chef.state === 'waiting') return t.waiting(chef.waiting ?? 0);
   const word = t[chef.state] ?? t.unknown;
-  if (!long) return word;
   if (chef.state === 'working' && chef.since) return word + ' · ' + t.since(clock(chef.since, state.lang));
   if (chef.state === 'resting' && chef.nextShift && Date.parse(chef.nextShift) > Date.now()) return word + ' · ' + t.back(clock(chef.nextShift, state.lang));
   return word;
@@ -58,12 +60,14 @@ function renderChefs() {
   const template = $('chef-template');
   scene.querySelectorAll('.chef').forEach(button => {
     if (!button.firstElementChild) button.append(template.content.cloneNode(true));
-    const id = button.dataset.chef, chef = chefState(id), name = CHEFS[id][state.lang];
+    const id = button.dataset.chef, chef = chefState(id), on = presence(chef), t = ui(state.lang);
     button.dataset.state = chef.state;
+    if (on) button.dataset.presence = on; else delete button.dataset.presence;
     button.setAttribute('aria-pressed', String(state.chef === id));
-    button.querySelector('.chef-name').textContent = name;
-    button.querySelector('.chef-state').textContent = stateWords(chef, false);
-    button.setAttribute('aria-label', `${name}, ${stateWords(chef, true)}. ${CHEFS[id].job[state.lang]}`);
+    button.querySelector('.chef-name').textContent = CHEFS[id].name[state.lang];
+    button.querySelector('.chef-role').textContent = CHEFS[id].role[state.lang];
+    const status = (on ? t[on] + ', ' : '') + stateWords(chef);
+    button.setAttribute('aria-label', `${chefTitle(id, state.lang)}, ${status}. ${CHEFS[id].job[state.lang]}`);
     scene.querySelectorAll(`.prop[data-for="${id}"]`).forEach(prop => { prop.dataset.state = chef.state; });
   });
   world?.setStates(Object.fromEntries([...scene.querySelectorAll('.chef')].map(b => [b.dataset.chef, b.dataset.state])));
@@ -106,7 +110,7 @@ function renderRail() {
     li.dataset.chef = item.chef;
     li.querySelector('.ticket-chef').src = `/kitchen/art/${PROPS[item.chef]}.webp`;
     li.querySelector('.ticket-line').textContent = item.line;
-    li.querySelector('.ticket-who').textContent = CHEFS[item.chef][state.lang];
+    li.querySelector('.ticket-who').textContent = chefTitle(item.chef, state.lang);
     const time = li.querySelector('time');
     time.dateTime = item.at;
     time.textContent = ago(item.at, state.lang);
@@ -121,7 +125,7 @@ function renderRail() {
   $('show-all').hidden = !state.chef;
   const detail = $('chef-detail');
   detail.hidden = !state.chef;
-  if (state.chef) detail.textContent = `${CHEFS[state.chef][state.lang]} · ${stateWords(chefState(state.chef), true)}. ${CHEFS[state.chef].job[state.lang]}`;
+  if (state.chef) detail.textContent = `${chefTitle(state.chef, state.lang)} · ${stateWords(chefState(state.chef))}. ${CHEFS[state.chef].job[state.lang]}`;
 }
 
 function render() {

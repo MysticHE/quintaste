@@ -2,17 +2,32 @@
 /** Each chef's prop, shown beside them in the kitchen and on their tickets. */
 export const PROPS = { head: 'serving-tray', scout: 'dish-laksa', wok: 'stove-wok', host: 'decor-lanterns', artist: 'decor-painting',
   writer: 'soup-pot', storyteller: 'decor-teaset', fixer: 'tool-spatula', safety: 'fridge' };
+/**
+ * The chefs (owner, 27 Oct 2026): each has a mochi-flavour name, matched to its hat badge, and a one-word "Chef" role. Ids stay
+ * the bots' own (scout, wok and so on), since the feed uses them.
+ */
 export const CHEFS = {
-  head: { en: 'Head Chef', zh: '主厨', job: { en: 'Checks every plate against its source before it goes out.', zh: '出菜前，逐一对照来源检查。' } },
-  scout: { en: 'Scout', zh: '探店', job: { en: 'Checks places, menus, prices and opening hours.', zh: '核对店家、菜单、价格和营业时间。' } },
-  wok: { en: 'Wok Chef', zh: '炒锅', job: { en: 'Finds well-rated vegetarian recipes and writes them up.', zh: '寻找好评素食食谱并整理成文。' } },
-  host: { en: 'Host', zh: '活动', job: { en: 'Finds vegetarian events and classes in Singapore.', zh: '寻找新加坡的素食活动和课程。' } },
-  artist: { en: 'Artist', zh: '画师', job: { en: "Paints the food and regulars in the Rush Hour game.", zh: '为 Rush Hour 游戏绘制食物和常客。' } },
-  writer: { en: 'Recipe Writer', zh: '写菜谱', job: { en: 'Writes the recipes members ask for.', zh: '为会员撰写他们想要的食谱。' } },
-  storyteller: { en: 'Storyteller', zh: '说书', job: { en: 'Picks stalls for 初一 and 十五 and drafts Mochi’s videos.', zh: '为初一、十五挑选摊位，撰写 Mochi 的视频。' } },
-  fixer: { en: 'Fixer', zh: '修理', job: { en: 'Turns members’ place reports into rechecks.', zh: '把会员对店家的反馈变成复查任务。' } },
-  safety: { en: 'Safety Chef', zh: '安全', job: { en: 'Reads SFA’s food recall notices.', zh: '阅读新加坡食品局的食品召回通告。' } },
+  head: { name: { en: 'Kaya', zh: '咖椰' }, role: { en: 'Head Chef', zh: '主厨' },
+    job: { en: 'Checks every plate against its source before it goes out.', zh: '出菜前，逐一对照来源检查。' } },
+  scout: { name: { en: 'Pandan', zh: '班兰' }, role: { en: 'Explore Chef', zh: '探店厨师' },
+    job: { en: 'Checks places, menus, prices and opening hours.', zh: '核对店家、菜单、价格和营业时间。' } },
+  wok: { name: { en: 'Mango', zh: '芒果' }, role: { en: 'Recipe Chef', zh: '食谱厨师' },
+    job: { en: 'Finds well-rated vegetarian recipes and writes them up.', zh: '寻找好评素食食谱并整理成文。' } },
+  host: { name: { en: 'Lychee', zh: '荔枝' }, role: { en: 'Event Chef', zh: '活动厨师' },
+    job: { en: 'Finds vegetarian events and classes in Singapore.', zh: '寻找新加坡的素食活动和课程。' } },
+  artist: { name: { en: 'Taro', zh: '芋头' }, role: { en: 'Game Chef', zh: '游戏厨师' },
+    job: { en: 'Paints the food and regulars in the Rush Hour game.', zh: '为 Rush Hour 游戏绘制食物和常客。' } },
+  writer: { name: { en: 'Peach', zh: '蜜桃' }, role: { en: 'Request Chef', zh: '心愿厨师' },
+    job: { en: 'Writes the recipes members ask for.', zh: '为会员撰写他们想要的食谱。' } },
+  storyteller: { name: { en: 'Sesame', zh: '芝麻' }, role: { en: 'Story Chef', zh: '说书厨师' },
+    job: { en: 'Picks stalls for 初一 and 十五 and drafts Mochi’s videos.', zh: '为初一、十五挑选摊位，撰写 Mochi 的视频。' } },
+  fixer: { name: { en: 'Coco', zh: '椰椰' }, role: { en: 'Fix Chef', zh: '修理厨师' },
+    job: { en: 'Turns members’ place reports into rechecks.', zh: '把会员对店家的反馈变成复查任务。' } },
+  safety: { name: { en: 'Mint', zh: '薄荷' }, role: { en: 'Safety Chef', zh: '安全厨师' },
+    job: { en: 'Reads SFA’s food recall notices.', zh: '阅读新加坡食品局的食品召回通告。' } },
 };
+/** "Pandan · Explore Chef": a chef's name with its role. */
+export const chefTitle = (id, lang) => `${CHEFS[id].name[lang]} · ${CHEFS[id].role[lang]}`;
 
 const FIELDS = {
   hours: { en: 'opening hours', zh: '营业时间' }, menu: { en: 'the menu', zh: '菜单' },
@@ -37,12 +52,12 @@ const UI = {
     sample: 'Sample tickets · not real activity', delayed: t => 'Kitchen update delayed · last update ' + t,
     opening: 'The kitchen opens soon', watchAgain: 'Watch again', openTicket: 'Open', sfaLink: 'Read on SFA',
     pass: (out, back) => out + ' out today · ' + back + ' sent back', sentBack: 'Sent back today', scene: 'The Mochi kitchen. Choose a chef to see their tickets.',
-    working: 'Working', reviewing: 'Checking plates', resting: 'Resting', waiting: n => n + ' waiting for the owner', waitingShort: 'Waiting', soon: 'Joining soon', unknown: 'Off duty',
-    since: t => 'since ' + t, back: t => 'back at ' + t,
+    working: 'Working', reviewing: 'Checking plates', resting: 'Resting', waiting: n => n + ' waiting for the owner', soon: 'Joining soon', unknown: 'Off duty',
+    since: t => 'since ' + t, back: t => 'back at ' + t, online: 'Online', offline: 'Offline',
     howTitle: 'How this kitchen works',
     how: [
       ['Chefs find and check.', 'Menus, prices, hours, recipes and events, from each place’s own pages and listings.'],
-      ['The Head Chef checks every plate.', 'Anything it can’t trace to a source goes back to the chef who made it.'],
+      ['Kaya, the Head Chef, checks every plate.', 'Anything it can’t trace to a source goes back to the chef who made it.'],
       ['The owner has the last word.', 'Every update can be taken back with one tap, and reports about people go to our team, not a bot.'],
     ],
     footer: 'Times are Singapore time. QuinTaste doesn’t take payment or check sellers.',
@@ -56,12 +71,12 @@ const UI = {
     sample: '示例单据 · 非真实动态', delayed: t => '厨房更新延迟 · 上次更新 ' + t,
     opening: '厨房即将开张', watchAgain: '再看一次', openTicket: '打开', sfaLink: '在食品局网站阅读',
     pass: (out, back) => '今天出菜 ' + out + ' · 退回 ' + back, sentBack: '今天退回', scene: 'Mochi 厨房。选择一位厨师，查看他的单据。',
-    working: '忙碌中', reviewing: '检查菜品', resting: '休息中', waiting: n => n + ' 项等店主确认', waitingShort: '等确认', soon: '即将加入', unknown: '未上班',
-    since: t => t + ' 开始', back: t => t + ' 回来',
+    working: '忙碌中', reviewing: '检查菜品', resting: '休息中', waiting: n => n + ' 项等店主确认', soon: '即将加入', unknown: '未上班',
+    since: t => t + ' 开始', back: t => t + ' 回来', online: '在线', offline: '离线',
     howTitle: '这间厨房怎么运作',
     how: [
       ['小厨师查找并核对。', '菜单、价格、营业时间、食谱和活动，都以店家自己的页面和资料为准。'],
-      ['主厨逐一检查。', '找不到来源的，一律退回给负责的小厨师。'],
+      ['主厨咖椰逐一检查。', '找不到来源的，一律退回给负责的小厨师。'],
       ['店主最后把关。', '每一项更新都能一键撤回；有关会员的举报由我们的团队处理，不交给机器人。'],
     ],
     footer: '时间为新加坡时间。QuinTaste 不经手付款，也不审核卖家。',

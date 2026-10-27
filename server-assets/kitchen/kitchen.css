@@ -21,6 +21,8 @@
   --working: #2f7a4b;
   --waiting: #9a5c0c;
   --resting: #8a7c74;
+  --online: #2fbf63;  /* the online light on a chef's tag; its glow below */
+  --online-glow: 47 191 99;
   --scene-tone: none;
   --scene-shadow: 70 38 16;
   --steam: 255 255 255;
@@ -49,6 +51,8 @@
     --working: #7fd3a0;
     --waiting: #f2c26b;
     --resting: #b8aaa3;
+    --online: #5fe08f;
+    --online-glow: 95 224 143;
     --scene-tone: brightness(.86) saturate(.95);
   }
 }
@@ -120,8 +124,8 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
 .nook-sat { opacity: 0; transition: opacity .2s ease .15s; }
 .nook-bed.is-down .nook-sat { opacity: 1; transition-delay: 0s; }
 .nook-bed.is-down .nook-soft { opacity: 0; transition-delay: .15s; }
-.nook-lip { display: none; filter: none; opacity: 0; transition: opacity .15s ease; }
-.nook-lip.is-down { opacity: 1; }
+.nook-lip { display: none; filter: none; opacity: 0; }
+.nook-lip.is-down { opacity: 1; transition: opacity .15s ease; }  /* fades in as a chef sits; gone at once when it stands */
 @supports (mask-composite: intersect) {
   .nook-lip:not([hidden]) { display: block; }
   .nook-rim {
@@ -154,15 +158,16 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
   padding: 3px 8px; border-radius: 999px; background: var(--card); color: var(--foreground); white-space: nowrap;
   font: 700 .72rem/1.2 var(--font-body); box-shadow: 0 4px 12px -6px rgb(var(--shadow) / .7); transition: background-color .2s ease, opacity .3s ease;
 }
-.chef-state { display: none; color: var(--muted-foreground); font-weight: 400; }
+.chef-role { display: none; color: var(--muted-foreground); font-weight: 400; }
 /* The Storyteller sits on the window sill: its tag goes above it, so it never hangs into the nap nook below. */
 .chef--storyteller .chef-plate { top: auto; bottom: 100%; translate: -50% -4px; }
+/* The light on each tag (owner, 27 Oct 2026): green with a soft glow while the bot is online, grey while it is offline, and none
+   for chefs still joining. */
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--resting); flex: none; }
-.chef[data-state="working"] .dot, .chef[data-state="reviewing"] .dot { background: var(--working); }
-.chef[data-state="waiting"] .dot { background: var(--waiting); }
-.chef[data-state="soon"] .dot { background: transparent; box-shadow: inset 0 0 0 1.5px var(--resting); }
+.chef[data-presence="online"] .dot { background: var(--online); box-shadow: 0 0 0 2px rgb(var(--online-glow) / .25), 0 0 6px 1px rgb(var(--online-glow) / .7); }
+.chef:not([data-presence]) .dot { display: none; }
 .chef[aria-pressed="true"] .chef-plate { background: var(--action); color: var(--action-foreground); }
-.chef[aria-pressed="true"] .chef-state { color: inherit; }
+.chef[aria-pressed="true"] .chef-role { color: inherit; }
 .chef:focus-visible { outline: none; }
 .chef:focus-visible .chef-plate { outline: 2px solid var(--accent); outline-offset: 2px; }
 .scene.has-selection .chef[aria-pressed="false"] .chef-plate { opacity: .7; }
@@ -179,6 +184,11 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
 .bubble::after { content: ""; position: absolute; left: 30%; bottom: -12%; width: 18%; aspect-ratio: 1; border-radius: 50%; background: var(--card); }
 .bubble .particle { position: static; width: 62%; }
 .bubble-z { font: 700 .85rem var(--font-display); color: var(--muted-foreground); letter-spacing: .08em; }
+/* A dream: a softer cloud with a small trail of puffs, holding the picture the chef dreams of. */
+.bubble--dream { width: 82%; bottom: 100%; box-shadow: 0 10px 22px -10px rgb(var(--shadow) / .85), 0 0 0 2px rgb(var(--shadow) / .06); }
+.bubble--dream::after { left: 22%; bottom: -10%; width: 16%; }
+.bubble--dream::before { content: ""; position: absolute; left: 12%; bottom: -24%; width: 9%; aspect-ratio: 1; border-radius: 50%; background: var(--card); }
+.bubble-art { width: 76%; height: 76%; object-fit: contain; filter: drop-shadow(0 2px 2px rgb(var(--scene-shadow) / .25)); }
 .fx { position: absolute; inset: 0; z-index: 990; pointer-events: none; overflow: hidden; }
 .particle { position: absolute; width: clamp(16px, 3.4%, 30px); aspect-ratio: 1; display: block; }
 .particle img, .particle svg { width: 100%; height: 100%; display: block; }
@@ -245,10 +255,10 @@ h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
   .scene { --pass-x: 57%; }
 }
 
-/* Wide scenes have room for the state beside each name. */
+/* Wide scenes have room for the role beside each name; on phones it shows in the chosen chef's line and on its tickets. */
 @container (min-width: 900px) {
-  .chef-state { display: inline; }
-  .chef-state::before { content: "·"; margin-right: 5px; }
+  .chef-role { display: inline; }
+  .chef-role::before { content: "·"; margin-right: 5px; }
 }
 
 /* The rail: real tickets, newest first. */
@@ -306,6 +316,7 @@ h2 { font-size: clamp(1.5rem, 1.2vw + 1.2rem, 2rem); }
 /* Motion: the kitchen moves only while it works; nothing loops when the visitor asks for less motion. */
 @media (prefers-reduced-motion: no-preference) {
   .chef[data-state="resting"] .zz { animation: drift 3.2s ease-in-out infinite; }
+  .chef[data-presence="online"] .dot { animation: online 2.4s ease-in-out infinite; }
   .prop.sway { transform-origin: 50% 0; animation: sway 4s ease-in-out infinite alternate; }
   .prop.flicker[data-state="working"] { animation: flicker 1.8s ease-in-out infinite; }
   .steam[data-state="working"]::before, .steam[data-state="working"]::after {
@@ -314,6 +325,7 @@ h2 { font-size: clamp(1.5rem, 1.2vw + 1.2rem, 2rem); }
   }
   .steam[data-state="working"]::after { left: 56%; animation-delay: 1.5s; }
 }
+@keyframes online { 50% { box-shadow: 0 0 0 3px rgb(var(--online-glow) / .12), 0 0 9px 2px rgb(var(--online-glow) / .85); } }
 @keyframes drift { 0%, 100% { translate: 0 0; opacity: .2; } 50% { translate: 6% -18%; opacity: .95; } }
 @keyframes sway { from { rotate: -3deg; } to { rotate: 3deg; } }
 @keyframes flicker { 0%, 100% { filter: drop-shadow(0 6px 6px rgb(var(--scene-shadow) / .28)) brightness(1); } 50% { filter: drop-shadow(0 6px 6px rgb(var(--scene-shadow) / .28)) brightness(1.12); } }

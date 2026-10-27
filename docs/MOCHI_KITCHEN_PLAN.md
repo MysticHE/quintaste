@@ -15,17 +15,19 @@ Never say the app is "run by bots". Staff handle reports about people, seller su
 
 ## 2. The brigade
 
-| Chef (page name, proposal) | Bot | Prop | Station | Hours | What the public sees |
+Owner, 27 Oct 2026: each chef has a mochi-flavour name, matched to its hat badge, and a one-word "Chef" role, so visitors get to know them (`CHEFS` in `server-assets/kitchen/strings.js`). Tags show a green light while the bot is online (working, checking plates or waiting on the owner) and a grey one while offline; joining-soon chefs have none. Phones show the name on the tag; wider screens add the role. Ids stay the bots' own (`scout`, `wok` and so on).
+
+| Chef (page name) | Bot | Prop | Station | Hours | What the public sees |
 |---|---|---|---|---|---|
-| Head Chef · 主厨 | QT Manager | Tall toque, tasting spoon | The pass (centre) | Around the clock | Plates checked and sent back, by reason category |
-| Scout · 探店 | QT Explorer | Map, magnifier, small backpack | Market door | Around the clock | Places added, and menus, hours and covers updated |
-| Wok Chef · 炒锅 | QT Cooker | Wok | Stove | 6–10 pm | New recipes |
-| Host · 活动 | QT Event | Clipboard, lantern | Front of house | 6–10 pm | Events listed |
-| Artist · 画师 | QT Gamer | Brush, palette | Easel | On request | Count of owner-approved game art |
-| Recipe Writer · 写菜谱 | QT Videomaker | Tablet | Recipe desk | When members ask | Count of recipes written for members |
-| Storyteller · 说书 (new) | QT Storyteller | Clapperboard | Stage | Daily | Owner-approved 初一/十五 picks and episodes |
-| Fixer · 修理 (new) | QT Fixer | Ticket rail, spanner | Ticket rail | Around the clock | "You told us, we fixed it" |
-| Safety Chef · 安全 (new) | QT Safety | Food thermometer, checklist | Cold room | Recall check every 2 h | SFA recall notices it read, linked to SFA |
+| Kaya 咖椰 · Head Chef 主厨 | QT Manager | Tall toque, tasting spoon | The pass (centre) | Around the clock | Plates checked and sent back, by reason category |
+| Pandan 班兰 · Explore Chef 探店厨师 | QT Explorer | Map, magnifier, small backpack | Market door | Around the clock | Places added, and menus, hours and covers updated |
+| Mango 芒果 · Recipe Chef 食谱厨师 | QT Cooker | Wok | Stove | 6–10 pm | New recipes |
+| Lychee 荔枝 · Event Chef 活动厨师 | QT Event | Clipboard, lantern | Front of house | 6–10 pm | Events listed |
+| Taro 芋头 · Game Chef 游戏厨师 | QT Gamer | Brush, palette | Easel | On request | Count of owner-approved game art |
+| Peach 蜜桃 · Request Chef 心愿厨师 | QT Videomaker | Tablet | Recipe desk | When members ask | Count of recipes written for members |
+| Sesame 芝麻 · Story Chef 说书厨师 (new) | QT Storyteller | Clapperboard | Stage | Daily | Owner-approved 初一/十五 picks and episodes |
+| Coco 椰椰 · Fix Chef 修理厨师 (new) | QT Fixer | Ticket rail, spanner | Ticket rail | Around the clock | "You told us, we fixed it" |
+| Mint 薄荷 · Safety Chef 安全厨师 (new) | QT Safety | Food thermometer, checklist | Cold room | Recall check every 2 h | SFA recall notices it read, linked to SFA |
 
 **Art:**
 
@@ -205,22 +207,23 @@ If the feed is more than 2 h old, the page shows *Kitchen update delayed · last
 - **Art:** a QT Gamer turnaround (front, ¾, side, ¾ back and back; mirrored for the right), one hand sprite and nine face-free hat badges, approved by the owner on 27 Oct 2026. Request: `ops/qt-team/gamer/concepts-kitchen.json`.
 - **Walking:** chefs walk the floor and turn step by step through eight directions. They hop as they walk, swing tiny hands and scale with depth.
 - **Habits:** each chef has its own.
-  - Scout roams and inspects.
-  - Wok Chef tosses the wok and fetches from the fridge.
-  - Host waves at the door.
-  - Artist paints at the lotus picture.
-  - Recipe Writer stirs the pot.
-  - Head Chef keeps to the pass.
+  - Pandan roams and inspects.
+  - Mango tosses the wok and fetches from the fridge.
+  - Lychee waves at the door.
+  - Taro paints at the lotus picture.
+  - Peach stirs the pot.
+  - Kaya keeps to the pass.
 - **Telling chefs apart:** each wears its own badge on its chef hat, seen from every side (owner: on the hat, not the cheek; no faces on the badges). The eyes and smile never change.
 - **Real tickets:** the chef carries the slip to the Head Chef, who stamps it.
 - **Resting:** off-shift chefs walk to the nap nook under the window (owner, 27 Oct 2026: make it a cosy home). It has the game's coral rug and window plant, three velvet QT Gamer cushions and a bamboo steamer bed (`nook.js`); phones show two beds, wider screens four. Each bed has a plump picture and a matching sat-on picture (`*-sat.webp`, made from the plump one as a reference); all eight approved by the owner on 27 Oct 2026. Owner, 27 Oct 2026: a chef must sit comfortably in its bed, look realistic, and its face must never be hidden. So when a chef sits, the bed swaps to its sat-on picture with a soft squash, the chef sinks into the dent, and the bed's front rim (the sat-on picture masked below the dent) is drawn over the chef's base; the bed springs back when the chef's shift starts. Beds are a little wider than a chef so its sides bulge out round it. Without CSS mask support the rim stays off and the chef sits on top. The Head Chef rests at the pass; joining-soon chefs stay faded where they are; chefs beyond the free beds doze at home.
+- **Off shift, never stale (owner, 27 Oct 2026):** every few seconds, on its own habits (`DOZE` in `chefs.js`, moves in `doze.js`), a resting chef stretches, yawns (a paw over its smile), rolls over, dreams of its own prop in a dream bubble, fluffs its cushion, swaps beds, pads off for a drink or a look round, or sleepwalks a short loop with its paws out, then goes back to bed. Pandan is the busiest; Kaya only yawns, stretches and dreams. When Kaya stamps a ticket, about half the resting chefs hop up with a start. Sleepy and dream bubbles hold no words (Mochi doesn't speak); only the ticket bubbles carry text. Chefs get into and out of a bed by a step in front of it, so nobody slides behind the other beds, and the next move is timed from when the chef is back at rest. Only a chef in a bed fluffs or swaps it, and nobody wanders onto the pass.
 - **Taps:**
   - A tap gives the chef's signature reaction, then a spin, jump or wave.
   - Four quick taps make the chef dizzy.
-  - A sleeping chef stirs with a "z" bubble.
+  - A sleeping chef stirs with a "z z" bubble, then yawns, stretches or rolls over.
   - Tapping the floor sends the nearest working chef to look.
   - Awake chefs turn to watch the pointer.
-- **Reduced motion:** chefs stay home and a tap shows only a bubble.
+- **Reduced motion:** nobody walks or dozes about: off-shift chefs sit in their beds, the rest stand at home, and a tap shows only a bubble.
 
 **Look:** use the app's own tokens: the Coral & Peach palette, Fredoka headings and Nunito body text. Colours come only from CSS variables, and dark mode uses `prefers-color-scheme`. There are no directional accent borders. Tickets use full rounded borders.
 
@@ -229,7 +232,7 @@ If the feed is more than 2 h old, the page shows *Kitchen update delayed · last
 **Accessibility:**
 
 - The ticket rail is a plain list, and new tickets are not announced.
-- Each chef has alt text, such as "Scout, the Mochi chef who checks places".
+- Each chef's label gives its name, role, online or offline and its job, such as "Pandan · Explore Chef, Online, Working since 11:20 am. Checks places, menus, prices and opening hours".
 - Targets are at least 48 px, and the counts are text, not images.
 
 ## 6. Build order

@@ -1,7 +1,7 @@
-import { LIVE, VIEWS, FLOOR, SIZE, HABITS, HANDS, ICON, COUNTER, spot } from './chefs.js';
+import { LIVE, VIEWS, FLOOR, SIZE, HABITS, HANDS, ICON, COUNTER, ON_SHIFT, spot } from './chefs.js';
 import { RING, FACE, ringFor, inside, bodyMotion, handOffsets } from './pose.js';
 import { home, depth, step, settle } from './behaviour.js';
-import { REACTIONS, burst, bubble } from './reactions.js';
+import { REACTIONS, burst, bubble, setArtBase } from './reactions.js';
 import { createSay, placeSay, handOver } from './speech.js';
 import { wait } from './time.js';
 import { buildNook, layoutNook, bedDepth, pressBeds } from './nook.js';
@@ -12,7 +12,6 @@ import { buildNook, layoutNook, bedDepth, pressBeds } from './nook.js';
  * Head Chef in a text bubble above the carrier's head (speech.js). Off-shift chefs sit in the nap nook (nook.js). With reduced
  * motion nobody walks: off-shift chefs sit straight in their beds, the rest stand at home, and only their bubbles appear.
  */
-const AWAKE = ['working', 'reviewing', 'waiting'];
 
 /** Writes a style property only when it changes, so a still chef costs no style or layout work. */
 function put(el, prop, value) {
@@ -37,7 +36,8 @@ function buildChef(w, el) {
 function place(w, chef) {
   chef.cancelDelivery?.();  // a carried ticket is dropped, not left floating over the chef's home spot
   const h = home(w, chef);
-  Object.assign(chef, { x: h.x, y: h.y, ring: FACE[h.face], queue: [], task: null, act: null, walking: false, napping: false, bed: null, placed: true });
+  Object.assign(chef, { x: h.x, y: h.y, ring: FACE[h.face], queue: [], task: null, act: null, walking: false, napping: false, bed: null,
+    nextDoze: null, placed: true });
 }
 
 function measure(w) {
@@ -128,10 +128,18 @@ function poke(w, id) {
   chef.queue = REACTIONS[name](chef, { scene: w.scene, layout: w.layout, hop: () => { chef.hop = 1; } });
 }
 
+/** The stamp's thud: about half the resting chefs who are just sitting about hop up with a start, then settle again. */
+function startle(w) {
+  for (const chef of w.chefs) {
+    if (ON_SHIFT.includes(chef.state) || chef.task || chef.queue.length || chef.habit.speed === 0 || Math.random() < 0.5) continue;
+    chef.queue = [{ wait: 80 + Math.random() * 260 }, { then: () => { chef.hop = 1; } }, { act: 'look', ms: 800 }];
+  }
+}
+
 /** Carries a real ticket, as a text bubble above the chef's head, to the Head Chef, who stamps it; true once handed over. */
 async function deliver(w, item, text) {
   const chef = w.byId[item.chef], head = w.byId.head;
-  if (!chef || !head || w.reduced.matches || !w.visible || document.hidden || !AWAKE.includes(chef.state)) return false;
+  if (!chef || !head || w.reduced.matches || !w.visible || document.hidden || !ON_SHIFT.includes(chef.state)) return false;
   const [px, py] = chef === head ? [chef.x, chef.y] : spot(w.layout, 'pass');
   chef.say = createSay(w.sayLayer, chef.id, text, w.artBase);
   chef.delivering = true;
@@ -154,7 +162,7 @@ async function deliver(w, item, text) {
   };
   w.scene.classList.add('has-handover');  // the day's count steps aside while the ticket sits on the counter
   try {
-    await handOver(say, where, () => burst(w.scene, { x: head.x, y: head.y - 14, icon: 'check', count: 1, rise: 6 }));
+    await handOver(say, where, () => { burst(w.scene, { x: head.x, y: head.y - 14, icon: 'check', count: 1, rise: 6 }); startle(w); });
   } finally {
     w.scene.classList.remove('has-handover');
   }
@@ -165,6 +173,7 @@ async function deliver(w, item, text) {
 }
 
 export function createWorld({ scene, artBase = '/kitchen/art/' }) {
+  setArtBase(artBase);
   const w = { scene, artBase, layout: 'tall', W: 1, H: 1, visible: true, last: performance.now(), pointer: null, views: new Set(),
     reduced: matchMedia('(prefers-reduced-motion: reduce)') };
   w.hasHands = new Promise(resolve => {

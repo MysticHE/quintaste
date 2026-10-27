@@ -4,6 +4,9 @@
  */
 export const LIVE = new Set(['head', 'scout', 'wok', 'host', 'artist', 'writer']);
 
+/** Feed states in which a chef's bot is on shift: it works the floor, and its tag shows the green online light. */
+export const ON_SHIFT = ['working', 'reviewing', 'waiting'];
+
 /** Views in the turnaround art, turned to the viewer's left; facing right mirrors them. */
 export const VIEWS = ['front', 'three-quarter', 'side', 'back-three-quarter', 'back'];
 
@@ -59,6 +62,19 @@ export const HABITS = {
   storyteller: { home: 'sill', speed: 0, spots: [], act: 'doze', signature: 'moon', stays: true },
   fixer: { home: 'corner', speed: 0, spots: [], act: 'doze', signature: 'plaster', stays: true },
   safety: { home: 'fridge', speed: 0, spots: [], act: 'doze', signature: 'snow', stays: true },
+};
+
+/**
+ * What each chef does now and then while off shift (doze.js): how often (ms), and the moves it picks from; a move listed twice
+ * comes up twice as often. Pandan wanders most; Kaya, at the pass, barely stirs. Joining-soon chefs keep still.
+ */
+export const DOZE = {
+  head: { every: [20000, 34000], moves: ['yawn', 'stretch', 'dream'] },
+  scout: { every: [6000, 10000], moves: ['wander', 'wander', 'sleepwalk', 'stretch', 'roll', 'dream', 'yawn', 'swap'] },
+  wok: { every: [9000, 15000], moves: ['dream', 'roll', 'fluff', 'yawn', 'wander'] },
+  host: { every: [8000, 13000], moves: ['wander', 'stretch', 'dream', 'swap', 'yawn', 'fluff'] },
+  artist: { every: [9000, 14000], moves: ['wander', 'dream', 'roll', 'stretch', 'sleepwalk'] },
+  writer: { every: [10000, 16000], moves: ['dream', 'fluff', 'yawn', 'roll', 'wander'] },
 };
 
 export function spot(layout, name) {

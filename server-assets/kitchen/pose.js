@@ -35,8 +35,8 @@ export function bodyMotion(chef, time, still) {
   if (still) return REST;
   const p = chef.actT / 1000;
   if (chef.walking) {
-    const s = Math.abs(Math.sin(chef.phase * Math.PI));
-    return { lift: s * 9, sx: 1 - (1 - s) * 0.05, sy: 1 + (s - 0.5) * 0.06, rot: Math.sin(chef.phase * Math.PI) * 4 };
+    const s = Math.abs(Math.sin(chef.phase * Math.PI)), drowsy = chef.sleepwalk ? 0.35 : 1;  // a sleepwalker shuffles
+    return { lift: s * 9 * drowsy, sx: 1 - (1 - s) * 0.05, sy: 1 + (s - 0.5) * 0.06, rot: Math.sin(chef.phase * Math.PI) * 4 * drowsy };
   }
   if (chef.hop > 0) return { lift: Math.sin(chef.hop * Math.PI) * 26, sx: 0.94, sy: 1.08, rot: 0 };
   if (chef.act === 'inspect') return { ...REST, rot: 7 };
@@ -45,6 +45,11 @@ export function bodyMotion(chef, time, still) {
     return { lift: s * 5, sx: 1 + (1 - s) * 0.04, sy: 1 - (1 - s) * 0.04, rot: 0 };
   }
   if (chef.act === 'shiver') return { ...REST, rot: Math.sin(p * 60) * 3 };
+  if (chef.act === 'stretch') { const s = Math.sin(Math.min(1, p / 1.4) * Math.PI); return { lift: s * 4, sx: 1 - s * 0.05, sy: 1 + s * 0.1, rot: 0 }; }
+  if (chef.act === 'yawn') { const s = Math.sin(Math.min(1, p / 1.2) * Math.PI); return { lift: 0, sx: 1 - s * 0.02, sy: 1 + s * 0.05, rot: -s * 4 }; }
+  if (chef.act === 'roll') return { lift: 0, sx: 1.02, sy: 0.98, rot: Math.sin(p * 2.6) * 13 };
+  if (chef.act === 'fluff') return { ...REST, lift: Math.abs(Math.sin(p * 8)) * 2, sy: 1 - Math.abs(Math.sin(p * 8)) * 0.03 };
+  if (chef.act === 'sip') return { ...REST, rot: -3 };
   if (chef.act === 'wobble') return { ...REST, rot: Math.sin(p * 14) * 12 };
   const asleep = ['resting', 'unknown', 'soon'].includes(chef.state);
   const b = Math.sin(time / (asleep ? 900 : 520)), depth = asleep ? 0.02 : 0.012;
@@ -63,5 +68,10 @@ export function handOffsets(chef, i, time, still) {
   if (a === 'inspect' && i === 0) return [4, -18];
   if (a === 'stamp') return [0, -24 + Math.abs(Math.sin(p * 8)) * 18];
   if (a === 'shiver') return [Math.sin(p * 60) * 3, -4];
+  if (a === 'stretch') return [i ? 8 : -8, -42 * Math.sin(Math.min(1, p / 1.4) * Math.PI)];
+  if (a === 'yawn' && i === 0) return [30, -14 * Math.sin(Math.min(1, p / 1.2) * Math.PI)];  // a paw over the smile
+  if (a === 'fluff') return [i ? -4 : 4, 8 + Math.abs(Math.sin(p * 8 + i)) * 7];  // patting the cushion
+  if (a === 'sip' && i === 0) return [26, -16];
+  if (chef.walking && chef.sleepwalk) return [i ? -6 : 6, -20];  // paws out in front
   return [0, chef.walking ? Math.sin(chef.phase * Math.PI) * (i ? -7 : 7) : Math.sin(time / 600 + i) * 1.5];
 }
