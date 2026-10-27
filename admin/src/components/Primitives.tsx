@@ -36,9 +36,10 @@ export function Mutation({ endpoint, values, onSaved, children, label = 'Save', 
   </form>;
 }
 export function Table({ headings, rows, empty = 'Nothing here' }: { headings: string[]; rows: ReactNode[][]; empty?: string }) {
-  if (!rows.length) return <div className="empty">{empty}</div>;
+  if (!rows.length) return <Empty icon="content">{empty}</Empty>;
+  // data-label: on phones each row turns into a card and every value sits under its column name (globals.css).
   return <div className="table-wrap" role="region" aria-label={headings.join(', ')} tabIndex={0}><table><thead><tr>{headings.map((h,i) => <th key={i} scope="col">{h}</th>)}</tr></thead>
-    <tbody>{rows.map((row,i) => <tr key={i}>{row.map((cell,j) => <td key={j}>{cell}</td>)}</tr>)}</tbody></table></div>;
+    <tbody>{rows.map((row,i) => <tr key={i}>{row.map((cell,j) => <td key={j} data-label={headings[j] ?? ''}>{cell}</td>)}</tr>)}</tbody></table></div>;
 }
 export function SearchField({ value, onChange, label, maxLength = 60, autoFocus }: { value: string; onChange: (value: string) => void; label: string; maxLength?: number; autoFocus?: boolean }) {
   return <div className="search"><Icon name="search" size={16}/><input type="search" aria-label={label} placeholder={label} value={value} maxLength={maxLength}

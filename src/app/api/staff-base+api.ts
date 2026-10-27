@@ -3,6 +3,9 @@ import index from "../../../data/menus/catalogue-index.json";
 import { bundledRecipes } from "../../data/recipes";
 import { closedVenues, editorialContent, editorialPlaces, editorialVenue } from "../../server/editorial-content";
 import { baseMenu } from "../../server/menu-delivery";
+import { discoveryInput } from "../../server/discovery-input";
+import { hiddenPlaces, staffContent } from "../../server/staff-content";
+import { searchCatalogue } from "../../server/venue-catalogue";
 import type { CatalogueVenue } from "../../types/catalogue";
 
 // Staff console only: packaged and bot content before staff changes, so staff can see what an edit covers and when
@@ -11,8 +14,14 @@ const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(valu
 const headers = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" };
 type Row = { kind: string; id: string; data: Record<string, unknown> };
 
-export function GET(request: Request) {
+export async function GET(request: Request) {
   const params = new URL(request.url).searchParams, kind = params.get("kind"), id = params.get("id") ?? "";
+  // What members see in Explore right now: the same all-Singapore search, after staff hides and closed venues.
+  if (kind === "counts") {
+    const staff = await staffContent(), withdrawn = new Set([...hiddenPlaces(staff), ...closedVenues()]);
+    const total = (kitchen?: "mixed") => searchCatalogue(discoveryInput({ area: "Singapore", query: "", vegan: false, ...(kitchen ? { kitchen } : {}) })!, null, withdrawn, staff).total;
+    return Response.json({ veg: total(), mixed: total("mixed") }, { headers });
+  }
   const content = editorialContent(), bot = (type: string) => Object.values(content.records as unknown as Record<string, Row>)
     .filter(row => row.kind === type).map(row => ({ source: "bot", hash: hash(row.data), data: row.data }));
   if (kind === "places") return Response.json({ items: [...(index.venues as CatalogueVenue[]).map(venue => {

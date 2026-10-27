@@ -2,7 +2,7 @@ import 'server-only';
 import { query } from './db';
 import { can } from './permissions';
 import type { Session } from './session';
-import { packagedPlaces } from './content-base';
+import { livePlaceCounts } from './content-base';
 import { aiSummary } from './ai-recipes';
 import { gameWaiting } from './game-content';
 import { socialWaiting } from './social';
@@ -27,8 +27,7 @@ export async function overview(member: Session) {
     content ? count("SELECT count(*)::int AS count FROM recipes.recipe WHERE pending_state='review' AND draft_key NOT LIKE 'ai-%'") : null,
     content ? count(openReport('place:review:')) : null,
     sellers ? count(openReport('market:listing:')) : null,
-    content ? packagedPlaces().then(rows => ({ total: rows.length, explorer: rows.filter(r => r.source === 'bot').length,
-      mixed: rows.filter(r => r.data.kitchen === 'options').length })).catch(() => null) : null,
+    content ? livePlaceCounts().catch(() => null) : null,
     content ? aiSummary(member) : null,
     content ? gameWaiting() : null,
     socialWaiting(member), chefWaiting(member)]);

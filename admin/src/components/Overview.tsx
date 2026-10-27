@@ -8,7 +8,7 @@ import { featureName } from '../lib/features';
 import type { AiSummary } from './content/AiRecipes';
 
 export type OverviewData = { users: number | null; queues: { kind: string; count: number; overdue: number }[] | null; features: { key: string; enabled: boolean }[] | null;
-  memberRecipes: number | null; reviews: number | null; listings: number | null; places: { total: number; explorer: number; mixed: number } | null; ai: AiSummary | null;
+  memberRecipes: number | null; reviews: number | null; listings: number | null; places: { veg: number; mixed: number } | null; ai: AiSummary | null;
   game?: { levels: number; pictures: number } | null; social?: { checks: number | null; teachers: number | null } | null; chefs?: number | null };
 type Resource = { data: OverviewData | null; error: string; loading: boolean; reload: () => void };
 type Task = { href: string; icon: IconName; label: string; count: number; detail?: string; urgent?: boolean };
@@ -44,8 +44,8 @@ export default function Overview({ resource, role }: { resource: Resource; role:
     {(d.places || ai) && <section className="stack compact" aria-labelledby="catalogue">
       <h2 id="catalogue" className="section-title">Catalogue</h2>
       <ul className="list">
-        {d.places && <li><Link href="/console/places" className="task"><Icon name="pin"/><span className="label"><strong>{d.places.total.toLocaleString()} places</strong>
-          <small>{(d.places.total - d.places.mixed).toLocaleString()} Veg Kitchen · {d.places.mixed.toLocaleString()} Mixed Kitchen · {d.places.explorer.toLocaleString()} added by QT Explorer</small></span><Icon name="forward" size={16}/></Link></li>}
+        {d.places && <li><Link href="/console/places" className="task"><Icon name="pin"/><span className="label"><strong>{(d.places.veg + d.places.mixed).toLocaleString()} places in Explore</strong>
+          <small>{d.places.veg.toLocaleString()} Veg Kitchen · {d.places.mixed.toLocaleString()} Mixed Kitchen</small></span><Icon name="forward" size={16}/></Link></li>}
         {ai && <li><Link href="/console/ai-recipes" className="task"><Icon name="wand"/><span className="label"><strong>AI recipes today: {ai.today} of {ai.dailyCap}</strong>
           <small>{ai.publishedToday} published · {ai.reviewToday} sent to review · {ai.failedToday} failed{ai.queued + ai.working ? ` · ${ai.queued + ai.working} in progress` : ''}{ai.enabled ? '' : ' · feature off'}</small></span><Icon name="forward" size={16}/></Link></li>}
       </ul>

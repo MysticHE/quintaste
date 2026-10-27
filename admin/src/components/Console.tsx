@@ -67,6 +67,8 @@ export default function Console({ section }: { section: string }) {
   // Counts follow the staff member around the console, so a decision made on one page shows in the sidebar on the next.
   const { reload } = attention, shown = useRef(section);
   useEffect(() => { if (shown.current !== section) { shown.current = section; reload(); } }, [section, reload]);
+  // On phones the sections scroll sideways: keep the open one in view (and in a long sidebar, within its scroll).
+  useEffect(() => { document.querySelector('.sidebar nav a[aria-current="page"]')?.scrollIntoView({ block: 'nearest', inline: 'center' }); }, [section, member]);
   async function signOut() {
     try { await api('/api/auth/logout', {}); navigateFresh('/?signedout'); }
     catch { setSignOutError('Could not sign out. Try again.'); }

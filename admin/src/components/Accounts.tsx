@@ -17,7 +17,7 @@ export default function Accounts() {
   return <>
     <form className="toolbar" onSubmit={e => { e.preventDefault(); submit(); }}>
       <SearchField label="Username or handle" value={search} onChange={setSearch} maxLength={30} autoFocus/>
-      <button className="primary" disabled={search.trim().length < 2}>Search</button>
+      <button disabled={search.trim().length < 2}>Search</button>
     </form>
     <Feedback {...resource} retry={resource.reload}/>
     {!query && <div className="panel"><Empty icon="accounts">Search by username or handle</Empty></div>}

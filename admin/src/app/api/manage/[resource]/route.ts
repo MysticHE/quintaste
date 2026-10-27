@@ -3,6 +3,7 @@ import { session, authorize } from '../../../../lib/session';
 import { body, HttpError, json, offset, text, throttle, reasonText } from '../../../../lib/http';
 import { query } from '../../../../lib/db';
 import { overview } from '../../../../lib/overview';
+import { targetLabel } from '../../../../lib/audit-labels';
 import { accounts, accountAction, changeControl, chefLanes, staffList, changeStaff } from '../../../../lib/management';
 import { caseList, caseDetails, createCase, updateCase } from '../../../../lib/cases';
 import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
@@ -54,7 +55,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   await throttle('write:' + member.id, 30);
   // Provider key changes are audited with a fixed reason (owner decision: no reason box on that panel); everything else needs one.
   const what = resource === 'integrations' && input.provider ? 'Gemini key ' + (input.action === 'remove' ? 'removed' : 'saved')
-    : resource === 'controls' ? (typeof input.mode === 'string' ? 'Set ' + String(input.key ?? '') + ' to ' + input.mode : (input.enabled ? 'Turned on ' : 'Turned off ') + String(input.key ?? ''))
+    : resource === 'controls' ? (typeof input.mode === 'string' ? 'Set ' + targetLabel(String(input.key ?? '')) + ' to ' + input.mode : (input.enabled ? 'Turned on ' : 'Turned off ') + targetLabel(String(input.key ?? '')))
     : resource === 'ai-limit' ? 'AI recipes daily limit ' + String(input.dailyCap ?? '')
     : resource + (typeof input.action === 'string' ? ' ' + input.action : '');
   const reason = reasonText(input.reason, what + ' (no reason given)');

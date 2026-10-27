@@ -182,17 +182,17 @@ details[open] > summary { margin-bottom: 12px; }
 
 /* Shell */
 .shell { display: grid; grid-template-columns: 252px minmax(0, 1fr); min-height: 100vh; }
-.sidebar { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 18px; padding: 18px 12px 12px;
+.sidebar { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 14px; padding: 16px 12px 12px;
   background: var(--sidebar); box-shadow: inset -1px 0 0 var(--separator); }
 .sidebar .brand { padding: 0 8px; }
 .sidebar nav { display: grid; gap: 2px; overflow-y: auto; }
-.sidebar nav { gap: 14px; align-content: start; }
+.sidebar nav { gap: 10px; align-content: start; }
 .nav-group { display: grid; gap: 2px; }
 .nav-title { padding: 0 10px 2px; font-size: 11.5px; font-weight: 600; color: var(--muted-foreground); }
 .sidebar nav .count { min-width: 20px; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--warning-soft); color: var(--warning);
   font-size: 11.5px; font-weight: 700; display: inline-grid; place-items: center; }
 .sidebar nav a[aria-current="page"] .count { background: var(--accent-foreground-soft); color: var(--accent-foreground); }
-.sidebar nav a { display: flex; align-items: center; gap: 10px; min-height: 34px; padding: 0 10px; border-radius: 8px;
+.sidebar nav a { display: flex; align-items: center; gap: 10px; min-height: 32px; padding: 0 10px; border-radius: 8px;
   color: var(--foreground); font-size: 13.5px; font-weight: 500; white-space: nowrap; transition: background-color 150ms ease-out; }
 .sidebar nav a .icon { color: var(--accent); }
 .sidebar nav a:hover { background: var(--fill); text-decoration: none; }
@@ -256,9 +256,11 @@ details[open] > summary { margin-bottom: 12px; }
 }
 @media (max-width: 860px) {
   .shell { grid-template-columns: minmax(0, 1fr); }
-  .sidebar { position: sticky; z-index: 5; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 10px 16px;
+  .shell { align-content: start; }
+  .sidebar .brand-logo { width: 116px; height: auto; }
+  .sidebar { position: sticky; z-index: 5; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; align-content: flex-start; gap: 4px 10px; padding: 8px 16px 0;
     box-shadow: inset 0 -1px 0 var(--separator); }
-  .sidebar nav { order: 3; flex-basis: 100%; display: flex; gap: 4px; overflow-x: auto; margin: 0 -16px; padding: 0 16px 2px; scrollbar-width: none; }
+  .sidebar nav { order: 3; flex-basis: 100%; display: flex; gap: 4px; overflow-x: auto; margin: 0 -16px; padding: 2px 16px 8px; scrollbar-width: none; scroll-padding-inline: 16px; }
   .sidebar nav::-webkit-scrollbar { display: none; }
   .sidebar nav a { min-height: 32px; padding: 0 10px; flex: none; }
   .nav-group { display: contents; }
@@ -346,4 +348,28 @@ details[open] > summary { margin-bottom: 12px; }
   .jobs .feature-row { padding-left: 16px; flex-wrap: wrap; }
   .jobs .confirm, .jobs > li > .notice { margin-left: 16px; }
   .jobs > li::before { left: 16px; }
+}
+
+/* Toolbars on every list page: tabs, then search and actions; on phones each takes its own full row, nothing overlaps. */
+.toolbar > form, .list-tools form { display: flex; align-items: center; gap: 8px; flex: 1 1 260px; flex-wrap: nowrap; justify-content: flex-end; min-width: 0; }
+.toolbar .search, .panel .search { min-width: 0; }
+.toolbar > .segmented, .toolbar > .tabs { flex: 0 1 auto; min-width: 0; }
+.toolbar > .icon-button, .toolbar > .primary { flex: none; }
+@media (max-width: 860px) {
+  .toolbar > form, .toolbar > form.row { flex-basis: 100%; }
+  .toolbar > .segmented, .toolbar > .tabs { flex: 1 1 0; }
+  .toolbar .search, .toolbar > form .search { max-width: none; flex: 1; }
+}
+
+/* Tables become one card per row on phones: each value under its column name. */
+@media (max-width: 640px) {
+  .table-wrap { overflow: visible; margin: 0; padding: 0; }
+  .table-wrap table { min-width: 0; }
+  .table-wrap thead { display: none; }
+  .table-wrap tbody tr { display: grid; gap: 6px; padding: 12px 0; border-top: 1px solid var(--separator); }
+  .table-wrap tbody tr:first-child { border-top: 0; padding-top: 2px; }
+  .table-wrap td { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px; align-items: baseline; justify-items: start; padding: 0; border: 0; }
+  .table-wrap td::before { content: attr(data-label); color: var(--muted-foreground); font-size: 12px; }
+  .table-wrap td[data-label=""] { grid-template-columns: minmax(0, 1fr); }
+  .table-wrap td[data-label=""]::before { content: none; }
 }

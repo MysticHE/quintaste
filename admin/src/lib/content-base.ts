@@ -46,6 +46,8 @@ async function read<T>(path: string, list = false): Promise<T | null> {
   while (cache.size > 60) cache.delete(cache.keys().next().value!);
   return value;
 }
+/** Places members can see in Explore now, by kitchen (the app runs its own all-Singapore search); null on an older app image. */
+export const livePlaceCounts = () => read<{ veg: number; mixed: number }>('kind=counts');
 export const packagedPlaces = async () => (await read<{ items: Packaged<Place>[] }>('kind=places', true))?.items ?? [];
 /** Ids of venues QT Explorer found permanently closed (withdrawn from Explore); an older app image sends none. */
 export const closedPlaces = async () => new Set((await read<{ closed?: string[] }>('kind=places', true))?.closed ?? []);

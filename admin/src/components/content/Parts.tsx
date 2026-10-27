@@ -1,5 +1,6 @@
 'use client';
 import { useState, type ReactNode } from 'react';
+import { actionLabel } from '../../lib/audit-labels';
 import { api, date } from '../client';
 import { Icon } from '../Icon';
 
@@ -65,7 +66,7 @@ export function PhotoUpload({ onUploaded, label = 'Upload' }: { onUploaded: (pho
 }
 export function History({ rows }: { rows: Audit[] }) {
   if (!rows.length) return <p className="muted">No changes</p>;
-  return <ul className="history">{rows.map((row, i) => <li key={i}><strong>{row.action.replace(/^content\./, '').replaceAll('.', ' · ')}</strong>
+  return <ul className="history">{rows.map((row, i) => <li key={i}><strong>{actionLabel(row.action)}</strong>
     <small>{date(row.occurred_at)} · {row.actor ?? 'Staff'}</small><div>{row.reason}</div></li>)}</ul>;
 }
 /** One-tap filters that wrap instead of scrolling out of sight, each with how many items it holds. */
