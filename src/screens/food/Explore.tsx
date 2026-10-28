@@ -1,13 +1,13 @@
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect } from "react";
-import { View, AppState, StyleSheet } from "react-native";
+import { View, AppState } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, T, common } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { LocationFeedback } from "../../components/discovery/LocationFeedback";
 import { CatalogueVenueCard } from "../../components/discovery/CatalogueVenueCard";
 import { CatalogueVenueRow } from "../../components/discovery/MixedKitchenList";
-import { FeedGap, ScreenList } from "../../components/ScreenList";
+import { ScreenList } from "../../components/ScreenList";
 import { useMinuteClock } from "../../components/food/Timers";
 import { useDiscovery } from "../../state/Discovery";
 import { useDiscoveryInput } from "../../hooks/useDiscoveryInput";
@@ -21,7 +21,7 @@ import { useReactions } from "../../hooks/useReactions";
 import { useMixedKitchenCount } from "../../hooks/useMixedKitchenCount";
 import { TopBar, TopTabs } from "../../components/TopTabs";
 import { LinkRow } from "../../components/LinkRow";
-import { LoadingShapes, PostCardSkeleton, RowSkeleton } from "../../components/Skeleton";
+import { FeedRowSkeleton, PostCardSkeleton, SkeletonList } from "../../components/Skeleton";
 import { discoveryRadii } from "../../config/discovery";
 import { useT } from "../../i18n";
 import { OpenClock } from "../../hooks/useOpenStatus";
@@ -59,7 +59,7 @@ export function ExploreScreen() {
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   const loading = !ready || (currentRequest && discovery.busy && !venues.length);
-  const showHeader = privateMissing || locationExpired || loading || currentRequest && !!discovery.error;
+  const failed = currentRequest && !!discovery.error, showHeader = privateMissing || locationExpired || failed;
   const showFooter = accepted && (discovery.capped || !discovery.busy && !venues.length) || !!mixedCount;
   return <Screen back={false} compact list contentInset={0} header={<TopBar testID="explore-toolbar" actions={<>
       <IconButton appearance="plain" label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
@@ -78,20 +78,16 @@ export function ExploreScreen() {
         ? <CatalogueVenueRow venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />
         : <CatalogueVenueCard edgeToEdge venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />}
       header={showHeader ? <>
-        {privateMissing && <View style={s.feedback}><Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"
-          onPress={() => router.push({ pathname: "/location-place", params: { kind: privateKind } })} /></View>}
-        {locationExpired && <View style={s.feedback}><Button label={t("updateMyLocation")} variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} /></View>}
-        {/* Cards (or Mixed Kitchen rows) the size of the results, so the list does not grow from a spinner when places arrive. */}
-        {loading && <LoadingShapes testID="explore-loading" label={t(ready ? "loadingPlaces" : "loadingSettings")}>
-          <View>{[0, 1, 2].map(index => <View key={index}>
-            {index > 0 && <FeedGap />}
-            {discovery.mixed ? <View style={s.feedback}><RowSkeleton leading={false} /></View> : <PostCardSkeleton edgeToEdge />}
-          </View>)}</View>
-        </LoadingShapes>}
-        {currentRequest && !!discovery.error && <View style={[common.row, s.feedback]}><T variant="caption" accessibilityLiveRegion="polite" style={common.flex}>{discovery.error}</T>
+        {privateMissing && <Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"
+          onPress={() => router.push({ pathname: "/location-place", params: { kind: privateKind } })} />}
+        {locationExpired && <Button label={t("updateMyLocation")} variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} />}
+        {failed && <View style={common.row}><T variant="caption" accessibilityLiveRegion="polite" style={common.flex}>{discovery.error}</T>
           <IconButton label={t("retryPlaces")} icon="refresh-outline" onPress={() => { if (eligible) void discovery.load(input, true); }} /></View>}
       </> : undefined}
-      footer={showFooter ? <View style={[common.stack, s.feedback]}>
+      // Cards (or Mixed Kitchen rows) the size of the results, so the list does not grow from a spinner when places arrive.
+      headerBleed={loading ? <SkeletonList testID="explore-loading" label={t(ready ? "loadingPlaces" : "loadingSettings")} count={3} feedGap
+        shape={() => discovery.mixed ? <FeedRowSkeleton tile={{ width: 56, height: 56 }} /> : <PostCardSkeleton edgeToEdge />} /> : undefined}
+      footer={showFooter ? <View style={common.stack}>
         {accepted && discovery.capped && <Button label={t("loadMorePlaces")} variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
         {/* Open now hides places whose hours are unknown too, so the way out is one tap rather than a trip to filters. */}
         {accepted && !discovery.busy && !venues.length && filters.openNow && <View testID="explore-none-open" style={common.stack}>
@@ -112,6 +108,3 @@ export function ExploreScreen() {
   </Screen>;
 }
 
-const s = StyleSheet.create({
-  feedback: { paddingHorizontal: 16 },
-});

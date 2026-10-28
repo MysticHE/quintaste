@@ -11,6 +11,7 @@ type Gathering = { id: string; title: string; area: string; venue: string; start
   state: string; hidden_reason: string | null; organiser: string; reports: number };
 type Item = { id: string; name: string; kind: string; category: string; price_cents: number; portion: string; description: string; ingredients: string; contains: string[];
   may_contain: string[]; diets: string[]; date_mark: string | null; status: string; removed_reason: string; updated_at: string; trading_name: string; username: string; shop_status: string; photos: string[]; reports: number };
+type Cooked = { id: string; recipe: string; recipe_id: string; note: string; updated_at: string; hidden_reason: string | null; username: string; reports: number };
 type ShopReview = { id: string; rating: number; review: string; diet_matched: boolean | null; completed_at: string; buyer_name: string; shop: string };
 const Rating = ({ value }: { value: number }) => <span className="row rating" aria-label={value + ' out of 5'}><Icon name="star" size={14} filled/>{value}</span>;
 
@@ -34,6 +35,17 @@ export const toggle = (resource: string, id: string, hidden: boolean, done: () =
   <details><summary>{hidden ? 'Show again' : hideLabel}</summary>
     <ActionBar resource={resource} payload={() => ({ id })} onDone={done} actions={[hidden ? { action: 'restore', label: 'Show again' } : { action: 'hide', label: hideLabel, tone: 'danger' }]}>{extra}</ActionBar></details>;
 
+/** Members' "I cooked this" photos on recipes: shown at once in the app, hidden or shown again here. */
+export function CookedPhotos() {
+  return <Moderation<Cooked> path="/api/content/cooked" statuses={[['visible', 'Visible'], ['hidden', 'Hidden']]} render={r => <>
+      <div className="row spread"><strong>{r.recipe}</strong>{!!r.reports && <span className="badge warn">{r.reports} {r.reports === 1 ? 'report' : 'reports'}</span>}</div>
+      <small>{r.username} · {date(r.updated_at)}</small>
+      {/* eslint-disable-next-line @next/next/no-img-element -- staff view of member photos */}
+      <div className="row thumbs"><img src={'/api/content/cooked-photo?id=' + r.id} alt="Cooked photo" width={128} height={128}/></div>
+      {!!r.note && <p className="detail">{r.note}</p>}
+      {r.hidden_reason && <p className="muted">Hidden: {r.hidden_reason}</p>}</>}
+    act={(r, status, done) => toggle('cooked', r.id, status === 'hidden', done, 'Hide photo')}/>;
+}
 export function Reviews() {
   return <><Moderation<Review> path="/api/content/reviews" statuses={[['visible', 'Visible'], ['hidden', 'Hidden']]} render={r => <>
       <div className="row spread"><strong>{r.place}</strong>{!!r.reports && <span className="badge warn">{r.reports} {r.reports === 1 ? 'report' : 'reports'}</span>}</div>

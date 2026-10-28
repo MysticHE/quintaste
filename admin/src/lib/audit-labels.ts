@@ -3,7 +3,7 @@ import { featureName, FEATURES } from './features';
 
 /** Plain words for audit actions ("content.game_level.make" → "Game level made"), for Audit and every item's History. */
 const NOUNS: Record<string, string> = { place: 'Place', menu: 'Menu', recipe: 'Recipe', event: 'Event', creator: 'Creator', ingredient: 'Ingredient',
-  game_level: 'Game level', game_picture: 'Game picture', game_item: 'Game item', review: 'Place review', gathering: 'Gathering', listing: 'Market item',
+  game_level: 'Game level', game_picture: 'Game picture', game_item: 'Game item', review: 'Place review', cooked: 'Cooked photo', gathering: 'Gathering', listing: 'Market item',
   control: 'Switch', session: 'Sign-in', security_key: 'Security key', deployment: 'Deployment', integration: 'Integration', account: 'Account',
   staff: 'Staff', case: 'Case', seller: 'Shop', teacher: 'Class teacher', photo_check: 'Photo check', chef: 'Chef', editorial: 'Review' };
 const VERBS: Record<string, string> = { create: 'created', edit: 'edited', add: 'dishes added', update: 'updated', save: 'saved', hide: 'hidden',

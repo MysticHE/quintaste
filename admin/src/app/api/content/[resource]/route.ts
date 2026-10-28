@@ -3,7 +3,7 @@ import { session } from '../../../../lib/session';
 import { body, HttpError, json, offset, text, throttle, reasonText } from '../../../../lib/http';
 import { menuAction, placeAction, placeDetail, placeList } from '../../../../lib/content-catalogue';
 import { eventAction, eventDetail, eventList, recipeAction, recipeDetail, recipeList } from '../../../../lib/content-recipes';
-import { gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
+import { cookedList, cookedPhoto, gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
 import { contentPhoto, uploadPhoto } from '../../../../lib/content-assets';
 import { memberRecipeAction, memberRecipeList, memberRecipePhoto } from '../../../../lib/content-member-recipes';
 import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
@@ -27,6 +27,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'events') return json(id ? await eventDetail(member, id) : await eventList(member));
   if (resource === 'reviews') return json(await reviewList(member, status, q, skip));
   if (resource === 'gatherings') return json(await gatheringList(member, status, q, skip));
+  if (resource === 'cooked') return json(await cookedList(member, status, q, skip));
   if (resource === 'market') return json(await marketItems(member, status, q, skip));
   if (resource === 'market-reviews') return json(await marketReviews(member, status, skip));
   if (resource === 'member-recipes') return json(await memberRecipeList(member, status, q, skip, params.get('origin') || ''));
@@ -45,6 +46,7 @@ export function GET(request: Request, context: Context) { return route(async () 
     return new Response(new Uint8Array(bytes), { headers: { 'Content-Type': 'image/webp', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
   }
   if (resource === 'review-photo') return image(await reviewPhoto(member, text(id, 'photo', 36)));
+  if (resource === 'cooked-photo') return image(await cookedPhoto(member, text(id, 'photo', 36)));
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));
   if (resource === 'member-recipe-photo') return image(await memberRecipePhoto(member, text(id, 'recipe', 36), text(params.get('version'), 'version', 10), text(params.get('slot'), 'photo', 10)));
@@ -66,6 +68,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'events') return json(await eventAction(member, input, reason));
   if (resource === 'reviews') return json(await memberAction(member, 'review', input, reason));
   if (resource === 'gatherings') return json(await memberAction(member, 'gathering', input, reason));
+  if (resource === 'cooked') return json(await memberAction(member, 'cooked', input, reason));
   if (resource === 'market') return json(await memberAction(member, 'market-item', input, reason));
   if (resource === 'market-reviews') return json(await memberAction(member, 'market-review', input, reason));
   if (resource === 'member-recipes') return json(await memberRecipeAction(member, input, reason));

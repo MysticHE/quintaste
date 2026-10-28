@@ -1,7 +1,7 @@
 import { FlashList, type FlashListProps, type FlashListRef, type ListRenderItem } from "@shopify/flash-list";
 import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
 import { View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
-import { FEED_GAP } from "../theme/layout";
+import { FEED_GAP, SCREEN_GUTTER } from "../theme/layout";
 
 /** What a `Screen` with `list` hands its one ScreenList: the page padding, item gap, scroll handlers and scroll-to-top. */
 export type ScreenListFrame = {
@@ -23,8 +23,14 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
   | "onScroll" | "onLayout" | "onContentSizeChange" | "renderItem" | "data"> & {
   data: readonly T[];
   renderItem: ListRenderItem<T>;
-  /** Shown above the items, spaced like the page (chips, notices, empty and loading states). */
+  /**
+   * Shown above the items, spaced like the page (chips, notices, empty and loading states). In a `feedGap` list the header and
+   * footer keep the screen gutter and a little space from the bars, so screens never wrap each notice themselves; pass it only
+   * when there is something to show.
+   */
   header?: ReactNode;
+  /** A `feedGap` list's full-width loading shapes, below the header and lined up with the edge-to-edge items they stand in for. */
+  headerBleed?: ReactNode;
   footer?: ReactNode;
   /** Space between grid columns; rows are spaced by `rowGap` (default: the page gap). */
   columnGap?: number;
@@ -40,7 +46,7 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
  * switching a tab or filter mounts a handful of cards rather than every card at once. It keeps the screen's sliding top bar,
  * dock, padding and scroll-to-top. Outside such a Screen it lays the items out in place (no virtualisation) instead of failing.
  */
-export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, feedGap = false, dimmed = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
+export function ScreenList<T>({ header, headerBleed, footer, columnGap = 0, rowGap, feedGap = false, dimmed = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
   const frame = useContext(ScreenListContext), list = useRef<FlashListRef<T>>(null);
   const setScroller = frame?.setScroller, reveal = frame?.reveal;
   useEffect(() => {
@@ -55,8 +61,10 @@ export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, feedGap =
     {renderItem(info)}</View>;
   // The empty spacer after the header (before the footer) takes a gap only when real content sits beside it; children that
   // render nothing add no space.
-  const top = header ? <View style={{ gap, paddingHorizontal: half }}>{header}<View /></View> : null;
-  const bottom = footer ? <View style={{ gap, paddingHorizontal: half }}>{!grid && <View />}{footer}</View> : null;
+  const top = feedGap ? header || headerBleed ? <View style={{ gap }}>
+      {!!header && <View style={[{ gap }, feedInset.header]}>{header}</View>}{headerBleed}<View /></View> : null
+    : header ? <View style={{ gap, paddingHorizontal: half }}>{header}<View /></View> : null;
+  const bottom = footer ? <View style={[{ gap, paddingHorizontal: half }, feedGap && feedInset.footer]}>{!grid && <View />}{footer}</View> : null;
   if (!frame) return <View style={{ gap }}>{top}
     <View style={grid ? { flexDirection: "row", flexWrap: "wrap", marginHorizontal: -half } : { gap: feedGap ? 0 : gap }}>
       {data.map((item, index) => <View key={props.keyExtractor?.(item, index) ?? index} style={grid ? { width: `${100 / numColumns}%` } : undefined}>
@@ -71,6 +79,9 @@ export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, feedGap =
     onScroll={frame.onScroll} onLayout={frame.onLayout} onContentSizeChange={frame.onContentSizeChange} scrollEventThrottle={64}
     keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} />;
 }
+// An edge-to-edge feed's notices and buttons sit on the screen gutter, clear of the top bar (as the page's own 8-point top
+// padding) and of the dock.
+const feedInset = { header: { paddingHorizontal: SCREEN_GUTTER, paddingTop: 8 }, footer: { paddingHorizontal: SCREEN_GUTTER, paddingBottom: SCREEN_GUTTER } };
 /** The page gap between list items (a stable component, so separators are not remounted on each render). */
 function Separator() {
   return <View style={{ height: useContext(ScreenListContext)?.gap ?? LIST_GAP }} />;

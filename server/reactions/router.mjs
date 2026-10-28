@@ -23,14 +23,18 @@ async function targets(kind, raw) {
 }
 /** Liking or sharing needs an item members can see now: a published place, a live member recipe, or a published QuinTaste recipe. */
 async function writable(kind, raw) {
+  if (kind === 'recipe') return liveRecipeId(raw);
   const [id] = await targets(kind, [raw]);
   if (!id) throw unavailable(kind);
-  if (kind === 'recipe') {
-    const live = id.startsWith('member-')
-      ? (await pool.query(`SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL`, [rowId(id)])).rowCount > 0
-      : await publishedRecipe(id);
-    if (!live) throw unavailable(kind);
-  }
+  return id;
+}
+/** A recipe id members can act on now (a live member recipe or a published QuinTaste recipe); 404 otherwise. Also used by cooked photos. */
+export async function liveRecipeId(raw) {
+  const [id] = await targets('recipe', [raw]);
+  const live = !!id && (id.startsWith('member-')
+    ? (await pool.query(`SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL`, [rowId(id)])).rowCount > 0
+    : await publishedRecipe(id));
+  if (!live) throw unavailable('recipe');
   return id;
 }
 /** Removing a like works even after staff hide or unpublish the item, so nobody is stuck with a like they can't take back. */

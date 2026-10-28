@@ -23,6 +23,11 @@ export function rememberPublishedRecipe(recipe: Recipe, at = Date.now()) {
   while (published.size > 40) published.delete(published.keys().next().value!);
 }
 export function forgetPublishedRecipe(id: string) { published.delete(id); }
+/** Bundled recipes plus the published and member recipes this session already loaded (newest first), with no request. */
+export function knownRecipes(): Recipe[] {
+  const recent = [...published.values()].filter(entry => Date.now() - entry.at < 86400000).reverse().map(entry => entry.recipe);
+  return [...recent, ...bundledRecipes()];
+}
 export function recipeById(id: string) {
   const entry = published.get(id);
   if (bundledRecipeIds.has(id)) return staff.hidden.has(id) ? undefined : staff.edited.get(id) ?? bundled.find(recipe => recipe.id === id);

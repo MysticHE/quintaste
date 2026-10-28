@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import type { Recipe } from "../../types/food";
 import { usePreferences } from "../../state/Preferences";
 import { exclusionList, recipeFit } from "../../utils/recipe-dietary";
 import { IconButton } from "../food/Controls";
 import { DietLabels } from "../food/DietLabels";
-import { Button, Icon, T, common } from "../ui";
+import { Icon, T, common, type IconName } from "../ui";
 import { RecipeImage } from "./RecipeImage";
 import { Action, ReactionBar, cookedBy } from "../ReactionBar";
 import { useReaction, useReactions } from "../../hooks/useReactions";
 import { useRecipeSave } from "../../hooks/useRecipeSave";
 import { recipeShareMessage } from "../../utils/recipe-share";
 import { sponsorshipName } from "../../utils/private-recipes";
-import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { ReportSheet } from "../ReportSheet";
 import { ensureMember, useMember } from "../CommunityGate";
@@ -41,32 +40,38 @@ export function RecipeActions({ recipe, onShareFailed }: { recipe: Recipe; onSha
   </>;
 }
 
+/**
+ * The recipe's photo, name and one line of facts with its diet labels, then the description (owner, 28 Oct 2026: no source links on
+ * the recipe page; a video recipe keeps a plain credit to its creator).
+ */
 export function RecipeOverview({ recipe, shareFallback, clearShareFallback }: { recipe: Recipe; shareFallback: string; clearShareFallback: () => void }) {
   const { draft, theme } = usePreferences(), t = useT("cook"), tc = useT("common"), language = useLanguage();
-  const [failedLink, setFailedLink] = useState("");
   const result = recipeFit(recipe, draft.diets, draft.excluded), cooks = useReaction("recipe", recipe.id).reaction.cooks;
-  const open = (url: string) => { setFailedLink(""); void Linking.openURL(url).catch(() => setFailedLink(url)); };
   const sponsorship = recipe.member && recipe.member.sponsorship !== "None" ? sponsorshipName(recipe.member.sponsorship, language) : "";
-  const video = recipe.source?.kind === "video" ? recipe.source : undefined;
-  // Adapted and AI-from-pages recipes credit where they came from.
-  const sources = [...(recipe.provenance?.sources ?? []), ...(recipe.source?.kind === "request" ? recipe.source.urls ?? [] : [])];
-  return <View style={{ gap: 12 }}>
-    <RecipeImage recipe={recipe} label style={{ width: "100%", aspectRatio: 16 / 9, maxHeight: 240, borderRadius: 18 }} />
-    <View style={{ gap: 4 }}>
+  const creator = recipe.source?.kind === "video" ? recipe.source.creator : undefined;
+  return <View style={s.overview}>
+    <RecipeImage recipe={recipe} label style={s.hero} />
+    <View style={s.heading}>
       <T variant="title" accessibilityRole="header">{recipe.name}</T>
-      <T variant="small" muted>{[tc("minutes", { n: recipe.minutes }), recipe.onePot ? t("onePot") : "", cooks ? cookedBy(cooks, language) : "", sponsorship ? t("sponsorshipFact", { value: sponsorship }) : ""].filter(Boolean).join(" · ")}</T>
+      <View style={s.facts}>
+        <Fact icon="time-outline">{tc("minutes", { n: recipe.minutes })}</Fact>
+        {recipe.onePot && <Fact icon="restaurant-outline">{t("onePot")}</Fact>}
+        {cooks > 0 && <Fact icon="flame-outline">{cookedBy(cooks, language)}</Fact>}
+        {!!sponsorship && <Fact icon="pricetag-outline">{t("sponsorshipFact", { value: sponsorship })}</Fact>}
+      </View>
     </View>
     <DietLabels labels={result.labels} />
-    {!!recipe.description && <T variant="small">{recipe.description}</T>}
-    {!!video?.url && <View style={{ alignSelf: "flex-start" }}><Button label={video.creator ? t("watchOriginalBy", { creator: video.creator }) : t("watchOriginal")} variant="link" icon="open-outline" onPress={() => open(video.url!)} /></View>}
-    {sources.length > 0 && <View style={[common.row, { flexWrap: "wrap", columnGap: 8 }]}>{sources.map((url, index) =>
-      <Button key={url} label={sources.length > 1 ? t("recipeSourceN", { n: index + 1 }) : t("recipeSource")} variant="link" icon="open-outline" onPress={() => open(url)} />)}</View>}
+    {!!recipe.description && <T variant="small" muted>{recipe.description}</T>}
+    {!!creator && <T variant="caption" muted>{t("videoBy", { creator })}</T>}
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>{t("containsList", { list: exclusionList(result.conflicts, language) })}</T>}
     {!!result.unknown.length && <T variant="small" color={theme.warning}>{t("unconfirmedList", { list: exclusionList(result.unknown, language) })}</T>}
-    {!!failedLink && <View style={{ gap: 6 }}><T variant="small">{t("linkFailed")}</T><T selectable>{failedLink}</T><IconButton label={t("closeLink")} icon="close" onPress={() => setFailedLink("")} /></View>}
     {!!shareFallback && <View style={{ gap: 6 }}><T variant="small">{t("shareFailed")}</T><T selectable>{shareFallback}</T><IconButton label={t("closeShareText")} icon="close" onPress={clearShareFallback} /></View>}
   </View>;
+}
+function Fact({ icon, children }: { icon: IconName; children: string }) {
+  const { theme } = usePreferences();
+  return <View style={[common.row, { gap: 4 }]}><Icon name={icon} size={15} color={theme.mutedForeground} /><T variant="small" muted>{children}</T></View>;
 }
 /** The author sells on Market: one line naming their shop, which opens it. */
 function AuthorShop({ author, shop }: { author: string; shop: { id: string; name: string } }) {
@@ -77,3 +82,9 @@ function AuthorShop({ author, shop }: { author: string; shop: { id: string; name
     <T variant="small" numberOfLines={1} style={{ flexShrink: 1 }}>{t("authorShopLine", { author })}<T variant="small" color={theme.accent} style={common.bold}>{shop.name}</T></T>
   </Pressable>;
 }
+const s = StyleSheet.create({
+  overview: { gap: 10 },
+  hero: { width: "100%", aspectRatio: 16 / 9, maxHeight: 240, borderRadius: 18 },
+  heading: { gap: 4 },
+  facts: { flexDirection: "row", flexWrap: "wrap", columnGap: 12, rowGap: 2 },
+});

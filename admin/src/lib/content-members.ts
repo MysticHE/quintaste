@@ -5,7 +5,7 @@ import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, pageSize, text, uuid } from './http';
 import { removeListing } from './sellers';
-import { packagedPlaces } from './content-base';
+import { packagedPlaces, packagedRecipes } from './content-base';
 import { staffRows } from './content-store';
 
 // Member-written content is hidden or restored, never rewritten: staff must not put words in a member's name.
@@ -37,6 +37,30 @@ export async function reviewList(member: Session, status: string, q: string, ski
 export async function reviewPhoto(member: Session, id: string) {
   authorize(member, 'content');
   return (await query<{ bytes: Buffer }>('SELECT bytes FROM community.place_review_photo WHERE id=$1', [uuid(id, 'photo')])).rows[0]?.bytes ?? null;
+}
+/** QuinTaste, bot and staff-created recipe names by id; member recipes are named from their own row. */
+async function recipeNames() {
+  const [base, staff] = await Promise.all([packagedRecipes(), staffRows('recipe')]);
+  return new Map([...base.map(r => [r.data.id, r.data.name]), ...staff.filter(r => r.origin === 'staff').map(r => [r.id, String(r.data.name ?? r.id)])] as [string, string][]);
+}
+/** Members' "I cooked this" photos on recipes (server/cooked-photos), most reported first, with the recipe's name. */
+export async function cookedList(member: Session, status: string, q: string, skip = 0) {
+  authorize(member, 'content');
+  const hidden = choice(status || 'visible', ['visible', 'hidden'] as const, 'status') === 'hidden', term = search(q);
+  // Staff search by the recipe name they see; photos store only the recipe id.
+  const naming = recipeNames(), needle = q.trim().toLowerCase();
+  const recipeIds = needle ? [...await naming].filter(([, name]) => name.toLowerCase().includes(needle)).map(([id]) => id).slice(0, 500) : [];
+  const [rows, names] = await Promise.all([query(`SELECT cp.id,cp.recipe_id,cp.note,cp.updated_at,cp.hidden_reason,u.username,u.name,
+      mr.live->>'title' AS member_title,${openReports("'recipe:cooked:'||cp.id")} AS reports
+    FROM community.cooked_photo cp JOIN public."user" u ON u.id=cp.user_id LEFT JOIN recipes.recipe mr ON cp.recipe_id='member-'||mr.id::text
+    WHERE (cp.hidden_at IS NOT NULL)=$1 AND ($2='' OR cp.note ILIKE $2 OR cp.recipe_id ILIKE $2 OR u.username ILIKE $2 OR mr.live->>'title' ILIKE $2
+      OR cp.recipe_id = ANY($4::text[]))
+    ORDER BY reports DESC, cp.updated_at DESC, cp.id LIMIT ${pageSize} OFFSET $3`, [hidden, term, skip, recipeIds]), naming]);
+  return rows.rows.map(({ member_title, ...row }) => ({ ...row, recipe: names.get(row.recipe_id) ?? member_title ?? row.recipe_id }));
+}
+export async function cookedPhoto(member: Session, id: string) {
+  authorize(member, 'content');
+  return (await query<{ bytes: Buffer }>('SELECT bytes FROM community.cooked_photo WHERE id=$1', [uuid(id, 'photo')])).rows[0]?.bytes ?? null;
 }
 export async function gatheringList(member: Session, status: string, q: string, skip = 0) {
   authorize(member, 'content');
@@ -71,7 +95,7 @@ export async function marketReviews(member: Session, status: string, skip = 0) {
     ORDER BY o.completed_at DESC NULLS LAST, o.id LIMIT ${pageSize} OFFSET $2`, [hidden, skip])).rows;
 }
 
-const memberActions = { review: ['hide', 'restore'], gathering: ['hide', 'restore'], 'market-item': ['remove', 'restore'], 'market-review': ['hide', 'restore'] } as const;
+const memberActions = { review: ['hide', 'restore'], gathering: ['hide', 'restore'], 'market-item': ['remove', 'restore'], 'market-review': ['hide', 'restore'], cooked: ['hide', 'restore'] } as const;
 /** Hide, restore or remove one member post, with the reason in the audit log. Removing a Market item cancels its open orders. */
 export async function memberAction(member: Session, kind: keyof typeof memberActions, input: Record<string, unknown>, reason: string) {
   const act = choice(input.action, memberActions[kind], 'action'), id = uuid(input.id, 'item');
@@ -84,6 +108,8 @@ export async function memberAction(member: Session, kind: keyof typeof memberAct
     }
     let result, note: string | undefined;
     if (kind === 'market-review') result = await db.query('UPDATE market."order" SET review_hidden=$2 WHERE id=$1 AND review_hidden<>$2', [id, act === 'hide']);
+    else if (kind === 'cooked') result = await db.query(`UPDATE community.cooked_photo SET hidden_at=${act === 'hide' ? 'now()' : 'NULL'}, hidden_reason=$2
+      WHERE id=$1 AND (hidden_at IS NULL)=$3`, [id, act === 'hide' ? reason : null, act === 'hide']);
     else {
       const item = (await db.query('SELECT seller_id,status FROM market.listing WHERE id=$1 FOR UPDATE', [id])).rows[0];
       if (!item) throw new HttpError(404, 'Item not found.');

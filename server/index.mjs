@@ -20,6 +20,7 @@ import { social } from './social/router.mjs';
 import { purgeSelfies } from './social/verify.mjs';
 import { recipes } from './recipes/router.mjs';
 import { reactions } from './reactions/router.mjs';
+import { cookedPhotos } from './cooked-photos/router.mjs';
 import { areas } from './areas/router.mjs';
 import { startAreaSnapshots } from './areas/snapshot.mjs';
 import { placeReviews } from './place-reviews/router.mjs';
@@ -129,6 +130,8 @@ app.use('/api/ai-recipes', aiRecipes);
 app.use('/api/cook-search', cookSearch);
 // Likes and shares cover every Cook recipe and Explore place, so they stay on while member submissions are paused.
 app.use('/api/reactions', reactions);
+// Members' 'I cooked this' photos on Cook recipes; like reactions they cover every recipe, so they stay on while submissions are paused.
+app.use('/api/cooked-photos', cookedPhotos);
 app.use('/api/areas', featureGate('areas'), areas);
 // Public and outside the gate, so the app can show its placeholder when staff switch the game off.
 app.get('/api/game/status', async (_req, res) => { res.set('Cache-Control', 'no-store').json({ enabled: await allowed('games') }); });

@@ -13,6 +13,7 @@ import { Icon, T, common } from "../ui";
 import { IconButton } from "../food/Controls";
 import { DietLabels, useDietText } from "../food/DietLabels";
 import { useOpenStatus } from "../../hooks/useOpenStatus";
+import { FocusOutline } from "../FocusOutline";
 
 /** The address without its trailing "Singapore 123456": the row has one line, and every place is in Singapore. */
 const shortAddress = (address: string) => address.replace(/,?\s*singapore\s*\d{6}\s*$/i, "").trim() || address;
@@ -32,7 +33,7 @@ export function CatalogueVenueRow({ venue, review }: { venue: CatalogueVenue; re
   const line = [venue.match && matchedDish(venue.match, language) + (extra ? " " + t("moreMatches", { n: extra }) : ""), distance, shortAddress(venue.address)].filter(Boolean).join(" · ");
   const dishes = venue.itemCount > 0 ? dishCount(venue.itemCount, language) : "", rated = !!review?.count && review.rating !== null;
   const status = useOpenStatus(venue.hours), price = venue.priceRange ? t("priceRange", venue.priceRange) : "";
-  return <View testID={options ? "mixed-kitchen-row" : "catalogue-venue-row"} style={[s.row, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.transparent }]}>
+  return <View testID={options ? "mixed-kitchen-row" : "catalogue-venue-row"} style={[s.row, { backgroundColor: theme.card }]}>
     <Pressable accessibilityRole="link" {...focusProps} accessibilityHint={t("cardHint")}
       accessibilityLabel={[venue.name, line, status?.text, venue.priceRange ? t("priceRangeSpoken", venue.priceRange) : "", dishes, ...labels.map(dietText.spoken),
         rated ? review!.rating?.toFixed(1) + t("qtReviewCount", { n: review!.count }) : ""].filter(Boolean).join(", ")}
@@ -55,11 +56,12 @@ export function CatalogueVenueRow({ venue, review }: { venue: CatalogueVenue; re
     </Pressable>
     <IconButton appearance="plain" icon={saved ? "bookmark" : "bookmark-outline"} selected={saved} disabled={!readable}
       label={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} onPress={() => void toggleSave("place", id, venue.name)} />
+    <FocusOutline visible={focused} />
   </View>;
 }
 
 const s = StyleSheet.create({
-  row: { flexDirection: "row", alignItems: "center", gap: 4, paddingLeft: 16, paddingRight: 8, paddingVertical: 12, borderWidth: 1 },
+  row: { flexDirection: "row", alignItems: "center", gap: 4, paddingLeft: 16, paddingRight: 8, paddingVertical: 12 },
   main: { flex: 1, gap: 12, minHeight: 56 },
   tile: { width: 56, height: 56, borderRadius: 14, alignItems: "center", justifyContent: "center" },
   text: { gap: 3, minWidth: 0 },

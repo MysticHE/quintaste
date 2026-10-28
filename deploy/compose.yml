@@ -85,6 +85,17 @@ services:
       traefik.http.middlewares.quintaste-market-uploads-body.buffering.memRequestBodyBytes: '6291456'
       traefik.http.middlewares.quintaste-market-uploads-rate.ratelimit.average: '10'
       traefik.http.middlewares.quintaste-market-uploads-rate.ratelimit.burst: '15'
+      # Cooked photos (one JPG/PNG/WebP under 1 MB as a data URI, router allows 1500 KB); the default is 16 KB.
+      traefik.http.routers.quintaste-cooked-uploads.rule: Host(`${APP_HOST}`) && Method(`PUT`) && PathRegexp(`^/api/cooked-photos/[a-z0-9-]{1,100}/me$`)
+      traefik.http.routers.quintaste-cooked-uploads.priority: '106'
+      traefik.http.routers.quintaste-cooked-uploads.entrypoints: websecure
+      traefik.http.routers.quintaste-cooked-uploads.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-cooked-uploads.service: quintaste
+      traefik.http.routers.quintaste-cooked-uploads.middlewares: quintaste-cooked-uploads-body,quintaste-cooked-uploads-rate
+      traefik.http.middlewares.quintaste-cooked-uploads-body.buffering.maxRequestBodyBytes: '1600000'
+      traefik.http.middlewares.quintaste-cooked-uploads-body.buffering.memRequestBodyBytes: '1600000'
+      traefik.http.middlewares.quintaste-cooked-uploads-rate.ratelimit.average: '10'
+      traefik.http.middlewares.quintaste-cooked-uploads-rate.ratelimit.burst: '15'
       # Rush Hour results carry the service's input log for server replay (router allows 256 KB); the default is 16 KB.
       traefik.http.routers.quintaste-game-finish.rule: Host(`${APP_HOST}`) && Method(`POST`) && PathRegexp(`^/api/game/runs/[0-9a-f-]{36}/finish$`)
       traefik.http.routers.quintaste-game-finish.priority: '105'

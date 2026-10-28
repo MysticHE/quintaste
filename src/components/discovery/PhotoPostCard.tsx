@@ -6,6 +6,7 @@ import { fontNames } from "../../theme/tokens";
 import { photoCardBleed } from "../../theme/layout";
 import { Icon, T, common, type IconName } from "../ui";
 import { CataloguePhotoBackdrop } from "./CataloguePhotoBackdrop";
+import { FocusOutline } from "../FocusOutline";
 import { usePhotoVisibility } from "./PhotoScrollView";
 
 /**
@@ -38,7 +39,7 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} style={StyleSheet.absoluteFill}
         // An edge-to-edge card draws its press outline inside the Pressable, so a touch while scrolling never re-renders the card.
         onPressIn={edgeToEdge ? undefined : () => setPressed(true)} onPressOut={edgeToEdge ? undefined : () => setPressed(false)}>
-        {({ pressed: down }) => edgeToEdge && down ? <View pointerEvents="none" style={[StyleSheet.absoluteFill, s.outline, { borderColor: theme.accent }]} /> : null}
+        {({ pressed: down }) => <FocusOutline visible={edgeToEdge && down} />}
       </Pressable>
       <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" aria-hidden>
         <View style={{ height: 156 }} />
@@ -52,7 +53,7 @@ export function PhotoPostCard({ photo, title, label, hint, onPress, topLeft, top
       {side && <View style={s.side} pointerEvents="box-none">{side}</View>}
     </View>
     {footer && <View style={s.footer}>{footer}</View>}
-    {edgeToEdge && focused && <View pointerEvents="none" style={[StyleSheet.absoluteFill, s.outline, { borderColor: theme.accent }]} />}
+    <FocusOutline visible={edgeToEdge && focused} />
   </View>;
 }
 /** One white fact on the photo: an icon and its text. */
@@ -73,7 +74,6 @@ export function PostChip({ icon, label }: { icon: IconName; label: string }) {
 const s = StyleSheet.create({
   card: { borderRadius: 22, overflow: "hidden", borderWidth: 1, ...photoCardBleed },
   edge: { marginHorizontal: 0, borderRadius: 0, borderWidth: 0 },
-  outline: { borderWidth: 2 },
   blend: { position: "absolute", bottom: 0, left: 0, right: 0 },
   information: { paddingHorizontal: 12, paddingTop: 8, paddingBottom: 12, gap: 3 },
   name: { fontFamily: fontNames.bold },

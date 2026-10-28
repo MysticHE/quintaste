@@ -8,11 +8,17 @@ import { usePreferences } from "../../state/Preferences";
 import { cookingRecipeById } from "../../utils/private-recipes";
 import { useT } from "../../i18n";
 
+/** The cooking session still in progress and its recipe, or null once it has ended or finished its last step. */
+export function useActiveCooking() {
+  const { doc } = useFood(), session = doc.cooking, recipe = session && cookingRecipeById(session.recipeId, doc.recipes);
+  return session && recipe && session.step < recipe.steps.length ? { session, recipe } : null;
+}
 /** The cooking session in progress: resume it, or end it (timers keep running). */
 export function ContinueCooking() {
-  const { doc, patchDocument } = useFood(), { theme, setNotice } = usePreferences(), onAccent = useOnAccent(), t = useT("cook");
-  const session = doc.cooking, recipe = session && cookingRecipeById(session.recipeId, doc.recipes);
-  if (!session || !recipe || session.step >= recipe.steps.length) return null;
+  const { patchDocument } = useFood(), { theme, setNotice } = usePreferences(), onAccent = useOnAccent(), t = useT("cook");
+  const active = useActiveCooking();
+  if (!active) return null;
+  const { session, recipe } = active;
   const total = recipe.steps.length, done = session.gathering ? 0 : session.step + 1;
   const where = session.gathering ? t("gatheringIngredients") : t("stepNOfTotal", { n: done, total });
   const resume = () => router.push("/cooking/" + recipe.id as never);

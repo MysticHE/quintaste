@@ -13,18 +13,25 @@ export async function reviewPhotos(value, place) {
   for (const uri of value) {
     if (typeof uri !== 'string') throw new CommunityError(400, 'Choose a valid photo.');
     if (uri.startsWith(`/api/place-reviews/${place}/photos/`) && uri.length < 240) { result.push({ keep: uri }); continue; }
-    if (uri.length > 1400000 || !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(uri)) throw new CommunityError(400, 'Use a JPG, PNG or WebP photo under 1 MB.');
-    const base64 = uri.slice(uri.indexOf(',') + 1), input = Buffer.from(base64, 'base64');
-    try {
-      if (!input.length || input.length > 1048576 || input.toString('base64') !== base64) throw Error();
-      const bytes = await withDecodeSlot(() => sharp(input, { limitInputPixels: maxInputPixels, failOn: 'error', animated: false }).rotate()
-        .resize({ width: 1280, height: 1280, fit: 'inside', withoutEnlargement: true }).jpeg({ quality: 76, mozjpeg: true }).toBuffer());
-      if (bytes.length > 450000) throw new CommunityError(400, 'That photo is too detailed. Choose a smaller photo.');
-      result.push({ id: randomUUID(), bytes, digest: createHash('sha256').update(bytes).digest('hex') });
-    } catch (error) {
-      if (error instanceof CommunityError) throw error;
-      throw new CommunityError(400, 'That photo could not be read. Choose another photo.');
-    } finally { input.fill(0); }
+    result.push(await memberPhoto(uri));
   }
   return result;
+}
+/**
+ * A member's photo from the app (a JPG, PNG or WebP data URI under 1 MB) as a new id, metadata-free JPEG bytes (at most
+ * 1280 px and 450 KB) and their SHA-256. Shared by place reviews and cooked photos.
+ */
+export async function memberPhoto(uri) {
+  if (typeof uri !== 'string' || uri.length > 1400000 || !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(uri)) throw new CommunityError(400, 'Use a JPG, PNG or WebP photo under 1 MB.');
+  const base64 = uri.slice(uri.indexOf(',') + 1), input = Buffer.from(base64, 'base64');
+  try {
+    if (!input.length || input.length > 1048576 || input.toString('base64') !== base64) throw Error();
+    const bytes = await withDecodeSlot(() => sharp(input, { limitInputPixels: maxInputPixels, failOn: 'error', animated: false }).rotate()
+      .resize({ width: 1280, height: 1280, fit: 'inside', withoutEnlargement: true }).jpeg({ quality: 76, mozjpeg: true }).toBuffer());
+    if (bytes.length > 450000) throw new CommunityError(400, 'That photo is too detailed. Choose a smaller photo.');
+    return { id: randomUUID(), bytes, digest: createHash('sha256').update(bytes).digest('hex') };
+  } catch (error) {
+    if (error instanceof CommunityError) throw error;
+    throw new CommunityError(400, 'That photo could not be read. Choose another photo.');
+  } finally { input.fill(0); }
 }

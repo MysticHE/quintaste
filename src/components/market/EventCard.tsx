@@ -5,15 +5,20 @@ import { useLanguage } from "../../i18n";
 import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { sgDateTile } from "../../utils/sg-datetime";
+import { SCREEN_GUTTER } from "../../theme/layout";
+import { FocusOutline } from "../FocusOutline";
 
 export type EventTag = { label: string; tone?: "accent" | "success" | "muted" };
-/** One event: a date tile, the title, then time and place on their own lines, then a few facts as tags. */
+/**
+ * One event: a date tile, the title, then time and place on their own lines, then a few facts as tags. A full-width row like
+ * Explore's (owner, 28 Oct 2026): no rounded inset, the screen gutter inside, a 2-point outline only for keyboard focus.
+ */
 export function EventCard({ starts, title, time, place, tags = [], onPress, children, label, action }: PropsWithChildren<{
   starts: string; title: string; time: string; place?: string; tags?: EventTag[]; onPress: () => void; label?: string; action?: ReactNode;
 }>) {
   const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), tile = sgDateTile(starts, useLanguage());
   const tone = (t: EventTag["tone"]) => t === "success" ? [theme.successSoft, theme.success] : t === "muted" ? [theme.muted, theme.mutedForeground] : [theme.accentSoft, theme.accent];
-  return <View style={[s.card, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.border }]}>
+  return <View style={[s.card, { backgroundColor: theme.card }]}>
     <View style={{ flexDirection: "row", alignItems: "flex-start" }}><Pressable accessibilityRole="button" accessibilityLabel={label ?? [title, time, place].filter(Boolean).join(", ")} onPress={onPress} {...focusProps}
       style={({ pressed }) => [common.row, s.body, common.flex, { opacity: pressed ? 0.75 : 1 }]}>
       {tile && <View style={[s.date, { backgroundColor: theme.accentSoft }]}>
@@ -30,6 +35,7 @@ export function EventCard({ starts, title, time, place, tags = [], onPress, chil
       </View>
     </Pressable>{action && <View style={{ paddingTop: 4, paddingRight: 2 }}>{action}</View>}</View>
     {children}
+    <FocusOutline visible={focused} />
   </View>;
 }
 function Fact({ icon, children }: { icon: IconName; children: ReactNode }) {
@@ -42,7 +48,8 @@ export function byWhen<T>(items: T[], starts: (item: T) => string, now = Date.no
   return [{ title: "thisWeek" as const, items: soon }, { title: "later" as const, items: items.filter(item => !soon.includes(item)) }].filter(group => group.items.length);
 }
 const s = StyleSheet.create({
-  card: { borderWidth: 1, borderRadius: 18, overflow: "hidden" },
+  // The body's 12-point padding plus 4 here puts the text on the 16-point screen gutter.
+  card: { overflow: "hidden", paddingHorizontal: SCREEN_GUTTER - 12 },
   body: { gap: 12, padding: 12, alignItems: "flex-start" },
   date: { width: 58, borderRadius: 14, alignItems: "center", paddingVertical: 8 },
   month: { textTransform: "uppercase", letterSpacing: 0.5, fontSize: 11 },

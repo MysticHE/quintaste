@@ -17,8 +17,11 @@ import { useLanguage, useT } from "../../i18n";
  * A recipe as the same photo post as an Explore place: cooking time top-left, like / save / share down the right edge,
  * the name and facts on the photo. The diet labels (Vegan, Vegetarian, Plant-Based) stay on the card because they decide a meal here.
  */
-/** `when` names the meal on the first card when it suits the time of day ("Dinner · 25 min"). */
-export function RecipeRow({ recipe, onPress, when }: { recipe: Recipe; onPress: () => void; when?: string }) {
+/**
+ * `when` names the meal on the first card when it suits the time of day ("Dinner · 25 min"). `edgeToEdge` is the Feeds list's
+ * full-width card, the same as Explore's.
+ */
+export function RecipeRow({ recipe, onPress, when, edgeToEdge = false }: { recipe: Recipe; onPress: () => void; when?: string; edgeToEdge?: boolean }) {
   const { draft, theme } = usePreferences(), save = useRecipeSave(recipe.id), cooks = useReaction("recipe", recipe.id).reaction.cooks;
   const dietText = useDietText(), t = useT("cook"), tc = useT("common"), language = useLanguage();
   const fit = recipeFit(recipe, draft.diets, draft.excluded), diet = fit.labels.map(dietText.spoken).join(t("sentenceJoin"));
@@ -26,7 +29,7 @@ export function RecipeRow({ recipe, onPress, when }: { recipe: Recipe; onPress: 
   const facts = [category, recipe.onePot ? t("onePot") : "", recipe.member ? t("byAuthor", { author: recipe.author }) : ""].filter(Boolean).join(" · ");
   // At most two HPB badges (first two in claim order); recipes without figures show no nutrition line.
   const badges = recipeBadges(recipe).slice(0, 2).map(badge => badgeName(badge, language)).join(" · ");
-  return <PhotoPostCard testID="recipe-card" photo={{ path: recipe.image?.path, source: recipe.image?.path ? undefined : recipe.photo ? photos[recipe.photo] : undefined, fallback: category || t("recipeFallback") }}
+  return <PhotoPostCard testID="recipe-card" edgeToEdge={edgeToEdge} photo={{ path: recipe.image?.path, source: recipe.image?.path ? undefined : recipe.photo ? photos[recipe.photo] : undefined, fallback: category || t("recipeFallback") }}
     title={recipe.name} label={[recipe.name, minutes, facts, diet, badges].filter(Boolean).join(t("sentenceJoin"))} hint={t("opensRecipe")} onPress={onPress}
     topLeft={<PostChip icon="time-outline" label={(when ? when + " · " : "") + minutes} />}
     side={<ReactionColumn kind="recipe" id={recipe.id} name={recipe.name} shareMessage={() => recipeShareMessage(recipe, language)}

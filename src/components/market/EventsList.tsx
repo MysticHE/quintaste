@@ -18,7 +18,7 @@ import { Button, T } from "../ui";
 import { sgDateTile, formatSgShort } from "../../utils/sg-datetime";
 import { useLanguage, useT } from "../../i18n";
 import { ScreenList } from "../ScreenList";
-import { RowSkeleton, SkeletonList } from "../Skeleton";
+import { FeedRowSkeleton, SkeletonList } from "../Skeleton";
 import { money } from "../../utils/food-format";
 import { usePreferences } from "../../state/Preferences";
 import { openMarket } from "./ClassParts";
@@ -114,14 +114,12 @@ export function EventsList({ query, filters: active }: { query: string; filters:
       : <ExternalCard event={item.event} action={action} open={open} expanded={selected === item.event.id} onPress={() => setSelected(selected === item.event.id ? null : item.event.id)}
         distance={distance} />;
   };
-  return <ScreenList data={rows} keyExtractor={item => item.kind === "class" ? "c:" + item.item.id : "e:" + item.event.id} getItemType={item => item.kind}
+  return <ScreenList data={rows} keyExtractor={item => item.kind === "class" ? "c:" + item.item.id : "e:" + item.event.id} getItemType={item => item.kind} feedGap
     renderItem={({ item }) => row(item)} extraData={[selected, feeds.savedEvents, feeds.savesReady]} dimmed={!!remote.stale}
-    header={<>
-      {loading && <SkeletonList label={t("loadingEvents")} count={4} shape={() => <RowSkeleton />} />}
-      {/* A failure shows once nothing is still loading, so it does not appear under the shapes and then jump up. */}
-      {failed && !loading && <EmptyState icon="cloud-offline-outline" title={t("eventsFailed")} text={t("eventsFailedText")} primary={{ label: tc("tryAgain"), onPress: retry }} />}
-      {!loading && !remote.stale && !items.length && !failed && <EmptyState icon="megaphone-outline" title={t(q ? "noMatchingEvents" : "noLocalEvents")} text="" />}
-    </>}
+    headerBleed={loading ? <SkeletonList label={t("loadingEvents")} count={4} feedGap shape={() => <FeedRowSkeleton tile={{ width: 58, height: 76 }} />} /> : undefined}
+    // A failure shows once nothing is still loading, so it does not appear under the shapes and then jump up.
+    header={failed && !loading ? <EmptyState icon="cloud-offline-outline" title={t("eventsFailed")} text={t("eventsFailedText")} primary={{ label: tc("tryAgain"), onPress: retry }} />
+      : !loading && !remote.stale && !items.length && !failed ? <EmptyState icon="megaphone-outline" title={t(q ? "noMatchingEvents" : "noLocalEvents")} text="" /> : undefined}
     footer={kind !== "classes" && remote.data?.nextCursor && events.length < 80 ? <Button label={t("moreEvents")} variant="secondary" disabled={remote.loading}
       onPress={() => setPage({ base, prior: events, cursor: remote.data!.nextCursor })} /> : null} />;
 }
