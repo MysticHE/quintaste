@@ -64,6 +64,7 @@ function readCookingChecks(cooking: Record<string, unknown>, recipe: { ingredien
     gathering: cooking.gathering === true,
     gathered: strings(cooking.gathered, 40).filter(id => ids.has(id)),
     used: strings(cooking.used, 400).filter(key => { const [step, id] = key.split(":"); return /^\d{1,2}$/.test(step) && +step < recipe.steps.length && ids.has(id); }),
+    seen: Array.isArray(cooking.seen) ? [...new Set(cooking.seen.filter((item): item is number => Number.isInteger(item) && item >= 0 && item < recipe.steps.length))].slice(0, 100) : undefined,
   };
 }
 export function readFoodDocument(value: unknown): FoodDocument {

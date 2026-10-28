@@ -53,14 +53,15 @@ export function RecipeOverview({ recipe, shareFallback, clearShareFallback }: { 
     <RecipeImage recipe={recipe} label style={s.hero} />
     <View style={s.heading}>
       <T variant="title" accessibilityRole="header">{recipe.name}</T>
+      {/* Time and the other facts share one wrapping line with the diet labels, so short facts never take a row of their own. */}
       <View style={s.facts}>
         <Fact icon="time-outline">{tc("minutes", { n: recipe.minutes })}</Fact>
         {recipe.onePot && <Fact icon="restaurant-outline">{t("onePot")}</Fact>}
         {cooks > 0 && <Fact icon="flame-outline">{cookedBy(cooks, language)}</Fact>}
         {!!sponsorship && <Fact icon="pricetag-outline">{t("sponsorshipFact", { value: sponsorship })}</Fact>}
+        <DietLabels labels={result.labels} />
       </View>
     </View>
-    <DietLabels labels={result.labels} />
     {!!recipe.description && <T variant="small" muted>{recipe.description}</T>}
     {!!creator && <T variant="caption" muted>{t("videoBy", { creator })}</T>}
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}
@@ -85,6 +86,6 @@ function AuthorShop({ author, shop }: { author: string; shop: { id: string; name
 const s = StyleSheet.create({
   overview: { gap: 10 },
   hero: { width: "100%", aspectRatio: 16 / 9, maxHeight: 240, borderRadius: 18 },
-  heading: { gap: 4 },
-  facts: { flexDirection: "row", flexWrap: "wrap", columnGap: 12, rowGap: 2 },
+  heading: { gap: 6 },
+  facts: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", columnGap: 12, rowGap: 6 },
 });

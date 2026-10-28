@@ -35,7 +35,7 @@ export function privateCookingRecipe(d: RecipeDraft): CookingRecipe {
 /** New sessions open on Gather; resuming the same recipe revision keeps progress and only updates servings. */
 export function cookingSessionFor(active: CookingSession | null, recipeId: string, revision: number, servings: number): CookingSession {
   return active?.recipeId === recipeId && (active.recipeVersion ?? 1) === revision ? { ...active, servings }
-    : { recipeId, recipeVersion: revision, step: 0, servings, startedAt: Date.now(), gathering: true, gathered: [], used: [] };
+    : { recipeId, recipeVersion: revision, step: 0, servings, startedAt: Date.now(), gathering: true, gathered: [], used: [], seen: [] };
 }
 export function cookingRecipeById(id: string, workspace: RecipeWorkspace): CookingRecipe | undefined {
   const sample = recipeById(id); if (sample) return sample;

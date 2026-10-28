@@ -74,8 +74,6 @@ const zh: typeof en = {
   lot: "批号 {lot}",
   dietDidntMatch: "饮食标签不符",
 
-  closeDialog: "关闭对话框",
-  closeDialogButton: "关闭对话框",
   goBack: "返回",
   moreOptions: "更多选项",
   report: "举报",

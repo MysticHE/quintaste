@@ -74,8 +74,6 @@ const buy = {
   lot: "Lot {lot}",
   dietDidntMatch: "Diet label didn't match",
 
-  closeDialog: "Close dialog",
-  closeDialogButton: "Close Dialog",
   goBack: "Go back",
   moreOptions: "More Options",
   report: "Report",

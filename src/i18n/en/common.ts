@@ -14,6 +14,8 @@ const en = {
   cancel: "Cancel",
   done: "Done",
   close: "Close",
+  closeDialog: "Close dialog",
+  closeDialogButton: "Close Dialog",
   back: "Back",
   retry: "Retry",
   tryAgain: "Try Again",

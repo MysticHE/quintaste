@@ -13,6 +13,7 @@ import { GatherList, StepChecklist, TimerAlertOffer } from "../../components/rec
 import { cookedLimit } from "../../state/recipe-workspace";
 import type { CookingSession } from "../../types/food";
 import { TimerCard } from "../../components/food/Timers";
+import { StepSwipe, StepTabs } from "../../components/recipes/StepTabs";
 import { cookingRecipeById, cookingIssue } from "../../utils/private-recipes";
 import { TimerAlertControl } from "../../components/food/TimerAlertControl";
 import { useFood } from "../../state/Food";
@@ -56,6 +57,9 @@ export function CookingScreen() {
   if (restricted) return <Screen title={t("recipeChanged")}><InfoBox title={recipe.withdrawal ? t("recipeWithdrawn") : t("newerVersion")} text={recipe.withdrawal ?? t("reviewBeforeRestart")} /><Button label={t("reviewRecipe")} onPress={() => router.dismissTo(detailPath as never)} /></Screen>;
   const gathering = !!session.gathering, total = recipe.steps.length, scale = session.servings / recipe.servings;
   const step = recipe.steps[session.step], last = session.step >= total - 1;
+  // Steps already opened; sessions saved before `seen` existed count every step up to the current one.
+  const seen = session.seen ?? (gathering ? [] : Array.from({ length: session.step + 1 }, (_, index) => index));
+  const open = (index: number): Partial<CookingSession> => ({ gathering: false, step: index, seen: [...new Set([...seen, index])].sort((a, b) => a - b) });
   const patch = (changes: Partial<CookingSession>) => update(current => current.cooking?.recipeId === id ? { ...current, cooking: { ...current.cooking, ...changes } } : current);
   const toggle = (list: "gathered" | "used", key: string) => void update(current => {
     const active = current.cooking;
@@ -73,12 +77,19 @@ export function CookingScreen() {
     if (lock.current || !readable) return;
     lock.current = true; setBusy(true);
     try {
-      if (gathering) { if (direction === 1) await patch({ gathering: false, step: 0 }); }
+      if (gathering) { if (direction === 1) await patch(open(0)); }
       else if (direction === -1 && session.step === 0) await patch({ gathering: true });
       else if (direction === 1 && last) await finish();
-      else await patch({ step: Math.max(0, session.step + direction) });
+      else await patch(open(Math.max(0, session.step + direction)));
       setPanel(null); setOffer(false);
     } finally { lock.current = false; setBusy(false); }
+  };
+  // A step tab jumps straight to that step (leaving the gather list); it never finishes the recipe.
+  const jump = async (index: number) => {
+    if (lock.current || !readable || (!gathering && index === session.step)) return;
+    lock.current = true; setBusy(true);
+    try { await patch(open(index)); setPanel(null); setOffer(false); }
+    finally { lock.current = false; setBusy(false); }
   };
   const servingsControl = <Servings value={session.servings} onChange={servings => void patch({ servings })} />;
   const gatherList = <GatherList ingredients={recipe.ingredients} scale={scale} checked={session.gathered ?? []} disabled={!readable} onToggle={key => toggle("gathered", key)} />;
@@ -88,6 +99,9 @@ export function CookingScreen() {
     <View style={{ height: 4, backgroundColor: theme.muted, borderRadius: 2 }} accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: total, now: gathering ? 0 : Math.min(session.step + 1, total) }}>
       <View style={{ height: 4, width: `${(gathering ? 0 : Math.min(session.step + 1, total)) / total * 100}%` as `${number}%`, borderRadius: 2, backgroundColor: theme.accent }} />
     </View>
+    <StepTabs titles={recipe.steps.map(item => item.title)} current={gathering ? null : session.step} seen={seen} disabled={busy || !readable} onSelect={index => void jump(index)} />
+    {/* Swiping moves between steps like Previous and Next, but never finishes the recipe: the last step needs the Finish button. */}
+    <StepSwipe onNext={() => { if (!last || gathering) void move(1); }} onPrevious={() => { if (!gathering) void move(-1); }}>
     {gathering ? <><T variant="title">{t("gatherTitle")}</T>{servingsControl}{gatherList}</> : step && <>
       <T variant="title">{step.title}</T><T style={{ fontSize: 20 * textMultiplier, lineHeight: 29 * textMultiplier }}>{step.instruction}</T>
       {privateDraft?.steps[session.step]?.photo ? <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={t("stepPhoto", { n: session.step + 1 })} />
@@ -103,6 +117,7 @@ export function CookingScreen() {
       {panel === "servings" && servingsControl}
       {panel === "ingredients" && gatherList}
     </>}
+    </StepSwipe>
     <View style={common.row}>{!gathering && <View style={common.flex}><Button label={t("previous")} variant="secondary" disabled={busy || !readable} onPress={() => void move(-1)} /></View>}
       <View style={common.flex}><Button label={gathering ? t("startCooking") : last ? t("finishCooking") : tc("next")} disabled={busy || !readable} loading={busy} onPress={() => void move(1)} /></View></View>
     {awakeError && <T variant="small" muted>{t("awakeError")}</T>}

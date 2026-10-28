@@ -1,10 +1,10 @@
-import { useEffect, useRef, type ReactNode } from "react";
-import { Platform, Pressable, ScrollView, StyleSheet, View, type ViewInstance, type ScrollViewInstance } from "react-native";
-import type { WebOnlyProps } from "../types/web-props";
+import type { ReactNode } from "react";
+import { Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { T, common } from "./ui";
 import { useOnAccent } from "./BrowseControls";
 import { usePreferences } from "../state/Preferences";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
+import { useTabRow, type TabRowItem } from "../hooks/useTabRow";
 
 /** `badge` shows a count; `dot` marks something new without a number (Messages). */
 export type TopTab<V extends string> = { id: V; label: string; accessibleLabel?: string; badge?: number; dot?: boolean };
@@ -16,22 +16,11 @@ export type TopTab<V extends string> = { id: V; label: string; accessibleLabel?:
 export function TopTabs<V extends string>({ tabs, value, onChange, label }: {
   tabs: readonly TopTab<V>[]; value: V; onChange: (id: V) => void; label: string;
 }) {
-  const scroll = useRef<ScrollViewInstance>(null), offsets = useRef<Partial<Record<V, number>>>({}), items = useRef<(ViewInstance | null)[]>([]);
-  // Large text can overflow the row; keep the selected tab in view when it changes and when it is first laid out.
-  const reveal = (x: number | undefined) => { if (x !== undefined) scroll.current?.scrollTo({ x: Math.max(0, x - 24), animated: false }); };
-  useEffect(() => { reveal(offsets.current[value]); }, [value]);
-  const keyDown = (event: KeyboardEvent, index: number) => {
-    const count = tabs.length;
-    const next = event.key === "ArrowRight" ? (index + 1) % count : event.key === "ArrowLeft" ? (index + count - 1) % count
-      : event.key === "Home" ? 0 : event.key === "End" ? count - 1 : -1;
-    if (next < 0) return;
-    event.preventDefault(); onChange(tabs[next].id); items.current[next]?.focus();
-  };
+  // Large text can overflow the row; the selected tab stays in view (useTabRow).
+  const selected = tabs.findIndex(tab => tab.id === value), { scroll, item } = useTabRow(tabs.length, selected < 0 ? null : selected, index => onChange(tabs[index].id));
   return <ScrollView ref={scroll} horizontal showsHorizontalScrollIndicator={false} style={s.scroll} contentContainerStyle={s.content}
     accessibilityRole="tablist" accessibilityLabel={label}>
-    {tabs.map((tab, index) => <TabButton key={tab.id} tab={tab} selected={tab.id === value} onPress={() => onChange(tab.id)}
-      controlRef={node => { items.current[index] = node; }} onKeyDown={event => keyDown(event, index)}
-      onLayout={x => { offsets.current[tab.id] = x; if (tab.id === value) reveal(x); }} />)}
+    {tabs.map((tab, index) => <TabButton key={tab.id} tab={tab} selected={tab.id === value} onPress={() => onChange(tab.id)} item={item(index)} />)}
   </ScrollView>;
 }
 
@@ -44,14 +33,12 @@ export function TopBar({ children, actions, testID }: { children: ReactNode; act
   </View>;
 }
 
-function TabButton<V extends string>({ tab, selected, onPress, onLayout, controlRef, onKeyDown }: {
-  tab: TopTab<V>; selected: boolean; onPress: () => void; onLayout: (x: number) => void;
-  controlRef: (node: ViewInstance | null) => void; onKeyDown: (event: KeyboardEvent) => void;
+function TabButton<V extends string>({ tab, selected, onPress, item: { attach, onLayout, keyboard } }: {
+  tab: TopTab<V>; selected: boolean; onPress: () => void; item: TabRowItem;
 }) {
   const { theme } = usePreferences(), onAccent = useOnAccent(), { focused, focusProps } = useKeyboardFocus();
-  const keyboardProps: WebOnlyProps = Platform.OS === "web" ? { tabIndex: selected ? 0 : -1, onKeyDown } : {};
-  return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="tab" accessibilityLabel={tab.accessibleLabel ?? tab.label} accessibilityState={{ selected }} aria-selected={selected}
-    onPress={onPress} onLayout={event => onLayout(event.nativeEvent.layout.x)} {...focusProps}
+  return <Pressable ref={attach} {...keyboard} accessibilityRole="tab" accessibilityLabel={tab.accessibleLabel ?? tab.label} accessibilityState={{ selected }} aria-selected={selected}
+    onPress={onPress} onLayout={onLayout} {...focusProps}
     style={({ pressed }) => [s.tab, { borderColor: focused ? theme.accent : theme.transparent, backgroundColor: pressed ? theme.accentSoft : theme.transparent },
       Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
     <View style={[common.row, { gap: 6 }]}>

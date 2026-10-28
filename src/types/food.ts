@@ -92,6 +92,8 @@ export type CookingSession = {
   recipeId: string; step: number; servings: number; startedAt: number; recipeVersion?: number;
   /** Mise en place screen before step 1; gathered holds ingredient ids, used holds "stepIndex:ingredientId". */
   gathering?: boolean; gathered?: string[]; used?: string[];
+  /** Step indexes the member has opened; sessions saved before it existed count every step up to `step`. */
+  seen?: number[];
 };
 export type CookingTimer = {
   id: string; recipeId: string; label: string; duration: number;

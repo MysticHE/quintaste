@@ -153,7 +153,8 @@ const zh: typeof en = {
   settingsFailed: "无法打开手机设置。",
   phoneSettings: "手机设置",
   timerStarted: "计时已开始：{label}",
-  stepDone: "第 {n} 步完成",
+  stepCheck: "第 {n} 步：{instruction}",
+  stepCheckNamed: "第 {n} 步：{title}。{instruction}",
   moreLikeThis: "相似食谱",
   videoBy: "改编自 {creator} 的视频",
   cookedPhotosTitle: "会员做的成品",
@@ -178,5 +179,7 @@ const zh: typeof en = {
   cookedDeleted: "照片已删除",
   cookedReported: "举报已提交",
   cookedFailed: "保存失败，请再试一次。",
+  stepTabs: "步骤",
+  stepTab: "第 {n} 步，共 {total} 步：{title}",
 };
 export default zh;

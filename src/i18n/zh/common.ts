@@ -14,6 +14,8 @@ const zh: typeof en = {
   cancel: "取消",
   done: "完成",
   close: "关闭",
+  closeDialog: "关闭对话框",
+  closeDialogButton: "关闭对话框",
   back: "返回",
   retry: "重试",
   tryAgain: "再试一次",

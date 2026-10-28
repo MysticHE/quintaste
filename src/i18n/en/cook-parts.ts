@@ -153,7 +153,8 @@ const en = {
   settingsFailed: "Phone settings could not open.",
   phoneSettings: "Phone Settings",
   timerStarted: "Timer started: {label}",
-  stepDone: "Step {n} done",
+  stepCheck: "Step {n}: {instruction}",
+  stepCheckNamed: "Step {n}: {title}. {instruction}",
   moreLikeThis: "More like this",
   videoBy: "From a video by {creator}",
   cookedPhotosTitle: "Cooked by members",
@@ -179,5 +180,7 @@ const en = {
   cookedDeleted: "Photo deleted",
   cookedReported: "Report sent",
   cookedFailed: "That did not save. Try again.",
+  stepTabs: "Steps",
+  stepTab: "Step {n} of {total}: {title}",
 } satisfies Record<string, string | ((vars: Vars) => string)>;
 export default en;
