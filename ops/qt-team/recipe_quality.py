@@ -43,7 +43,9 @@ MAX_PAGE = 3 * 1024 * 1024
 TRUSTED_BOOST = 3  # well-known creators rank first (trusted_creators.json); never a substitute for the bar
 RATED_BOOST = 2  # a page that also meets the star bar ranks above one without; the rating itself is no longer required
 # Chinese ingredient lines: meat and seafood, but not 素鸡/素肉 (vegetarian), 鸡蛋 (egg), 牛奶 (milk), 肉桂 (cinnamon) and the like.
-NOT_VEGETARIAN_ZH = re.compile(r'(?<!素)(?:鸡(?!蛋)|鸭(?!蛋)|鹅(?!蛋)|猪|牛(?!奶|油果)|羊(?!奶)|鱼(?!腥草)|虾|蟹|蚝油|鱼露|培根|火腿|明胶|鱿鱼|章鱼|海鲜|(?<!果)肉(?!桂|豆蔻|松))')
+# Plant foods named after animals are not meat (28 Oct 2026: 牛番茄, beefsteak tomato, rejected a vegetarian pasta): 牛番茄,
+# 牛蒡 (burdock), 牛肝菌 (porcini), 鸡腿菇/雞腿菇 (shaggy mane), 鸡枞 (termite mushroom), 羊肚菌 (morel), 猴头菇 needs no rule.
+NOT_VEGETARIAN_ZH = re.compile(r'(?<!素)(?:鸡(?!蛋|腿菇|枞)|雞(?!蛋|腿菇|樅)|鸭(?!蛋)|鹅(?!蛋)|猪|牛(?!奶|油果|番茄|蒡|肝菌)|羊(?!奶|肚菌)|鱼(?!腥草)|虾|蟹|蚝油|鱼露|培根|火腿|明胶|鱿鱼|章鱼|海鲜|(?<!果)肉(?!桂|豆蔻|松))')
 CJK = re.compile(r'[㐀-鿿]')
 ANONYMOUS = {'admin', 'administrator', 'editor', 'editors', 'staff', 'team', 'author', 'guest', 'user', 'anonymous', 'unknown'}
 SOURCE_STEPS = 2 * BAR['steps']  # sites split easy recipes into many tiny steps; the QuinTaste version keeps to 8
