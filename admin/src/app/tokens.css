@@ -1,4 +1,62 @@
 :root {
+  /* Shared workspace scale: surface styles consume these roles. */
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --text-caption: .75rem;
+  --text-control: .8125rem;
+  --text-body: .875rem;
+  --text-title: 1.125rem;
+  --text-page: 1.25rem;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-heading: 600;
+  --line-body: 1.5;
+  --line-tight: 1.25;
+  --border-width: 1px;
+  --focus-width: 2px;
+  --radius-control: .375rem;
+  --radius-panel: .5rem;
+  --radius-dialog: .75rem;
+  --control-height: 2rem;
+  --control-compact: 1.75rem;
+  --control-touch: 2.25rem;
+  --icon-size: 1rem;
+  --checkbox-size: 1rem;
+  --workspace-sidebar-width: 11rem;
+  --workspace-directory-width: 14rem;
+  --workspace-header-height: 3rem;
+  --workspace-panel-bar-height: 2.75rem;
+  --workspace-gap: var(--space-3);
+  --workspace-panel-padding: var(--space-3);
+  --workspace-field-gap: var(--space-3);
+  --workspace-logo-width: 8.5rem;
+  --workspace-mobile-logo-width: 6.5rem;
+  --workspace-mobile-nav-height: 6.5rem;
+  --workspace-secondary-width: 64rem;
+  --workspace-dialog-width: 32rem;
+  --workspace-dialog-height: 85dvh;
+  --workspace-image-height: 65dvh;
+  --workspace-photo-width: 6rem;
+  --workspace-photo-height: 4.5rem;
+  --workspace-photo-tile-height: 8rem;
+  --workspace-photo-tile-min: 12rem;
+  --workspace-photo-cell: 2.5rem;
+  --workspace-action-column: 2rem;
+  --workspace-amount-column: 3.5rem;
+  --workspace-unit-column: 3rem;
+  --workspace-filter-width: 7rem;
+  --workspace-menu-width: 10rem;
+  --workspace-textarea-height: 4.5rem;
+  --workspace-recipe-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(0, 1.25fr);
+  --workspace-place-columns: minmax(0, .9fr) minmax(0, 1.45fr) minmax(0, .9fr);
+  --workspace-recipe-facts: 1.1fr .9fr .9fr;
+  --workspace-popover-layer: 9;
+  --opacity-disabled: .5;
+  --opacity-muted: .65;
   color-scheme: light dark;
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   --background: #f2f2f7;
@@ -28,6 +86,43 @@
   --segment-selected: #ffffff;
   --knob: #ffffff;
   --knob-shadow: 0 1px 2px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+/* Approved light editing surface, independent of the OS colour scheme. */
+.admin-workspace {
+  color-scheme: light;
+  --background: #f4f5f7;
+  --sidebar: #171e29;
+  --card: #ffffff;
+  --foreground: #202733;
+  --muted-foreground: #596779;
+  --separator: #dfe5ed;
+  --fill: #f0f3f7;
+  --fill-strong: #e0e6ef;
+  --accent: #0964c8;
+  --accent-fill: #0967d2;
+  --accent-fill-hover: #0759b8;
+  --accent-foreground: #ffffff;
+  --accent-soft: #eaf2ff;
+  --danger: #b52e36;
+  --danger-soft: #fff0f1;
+  --success: #236647;
+  --success-soft: #eaf5ee;
+  --warning: #80530a;
+  --warning-soft: #fff3d9;
+  --focus: #92b8ef;
+  --backdrop: #18233966;
+  --segment-selected: var(--card);
+  --workspace-directory-background: #fafbfc;
+  --workspace-sidebar-text: #ced5e1;
+  --workspace-sidebar-muted: #bac6d7;
+  --workspace-sidebar-icon: #98acc9;
+  --workspace-sidebar-hover: #253143;
+  --workspace-sidebar-selected: #273c58;
+  --workspace-sidebar-avatar: #35445a;
+  --workspace-input-border: #ccd6e5;
+  --workspace-row-hover: #f5f8fc;
+  --workspace-shadow: 0 .5rem 1.5rem #17263826;
+  --workspace-dialog-shadow: 0 1rem 3.5rem #17263840;
 }
 @media (prefers-color-scheme: dark) {
   :root {

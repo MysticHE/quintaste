@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './tokens.css';
 import './globals.css';
+import './workspace.css';
 import './recipes.css';
 import './places.css';
 

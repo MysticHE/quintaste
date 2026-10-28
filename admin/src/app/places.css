@@ -1,9 +1,233 @@
-.places-shell .place-split{grid-template-columns:224px minmax(0,1fr)}.place-split:has(.place-editor[data-directory=hidden]){grid-template-columns:minmax(0,1fr)}.place-split:has(.place-editor[data-directory=hidden])>.content-list{display:none}.place-split .segmented{display:flex;flex-wrap:nowrap;padding:3px;gap:2px}.place-split .segmented button{padding:5px;font-size:10px;min-height:29px;flex:1}.place-split>.content-list .item{padding:12px 8px}.place-split .content-detail>.back{display:none}.place-editor .recipe-tabs{gap:22px}.place-editor .recipe-tabs button{display:flex;align-items:center;gap:5px}.place-save-state{font-size:10px;color:var(--muted-foreground)}.place-more{position:relative}.place-action-menu{position:absolute;right:0;top:35px;z-index:9;min-width:150px;padding:6px;border:1px solid var(--separator);border-radius:6px;background:white;box-shadow:0 8px 20px #1b2c4220;display:grid;gap:3px}.place-action-menu button{justify-content:start;background:transparent}.place-action-menu small{padding:7px}.place-page{flex:1;display:flex;flex-direction:column;min-height:0}.place-columns{display:grid;grid-template-columns:minmax(230px,.9fr) minmax(310px,1.5fr) minmax(230px,.9fr);gap:12px;padding:14px;flex:1;min-height:0}.place-column{display:flex;flex-direction:column;min-width:0;min-height:0;background:#fff;border:1px solid var(--separator);border-radius:7px;overflow:hidden}.place-column>header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;min-height:43px;border-bottom:1px solid var(--separator);flex-shrink:0}.place-column h2{font-size:12px;font-weight:600;margin:0}.place-column>footer{border-top:1px solid var(--separator);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;min-height:43px;flex-shrink:0}.place-column>footer button{font-size:11px}.place-panel-body{padding:13px 12px;overflow:auto;flex:1;min-height:0}.place-panel-body>label,.place-panel-body>.fields{margin-bottom:12px}.place-panel-body .fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.place-panel-body label{font-size:11px}.place-panel-body .check{font-size:10px;gap:8px}.place-panel-body input[type=checkbox]{width:15px;min-height:15px;height:15px}.place-panel-body .divider{margin:15px 0}.place-photo{margin-bottom:10px}.place-photo .recipe-photo-editor{display:flex;gap:9px}.place-photo .recipe-photo-thumb{width:105px;height:80px}.place-photo-details{font-size:10px!important;min-height:24px!important;padding:2px 0!important}.place-photo.compact{margin:0}.place-photo.compact .recipe-photo-editor{display:block}.place-photo.compact .recipe-photo-thumb,.place-photo.compact .recipe-photo-empty{width:36px;height:33px}.place-photo.compact .recipe-photo-actions{display:flex;gap:0;flex-wrap:nowrap}.place-photo.compact .recipe-photo-actions .upload,.place-photo.compact .recipe-photo-actions button{width:20px;min-height:20px;height:20px;padding:0;justify-content:center}.place-photo.compact .recipe-photo-actions .icon{display:block;width:12px;height:12px}.place-photo.compact .recipe-photo-actions .upload input{position:absolute}.place-photo.compact .place-photo-details{font-size:9px!important;min-height:18px!important}.place-menu-tools{display:flex;gap:8px;padding:10px 12px;flex-shrink:0}.place-menu-tools .search{flex:1}.place-menu-tools select{width:112px;font-size:10px}.place-table-scroll{overflow:auto;flex:1;min-height:0;padding:0 12px}.place-dishes{width:100%;table-layout:fixed;border-collapse:collapse}.place-dishes th{position:sticky;top:0;background:white;z-index:1;padding:9px 3px;font-size:10px;font-weight:400;color:var(--muted-foreground);border-bottom:1px solid var(--separator);text-align:left}.place-dishes th:first-child{width:45px}.place-dishes th:nth-child(3){width:45px}.place-dishes th:nth-child(4){width:64px}.place-dishes th:last-child{width:27px}.place-dishes td{padding:5px 3px;border-bottom:1px solid #e9edf3;vertical-align:middle}.place-dishes td input,.place-dishes td select{border-color:transparent;background:transparent;padding:3px;min-height:25px;font-size:11px}.place-dishes td input:hover,.place-dishes td select:hover{border-color:#c4d4e9}.place-dishes td .place-category{font-size:10px;color:var(--muted-foreground);min-height:22px}.place-dishes td small{font-size:9px;display:block;color:var(--muted-foreground);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.place-dishes td:nth-child(4){text-align:right}.place-dishes td input[type=number]{appearance:textfield;text-align:right;padding:2px}.place-dishes input::-webkit-inner-spin-button{appearance:none}.place-dishes .icon-button{min-width:25px;width:25px;padding:3px}.place-hidden-dish{opacity:.6}.place-empty{padding:30px 10px;text-align:center;font-size:12px;color:var(--muted-foreground)}.place-schedule{margin:15px 0}.place-day{display:grid;grid-template-columns:25px minmax(0,1fr) 8px minmax(0,1fr) 26px;gap:3px;align-items:center;margin-bottom:8px;font-size:10px}.place-day input{font-size:10px;padding:4px 2px;min-height:30px}.place-day .icon-button{min-width:24px;width:24px;padding:2px}.place-day input::-webkit-calendar-picker-indicator{display:none}.recipe-dialog .place-day{grid-template-columns:30px 1fr 10px 1fr 70px}.place-hours .row button{font-size:10px;min-height:27px}.place-secondary{padding:18px;overflow:auto;flex:1;min-height:0}.place-secondary>.panel{max-width:1000px;margin:0 auto}.place-sources label{font-size:11px}.place-sources .fields{grid-template-columns:2fr 1fr}.place-report{padding:12px 0;border-bottom:1px solid var(--separator)}.place-report small{display:block;margin-top:5px}.place-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;max-width:1200px;margin:auto}.place-photo-grid section{padding:14px;background:white;border:1px solid var(--separator);border-radius:6px}.place-photo-grid h3{font-size:12px;min-height:30px;margin:0 0 10px}.place-photo-grid .recipe-photo-editor{display:block}.place-photo-grid .recipe-photo-thumb,.place-photo-grid .recipe-photo-empty{width:100%;height:135px}.place-photo-grid .recipe-photo-actions{margin-top:8px}.place-mobile-panels{display:none}.place-columns.is-focused{grid-template-columns:1fr}.place-columns.is-focused .place-column:not(.place-focused){display:none}.place-page[hidden],.place-secondary[hidden]{display:none!important}.places-shell input:focus-visible,.places-shell select:focus-visible,.places-shell textarea:focus-visible{outline:2px solid #92b8ef;outline-offset:1px}.places-shell ::selection{background:#cfe3ff;color:#153865}.places-shell *{scrollbar-width:thin;scrollbar-color:#bac7d8 transparent}
-.place-dishes{min-width:0}.place-dish-photo{padding:0!important;width:35px;min-width:35px;height:35px;border:0;overflow:hidden;background:var(--fill);color:var(--muted-foreground)}.place-dish-photo img{width:100%;height:100%;object-fit:cover}.place-panel-body>label,.place-panel-body>.fields{margin-bottom:9px}.place-panel-body .divider{margin:12px 0}.place-dishes td select{font-size:10px;padding:0}.place-dishes .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.place-schedule{margin:12px 0}.place-day{margin-bottom:6px}.place-hours .divider{margin:10px 0}
-.place-dishes td select{appearance:none;background:var(--fill);text-align:center;border-radius:4px;padding:2px;min-width:0}
-@media(min-width:1650px){.place-columns{grid-template-columns:minmax(270px,.9fr) minmax(420px,1.5fr) minmax(260px,.85fr);gap:15px;padding:18px}.place-panel-body{padding:16px}}
-@media(max-width:1450px){.places-shell{grid-template-columns:150px minmax(0,1fr)}.places-shell .sidebar .brand-logo{width:120px}.places-shell .place-split{grid-template-columns:200px minmax(0,1fr)}.place-columns{gap:9px;padding:10px}.place-menu-tools{flex-wrap:wrap}.place-menu-tools select{width:100px}.place-menu-tools .search{min-width:100px}.place-editor .recipe-editor-head{padding-left:14px;padding-right:14px}}
-@media(min-width:951px) and (max-width:1250px){.places-shell .place-split{grid-template-columns:1fr}.places-shell .place-split.has-selection>.content-list{display:none}.places-shell .place-split .content-detail>.back{display:flex}.place-columns{grid-template-columns:minmax(220px,.9fr) minmax(300px,1.35fr) minmax(215px,.85fr)}.places-shell .sidebar{padding-left:7px;padding-right:7px}.places-shell{grid-template-columns:145px minmax(0,1fr)}}
-@media(max-width:950px){.places-shell .place-split{grid-template-columns:1fr}.places-shell .place-split.has-selection>.content-list{display:none}.places-shell .place-split .content-detail>.back{display:flex}.place-mobile-panels{display:flex;gap:5px;padding:8px 10px 0;background:white}.place-mobile-panels button{flex:1;background:#edf1f6;font-size:11px;min-height:30px}.place-mobile-panels button[aria-pressed=true]{background:#e8f1ff;color:var(--accent)}.place-columns{display:flex;min-height:0}.place-column{flex:1}.place-columns:not(.is-focused) .place-column{display:none}.place-columns:not(.is-focused)[data-current=details] [data-panel=details],.place-columns:not(.is-focused)[data-current=menu] [data-panel=menu],.place-columns:not(.is-focused)[data-current=hours] [data-panel=hours]{display:flex}.place-column>header{display:none}.place-menu-tools{flex-wrap:nowrap}.place-day{grid-template-columns:35px 1fr 10px 1fr 30px}.place-day input{font-size:12px;padding:8px}.place-column .place-panel-body{padding:16px}}
-@media(max-width:860px){.places-shell{grid-template-columns:1fr}.places-shell .sidebar{height:auto;padding:6px 10px}.places-shell .sidebar .brand-logo{width:90px}.places-shell .sidebar nav{padding-bottom:4px}.place-split .content-detail>.back{margin:3px 12px;font-size:11px}.place-editor .recipe-heading{flex-wrap:wrap;gap:6px}.place-editor .recipe-heading>.grow{flex-basis:100%}.place-editor .recipe-actions{width:100%;justify-content:flex-end}.place-save-state{margin-right:auto}.place-editor .recipe-tabs{margin-top:5px;gap:19px;overflow:auto}.place-editor .recipe-tabs button{font-size:11px;flex-shrink:0}.place-secondary{padding:10px}.place-sources .fields{grid-template-columns:1fr}.place-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.place-photo-grid section{padding:10px}.place-photo-grid .recipe-photo-thumb,.place-photo-grid .recipe-photo-empty{height:105px}}
-@media(max-width:440px){.place-columns{padding:8px}.place-table-scroll{padding:0 7px}.place-dishes th:first-child{width:43px}.place-dishes th:nth-child(3){width:36px}.place-dishes th:nth-child(4){width:52px}.place-dishes th:last-child{width:24px}.place-dishes td{padding:5px 1px}.place-dishes td input{font-size:10px}.place-menu-tools{padding:10px 8px}.place-menu-tools select{width:105px}.place-dishes td select{font-size:10px;padding:1px}.place-editor .recipe-tabs{gap:15px}.place-photo.compact .recipe-photo-actions .upload,.place-photo.compact .recipe-photo-actions button{width:19px}.place-save-state{font-size:9px}}
+/* Place composition. Shared dimensions and colours come from tokens.css. */
+.place-split:has(.place-editor[data-directory=hidden]) {
+  grid-template-columns:minmax(0,1fr);
+}
+.place-split:has(.place-editor[data-directory=hidden])>.content-list {
+  display:none;
+}
+.place-columns {
+  grid-template-columns:var(--workspace-place-columns);
+}
+.place-more {
+  position:relative;
+}
+.place-action-menu {
+  position:absolute;
+  right:0;
+  top:100%;
+  z-index:var(--workspace-popover-layer);
+  min-width:var(--workspace-menu-width);
+  padding:var(--space-1);
+  border-radius:var(--radius-control);
+  background:var(--card);
+  box-shadow:var(--workspace-shadow);
+  display:grid;
+  gap:var(--space-1);
+}
+.place-action-menu button {
+  justify-content:start;
+  background:transparent;
+}
+.place-action-menu small {
+  padding:var(--space-2);
+}
+.place-panel-body>label,.place-panel-body>.fields {
+  margin-bottom:var(--workspace-field-gap);
+}
+.place-panel-body .fields {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.place-photo {
+  margin-bottom:var(--space-2);
+}
+.place-photo-details {
+  font-size:var(--text-caption);
+  min-height:var(--control-compact);
+  padding:0;
+}
+.place-menu-tools {
+  display:flex;
+  gap:var(--space-2);
+  padding:var(--space-2) var(--workspace-panel-padding);
+  flex-shrink:0;
+}
+.place-menu-tools .search {
+  flex:1;
+  min-width:0;
+}
+.place-menu-tools select {
+  width:var(--workspace-filter-width);
+  font-size:var(--text-caption);
+}
+.place-table-scroll {
+  overflow:auto;
+  flex:1;
+  min-height:0;
+  padding:0 var(--workspace-panel-padding);
+}
+.place-dishes {
+  width:100%;
+  min-width:0;
+  table-layout:fixed;
+  border-collapse:collapse;
+}
+.place-dishes th {
+  position:sticky;
+  top:0;
+  background:var(--card);
+  z-index:1;
+  padding:var(--space-2) var(--space-1);
+  font-size:var(--text-caption);
+  font-weight:var(--weight-normal);
+  color:var(--muted-foreground);
+  border-bottom:var(--border-width) solid var(--separator);
+  text-align:left;
+}
+.place-dishes th:first-child,.place-dishes th:nth-child(3) {
+  width:var(--workspace-photo-cell);
+}
+.place-dishes th:nth-child(4) {
+  width:var(--workspace-amount-column);
+}
+.place-dishes th:last-child {
+  width:var(--workspace-action-column);
+}
+.place-dishes td {
+  padding:var(--space-1) 0;
+  border-bottom:var(--border-width) solid var(--separator);
+  vertical-align:middle;
+}
+.place-dishes td :is(input,select) {
+  border-color:transparent;
+  background:transparent;
+  padding:var(--space-1);
+  min-height:var(--control-compact);
+}
+.place-dishes td :is(input,select):hover {
+  border-color:var(--workspace-input-border);
+}
+.place-dishes td .place-category {
+  font-size:var(--text-caption);
+  color:var(--muted-foreground);
+}
+.place-dishes td small {
+  display:block;
+  color:var(--muted-foreground);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.place-dishes td:nth-child(4) {
+  text-align:right;
+}
+.place-dishes td input[type=number] {
+  appearance:textfield;
+  text-align:right;
+}
+.place-dishes input::-webkit-inner-spin-button {
+  appearance:none;
+}
+.place-dishes td select {
+  appearance:none;
+  background:var(--fill);
+  text-align:center;
+  border-radius:var(--radius-control);
+  padding:0;
+  font-size:var(--text-caption);
+}
+.place-hidden-dish {
+  opacity:var(--opacity-muted);
+}
+.place-empty {
+  padding:var(--space-6) var(--space-2);
+  text-align:center;
+  font-size:var(--text-control);
+  color:var(--muted-foreground);
+}
+.place-schedule {
+  margin:var(--space-3) 0;
+}
+.place-day {
+  display:grid;
+  grid-template-columns:var(--workspace-action-column) minmax(0,1fr) var(--space-2) minmax(0,1fr) var(--control-compact);
+  gap:var(--space-1);
+  align-items:center;
+  margin-bottom:var(--space-2);
+  font-size:var(--text-caption);
+}
+.place-day input {
+  font-size:var(--text-caption);
+  padding:var(--space-1);
+}
+.place-day input::-webkit-calendar-picker-indicator {
+  display:none;
+}
+.recipe-dialog .place-day {
+  grid-template-columns:var(--workspace-action-column) minmax(0,1fr) var(--space-2) minmax(0,1fr) var(--workspace-amount-column);
+}
+.place-hours .row button {
+  font-size:var(--text-caption);
+}
+.place-sources .fields {
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+}
+.place-report {
+  padding:var(--space-3) 0;
+  border-bottom:var(--border-width) solid var(--separator);
+}
+.place-report small {
+  display:block;
+  margin-top:var(--space-1);
+}
+.place-photo-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--workspace-photo-tile-min)),1fr));
+  gap:var(--workspace-gap);
+  max-width:var(--workspace-secondary-width);
+  margin:auto;
+}
+.place-photo-grid section {
+  padding:var(--workspace-panel-padding);
+  background:var(--card);
+  border:var(--border-width) solid var(--separator);
+  border-radius:var(--radius-panel);
+}
+.place-photo-grid h3 {
+  font-size:var(--text-control);
+  margin:0 0 var(--space-2);
+}
+.place-photo-grid .recipe-photo-editor {
+  display:block;
+}
+.place-photo-grid .recipe-photo-thumb,.place-photo-grid .recipe-photo-empty {
+  width:100%;
+  height:var(--workspace-photo-tile-height);
+}
+.place-photo-grid .recipe-photo-actions {
+  margin-top:var(--space-2);
+}
+.admin-workspace .place-dish-photo {
+  padding:0;
+  width:var(--control-height);
+  min-width:0;
+  height:var(--control-height);
+  border:0;
+  overflow:hidden;
+  background:var(--fill);
+  color:var(--muted-foreground);
+}
+.place-dish-photo img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.place-dishes .sr-only {
+  position:absolute;
+  width:var(--border-width);
+  height:var(--border-width);
+  overflow:hidden;
+  clip-path:inset(50%);
+}
+@container editor (max-width:40rem) { .place-sources .fields {
+  grid-template-columns:minmax(0,1fr);
+} }

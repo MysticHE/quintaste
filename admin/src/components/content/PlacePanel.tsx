@@ -42,7 +42,7 @@ function PlaceForm({detail,refreshing,tab,setTab,onDirty,onBusy,onSaved}:{detail
     }catch(problem){setError(failure(problem));}finally{setBusy('');}
   }
   const ask=(action:string)=>{setMore(false);if(!dirty||window.confirm('Discard changes?'))setConfirm(action);};
-  const toggleDirectory=()=>{if(window.matchMedia('(max-width:1250px)').matches)document.querySelector<HTMLButtonElement>('.place-split .content-detail>.back')?.click();else setDirectory(!directory);};
+  const toggleDirectory=()=>{const split=document.querySelector('.place-split');if(split&&getComputedStyle(split).getPropertyValue('--workspace-directory-overlay').trim()==='1')document.querySelector<HTMLButtonElement>('.place-split .content-detail>.back')?.click();else setDirectory(!directory);};
   const actions:Record<string,[string,string]>={hide:['Hide place?','Hide'],restore:['Show place?','Show'],delete:['Delete place?','Delete'],clear:['Revert edits?','Revert'],'clear-menu':['Revert menu?','Revert']};
   const tabs=['workspace','photos','sources','reports','history'],openReports=detail?.reports.filter(r=>!['resolved','dismissed'].includes(r.status)).length??0;
   const column=(id:string,title:string,children:ReactNode)=><section className={'place-column '+(focus===id?'place-focused':'')} data-panel={id}><header><h2>{title}</h2><IconButton icon="external" label={(focus===id?'Restore ':'Expand ')+id} onClick={()=>setFocus(focus===id?'':id)}/></header>{children}</section>;

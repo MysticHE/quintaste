@@ -29,13 +29,13 @@ export function RecipePhotoEditor({ path, fallback, label, disabled, compact, on
     } catch (problem) { if (!controller.signal.aborted) setError(problem instanceof Error ? problem.message : 'Upload failed.'); }
     finally { if (!controller.signal.aborted) { setBusy(false); onBusy(false); } }
   }
-  return <div className="recipe-photo-editor">
+  const input = <input type="file" aria-label={'Upload ' + label} accept="image/jpeg,image/png,image/webp" disabled={disabled || busy}
+    onChange={e => { void upload(e.target.files?.[0]); e.target.value = ''; }}/>;
+  return <div className={'recipe-photo-editor' + (compact ? ' is-compact' : '')}>
     {src ? <button type="button" className="recipe-photo-thumb" aria-label={'Preview ' + label} onClick={() => setPreview(true)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- authenticated asset preview */}
-      <img src={src} alt={label}/></button> : <span className="recipe-photo-empty" role="img" aria-label={'No ' + label}><Icon name="photo"/></span>}
-    <div className="recipe-photo-actions"><label className="upload" title={(src ? 'Replace ' : 'Upload ') + label}><Icon name="photo" size={14}/>{!compact && (busy ? 'Uploading…' : src ? 'Replace' : 'Upload')}
-      <input type="file" aria-label={'Upload ' + label} accept="image/jpeg,image/png,image/webp" disabled={disabled || busy}
-        onChange={e => { void upload(e.target.files?.[0]); e.target.value = ''; }}/></label>
+      <img src={src} alt={label}/></button> : <label className="recipe-photo-empty upload" title={'Upload ' + label} aria-disabled={disabled || busy}><Icon name="photo"/><span>{busy ? 'Uploading…' : 'Add photo'}</span>{input}</label>}
+    <div className="recipe-photo-actions">{src && <label className="upload" title={'Replace ' + label}><Icon name="photo"/>{busy ? 'Uploading…' : 'Replace'}{input}</label>}
       {src && <button type="button" className="plain" disabled={disabled || busy} onClick={() => onChange(null)} aria-label={'Remove ' + label} title={'Remove ' + label}>{compact ? <Icon name="trash" size={13}/> : 'Remove'}</button>}
       {error && <span role="alert" className="recipe-error">{error}</span>}
     </div>

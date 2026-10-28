@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { date, useResource } from '../client';
 import { Empty, Feedback, Segmented } from '../Primitives';
 import { Icon } from '../Icon';
@@ -62,21 +62,29 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
   detail: (id: string, changed: (id?: string | null) => void) => ReactNode; scope?: ReactNode; keep?: (row: Row) => boolean;
 }) {
   const resource = useResource<Row[]>(path), [query, setQuery] = useState(''), [filter, setFilter] = useState('all'), [limit, setLimit] = useState(STEP);
+  const workspace = noun === 'recipes' || noun === 'places';
+  const root = useRef<HTMLDivElement>(null), opened = useRef(false);
   const rows = (resource.data ?? []).filter(row => keep(row) && passes(filter, row) && matches(query, row.id, ...describe(row).search));
+  useEffect(() => {
+    if (!workspace || opened.current || !resource.data || !root.current) return;
+    opened.current = true;
+    // Open once on wide workspaces. Back, deep links and mobile selection stay explicit.
+    if (!selected && rows[0] && getComputedStyle(root.current).getPropertyValue('--workspace-auto-open').trim() === '1') select(rows[0].id);
+  }, [workspace, resource.data, rows, selected, select]);
   // null after a delete closes the detail; an id after a create opens it.
   const changed = (id?: string | null) => { resource.reload(); if (id === null) select(null); else if (id) select(id); };
   const counts = (resource.data ?? []).filter(keep).reduce<Record<string, number>>((n, row) => {
     for (const [id] of filters) if (passes(id, row)) n[id] = (n[id] ?? 0) + 1;
     return n;
   }, {});
-  return <div className={'content-split' + (noun === 'recipes' || noun === 'places' ? ' recipe-split' : '') + (noun === 'places' ? ' place-split' : '') + (selected ? ' has-selection' : '')}>
+  return <div ref={root} className={'content-split' + (workspace ? ' workspace-split recipe-split' : '') + (noun === 'places' ? ' place-split' : '') + (selected ? ' has-selection' : '')}>
     <section className="panel content-list" aria-label={'All ' + noun}>
       <div className="stack compact list-tools">
         <div className="row nowrap"><div className="search"><Icon name="search" size={16}/><input type="search" aria-label={'Search ' + noun} placeholder={'Search ' + noun}
           value={query} maxLength={100} onChange={e => { setQuery(e.target.value); setLimit(STEP); }}/></div>
           <button type="button" className="primary" aria-label={'New ' + add.toLowerCase()} title={'New ' + add.toLowerCase()} onClick={() => select('new')}><Icon name="plus" size={16}/>{!['recipes','places'].includes(noun) && add}</button></div>
         {scope}
-        {noun === 'places' ? <select aria-label="Place filter" value={filter} onChange={e => { setFilter(e.target.value); setLimit(STEP); }}>{filters.map(([id,text]) => <option key={id} value={id}>{text}{counts[id] ? ' · '+counts[id] : ''}</option>)}</select>
+        {workspace ? <select aria-label={add + ' filter'} value={filter} onChange={e => { setFilter(e.target.value); setLimit(STEP); }}>{filters.map(([id,text]) => <option key={id} value={id}>{text}{counts[id] ? ' · '+counts[id] : ''}</option>)}</select>
           : <Chips label="Filter" value={filter} onChange={v => { setFilter(v); setLimit(STEP); }} options={filters.filter(([id]) => id === 'all' || counts[id]).map(([id, text]) => [id, text, id === 'all' ? undefined : counts[id]])}/>}
       </div>
       <Feedback {...resource} retry={resource.reload}/>
@@ -89,6 +97,6 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
         {resource.data && !rows.length && <li><Empty icon="search">{query ? `No ${noun} match “${query}”` : `No ${noun} in this filter`}</Empty></li>}</ul>
     </section>
     <div className="content-detail">{selected ? <><button type="button" className="back plain" onClick={() => select(null)}><Icon name="back" size={16}/>{noun[0].toUpperCase() + noun.slice(1)}</button>{detail(selected, changed)}</>
-      : <div className="panel"><Empty icon="content">{noun === 'recipes' ? 'Select a recipe' : `Choose one of the ${noun} to see and edit what members see`}</Empty></div>}</div>
+      : <div className={workspace ? 'workspace-empty' : 'panel'}><Empty icon="content">{workspace ? 'Select a ' + add.toLowerCase() : `Choose one of the ${noun} to see and edit what members see`}</Empty></div>}</div>
   </div>;
 }

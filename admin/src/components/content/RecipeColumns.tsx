@@ -34,19 +34,21 @@ export function RecipeColumns({ r, set, disabled, uploading }: { r: Form; set: (
       </div>)}
       {panel('ingredients', 'Ingredients', <table className="recipe-ingredients"><thead><tr><th scope="col">#</th><th scope="col">Ingredient</th><th scope="col">Amount</th><th scope="col">Unit</th><th aria-label="Actions"/></tr></thead>
         <tbody>{r.ingredients.map((x, i) => <tr key={x.id}><td><button type="button" className="plain" aria-label={`Reorder ingredient ${i + 1}`} onClick={() => setOrder(x.id)}>{i + 1}</button></td>
-          {(['name','amount','unit'] as const).map(key => <td key={key}><input aria-label={`Ingredient ${i + 1} ${key}`} value={x[key]} maxLength={key === 'name' ? 160 : 30} inputMode={key === 'amount' ? 'decimal' : 'text'}
+          <td><textarea className="recipe-ingredient-name" rows={1} aria-label={`Ingredient ${i + 1} name`} value={x.name} maxLength={160}
+            onChange={e => set({ ingredients: r.ingredients.map(item => item.id === x.id ? { ...item, name: e.target.value.replace(/[\r\n]+/g, ' ') } : item) })}/></td>
+          {(['amount','unit'] as const).map(key => <td key={key}><input aria-label={`Ingredient ${i + 1} ${key}`} value={x[key]} maxLength={30} inputMode={key === 'amount' ? 'decimal' : 'text'}
             onChange={e => set({ ingredients: r.ingredients.map(item => item.id === x.id ? { ...item, [key]: e.target.value } : item) })}/></td>)}
           <td><IconButton icon="close" label={`Remove ingredient ${i + 1}`} onClick={() => set({ ingredients: r.ingredients.filter(item => item.id !== x.id), steps: r.steps.map(s => ({ ...s, ingredientIds: s.ingredientIds.filter(id => id !== x.id) })) })}/></td>
         </tr>)}</tbody></table>, <button type="button" className="plain" disabled={r.ingredients.length >= 30} onClick={() => set({ ingredients: [...r.ingredients, { id: fresh(), name: '', amount: '', unit: '' }] })}><Icon name="plus" size={14}/>Ingredient</button>)}
       {panel('method', 'Method', <div className="recipe-step-list">{r.steps.map((s, i) => <article key={s.key} className="recipe-step">
-        <div className="recipe-step-head"><span>{i + 1}</span><input aria-label={`Step ${i + 1} title`} maxLength={120} value={s.title} onChange={e => step(s.key, { title: e.target.value })}/>
+        <div className="recipe-step-head"><input aria-label={`Step ${i + 1} title`} maxLength={120} value={s.title} onChange={e => step(s.key, { title: e.target.value })}/>
           <div className="row nowrap"><IconButton icon="up" label={`Move step ${i + 1} up`} disabled={!i} onClick={() => set({ steps: move(r.steps, i, -1) })}/>
             <IconButton icon="down" label={`Move step ${i + 1} down`} disabled={i === r.steps.length - 1} onClick={() => set({ steps: move(r.steps, i, 1) })}/>
             <IconButton icon="close" label={`Remove step ${i + 1}`} onClick={() => set({ steps: r.steps.filter(x => x.key !== s.key) })}/></div></div>
-        <div className="recipe-step-main"><textarea aria-label={`Step ${i + 1} instructions`} rows={3} maxLength={1400} value={s.instruction} onChange={e => step(s.key, { instruction: e.target.value })}/>
+        <div className="recipe-step-main"><div className="recipe-step-copy"><textarea aria-label={`Step ${i + 1} instructions`} rows={3} maxLength={1400} value={s.instruction} onChange={e => step(s.key, { instruction: e.target.value })}/>
+          <div className="row spread recipe-step-options"><button type="button" className="plain" onClick={() => setSettings(s.key)}>Ingredients {s.ingredientIds.length}</button>
+            <button type="button" className="plain" aria-label={`Step ${i + 1} settings`} onClick={() => setSettings(s.key)}>{s.timerMinutes ? s.timerMinutes + ' min' : 'Timer'}</button></div></div>
           <RecipePhotoEditor compact label={`Step ${i + 1} photo`} path={s.photo} disabled={disabled} onBusy={uploading} onChange={photo => step(s.key, { photo: photo?.path, image: undefined })}/></div>
-        <div className="row spread recipe-step-options"><button type="button" className="plain" onClick={() => setSettings(s.key)}>Ingredients {s.ingredientIds.length}</button>
-          <button type="button" className="plain" aria-label={`Step ${i + 1} settings`} onClick={() => setSettings(s.key)}>{s.timerMinutes ? s.timerMinutes + ' min' : 'Timer'}</button></div>
       </article>)}</div>, <button type="button" className="plain" disabled={r.steps.length >= 20} onClick={() => set({ steps: [...r.steps, emptyStep()] })}><Icon name="plus" size={14}/>Step</button>)}
     </fieldset>
     {contains && <RecipeDialog title="Contains" onClose={() => setContains(false)}><div className="recipe-checks">{exclusions.map(c => <label className="check" key={c}><input type="checkbox" checked={r.contains.includes(c)} disabled={disabled}
