@@ -14,7 +14,7 @@ async function listOf(kind: 'recipe' | 'event', base: Packaged<Recipe | Event>[]
   const item = (id: string, data: Record<string, unknown>, source: Source, hash?: string) => {
     const s = staff.get(id), shown = s && s.origin === 'staff' || s && Object.keys(s.data).length > 1 ? s.data : data;
     return { id, title: titleOf(shown), source, startsAt: startsOf(shown), status: typeof shown.status === 'string' ? shown.status : null,
-      categories: Array.isArray(shown.categories) ? shown.categories : [], hidden: !!s?.hidden, edited: s?.origin === 'edit' && Object.keys(s.data).length > 1,
+      categories: Array.isArray(shown.categories) ? shown.categories : [], hidden: !!s?.hidden, deleted: kind === 'recipe' && !!s?.data._deletedAt, edited: s?.origin === 'edit' && Object.keys(s.data).length > 1,
       newer: newerBelow(s ?? null, hash), updatedAt: s?.updated_at ?? null, withdrawn: typeof data.withdrawal === 'string' };
   };
   return [...rows.filter(r => r.origin === 'staff').map(r => item(r.id, r.data, 'staff')), ...base.map(b => item(b.data.id, b.data, b.source ?? 'bot', b.hash))];
@@ -33,25 +33,25 @@ export async function eventDetail(member: Session, id: string) { authorize(membe
 
 /** A complete recipe: staff fields over the packaged or bot recipe, keeping its photo key, links and provenance. */
 function recipe(id: string, input: unknown, base: Recipe | null, version: number) {
-  const { sources, image, dietary, ...fields } = recipeFields(input), now = today();
+  const { sources, image, dietary, removeCover, ...fields } = recipeFields(input), now = today();
   const prior = (base ?? {}) as Record<string, unknown>, provenance = prior.provenance as Record<string, unknown> | undefined;
   const evidence = (prior.dietary as Record<string, unknown> | undefined)?.evidence ?? { kind: 'editorial', source: 'QuinTaste team', checkedAt: now };
   const rest = { ...prior };
   delete rest.image;
+  if (removeCover) delete rest.photo;
   // Nutrition is estimated from the ingredients and servings; when staff change either, the old figures would be wrong, so members see none
   // until the estimate is rerun (scripts/recipe-nutrition.ts for app recipes, the bot for its own).
   const portions = (value: unknown) => JSON.stringify((value as { name?: unknown; amount?: unknown; unit?: unknown }[] | undefined ?? []).map(i => [i.name, i.amount, i.unit]));
   if (rest.nutrition && (portions(prior.ingredients) !== portions(fields.ingredients) || prior.servings !== fields.servings)) delete rest.nutrition;
   return { ...rest, ...fields, id, dietary: { ...dietary, evidence }, ...(image ? { image } : {}),
     author: prior.author ?? 'QuinTaste team', language: prior.language ?? 'English', revision: Number(prior.revision ?? 0) + version + 1, updatedAt: now,
-    ...(provenance ? { provenance: { ...provenance, ...(sources.length ? { sources } : {}) } }
-      : base ? {} : { provenance: { sources, checkedAt: now, kitchenTested: false, reviewedBy: 'QuinTaste team' } }) };
+    provenance: { checkedAt: now, kitchenTested: false, reviewedBy: 'QuinTaste team', ...provenance, sources } };
 }
 async function save(member: Session, kind: 'recipe' | 'event', input: Record<string, unknown>, reason: string, base: Packaged<Recipe | Event>[]) {
-  const act = action(input.action, ['create', 'save', 'hide', 'restore', 'clear', 'delete'] as const), expected = expectedVersion(input.version);
+  const act = action(input.action, ['create', 'save', 'hide', 'restore', 'clear', 'delete', 'undelete'] as const), expected = expectedVersion(input.version);
   authorize(member, 'content');
   const build = (id: string, packaged: Packaged<Recipe | Event> | null, row?: StaffRow) =>
-    kind === 'recipe' ? recipe(id, input.fields, (packaged?.data as Recipe) ?? null, row?.version ?? 0) : event(input.fields, id);
+    kind === 'recipe' ? recipe(id, input.fields, (row && Object.keys(row.data).length > 1 ? row.data as Recipe : packaged?.data as Recipe) ?? null, row?.version ?? 0) : event(input.fields, id);
   if (act === 'create') {
     const draft = build('staff-draft', null) as Record<string, unknown>, id = newId(titleOf(draft));
     await writeItem(member, kind as Kind, id, 0, act, reason, () => ({ origin: 'staff', hidden: false, data: { ...build(id, null), id } }));
@@ -60,9 +60,27 @@ async function save(member: Session, kind: 'recipe' | 'event', input: Record<str
   const id = contentId(input.id, kind);
   // Hiding an unknown id would leave an orphan row that silently hides a later bot item with that id.
   if (act !== 'save' && !base.some(b => b.data.id === id) && !(await staffRow(kind, id))) throw new HttpError(404, 'Not found. Refresh the list.');
+  if (kind === 'recipe' && (act === 'delete' || act === 'undelete')) {
+    const packaged = base.find(b => b.data.id === id);
+    return writeItem(member, kind, id, expected, act, reason, row => {
+      if (act === 'undelete') {
+        if (!row?.data._deletedAt) throw new HttpError(409, 'This recipe is not deleted.');
+        const { _deletedAt, _hiddenBeforeDelete, ...data } = row.data;
+        void _deletedAt;
+        return { origin: row.origin, hidden: _hiddenBeforeDelete === true, data };
+      }
+      if (row?.data._deletedAt) throw new HttpError(409, 'This recipe is already deleted.');
+      const data = row && Object.keys(row.data).length > 1 ? row.data : packaged?.data;
+      if (!data) throw new HttpError(404, 'Recipe not found.');
+      return { origin: row?.origin ?? 'edit', hidden: true, data: { ...data, ...(packaged ? { base: packaged.hash } : {}),
+        _deletedAt: new Date().toISOString(), _hiddenBeforeDelete: !!row?.hidden } };
+    });
+  }
+  if (act === 'undelete') throw new HttpError(400, 'Invalid action.');
   if (act !== 'save') return visibility(member, kind, id, expected, act, reason);
   const packaged = base.find(b => b.data.id === id) ?? null;
   return writeItem(member, kind, id, expected, act, reason, row => {
+    if (row?.data._deletedAt) throw new HttpError(409, 'Restore this recipe before editing.');
     if (!packaged && row?.origin !== 'staff') throw new HttpError(404, 'Not found. Refresh the list.');
     const data = build(id, packaged, row);
     return row?.origin === 'staff' ? { origin: 'staff', hidden: row.hidden, data } : { origin: 'edit', hidden: !!row?.hidden, data: { ...data, base: packaged!.hash } };

@@ -9,7 +9,7 @@ import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DIRECTORIES = ("src", "assets", "server", "server-assets", "data/pilot", "data/menus", "dist", "admin/src", "admin/db")
+DIRECTORIES = ("src", "assets", "server", "server-assets", "data/pilot", "data/menus", "dist", "admin/src", "admin/public", "admin/db")
 FILES = (
     "package.json", "package-lock.json", "app.json", "tsconfig.json", "Dockerfile",
     ".dockerignore", "deploy/compose.yml", "deploy/preview-gateway.mjs",

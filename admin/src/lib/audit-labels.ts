@@ -7,7 +7,7 @@ const NOUNS: Record<string, string> = { place: 'Place', menu: 'Menu', recipe: 'R
   control: 'Switch', session: 'Sign-in', security_key: 'Security key', deployment: 'Deployment', integration: 'Integration', account: 'Account',
   staff: 'Staff', case: 'Case', seller: 'Shop', teacher: 'Class teacher', photo_check: 'Photo check', chef: 'Chef', editorial: 'Review' };
 const VERBS: Record<string, string> = { create: 'created', edit: 'edited', add: 'dishes added', update: 'updated', save: 'saved', hide: 'hidden',
-  restore: 'shown again', clear: 'edits cleared', delete: 'deleted', approve: 'approved', approved: 'approved', reject: 'rejected', decline: 'declined',
+  restore: 'shown again', undelete: 'restored', clear: 'edits cleared', delete: 'deleted', approve: 'approved', approved: 'approved', reject: 'rejected', decline: 'declined',
   publish: 'published', make: 'made', redraw: 'redrawn', review: 'reviewed', changed: 'changed', ai_daily_cap: 'AI daily limit set',
   sign_in: 'signed in', google_verified: 'Google verified', security_key_verified: 'security key verified', registered: 'registered',
   key_set: 'key saved', key_removed: 'key removed', promote: 'promoted', verify: 'verified', suspend: 'suspended', reinstate: 'reinstated',

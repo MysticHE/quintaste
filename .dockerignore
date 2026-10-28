@@ -13,6 +13,7 @@
 !dist/**
 !deploy/**
 !admin/src/**
+!admin/public/**
 !admin/db/**
 !admin/package.json
 !admin/package-lock.json

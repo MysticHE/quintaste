@@ -55,3 +55,14 @@ export async function contentPhoto(member: Session, sha: string) {
   const response = await fetch(`${origin}/api/catalogue-photos/${sha}.jpg`, { redirect: 'error', signal: AbortSignal.timeout(8000) }).catch(() => null);
   return response?.ok ? Buffer.from(await response.arrayBuffer()) : null;
 }
+
+/** Only public recipe asset namespaces; never proxy a caller-supplied URL. */
+export async function recipePhoto(member: Session, path: string) {
+  authorize(member, 'content');
+  const match = /^\/api\/(catalogue-photos|editorial\/assets)\/([a-f0-9]{64})\.jpg$/.exec(path);
+  if (!match) throw new HttpError(400, 'Check recipe photo.');
+  if (match[1] === 'catalogue-photos') return contentPhoto(member, match[2]);
+  const origin = process.env.NODE_ENV === 'production' ? 'http://app:3000' : 'http://localhost:3300';
+  const response = await fetch(origin + path, { redirect: 'error', signal: AbortSignal.timeout(8000) }).catch(() => null);
+  return response?.ok ? Buffer.from(await response.arrayBuffer()) : null;
+}

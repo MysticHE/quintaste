@@ -4,7 +4,7 @@ import { body, HttpError, json, offset, text, throttle, reasonText } from '../..
 import { menuAction, placeAction, placeDetail, placeList } from '../../../../lib/content-catalogue';
 import { eventAction, eventDetail, eventList, recipeAction, recipeDetail, recipeList } from '../../../../lib/content-recipes';
 import { cookedList, cookedPhoto, gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
-import { contentPhoto, uploadPhoto } from '../../../../lib/content-assets';
+import { contentPhoto, recipePhoto, uploadPhoto } from '../../../../lib/content-assets';
 import { memberRecipeAction, memberRecipeList, memberRecipePhoto } from '../../../../lib/content-member-recipes';
 import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
 import { demandAction, demandList } from '../../../../lib/recipe-demand';
@@ -49,6 +49,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'cooked-photo') return image(await cookedPhoto(member, text(id, 'photo', 36)));
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));
+  if (resource === 'recipe-photo') return image(await recipePhoto(member, text(params.get('path'), 'recipe photo', 140)));
   if (resource === 'member-recipe-photo') return image(await memberRecipePhoto(member, text(id, 'recipe', 36), text(params.get('version'), 'version', 10), text(params.get('slot'), 'photo', 10)));
   throw new HttpError(404, 'Not found.');
 }); }

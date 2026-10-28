@@ -114,7 +114,13 @@ export function recipeFields(value: unknown) {
   const steps = asList(v.steps, 'steps', 20).map(raw => {
     const s = asRecord(raw, 'a step'), ids = asList(s.ingredientIds ?? [], 'step ingredients', 30).map(id => String(id)).filter(id => used.has(id));
     const timer = s.timer ? asRecord(s.timer, 'timer') : null;
+    const photo = s.photo === null || s.photo === undefined || s.photo === '' ? undefined : text(s.photo, 'step photo', 140);
+    if (photo && !/^\/api\/(catalogue-photos|editorial\/assets)\/[a-f0-9]{64}\.jpg$/.test(photo)) throw new HttpError(400, 'Upload the step photo again.');
+    const image = photo && s.image ? choice(s.image, ['frame', 'illustration'] as const, 'step image type') : undefined;
+    const at = s.at === undefined || s.at === null ? undefined : Number(s.at);
+    if (at !== undefined && (!Number.isFinite(at) || at < 0 || at > 86400)) throw new HttpError(400, 'Check the step video time.');
     return { title: text(s.title, 'step title', 120), instruction: text(s.instruction, 'step instructions', 1400), ingredientIds: [...new Set(ids)],
+      ...(photo ? { photo, ...(image ? { image } : {}) } : {}), ...(at !== undefined ? { at } : {}),
       ...(timer ? { timer: { label: text(timer.label, 'timer label', 80), seconds: whole(timer.seconds, 'timer length', 1, 10800) } } : {}) };
   });
   if (!steps.length) throw new HttpError(400, 'Add at least one step.');
@@ -123,7 +129,7 @@ export function recipeFields(value: unknown) {
   return {
     name: text(v.name, 'recipe name', 160), description: text(v.description ?? '', 'description', 700, 0), cuisine: text(v.cuisine, 'cuisine', 60),
     minutes: whole(v.minutes, 'total minutes', 1, 180), servings: whole(v.servings, 'servings', 1, 8), categories: cats, onePot: v.onePot === true,
-    dietary: { diet, contains, ingredientsKnown: true }, ingredients, steps,
+    dietary: { diet, contains, ingredientsKnown: true }, ingredients, steps, removeCover: v.removeCover === true,
     image: image ? { path: String(image.path), width: whole(image.width, 'photo width', 1, 1600), height: whole(image.height, 'photo height', 1, 1600), credit: text(image.credit, 'photo credit', 180) } : null,
     sources: asList(v.sources ?? [], 'sources', 12).filter(s => s !== '').map(s => url(s, 'a source')),
   };

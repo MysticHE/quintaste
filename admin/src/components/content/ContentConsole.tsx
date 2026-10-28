@@ -1,5 +1,5 @@
 'use client';
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { date, useResource } from '../client';
 import { Empty, Feedback, Segmented } from '../Primitives';
 import { Icon } from '../Icon';
@@ -35,10 +35,12 @@ export function Places() {
 }
 export function Recipes() {
   const [selected, select] = useSelection();
-  return <ContentList path="/api/content/recipes" noun="recipes" selected={selected} select={select} add="Recipe"
-    filters={[['all', 'All'], ['bundled', 'App'], ['bot', 'QT Manager'], ['staff', 'Staff'], ['edited', 'Edited'], ['newer', 'Newer source'], ['hidden', 'Hidden']]}
+  const dirty = useRef(false), busy = useRef(false);
+  const choose = (id: string | null) => { if (id === selected || busy.current) return; if (dirty.current && !window.confirm('Discard changes?')) return; dirty.current = false; select(id); };
+  return <ContentList path="/api/content/recipes" noun="recipes" selected={selected} select={choose} add="Recipe"
+    filters={[['all', 'All'], ['bundled', 'App'], ['bot', 'QT Manager'], ['staff', 'Staff'], ['edited', 'Edited'], ['newer', 'Newer source'], ['hidden', 'Hidden'], ['deleted', 'Deleted']]}
     describe={r => ({ title: String(r.title), meta: [sourceLabel(r.source), (r.categories as string[]).join(', '), r.withdrawn ? 'Withdrawn' : ''].filter(Boolean).join(' · '), search: [r.title, r.categories], staff: r.source === 'staff' })}
-    detail={(id, changed) => <RecipePanel key={id} id={id} onChanged={changed}/>}/>;
+    detail={(id, changed) => <RecipePanel key={id} id={id} onChanged={changed} onDirty={value => { dirty.current = value; }} onBusy={value => { busy.current = value; }}/>}/>;
 }
 export function Events() {
   const [selected, select] = useSelection();
@@ -48,7 +50,7 @@ export function Events() {
     detail={(id, changed) => <EventPanel key={id} id={id} onChanged={changed}/>}/>;
 }
 const sourceLabel = (source: unknown) => ({ bundled: 'App', bot: 'QT Manager', staff: 'Staff' } as Record<string, string>)[String(source)] ?? '';
-const passes = (filter: string, row: Row) => ({ all: true, edited: row.edited, hidden: row.hidden, newer: !!row.newer, reported: (row.reports ?? 0) > 0,
+const passes = (filter: string, row: Row) => row.deleted ? filter === 'deleted' : filter === 'deleted' ? false : ({ all: true, edited: row.edited, hidden: row.hidden, newer: !!row.newer, reported: (row.reports ?? 0) > 0,
   staff: row.origin === 'staff' || row.source === 'staff', bundled: row.source === 'bundled', bot: row.source === 'bot', explorer: row.origin === 'explorer',
   upcoming: typeof row.startsAt === 'string' && Date.parse(row.startsAt) > Date.now() } as Record<string, boolean>)[filter] ?? true;
 
@@ -65,12 +67,12 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
     for (const [id] of filters) if (passes(id, row)) n[id] = (n[id] ?? 0) + 1;
     return n;
   }, {});
-  return <div className={'content-split' + (selected ? ' has-selection' : '')}>
+  return <div className={'content-split' + (noun === 'recipes' ? ' recipe-split' : '') + (selected ? ' has-selection' : '')}>
     <section className="panel content-list" aria-label={'All ' + noun}>
       <div className="stack compact list-tools">
         <div className="row nowrap"><div className="search"><Icon name="search" size={16}/><input type="search" aria-label={'Search ' + noun} placeholder={'Search ' + noun}
           value={query} maxLength={100} onChange={e => { setQuery(e.target.value); setLimit(STEP); }}/></div>
-          <button type="button" className="primary" aria-label={'New ' + add.toLowerCase()} onClick={() => select('new')}><Icon name="plus" size={16}/>{add}</button></div>
+          <button type="button" className="primary" aria-label={'New ' + add.toLowerCase()} title={'New ' + add.toLowerCase()} onClick={() => select('new')}><Icon name="plus" size={16}/>{noun !== 'recipes' && add}</button></div>
         {scope}
         <Chips label="Filter" value={filter} onChange={v => { setFilter(v); setLimit(STEP); }} options={filters.filter(([id]) => id === 'all' || counts[id]).map(([id, text]) => [id, text, id === 'all' ? undefined : counts[id]])}/>
       </div>
@@ -79,11 +81,11 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
       <ul className="items">{rows.slice(0, limit).map(row => { const d = describe(row);
         return <li key={row.id}><button type="button" className="item" aria-current={selected === row.id ? 'true' : undefined} onClick={() => select(row.id)}>
           <strong>{d.title}</strong>{d.meta && <span className="muted">{d.meta}</span>}
-          <Badges hidden={row.hidden} edited={row.edited} staff={d.staff} newer={!!row.newer} reports={row.reports ?? 0} tags={d.tags}/></button></li>; })}
+          {row.deleted ? <span className="badge danger">Deleted</span> : <Badges hidden={row.hidden} edited={row.edited} staff={d.staff} newer={!!row.newer} reports={row.reports ?? 0} tags={d.tags}/>}</button></li>; })}
         {rows.length > limit && <li><button type="button" className="plain more" onClick={() => setLimit(limit + STEP)}>Show {Math.min(STEP, rows.length - limit)} more</button></li>}
         {resource.data && !rows.length && <li><Empty icon="search">{query ? `No ${noun} match “${query}”` : `No ${noun} in this filter`}</Empty></li>}</ul>
     </section>
     <div className="content-detail">{selected ? <><button type="button" className="back plain" onClick={() => select(null)}><Icon name="back" size={16}/>{noun[0].toUpperCase() + noun.slice(1)}</button>{detail(selected, changed)}</>
-      : <div className="panel"><Empty icon="content">Choose one of the {noun} to see and edit what members see</Empty></div>}</div>
+      : <div className="panel"><Empty icon="content">{noun === 'recipes' ? 'Select a recipe' : `Choose one of the ${noun} to see and edit what members see`}</Empty></div>}</div>
   </div>;
 }

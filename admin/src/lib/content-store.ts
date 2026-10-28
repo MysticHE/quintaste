@@ -59,6 +59,7 @@ export async function writeItem(member: Session, kind: Kind, id: string, expecte
 /** Hide, restore or clear (back to the packaged/bot version) any edited item; staff-created items are deleted instead of cleared. */
 export function visibility(member: Session, kind: Kind, id: string, expected: number, act: 'hide' | 'restore' | 'clear' | 'delete', reason: string) {
   return writeItem(member, kind, id, expected, act, reason, row => {
+    if (kind === 'recipe' && row?.data._deletedAt) throw new HttpError(409, 'Restore this recipe before changing it.');
     if (act === 'clear' || act === 'delete') {
       if (!row) throw new HttpError(409, 'There is no staff change to clear.');
       if ((act === 'clear') !== (row.origin === 'edit')) throw new HttpError(409, act === 'clear' ? 'Delete a staff-created item instead.' : 'Only staff-created items can be deleted.');
