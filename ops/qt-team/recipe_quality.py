@@ -38,10 +38,12 @@ def page_key(url):
     return (parts.hostname or '').lower().removeprefix('www.') + parts.path.rstrip('/')
 BAR = {'rating': 4.5, 'ratings': 20, 'minutes': 30, 'ingredients': 12, 'steps': 8, 'outsidePantry': 1}
 CACHE_SECONDS = 7 * 86400
-CACHE_VERSION = 2  # 2: author @id references resolved
+CACHE_VERSION = 3  # 2: author @id references resolved; 3: plain-text recipe pages (recipe_page.py)
 MAX_PAGE = 3 * 1024 * 1024
 TRUSTED_BOOST = 3  # well-known creators rank first (trusted_creators.json); never a substitute for the bar
 RATED_BOOST = 2  # a page that also meets the star bar ranks above one without; the rating itself is no longer required
+CONCERN_PENALTY = 1  # each concern lowers a page's rank; concerns never reject it (owner, 28 Oct 2026)
+SOURCE_INGREDIENTS = 16  # a page with up to 16 lines can be trimmed to 12 (garnish, optional toppings); more cannot
 # Chinese ingredient lines: meat and seafood, but not 素鸡/素肉 (vegetarian), 鸡蛋 (egg), 牛奶 (milk), 肉桂 (cinnamon) and the like.
 # Plant foods named after animals are not meat (28 Oct 2026: 牛番茄, beefsteak tomato, rejected a vegetarian pasta): 牛番茄,
 # 牛蒡 (burdock), 牛肝菌 (porcini), 鸡腿菇/雞腿菇 (shaggy mane), 鸡枞 (termite mushroom), 羊肚菌 (morel), 猴头菇 needs no rule.
@@ -51,6 +53,16 @@ ANONYMOUS = {'admin', 'administrator', 'editor', 'editors', 'staff', 'team', 'au
 SOURCE_STEPS = 2 * BAR['steps']  # sites split easy recipes into many tiny steps; the QuinTaste version keeps to 8
 NOT_VEGETARIAN = re.compile(r'\b(chicken|pork|beef|mutton|lamb|bacon|ham|lard|anchov\w*|fish|bonito|katsuobushi|shrimp|prawns?|'
                             r'octopus|squid|crab|oysters?|scallops?|clams?|sashimi|shirasu|gelatine?)\b', re.I)
+# Plant foods named after animals are not meat (28 Oct 2026: 'king oyster mushroom' blocked a Buddhist temple's soup).
+PLANT_NAMES = re.compile(r'\b(?:king )?oyster mushrooms?\b|\bfish mint\b|\bchicken[- ]of[- ]the[- ]woods\b|\b(?:vegetarian|vegan|mushroom) (?:oyster|fish) sauce\b|\bhen[- ]of[- ]the[- ]woods\b', re.I)
+
+
+def meat_words(text):
+    """Meat and seafood words in an ingredient line, after plant foods named after animals are taken out."""
+    text = PLANT_NAMES.sub(' ', _norm(text))
+    if 'vegetarian' in text or 'vegan' in text:
+        return []
+    return [m.group(0).lower() for m in [NOT_VEGETARIAN.search(text) or NOT_VEGETARIAN_ZH.search(text)] if m]
 LD_JSON = re.compile(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', re.I | re.S)
 DURATION = re.compile(r'^P(?:(\d+(?:\.\d+)?)D)?(?:T(?:(\d+(?:\.\d+)?)H)?(?:(\d+(?:\.\d+)?)M)?(?:(\d+(?:\.\d+)?)S)?)?$', re.I)
 QUANTITY = re.compile(r'^[\d\s/.,½¼¾⅓⅔⅛\-–~x×]+')
@@ -100,7 +112,7 @@ def core(line):
 
 def local(line, names):
     text = ' ' + core(line) + ' '
-    return any(re.search(r'(?<![a-z])' + re.escape(n) + r'(?![a-z])', text) for n in names if n)
+    return any(re.search(r'(?<![a-z])' + re.escape(n) + r'(?:e?s)?(?![a-z])', text) for n in names if n)  # 'cucumbers' is 'cucumber'
 
 
 def minutes(value):
@@ -186,7 +198,8 @@ def fetch(root, url):
     request = urllib.request.Request(url, headers={'User-Agent': USER_AGENT, 'Accept': 'text/html'})
     with opener.open(request, timeout=30) as response:
         page = response.read(MAX_PAGE + 1).decode('utf-8', 'replace')
-    recipe = parse(page[:MAX_PAGE])
+    import recipe_page
+    recipe = parse(page[:MAX_PAGE]) or recipe_page.plain_recipe(page[:MAX_PAGE])
     stored = {'v': CACHE_VERSION, 'url': url, 'fetchedAt': dt.datetime.now(dt.timezone.utc).isoformat(), 'fetchedEpoch': time.time(), 'recipe': recipe}
     _write(cache, stored)
     return stored
@@ -276,25 +289,31 @@ def assess(root, url):
         return {'url': url, 'passes': False, 'reasons': ['page recipe data unreadable: ' + type(exc).__name__]}
 
 
-def _assess(root, url):
-    import nutrition
-    import recipe_charter
-    import recipe_standards
-    from recipe_policy import PUNGENT
-    try:
-        stored = fetch(root, url)
-    except Exception as exc:
-        return {'url': url, 'passes': False, 'reasons': ['page could not be read: ' + type(exc).__name__]}
-    recipe = stored.get('recipe')
-    if not recipe:
-        return {'url': url, 'passes': False, 'reasons': ['page has no structured recipe data (rating, times, ingredients)']}
+def _rating(recipe):
     rating = recipe.get('aggregateRating') or {}
     rating = rating[0] if isinstance(rating, list) and rating else rating
     value = _number(rating.get('ratingValue')) if isinstance(rating, dict) else None
     best = _number(rating.get('bestRating')) if isinstance(rating, dict) else None
     if value is not None and best and best != 5:
         value = value * 5 / best
-    count = _number((rating.get('ratingCount') or rating.get('reviewCount')) if isinstance(rating, dict) else None)
+    return value, _number((rating.get('ratingCount') or rating.get('reviewCount')) if isinstance(rating, dict) else None)
+
+
+def _assess(root, url):
+    """hard ('reasons'): what no judgement can fix, so the page is not offered to Cooker. concerns: the rest, which Cooker sees when
+    it writes and QT Manager judges in review; each one lowers the page's rank (owner, 28 Oct 2026: be smart, not rigid)."""
+    import recipe_charter
+    import recipe_standards
+    from recipe_policy import PUNGENT
+    try:
+        stored = fetch(root, url)
+    except Exception as exc:
+        return {'url': url, 'passes': False, 'reasons': ['page could not be read: ' + type(exc).__name__], 'concerns': []}
+    recipe = stored.get('recipe')
+    if not recipe:
+        return {'url': url, 'passes': False, 'reasons': ['page has no recipe the coordinator can read (no ingredient list and method)'], 'concerns': []}
+    plain = bool(recipe.get('_plain'))
+    value, count = _rating(recipe)
     total = minutes(recipe.get('totalTime'))
     if total is None and (minutes(recipe.get('prepTime')) is not None or minutes(recipe.get('cookTime')) is not None):
         total = (minutes(recipe.get('prepTime')) or 0) + (minutes(recipe.get('cookTime')) or 0)
@@ -307,47 +326,47 @@ def _assess(root, url):
     # Chinese-language lines are checked on the English QuinTaste version instead (gate), where the pantry names apply.
     outside = [line for line in lines if not CJK.search(core(line)) and not local(line, names)]
     pungent = sorted({m.group(0).lower() for line in lines for m in [PUNGENT.search(_norm(line))] if m})
-    reasons = []
-    # Two ways to qualify (owner, 28 Oct 2026): rated, or content (nutrient level and colour dish) with no rating needed.
-    figures = content_figures(root, lines, nutrition.page_yield(recipe), recipe.get('name', ''))
-    # A page whose own lines cannot be measured (Chinese wording, "1 can (400ml)", no yield) is not rejected here: Cooker's
-    # structured version is measured in the gate. A page that can be measured and misses the level is rejected now.
-    content = recipe_standards.problems(figures) if figures else []
-    rated = value is not None and count is not None and value >= BAR['rating'] and count >= BAR['ratings']
-    if content:
-        reasons.append('content check fails: ' + '; '.join(content[:3]))
-    reasons += recipe_charter.source_problems(root, recipe.get('name', ''), lines, _method(recipe.get('recipeInstructions')))
-    if total is None:
-        reasons.append('total time not published')
-    elif total > BAR['minutes']:
-        reasons.append(f'takes {total} min (max {BAR["minutes"]})')
-    if not lines:
-        reasons.append('ingredients not published')
-    elif len(lines) > BAR['ingredients']:
-        reasons.append(f'{len(lines)} ingredients (max {BAR["ingredients"]})')
-    if steps > SOURCE_STEPS:
-        reasons.append(f'{steps} steps on the source (max {SOURCE_STEPS}; the QuinTaste version keeps to {BAR["steps"]})')
-    meat = sorted({m.group(0).lower() for line in lines for m in [NOT_VEGETARIAN.search(_norm(line)) or NOT_VEGETARIAN_ZH.search(_norm(line))]
-                   if m and 'vegetarian' not in _norm(line) and 'vegan' not in _norm(line)})
-    if meat:
-        reasons.append('not vegetarian as written: ' + ', '.join(meat))
-    if pungent:
-        reasons.append('not naturally allium-free: ' + ', '.join(pungent))
-    if len(outside) > BAR['outsidePantry']:
-        reasons.append('hard-to-find ingredients: ' + '; '.join(core(x) for x in outside[:4]))
+    meat = sorted({w for line in lines for w in meat_words(line)})
+    rules = recipe_charter.source_findings(root, recipe.get('name', ''), lines, _method(recipe.get('recipeInstructions')))
     author = recipe.get('author')
     author = (author[0] if isinstance(author, list) and author else author) or {}
     author = re.sub(r'\s+', ' ', html.unescape(str((author.get('name') if isinstance(author, dict) else author) or ''))).strip()
     site = (urlsplit(url).hostname or '').removeprefix('www.')
+    hard = [*rules['hard']]
+    if not lines:
+        hard.append('ingredients not published')
+    if meat:
+        hard.append('not vegetarian as written: ' + ', '.join(meat))
+    if pungent:
+        hard.append('not naturally allium-free: ' + ', '.join(pungent))
     if not author or _norm(author) in ANONYMOUS or _norm(author) == site:
-        reasons.append('no named author or organisation')  # owner rule: every recipe is credited to a named creator
+        hard.append('no named author or organisation')  # owner rule: every recipe is credited to a named creator
+    if len(lines) > SOURCE_INGREDIENTS:
+        hard.append(f'{len(lines)} ingredients (too many to trim to {BAR["ingredients"]})')
+    concerns = [*rules['concerns']]
+    if total is None:
+        concerns.append('the page states no time; write a realistic total and keep it within ' + str(BAR['minutes']) + ' min')
+    elif total > BAR['minutes']:
+        concerns.append(f'the page takes {total} min; the QuinTaste version must fit {BAR["minutes"]}')
+    if BAR['ingredients'] < len(lines) <= SOURCE_INGREDIENTS:
+        concerns.append(f'{len(lines)} ingredients; trim garnish or optional items to {BAR["ingredients"]}')
+    if steps > SOURCE_STEPS:
+        concerns.append(f'{steps} steps on the page; the QuinTaste version keeps to {BAR["steps"]}')
+    if len(outside) > BAR['outsidePantry']:
+        concerns.append('may be hard to buy in Singapore: ' + '; '.join(core(x) for x in outside[:4]))
+    figures = content_figures(root, lines, nutrition.page_yield(recipe), recipe.get('name', ''))
+    content = recipe_standards.problems(figures) if figures else []
+    if content:
+        concerns.append('as written it misses the nutrient level or colours (' + '; '.join(content[:2]) + '); the QuinTaste version must meet them')
+    rated = value is not None and count is not None and value >= BAR['rating'] and count >= BAR['ratings']
     known = trusted(root).get(site)
-    score = (value or 0) * math.log10((count or 0) + 1) - (total or 60) / 30 + (TRUSTED_BOOST if known else 0) + (RATED_BOOST if rated else 0)
+    score = ((value or 0) * math.log10((count or 0) + 1) - (total or 45) / 30 + (TRUSTED_BOOST if known else 0) + (RATED_BOOST if rated else 0)
+             - CONCERN_PENALTY * len(concerns))
     return {'url': url, 'site': site, 'siteName': known or site, 'trusted': bool(known), 'name': _norm(recipe.get('name', ''))[:160], 'author': author[:160],
-            'rating': value, 'ratings': int(count or 0), 'minutes': total, 'ingredients': lines[:40], 'steps': steps,
-            'outsidePantry': [core(x) for x in outside], 'passes': not reasons, 'reasons': reasons, 'score': round(score, 3),
+            'rating': value, 'ratings': int(count or 0), 'minutes': total, 'ingredients': lines[:40], 'steps': steps, 'plainPage': plain,
+            'outsidePantry': [core(x) for x in outside], 'passes': not hard, 'reasons': hard, 'concerns': concerns, 'score': round(score, 3),
             'path': 'rated' if rated else 'content',
-            'content': '; '.join(content[:4]) if content else recipe_standards.summary(figures) if figures else 'measured on the QuinTaste version',
+            'content': recipe_standards.summary(figures) if figures and not content else 'measured on the QuinTaste version',
             'checkedAt': stored['fetchedAt'][:10]}
 
 
@@ -372,9 +391,11 @@ def gate(root, record):
             reasons.append(f'adapted recipe has {len(ingredients)} ingredients')
         if len(recipe.get('steps') or []) > BAR['steps']:
             reasons.append(f'adapted recipe has {len(recipe["steps"])} steps')
-        if len(outside) > BAR['outsidePantry']:
-            reasons.append('hard-to-find ingredients: ' + ', '.join(outside[:4]))
-        reasons += version_problems(root, recipe, source)
+        found = version_findings(root, recipe)
+        reasons += found['hard']
+        concerns = found['concerns'] + (['may be hard to buy in Singapore: ' + ', '.join(outside[:4])] if len(outside) > BAR['outsidePantry'] else [])
+        if concerns:
+            record['notes'] = (str(record.get('notes', '')) + ' For QT Manager to judge against the owner\'s lessons: ' + '; '.join(concerns) + '.').strip()
     if reasons:
         recipe.pop('_content', None)
         record['status'] = 'held'
@@ -394,8 +415,9 @@ def gate(root, record):
     return record
 
 
-def version_problems(root, recipe, source):
-    """The owner's rulebook and the content check (nutrient level, colour dish) on Cooker's own version."""
+def version_findings(root, recipe):
+    """{'hard', 'concerns'} for Cooker's own version: the owner's rulebook and the content check (nutrient level, colour dish; hard,
+    as the owner set it)."""
     import recipe_charter
     import recipe_standards
     root = recipe_charter.team_root(root, 'nutrition_sg.json')
@@ -410,10 +432,10 @@ def version_problems(root, recipe, source):
             oil += grams / 0.92  # ml of oil
         if sweetener.search(_norm(item.get('name', ''))):
             sweet += grams
-    reasons = recipe_charter.recipe_problems(root, recipe, oil_ml=oil, sweetener_grams=sweet / servings)
+    found = recipe_charter.recipe_findings(root, recipe, oil_ml=oil, sweetener_grams=sweet / servings)
+    reasons = found['hard']
     names = [_norm(i.get('name', '')) for i in recipe.get('ingredients') or []]
-    meat = sorted({m.group(0) for n in names for m in [NOT_VEGETARIAN.search(n) or NOT_VEGETARIAN_ZH.search(n)]
-                   if m and 'vegetarian' not in n and 'vegan' not in n})
+    meat = sorted({w for n in names for w in meat_words(n)})
     if meat:
         reasons.append('not vegetarian: ' + ', '.join(meat))
     figures = nutrition.estimate(root, recipe, detail=True)
@@ -421,7 +443,7 @@ def version_problems(root, recipe, source):
     reasons += ['QuinTaste version: ' + p for p in problems]
     if not problems:
         recipe['_content'] = recipe_standards.summary(figures)
-    return reasons
+    return {'hard': reasons, 'concerns': found['concerns']}
 
 
 def shortlist_prompt(baseline, counts, rejected, creators=(), rules=''):
@@ -489,7 +511,8 @@ def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=No
     passed = sorted((c for c in checked if c['passes']), key=lambda c: -c['score'])
     history['rejected'] = (history['rejected'] + [c['url'] for c in checked if not c['passes']])[-200:]
     history['last'] = {'at': dt.datetime.now(dt.timezone.utc).isoformat(), 'checked': len(checked), 'passed': len(passed),
-                       'reasons': [{'url': c['url'], 'reasons': c['reasons']} for c in checked if not c['passes']]}
+                       'reasons': [{'url': c['url'], 'reasons': c['reasons']} for c in checked if not c['passes']],
+                       'concerns': [{'url': c['url'], 'concerns': c.get('concerns', [])} for c in checked if c['passes'] and c.get('concerns')]}
     _write(log, history)
     return {'passed': passed, 'checked': checked}
 

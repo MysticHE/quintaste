@@ -158,7 +158,7 @@ def validate(role, obj, assigned=None):
     return obj
 
 
-SOURCE_FIELDS = ('url', 'name', 'site', 'author', 'rating', 'ratings', 'minutes', 'ingredients', 'steps', 'category')
+SOURCE_FIELDS = ('url', 'name', 'site', 'author', 'rating', 'ratings', 'minutes', 'ingredients', 'steps', 'category', 'concerns')
 
 
 def cooker_sources(held_retries, passed, candidates, prior, assess=None):
@@ -528,7 +528,9 @@ def contract(role):
                          "imageBrief}. Categories: " + ", ".join(allowed) + ". Use original wording; source and attribution remain required. Do not copy entire recipes verbatim. "
                          "Write at least 4 steps, prep included, and use every ingredient in a step. One named food per ingredient line, by its "
                          "everyday Singapore name ('Choy sum', not 'Greens' or 'Broccoli & bok choy'); no generic stock or broth: use water and "
-                         "named seasonings. No deep-frying. "
+                         "named seasonings. No deep-frying. An approvedSources entry may list concerns: resolve each one in your version "
+                         "(trim to 12 ingredients, keep within 30 minutes, swap deep-frying for pan-frying or baking) or, if you cannot, "
+                         "say why in notes; QT Manager judges what is left. "
                          "servings is 1 to 8 (the app's limit): when the source makes more than 8, scale every amount and gram estimate by one "
                          "factor to 8 or fewer servings (for example 12 servings halved to 6) and say so in adaptationNote (21 Oct 2026). "
                          "Name plain ingredients plainly ('vegetable oil', 'rice vinegar'); put 'unseasoned' or 'without seasoning' in notes, not in the name. "
