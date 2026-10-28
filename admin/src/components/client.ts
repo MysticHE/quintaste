@@ -47,7 +47,7 @@ export function useResource<T>(path: string | null) {
   const current = path && result?.key === key ? result : null;
   // While the same resource reloads, keep showing what was there, so open panels and their confirmations stay mounted.
   const previous = path && result?.data && result.key.slice(0, result.key.lastIndexOf(':')) === path ? result : null;
-  return { data: (current ?? previous)?.data || null, error: current?.error || '', loading: Boolean(path && !current && !previous), reload };
+  return { data: (current ?? previous)?.data || null, error: current?.error || '', loading: Boolean(path && !current && !previous), refreshing: Boolean(path && !current), reload };
 }
 export function date(value: unknown) {
   if (typeof value !== 'string' || !value) return '—';

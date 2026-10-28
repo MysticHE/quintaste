@@ -16,7 +16,7 @@ export function RecipePhotoEditor({ path, fallback, label, disabled, compact, on
   useEffect(() => () => request.current?.abort(), []);
   const src = recipePhotoSrc(path) || bundledPhotoSrc(fallback);
   async function upload(file?: File) {
-    if (!file || busy) return;
+    if (!file || busy || disabled) return;
     if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 8 * 1024 * 1024) { setError('Use a JPEG, PNG or WebP under 8 MB.'); return; }
     const controller = new AbortController(); request.current = controller;
     setBusy(true); onBusy(true); setError('');

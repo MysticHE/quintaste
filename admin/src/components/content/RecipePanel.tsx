@@ -13,13 +13,13 @@ export default function RecipePanel({ id, onChanged, onDirty, onBusy }: { id: st
   const resource = useResource<Detail>(id === 'new' ? null : '/api/content/recipes?id=' + encodeURIComponent(id));
   if (id === 'new') return <RecipeForm detail={null} onSaved={onChanged} onDirty={onDirty} onBusy={onBusy}/>;
   return <><Feedback {...resource} retry={resource.reload}/>{resource.data && <RecipeForm key={resource.data.staff?.version ?? 0} detail={resource.data}
-    onDirty={onDirty} onBusy={onBusy} onSaved={next => { resource.reload(); onChanged(next); }}/>}</>;
+    refreshing={resource.refreshing} onDirty={onDirty} onBusy={onBusy} onSaved={next => { resource.reload(); onChanged(next); }}/>}</>;
 }
-function RecipeForm({ detail, onSaved, onDirty, onBusy }: { detail: Detail | null; onSaved: (id?: string | null) => void; onDirty: (dirty: boolean) => void; onBusy: (busy: boolean) => void }) {
+function RecipeForm({ detail, onSaved, onDirty, onBusy, refreshing = false }: { detail: Detail | null; onSaved: (id?: string | null) => void; onDirty: (dirty: boolean) => void; onBusy: (busy: boolean) => void; refreshing?: boolean }) {
   const [r, setR] = useState(() => initial(detail)), [dirty, setDirty] = useState(false), [busy, setBusy] = useState(''), [uploads, setUploads] = useState(0);
   const [error, setError] = useState(''), [tab, setTab] = useState('overview'), [confirm, setConfirm] = useState(''), [reason, setReason] = useState('');
   const [preview, setPreview] = useState(false);
-  const deleted = !!detail?.staff?.data._deletedAt, locked = !!busy || uploads > 0, edited = !!detail?.staff && Object.keys(detail.staff.data).length > 1;
+  const deleted = !!detail?.staff?.data._deletedAt, locked = refreshing || !!busy || uploads > 0, edited = !!detail?.staff && Object.keys(detail.staff.data).length > 1;
   const set = (patch: Partial<Form>) => { setR(old => ({ ...old, ...patch })); setDirty(true); onDirty(true); };
   const uploading = (active: boolean) => { setUploads(n => n + (active ? 1 : -1)); if (active) { setDirty(true); onDirty(true); } };
   useEffect(() => { onBusy(locked); return () => onBusy(false); }, [locked, onBusy]);
