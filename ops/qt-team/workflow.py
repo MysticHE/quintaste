@@ -519,11 +519,16 @@ def contract(role):
             "If a stored page says the venue is permanently or temporarily closed, return closure:{status:'permanently-closed'|'temporarily-closed', sourceUrl, quote (copied exactly, e.g. 'Permanently closed')}; never infer closure from an unreachable page. " + \
             "Use shared captures once, never one search per dish. Do not copy the baseline price as verification. Record unchanged verified prices in menuReview, NOT redundant menuPrices proposals. Propose menuPrices only for real changes, using the supplied IDs. Large menus resume explicit remaining chunks; never claim the whole menu was verified from a sample."
     if role == "qt-cooker":
+        import recipe_charter
         from recipe_policy import RULE
-        return common + RULE + (" Propose up to 2 recipes. Each proposed record has recipe: {name, category, servings, minutes, cuisine, "
+        allowed = recipe_charter.load(ROOT)['allowedCategories']
+        return common + RULE + ' ' + recipe_charter.prompt_rules(ROOT) + (" Propose up to 2 recipes. Each proposed record has recipe: {name, category, servings, minutes, cuisine, "
                          "ingredients:[{id,name,amount:number|null,unit,grams:number|null (your best estimate of the weight in grams of that amount, for nutrition; null if unsure)}],steps:[{title (2-4 words, e.g. \"Blanch the stems\"),instruction,ingredientIds:[id]}], "
                          "diet:Vegetarian|Vegan,contains:[string],compoundIngredientsUnconfirmed:[string],author,adaptationNote,kitchenTested:false," 
-                         "imageBrief}. Categories: " + ", ".join(CATEGORIES) + ". Use original wording; source and attribution remain required. Do not copy entire recipes verbatim. "
+                         "imageBrief}. Categories: " + ", ".join(allowed) + ". Use original wording; source and attribution remain required. Do not copy entire recipes verbatim. "
+                         "Write at least 4 steps, prep included, and use every ingredient in a step. One named food per ingredient line, by its "
+                         "everyday Singapore name ('Choy sum', not 'Greens' or 'Broccoli & bok choy'); no generic stock or broth: use water and "
+                         "named seasonings. No deep-frying. "
                          "servings is 1 to 8 (the app's limit): when the source makes more than 8, scale every amount and gram estimate by one "
                          "factor to 8 or fewer servings (for example 12 servings halved to 6) and say so in adaptationNote (21 Oct 2026). "
                          "Name plain ingredients plainly ('vegetable oil', 'rice vinegar'); put 'unseasoned' or 'without seasoning' in notes, not in the name. "

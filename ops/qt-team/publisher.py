@@ -348,10 +348,12 @@ def prepare(packages, live):
                                 image_assets[info['sha256']]={'sha256':info['sha256'],'file':info['file'],'provenance':{'kind':'original-generated-recipe-step-illustration','recipeId':row['id'],'step':n,'provider':info['provider'],'model':info['model'],'prompt':info['prompt'],'originalSha256':info['originalSha256']}}
                             if missing:
                                 raise ValueError(f'Awaiting step photos: {missing} of {len(data["steps"])} steps have none yet')
-                        if previous is None and 'sourceRating' not in data and (ROOT/'pantry_sg.json').is_file():
+                        content_path = (row.get('recipe') or {}).get('qualifiedBy') == 'content'
+                        if previous is None and 'sourceRating' not in data and not content_path and (ROOT/'pantry_sg.json').is_file():
                             # Owner recipe bar (18 Oct 2026): only recipe_quality.gate attaches sourceRating, so a new recipe
                             # without it was proposed before the bar or never passed it. (pantry_sg.json marks the bar as live.)
-                            raise ValueError('Not published: proposed before the recipe bar or without a verified rated source')
+                            # Owner, 28 Oct 2026: the gate's content path (nutrient level and colour dish) qualifies without a rating.
+                            raise ValueError('Not published: proposed before the recipe bar or without a verified rated or content-checked source')
                         if previous is None and 'image' not in data:
                             # Owner rule (18 Oct 2026): a new recipe goes live only together with its approved photo.
                             raise ValueError('Awaiting its generated photo; a new recipe publishes only with an approved image')

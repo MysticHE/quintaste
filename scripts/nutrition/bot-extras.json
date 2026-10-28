@@ -1,0 +1,377 @@
+{
+  "notes": "Inputs to scripts/nutrition/build_bot_v3.py (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md §5). colour: one of the five colours (green, red, yellow, black, white; purple counts as black), set only for foods that show on the plate. staple: one of the five grains (rice, wheat, soybean, corn, tuber). taiwan: Taiwan FDA Food Nutrient Database id (整合編號) whose figures replace a USDA stand-in. noMicro: USDA stand-ins whose vitamins and minerals would mislead (e.g. USDA oyster sauce is made from oysters). newFoods: foods USDA lacks, figures from Taiwan FDA; their match patterns are removed from older keys so the specific food wins.",
+  "colour": {
+    "coconut_milk": "white",
+    "coconut_fresh": "white",
+    "white_bread": "white",
+    "oats": "white",
+    "ginger": "yellow",
+    "shiitake": "black",
+    "mushrooms": "white",
+    "tofu_silken": "white",
+    "tofu_firm": "white",
+    "tofu_puffs": "yellow",
+    "coriander_leaves": "green",
+    "popiah_skins": "white",
+    "jicama": "white",
+    "carrot": "red",
+    "bean_sprouts": "white",
+    "lettuce": "green",
+    "rice_noodles_dry": "white",
+    "brown_rice_dry": "white",
+    "brown_rice_cooked": "white",
+    "avocado": "green",
+    "red_cabbage": "black",
+    "cabbage": "green",
+    "edamame": "green",
+    "broccoli": "green",
+    "bok_choy": "green",
+    "capsicum": "green",
+    "pineapple": "yellow",
+    "cucumber": "green",
+    "kangkung": "green",
+    "red_chilli": "red",
+    "green_chilli": "green",
+    "dried_chilli": "red",
+    "potato": "white",
+    "sweet_potato": "yellow",
+    "corn": "yellow",
+    "tomato": "red",
+    "taro": "white",
+    "sago": "white",
+    "jasmine_rice": "white",
+    "yellow_noodles": "yellow",
+    "tempeh": "yellow",
+    "lime": "green",
+    "lemon": "yellow",
+    "eggs": "yellow",
+    "milk": "white",
+    "soy_milk": "white",
+    "strawberries": "red",
+    "millet": "yellow",
+    "pumpkin": "yellow",
+    "peas": "green",
+    "urad_dal": "black",
+    "poha": "white",
+    "legacy_apple": "yellow",
+    "legacy_banana": "yellow",
+    "legacy_barley": "white",
+    "legacy_basil": "green",
+    "legacy_bitter_gourd": "green",
+    "legacy_black_beans": "black",
+    "legacy_black_fungus": "black",
+    "legacy_black_sesame": "black",
+    "legacy_blueberries": "black",
+    "legacy_brinjal": "black",
+    "legacy_cashews": "white",
+    "legacy_cauliflower": "white",
+    "legacy_celery": "green",
+    "legacy_cheese": "yellow",
+    "legacy_chia_seeds": "black",
+    "legacy_chickpeas": "yellow",
+    "legacy_chilli": "red",
+    "legacy_cooked_rice": "white",
+    "legacy_coriander": "green",
+    "legacy_cream": "white",
+    "legacy_daikon": "white",
+    "legacy_desiccated_coconut": "white",
+    "legacy_enoki": "white",
+    "legacy_french_beans": "green",
+    "legacy_glass_noodles": "white",
+    "legacy_glutinous_rice": "white",
+    "legacy_goji_berries": "red",
+    "legacy_green_beans": "green",
+    "legacy_kidney_beans": "red",
+    "legacy_kimchi": "red",
+    "legacy_long_beans": "green",
+    "legacy_longan": "white",
+    "legacy_loofah": "green",
+    "legacy_lotus_root": "white",
+    "legacy_lotus_seeds": "white",
+    "legacy_mango": "yellow",
+    "legacy_mint": "green",
+    "legacy_mung_beans": "green",
+    "legacy_noodles": "yellow",
+    "legacy_nori": "black",
+    "legacy_okra": "green",
+    "legacy_orange": "yellow",
+    "legacy_paneer": "white",
+    "legacy_papaya": "red",
+    "legacy_pasta": "yellow",
+    "legacy_pear": "white",
+    "legacy_quinoa": "white",
+    "legacy_radish": "white",
+    "legacy_red_beans": "red",
+    "legacy_red_dates": "red",
+    "legacy_seaweed": "black",
+    "legacy_snow_peas": "green",
+    "legacy_spaghetti": "yellow",
+    "legacy_squash": "yellow",
+    "legacy_udon": "white",
+    "legacy_vermicelli": "white",
+    "legacy_winter_melon": "white",
+    "legacy_wood_ear": "black",
+    "legacy_yogurt": "white",
+    "legacy_zucchini": "green"
+  },
+  "staple": {
+    "jasmine_rice": "rice",
+    "brown_rice_dry": "rice",
+    "brown_rice_cooked": "rice",
+    "legacy_cooked_rice": "rice",
+    "legacy_glutinous_rice": "rice",
+    "rice_noodles_dry": "rice",
+    "legacy_vermicelli": "rice",
+    "poha": "rice",
+    "flour": "wheat",
+    "white_bread": "wheat",
+    "popiah_skins": "wheat",
+    "yellow_noodles": "wheat",
+    "legacy_noodles": "wheat",
+    "legacy_pasta": "wheat",
+    "legacy_spaghetti": "wheat",
+    "legacy_udon": "wheat",
+    "tofu_firm": "soybean",
+    "tofu_silken": "soybean",
+    "tofu_puffs": "soybean",
+    "tempeh": "soybean",
+    "soy_milk": "soybean",
+    "edamame": "soybean",
+    "corn": "corn",
+    "potato": "tuber",
+    "sweet_potato": "tuber",
+    "taro": "tuber"
+  },
+  "taiwan": {
+    "doubanjiang": "P1004101",
+    "chilli_paste": "P1003201",
+    "legacy_udon": "R2001301",
+    "legacy_five_spice": "P0100401",
+    "yellow_noodles": "R2001101",
+    "popiah_skins": "R1800201"
+  },
+  "names": {
+    "legacy_udon": "Udon noodles, frozen",
+    "chilli_paste": "Chilli paste",
+    "legacy_five_spice": "Five-spice powder",
+    "yellow_noodles": "Yellow noodles (oil noodles), cooked",
+    "popiah_skins": "Popiah skins (spring roll wrappers)"
+  },
+  "noMicro": [
+    "sweet_sauce",
+    "black_beans_fermented",
+    "kecap_manis",
+    "veg_oyster_sauce"
+  ],
+  "patch": {
+    "legacy_banana": {
+      "match": [
+        "(?<![a-z])bananas(?![a-z])"
+      ],
+      "each": 118
+    },
+    "water": {
+      "match": [
+        "^(?:hot|warm|cold|boiling|iced) water"
+      ]
+    },
+    "corn": {
+      "match": [
+        "sweet ?corn"
+      ]
+    }
+  },
+  "negligible": {
+    "bay_leaf": {
+      "name": "Bay leaf",
+      "match": [
+        "bay lea(?:f|ves)"
+      ]
+    }
+  },
+  "newFoods": {
+    "tw_yuba": {
+      "name": "Beancurd skin (tau kee), dried",
+      "taiwan": "R4700401",
+      "each": 30,
+      "colour": "yellow",
+      "staple": "soybean",
+      "match": [
+        "yuba",
+        "tau kee",
+        "tofu skin",
+        "bean ?curd skin",
+        "bean ?curd sheet",
+        "fu zhu",
+        "foo chuk"
+      ]
+    },
+    "tw_dried_tofu": {
+      "name": "Pressed tofu (dou gan)",
+      "taiwan": "R4700203",
+      "each": 60,
+      "colour": "yellow",
+      "staple": "soybean",
+      "match": [
+        "pressed tofu",
+        "dried tofu",
+        "dou ?gan",
+        "five[- ]spice tofu"
+      ]
+    },
+    "tw_soybean_sprouts": {
+      "name": "Soybean sprouts",
+      "taiwan": "E7700401",
+      "gPerMl": 0.3,
+      "colour": "white",
+      "match": [
+        "soy ?bean sprouts?",
+        "soya bean sprouts?"
+      ]
+    },
+    "tw_white_fungus": {
+      "name": "White fungus, fresh",
+      "taiwan": "G0200101",
+      "each": 40,
+      "colour": "white",
+      "match": [
+        "white fungus",
+        "snow fungus",
+        "silver ear",
+        "tremella"
+      ]
+    },
+    "tw_white_fungus_dried": {
+      "name": "White fungus, dried",
+      "taiwan": "G0210101",
+      "each": 10,
+      "colour": "white",
+      "match": [
+        "dried white fungus",
+        "dried snow fungus",
+        "dried silver ear",
+        "dried tremella"
+      ]
+    },
+    "tw_shimeji": {
+      "name": "Shimeji mushrooms",
+      "taiwan": "G1900101",
+      "each": 150,
+      "gPerMl": 0.3,
+      "colour": "white",
+      "match": [
+        "shimeji",
+        "beech mushrooms?"
+      ]
+    },
+    "tw_lions_mane": {
+      "name": "Lion's mane mushroom",
+      "taiwan": "G2300101",
+      "each": 100,
+      "colour": "white",
+      "match": [
+        "lion'?s mane",
+        "monkey head mushrooms?"
+      ]
+    },
+    "tw_straw_mushroom": {
+      "name": "Straw mushrooms",
+      "taiwan": "G0300101",
+      "each": 15,
+      "gPerMl": 0.5,
+      "colour": "black",
+      "match": [
+        "straw mushrooms?"
+      ]
+    },
+    "tw_king_oyster": {
+      "name": "King oyster mushroom",
+      "taiwan": "G13002",
+      "each": 80,
+      "gPerMl": 0.35,
+      "colour": "white",
+      "match": [
+        "king oyster",
+        "eryngii"
+      ]
+    },
+    "tw_gluten": {
+      "name": "Wheat gluten (mian jin)",
+      "taiwan": "R1700101",
+      "gPerMl": 0.5,
+      "colour": "white",
+      "staple": "wheat",
+      "match": [
+        "mian jin",
+        "seitan",
+        "wheat gluten",
+        "\\bgluten\\b(?!-free| free)"
+      ]
+    },
+    "tw_mirin": {
+      "name": "Mirin",
+      "taiwan": "P0800101",
+      "gPerMl": 1.15,
+      "match": [
+        "mirin"
+      ]
+    },
+    "tw_glutinous_rice_flour": {
+      "name": "Glutinous rice flour",
+      "taiwan": "A0520401",
+      "gPerMl": 0.55,
+      "staple": "rice",
+      "match": [
+        "glutinous rice flour",
+        "sweet rice flour",
+        "mochiko"
+      ]
+    },
+    "tw_mantou": {
+      "name": "Mantou (steamed bun)",
+      "taiwan": "R2400201",
+      "each": 60,
+      "colour": "white",
+      "staple": "wheat",
+      "match": [
+        "mantou",
+        "man tou",
+        "steamed buns?"
+      ]
+    },
+    "tw_choy_sum": {
+      "name": "Choy sum",
+      "taiwan": "E3201001",
+      "gPerMl": 0.13,
+      "colour": "green",
+      "match": [
+        "choy sum",
+        "chye sim",
+        "cai xin",
+        "caixin"
+      ]
+    },
+    "tw_kai_lan": {
+      "name": "Kai lan (Chinese kale)",
+      "taiwan": "E3900101",
+      "gPerMl": 0.13,
+      "colour": "green",
+      "match": [
+        "kai lan",
+        "kailan",
+        "gai lan",
+        "chinese kale",
+        "chinese broccoli"
+      ]
+    },
+    "tw_black_vinegar": {
+      "name": "Black vinegar",
+      "taiwan": "P0600701",
+      "gPerMl": 1.02,
+      "match": [
+        "black vinegar",
+        "chinkiang vinegar"
+      ]
+    }
+  }
+}

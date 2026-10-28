@@ -1,6 +1,12 @@
 """Useful recipes only (owner, 18 Oct 2026): easy, well rated, naturally allium-free and made from ingredients
 that are easy to buy in Singapore, always from a referenced source page.
 
+Owner, 28 Oct 2026 (docs/RECIPE_SOURCING_PLAN.md §5a): the star rating is no longer required; every recipe must meet the
+nutrient level and colour dish (recipe_standards.py, measured from the page's own ingredient lines and again on Cooker's version
+with the v3 nutrition table), keep the time, ingredient, step, pantry and author rules, and pass the owner's rulebook
+(recipe_charter.py), learned from the recipes the owner deleted. A page that also meets the star bar ranks higher and keeps its
+rating in Recipe info (path 'rated'); one without is path 'content'.
+
 The facts come from the recipe page's own schema.org Recipe data (rating, rating count, times, ingredient
 lines, steps), fetched through the egress guard, never from the model's description of the page. A Cooker
 proposal publishes only if its source passes these checks and the QuinTaste adaptation stays within them.
@@ -35,6 +41,7 @@ CACHE_SECONDS = 7 * 86400
 CACHE_VERSION = 2  # 2: author @id references resolved
 MAX_PAGE = 3 * 1024 * 1024
 TRUSTED_BOOST = 3  # well-known creators rank first (trusted_creators.json); never a substitute for the bar
+RATED_BOOST = 2  # a page that also meets the star bar ranks above one without; the rating itself is no longer required
 # Chinese ingredient lines: meat and seafood, but not 素鸡/素肉 (vegetarian), 鸡蛋 (egg), 牛奶 (milk), 肉桂 (cinnamon) and the like.
 NOT_VEGETARIAN_ZH = re.compile(r'(?<!素)(?:鸡(?!蛋)|鸭(?!蛋)|鹅(?!蛋)|猪|牛(?!奶|油果)|羊(?!奶)|鱼(?!腥草)|虾|蟹|蚝油|鱼露|培根|火腿|明胶|鱿鱼|章鱼|海鲜|(?<!果)肉(?!桂|豆蔻|松))')
 CJK = re.compile(r'[㐀-鿿]')
@@ -183,6 +190,75 @@ def fetch(root, url):
     return stored
 
 
+import nutrition  # noqa: E402  (the v3 table's units; nutrition.py imports nothing from here)
+
+
+def _method(instructions):
+    """The page's method as one text, for the rulebook's deep-fry check."""
+    if isinstance(instructions, str):
+        return html.unescape(re.sub(r'<[^>]*>', ' ', instructions))
+    parts = []
+    for item in instructions if isinstance(instructions, list) else [instructions]:
+        if isinstance(item, dict):
+            parts.append(_method(item.get('itemListElement')) if item.get('@type') == 'HowToSection' else str(item.get('text') or item.get('name') or ''))
+        elif item:
+            parts.append(str(item))
+    return ' '.join(parts)
+
+
+FRACTIONS = {'½': 0.5, '¼': 0.25, '¾': 0.75, '⅓': 1 / 3, '⅔': 2 / 3, '⅛': 0.125}
+AMOUNT = re.compile(r'^(\d+(?:[.,]\d+)?)?\s*(?:(\d+)/(\d+))?')
+PACK = re.compile(r'^\((\d+(?:[.,]\d+)?)\s*(oz|g|ml)\)\s*(?:cans?|tins?|packs?|packets?|blocks?|cartons?|jars?)\b')
+NOT_UNITS = {'whole', 'large', 'medium', 'small', 'of', 'heaped', 'level'}
+WORD_AMOUNTS = {'a': 1, 'an': 1, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'eight': 8, 'ten': 10, 'twelve': 12,
+                'half': 0.5, 'half a': 0.5, 'a half': 0.5}
+
+
+def structured(line):
+    """'1½ tbsp light soy sauce' -> {'name': 'light soy sauce', 'amount': 1.5, 'unit': 'tbsp'}; amount None for 'to taste'."""
+    raw = str(line or '')
+    for char, value in FRACTIONS.items():  # before NFKC, which turns '1½' into '11⁄2'
+        raw = raw.replace(char, ' ' + {0.5: '1/2', 0.25: '1/4', 0.75: '3/4', 0.125: '1/8'}.get(value, '1/3' if value < 0.5 else '2/3'))
+    text = _norm(raw).replace('⁄', '/')
+    spelled = re.match(r'^(half a|a half|an?|one|two|three|four|five|six|eight|ten|twelve|half)\b\s*', text)
+    if spelled and not re.match(r'^an?\s+(?:pinch|dash|little|few|handful)\b', text):
+        text = str(WORD_AMOUNTS[spelled.group(1)]) + ' ' + text[spelled.end():]
+    match = AMOUNT.match(text)
+    if match.group(1) and match.group(2) is None and re.match(r'^\d+/\d+', text):  # "1/2 cup": a fraction, not 1
+        match = re.match(r'^()(\d+)/(\d+)()', text)
+    whole = float(match.group(1).replace(',', '.')) if match.group(1) else 0.0
+    part = int(match.group(2)) / int(match.group(3)) if match.group(2) and int(match.group(3)) else 0.0
+    amount = whole + part or None
+    rest = text[match.end():]
+    if re.match(r'^\s*[-–]\s*\d', rest):  # "2-3 cups": the first number
+        rest = re.sub(r'^\s*[-–]\s*\d+(?:[.,]\d+)?', '', rest)
+    rest = rest.strip()
+    pack = PACK.match(rest)
+    if pack and amount:  # "1 (14 oz) can coconut milk": the pack size, in its own unit
+        amount, rest = amount * float(pack.group(1).replace(',', '.')), pack.group(2) + ' ' + rest[pack.end():].strip()
+    unit = ''
+    word = re.match(r'^([a-z]+)\.?(?![a-z])', rest)
+    if word and amount:
+        candidate = word.group(1)
+        if candidate in nutrition.WEIGHT_UNITS or (candidate not in NOT_UNITS and UNITS.match(candidate + ' ')):
+            unit, rest = candidate, rest[word.end():]
+    if 'to taste' in text or 'as needed' in text:
+        amount = None
+    return {'name': core(rest) or core(line), 'amount': amount, 'unit': unit if amount else ''}
+
+
+def content_figures(root, lines, servings, name=''):
+    """The page's nutrition, vitamins, minerals and colours per serving (nutrition.estimate detail), or None when not measurable."""
+    import recipe_charter
+    if not servings:
+        return None
+    try:
+        return nutrition.estimate(recipe_charter.team_root(root, 'nutrition_sg.json'),
+                                  {'name': name, 'servings': servings, 'ingredients': [structured(x) for x in lines]}, detail=True)
+    except (OSError, ValueError, KeyError):
+        return None
+
+
 def _number(value):
     try:
         return float(str(value).replace(',', ''))
@@ -199,6 +275,9 @@ def assess(root, url):
 
 
 def _assess(root, url):
+    import nutrition
+    import recipe_charter
+    import recipe_standards
     from recipe_policy import PUNGENT
     try:
         stored = fetch(root, url)
@@ -227,10 +306,15 @@ def _assess(root, url):
     outside = [line for line in lines if not CJK.search(core(line)) and not local(line, names)]
     pungent = sorted({m.group(0).lower() for line in lines for m in [PUNGENT.search(_norm(line))] if m})
     reasons = []
-    if value is None or count is None:
-        reasons.append('no published rating')
-    elif value < BAR['rating'] or count < BAR['ratings']:
-        reasons.append(f'rated {value:.1f} from {count:,.0f} ratings (needs {BAR["rating"]}+ from {BAR["ratings"]}+)')
+    # Two ways to qualify (owner, 28 Oct 2026): rated, or content (nutrient level and colour dish) with no rating needed.
+    figures = content_figures(root, lines, nutrition.page_yield(recipe), recipe.get('name', ''))
+    # A page whose own lines cannot be measured (Chinese wording, "1 can (400ml)", no yield) is not rejected here: Cooker's
+    # structured version is measured in the gate. A page that can be measured and misses the level is rejected now.
+    content = recipe_standards.problems(figures) if figures else []
+    rated = value is not None and count is not None and value >= BAR['rating'] and count >= BAR['ratings']
+    if content:
+        reasons.append('content check fails: ' + '; '.join(content[:3]))
+    reasons += recipe_charter.source_problems(root, recipe.get('name', ''), lines, _method(recipe.get('recipeInstructions')))
     if total is None:
         reasons.append('total time not published')
     elif total > BAR['minutes']:
@@ -256,10 +340,12 @@ def _assess(root, url):
     if not author or _norm(author) in ANONYMOUS or _norm(author) == site:
         reasons.append('no named author or organisation')  # owner rule: every recipe is credited to a named creator
     known = trusted(root).get(site)
-    score = (value or 0) * math.log10((count or 0) + 1) - (total or 60) / 30 + (TRUSTED_BOOST if known else 0)
+    score = (value or 0) * math.log10((count or 0) + 1) - (total or 60) / 30 + (TRUSTED_BOOST if known else 0) + (RATED_BOOST if rated else 0)
     return {'url': url, 'site': site, 'siteName': known or site, 'trusted': bool(known), 'name': _norm(recipe.get('name', ''))[:160], 'author': author[:160],
             'rating': value, 'ratings': int(count or 0), 'minutes': total, 'ingredients': lines[:40], 'steps': steps,
             'outsidePantry': [core(x) for x in outside], 'passes': not reasons, 'reasons': reasons, 'score': round(score, 3),
+            'path': 'rated' if rated else 'content',
+            'content': '; '.join(content[:4]) if content else recipe_standards.summary(figures) if figures else 'measured on the QuinTaste version',
             'checkedAt': stored['fetchedAt'][:10]}
 
 
@@ -267,6 +353,7 @@ def gate(root, record):
     """Hold a Cooker proposal unless its source passes the bar and the adaptation stays easy and local.
     Passing proposals get the source's rating attached by the coordinator (shown in Recipe info)."""
     recipe = record.get('recipe') or {}
+    recipe.pop('qualifiedBy', None)  # only this gate sets it, never the model
     if record.get('status') != 'proposed' or not recipe:
         return record
     urls = [s.get('url') for s in record.get('sources', []) if isinstance(s, dict)]
@@ -285,12 +372,17 @@ def gate(root, record):
             reasons.append(f'adapted recipe has {len(recipe["steps"])} steps')
         if len(outside) > BAR['outsidePantry']:
             reasons.append('hard-to-find ingredients: ' + ', '.join(outside[:4]))
+        reasons += version_problems(root, recipe, source)
     if reasons:
+        recipe.pop('_content', None)
         record['status'] = 'held'
         record['notes'] = (str(record.get('notes', '')) + ' Quality bar: ' + '; '.join(reasons)).strip()
     else:
-        recipe['sourceRating'] = {'value': round(source['rating'], 1), 'count': source['ratings'], 'site': source['siteName'][:80],
-                                  'url': source['url'], 'checkedAt': source['checkedAt']}
+        recipe['qualifiedBy'] = source['path']
+        record['notes'] = (str(record.get('notes', '')) + f" Qualified by {source['path']}: {recipe.pop('_content', source['content'])}.").strip()
+        if source['path'] == 'rated':
+            recipe['sourceRating'] = {'value': round(source['rating'], 1), 'count': source['ratings'], 'site': source['siteName'][:80],
+                                      'url': source['url'], 'checkedAt': source['checkedAt']}
         recipe['author'] = source['author']  # the credit comes from the page's own data, not the model
         try:  # optional: a recipe without reliable nutrition is still published, just without the section
             import nutrition
@@ -300,24 +392,58 @@ def gate(root, record):
     return record
 
 
-def shortlist_prompt(baseline, counts, rejected, creators=()):
+def version_problems(root, recipe, source):
+    """The owner's rulebook and the content check (nutrient level, colour dish) on Cooker's own version."""
+    import recipe_charter
+    import recipe_standards
+    root = recipe_charter.team_root(root, 'nutrition_sg.json')
+    loaded = nutrition.table(root)
+    servings = recipe.get('servings') if isinstance(recipe.get('servings'), (int, float)) and recipe.get('servings') > 0 else 1
+    oil = sweet = 0.0
+    sweetener = recipe_charter.load(root)['re']['sweetener']
+    for item in recipe.get('ingredients') or []:
+        hit = nutrition._match(item.get('name', ''), loaded)
+        grams = nutrition._grams(item, hit[1] if hit else None, loaded) or 0.0
+        if re.search(r'\boil\b', _norm(item.get('name', ''))) and 'sesame' not in _norm(item.get('name', '')):
+            oil += grams / 0.92  # ml of oil
+        if sweetener.search(_norm(item.get('name', ''))):
+            sweet += grams
+    reasons = recipe_charter.recipe_problems(root, recipe, oil_ml=oil, sweetener_grams=sweet / servings)
+    names = [_norm(i.get('name', '')) for i in recipe.get('ingredients') or []]
+    meat = sorted({m.group(0) for n in names for m in [NOT_VEGETARIAN.search(n) or NOT_VEGETARIAN_ZH.search(n)]
+                   if m and 'vegetarian' not in n and 'vegan' not in n})
+    if meat:
+        reasons.append('not vegetarian: ' + ', '.join(meat))
+    figures = nutrition.estimate(root, recipe, detail=True)
+    problems = recipe_standards.problems(figures)
+    reasons += ['QuinTaste version: ' + p for p in problems]
+    if not problems:
+        recipe['_content'] = recipe_standards.summary(figures)
+    return reasons
+
+
+def shortlist_prompt(baseline, counts, rejected, creators=(), rules=''):
     return ('Current UTC: ' + dt.datetime.now(dt.timezone.utc).isoformat() + '. Task: SHORTLIST up to 8 recipe pages for QuinTaste. '
-            'Each must be a real, well-reviewed recipe page (shows a star rating from at least 20 cooks, ideally 4.5+), '
-            'naturally free of garlic, onion, shallot, spring onion, leek, chive and asafoetida (as written by the author, not adapted), '
-            'vegetarian or vegan, ready in 30 minutes or less, at most 12 ingredients and 8 steps, with everyday ingredients sold in '
-            'Singapore supermarkets or wet markets. Good fits: Chinese Buddhist vegetarian dishes, tofu and greens, soups, porridge, '
-            'noodles, kueh, desserts and drinks. Language is NOT a limit: look for Chinese recipes too (Chinese home, Buddhist '
-            'vegetarian (斋菜/素食), Cantonese, Teochew, Hokkien, Taiwanese dishes), on English or Chinese-language pages, as long as the page '
-            'shows its rating and author. Many Chinese apps (Xiachufang, Douguo) block automated reading; skip blocked pages. Start with these well-known creators (they rank first, but any named author or '
-            'organisation is allowed): ' + ', '.join(f'{name} ({site})' for site, name in creators) + '. The page must name its author. '
+            'QuinTaste (吾譜) is a vegetarian app built on five grains, five nutrients and five colours: we want proper, hearty, '
+            'colourful savoury dishes a Singapore home cook would happily eat as a meal, with a real protein (tofu, tempeh, beancurd '
+            'skin, beans, lentils, eggs, mushrooms, gluten) and plenty of vegetables. Good fits: Chinese home and Buddhist vegetarian '
+            '(斋菜/素食) mains, tofu and vegetable stir-fries, braises, noodle and rice meals, hearty soups and savoury porridge. '
+            'Every page must be naturally free of garlic, onion, shallot, spring onion, leek, chive and asafoetida (as written by the '
+            'author, not adapted), vegetarian or vegan, ready in 30 minutes or less, at most 12 ingredients and 8 steps, with everyday '
+            'ingredients sold in Singapore supermarkets or wet markets, measured quantities and a named author. ' + rules + ' '
+            'A star rating is welcome but no longer required. Every recipe must make a nutritious, colourful dish from its own '
+            'ingredient list: a source of at least one vitamin and one mineral, of protein or fibre, moderate salt, and at least three '
+            'of the five colours green, red, yellow, black and white. Language is NOT a limit: Chinese pages count '
+            'too (Chinese home, Buddhist vegetarian, Cantonese, Teochew, Hokkien, Taiwanese), as long as the page names its author. '
+            'Many Chinese apps (Xiachufang, Douguo) block automated reading; skip blocked pages. Start with these well-known creators '
+            '(they rank first, but any named author or organisation is allowed): ' + ', '.join(f'{name} ({site})' for site, name in creators) + '. '
             'Favour the least represented categories: ' + json.dumps(counts) + '. '
             'Do not repeat existing recipes: ' + json.dumps([r['name'] for r in baseline.get('recipeNames', [])][-150:]) +
             '. Previously rejected pages (skip): ' + json.dumps(rejected[-40:]) + '. Use web_search and open pages to confirm they exist. '
             'Extracted page text usually hides the star rating, time and ingredient data; the coordinator reads that data from each page '
             'itself and rejects pages that miss the bar. So do NOT filter candidates on ratings you cannot see: return up to 8 promising '
-            'pages (popular recipes from established creators) that look allium-free, quick and simple. An empty list is only right '
-            'when you found no plausible page at all. '
-            'Return ONLY JSON {"role":"qt-cooker","candidates":[{"url":"https recipe page","name":"","category":"one of the app categories"}],'
+            'pages that look allium-free, quick, hearty and colourful. An empty list is only right when you found no plausible page at all. '
+            'Return ONLY JSON {"role":"qt-cooker","candidates":[{"url":"https recipe page","name":"","category":"one of the categories you may source"}],'
             '"notes":""}. No Google Maps.')
 
 
@@ -326,8 +452,10 @@ def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=No
     already written up (published or held). They are skipped, so a held page is not drafted again every round; a held recipe
     comes back only through its retry (21 Oct 2026: the same two pages were redrafted in 7 of 8 rounds). creators: (site, name)
     pairs from the creator library, best first, replacing the trusted list; blocked: hosts staff blocked, never shortlisted."""
-    from workflow import run_model, CATEGORIES
-    counts = {c: 0 for c in CATEGORIES}
+    import recipe_charter
+    from workflow import run_model
+    rules = recipe_charter.load(root)
+    counts = {c: 0 for c in rules['allowedCategories']}
     skip = set(drafted)
     blocked = {h.removeprefix('www.') for h in blocked}
     try:
@@ -335,17 +463,23 @@ def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=No
         for row in (live or publisher.request('GET', '/control/state'))['records']:
             if row['kind'] == 'recipe':
                 for category in row['data'].get('categories', []):
-                    counts[category] = counts.get(category, 0) + 1
+                    if category in counts:
+                        counts[category] += 1
                 skip.update(page_key(u) for u in (row['data'].get('provenance') or {}).get('sources', []) if isinstance(u, str))
     except Exception:
         pass  # rotation is a preference; the shortlist still works without counts
     log = root / 'state/recipe-shortlist.json'
     history = _read(log, {'rejected': []})
-    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'] + sorted(skip)[-40:], creators or trusted(root).items()),
+    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'] + sorted(skip)[-40:], creators or trusted(root).items(),
+                                                        recipe_charter.prompt_rules(root)),
                           folder, policy, seconds=min(600, policy.get('workerSeconds', 600)))
     candidates = [c for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)
                   and page_key(c['url']) not in skip and page_key(c['url']).split('/')[0] not in blocked][:8]
     checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
+    for c in checked:  # categories the owner no longer wants (recipe_charter.json); the gate checks Cooker's own category too
+        wrong = recipe_charter.category_problems(root, c.get('category'))
+        if wrong:
+            c.update(passes=False, reasons=c.get('reasons', []) + wrong)
     library_sites = {site for site, _ in creators or ()}
     for c in checked:  # library creators rank first like the trusted list does; never a substitute for the bar
         if not c.get('trusted') and c.get('site') in library_sites and 'score' in c:
@@ -366,7 +500,9 @@ def audit_published(root, live=None, limit=4):
     todo = [r for r in (live or publisher.request('GET', '/control/state'))['records'] if r['kind'] == 'recipe' and r['id'] not in done][:limit]
     for row in todo:
         data = row['data']
-        probe = {'status': 'proposed', 'recipe': {'ingredients': data.get('ingredients', []), 'steps': data.get('steps', []), 'minutes': data.get('minutes')},
+        probe = {'status': 'proposed', 'recipe': {'ingredients': data.get('ingredients', []), 'steps': data.get('steps', []), 'minutes': data.get('minutes'),
+                                                   'servings': data.get('servings'), 'name': data.get('name', ''),
+                                                   'category': (data.get('categories') or [None])[0]},
                  'sources': [{'url': u} for u in data.get('provenance', {}).get('sources', [])]}
         gate(root, probe)
         if 'could not be read' in probe.get('notes', '') or 'unreadable' in probe.get('notes', ''):

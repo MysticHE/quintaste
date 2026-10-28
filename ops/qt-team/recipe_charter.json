@@ -1,0 +1,174 @@
+{
+  "version": "2026-10-28",
+  "notes": "QT Cooker's rulebook (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md §3). Hard rules every recipe must pass, learned from the 32 recipes the owner deleted in admin on 28 Oct 2026 (staff.audit content.recipe.delete). Read by recipe_charter.py. Regexes are case-insensitive. The animal pattern adds only what recipe_quality.NOT_VEGETARIAN and NOT_VEGETARIAN_ZH miss; version_problems runs both on Cooker's version.",
+  "allowedCategories": [
+    "Breakfast",
+    "Noodles",
+    "Rice meals",
+    "With rice",
+    "Soups"
+  ],
+  "minSteps": 4,
+  "maxFryingOilMl": 120,
+  "maxSweetenerGramsPerServing": 10,
+  "patterns": {
+    "drink": "\\b(lattes?|tea(?![- ](smoked|eggs?|leaves))|chai|lassi|smoothies?|juices?|milkshakes?|coffee|kopi|teh|golden milk|hot chocolate|cocoa|drinks?|beverages?|soda|lemonade|soy ?milk|almond milk|oat milk|tonic)\\b|奶茶|拿铁|拿鐵|饮品|飲品|果汁|豆浆|豆漿",
+    "dessert": "\\b(pancakes?|crepes?|crêpes?|dutch baby|waffles?|cakes?|cupcakes?|muffins?|cookies?|brownies?|custards?|puddings?|jell(y|ies)|kuih|kueh|kue|mochi|tong sui|desserts?|sweet soup|halwa|payasam|kheer|ice cream|parfaits?|doughnuts?|donuts?|scones?|fritters?|milk curd|egg cakes?|bahulu)\\b|糕|布丁|甜品|甜汤|甜湯|糖水|奶冻|奶凍|双皮奶|雙皮奶|姜撞奶|薑撞奶|蛋挞|蛋撻",
+    "savouryCake": "(carrot|radish|turnip|yam|rice|savoury|savory|chwee|soon|png) (cakes?|kueh|kuih|kway)|萝卜糕|蘿蔔糕|芋头糕|芋頭糕|碗粿|年糕|炒年糕|萝卜糕",
+    "deepFry": "deep[- ]?fr(y|ies|ied|ying)|\\bfritters?\\b|oil,? for (deep[- ]?|shallow[- ]?)?frying|frying oil|\\bbattered\\b|tempura|pakoras?|bhajis?|油炸|炸至|炸成|下锅炸|下鍋炸|炸到|酥炸",
+    "unclear": "\\b(stock|broth|bouillon|seasoning|mixed vegetables|any vegetables|leafy greens)\\b|(?<!mustard )(?<!collard )(?<!turnip )\\bgreens\\b|\\bor\\b|&|\\bsuch as\\b|\\be\\.g\\.|of (your )?choice|\\bto serve\\b.*\\bor\\b",
+    "unfamiliar": "\\b(jicama|bangkuang|bang kuang|yam bean)\\b",
+    "animal": "\\b(rennet|carmine|cochineal|isinglass|dashi|suet|tallow|shellac|ikan bilis|belacan|shrimp paste|worcestershire|parmesan|parmigiano|pecorino|grana padano|bone broth)\\b|魚露|蠔油|蝦米|蝦醬|蝦皮|鰹魚|明膠|豬油|雞精|雞粉",
+    "animalQualifier": "\\b(vegetarian|vegan|plant[- ]based|meatless|mushroom|mock|vegetable)\\b[^,;]{0,25}$|素",
+    "sweetener": "\\b(sugar(?![- ]snap)|rock sugar|honey|syrup|gula melaka|palm sugar|jaggery|condensed milk|molasses|agave)\\b"
+  },
+  "lessons": [
+    "No drinks: lattes, tea, chai, lassi, golden milk and the like were all deleted as not appetising.",
+    "No desserts, sweet kueh, pancakes, crepes, custards, puddings, egg cakes or sweet porridge: all deleted as not appetising.",
+    "No plain side of one vegetable (blanched broccoli, green bean gomaae, cabbage poriyal): deleted as not appetising. A recipe is a proper, hearty, colourful savoury dish someone would want to eat as a meal.",
+    "No deep-frying, fritters or battered food: deleted as 'no fry'.",
+    "Every step written out: a recipe with too few steps was deleted as 'missing steps'. At least 4 steps, and every ingredient is used in a step.",
+    "Every ingredient clear and familiar: generic 'vegetable stock', two vegetables in one line ('Broccoli & bok choy') and jicama (bangkuang) were deleted as unclear or unknown. One named food per line, by its everyday name.",
+    "No onion, garlic or any of the five pungent vegetables (the owner's rule since 17 Oct 2026)."
+  ],
+  "ownerDeleted": [
+    {
+      "name": "Royal milk tea",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Kuih bahulu — Malaysian egg cakes",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Simple butter crepes",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Mango and cardamom lassi",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Five-minute vegan golden milk",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Green bean gomaae",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Kuih kodok — banana fritters",
+      "reason": "no fry"
+    },
+    {
+      "name": "Fried bananas",
+      "reason": "no fry"
+    },
+    {
+      "name": "Sesame sweet potato balls",
+      "reason": "no fry"
+    },
+    {
+      "name": "Matcha latte",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Broccoli blanched with sesame oil",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Dutch baby with strawberries",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Cabbage, pea and coconut poriyal",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Cantonese steamed egg and milk custard",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Whole-spice masala chai",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Vella aval — sweet coconut poha",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Pumpkin millet porridge",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Ginger milk curd",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Sago gula melaka",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Bubur cha cha",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "ABC vegetable soup",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Kangkung with fermented beancurd",
+      "reason": "missing steps"
+    },
+    {
+      "name": "Sweet & sour tofu with pineapple",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Nasi lemak with sambal tempeh",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Allium-free tempeh mee goreng",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Tempeh mee goreng",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Vegetarian fried bee hoon",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Fresh popiah rolls",
+      "reason": "Jicama (bangkuang), shredded unknown ingredient"
+    },
+    {
+      "name": "Pandan kaya toast",
+      "reason": "not appetizing"
+    },
+    {
+      "name": "Ginger coconut laksa",
+      "reason": "unknown vegetable stock"
+    },
+    {
+      "name": "Sesame greens & tofu",
+      "reason": "bok choy unclear ingredient"
+    },
+    {
+      "name": "Plant-based coconut laksa",
+      "reason": "prefer not to have onion/garlic"
+    }
+  ],
+  "ownerKept": [
+    "Miso mushroom bowl",
+    "Ginger mushroom oat porridge",
+    "Rice-cooker mushroom claypot rice",
+    "Allium-free mapo tofu",
+    "Carrot, cumin and lemon salad",
+    "Sweet corn egg drop soup",
+    "Cilantro-lime basmati rice",
+    "Coconut jasmine rice"
+  ]
+}
