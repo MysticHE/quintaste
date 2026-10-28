@@ -1115,7 +1115,10 @@ class Round:
     def kitchen_turn(self):
         """Owner, 20 Oct 2026: Cooker and Event run at most every other round. When they worked in the last finished round, this
         round is Explorer's: in the 6-10 pm window they used about 20 minutes of each round, leaving Explorer under its minimum,
-        so the Veg Kitchen and Mixed Kitchen queues stopped every evening."""
+        so the Veg Kitchen and Mixed Kitchen queues stopped every evening. Owner, 28 Oct 2026: while Explorer is stopped or cooling
+        down, its rounds are empty (every Explorer stage checks the same pause), so Cooker and Event take every round."""
+        if self.state.get('roleCooldown', {}).get('qt-explorer', {}).get('until', 0) > time.time():
+            return True
         return not self.state.get("kitchenRunId") or self.state["kitchenRunId"] != self.previous_run
 
     def kitchen_started(self):
