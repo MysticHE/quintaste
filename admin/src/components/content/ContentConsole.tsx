@@ -25,13 +25,15 @@ function useSelection() {
 
 export function Places() {
   const [selected, select] = useSelection(), [kitchen, setKitchen] = useState('all');
-  return <ContentList path="/api/content/places" noun="places" selected={selected} select={select} add="Place"
+  const dirty = useRef(false), busy = useRef(false);
+  const choose = (id: string | null) => { if (id === selected || busy.current) return; if (dirty.current && !window.confirm('Discard changes?')) return; dirty.current = false; select(id); };
+  return <ContentList path="/api/content/places" noun="places" selected={selected} select={choose} add="Place"
     scope={<Segmented label="Kitchen" value={kitchen} onChange={setKitchen} options={[['all', 'All'], ['veg', 'Veg Kitchen'], ['mixed', 'Mixed Kitchen']]}/>}
     keep={row => kitchen === 'all' || row.kitchen === kitchen}
     filters={[['all', 'All'], ['explorer', 'QT Explorer'], ['staff', 'Staff'], ['edited', 'Edited'], ['newer', 'Newer source'], ['reported', 'Reported'], ['hidden', 'Hidden']]}
     describe={r => ({ title: String(r.name ?? r.id), meta: [r.branch, `${r.dishes} ${r.dishes === 1 ? 'dish' : 'dishes'}`].filter(Boolean).join(' · '),
       search: [r.name, r.branch, r.address], staff: r.origin === 'staff', tags: [r.kitchen === 'mixed' ? 'Mixed Kitchen' : '', r.origin === 'explorer' ? 'QT Explorer' : ''] })}
-    detail={(id, changed) => <PlacePanel key={id} id={id} onChanged={changed}/>}/>;
+    detail={(id, changed) => <PlacePanel key={id} id={id} onChanged={changed} onDirty={v => { dirty.current = v; }} onBusy={v => { busy.current = v; }}/>}/>;
 }
 export function Recipes() {
   const [selected, select] = useSelection();
@@ -67,14 +69,15 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
     for (const [id] of filters) if (passes(id, row)) n[id] = (n[id] ?? 0) + 1;
     return n;
   }, {});
-  return <div className={'content-split' + (noun === 'recipes' ? ' recipe-split' : '') + (selected ? ' has-selection' : '')}>
+  return <div className={'content-split' + (noun === 'recipes' || noun === 'places' ? ' recipe-split' : '') + (noun === 'places' ? ' place-split' : '') + (selected ? ' has-selection' : '')}>
     <section className="panel content-list" aria-label={'All ' + noun}>
       <div className="stack compact list-tools">
         <div className="row nowrap"><div className="search"><Icon name="search" size={16}/><input type="search" aria-label={'Search ' + noun} placeholder={'Search ' + noun}
           value={query} maxLength={100} onChange={e => { setQuery(e.target.value); setLimit(STEP); }}/></div>
-          <button type="button" className="primary" aria-label={'New ' + add.toLowerCase()} title={'New ' + add.toLowerCase()} onClick={() => select('new')}><Icon name="plus" size={16}/>{noun !== 'recipes' && add}</button></div>
+          <button type="button" className="primary" aria-label={'New ' + add.toLowerCase()} title={'New ' + add.toLowerCase()} onClick={() => select('new')}><Icon name="plus" size={16}/>{!['recipes','places'].includes(noun) && add}</button></div>
         {scope}
-        <Chips label="Filter" value={filter} onChange={v => { setFilter(v); setLimit(STEP); }} options={filters.filter(([id]) => id === 'all' || counts[id]).map(([id, text]) => [id, text, id === 'all' ? undefined : counts[id]])}/>
+        {noun === 'places' ? <select aria-label="Place filter" value={filter} onChange={e => { setFilter(e.target.value); setLimit(STEP); }}>{filters.map(([id,text]) => <option key={id} value={id}>{text}{counts[id] ? ' · '+counts[id] : ''}</option>)}</select>
+          : <Chips label="Filter" value={filter} onChange={v => { setFilter(v); setLimit(STEP); }} options={filters.filter(([id]) => id === 'all' || counts[id]).map(([id, text]) => [id, text, id === 'all' ? undefined : counts[id]])}/>}
       </div>
       <Feedback {...resource} retry={resource.reload}/>
       {resource.data && <small aria-live="polite">{rows.length.toLocaleString()} {noun}</small>}

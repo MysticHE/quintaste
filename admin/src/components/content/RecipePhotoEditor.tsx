@@ -32,7 +32,7 @@ export function RecipePhotoEditor({ path, fallback, label, disabled, compact, on
   return <div className="recipe-photo-editor">
     {src ? <button type="button" className="recipe-photo-thumb" aria-label={'Preview ' + label} onClick={() => setPreview(true)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- authenticated asset preview */}
-      <img src={src} alt={label}/></button> : <span className="recipe-photo-empty" aria-label={'No ' + label}><Icon name="photo"/></span>}
+      <img src={src} alt={label}/></button> : <span className="recipe-photo-empty" role="img" aria-label={'No ' + label}><Icon name="photo"/></span>}
     <div className="recipe-photo-actions"><label className="upload" title={(src ? 'Replace ' : 'Upload ') + label}><Icon name="photo" size={14}/>{!compact && (busy ? 'Uploading…' : src ? 'Replace' : 'Upload')}
       <input type="file" aria-label={'Upload ' + label} accept="image/jpeg,image/png,image/webp" disabled={disabled || busy}
         onChange={e => { void upload(e.target.files?.[0]); e.target.value = ''; }}/></label>

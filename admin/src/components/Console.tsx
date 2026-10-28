@@ -78,7 +78,7 @@ export default function Console({ section }: { section: string }) {
   const allowed = (s: Section) => s.anyOf ? s.anyOf.some(c => can(member.role, c)) : !s.capability || can(member.role, s.capability);
   const visible = groups.map(g => ({ ...g, sections: g.sections.filter(allowed) })).filter(g => g.sections.length);
   const current = visible.flatMap(g => g.sections).find(s => s.id === section);
-  return <div className={'shell' + (section === 'recipes' ? ' recipe-shell' : '')}>
+  return <div className={'shell' + (section === 'recipes' || section === 'places' ? ' recipe-shell' : '') + (section === 'places' ? ' places-shell' : '')}>
     <aside className="sidebar">
       <Link className="brand" href="/console/overview"><BrandLogo /></Link>
       <nav aria-label="Console">{visible.map((group, i) => <div className="nav-group" key={group.title ?? i} role="group" aria-label={group.title}>

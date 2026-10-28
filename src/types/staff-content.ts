@@ -11,7 +11,7 @@ export type StaffPlaceData = Partial<Pick<CatalogueVenue, "name" | "branch" | "a
   photo?: CataloguePhoto | null; hours?: CatalogueHours | null; kitchen?: "options" | null; menuTotal?: number | null; sourceUrl?: string; base?: string;
 };
 /** Menu items are keyed "sectionId/itemId". Added dishes appear in one "Added by QuinTaste" section. */
-export type StaffMenuEdit = { name?: string; category?: string; price?: MenuItem["price"]; diet?: MenuItem["diet"]; hidden?: boolean };
-export type StaffMenuData = { items?: Record<string, StaffMenuEdit>; added?: MenuItem[]; sourceUrl?: string; base?: string };
+export type StaffMenuEdit = { name?: string; category?: string; price?: MenuItem["price"]; diet?: MenuItem["diet"]; qualifier?: string; availability?: string; photo?: CataloguePhoto | null; hidden?: boolean };
+export type StaffMenuData = { items?: Record<string, StaffMenuEdit>; added?: (MenuItem & { hidden?: boolean })[]; sourceUrl?: string; base?: string };
 
 export const staffKey = (kind: StaffKind, id: string) => kind + ":" + id;

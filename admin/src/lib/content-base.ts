@@ -5,7 +5,7 @@ import { HttpError } from './http';
 
 // Packaged and bot content before staff changes, read from the app's internal port (never routed by Traefik).
 export type Price = { amount: number | null; currency: 'SGD' | 'unknown'; type: 'displayed' | 'from'; maxAmount?: number };
-export type MenuItem = { id: string; name: string; category?: string; price: Price; qualifier: string; diet?: 'V' | 'VG' };
+export type MenuItem = { id: string; name: string; category?: string; price: Price; qualifier: string; diet?: 'V' | 'VG'; photo?: Photo | null; availability?: string; hidden?: boolean };
 export type Menu = { id: string; name: string; branch: string; address: string; postalCode: string; aliases: string[];
   sections: { id: string; title?: string; sourceUrl: string; sourceLabel: string; checkedAt: string; items: MenuItem[] }[] };
 export type Hours = { summary: string; schedule: string[]; notes: string; sourceUrl: string; checkedAt: string; timezone: 'Asia/Singapore' };

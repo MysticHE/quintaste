@@ -2,6 +2,7 @@ import { route } from '../../../../lib/route';
 import { session } from '../../../../lib/session';
 import { body, HttpError, json, offset, text, throttle, reasonText } from '../../../../lib/http';
 import { menuAction, placeAction, placeDetail, placeList } from '../../../../lib/content-catalogue';
+import { placeWorkspaceAction } from '../../../../lib/place-workspace';
 import { eventAction, eventDetail, eventList, recipeAction, recipeDetail, recipeList } from '../../../../lib/content-recipes';
 import { cookedList, cookedPhoto, gatheringList, marketItems, marketPhoto, marketReviews, memberAction, reviewList, reviewPhoto } from '../../../../lib/content-members';
 import { contentPhoto, recipePhoto, uploadPhoto } from '../../../../lib/content-assets';
@@ -63,7 +64,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   const input = await body(request, 262144), member = await session(request);
   await throttle('write:' + member.id, 30);
   const reason = reasonText(input.reason, resource + (typeof input.action === 'string' ? ' ' + input.action : '') + ' (no reason given)');
-  if (resource === 'places') return json(await placeAction(member, input, reason));
+  if (resource === 'places') return json(await (input.action === 'save-workspace' || input.action === 'create-workspace' ? placeWorkspaceAction : placeAction)(member, input, reason));
   if (resource === 'menus') return json(await menuAction(member, input, reason));
   if (resource === 'recipes') return json(await recipeAction(member, input, reason));
   if (resource === 'events') return json(await eventAction(member, input, reason));

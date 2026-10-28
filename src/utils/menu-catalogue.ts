@@ -1,5 +1,6 @@
 import type { MenuCatalogue, MenuIndex, MenuSummary, PublishedMenu } from "../types/menus";
 import { pilotAmount, pilotChoice, pilotDate, pilotId, pilotList, pilotObject, pilotText, pilotUnique, pilotUrl } from "./pilot-validation";
+import { readCataloguePhoto } from "./catalogue-page";
 
 export const menuRefreshMs = 300000;
 export const menuOfflineMs = 7 * 86400000;
@@ -15,6 +16,8 @@ function readSection(value: unknown): PublishedMenu["sections"][number] {
     if (maxAmount !== undefined && (maxAmount === null || amount === null || maxAmount < amount)) throw new Error("Invalid menu price range");
     return { id: pilotId(item.id), name: pilotText(item.name), category: item.category === undefined ? undefined : pilotText(item.category, 100, true),
       qualifier: pilotText(item.qualifier, 4000, true),
+      ...(item.photo === undefined ? {} : { photo: item.photo === null ? null : readCataloguePhoto(item.photo) }),
+      ...(item.availability === undefined ? {} : { availability: pilotText(item.availability, 1000, true) }),
       ...(item.diet === undefined ? {} : { diet: pilotChoice(item.diet, ["V", "VG"]) }),
       ...(item.details === undefined ? {} : { details: pilotList(item.details, value => pilotText(value, 12000), 80) }),
       price: { amount, ...(maxAmount === undefined ? {} : { maxAmount: maxAmount! }),

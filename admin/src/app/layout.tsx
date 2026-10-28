@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './tokens.css';
 import './globals.css';
 import './recipes.css';
+import './places.css';
 
 export const metadata: Metadata = { title: 'QuinTaste Admin', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';

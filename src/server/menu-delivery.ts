@@ -74,11 +74,13 @@ function applyStaff(id: string, staff: StaffContent, content: ReturnType<typeof 
     if (!change) return [item];
     if (change.hidden) return [];
     return [{ ...item, ...(change.name ? { name: change.name } : {}), ...(change.category !== undefined ? { category: change.category || undefined } : {}),
-      ...(change.price ? { price: change.price } : {}), ...(change.diet ? { diet: change.diet } : {}) }];
+      ...(change.price ? { price: change.price } : {}), ...(change.diet ? { diet: change.diet } : {}),
+      ...(change.qualifier !== undefined ? { qualifier: change.qualifier } : {}), ...(change.availability !== undefined ? { availability: change.availability } : {}),
+      ...(change.photo !== undefined ? { photo: change.photo } : {}) }];
   }) })).filter(section => section.items.length);
   const sourceUrl = m.sourceUrl ?? p.sourceUrl ?? base?.menu.sections[0]?.sourceUrl;
-  if (m.added?.length && sourceUrl && edit) sections.push({ id: staffSection, title: "Added by QuinTaste", scope: "branch-dine-in", coverage: "partial",
-    checkedAt: edit.updated_at, sourceUrl, sourceLabel: "QuinTaste team", notice: "", charges: "", items: m.added });
+  if (m.added?.some(item => !item.hidden) && sourceUrl && edit) sections.push({ id: staffSection, title: "Added by QuinTaste", scope: "branch-dine-in", coverage: "partial",
+    checkedAt: edit.updated_at, sourceUrl, sourceLabel: "QuinTaste team", notice: "", charges: "", items: m.added.filter(item => !item.hidden).map(({ hidden: _hidden, ...item }) => item) });
   if (!sections.length) return undefined;
   const identity = base?.menu ?? { id, name: "", branch: "", address: "", postalCode: "", aliases: [], googlePlaceId: null };
   const menu: PublishedMenu = { id, name: p.name ?? identity.name, branch: p.branch ?? identity.branch, address: p.address ?? identity.address,

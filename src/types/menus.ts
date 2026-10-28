@@ -1,8 +1,11 @@
 import type { PilotDish, PilotMenu } from "./pilot-catalogue";
+import type { CataloguePhoto } from "./catalogue";
 
 export type MenuItem = Pick<PilotDish, "id" | "name" | "category"> & {
   price: PilotDish["price"] & { maxAmount?: number };
   qualifier: string;
+  photo?: CataloguePhoto | null;
+  availability?: string;
   details?: string[];
   /** The venue's own label; required on every dish of a veg options place. */
   diet?: "V" | "VG";

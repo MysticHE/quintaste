@@ -1,117 +1,78 @@
 'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-import { date, useResource } from '../client';
-import { Feedback } from '../Primitives';
-import { Icon } from '../Icon';
-import { ActionBar, Badges, Edited, History, PhotoUpload, photoSrc, type Audit, type Staff } from './Parts';
-import MenuPanel, { type Menu } from './MenuPanel';
-
-type Hours = { summary: string; schedule: string[]; notes: string; sourceUrl: string; checkedAt: string };
-type Photo = { path: string; width: number; height: number; author: string; sourceUrl: string; license: string; licenseUrl: string | null; capturedAt: string | null; checkedAt: string; changes: string; provider?: string };
-type Place = { name: string; branch: string; address: string; postalCode: string; aliases: string[]; point: { latitude: number; longitude: number } | null;
-  venueDiet: 'Vegetarian' | 'Vegan'; alliumFreeClaim: boolean; kitchen?: 'options' | null; menuTotal?: number | null; hours?: Hours | null; photo?: Photo | null; sourceUrl?: string;
-  research?: { sourceUrls: string[]; checkedAt?: string }; dietProof?: { sourceUrl: string; quote: string; checkedAt: string } };
-type Detail = { id: string; app: string | null; origin: 'packaged' | 'explorer' | 'staff'; base: Place | null; staff: Staff | null; newer: boolean; history: Audit[];
-  menu: { base: Menu | null; staff: Staff | null; newer: boolean }; reports: { id: string; title: string; status: string; created_at: string }[] };
-const blank: Place = { name: '', branch: '', address: '', postalCode: '', aliases: [], point: null, venueDiet: 'Vegetarian', alliumFreeClaim: false, kitchen: null, menuTotal: null, hours: null, photo: null, sourceUrl: '' };
-const today = () => new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10);
-
-/** What members see now: the packaged place with staff changes on top (null clears photo or hours). */
-function current(detail: Detail): Place {
-  const patch = { ...detail.staff?.data } as Partial<Place> & { base?: string };
-  delete patch.base;
-  return { ...blank, ...(detail.base ?? {}), ...patch };
+import { useEffect, useState, type ReactNode } from 'react';
+import { api, date, failure, useResource } from '../client';
+import { Feedback, IconButton } from '../Primitives';
+import { CaseDetail } from '../Cases';
+import { Badges, History, photoSrc } from './Parts';
+import { RecipeDialog } from './RecipeDialog';
+import { PlacePhotoEditor } from './PlacePhotoEditor';
+import { PlaceDetails, PlaceSources } from './PlaceDetails';
+import { PlaceHours } from './PlaceHours';
+import { PlaceMenu } from './PlaceMenu';
+import { dishChanges, initialDishes, initialPlace, type Detail, type Place, type Row } from './place-model';
+type Props={id:string;onChanged:(id?:string|null)=>void;onDirty:(v:boolean)=>void;onBusy:(v:boolean)=>void};
+export default function PlacePanel({id,onChanged,onDirty,onBusy}:Props) {
+  const resource=useResource<Detail>(id==='new'?null:'/api/content/places?id='+encodeURIComponent(id)),[tab,setTab]=useState('workspace');
+  const detail=resource.data;
+  return <><Feedback {...resource} retry={resource.reload}/>{(id==='new'||detail)&&<PlaceForm key={id+':'+(detail?.staff?.version??0)+':'+(detail?.menu.staff?.version??0)} detail={id==='new'?null:detail} refreshing={resource.refreshing} tab={tab} setTab={setTab} onDirty={onDirty} onBusy={onBusy} onSaved={next=>{resource.reload();onChanged(next);}}/>}</>;
 }
-export default function PlacePanel({ id, onChanged }: { id: string; onChanged: (id?: string | null) => void }) {
-  const creating = id === 'new', resource = useResource<Detail>(creating ? null : '/api/content/places?id=' + encodeURIComponent(id));
-  if (creating) return <PlaceForm detail={null} onSaved={onChanged}/>;
-  const d = resource.data;
-  return <><Feedback {...resource} retry={resource.reload}/>{d && <PlaceForm key={d.staff?.version ?? 0} detail={d} onSaved={next => { resource.reload(); onChanged(next); }}/>}</>;
-}
-function PlaceForm({ detail, onSaved }: { detail: Detail | null; onSaved: (id?: string | null) => void }) {
-  const start = detail ? current(detail) : blank, base = detail?.base, staffMade = !detail || detail.staff?.origin === 'staff';
-  const [place, setPlace] = useState<Place>(start), set = (patch: Partial<Place>) => setPlace(p => ({ ...p, ...patch }));
-  const [lat, setLat] = useState(start.point ? String(start.point.latitude) : ''), [lng, setLng] = useState(start.point ? String(start.point.longitude) : '');
-  const [aliases, setAliases] = useState(start.aliases.join(', ')), [different, setDifferent] = useState(false);
-  const hours = place.hours, photo = place.photo, edited = detail?.staff?.origin === 'edit' && Object.keys(detail.staff.data).some(k => k !== 'base');
-  const was = (key: keyof Place) => base && JSON.stringify(base[key] ?? null) !== JSON.stringify(place[key] ?? null)
-    ? <small>Original: {Array.isArray(base[key]) ? (base[key] as string[]).join(', ') || '—' : String(base[key] ?? '—')}</small> : null;
-  function payload() {
-    if ((lat || lng) && !(Number.isFinite(Number(lat)) && Number(lat) && Number.isFinite(Number(lng)) && Number(lng))) throw new Error('Check latitude and longitude.');
-    const hours = place.hours ? { ...place.hours, schedule: place.hours.schedule.filter(line => line.trim()) } : null;
-    return { id: detail?.id, version: detail?.staff?.version ?? 0, ...(!detail && different ? { allowDuplicate: true } : {}),
-      fields: { ...place, hours, aliases, point: lat && lng ? { latitude: Number(lat), longitude: Number(lng) } : null } };
+function PlaceForm({detail,refreshing,tab,setTab,onDirty,onBusy,onSaved}:{detail:Detail|null;refreshing:boolean;tab:string;setTab:(v:string)=>void;onDirty:(v:boolean)=>void;onBusy:(v:boolean)=>void;onSaved:(id?:string|null)=>void}) {
+  const [p,setP]=useState(()=>initialPlace(detail)),[rows,setRows]=useState(()=>initialDishes(detail)),[dirty,setDirty]=useState(false),[busy,setBusy]=useState(''),[uploads,setUploads]=useState(0),[error,setError]=useState('');
+  const [confirm,setConfirm]=useState(''),[reason,setReason]=useState(''),[preview,setPreview]=useState(false),[report,setReport]=useState<string|null>(null),[more,setMore]=useState(false),[different,setDifferent]=useState(false);
+  const [panel,setPanel]=useState('menu'),[focus,setFocus]=useState(''),[directory,setDirectory]=useState(true),[photoLimit,setPhotoLimit]=useState(60);
+  const locked=refreshing||!!busy||uploads>0, staff=!detail||detail.origin==='staff';
+  const mark=()=>{setDirty(true);onDirty(true);},set=(patch:Partial<Place>)=>{setP(old=>({...old,...patch}));mark();},setDishes=(value:Row[])=>{setRows(value);mark();};
+  const uploading=(active:boolean)=>{setUploads(n=>n+(active?1:-1));if(active)mark();};
+  useEffect(()=>{onBusy(locked);return()=>onBusy(false);},[locked,onBusy]);
+  useEffect(()=>{const key=(e:KeyboardEvent)=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'&&!document.querySelector('dialog[open]')){e.preventDefault();document.getElementById('place-save')?.click();}};document.addEventListener('keydown',key);return()=>document.removeEventListener('keydown',key);},[]);
+  useEffect(()=>{
+    if(!dirty&&!locked)return;
+    const unload=(event:BeforeUnloadEvent)=>event.preventDefault();
+    const navigate=(event:MouseEvent)=>{const link=(event.target as Element).closest('a[href]');if(link&&!link.hasAttribute('target')&&(locked||!window.confirm('Discard changes?')))event.preventDefault();};
+    window.addEventListener('beforeunload',unload);document.addEventListener('click',navigate,true);return()=>{window.removeEventListener('beforeunload',unload);document.removeEventListener('click',navigate,true);};
+  },[dirty,locked]);
+  async function run(action:string) {
+    if(locked)return;setBusy(action);setError('');
+    try {
+      const saving=action==='save-workspace'||action==='create-workspace';
+      const payload={id:detail?.id,version:detail?.staff?.version??0,action,reason,...(saving?{baseHash:detail?.baseHash??null,menuBaseHash:detail?.menu.baseHash??null,menuVersion:detail?.menu.staff?.version??0,allowDuplicate:different,
+        fields:{...p,aliases:p.aliases.join(','),research:p.research?{...p.research,sourceUrls:p.research.sourceUrls.filter(s=>s.trim())}:undefined,hours:p.hours?{...p.hours,schedule:p.hours.schedule.filter(line=>line.trim())}:null},dishes:dishChanges(rows)}:{})};
+      const result=await api<{id?:string}>(action==='clear-menu'?'/api/content/menus':'/api/content/places',action==='clear-menu'?{id:detail?.id,version:detail?.menu.staff?.version??0,action:'clear',reason}:payload);
+      onDirty(false);setDirty(false);setConfirm('');setReason('');onSaved(action==='delete'?null:result.id);
+    }catch(problem){setError(failure(problem));}finally{setBusy('');}
   }
-  const actions = !detail ? [{ action: 'create', label: 'Create place', tone: 'primary' as const }] : [
-    { action: 'save', label: 'Save', tone: 'primary' as const },
-    detail.staff?.hidden ? { action: 'restore', label: 'Show' } : { action: 'hide', label: 'Hide', tone: 'danger' as const },
-    ...(edited && !staffMade ? [{ action: 'clear', label: 'Revert', confirm: 'Revert every staff edit to this place?' }] : []),
-    ...(staffMade ? [{ action: 'delete', label: 'Delete', tone: 'danger' as const, confirm: 'Delete this place and its dishes?' }] : [])];
-  return <div className="stack">
-    <section className="panel stack">
-      <div className="row spread"><div className="stack compact"><h2>{detail ? start.name : 'New place'}</h2>{detail && <span className="code">{detail.id}</span>}</div>
-        {detail && <Badges hidden={detail.staff?.hidden} edited={edited} staff={staffMade} newer={detail.newer} reports={detail.reports.filter(r => !['resolved', 'dismissed'].includes(r.status)).length}/>}</div>
-      {detail && <Edited staff={detail.staff} link={detail.app && !detail.staff?.hidden ? `${detail.app}/place/catalogue-${detail.id}` : null}/>}
-      {detail?.origin === 'explorer' && base && <Evidence place={base}/>}
-      <div className="fields">
-        <label>Name<input value={place.name} onChange={e => set({ name: e.target.value })} maxLength={300}/>{was('name')}</label>
-        <label>Branch<input value={place.branch} onChange={e => set({ branch: e.target.value })} maxLength={300}/>{was('branch')}</label>
-        <label>Postal code<input value={place.postalCode} onChange={e => set({ postalCode: e.target.value })} inputMode="numeric" maxLength={6}/>{was('postalCode')}</label>
-        <label>Vegan<select value={place.venueDiet} onChange={e => set({ venueDiet: e.target.value as Place['venueDiet'] })}><option value="Vegetarian">Not declared vegan</option><option value="Vegan">Vegan (venue declares)</option></select>{was('venueDiet')}</label>
-        {/* Mixed Kitchen lists only the venue's V/VG-labelled dishes, so the server refuses it while any visible dish is unlabelled. */}
-        <label>Kitchen<select value={place.kitchen ?? ''} onChange={e => set(e.target.value === 'options' ? { kitchen: 'options', alliumFreeClaim: false } : { kitchen: null, menuTotal: null })}>
-          <option value="">Veg Kitchen</option><option value="options">Mixed Kitchen</option></select>{was('kitchen')}</label>
-        {place.kitchen === 'options' && <label>Full menu size<input value={place.menuTotal ?? ''} inputMode="numeric" maxLength={4}
-          onChange={e => { const digits = e.target.value.replace(/\D/g, ''); set({ menuTotal: digits ? Number(digits) : null }); }}/>{was('menuTotal')}</label>}
+  const ask=(action:string)=>{setMore(false);if(!dirty||window.confirm('Discard changes?'))setConfirm(action);};
+  const toggleDirectory=()=>{if(window.matchMedia('(max-width:1250px)').matches)document.querySelector<HTMLButtonElement>('.place-split .content-detail>.back')?.click();else setDirectory(!directory);};
+  const actions:Record<string,[string,string]>={hide:['Hide place?','Hide'],restore:['Show place?','Show'],delete:['Delete place?','Delete'],clear:['Revert edits?','Revert'],'clear-menu':['Revert menu?','Revert']};
+  const tabs=['workspace','photos','sources','reports','history'],openReports=detail?.reports.filter(r=>!['resolved','dismissed'].includes(r.status)).length??0;
+  const column=(id:string,title:string,children:ReactNode)=><section className={'place-column '+(focus===id?'place-focused':'')} data-panel={id}><header><h2>{title}</h2><IconButton icon="external" label={(focus===id?'Restore ':'Expand ')+id} onClick={()=>setFocus(focus===id?'':id)}/></header>{children}</section>;
+  return <div className="place-editor recipe-editor" data-directory={directory?'shown':'hidden'} aria-busy={locked}>
+    <header className="recipe-editor-head"><div className="recipe-heading"><div className="grow"><input className="recipe-title" aria-label="Place name" placeholder="New place" value={p.name} disabled={locked} onChange={e=>set({name:e.target.value})} maxLength={300}/>
+      <div className="row recipe-meta"><small>{detail?({packaged:'App',explorer:'QT Explorer',staff:'Staff'})[detail.origin]:'Staff'}</small>{p.branch&&<small>{p.branch}</small>}<Badges hidden={detail?.staff?.hidden} newer={detail?.newer||detail?.menu.newer}/></div></div>
+      <div className="row recipe-actions"><span role="status" className="place-save-state">{uploads?'Uploading…':dirty?'Unsaved':''}</span><IconButton icon="content" label="Toggle places list" onClick={toggleDirectory}/><IconButton icon="show" label="Preview place" onClick={()=>setPreview(true)}/>
+        {detail&&<button type="button" disabled={locked} onClick={()=>ask(detail.staff?.hidden?'restore':'hide')}>{detail.staff?.hidden?'Show':'Hide'}</button>}
+        {detail&&<div className="place-more"><IconButton icon="controls" label="More actions" disabled={locked} onClick={()=>setMore(!more)}/>{more&&<div className="place-action-menu">{detail.staff&&!staff&&<button type="button" onClick={()=>ask('clear')}>Revert edits</button>}{detail.menu.staff&&<button type="button" onClick={()=>ask('clear-menu')}>Revert menu</button>}{staff&&<button type="button" className="danger" onClick={()=>ask('delete')}>Delete place</button>}{!detail.staff&&!detail.menu.staff&&!staff&&<small>No staff edits</small>}</div>}</div>}
+        <button type="button" id="place-save" className="primary" disabled={locked||(!dirty&&!!detail)} onClick={()=>void run(detail?'save-workspace':'create-workspace')}>{busy?'Saving…':detail?'Save':'Create'}</button>
+      </div></div>
+      <div className="recipe-tabs" role="tablist" aria-label="Place sections">{tabs.map((name,i)=><button type="button" role="tab" key={name} id={'place-tab-'+name} aria-controls={'place-page-'+name} aria-selected={tab===name} tabIndex={tab===name?0:-1} disabled={uploads>0} onClick={()=>setTab(name)} onKeyDown={e=>{const at=e.key==='Home'?0:e.key==='End'?4:e.key==='ArrowRight'?(i+1)%5:e.key==='ArrowLeft'?(i+4)%5:-1;if(at>=0){e.preventDefault();setTab(tabs[at]);document.getElementById('place-tab-'+tabs[at])?.focus();}}}>{name[0].toUpperCase()+name.slice(1)}{name==='reports'&&openReports>0&&<span className="badge warn">{openReports}</span>}</button>)}</div>
+    </header>
+    {error&&!confirm&&<div role="alert" className="notice error">{error}</div>}
+    <div id="place-page-workspace" role="tabpanel" aria-labelledby="place-tab-workspace" className="place-page" hidden={tab!=='workspace'}>
+      <div className="place-mobile-panels">{['details','menu','hours'].map(id=><button type="button" key={id} aria-pressed={panel===id} onClick={()=>{setPanel(id);setFocus('');}}>{id[0].toUpperCase()+id.slice(1)}</button>)}</div>
+      <div className={'place-columns'+(focus?' is-focused':'')} data-current={panel}>
+        {column('details','Details',<PlaceDetails p={p} set={set} disabled={locked} uploading={uploading} creating={!detail} different={different} setDifferent={v=>{setDifferent(v);mark();}}/>)}
+        {column('menu','Menu · '+rows.filter(r=>!r.hidden&&!r.removed).length,<PlaceMenu rows={rows} set={setDishes} disabled={locked} source={p.sourceUrl||detail?.menu.base?.sections[0]?.sourceUrl} uploading={uploading}/>)}
+        {column('hours','Opening hours',<PlaceHours hours={p.hours} set={hours=>set({hours})} disabled={locked}/>)}
       </div>
-      <label>Address<input value={place.address} onChange={e => set({ address: e.target.value })} maxLength={500}/>{was('address')}</label>
-      <label>Other names<input value={aliases} onChange={e => setAliases(e.target.value)}/></label>
-      <div className="fields">
-        <label>Latitude<input value={lat} onChange={e => setLat(e.target.value)} inputMode="decimal" placeholder="1.3521"/></label>
-        <label>Longitude<input value={lng} onChange={e => setLng(e.target.value)} inputMode="decimal" placeholder="103.8198"/></label>
-        <label className="check"><input type="checkbox" checked={place.alliumFreeClaim} disabled={place.kitchen === 'options'} onChange={e => set({ alliumFreeClaim: e.target.checked })}/>No five pungent, shown as Vegetarian (venue declares)</label>
-      </div>
-      {staffMade && <label>Source<input value={place.sourceUrl ?? ''} onChange={e => set({ sourceUrl: e.target.value })} placeholder="https://"/></label>}
-      {/* A new place with the same postal code and unit, or the same name, as a listed place is refused unless staff tick this. */}
-      {!detail && <label className="check"><input type="checkbox" checked={different} onChange={e => setDifferent(e.target.checked)}/>Different place at this address</label>}
-    </section>
-    <section className="panel stack"><div className="row spread"><h3>Opening hours</h3>
-      {hours ? <button type="button" className="danger" onClick={() => set({ hours: null })}><Icon name="trash" size={16}/>Remove</button>
-        : <button type="button" onClick={() => set({ hours: { summary: '', schedule: [''], notes: '', sourceUrl: '', checkedAt: today() } })}><Icon name="plus" size={16}/>Add</button>}</div>
-      {hours ? <><div className="fields"><label>Summary<input value={hours.summary} maxLength={120} onChange={e => set({ hours: { ...hours, summary: e.target.value } })} placeholder="Daily 11:30–21:00"/></label>
-        <label>Checked<input type="date" value={hours.checkedAt} max={today()} onChange={e => set({ hours: { ...hours, checkedAt: e.target.value } })}/></label></div>
-        <label>Schedule<textarea rows={4} value={hours.schedule.join('\n')} onChange={e => set({ hours: { ...hours, schedule: e.target.value.split('\n').slice(0, 8) } })}/></label>
-        <label>Notes<input value={hours.notes} maxLength={500} onChange={e => set({ hours: { ...hours, notes: e.target.value } })}/></label>
-        <label>Source<input value={hours.sourceUrl} onChange={e => set({ hours: { ...hours, sourceUrl: e.target.value } })} placeholder="https://"/></label></>
-        : null}
-    </section>
-    <section className="panel stack"><div className="row spread"><h3>Photo</h3>{photo && <button type="button" className="danger" onClick={() => set({ photo: null })}><Icon name="trash" size={16}/>Remove</button>}</div>
-      {/* eslint-disable-next-line @next/next/no-img-element -- staff preview of an uploaded photo */}
-      {photo && <img className="preview" src={photoSrc(photo.path)} alt={'Photo of ' + place.name} width={photo.width} height={photo.height}/>}
-      <PhotoUpload label={photo ? 'Replace' : 'Upload'} onUploaded={up => set({ photo: { ...up, author: '', sourceUrl: place.sourceUrl ?? '', license: 'Used with permission', licenseUrl: null, capturedAt: null, checkedAt: today(), changes: 'Resized for display.' } })}/>
-      {photo && <div className="fields">
-        <label>Credit<input value={photo.author} maxLength={180} onChange={e => set({ photo: { ...photo, author: e.target.value } })}/></label>
-        <label>Licence<input value={photo.license} maxLength={80} onChange={e => set({ photo: { ...photo, license: e.target.value } })}/></label>
-        <label>Source<input value={photo.sourceUrl} onChange={e => set({ photo: { ...photo, sourceUrl: e.target.value } })} placeholder="https://"/></label>
-        <label>Changes<input value={photo.changes} maxLength={300} onChange={e => set({ photo: { ...photo, changes: e.target.value } })}/></label></div>}
-    </section>
-    <section className="panel"><ActionBar resource="places" actions={actions} payload={payload} onDone={(result, action) => onSaved(action === 'delete' ? null : result.id)}/></section>
-    {detail && <MenuPanel placeId={detail.id} menu={detail.menu} onSaved={() => onSaved()}/>}
-    {detail && <section className="panel stack">{!!detail.reports.length && <><div className="row spread"><h3>Reports</h3><Link className="row" href="/console/cases">Cases<Icon name="forward" size={14}/></Link></div>
-      <ul className="history">{detail.reports.map(r => <li key={r.id}><strong>{r.title}</strong><small>{date(r.created_at)} · {r.status}</small></li>)}</ul></>}
-      <h3>History</h3><History rows={detail.history}/></section>}
-  </div>;
-}
-
-/** Where a QT Explorer place came from: the venue's own words for a Veg Kitchen place and the pages the bot read. Hide it here, or use Remove in Telegram. */
-function Evidence({ place }: { place: Place }) {
-  const sources = place.research?.sourceUrls ?? [];
-  return <div className="evidence stack compact">
-    <div className="row"><span className="badge">QT Explorer</span><small>{place.kitchen === 'options' ? 'Mixed Kitchen: dishes labelled V or VG by the venue' : 'Veg Kitchen: the venue says it serves no meat or seafood'}
-      {place.research?.checkedAt ? ' · checked ' + place.research.checkedAt : ''}</small></div>
-    {place.dietProof && <blockquote className="detail">“{place.dietProof.quote}”<small> <a href={place.dietProof.sourceUrl} target="_blank" rel="noreferrer">Source</a> · {place.dietProof.checkedAt}</small></blockquote>}
-    {!!sources.length && <details><summary>{sources.length} {sources.length === 1 ? 'source' : 'sources'}</summary>
-      <ul className="links">{sources.map(url => <li key={url}><a href={url} target="_blank" rel="noreferrer">{url.replace(/^https?:\/\/(www\.)?/, '').slice(0, 90)}</a></li>)}</ul></details>}
+    </div>
+    <div id="place-page-photos" role="tabpanel" aria-labelledby="place-tab-photos" className="place-secondary" hidden={tab!=='photos'}>{tab==='photos'&&<div className="place-photo-grid"><section><h3>Cover</h3><PlacePhotoEditor photo={p.photo} label="Cover" disabled={locked} source={p.sourceUrl} onChange={photo=>set({photo})} onBusy={uploading}/></section>{rows.filter(r=>!r.removed).slice(0,photoLimit).map(row=><section key={row.key}><h3>{row.name||'New dish'}</h3><PlacePhotoEditor photo={row.photo} label={row.name||'New dish'} disabled={locked} source={p.sourceUrl||detail?.menu.base?.sections[0]?.sourceUrl} onChange={photo=>setDishes(rows.map(r=>r.key===row.key?{...r,photo}:r))} onBusy={uploading}/></section>)}{rows.length>photoLimit&&<button type="button" onClick={()=>setPhotoLimit(n=>n+60)}>Show more</button>}</div>}</div>
+    <div id="place-page-sources" role="tabpanel" aria-labelledby="place-tab-sources" className="place-secondary" hidden={tab!=='sources'}><PlaceSources p={p} set={set} disabled={locked} detail={detail}/></div>
+    <div id="place-page-reports" role="tabpanel" aria-labelledby="place-tab-reports" className="place-secondary" hidden={tab!=='reports'}><section className="panel stack">{detail?.reports.length?detail.reports.map(r=><div className="row spread place-report" key={r.id}><div><strong>{r.title}</strong><small>{date(r.created_at)}</small></div><span className="badge">{r.status}</span><button type="button" disabled={locked} onClick={()=>setReport(r.id)}>View case</button></div>):<p className="muted">No reports</p>}</section></div>
+    <div id="place-page-history" role="tabpanel" aria-labelledby="place-tab-history" className="place-secondary" hidden={tab!=='history'}><section className="panel"><History rows={detail?.history??[]}/></section></div>
+    {confirm&&<RecipeDialog title={actions[confirm][0]} onClose={()=>{if(!locked)setConfirm('');}} actions={<><button type="button" disabled={locked} onClick={()=>setConfirm('')}>Cancel</button><button type="button" className={confirm==='delete'?'danger':'primary'} disabled={locked} onClick={()=>void run(confirm)}>{actions[confirm][1]}</button></>}><strong>{p.name}</strong><label>Reason<textarea rows={2} maxLength={1000} value={reason} disabled={locked} onChange={e=>setReason(e.target.value)}/></label>{error&&<div role="alert" className="notice error">{error}</div>}</RecipeDialog>}
+    {preview&&<RecipeDialog title={p.name||'Preview'} onClose={()=>setPreview(false)}><div className="stack">
+      {/* eslint-disable-next-line @next/next/no-img-element -- authenticated cover preview */}
+      {p.photo&&<img className="recipe-full-photo" src={photoSrc(p.photo.path)} alt={p.name}/>}<span>{p.branch}</span><span>{p.address}</span>{p.hours&&<span>{p.hours.summary}</span>}{rows.filter(r=>!r.hidden&&!r.removed).map(r=><div className="row spread" key={r.key}><span>{r.name}</span><span>{r.price.currency==='SGD'&&r.price.amount!==null?'S$'+r.price.amount.toFixed(2):'—'}</span></div>)}{detail?.app&&<a href={detail.app+'/place/catalogue-'+detail.id} target="_blank" rel="noreferrer">Open in app</a>}</div></RecipeDialog>}
+    {report&&<RecipeDialog title="Report" onClose={()=>setReport(null)}><CaseDetail id={report} canAssign={false} onSaved={()=>{if(!dirty)onSaved();}} onClose={()=>setReport(null)}/></RecipeDialog>}
   </div>;
 }

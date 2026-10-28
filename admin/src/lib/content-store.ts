@@ -6,7 +6,7 @@ import { choice, HttpError, integer, text } from './http';
 
 export type Kind = 'place' | 'menu' | 'recipe' | 'event';
 export type StaffRow = { kind: Kind; id: string; origin: 'edit' | 'staff'; hidden: boolean; data: Record<string, unknown>; version: number; updated_at: string; editor: string | null };
-type Next = { origin: 'edit' | 'staff'; hidden: boolean; data: Record<string, unknown> } | null;
+export type Next = { origin: 'edit' | 'staff'; hidden: boolean; data: Record<string, unknown> } | null;
 
 export function contentId(value: unknown, name = 'content id') {
   const id = text(value, name, 120, 3);
@@ -39,6 +39,7 @@ export async function writeItem(member: Session, kind: Kind, id: string, expecte
   authorize(member, 'content');
   return transaction(async db => {
     await lockPermission(db, member, 'content');
+    if (kind === 'place' || kind === 'menu') await db.query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))", ['place-workspace:' + id]);
     const row = (await db.query<StaffRow>('SELECT kind,id,origin,hidden,data,version FROM content.item WHERE kind=$1 AND id=$2 FOR UPDATE', [kind, id])).rows[0];
     if ((row?.version ?? 0) !== expected) throw new HttpError(409, 'This content changed since you opened it. Refresh before saving.');
     const next = change(row);
@@ -76,3 +77,26 @@ export function newId(name: string) {
   return 'staff-' + slug + '-' + crypto.randomUUID().slice(0, 8);
 }
 export const staffState = (row: StaffRow | null) => row && { origin: row.origin, hidden: row.hidden, version: row.version, updatedAt: row.updated_at, editor: row.editor };
+
+/** Place and menu share a lock and a transaction: neither write can survive a stale version or failed validation. */
+export async function writePlaceWorkspace(member: Session, id: string, versions: { place: number; menu: number }, reason: string,
+  change: (place: StaffRow | undefined, menu: StaffRow | undefined) => { place: Next; menu: Next }) {
+  authorize(member, 'content');
+  return transaction(async db => {
+    await lockPermission(db, member, 'content');
+    await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', ['place-workspace:' + id]);
+    const rows = (await db.query<StaffRow>("SELECT kind,id,origin,hidden,data,version FROM content.item WHERE id=$1 AND kind IN ('place','menu') ORDER BY kind FOR UPDATE", [id])).rows;
+    const place = rows.find(r => r.kind === 'place'), menu = rows.find(r => r.kind === 'menu');
+    if ((place?.version ?? 0) !== versions.place || (menu?.version ?? 0) !== versions.menu) throw new HttpError(409, 'This place or menu changed. Refresh before saving.');
+    const next = change(place, menu);
+    for (const kind of ['place', 'menu'] as const) {
+      const value = next[kind], row = kind === 'place' ? place : menu;
+      if (value && Buffer.byteLength(JSON.stringify(value.data)) > 190000) throw new HttpError(413, 'This content is too large. Save fewer changes.');
+      if (!value) { if (row) await db.query('DELETE FROM content.item WHERE kind=$1 AND id=$2', [kind, id]); }
+      else if (row) await db.query('UPDATE content.item SET origin=$3,hidden=$4,data=$5,version=version+1,updated_by=$6,updated_at=now() WHERE kind=$1 AND id=$2', [kind,id,value.origin,value.hidden,JSON.stringify(value.data),member.id]);
+      else await db.query('INSERT INTO content.item(kind,id,origin,hidden,data,updated_by) VALUES($1,$2,$3,$4,$5,$6)', [kind,id,value.origin,value.hidden,JSON.stringify(value.data),member.id]);
+      if (row || value) await audit(db, member.id, `content.${kind}.save`, kind + ':' + id, reason, { workspace: true });
+    }
+    return { saved: true, id };
+  });
+}

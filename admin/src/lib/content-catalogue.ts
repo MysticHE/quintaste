@@ -9,16 +9,16 @@ import { samePlace } from './place-identity';
 
 // null clears the veg options kitchen or the full-menu count set by an earlier staff edit.
 type Patch = Omit<Partial<Place>, 'kitchen' | 'menuTotal'> & { kitchen?: 'options' | null; menuTotal?: number | null; sourceUrl?: string; base?: string };
-type MenuData = { items?: Record<string, { name?: string; category?: string; price?: MenuItem['price']; diet?: MenuItem['diet']; hidden?: boolean }>; added?: MenuItem[]; sourceUrl?: string; base?: string };
+export type MenuData = { items?: Record<string, Partial<Omit<MenuItem, 'id'>>>; added?: MenuItem[]; sourceUrl?: string; base?: string };
 /** The labels on every dish members see: packaged dishes after staff edits and hides, then added dishes. */
-const visibleDiets = (menu: Menu | null | undefined, data: MenuData) => [...(menu?.sections ?? []).flatMap(section => section.items.flatMap(item => {
+export const visibleDiets = (menu: Menu | null | undefined, data: MenuData) => [...(menu?.sections ?? []).flatMap(section => section.items.flatMap(item => {
   const change = data.items?.[section.id + '/' + item.id];
   return change?.hidden ? [] : [change?.diet ?? item.diet];
-})), ...(data.added ?? []).map(dish => dish.diet)];
+})), ...(data.added ?? []).filter(dish => !dish.hidden).map(dish => dish.diet)];
 /** Deep equality that ignores object key order, so an untouched packaged field never reads as a staff edit. */
 const sorted = (_key: string, value: unknown) => value && typeof value === 'object' && !Array.isArray(value)
   ? Object.fromEntries(Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)) : value;
-const same = (a: unknown, b: unknown) => JSON.stringify(a, sorted) === JSON.stringify(b, sorted);
+export const same = (a: unknown, b: unknown) => JSON.stringify(a, sorted) === JSON.stringify(b, sorted);
 const openReports = `SELECT split_part(subject_id,'|',1) AS subject, count(*)::int AS reports FROM ops.case_record
   WHERE kind='report' AND status NOT IN ('resolved','dismissed') AND subject_id LIKE 'place:catalogue:%' GROUP BY 1`;
 
@@ -50,11 +50,11 @@ export async function placeDetail(member: Session, raw: string) {
   const base = places.find(p => p.data.id === id) ?? null;
   if (!base && place?.origin !== 'staff') throw new HttpError(404, 'Place not found.');
   return { id, app: process.env.CUSTOMER_APP_URL ?? null, origin: base?.source === 'bot' ? 'explorer' : base ? 'packaged' : 'staff', base: base?.data ?? null, staff: place && { ...staffState(place), data: place.data }, newer: newerBelow(place, base?.hash),
-    menu: { base: menu?.data ?? null, staff: menuRow && { ...staffState(menuRow), data: menuRow.data }, newer: newerBelow(menuRow, menu?.hash) },
+    baseHash: base?.hash ?? null, menu: { baseHash: menu?.hash ?? null, base: menu?.data ?? null, staff: menuRow && { ...staffState(menuRow), data: menuRow.data }, newer: newerBelow(menuRow, menu?.hash) },
     history: [...trail, ...menuTrail, ...decisions.rows].sort((a, b) => new Date(b.occurred_at).getTime() - new Date(a.occurred_at).getTime()).slice(0, 30), reports: reports.rows };
 }
 
-async function placeFields(input: Record<string, unknown>, base: Place | null) {
+export async function placeFields(input: Record<string, unknown>, base: Place | null) {
   const f = asRecord(input.fields, 'place details');
   const postalCode = text(f.postalCode, 'postal code', 6, 6);
   if (!/^\d{6}$/.test(postalCode)) throw new HttpError(400, 'Enter a six-digit postal code.');
@@ -71,7 +71,7 @@ async function placeFields(input: Record<string, unknown>, base: Place | null) {
 /** Owner, 24 Oct 2026: a new place that Explore already lists (samePlace: same postal code and unit, or same name) is refused
  * unless staff confirm it is a different place, so the same branch is not listed twice under a staff id. Hidden and closed places
  * are not listed, matching the bots (live_places in ops/qt-team/veg_options.py). */
-async function refuseListed(fields: { name: string; address: string; postalCode: string }) {
+export async function refuseListed(fields: { name: string; address: string; postalCode: string }) {
   const [base, closed, rows] = await Promise.all([packagedPlaces(), closedPlaces(), staffRows('place')]);
   const staff = new Map(rows.map(row => [row.id, row]));
   const listed = [...base.flatMap(({ data }) => {
@@ -113,9 +113,13 @@ export async function placeAction(member: Session, input: Record<string, unknown
   const fields = await placeFields(input, base?.data ?? null);
   checkOptionsMenu(fields.kitchen, fields.venueDiet, visibleDiets(menu?.data, (menuRow?.data ?? {}) as MenuData));
   return writeItem(member, 'place', id, expected, act, reason, row => {
-    if (row?.origin === 'staff') return { origin: 'staff', hidden: row.hidden, data: { ...fields, sourceUrl: url(asRecord(input.fields, 'place details').sourceUrl, 'the place source') } };
+    if (row?.origin === 'staff') return { origin: 'staff', hidden: row.hidden, data: { ...row.data, ...fields, sourceUrl: url(asRecord(input.fields, 'place details').sourceUrl, 'the place source') } };
     if (!base) throw new HttpError(404, 'Place not found.');
-    const changed = Object.fromEntries(Object.entries(fields).filter(([key, value]) => !same(value ?? null, (base.data as Record<string, unknown>)[key] ?? null)));
+    const changed = { ...row?.data }; delete changed.base;
+    for (const [key, value] of Object.entries(fields)) {
+      if (same(value ?? null, (base.data as Record<string, unknown>)[key] ?? null)) delete changed[key];
+      else changed[key] = value;
+    }
     return Object.keys(changed).length || row?.hidden ? { origin: 'edit', hidden: !!row?.hidden, data: { ...changed, base: base.hash } } : null;
   });
 }
@@ -139,7 +143,8 @@ export async function menuAction(member: Session, input: Record<string, unknown>
   return writeItem(member, 'menu', id, expected, act, reason, (row?: StaffRow) => {
     const data = structuredClone((row?.data ?? {}) as MenuData), items = data.items ?? {}, added = data.added ?? [];
     if (act === 'edit') {
-      const next = menuItem(input.item, original!.id), change: NonNullable<MenuData['items']>[string] = { ...(items[key]?.hidden ? { hidden: true } : {}) };
+      const next = menuItem(input.item, original!.id), change: NonNullable<MenuData['items']>[string] = { ...items[key] };
+      for (const field of ['name', 'category', 'price', 'diet'] as const) delete change[field];
       if (next.name !== original!.name) change.name = next.name;
       if ((next.category ?? '') !== (original!.category ?? '')) change.category = next.category ?? '';
       if (!same(next.price, original!.price)) change.price = next.price;
@@ -156,10 +161,10 @@ export async function menuAction(member: Session, input: Record<string, unknown>
     } else {
       const dish = text(input.dishId, 'dish', 40), index = added.findIndex(d => d.id === dish);
       if (index < 0) throw new HttpError(404, 'Dish not found. Refresh the menu.');
-      if (act === 'remove-added') added.splice(index, 1); else added[index] = menuItem(input.item, dish);
+      if (act === 'remove-added') added.splice(index, 1); else added[index] = { ...added[index], ...menuItem(input.item, dish), qualifier: added[index].qualifier };
     }
     // Explore lists a place only while it has a dish, so the last dish cannot be hidden or removed here.
-    const visible = (base?.data.sections ?? []).reduce((n, s) => n + s.items.filter(item => !items[s.id + '/' + item.id]?.hidden).length, 0) + added.length;
+    const visible = (base?.data.sections ?? []).reduce((n, s) => n + s.items.filter(item => !items[s.id + '/' + item.id]?.hidden).length, 0) + added.filter(item => !item.hidden).length;
     if (!visible && act !== 'restore') throw new HttpError(409, 'This is the last dish. Hide the place instead, or add another dish first.');
     const next = { ...data, items, added, ...(base ? { base: base.hash } : {}) };
     checkOptionsMenu(kitchen, placeData.venueDiet ?? basePlace?.venueDiet, visibleDiets(base?.data, next));

@@ -49,7 +49,7 @@ export default function Cases({ canAssign }: { canAssign: boolean }) {
     {selected && <CaseDetail key={selected} id={selected} canAssign={canAssign} onSaved={resource.reload} onClose={() => setSelected(null)}/>}
   </>;
 }
-function CaseDetail({ id, onSaved, onClose, canAssign }: { id: string; onSaved: () => void; onClose: () => void; canAssign: boolean }) {
+export function CaseDetail({ id, onSaved, onClose, canAssign }: { id: string; onSaved: () => void; onClose: () => void; canAssign: boolean }) {
   const resource = useResource<{ record: Case; notes: { id: string; body: string; created_at: string; author: string }[] }>('/api/manage/cases?id=' + id);
   const assignees = useResource<{ id: string; email: string }[]>(canAssign ? '/api/manage/assignees' : null);
   const row = resource.data?.record;
