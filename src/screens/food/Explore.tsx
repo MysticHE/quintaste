@@ -7,7 +7,7 @@ import { IconButton } from "../../components/food/Controls";
 import { LocationFeedback } from "../../components/discovery/LocationFeedback";
 import { CatalogueVenueCard } from "../../components/discovery/CatalogueVenueCard";
 import { CatalogueVenueRow } from "../../components/discovery/MixedKitchenList";
-import { ScreenList } from "../../components/ScreenList";
+import { FeedGap, ScreenList } from "../../components/ScreenList";
 import { useMinuteClock } from "../../components/food/Timers";
 import { useDiscovery } from "../../state/Discovery";
 import { useDiscoveryInput } from "../../hooks/useDiscoveryInput";
@@ -27,7 +27,7 @@ import { useT } from "../../i18n";
 
 export function ExploreScreen() {
   const { filters, ready, readable } = useFood();
-  const { theme, draft } = usePreferences(), discovery = useDiscovery(), t = useT("explore"), tc = useT("common");
+  const { draft } = usePreferences(), discovery = useDiscovery(), t = useT("explore"), tc = useT("common");
   const kitchens = [{ id: "veg", label: t("vegKitchen") }, { id: "mixed", label: t("mixedKitchen") }] as const;
   const { input, locationExpired, privateMissing, privateKind, point, searchPlaces } = useDiscoveryInput(useMinuteClock());
   const nearby = useNearbyLocation(), { ensure } = discovery;
@@ -55,9 +55,7 @@ export function ExploreScreen() {
   const reviews = usePlaceReviewSummaries(venues.map(venue => venue.id), accepted);
   useReactions("place", accepted ? venues.map(venue => venue.id) : []);
   const loading = !ready || (currentRequest && discovery.busy && !venues.length);
-  // Mixed Kitchen rows open to a place page with the full notice; the list keeps it in view above the places.
-  const mixedNotice = discovery.mixed && accepted && venues.length > 0;
-  const showHeader = privateMissing || locationExpired || loading || currentRequest && !!discovery.error || mixedNotice;
+  const showHeader = privateMissing || locationExpired || loading || currentRequest && !!discovery.error;
   const showFooter = accepted && (discovery.capped || !discovery.busy && !venues.length) || !!mixedCount;
   return <Screen back={false} compact list contentInset={0} header={<TopBar testID="explore-toolbar" actions={<>
       <IconButton appearance="plain" label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
@@ -69,21 +67,20 @@ export function ExploreScreen() {
     {/* Each kitchen is its own list, so switching starts at the top with the bars showing. Only cards near the screen are drawn. */}
     <LocationFeedback nearby={nearby} />
     <View testID="explore-feed" style={common.flex}>
-    <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={reviews.data} lineDividers
+    <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={reviews.data} feedGap
       // Rows and photo cards recycle in their own pools, so a scroll never rebuilds a row's cell as a card.
       getItemType={item => discovery.mixed || !item.photo?.path ? "row" : "card"}
       renderItem={({ item }) => discovery.mixed || !item.photo?.path
         ? <CatalogueVenueRow venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />
         : <CatalogueVenueCard edgeToEdge venue={item} review={reviews.data?.items.find(review => review.id === item.id)} />}
       header={showHeader ? <>
-        {mixedNotice && <View style={s.feedback}><T testID="mixed-kitchen-notice" variant="small" muted>{t("mixedKitchenSafety")}</T></View>}
         {privateMissing && <View style={s.feedback}><Button label={t(privateKind === "home" ? "addHomeAddress" : "addWorkAddress")} variant="secondary"
           onPress={() => router.push({ pathname: "/location-place", params: { kind: privateKind } })} /></View>}
         {locationExpired && <View style={s.feedback}><Button label={t("updateMyLocation")} variant="link" loading={nearby.busy} onPress={() => void nearby.locate()} /></View>}
         {/* Cards (or Mixed Kitchen rows) the size of the results, so the list does not grow from a spinner when places arrive. */}
         {loading && <LoadingShapes testID="explore-loading" label={t(ready ? "loadingPlaces" : "loadingSettings")}>
           <View>{[0, 1, 2].map(index => <View key={index}>
-            {index > 0 && <View style={[s.divider, { backgroundColor: theme.border }]} />}
+            {index > 0 && <FeedGap />}
             {discovery.mixed ? <View style={s.feedback}><RowSkeleton leading={false} /></View> : <PostCardSkeleton edgeToEdge />}
           </View>)}</View>
         </LoadingShapes>}
@@ -109,5 +106,4 @@ export function ExploreScreen() {
 
 const s = StyleSheet.create({
   feedback: { paddingHorizontal: 16 },
-  divider: { height: StyleSheet.hairlineWidth },
 });
