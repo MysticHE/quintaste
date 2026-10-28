@@ -15,7 +15,7 @@ import { sgAreas } from "../../config/sg-areas";
 import type { SocialPlace, SocialProfile } from "../../types/community";
 import { PlacePicker } from "./PlacePicker";
 import { PlaceThumb } from "./Face";
-import { Sheet } from "./Sheet";
+import { Sheet } from "../Sheet";
 
 type Edit = { value: SocialProfile; onChange: (next: SocialProfile) => void };
 /** Chips with their question shown above them (the chip row's own label is read by screen readers only). */

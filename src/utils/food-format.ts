@@ -28,14 +28,16 @@ export function formatAmount(value: number, unit: string, language: Language = "
   const words = exploreWords(language), part = String(words[match.spoken]);
   return whole ? { text: whole + match.glyph, spoken: words.amountAnd({ whole, part }) } : { text: match.glyph, spoken: part };
 }
-export type IngredientLine = { text: string; spoken: string; toTaste: boolean };
+/** `lead` is the amount and unit ("1½ cup") and `rest` the name, for lines that set the amount in bold; empty lead when to taste. */
+export type IngredientLine = { text: string; spoken: string; toTaste: boolean; lead: string; rest: string };
 export function ingredientLine(item: Pick<Ingredient, "name" | "amount" | "unit">, scale = 1, language: Language = "en"): IngredientLine {
   if (item.amount === null) {
     const text = item.name + exploreWords(language).toTaste;
-    return { text, spoken: text, toTaste: true };
+    return { text, spoken: text, toTaste: true, lead: "", rest: text };
   }
   const amount = formatAmount(item.amount * scale, item.unit, language);
-  return { text: [amount.text, item.unit, item.name].filter(Boolean).join(" "), spoken: [amount.spoken, item.unit, item.name].filter(Boolean).join(" "), toTaste: false };
+  const lead = [amount.text, item.unit].filter(Boolean).join(" ");
+  return { text: [lead, item.name].filter(Boolean).join(" "), spoken: [amount.spoken, item.unit, item.name].filter(Boolean).join(" "), toTaste: false, lead, rest: item.name };
 }
 export function timerRemaining(timer: { endsAt: number | null; remaining: number }, now = Date.now()) {
   return Math.max(0, Math.ceil(timer.endsAt === null ? timer.remaining : (timer.endsAt - now) / 1000));

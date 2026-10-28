@@ -36,6 +36,10 @@ type ScreenProps = {
   backTo?: Href;
   hideTimers?: boolean;
   fill?: boolean;
+  /** Keeps the top bar in view while the page scrolls (Cook mode), instead of sliding it away. */
+  pinHeader?: boolean;
+  /** Pinned under the page, always in view: controls a page cannot do without (Cook mode's step buttons). */
+  bottomBar?: ReactNode;
   /** Styles the scrolling page's content; a list page takes its padding and spacing from the list instead. */
   contentStyle?: StyleProp<ViewStyle>;
   /** Optional content inset; zero lets a list meet the edges while retaining toolbar and safe areas. */
@@ -48,7 +52,7 @@ type ScreenProps = {
 const ScrollTop = createContext<() => void>(() => {});
 /** Scrolls the enclosing screen back to its top, for example after changing a results page. */
 export const useScreenScrollToTop = () => useContext(ScrollTop);
-export function Screen({ children, title, subtitle, back = true, footer, headerAction, titleAccessory, compact = true, header, backTo, hideTimers = false, fill = false, list = false, contentStyle, contentInset, floatingAction }: PropsWithChildren<ScreenProps>) {
+export function Screen({ children, title, subtitle, back = true, footer, headerAction, titleAccessory, compact = true, header, backTo, hideTimers = false, fill = false, pinHeader = false, bottomBar, list = false, contentStyle, contentInset, floatingAction }: PropsWithChildren<ScreenProps>) {
   const { theme, reducedMotion } = usePreferences();
   const segments = useSegments(), hasTabDock = segments.some(segment => segment === "(tabs)");
   const glass = useGlassNavigation(), { width } = useWindowDimensions(), nativeFrame = Platform.OS !== "web" || width < 600;
@@ -66,7 +70,7 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
     titleAccessory={titleAccessory} compact={compact} backTo={backTo} /> : null);
   // The top bar sits above the scrolling page and slides away while scrolling down, back on scrolling up (owner, 25 Oct 2026);
   // a page that does not scroll (fill: chats) keeps it in place.
-  const top = useTopBar(!fill && !!heading);
+  const top = useTopBar(!fill && !!heading, pinHeader);
   const { onScroll: dockOnScroll, onLayout: dockOnLayout, onContentSizeChange: dockOnSize } = dockScroll;
   const { onScroll: topOnScroll, onLayout: topOnLayout, onContentSizeChange: topOnSize } = top;
   const onScroll = useCallback((event: Parameters<typeof topOnScroll>[0]) => { dockOnScroll?.(event); topOnScroll(event); }, [dockOnScroll, topOnScroll]);
@@ -104,7 +108,7 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
         {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
         <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
           style={hasTabDock ? { position: "absolute", bottom: glass?.height ?? 0, left: 0, right: 0 } : undefined}>
-          {!hideTimers && <TimerDock />}<FoodStorageBanner /><OfflineBanner /><NoticeBanner />
+          {!hideTimers && <TimerDock />}<FoodStorageBanner /><OfflineBanner /><NoticeBanner />{bottomBar}
         </Pinned>
           </View>
         </KeyboardAvoidingView>
@@ -116,7 +120,7 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
  * The pinned top bar's height, slide and scroll handlers; it shows again when the screen regains focus or a screen reader is on.
  * Until its first layout the height is unknown (null) and the bar sits in the page flow, so the page starts in the same place.
  */
-function useTopBar(enabled: boolean) {
+function useTopBar(enabled: boolean, pinned = false) {
   const { reducedMotion } = usePreferences(), screenReader = useScreenReaderOn(), focused = useIsFocused();
   const slide = useSharedValue(0), hidden = useRef(false), [height, setHeight] = useState<number | null>(null);
   const setHidden = useCallback((next: boolean) => {
@@ -125,7 +129,7 @@ function useTopBar(enabled: boolean) {
     slide.set(withTiming(next ? 1 : 0, { duration: reducedMotion ? 0 : 220 }));
   }, [screenReader, reducedMotion, slide]);
   useEffect(() => { if (focused || screenReader) setHidden(false); }, [focused, screenReader, setHidden]);
-  const handlers = useHideOnScroll(enabled ? setHidden : undefined);
+  const handlers = useHideOnScroll(enabled && !pinned ? setHidden : undefined);
   const style = useAnimatedStyle(() => ({ transform: [{ translateY: -slide.get() * (height ?? 0) }] }), [height]);
   const show = useCallback(() => setHidden(false), [setHidden]);
   return { enabled, height, setHeight, style, show, ...handlers };

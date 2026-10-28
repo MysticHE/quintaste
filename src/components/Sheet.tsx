@@ -1,10 +1,10 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { IconButton } from "../food/Controls";
-import { T, common } from "../ui";
-import { usePreferences } from "../../state/Preferences";
-import { useT } from "../../i18n";
+import { IconButton } from "./food/Controls";
+import { T, common } from "./ui";
+import { usePreferences } from "../state/Preferences";
+import { useT } from "../i18n";
 
 /** A bottom sheet that keeps the screen behind it in view; its body scrolls and the footer stays put. */
 export function Sheet({ visible, onClose, title, footer, children }: PropsWithChildren<{ visible: boolean; onClose: () => void; title: string; footer?: ReactNode }>) {

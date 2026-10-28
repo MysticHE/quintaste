@@ -11,7 +11,7 @@ import { addPhoto, orderPhotos, removePhoto } from "../../services/social-api";
 import type { SocialPhoto, Standing } from "../../types/community";
 import { useSocialError } from "./SocialState";
 import { useSocialSource } from "./SocialPhoto";
-import { Sheet } from "./Sheet";
+import { Sheet } from "../Sheet";
 
 type Saved = { photos: SocialPhoto[]; standing: Standing };
 function Tile({ photo, index, onPress }: { photo: SocialPhoto; index: number; onPress: () => void }) {

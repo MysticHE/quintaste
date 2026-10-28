@@ -17,7 +17,7 @@ import type { Dinner, Met } from "../../types/community";
 import type socialMessages from "../../i18n/en/social";
 import { useSocialError } from "./SocialState";
 import { SgDateTimeField } from "./SgDateTimeField";
-import { Sheet } from "./Sheet";
+import { Sheet } from "../Sheet";
 import { openSocial } from "./Shared";
 
 /** Who pays, worded for the viewer: "I'll pay the bill" reads "You pay the bill" or "Mei pays the bill". */

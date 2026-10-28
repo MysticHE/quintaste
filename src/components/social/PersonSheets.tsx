@@ -8,7 +8,7 @@ import { invalidate } from "../../hooks/useRemote";
 import { block, requestFriend } from "../../services/social-api";
 import { useSocialError } from "./SocialState";
 import { Confirm } from "./Shared";
-import { Sheet } from "./Sheet";
+import { Sheet } from "../Sheet";
 
 /** Add Friend with an optional hello (200 characters). If they already asked you, this makes you friends straight away. */
 export function RequestSheet({ person, visible, onClose, onSent }: { person: { id: string; firstName: string }; visible: boolean; onClose: () => void; onSent?: () => void }) {

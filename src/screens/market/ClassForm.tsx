@@ -10,7 +10,7 @@ import { MemberGate } from "../../components/social/SocialState";
 import { openMarket, refreshClasses, useClassError } from "../../components/market/ClassParts";
 import { AreaField, ChoiceGroup, DietChoices } from "../../components/social/ProfileFields";
 import { SgDateTimeField } from "../../components/social/SgDateTimeField";
-import { Sheet } from "../../components/social/Sheet";
+import { Sheet } from "../../components/Sheet";
 import { Action } from "../../components/Actions";
 import { useRemote } from "../../hooks/useRemote";
 import { classPeople, cookingClass, removeSeat, saveClass } from "../../services/classes-api";

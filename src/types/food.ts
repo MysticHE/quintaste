@@ -90,7 +90,8 @@ export type LocalCase = {
 };
 export type CookingSession = {
   recipeId: string; step: number; servings: number; startedAt: number; recipeVersion?: number;
-  /** Mise en place screen before step 1; gathered holds ingredient ids, used holds "stepIndex:ingredientId". */
+  /** Mise en place screen before step 1; gathered holds ticked ingredient ids (one tick per ingredient across Cook mode); used holds
+   *  per-step ticks ("stepIndex:ingredientId") from sessions saved before that, still read as ticked. */
   gathering?: boolean; gathered?: string[]; used?: string[];
   /** Step indexes the member has opened; sessions saved before it existed count every step up to `step`. */
   seen?: number[];

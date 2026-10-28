@@ -19,7 +19,7 @@ import { locationIssue, locationMessages } from "../../utils/location-feedback";
 import { defaultPrivatePlace, privatePlaceKind, readPrivatePoint } from "../../utils/private-places";
 import { useT } from "../../i18n";
 import { PlaceThumb } from "./Face";
-import { Sheet } from "./Sheet";
+import { Sheet } from "../Sheet";
 
 /** Where "nearby" is measured from: the member's default saved place, or a location they picked or found with GPS in this sheet. */
 type Origin = { point: SearchPoint; label: string; icon: IconName; picked: boolean };
