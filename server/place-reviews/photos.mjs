@@ -9,6 +9,7 @@ export const photoPath = (place, photo) => `/api/place-reviews/${place}/photos/$
 export async function reviewPhotos(value, place) {
   if (value === undefined) return undefined; // Older clients preserve existing photos when editing text.
   if (!Array.isArray(value) || value.length > 3) throw new CommunityError(400, 'Add up to 3 photos.');
+  /** @type {Array<{ keep: string } | { keep?: undefined, id: string, bytes: Buffer, digest: string }>} */
   const result = [];
   for (const uri of value) {
     if (typeof uri !== 'string') throw new CommunityError(400, 'Choose a valid photo.');
