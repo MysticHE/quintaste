@@ -527,6 +527,11 @@ def contract(role):
                          "servings is 1 to 8 (the app's limit): when the source makes more than 8, scale every amount and gram estimate by one "
                          "factor to 8 or fewer servings (for example 12 servings halved to 6) and say so in adaptationNote (21 Oct 2026). "
                          "Name plain ingredients plainly ('vegetable oil', 'rice vinegar'); put 'unseasoned' or 'without seasoning' in notes, not in the name. "
+                         "An ingredient name is what a shopper reads ('Dairy milk', 'Water', 'Fresh ginger'); add preparation after a comma only when the cook "
+                         "needs it ('Pumpkin, cubed'), never caveats ('without added flavourings', 'excluding water used for soaking', 'approximately enough for'). "
+                         "A step's ingredientIds are only what that step adds, measures or handles; the app lists them to the cook as 'For this step'. "
+                         "Never re-list what earlier steps already put in the pan, bowl or batter: 'Whisk until hot' or 'Steam for 12 minutes' lists none, "
+                         "'Lower the battered pieces into the oil' lists only the oil, 'Taste and add more sugar' lists the sugar again (28 Oct 2026). "
                          "Do not write nutrition figures or say nutrition is omitted; QuinTaste adds nutrition itself.")
     return common + ("Propose at most 12 events within 90 days. Each proposed record has event: {title,organiser,startsAt:ISO8601 with +08:00,"
                      "endsAt:ISO8601|null,location,address,feeAmount:number|null,currency:string|null,feeNote:string,registrationUrl:HTTPS|null,"

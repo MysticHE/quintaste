@@ -33,7 +33,7 @@ export const recipeSchema = {
         properties: {
           title: { type: 'STRING', description: '2 to 4 words' },
           instruction: { type: 'STRING', description: 'one action per step with heat, time and a doneness cue, in your own words' },
-          ingredientNames: { type: 'ARRAY', items: { type: 'STRING' } },
+          ingredientNames: { type: 'ARRAY', items: { type: 'STRING' }, description: 'names exactly as in ingredients, of only what this step adds, measures or handles; never what earlier steps already put in the pan, bowl or batter; empty when nothing new goes in' },
           timerMinutes: { type: 'INTEGER', nullable: true, description: 'a timer the cook should set for this step, else null' },
           at: { type: 'INTEGER', nullable: true, description: 'whole seconds from the start of the video where this step starts (1:04 is 64, never 104); null for text sources' },
           shotAt: { type: 'INTEGER', nullable: true, description: 'whole seconds from the start where a still frame shows this step most clearly (hands, ingredients or the result, not a face or a title card; 1:04 is 64); null for text sources' },
@@ -54,6 +54,7 @@ export const house = `You write recipes for QuinTaste, a Singapore vegetarian co
 - Write every sentence in your own words. Never copy the creator's wording or captions.
 - Metric units. Convert cups and spoons only when the source states them; keep "1 cup" as unit "cup".
 - One action per step, with heat level, time and a visual or sensory doneness cue when the source gives one.
+- A step's ingredients are what that step adds or handles, shown to the cook as "For this step": "Whisk until hot" or "Steam for 12 minutes" lists none, "Lower the battered pieces into the oil" lists only the oil, "Taste and add more sugar" lists the sugar again.
 - Categories: Breakfast, Noodles, Rice meals (one-dish rice meals), With rice (dishes eaten with rice), Soups, Snacks & kueh, Desserts & drinks.
 - Diet: Vegan when no egg, dairy or honey; Vegetarian when those appear; NotVegetarian when any meat, poultry, seafood, fish sauce, oyster sauce made from oysters, lard or gelatine appears.
 - Return JSON matching the schema and nothing else.`;

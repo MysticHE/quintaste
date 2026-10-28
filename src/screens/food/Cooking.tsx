@@ -16,6 +16,7 @@ import type { CookingSession } from "../../types/food";
 import { TimerCard } from "../../components/food/Timers";
 import { StepSwipe, StepTabs } from "../../components/recipes/StepTabs";
 import { cookingRecipeById, cookingIssue } from "../../utils/private-recipes";
+import { stepIngredientIds } from "../../utils/step-ingredients";
 import { TimerAlertControl } from "../../components/food/TimerAlertControl";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
@@ -125,7 +126,7 @@ export function CookingScreen() {
       <T variant="title">{step.title}</T><T style={{ fontSize: 20 * textMultiplier, lineHeight: 29 * textMultiplier }}>{step.instruction}</T>
       {privateDraft?.steps[session.step]?.photo ? <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={t("stepPhoto", { n: session.step + 1 })} />
         : step.photo ? <StepPhoto path={step.photo} height={200} label={t("stepPhoto", { n: session.step + 1 })} /> : null}
-      <StepChecklist ingredients={recipe.ingredients} ids={step.ingredientIds} scale={scale} checked={ticked} disabled={!readable} onToggle={toggleIngredient} />
+      <StepChecklist ingredients={recipe.ingredients} ids={stepIngredientIds(recipe, session.step)} scale={scale} checked={ticked} disabled={!readable} onToggle={toggleIngredient} />
       {step.timer && <Button label={t("startTimerMinutes", { n: Math.round(step.timer.seconds / 60) })} icon="timer-outline" variant="secondary" disabled={!readable}
         onPress={() => void startTimer(id, step.timer!.label, step.timer!.seconds).then(okay => { if (okay) setOffer(true); })} />}
       {offer && <TimerAlertOffer />}
