@@ -22,8 +22,13 @@ import { isVegOptions, placeLabels, placeTileIcon } from "../../utils/venue-kitc
 import { directionsUrl } from "../../utils/directions";
 import { useT } from "../../i18n";
 import { goBack } from "../../utils/navigation";
+import { OpenClock, useOpenStatus } from "../../hooks/useOpenStatus";
 
+/** The place page, with one minute clock so its open status stays current while it is shown. */
 export function CataloguePlaceDetailScreen({ id }: { id: string }) {
+  return <OpenClock><CataloguePlaceDetail id={id} /></OpenClock>;
+}
+function CataloguePlaceDetail({ id }: { id: string }) {
   const { venue, busy, error, gone, offline, retry } = useCatalogueVenue(id);
   // An Explore keyword search carries on into the menu.
   const { q } = useLocalSearchParams<{ q?: string }>(), search = typeof q === "string" ? q.trim().slice(0, 100) : "";
@@ -41,6 +46,7 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
     setSaving(true);
     try { await toggleSave("place", savedId, venue.name); } finally { setSaving(false); }
   };
+  const status = useOpenStatus(venue?.hours);
   const directions = directionsUrl(venue?.address ?? "", venue?.googlePlaceId);
   const branch = venue?.branch && !venue.address.toLowerCase().includes(venue.branch.toLowerCase()) ? venue.branch : "";
   return <Screen title={venue?.name ?? t("placeDetails")} header={<View style={common.row}>
@@ -86,10 +92,13 @@ export function CataloguePlaceDetailScreen({ id }: { id: string }) {
         <PlaceDivider />
         <PlaceRow icon="location-outline" text={venue.address} selectable />
         <PlaceDivider />
-        <PlaceDetailSection title={t("openingHours")} summary={venue.hours?.summary || t("hoursUnconfirmed")} icon="time-outline">
-          {venue.hours ? venue.hours.schedule.map((line, i) => <T variant="small" key={i}>{line}</T>) : <T variant="small" muted>{t("hoursUnconfirmed")}</T>}
+        <PlaceDetailSection title={t("openingHours")} summary={status ? status.text : venue.hours?.summary || t("hoursUnconfirmed")} icon="time-outline">
+          {venue.hours ? <>{!!status && <T variant="small" muted>{venue.hours.summary}</T>}
+            {venue.hours.schedule.map((line, i) => <T variant="small" key={i}>{line}</T>)}</> : <T variant="small" muted>{t("hoursUnconfirmed")}</T>}
         </PlaceDetailSection>
         <PlaceDivider />
+        {venue.priceRange && <><PlaceRow testID="place-price" icon="pricetag-outline" text={t("typicalPrice") + " · " + t("priceRange", venue.priceRange)}
+          accessibilityLabel={t("priceRangeSpoken", venue.priceRange)} /><PlaceDivider /></>}
       </View>
       <View style={{ gap: 4 }}>
         <PlaceReviews placeId={venue.id} />

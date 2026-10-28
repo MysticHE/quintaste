@@ -33,6 +33,10 @@ export type CatalogueVenue = MenuSummary & {
   research?: { sourceUrls: string[]; notes: string[]; checkedAt: string };
   /** The dish that matched a keyword search, which the card shows. */
   match?: Pick<MenuItem, "name" | "price">;
+  /** How many dishes on the menu matched the keyword, when more than the one shown. */
+  matchCount?: number;
+  /** Typical dish price in whole SGD: the middle half of priced dishes (25th to 75th percentile), from three priced dishes up. */
+  priceRange?: { low: number; high: number };
 };
 export type CataloguePage = {
   version: 1;

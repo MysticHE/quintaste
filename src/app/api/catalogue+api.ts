@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const staff = await staffContent();
     for (const id of [...hiddenPlaces(staff), ...closedVenues()]) withdrawn.add(id);
     const data = typeof value.id === "string" ? catalogueVenue(value.id, withdrawn, staff)
-      : searchCatalogue(search!, (value.cursor as string | null) ?? null, withdrawn, staff, search!.query.trim() ? await placeSignals() : undefined);
+      : searchCatalogue(search!, (value.cursor as string | null) ?? null, withdrawn, staff, search!.query.trim() || search!.sort === "rated" || search!.sort === "liked" ? await placeSignals() : undefined);
     if (!data) return Response.json({ error: "Venue no longer published." }, { status: 404, headers });
     const text = JSON.stringify(data), etag = '"' + createHash("sha256").update(text).digest("hex") + '"';
     // Search uses POST to keep private coordinates out of URLs. A matching application

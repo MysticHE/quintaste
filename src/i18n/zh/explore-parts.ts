@@ -239,5 +239,11 @@ const zh: typeof en = {
   openDetails: "打开详情",
   unsaveName: "取消收藏{name}",
   moreActionsFor: "{name}的更多操作",
+  priceRange: v => "S$" + String(v.low) + (v.high === v.low ? "" : "–" + String(v.high)),
+  priceRangeSpoken: v => v.high === v.low ? "多数菜品约 S$" + String(v.low) : "多数菜品 S$" + String(v.low) + " 至 S$" + String(v.high),
+  moreMatches: "+{n}",
+  moreMatchesSpoken: v => "另有 " + String(v.n) + " 道相符菜品",
+  typicalPrice: "常见价位",
+  reviewPhotos: "评价照片",
 };
 export default zh;

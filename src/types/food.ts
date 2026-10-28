@@ -1,6 +1,6 @@
 import type { Avatar } from "./avatar";
 import type { RecipeWorkspace } from "./recipe-workspace";
-import type { PlaceLabel, PriceLevel } from "./discovery";
+import type { PlaceLabel, PlaceSort, PriceLevel } from "./discovery";
 import type { ExploreLocalDocument } from "./explore-local";
 import type { SocialDocument } from "./social";
 import type { MarketDocument } from "./market";
@@ -117,6 +117,8 @@ export type ExploreFilters = {
   confirmed: boolean; savedOnly: boolean; openNow: boolean;
   near: boolean; home: boolean; work: boolean; labels: PlaceLabel[] | null; cuisine: string; maxPrice: number | null; priceLevel: PriceLevel | null;
   cuisines?: string[] | null; priceLevels?: PriceLevel[] | null;
+  /** Explore result order; absent is the default order. */
+  sort?: PlaceSort | null;
 };
 
 export type SavedSelection = { category: "All" | "Places" | "Dishes" | "Recipes" | "Notes"; list: string };

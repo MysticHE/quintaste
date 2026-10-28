@@ -24,6 +24,7 @@ import { recalledCatalogueVenueName } from "../../services/catalogue-summaries";
 import { usePlaceReviewSummaries } from "../../hooks/usePlaceReviewSummaries";
 import { useReactions } from "../../hooks/useReactions";
 import { useT } from "../../i18n";
+import { OpenClock } from "../../hooks/useOpenStatus";
 
 type Translate = ReturnType<typeof useT<"explore">>;
 function itemName(kind: SavedKind, id: string, now: number, workspace: RecipeWorkspace, labels: Record<string, string>, t: Translate) {
@@ -81,7 +82,7 @@ export function SavedScreen() {
         text={t(doc.saves.length ? "tryAnotherFilter" : "saveToKeep")}
         action={t(doc.saves.length ? "editFilters" : "exploreFood")} icon="bookmark-outline"
         onPress={() => router.navigate(doc.saves.length ? "/saved/filters" : "/")} />}
-      {[...visible].sort((a, b) => b.savedAt - a.savedAt).map(item => <View key={item.kind + ":" + item.id} style={common.stack}>
+      <OpenClock>{[...visible].sort((a, b) => b.savedAt - a.savedAt).map(item => <View key={item.kind + ":" + item.id} style={common.stack}>
         {item.kind === "place" && item.id.startsWith("catalogue-")
           ? <SavedCatalogueVenue id={item.id.slice(10)} review={reviews.data?.items.find(summary => summary.id === item.id.slice(10))} more={() => setEditing(editing === "place:" + item.id ? "" : "place:" + item.id)} />
           : item.kind === "place" && savedGoogleId(item.id) ? <SavedPlaceCard placeId={savedGoogleId(item.id)!} now={now} more={() => setEditing(editing === "place:" + item.id ? "" : "place:" + item.id)} /> : <FoodCard kind={item.kind} id={item.id} now={now} onOpen={() => open(item.kind, item.id)} onMore={() => setEditing(editing === item.kind + ":" + item.id ? "" : item.kind + ":" + item.id)} />}
@@ -92,7 +93,7 @@ export function SavedScreen() {
           {item.kind === "place" && savedGoogleId(item.id) && <SavedPlaceLabel key={item.id} id={item.id} />}
           <Button label={t("manageLists")} variant="link" onPress={() => router.push("/saved/filters")} />
         </Card>}
-      </View>)}
+      </View>)}</OpenClock>
     </>}
     {!preview && <Button label={t("profileOptions")} variant="link" onPress={() => router.push({ pathname: "/login", params: { returnTo: "/saved" } })} />}
   </Screen>;

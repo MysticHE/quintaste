@@ -1,7 +1,7 @@
 import { FlashList, type FlashListProps, type FlashListRef, type ListRenderItem } from "@shopify/flash-list";
 import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
 import { View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
-import { usePreferences } from "../state/Preferences";
+import { FEED_GAP } from "../theme/layout";
 
 /** What a `Screen` with `list` hands its one ScreenList: the page padding, item gap, scroll handlers and scroll-to-top. */
 export type ScreenListFrame = {
@@ -75,9 +75,10 @@ export function ScreenList<T>({ header, footer, columnGap = 0, rowGap, feedGap =
 function Separator() {
   return <View style={{ height: useContext(ScreenListContext)?.gap ?? LIST_GAP }} />;
 }
-/** The small band between edge-to-edge feed rows (owner, 28 Oct 2026), a shade darker than the cards so each one stands apart. */
-export const FEED_GAP = 4;
+/**
+ * The small gap between edge-to-edge feed rows (owner, 28 Oct 2026). It paints nothing, so the selected theme's page background
+ * shows between the cards in every palette and in light and dark mode.
+ */
 export function FeedGap() {
-  const { theme } = usePreferences();
-  return <View testID="feed-gap" style={{ height: FEED_GAP, backgroundColor: theme.muted }} />;
+  return <View testID="feed-gap" style={{ height: FEED_GAP }} />;
 }

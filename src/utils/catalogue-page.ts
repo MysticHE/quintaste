@@ -63,6 +63,9 @@ export function readCatalogueVenue(value: unknown): CatalogueVenue {
     if (!v.match || typeof v.match !== "object" || typeof name !== "string" || !name.trim() || name.length > 300 || !price || !(price.amount === null || amount(price.amount))
       || !["SGD", "unknown"].includes(price.currency) || !["displayed", "from"].includes(price.type) || !amount(price.maxAmount)) throw new Error("Invalid dish match");
   }
+  if (v.matchCount !== undefined && (!Number.isSafeInteger(v.matchCount) || v.matchCount < 2 || v.matchCount > 999)) throw new Error("Invalid dish match");
+  if (v.priceRange !== undefined && (!v.priceRange || !Number.isSafeInteger(v.priceRange.low) || !Number.isSafeInteger(v.priceRange.high)
+    || v.priceRange.low < 1 || v.priceRange.high < v.priceRange.low || v.priceRange.high > 1000)) throw new Error("Invalid price range");
   if (v.photo !== undefined) readCataloguePhoto(v.photo);
   if (v.hours !== undefined) readCatalogueHours(v.hours);
   if (v.research) {

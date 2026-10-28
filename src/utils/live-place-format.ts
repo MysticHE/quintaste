@@ -7,8 +7,12 @@ import { liveOpening } from "./live-place-cache";
 import { exploreWords } from "./location-feedback";
 
 export function placeOpeningLine(place: LivePlace, now: number, language: Language = "en") {
-  const opening = liveOpening(place, now), words = exploreWords(language);
-  const boundary = opening === "open" ? place.nextClose : opening === "closed" ? place.nextOpen : undefined;
+  const opening = liveOpening(place, now);
+  return openingLine(opening, opening === "open" ? place.nextClose : opening === "closed" ? place.nextOpen : undefined, now, language);
+}
+/** "Open · until 9:00 pm", "Closed · opens 5:30 pm Sat", "Open now" or "Closed now" for a live Google place or a catalogue place. */
+export function openingLine(opening: LivePlace["opening"], boundary: string | number | undefined, now: number, language: Language = "en") {
+  const words = exploreWords(language);
   if (!boundary) return opening === "open" ? words.openNow : opening === "closed" ? words.closedNow : words.hoursUnavailable;
   const date = new Date(boundary), zh = language === "zh";
   const today = new Intl.DateTimeFormat("en", { timeZone: "Asia/Singapore", dateStyle: "short" });

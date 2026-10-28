@@ -37,8 +37,10 @@ export function useDiscoveryInput(now: number) {
   const savedIds = useMemo(() => savedKey ? JSON.parse(savedKey) as string[] : undefined, [savedKey]);
   // Veg Kitchen sends no kitchen field; Mixed Kitchen lists only places that also serve meat or seafood.
   const kitchen = discovery.mixed ? "mixed" as const : undefined;
-  const input = useMemo(() => ({ area, query, cuisine, priceLevel, ...choices, origin, center, radius, savedIds, kitchen }),
-    [area, query, cuisine, priceLevel, choices, origin, center, radius, savedIds, kitchen]);
+  // Open now and a chosen order are sent only when set, so an unchanged search keeps the same cached results.
+  const openNow = filters.openNow || undefined, sort = filters.sort ?? undefined;
+  const input = useMemo(() => ({ area, query, cuisine, priceLevel, ...choices, origin, center, radius, savedIds, kitchen, openNow, sort }),
+    [area, query, cuisine, priceLevel, choices, origin, center, radius, savedIds, kitchen, openNow, sort]);
   const choose = (suggestion: LocationSuggestion) => {
     // Re-selecting the accepted location must not clear results when the search
     // input is unchanged: the focus effect would have no new input to reload.

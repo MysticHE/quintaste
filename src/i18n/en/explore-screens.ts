@@ -177,5 +177,13 @@ const en = {
   viewRecipe: "View Recipe",
   viewPlace: "View Place",
   reportConcernTitle: "Report A Concern",
+  sortNearest: "Nearest",
+  sortBestMatch: "Best match",
+  sortName: "A–Z",
+  sortRated: "Top rated",
+  sortLiked: "Most liked",
+  sortUpdated: "Recently updated",
+  noneOpenNow: "Nothing Open Right Now",
+  showClosedToo: "Show Closed Places Too",
 } satisfies Record<string, string | ((vars: Vars) => string)>;
 export default en;

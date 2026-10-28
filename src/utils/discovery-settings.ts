@@ -12,7 +12,8 @@ export function readDiscoverySettings(value: unknown): DiscoverySettings {
   return {
     locationModeChosen: settings.locationModeChosen === true || home || work || filters.near === true,
     filters: { ...defaultFilters, home, work, near: !home && !work && filters.near === true,
-      labels: readPlaceLabels(filters), savedOnly: filters.savedOnly === true,
+      labels: readPlaceLabels(filters), savedOnly: filters.savedOnly === true, openNow: filters.openNow === true,
+      sort: filters.sort === "rated" || filters.sort === "liked" || filters.sort === "updated" ? filters.sort : null,
       cuisine: isDiscoveryCuisine(filters.cuisine) ? filters.cuisine : "All",
       priceLevel: isPriceLevel(filters.priceLevel) ? filters.priceLevel : null,
       cuisines: Array.isArray(filters.cuisines) ? [...new Set(filters.cuisines.filter(isDiscoveryCuisine).filter(value => value !== "All"))] : null,

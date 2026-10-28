@@ -1,6 +1,6 @@
 import { isDiscoveryCuisine, isPriceLevel } from "../config/discovery-options";
 import type { SearchPoint } from "../types/location-search";
-import type { DiscoverySearch, PlaceLabel, SearchOrigin } from "../types/discovery";
+import type { DiscoverySearch, PlaceLabel, PlaceSort, SearchOrigin } from "../types/discovery";
 import { inSingapore, validSearchArea } from "../utils/discovery-search";
 import { placeLabelsOf } from "../utils/discovery-filters";
 import { object } from "./google-provider";
@@ -37,11 +37,14 @@ export function discoveryInput(value: unknown): DiscoverySearch | undefined {
       || !inSingapore({ latitude: value.center.latitude, longitude: value.center.longitude })) return;
     center = { latitude: value.center.latitude, longitude: value.center.longitude };
   }
+  if (value.openNow !== undefined && typeof value.openNow !== "boolean" || value.sort !== undefined && !placeSorts.includes(value.sort as PlaceSort)) return;
   const radius = value.radius === undefined ? 5000 : value.radius;
   if (typeof radius !== "number" || ![1000, 3000, 5000, 10000].includes(radius)) return;
   return { area: value.area.trim(), query: value.query.trim(), vegan: labels.includes("Vegan"), labels, alliumFree: labels.includes("Vegetarian"), cuisine, cuisines, priceLevel, priceLevels, origin, center, radius, bounds: validatedSearch(value)?.bounds,
-    ...(value.includeOptions === true ? { includeOptions: true } : {}), ...(value.kitchen === "mixed" ? { kitchen: "mixed" as const } : {}) };
+    ...(value.includeOptions === true ? { includeOptions: true } : {}), ...(value.kitchen === "mixed" ? { kitchen: "mixed" as const } : {}),
+    ...(value.openNow === true ? { openNow: true } : {}), ...(value.sort !== undefined ? { sort: value.sort as PlaceSort } : {}) };
 }
+const placeSorts: readonly unknown[] = ["rated", "liked", "updated"] satisfies PlaceSort[];
 const validLabels = (value: unknown) => value === undefined
   || Array.isArray(value) && value.length <= 2 && value.every(label => label === "Vegan" || label === "Vegetarian");
 /**

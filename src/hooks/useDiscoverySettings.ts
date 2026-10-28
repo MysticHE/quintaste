@@ -7,11 +7,11 @@ export type FilterChange = Partial<ExploreFilters> | ((current: ExploreFilters) 
 type UpdateDocument = (change: (document: FoodDocument) => FoodDocument) => Promise<boolean>;
 
 export function useDiscoverySettings(doc: FoodDocument, update: UpdateDocument) {
-  const { labels, near, home, work, savedOnly } = doc.discoverySettings.filters;
+  const { labels, near, home, work, savedOnly, openNow, sort } = doc.discoverySettings.filters;
   // The owned catalogue has no confirmed cuisine/price bands. Do not let legacy
   // selections invisibly exclude every place after those controls are removed.
-  const filters = useMemo(() => ({ ...defaultFilters, labels, near, home, work, savedOnly,
-    cuisine: "All", cuisines: [], priceLevel: null, priceLevels: [] }), [labels, near, home, work, savedOnly]);
+  const filters = useMemo(() => ({ ...defaultFilters, labels, near, home, work, savedOnly, openNow: openNow === true, sort: sort ?? null,
+    cuisine: "All", cuisines: [], priceLevel: null, priceLevels: [] }), [labels, near, home, work, savedOnly, openNow, sort]);
   const setFilters = useCallback((change: FilterChange) => update(current => {
     const previous = current.discoverySettings.filters;
     const changed = typeof change === "function" ? change(previous) : { ...previous, ...change };

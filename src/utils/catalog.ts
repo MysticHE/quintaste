@@ -7,7 +7,7 @@ import { discoveryLabels } from "./discovery-filters";
  * Explore already shows it as the location pill, so counting it again misreads as a hidden filter.
  */
 export function activeFilterCount(filters: ExploreFilters, preference: readonly DietLabel[]) {
-  return discoveryLabels(filters, preference).length + Number(filters.savedOnly);
+  return discoveryLabels(filters, preference).length + Number(filters.savedOnly) + Number(filters.openNow) + Number(!!filters.sort);
 }
 export function itemPath(kind: SavedKind, id: string) {
   return kind === "recipe" ? "/cook/recipe/" + id : "/" + kind + "/" + id;

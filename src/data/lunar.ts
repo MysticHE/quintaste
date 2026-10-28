@@ -33,6 +33,10 @@ const nineEmperorGods = new Set([
   "2030-09-27", "2030-09-28", "2030-09-29", "2030-09-30", "2030-10-01", "2030-10-02", "2030-10-03", "2030-10-04", "2030-10-05",
   "2031-10-16", "2031-10-17", "2031-10-18", "2031-10-19", "2031-10-20", "2031-10-21", "2031-10-22", "2031-10-23", "2031-10-24",
 ]);
+/** Whether a Singapore date ("2026-10-24") is a lunar 1st or 15th, or null outside the table. */
+export function isLunarFirstOrFifteenth(day: string): boolean | null {
+  return day < "2026-10-01" || day > "2031-12-31" ? null : day in lunarDays;
+}
 /** Changes whenever the table does; part of the game's rules version (src/game/sim/replay.ts). */
 export const LUNAR_VERSION = "e85c5424cfcc";
 export type LunarMoment = { day: string; label: string };

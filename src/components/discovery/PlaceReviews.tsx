@@ -12,6 +12,7 @@ import type { PlaceReview, PlaceReviewsPage, ReviewSort } from "../../types/plac
 import { PlaceReviewDialog } from "./PlaceReviewDialog";
 import { PlaceReviewCard } from "./PlaceReviewCard";
 import { ReviewStars } from "./ReviewStars";
+import { ReviewPhotos } from "./ReviewPhotos";
 import { useT } from "../../i18n";
 
 export function PlaceReviews({ placeId }: { placeId: string }) {
@@ -27,6 +28,8 @@ function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewS
   const [extra, setExtra] = useState<{ base: PlaceReviewsPage; items: PlaceReview[]; nextCursor: string | null } | null>(null);
   const extraPage = extra?.base === data ? extra : null, items = [...(data?.items ?? []), ...(extraPage?.items ?? [])];
   const cursor = extraPage ? extraPage.nextCursor : data?.nextCursor;
+  // One strip of the loaded reviews' photos (yours first), from the same request as the reviews.
+  const photos = [...new Set([...(data?.mine?.photos ?? []), ...items.flatMap(item => item.photos ?? [])])].slice(0, 12);
   const [busy, setBusy] = useState(false), [error, setError] = useState("");
   const [showAll, setShowAll] = useState(false);
   const controller = useRef<AbortController | null>(null);
@@ -59,6 +62,9 @@ function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewS
       {data.count > 0 ? <View style={[common.row, { gap: 12 }]}><T variant="title" style={common.bold}>{data.rating?.toFixed(1)}</T>
         <View style={{ gap: 4 }}><ReviewStars value={data.rating ?? 0} /><T variant="caption" muted>{t("reviewCount", { n: data.count })}</T></View>
       </View> : <T variant="small" muted>{t("noReviewsYet")}</T>}
+      {photos.length > 0 && <View testID="place-review-photos" style={{ gap: 6 }}>
+        <T variant="small" muted style={common.bold} accessibilityRole="header">{t("reviewPhotos")}</T>
+        <ReviewPhotos photos={photos} strip /></View>}
       {data.count > 1 && <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>{([['newest', 'sortNewest'], ['highest', 'sortHighest'], ['lowest', 'sortLowest']] as const).map(([value, label]) =>
         <Chip key={value} label={t(label)} compact role="radio" selected={sort === value} onPress={() => setSort(value)} />)}</View>}
       {data.mine && card(data.mine, true)}

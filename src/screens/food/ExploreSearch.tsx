@@ -27,8 +27,10 @@ export function ExploreSearchScreen() {
   const { filters, setFilters, doc, search, setSearch, discoveryQuery, readable } = useFood();
   const { radius, setRadius, selection, location } = useDiscovery();
   const { draft: preferences } = usePreferences(), t = useT("explore"), tc = useT("common");
-  const { input, choose, searchPlaces, privateKind, followingCustom } = useDiscoveryInput(useMinuteClock());
+  const { input, choose, searchPlaces, privateKind, followingCustom, point } = useDiscoveryInput(useMinuteClock());
   const [value, setValue] = useState(search), [edited, setEdited] = useState(false);
+  // The default order is best match for the applied keyword (not the box, which may hold a place name), else nearest, else by name.
+  const sorts = [[null, input.query.trim() ? "sortBestMatch" : point ? "sortNearest" : "sortName"], ["rated", "sortRated"], ["liked", "sortLiked"], ["updated", "sortUpdated"]] as const;
   const recent = useRecentPlaceSearches();
   const id = "explore-search-" + useId();
   const finish = () => { Keyboard.dismiss(); goBack("/"); };
@@ -74,6 +76,12 @@ export function ExploreSearchScreen() {
         label={tc("kilometres", { km: distance / 1000 })} selected={radius === distance} disabled={!readable}
         onPress={() => { void setRadius(distance); }} />)}</Chips>
     </FilterSection>
+    <FilterSection prominent title={t("sortBy")} icon="swap-vertical-outline">
+      <Chips label={t("sortBy")}>{sorts.map(([sort, label]) => <Chip key={label} role="radio" label={t(label)} selected={(filters.sort ?? null) === sort}
+        disabled={!readable} onPress={() => { void setFilters({ sort }); }} />)}</Chips>
+    </FilterSection>
+    <SwitchRow bold label={t("openNow")} value={filters.openNow} disabled={!readable}
+      onChange={openNow => { void setFilters({ openNow }); }} />
     <SwitchRow bold label={t("savedPlacesOnly")} value={filters.savedOnly} disabled={!readable}
       onChange={savedOnly => { void setFilters({ savedOnly }); }} />
   </Screen>;

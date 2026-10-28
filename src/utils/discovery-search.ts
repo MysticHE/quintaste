@@ -25,7 +25,8 @@ export function sameSearchContext(a: DiscoverySearch, b: DiscoverySearch) {
     && JSON.stringify(a.priceLevels ?? null) === JSON.stringify(b.priceLevels ?? null)
     && a.origin?.latitude === b.origin?.latitude && a.origin?.longitude === b.origin?.longitude
     && a.center?.latitude === b.center?.latitude && a.center?.longitude === b.center?.longitude
-    && JSON.stringify(a.savedIds ?? null) === JSON.stringify(b.savedIds ?? null);
+    && JSON.stringify(a.savedIds ?? null) === JSON.stringify(b.savedIds ?? null)
+    && !!a.openNow === !!b.openNow && (a.sort ?? null) === (b.sort ?? null);
 }
 export function originIsFresh(origin: SearchOrigin | null, now: number) {
   return !!origin && now >= origin.capturedAt && now - origin.capturedAt < 30 * 60 * 1000;

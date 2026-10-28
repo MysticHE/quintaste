@@ -4,6 +4,7 @@ import type { CatalogueVenue } from "../../types/catalogue";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { useCatalogueVenue } from "../../hooks/useCatalogueVenue";
+import { useOpenStatus } from "../../hooks/useOpenStatus";
 import { useDiscovery } from "../../state/Discovery";
 import { matchedDish } from "../../utils/menu-display";
 import { Button, Card, Icon, T, common } from "../ui";
@@ -22,7 +23,10 @@ export function CatalogueVenueCard({ venue, more, review, edgeToEdge = false }: 
   const { isSaved, toggleSave, readable } = useFood(), { theme } = usePreferences();
   const t = useT("explore"), tc = useT("common"), language = useLanguage();
   const id = "catalogue-" + venue.id, saved = isSaved("place", id), hours = venue.hours;
-  const hoursSummary = hours?.summary || t("hoursUnconfirmed");
+  // Open or closed right now when the hours prove it, otherwise the published summary.
+  const status = useOpenStatus(hours);
+  const hoursSummary = status?.text || hours?.summary || t("hoursUnconfirmed");
+  const price = venue.priceRange && t("priceRange", venue.priceRange), extra = venue.matchCount ? venue.matchCount - 1 : 0;
   const km = venue.distanceKm !== undefined ? tc("kilometres", { km: venue.distanceKm.toFixed(1) }) : "";
   const options = isVegOptions(venue), distance = km ? " · " + km : "";
   // A Mixed Kitchen place never reads as Vegetarian or Vegan: it is not a vegetarian kitchen. Other places show only proven labels.
@@ -31,13 +35,14 @@ export function CatalogueVenueCard({ venue, more, review, edgeToEdge = false }: 
   const { query } = useDiscovery(), dish = venue.match && matchedDish(venue.match, language), search = venue.match ? query.trim() : "";
   const metadata = options ? t("mixedKitchenSpoken") + " · " + dishCount(venue.itemCount, language) + distance : [...labels.map(dietText.spoken), ...(km ? [km] : [])].join(" · ");
   return <PhotoPostCard edgeToEdge={edgeToEdge} testID="catalogue-venue" titleTestID="catalogue-card-name" photo={{ path: venue.photo?.path, thumbhash: venue.photo?.thumbhash, emptyIcon: placeTileIcon(venue) }} title={venue.name}
-    label={[venue.name, dish, venue.address, metadata, hoursSummary].filter(Boolean).join(". ")} hint={t("cardHint")}
+    label={[venue.name, dish, extra ? t("moreMatchesSpoken", { n: extra }) : "", venue.address, metadata, hoursSummary,
+      venue.priceRange ? t("priceRangeSpoken", venue.priceRange) : ""].filter(Boolean).join(". ")} hint={t("cardHint")}
     onPress={() => router.push({ pathname: "/place/[id]", params: search ? { id, q: search } : { id } } as never)}
     topLeft={venue.itemCount > 0 && <MenuEntry menu={venue} compact search={search} />}
     topRight={more && <IconButton label={t("moreOptionsFor", { name: venue.name })} icon="ellipsis-horizontal" appearance="media" onPress={more} />}
     side={<ReactionColumn kind="place" id={venue.id} name={venue.name} shareMessage={() => placeShareMessage(venue)}
       save={{ saved, busy: false, disabled: !readable, onPress: () => void toggleSave("place", id, venue.name) }} />}>
-    {!!dish && <View testID="catalogue-card-dish"><PostFact icon="restaurant-outline">{dish}</PostFact></View>}
+    {!!dish && <View testID="catalogue-card-dish"><PostFact icon="restaurant-outline">{extra ? dish + "  " + t("moreMatches", { n: extra }) : dish}</PostFact></View>}
     <PostFact icon="location-outline">{venue.address}</PostFact>
     <PostFacts>
       {venue.distanceKm !== undefined && <PostFact icon="navigate-outline" shrink>{tc("kilometresAway", { km: venue.distanceKm.toFixed(1) })}</PostFact>}
@@ -48,7 +53,9 @@ export function CatalogueVenueCard({ venue, more, review, edgeToEdge = false }: 
     {!options && labels.length > 0 && <PostFacts>{labels.map(label => <PostFact key={label} shrink leading={<DietIcon diet={label} size={14} color={theme.mediaForeground} />}>{dietText.name(label)}</PostFact>)}</PostFacts>}
     <PostFacts>
       {options && <><VegOptionsChip /><PostFact icon="book-outline" shrink>{dishCount(venue.itemCount, language)}</PostFact></>}
-      <PostFact icon="time-outline" shrink>{hoursSummary}</PostFact>
+      <View testID="catalogue-card-hours" style={s.shrink}><PostFact shrink leading={status ? <View style={[s.dot, { backgroundColor: status.color, borderColor: theme.mediaForeground }]} />
+        : <Icon name="time-outline" size={14} color={theme.mediaForeground} />}>{hoursSummary}</PostFact></View>
+      {!!price && <View testID="catalogue-card-price"><PostFact icon="pricetag-outline" shrink>{price}</PostFact></View>}
     </PostFacts>
   </PhotoPostCard>;
 }
@@ -74,5 +81,7 @@ export function SavedCatalogueVenue({ id, more, review }: { id: string; more: ()
     <Button label={t("moreOptions")} variant="link" onPress={more} /></Card>;
 }
 const s = StyleSheet.create({
+  shrink: { flexShrink: 1 },
+  dot: { width: 10, height: 10, borderRadius: 5, borderWidth: 1.5, marginHorizontal: 2 },
   chip: { flexDirection: "row", alignItems: "center", gap: 4, borderRadius: 8, paddingHorizontal: 6, paddingVertical: 1 },
 });

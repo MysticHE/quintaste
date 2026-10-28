@@ -177,5 +177,13 @@ const zh: typeof en = {
   viewRecipe: "查看食谱",
   viewPlace: "查看店家",
   reportConcernTitle: "反映问题",
+  sortNearest: "最近",
+  sortBestMatch: "最相关",
+  sortName: "按名称",
+  sortRated: "评分最高",
+  sortLiked: "最多赞",
+  sortUpdated: "最近更新",
+  noneOpenNow: "目前没有营业中的店家",
+  showClosedToo: "也显示休息中的店家",
 };
 export default zh;

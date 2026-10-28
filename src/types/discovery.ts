@@ -19,4 +19,6 @@ export type LivePlace = MapPlace & {
   phone?: string; website?: string; priceLevel?: PriceLevel;
 };
 /** `labels` are the proven labels every place must carry; `vegan`/`alliumFree` mirror them for the live provider and older servers. */
-export type DiscoverySearch = { area: string; query: string; vegan: boolean; labels?: PlaceLabel[]; alliumFree?: boolean; cuisine?: string; cuisines?: string[]; priceLevel?: PriceLevel; priceLevels?: PriceLevel[]; origin?: SearchOrigin; center?: SearchPoint; bounds?: SearchBounds; radius: number; savedIds?: string[]; includeOptions?: boolean; kitchen?: "mixed" };
+export type DiscoverySearch = { area: string; query: string; vegan: boolean; labels?: PlaceLabel[]; alliumFree?: boolean; cuisine?: string; cuisines?: string[]; priceLevel?: PriceLevel; priceLevels?: PriceLevel[]; origin?: SearchOrigin; center?: SearchPoint; bounds?: SearchBounds; radius: number; savedIds?: string[]; includeOptions?: boolean; kitchen?: "mixed"; openNow?: boolean; sort?: PlaceSort };
+/** Explore result order besides the default (nearest, or best match for a keyword): top rated, most liked, recently updated menus. */
+export type PlaceSort = "rated" | "liked" | "updated";

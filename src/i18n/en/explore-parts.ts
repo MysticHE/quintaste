@@ -239,5 +239,11 @@ const en = {
   openDetails: "Open details",
   unsaveName: "Unsave {name}",
   moreActionsFor: "More actions for {name}",
+  priceRange: (v: Vars) => "S$" + String(v.low) + (v.high === v.low ? "" : "–" + String(v.high)),
+  priceRangeSpoken: (v: Vars) => v.high === v.low ? "Most dishes about S$" + String(v.low) : "Most dishes S$" + String(v.low) + " to S$" + String(v.high),
+  moreMatches: "+{n}",
+  moreMatchesSpoken: (v: Vars) => String(v.n) + " more matching " + (v.n === 1 ? "dish" : "dishes"),
+  typicalPrice: "Typical price",
+  reviewPhotos: "Photos from reviews",
 } satisfies Record<string, string | ((vars: Vars) => string)>;
 export default en;

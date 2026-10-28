@@ -16,6 +16,7 @@ type Cached = { page: CataloguePage; etag: string; checkedAt: number };
 export function catalogueRequestKey(search: DiscoverySearch, cursor: string | null = null) {
   return JSON.stringify({ ...search, origin: search.origin ? { latitude: search.origin.latitude, longitude: search.origin.longitude } : undefined, cursor });
 }
+const openNowFreshMs = 5 * 60 * 1000;
 export function useCatalogueDiscovery() {
   const [location, setLocation] = useState<SearchOrigin | null>(null);
   // Veg Kitchen (false) opens every time; the choice is memory-only and scoped with this provider to the guest/profile.
@@ -64,7 +65,8 @@ export function useCatalogueDiscovery() {
     else if (!cursor && !usableCurrent) {
       current.current = null; setCatalogue(null); setAccepted(undefined);
     }
-    if (usable && !force && now - saved.checkedAt < catalogueFreshMs) {
+    // Open now results follow the clock, so they are asked for again after five minutes rather than fifteen.
+    if (usable && !force && now - saved.checkedAt < (search.openNow ? openNowFreshMs : catalogueFreshMs)) {
       if (!cursor) acceptedCheckedAt.current = saved.checkedAt;
       setCached(offline); setBusy(false); return;
     }

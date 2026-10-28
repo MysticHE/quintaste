@@ -24,12 +24,14 @@ import { LinkRow } from "../../components/LinkRow";
 import { LoadingShapes, PostCardSkeleton, RowSkeleton } from "../../components/Skeleton";
 import { discoveryRadii } from "../../config/discovery";
 import { useT } from "../../i18n";
+import { OpenClock } from "../../hooks/useOpenStatus";
+import { openState } from "../../utils/catalogue-hours";
 
 export function ExploreScreen() {
-  const { filters, ready, readable } = useFood();
+  const { filters, setFilters, ready, readable } = useFood();
   const { draft } = usePreferences(), discovery = useDiscovery(), t = useT("explore"), tc = useT("common");
   const kitchens = [{ id: "veg", label: t("vegKitchen") }, { id: "mixed", label: t("mixedKitchen") }] as const;
-  const { input, locationExpired, privateMissing, privateKind, point, searchPlaces } = useDiscoveryInput(useMinuteClock());
+  const now = useMinuteClock(), { input, locationExpired, privateMissing, privateKind, point, searchPlaces } = useDiscoveryInput(now);
   const nearby = useNearbyLocation(), { ensure } = discovery;
   const eligible = ready && !privateMissing && !locationExpired;
   // Find it nearby (the game's bridges, GAME_PLAN §11): /?q=laksa runs the same search as typing it, once.
@@ -48,7 +50,9 @@ export function ExploreScreen() {
   }, [eligible, ensure, input]));
   const accepted = eligible && !!discovery.accepted && sameSearchContext(discovery.accepted, input);
   const currentRequest = !!discovery.requested && sameSearchContext(discovery.requested, input);
-  const venues = accepted ? discovery.venues : [], count = activeFilterCount(filters, draft.diets), total = discovery.catalogue?.total ?? 0;
+  // Open now results can be a few minutes old: a place that has closed since then leaves the list rather than showing as closed.
+  const venues = !accepted ? [] : filters.openNow ? discovery.venues.filter(venue => openState(venue.hours, now).state === "open") : discovery.venues;
+  const count = activeFilterCount(filters, draft.diets), total = discovery.catalogue?.total ?? 0;
   // A short Veg Kitchen list points to Mixed Kitchen places for the same search; Saved already lists both kinds.
   const mixedCount = useMixedKitchenCount(input, accepted && !discovery.mixed && !input.savedIds && total < 5);
   const wider = point ? discoveryRadii.find(value => value > input.radius) : undefined;
@@ -66,7 +70,7 @@ export function ExploreScreen() {
     </TopBar>}>
     {/* Each kitchen is its own list, so switching starts at the top with the bars showing. Only cards near the screen are drawn. */}
     <LocationFeedback nearby={nearby} />
-    <View testID="explore-feed" style={common.flex}>
+    <View testID="explore-feed" style={common.flex}><OpenClock now={now}>
     <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={reviews.data} feedGap
       // Rows and photo cards recycle in their own pools, so a scroll never rebuilds a row's cell as a card.
       getItemType={item => discovery.mixed || !item.photo?.path ? "row" : "card"}
@@ -89,18 +93,22 @@ export function ExploreScreen() {
       </> : undefined}
       footer={showFooter ? <View style={[common.stack, s.feedback]}>
         {accepted && discovery.capped && <Button label={t("loadMorePlaces")} variant="secondary" loading={discovery.busy} onPress={discovery.loadMore} />}
-        {accepted && !discovery.busy && !venues.length && discovery.mixed && <View style={common.stack}>
+        {/* Open now hides places whose hours are unknown too, so the way out is one tap rather than a trip to filters. */}
+        {accepted && !discovery.busy && !venues.length && filters.openNow && <View testID="explore-none-open" style={common.stack}>
+          <T variant="subtitle" accessibilityRole="header">{t("noneOpenNow")}</T>
+          <Button label={t("showClosedToo")} variant="secondary" onPress={() => { void setFilters({ openNow: false }); }} /></View>}
+        {accepted && !discovery.busy && !venues.length && !filters.openNow && discovery.mixed && <View style={common.stack}>
           <T variant="subtitle" accessibilityRole="header">{t("noMixedHere")}</T>
           {!!wider && <Button label={t("widenArea")} variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
           <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
-        {accepted && !discovery.busy && !venues.length && !discovery.mixed && <View style={common.stack}>
+        {accepted && !discovery.busy && !venues.length && !filters.openNow && !discovery.mixed && <View style={common.stack}>
           <T variant="subtitle" accessibilityRole="header">{t("noPublishedMatch")}</T>
           <T muted>{t("tryWider")}</T>
           <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
         {!!mixedCount && <LinkRow label={t("mixedNearby", { n: mixedCount })}
           icon="arrow-forward" hint={t("mixedNearbyHint")} onPress={() => discovery.setMixed(true)} />}
       </View> : undefined} />
-    </View>
+    </OpenClock></View>
   </Screen>;
 }
 

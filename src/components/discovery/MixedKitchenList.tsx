@@ -12,6 +12,7 @@ import { useLanguage, useT } from "../../i18n";
 import { Icon, T, common } from "../ui";
 import { IconButton } from "../food/Controls";
 import { DietLabels, useDietText } from "../food/DietLabels";
+import { useOpenStatus } from "../../hooks/useOpenStatus";
 
 /** The address without its trailing "Singapore 123456": the row has one line, and every place is in Singapore. */
 const shortAddress = (address: string) => address.replace(/,?\s*singapore\s*\d{6}\s*$/i, "").trim() || address;
@@ -26,19 +27,24 @@ export function CatalogueVenueRow({ venue, review }: { venue: CatalogueVenue; re
   const options = isVegOptions(venue), labels = options ? [] : placeLabels(venue), id = "catalogue-" + venue.id, saved = isSaved("place", id);
   const { query } = useDiscovery(), search = venue.match ? query.trim() : "";
   const distance = venue.distanceKm !== undefined ? tc("kilometres", { km: venue.distanceKm.toFixed(1) }) : "";
-  // A keyword search leads with the dish that matched.
-  const line = [venue.match && matchedDish(venue.match, language), distance, shortAddress(venue.address)].filter(Boolean).join(" · ");
+  // A keyword search leads with the dish that matched, and how many more on the menu match.
+  const extra = venue.matchCount ? venue.matchCount - 1 : 0;
+  const line = [venue.match && matchedDish(venue.match, language) + (extra ? " " + t("moreMatches", { n: extra }) : ""), distance, shortAddress(venue.address)].filter(Boolean).join(" · ");
   const dishes = venue.itemCount > 0 ? dishCount(venue.itemCount, language) : "", rated = !!review?.count && review.rating !== null;
+  const status = useOpenStatus(venue.hours), price = venue.priceRange ? t("priceRange", venue.priceRange) : "";
   return <View testID={options ? "mixed-kitchen-row" : "catalogue-venue-row"} style={[s.row, { backgroundColor: theme.card, borderColor: focused ? theme.accent : theme.transparent }]}>
     <Pressable accessibilityRole="link" {...focusProps} accessibilityHint={t("cardHint")}
-      accessibilityLabel={[venue.name, line, dishes, ...labels.map(dietText.spoken), rated ? review!.rating?.toFixed(1) + t("qtReviewCount", { n: review!.count }) : ""].filter(Boolean).join(", ")}
+      accessibilityLabel={[venue.name, line, status?.text, venue.priceRange ? t("priceRangeSpoken", venue.priceRange) : "", dishes, ...labels.map(dietText.spoken),
+        rated ? review!.rating?.toFixed(1) + t("qtReviewCount", { n: review!.count }) : ""].filter(Boolean).join(", ")}
       onPress={() => router.push({ pathname: "/place/[id]", params: search ? { id, q: search } : { id } } as never)}
       style={({ pressed }) => [common.row, s.main, { opacity: pressed ? 0.7 : 1 }]}>
       <View style={[s.tile, { backgroundColor: theme.muted }]}><Icon name={placeTileIcon(venue)} size={24} color={theme.mutedForeground} /></View>
       <View style={[common.flex, s.text]}>
         <T variant="subtitle" numberOfLines={2}>{venue.name}</T>
         <T variant="small" muted numberOfLines={1}>{line}</T>
-        {(labels.length > 0 || !!dishes || rated) && <View style={s.tags}>
+        {(labels.length > 0 || !!dishes || rated || !!status || !!price) && <View style={s.tags}>
+          {status && <View testID="row-open-status" style={[s.tag, { backgroundColor: status.soft }]}><T variant="small" color={status.color} style={common.bold}>{status.text}</T></View>}
+          {!!price && <View testID="row-price" style={[s.tag, { backgroundColor: theme.muted }]}><T variant="small" muted style={common.bold}>{price}</T></View>}
           <DietLabels labels={labels} />
           {!!dishes && <View style={[s.tag, { backgroundColor: theme.accentSoft }]}><T variant="small" color={theme.accent} style={common.bold}>{dishes}</T></View>}
           {rated && <View style={[s.tag, s.rating, { backgroundColor: theme.muted }]}>

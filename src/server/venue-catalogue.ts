@@ -13,6 +13,7 @@ import type { MenuItem } from "../types/menus";
 import { matchTier, searchWords } from "../utils/search-words";
 import { dishTerms } from "./dish-search";
 import type { PlaceSignals } from "./place-signals";
+import { openState } from "../utils/catalogue-hours";
 
 const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const words = (value: string) => value.normalize("NFKD").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
@@ -37,7 +38,7 @@ const packagedIds = new Set(catalogue.map(venue => venue.id));
 
 // Facts from each place's current menu: each dish name in search words, so a keyword never matches across two dishes,
 // and the venue's own V/VG labels, which decide what a veg options place may show.
-type MenuFacts = { dishes: { text: string; item: MenuItem }[]; tagged: boolean; anyVegan: boolean; allVegan: boolean };
+type MenuFacts = { dishes: { text: string; item: MenuItem }[]; tagged: boolean; anyVegan: boolean; allVegan: boolean; priceRange?: CatalogueVenue["priceRange"] | null };
 let facts: { key: string; menus: Map<string, MenuFacts> } = { key: "", menus: new Map() };
 function menuFacts(id: string, staff: StaffContent, content: ReturnType<typeof editorialContent>) {
   const key = staff.catalogueRevision + ":" + content.revision;
@@ -51,6 +52,27 @@ function menuFacts(id: string, staff: StaffContent, content: ReturnType<typeof e
   }
   return value;
 }
+/**
+ * The typical dish price in whole SGD: the middle half of priced dishes (25th to 75th percentile, rounded), so add-ons, drinks,
+ * party trays and whole cakes never stretch it. Needs three priced dishes; a "from" price counts as its listed amount.
+ */
+function priceRange(items: MenuItem[]): CatalogueVenue["priceRange"] {
+  const prices = items.filter(item => item.price.currency === "SGD" && item.price.amount !== null && item.price.amount > 0)
+    .map(item => item.price.amount!).sort((a, b) => a - b);
+  if (prices.length < 3) return undefined;
+  const low = Math.max(1, Math.round(prices[Math.floor(0.25 * (prices.length - 1))])), high = Math.round(prices[Math.ceil(0.75 * (prices.length - 1))]);
+  return high <= 1000 ? { low, high: Math.max(low, high) } : undefined;
+}
+/**
+ * Adds the menu's price range after the editorial and staff overlays, like the photo preview. Only places a response returns
+ * get one, and each is worked out once per menu snapshot.
+ */
+function withPriceRange(venue: CatalogueVenue, staff: StaffContent, content: ReturnType<typeof editorialContent>): CatalogueVenue {
+  const facts = menuFacts(venue.id, staff, content);
+  if (facts.priceRange === undefined) facts.priceRange = priceRange(facts.dishes.map(dish => dish.item)) ?? null;
+  return facts.priceRange ? { ...venue, priceRange: facts.priceRange } : venue;
+}
+
 /** A veg options place is listed only while every published dish carries the venue's V/VG label: an untagged dish could be meat or seafood. */
 function kitchenVenue(venue: CatalogueVenue | undefined, staff: StaffContent, content: ReturnType<typeof editorialContent>): CatalogueVenue | undefined {
   if (!venue || venue.kitchen === undefined) return venue;
@@ -86,7 +108,7 @@ export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>, staff
   const venue = catalogue.find(venue => venue.id === id), content = editorialContent(), place = venue ? undefined : editorialPlaces(content).get(id);
   const base = venue ? editorialVenue(venue, true, content) : place ? editorialPlaceVenue(place, true) : undefined;
   const found = kitchenVenue(staffVenue(id, base, staff, content), staff, content);
-  return found && withPreview(found);
+  return found && withPreview(withPriceRange(found, staff, content));
 }
 
 const hiddenAliasEntries = [...hiddenAliases];
@@ -127,6 +149,13 @@ function keywordMatch({ names, search }: Listed, query: string, facts: MenuFacts
   if (dish && (tier < 0 || dishTier < tier)) tier = dishTier;
   return { tier, match: dish && { name: dish.name, price: dish.price } };
 }
+/** How many dishes match the keyword, counted only for the places a page returns; shown when more than the one matched dish. */
+function withMatchCount(venue: CatalogueVenue, query: string, facts: MenuFacts): CatalogueVenue {
+  if (!venue.match) return venue;
+  let count = 0;
+  for (const { text } of facts.dishes) if (matchTier(text, query) >= 0 && ++count >= 999) break;
+  return count > 1 ? { ...venue, matchCount: count } : venue;
+}
 // Keyword results (owner, 25 Oct 2026): whole-word matches before partial ones, then nearness in bands (under 1 km, 1-3, 3-5,
 // 5-10, further), then a dish named exactly the search, then QuinTaste reviews pulled toward an average rating until a place
 // has about five, with a small lift for likes. An exact name never jumps a band: "Olive Fried Rice" is still fried rice.
@@ -135,7 +164,12 @@ const distanceBands = [1, 3, 5, 10], priorReviews = 5, priorRating = 3.5, likeWe
 const distanceBand = (km: number | undefined) => km === undefined ? 0 : distanceBands.filter(limit => km >= limit).length;
 function placeScore(signals: PlaceSignals, id: string) {
   const signal = signals.places.get(id);
-  return signal ? (priorReviews * priorRating + signal.total) / (priorReviews + signal.reviews) + likeWeight * Math.log1p(signal.likes) : priorRating;
+  return signal ? ratingScore(signals, id) + likeWeight * Math.log1p(signal.likes) : priorRating;
+}
+/** Top rated: the review average pulled toward 3.5 until a place has about five reviews, so one 5-star review never leads. */
+function ratingScore(signals: PlaceSignals, id: string) {
+  const signal = signals.places.get(id);
+  return signal ? (priorReviews * priorRating + signal.total) / (priorReviews + signal.reviews) : priorRating;
 }
 const noSignals: PlaceSignals = { revision: "0".repeat(64), places: new Map() };
 
@@ -144,7 +178,7 @@ type Eligible = { listing: Listed; venue: CatalogueVenue; gap?: true };
  * The places a search may list before any keyword: kitchen, saved, labels, filters and location, with distances. A place
  * the location filter cannot judge (no map point) comes back as a gap, counted only if it would otherwise be listed.
  */
-function eligibleVenues(search: DiscoverySearch, withdrawn: ReadonlySet<string>, staff: StaffContent, content: ReturnType<typeof editorialContent>): Eligible[] {
+function eligibleVenues(search: DiscoverySearch, withdrawn: ReadonlySet<string>, staff: StaffContent, content: ReturnType<typeof editorialContent>, at = Date.now()): Eligible[] {
   const area = words(search.area), known = areas.find(item => words(item.name) === area);
   const center = search.center ?? search.origin ?? (known?.lat && known.lng ? { latitude: known.lat, longitude: known.lng } : undefined);
   const places: Eligible[] = [];
@@ -163,6 +197,8 @@ function eligibleVenues(search: DiscoverySearch, withdrawn: ReadonlySet<string>,
     const vegan = venue.venueDiet === "Vegan" || options && menuFacts(venue.id, staff, content).anyVegan;
     const vegetarian = venue.alliumFreeClaim && !options;
     if (withdrawn.has(venue.id) || labels.includes("Vegan") && !vegan || labels.includes("Vegetarian") && !vegetarian) continue;
+    // Open now lists only places whose published hours prove they are open; unknown hours stay out.
+    if (search.openNow && openState(venue.hours, at).state !== "open") continue;
     if (search.bounds) {
       if (!venue.point) { places.push({ listing, venue, gap: true }); continue; }
       if (venue.point.latitude < search.bounds.low.latitude || venue.point.latitude > search.bounds.high.latitude
@@ -182,7 +218,7 @@ function eligibleVenues(search: DiscoverySearch, withdrawn: ReadonlySet<string>,
 
 export function searchCatalogue(search: DiscoverySearch, cursor: string | null, withdrawn: ReadonlySet<string>, staff = noStaff, signals = noSignals): CataloguePage {
   const content = editorialContent(), query = searchWords(search.query);
-  let page: { revision?: string; offset?: number; signals?: string } | undefined;
+  let page: { revision?: string; offset?: number; signals?: string; at?: number } | undefined;
   if (cursor) {
     if (cursor.length > 250 || !/^[A-Za-z0-9_-]+$/.test(cursor)) throw new Error("Invalid page");
     try { page = JSON.parse(Buffer.from(cursor, "base64url").toString()); } catch { throw new Error("Invalid page"); }
@@ -190,9 +226,14 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
   }
   // Keyword results keep the review and like snapshot their first page used, so a refresh between pages never reorders a
   // list being scrolled; the loader keeps the snapshot before the latest. Browsing never uses them.
-  const ranking = !query ? noSignals : [signals, signals.previous].find(item => item && page?.signals === item.revision.slice(0, 16)) ?? signals;
+  const ranked = !!query || search.sort === "rated" || search.sort === "liked";
+  const ranking = !ranked ? noSignals : [signals, signals.previous].find(item => item && page?.signals === item.revision.slice(0, 16)) ?? signals;
+  // Open now is judged at one five-minute mark for the whole list, kept in the page cursor, so paging never reshuffles it.
+  const at = !search.openNow ? undefined : page ? page.at : Math.floor(Date.now() / 300000) * 300000;
+  if (at !== undefined && (!Number.isSafeInteger(at) || Math.abs(Date.now() - at) > 6 * 3600000)) throw new Error("Search changed. Refresh results.");
+  if (search.openNow && at === undefined) throw new Error("Search changed. Refresh results.");
   const searchRevision = hash({ revision, previewRevision, editorialRevision: content.revision, staffRevision: staff.catalogueRevision,
-    signals: query ? ranking.revision : undefined, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
+    signals: ranked ? ranking.revision : undefined, at, aliases: [...hiddenAliases], search: { ...search, origin: search.origin
     ? { latitude: search.origin.latitude, longitude: search.origin.longitude } : undefined }, withdrawn: [...withdrawn].sort() });
   let offset = 0;
   if (page) {
@@ -202,7 +243,7 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
   }
   let locationGaps = 0;
   const venues: CatalogueVenue[] = [], tiers = new Map<string, number>();
-  for (const { listing, venue, gap } of eligibleVenues(search, withdrawn, staff, content)) {
+  for (const { listing, venue, gap } of eligibleVenues(search, withdrawn, staff, content, at)) {
     // A keyword finds places by name, branch or address, or by a dish on the published menu (the game's Find it nearby).
     let listed = venue;
     if (query) {
@@ -214,22 +255,37 @@ export function searchCatalogue(search: DiscoverySearch, cursor: string | null, 
     if (gap) locationGaps++; else venues.push(listed);
   }
   const nearest = (a: CatalogueVenue, b: CatalogueVenue) => (a.distanceKm ?? 0) - (b.distanceKm ?? 0) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id);
+  // A chosen order (Top rated, Most liked, Recently updated) follows whole-word before partial for a keyword; nearest breaks ties.
+  const chosen = chosenOrder(search, ranking);
   if (query) {
     const scores = new Map(venues.map(venue => [venue.id, placeScore(ranking, venue.id)]));
-    venues.sort((a, b) => wordTier(tiers.get(a.id)!) - wordTier(tiers.get(b.id)!) || distanceBand(a.distanceKm) - distanceBand(b.distanceKm)
+    const word = (a: CatalogueVenue, b: CatalogueVenue) => wordTier(tiers.get(a.id)!) - wordTier(tiers.get(b.id)!);
+    venues.sort(chosen ? (a, b) => word(a, b) || chosen(a, b) || nearest(a, b) : (a, b) => word(a, b) || distanceBand(a.distanceKm) - distanceBand(b.distanceKm)
       || tiers.get(a.id)! - tiers.get(b.id)! || scores.get(b.id)! - scores.get(a.id)! || nearest(a, b));
-  } else venues.sort(nearest);
+  } else venues.sort(chosen ? (a, b) => chosen(a, b) || nearest(a, b) : nearest);
   // The page must exist in this result set; QT Explorer places can take it well past the packaged catalogue.
   if (offset > 0 && offset >= venues.length) throw new Error("Search changed. Refresh results.");
-  const next = offset + 20, nextPage = { revision: searchRevision, offset: next, ...(query ? { signals: ranking.revision.slice(0, 16) } : {}) };
-  return { version: 1, revision: searchRevision, venues: venues.slice(offset, next), total: venues.length, locationGaps,
+  const next = offset + 20, nextPage = { revision: searchRevision, offset: next, ...(ranked ? { signals: ranking.revision.slice(0, 16) } : {}), ...(at !== undefined ? { at } : {}) };
+  const returned = venues.slice(offset, next).map(venue => withPriceRange(query ? withMatchCount(venue, query, menuFacts(venue.id, staff, content)) : venue, staff, content));
+  return { version: 1, revision: searchRevision, venues: returned, total: venues.length, locationGaps,
     nextCursor: next < venues.length ? Buffer.from(JSON.stringify(nextPage)).toString("base64url") : null };
+}
+
+/** The comparison for a chosen order, or undefined for the default one. */
+function chosenOrder(search: DiscoverySearch, signals: PlaceSignals): ((a: CatalogueVenue, b: CatalogueVenue) => number) | undefined {
+  if (search.sort === "rated") return (a, b) => ratingScore(signals, b.id) - ratingScore(signals, a.id);
+  if (search.sort === "liked") return (a, b) => (signals.places.get(b.id)?.likes ?? 0) - (signals.places.get(a.id)?.likes ?? 0)
+    || ratingScore(signals, b.id) - ratingScore(signals, a.id);
+  if (search.sort === "updated") return (a, b) => b.checkedAt.localeCompare(a.checkedAt);
+  return undefined;
 }
 
 let terms: { key: string; byQuery: Map<string, string[]> } = { key: "", byQuery: new Map() };
 /** Dish names to suggest for what a member is typing, from the menus of the places the same search (tab, labels, area) may list. */
 export function dishSuggestions(query: string, search: DiscoverySearch, withdrawn: ReadonlySet<string>, staff = noStaff): string[] {
   const content = editorialContent(), q = searchWords(query);
+  // Suggestions come from every place the search may list at any hour, so they never change with the clock or the order.
+  search = { ...search, openNow: undefined, sort: undefined };
   const key = hash([staff.catalogueRevision, content.revision, [...withdrawn].sort()]), scope = hash({ ...search, query: "", origin: search.origin
     ? { latitude: search.origin.latitude, longitude: search.origin.longitude } : undefined }) + ":" + q;
   if (terms.key !== key) terms = { key, byQuery: new Map() };

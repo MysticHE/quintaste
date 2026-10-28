@@ -8,3 +8,5 @@ export const PHOTO_CARD_INSET = 6;
 export const photoCardBleed = { marginHorizontal: PHOTO_CARD_INSET - SCREEN_GUTTER };
 /** Horizontal scroll rows run to the screen edge while their first item lines up with the gutter. */
 export const edgeScroll = StyleSheet.create({ row: { marginHorizontal: -SCREEN_GUTTER }, content: { paddingHorizontal: SCREEN_GUTTER } });
+/** Space between edge-to-edge feed rows (Explore); the page background shows through it. */
+export const FEED_GAP = 4;
