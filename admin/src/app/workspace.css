@@ -584,7 +584,7 @@
 }
 }
 @container editor (max-width:40rem) {
-  :is(.event-editor,.creator-editor)>.workspace-page {
+  :is(.event-editor,.creator-editor,.game-editor)>.workspace-page {
   min-height:var(--workspace-compact-panel-height);
 }
   :is(.workspace-editor-head,.recipe-editor-head) {

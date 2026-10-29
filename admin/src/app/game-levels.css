@@ -1,0 +1,111 @@
+/* Game review composition. Native query thresholds live in workspace.css. */
+.game-screen {
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  min-height:0;
+  min-width:0;
+}
+.game-screen>.workspace-tabs {
+  flex-wrap:wrap;
+  flex-shrink:0;
+  margin:0;
+  padding:0 var(--space-4);
+  background:var(--card);
+}
+.game-editor {
+  overflow:auto;
+}
+.game-editor .workspace-editor-head {
+  padding-bottom:var(--space-3);
+}
+.game-editor .workspace-title {
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.game-editor .workspace-actions {
+  flex-wrap:wrap;
+}
+.game-columns {
+  grid-template-columns:var(--workspace-game-columns);
+}
+.game-columns.is-pair {
+  grid-template-columns:var(--workspace-game-pair-columns);
+}
+.game-columns.is-single {
+  grid-template-columns:minmax(0,1fr);
+}
+.game-fields {
+  display:grid;
+  gap:var(--workspace-field-gap);
+  overflow-wrap:anywhere;
+}
+.game-fields :is(button,.badge),.game-dialog button {
+  white-space:normal;
+  line-height:var(--line-body);
+  overflow-wrap:anywhere;
+}
+.game-fields :is(ol,ul) {
+  margin:0;
+  padding-left:var(--space-5);
+}
+.game-fields li+li {
+  margin-top:var(--space-2);
+}
+.game-facts {
+  display:grid;
+  gap:var(--space-3);
+  margin:0;
+}
+.game-facts dt {
+  font-size:var(--text-caption);
+  color:var(--muted-foreground);
+}
+.game-facts dd {
+  margin:var(--space-1) 0 0;
+  overflow-wrap:anywhere;
+}
+.game-stage {
+  display:grid;
+  gap:var(--space-2);
+  padding-bottom:var(--space-3);
+  border-bottom:var(--border-width) solid var(--separator);
+}
+.game-picture {
+  display:grid;
+  justify-items:start;
+  gap:var(--space-2);
+}
+.game-picture img {
+  display:block;
+  width:var(--workspace-game-picture-size);
+  max-width:100%;
+  height:auto;
+  aspect-ratio:1;
+  object-fit:contain;
+}
+.game-search {
+  display:flex;
+  align-items:center;
+  min-width:0;
+  gap:var(--space-1);
+}
+.game-split .pager {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  gap:var(--space-1);
+}
+.game-split .pager button {
+  min-width:0;
+  white-space:normal;
+  line-height:var(--line-tight);
+}
+.game-notice {
+  padding:var(--space-2) var(--space-4);
+  background:var(--card);
+  font-size:var(--text-caption);
+  overflow-wrap:anywhere;
+}
+.game-notice:empty {
+  display:none;
+}
