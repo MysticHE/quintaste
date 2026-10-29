@@ -14,8 +14,8 @@ export function nutritionBadgesFor(figures: Figures, categories: readonly Recipe
   const protein = figures.protein;
   if (typeof protein === "number" && figures.kcal > 0) {
     const share = (protein * proteinKcalPerGram) / figures.kcal;
-    if (share >= claimCriteria.proteinHighEnergyShare) badges.push("High in protein");
-    else if (share >= claimCriteria.proteinSourceEnergyShare) badges.push("Source of protein");
+    if (share >= claimCriteria.proteinHighEnergyShare && protein >= claimCriteria.proteinHighGrams) badges.push("High in protein");
+    else if (share >= claimCriteria.proteinSourceEnergyShare && protein >= claimCriteria.proteinSourceGrams) badges.push("Source of protein");
   }
   const fibre = figures.fibre;
   if (typeof fibre === "number" && figures.kcal > 0) {

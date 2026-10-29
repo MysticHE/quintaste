@@ -8,7 +8,6 @@
     "With rice",
     "Soups"
   ],
-  "maxFryingOilMl": 120,
   "patterns": {
     "animal": "\\b(rennet|carmine|cochineal|isinglass|dashi|suet|tallow|shellac|ikan bilis|belacan|shrimp paste|worcestershire|parmesan|parmigiano|pecorino|grana padano|bone broth)\\b|魚露|蠔油|蝦米|蝦醬|蝦皮|鰹魚|明膠|豬油|雞精|雞粉",
     "animalQualifier": "\\b(vegetarian|vegan|plant[- ]based|meatless|mushroom|mock|vegetable)\\b[^,;]{0,25}$|素",
@@ -20,24 +19,5 @@
     "unclear": "\\b(mixed vegetables|any vegetables|leafy greens)\\b|(?<!mustard )(?<!collard )(?<!turnip )\\bgreens\\b|\\bor\\b|&|\\bsuch as\\b|\\be\\.g\\.|of (your )?choice",
     "genericStock": "\\b(stock|broth|bouillon|seasoning)\\b",
     "unfamiliar": "\\b(jicama|bangkuang|bang kuang|yam bean)\\b"
-  },
-  "lessons": [
-    "No drinks: lattes, tea, chai, lassi, golden milk and the like were all deleted as not appetising.",
-    "No desserts, sweet kueh, pancakes, crepes, custards, puddings, egg cakes or sweet porridge: all deleted as not appetising.",
-    "No plain side of one vegetable (blanched broccoli, green bean gomaae, cabbage poriyal): deleted as not appetising. A recipe is a proper, hearty, colourful savoury dish someone would want to eat as a meal.",
-    "No deep-frying, fritters or battered food: deleted as 'no fry'.",
-    "Every step written out: a recipe with too few steps was deleted as 'missing steps'. At least 4 steps, and every ingredient is used in a step.",
-    "Every ingredient clear and familiar: generic 'vegetable stock', two vegetables in one line ('Broccoli & bok choy') and jicama (bangkuang) were deleted as unclear or unknown. One named food per line, by its everyday name.",
-    "No onion, garlic or any of the five pungent vegetables (the owner's rule since 17 Oct 2026)."
-  ],
-  "ownerKept": [
-    "Miso mushroom bowl",
-    "Ginger mushroom oat porridge",
-    "Rice-cooker mushroom claypot rice",
-    "Allium-free mapo tofu",
-    "Carrot, cumin and lemon salad",
-    "Sweet corn egg drop soup",
-    "Cilantro-lime basmati rice",
-    "Coconut jasmine rice"
-  ]
+  }
 }

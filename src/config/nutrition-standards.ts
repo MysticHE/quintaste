@@ -23,10 +23,11 @@ export const mealCategories: readonly RecipeCategory[] = ["Breakfast", "Noodles"
 export const claimCriteria = {
   /** A plain calorie fact for a meal, not a claim. */
   mealUnder500Kcal: 500,
-  /** EU 1924/2006 "Source of protein": at least 12% of the energy from protein. */
-  proteinSourceEnergyShare: 0.12,
-  /** EU 1924/2006 "High protein": at least 20% of the energy from protein. */
-  proteinHighEnergyShare: 0.2,
+  /** EU 1924/2006 "Source of protein": at least 12% of the energy from protein, and Codex CXG 23-1997's per-serving
+   * condition (10% of the 50 g protein NRV), so a light broth with a little protein does not earn it. */
+  proteinSourceEnergyShare: 0.12, proteinSourceGrams: 5,
+  /** EU 1924/2006 "High protein": at least 20% of the energy from protein; Codex "high" is twice the source amount. */
+  proteinHighEnergyShare: 0.2, proteinHighGrams: 10,
   /** EU 1924/2006 and Codex "Source of fibre": at least 1.5 g per 100 kcal. */
   fibreSourcePer100Kcal: 1.5,
   /** EU 1924/2006 "High fibre": at least 3 g per 100 kcal. */

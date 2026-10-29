@@ -142,6 +142,7 @@ async function settle(row) {
     const result = row.result ?? {};
     if (result.usage && typeof result.usage === 'object') usage.calls.push({ model: clip(result.usage.model, 60) || 'qt-bots', input: Number(result.usage.input) || 0, output: Number(result.usage.output) || 0 });
     const payload = row.payload;
+    if (payload.kind !== 'video') job.noPungent = payload.noPungent === true;  // the decision the bots wrote under, not today's choice
     const source = payload.kind === 'video'
       ? { kind: 'video', platform: payload.platform ?? 'upload', ...(payload.link ? { url: payload.link } : {}), creator: clip(payload.creator || result.recipe?.creator, 80) }
       : { kind: 'request', request: clip(job.input, 200), urls: [...new Set((result.sources ?? []).filter(isHttps))].slice(0, 6) };

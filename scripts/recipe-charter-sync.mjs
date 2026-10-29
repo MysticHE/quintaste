@@ -21,10 +21,7 @@ export function appCharter(charter) {
     generatedFrom: 'ops/qt-team/recipe_charter.json by scripts/recipe-charter-sync.mjs; do not edit',
     version: charter.version,
     allowedCategories: charter.allowedCategories,
-    maxFryingOilMl: charter.maxFryingOilMl,
     patterns: Object.fromEntries(PATTERNS.map(key => [key, charter.patterns[key]])),
-    lessons: charter.lessons,
-    ownerKept: charter.ownerKept,
   };
 }
 

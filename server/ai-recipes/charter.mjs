@@ -1,22 +1,23 @@
 import { readFileSync } from 'node:fs';
-import path from 'node:path';
 import { pool } from '../config.mjs';
 import { alliums } from '../diet-labels.mjs';
 
 /**
  * The QT bots' recipe rulebook as AI Recipes and Wanted recipes use it (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md §3),
  * read from server-assets/recipe-charter.json (written by scripts/recipe-charter-sync.mjs from ops/qt-team/recipe_charter.json).
- * - Every AI recipe: animal ingredients the meat check misses (rennet, dashi, belacan, 魚露 ...) are refused.
- * - Wanted recipes carry QuinTaste's name, so they are written without the five pungent, and the owner's taste lessons (drinks,
- *   desserts, deep-frying, unclear ingredients) go to staff as review notes, never as a refusal.
+ * - Every AI recipe: animal ingredients the meat check misses (rennet cheese, dashi, belacan, 魚露 ...) send it to staff, who
+ *   can ask for a vegetarian swap; staff notes are kept apart from the public recipe (recipe.reviewNotes).
+ * - Wanted recipes carry QuinTaste's name, so they are written without the five pungent and one that still has them is not
+ *   saved; the owner's taste lessons (drinks, desserts, deep-frying, unclear ingredients) go to staff as notes, never a refusal.
  * - A member's own recipe follows their Food Choices: Vegetarian there (no five pungent) asks for a version without them; one
  *   that still has them waits for staff instead of going live.
  */
 let charter = null;
 function rules() {
   if (!charter) {
-    const data = JSON.parse(readFileSync(path.resolve('server-assets/recipe-charter.json'), 'utf8'));
-    charter = { ...data, re: Object.fromEntries(Object.entries(data.patterns).map(([key, source]) => [key, new RegExp(source, 'iu')])) };
+    const data = JSON.parse(readFileSync(new URL('../../server-assets/recipe-charter.json', import.meta.url), 'utf8'));
+    charter = { ...data, re: Object.fromEntries(Object.entries(data.patterns).map(([key, source]) => [key, new RegExp(source, 'iu')])),
+      animalAll: new RegExp(data.patterns.animal, 'giu') };
   }
   return charter;
 }
@@ -24,10 +25,10 @@ const norm = text => String(text ?? '').normalize('NFKC').toLowerCase().replace(
 
 /** Animal ingredients named in these lines, unless the line qualifies them ('vegetarian oyster sauce', 素). */
 export function hiddenAnimal(names) {
-  const { re } = rules(), found = new Set();
+  const { re, animalAll } = rules(), found = new Set();
   for (const name of names) {
-    const text = norm(name), pattern = new RegExp(re.animal.source, 'giu');
-    for (const match of text.matchAll(pattern)) {
+    const text = norm(name);
+    for (const match of text.matchAll(animalAll)) {
       if (!re.animalQualifier.test(text.slice(0, match.index))) found.add(match[0]);
     }
   }
@@ -45,7 +46,6 @@ export function houseNotes(recipe) {
   if (re.deepFry.test(method)) notes.push('deep-fried or battered (owner: no fry)');
   const unclear = names.filter(n => re.genericStock.test(norm(n)) || re.unclear.test(norm(n)) || re.unfamiliar.test(norm(n)));
   if (unclear.length) notes.push('unclear or unfamiliar ingredients: ' + unclear.slice(0, 4).join('; '));
-  if (pungent(recipe).length) notes.push('uses ' + pungent(recipe).join(', ').toLowerCase() + ' (QuinTaste recipes leave out the five pungent)');
   return notes;
 }
 

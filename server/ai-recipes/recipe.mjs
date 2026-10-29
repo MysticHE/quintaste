@@ -2,7 +2,6 @@ import { categories as recipeCategories, veganConflict } from '../recipes/rules.
 import { containsFor } from '../diet-labels.mjs';
 import { containsMeat } from '../market/rules.mjs';
 import { GeminiError } from './gemini.mjs';
-import { hiddenAnimal } from './charter.mjs';
 
 /** Shapes the model's JSON into a member recipe the app can render, with diet tags read from the ingredients. */
 export const clip = (text, max) => String(text ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -38,8 +37,6 @@ export function toRecipe(draft, { source }) {
   }).filter(Boolean);
   if (!ingredients.length) throw new GeminiError(422, REFUSALS.noIngredients);
   if (containsMeat(ingredients.map(i => i.name).join(', '))) throw new GeminiError(422, REFUSALS.meat);
-  // Animal ingredients the meat words miss (rennet, dashi, belacan, 魚露...), from the shared recipe rulebook (charter.mjs).
-  if (hiddenAnimal(ingredients.map(i => i.name)).length) throw new GeminiError(422, REFUSALS.meat);
   const contains = containsFor(ingredients);
   const diet = draft.diet === 'Vegan' && !ingredients.some(i => veganConflict(i.name)) && !contains.some(tag => ['Eggs', 'Dairy', 'Honey'].includes(tag)) ? 'Vegan' : 'Vegetarian';
   const byName = name => {

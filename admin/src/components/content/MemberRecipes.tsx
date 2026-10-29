@@ -13,7 +13,7 @@ type Recipe = {
   submitted_at: string | null; published_at: string | null; username: string; photos: string[]; reports: number;
   recipe: { title: string; description: string; author: string; language: string; servings: number; minutes: number; diet: string; categories: string[]; sponsorship: string; revision: number;
     ingredients: { id: string; name: string; amount: number | null; unit: string; suggested?: boolean; listingId?: string; listing?: Listing }[];
-    steps: { title: string; instruction: string; minutes: number | null }[]; source?: Source; nutrition?: Nutrition; contains?: string[] };
+    steps: { title: string; instruction: string; minutes: number | null }[]; source?: Source; nutrition?: Nutrition; contains?: string[]; reviewNotes?: string[] };
 };
 const photo = (r: Recipe, slot: string) => `/api/content/member-recipe-photo?id=${r.id}&version=${r.version}&slot=${slot}`;
 
@@ -36,6 +36,7 @@ function RecipeCard({ r }: { r: Recipe }) {
     {r.photos.includes('cover') && <img src={photo(r, 'cover')} alt="Recipe photo" width={240} height={160} style={{ objectFit: 'cover' }}/>}
     <p className="detail">{d.description}</p>
     {d.source && <SourceLine source={d.source}/>}
+    {!!d.reviewNotes?.length && <small>For review: {d.reviewNotes.join('; ')}</small>}
     {d.nutrition?.perServing && <small>Per serving: {Object.entries(d.nutrition.perServing).slice(0, 6).map(([k, v]) => `${k} ${Math.round(v * 10) / 10}`).join(' · ')}</small>}
     {!!links.length && <small>Shop links: {links.map(i => i.listing ? `${i.name} → ${i.listing.name} (S$${(i.listing.price_cents / 100).toFixed(2)}, ${i.listing.status})` : `${i.name} → removed item`).join(' · ')}</small>}
     <details><summary>Ingredients and steps</summary>

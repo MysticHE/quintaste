@@ -3,7 +3,7 @@ import { pool, logger } from '../config.mjs';
 import { GeminiError, generate } from './gemini.mjs';
 import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSystem } from './prompts.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
-import { houseNotes, pungent, wantsNoPungent } from './charter.mjs';
+import { hiddenAnimal, houseNotes, pungent, wantsNoPungent } from './charter.mjs';
 import { fromVideo } from './video-job.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
 import { recipeKeys } from '../nutrition/dynamic.mjs';
@@ -34,12 +34,14 @@ export async function noPungentFor(job) {
   return job.noPungent;
 }
 
-/** Notes for staff, and whether they hold the recipe back: a Wanted recipe always waits for staff and carries the owner's
- * lessons; a member's recipe waits only when it still uses the five pungent their Food Choices leave out. */
-async function reviewNotes(job, recipe) {
-  if (job.kind === 'demand') return houseNotes(recipe);
-  const used = pungent(recipe);
-  return used.length && await noPungentFor(job) ? ['uses ' + used.join(', ').toLowerCase() + ', which the member\'s Food Choices leave out'] : [];
+/** Notes for staff (charter.mjs). Any note holds a member's recipe for review; a Wanted recipe always waits for staff. Animal
+ * ingredients the meat check misses (rennet cheese, dashi, belacan) are noted for every recipe, so staff can ask for a swap. */
+async function reviewNotes(job, recipe, used) {
+  const animal = hiddenAnimal(recipe.ingredients.map(i => i.name));
+  const notes = animal.length ? ['animal ingredient to swap for a vegetarian one: ' + animal.join(', ')] : [];
+  if (job.kind === 'demand') return [...notes, ...houseNotes(recipe)];
+  if (used.length && await noPungentFor(job)) notes.push('uses ' + used.join(', ').toLowerCase() + ', which the member\'s Food Choices leave out');
+  return notes;
 }
 
 /** Saves the recipe and its photos together (live, or pending for staff review); steps with a photo are marked. */
@@ -78,8 +80,12 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
   await progress(job)('Working out the nutrition…');
   const { nutrition, complete } = await nutritionFor(recipe, { usage, signal, ai: aiNutrition });
   if (nutrition) recipe.nutrition = nutrition;
-  const notes = await reviewNotes(job, recipe);
-  if (notes.length) recipe.source.notes = clip(['For review: ' + notes.join('; '), recipe.source.notes].filter(Boolean).join(' · '), 500);
+  const used = pungent(recipe);
+  // A Wanted recipe carries QuinTaste's name: one that still uses the five pungent is not saved (owner rule, 17 Oct 2026).
+  if (job.kind === 'demand' && used.length) throw new GeminiError(422, 'This version still uses ' + used.join(', ').toLowerCase() + '.');
+  const notes = await reviewNotes(job, recipe, used);
+  // Staff-only: never part of recipe.source, which the app's recipe pages receive.
+  if (notes.length) recipe.reviewNotes = notes.map(note => clip(note, 300));
   // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
   const unclear = recipe.source.confidence < REVIEW_BELOW, review = job.kind === 'demand' || unclear || notes.length > 0;
   const saved = await save(job, recipe, photos, review, complete);
@@ -87,7 +93,8 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
   await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
     [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : !review ? ''
       : unclear ? 'Some quantities or steps were unclear, so staff will check it before it goes public.'
-      : 'It still uses onion or garlic, so staff will check it before it goes public.', { ...usage, photos: saved.photos }]);
+      : used.length && await noPungentFor(job) ? `It still uses ${used.join(', ').toLowerCase()}, so staff will check it before it goes public.`
+      : 'Staff will check an ingredient before it goes public.', { ...usage, photos: saved.photos }]);
   logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, photos: saved.photos });
   if (status === 'published' && job.user_id) await levelFor(job.user_id, saved.id);
   return status;
