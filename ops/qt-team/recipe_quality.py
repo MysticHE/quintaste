@@ -440,10 +440,13 @@ def version_findings(root, recipe):
         reasons.append('not vegetarian: ' + ', '.join(meat))
     figures = nutrition.estimate(root, recipe, detail=True)
     problems = recipe_standards.problems(figures)
-    reasons += ['QuinTaste version: ' + p for p in problems]
+    # A figure the table cannot work out (amounts in bowls or packets, a food not in the table) is a gap in our data, not a
+    # recipe below the bar: QT Manager judges it (30 Oct 2026: the approved pumpkin rice bowl was held for "1 bowl" amounts).
+    unmeasured = [p for p in problems if 'could not be measured' in p]
+    reasons += ['QuinTaste version: ' + p for p in problems if p not in unmeasured]
     if not problems:
         recipe['_content'] = recipe_standards.summary(figures)
-    return {'hard': reasons, 'concerns': found['concerns']}
+    return {'hard': reasons, 'concerns': found['concerns'] + ['QuinTaste version: ' + p for p in unmeasured]}
 
 
 def shortlist_prompt(baseline, counts, rejected, creators=(), rules=''):

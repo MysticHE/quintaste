@@ -137,6 +137,28 @@ SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(' + DAIRY_WORDS + r')\b', 'Dairy'),
 NUT_TAGS = ((r'\bpeanuts?\b', 'Peanuts'), (r'\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b', 'Tree nuts'))
 EVENT_FIELDS = ('id','title','organiser','startsAt','endsAt','location','address','feeAmount','currency','feeNote','registrationUrl',
                 'registrationDeadline','dietEvidence','status','checkedAt','sources')  # server/editorial/validation.mjs validateEvent
+
+
+def event_identity(event):
+    """Title and start instant: the same class read again under a new id (30 Oct 2026: 11 events listed twice, e.g.
+    clean-eating-power-energy and clean-eating-power-and-energy). The organiser is left out; it varies ("&" or "and")."""
+    import unicodedata
+    title = ''.join(c for c in unicodedata.normalize('NFKC', str(event.get('title') or '')).lower() if c.isalnum())
+    try:
+        start = dt.datetime.fromisoformat(str(event.get('startsAt'))).astimezone(dt.timezone.utc).isoformat()
+    except ValueError:
+        return None
+    return title + '|' + start if title else None
+
+
+def event_twin(data, live_records, accepted):
+    """The id of a live or already-accepted event that is this event under another id, else None."""
+    me = event_identity(data)
+    if not me:
+        return None
+    others = [(rid, other) for (kind, rid), other in live_records.items() if kind == 'event']
+    others += [(c['id'], c['data']) for c in accepted if c['kind'] == 'event']
+    return next((rid for rid, other in others if rid != data['id'] and event_identity(other) == me), None)
 BATCH_ASSETS = 10  # server: batch.assets.length <= MAX_ASSETS (a cover and up to 8 step photos, 22 Oct 2026)
 BATCH_IMAGE_BYTES = 1_300_000  # base64 adds a third: stays under the 2 MB publication body limit (router and proxy)
 STEP_PHOTOS = 'state/step-photos.json'  # {"enabled": true} once the app accepts step photos (owner, 22 Oct 2026)
@@ -364,6 +386,7 @@ def prepare(packages, live):
                         data.update(id=row['id'],checkedAt=max(s['checkedAt'] for s in evidence),sources=[s['url'] for s in evidence],feeNote=fee_note.strip()[:300] if isinstance(fee_note,str) else '')
                         if data['currency'] != 'SGD' or data.get('feeAmount') is None: data['feeAmount']=None;data['currency']=None
                         if dt.datetime.fromisoformat(data['startsAt']) <= dt.datetime.now(dt.timezone.utc): raise ValueError('Event is no longer upcoming')
+                        if (twin := event_twin(data, existing_records, candidates)): raise ValueError('Same event is already listed as ' + twin + '; not added twice')
                     elif kind == 'place':
                         if packet.get('task') == 'veg-kitchen':
                             import veg_kitchen
@@ -386,7 +409,7 @@ def prepare(packages, live):
                             result=next(p for p in (ROOT/'images').glob('*/result.json') if json.loads(p.read_text()).get('sha256')==target)
                             info=json.loads(result.read_text())
                             image_assets[target]={'sha256':target,'file':str(result.parent/'candidate.jpg'),'provenance':{'kind':'approved-reference-enhancement','venueId':row['id'],'referenceSha256':info['referenceSha256'],'rightsApprovalId':info['rightsApprovalId'],'provider':info['provider'],'model':info['model'],'prompt':info['prompt']}}
-                    if kind in ('recipe','event') and live.get('removals'):
+                    if kind in ('recipe','event') and live.get('removals') and key not in existing_records:  # a kept live twin stays updatable (server store.mjs)
                         import unicodedata
                         title = data['name'] if kind == 'recipe' else '|'.join([data['title'],data['organiser'],data['startsAt'][:10]])
                         identity = kind + ':' + ''.join(c for c in unicodedata.normalize('NFKC',title).lower() if c.isalnum() or c == '|')

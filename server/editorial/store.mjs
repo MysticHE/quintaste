@@ -111,7 +111,8 @@ export async function publish(root, baseline, batch) {
       requireValue(['venue', 'recipe', 'event', 'place'].includes(r.kind) && validId(r.id) && r.data?.id === r.id && !seen.has(r.kind + ':' + r.id), 'Invalid or repeated record'); seen.add(r.kind + ':' + r.id);
       requireValue(r.review?.decision === 'approved' && r.review.reviewedBy === 'QT Manager' && r.review.dataHash === hash(r.data) && typeof r.review.reason === 'string' && r.review.reason.length >= 10 && r.review.reason.length <= 1800, 'Manager approval must match the exact data');
       validateSources(r.sources);
-      requireValue(r.kind === 'venue' || !suppressed(current, r.kind, r.id, r.data), 'Owner removed this content; automatic republication is blocked');
+      // A live record the owner kept stays updatable when a twin with the same identity was removed (30 Oct 2026: duplicate events).
+      requireValue(r.kind === 'venue' || current.records[r.kind + ':' + r.id] || !suppressed(current, r.kind, r.id, r.data), 'Owner removed this content; automatic republication is blocked');
       requireValue(!Object.values(current.reverts ?? {}).some(x => x.kind === r.kind && x.id === r.id && (x.dataHash === hash(r.data) || (r.proposalHash && x.proposalHash === r.proposalHash))), 'Owner reverted this proposal; automatic republication is blocked');
       const capturedUrls = new Set(r.sources.map(s => s.url));
       const previousData = recordState(current, baseline, r.kind, r.id).data;
