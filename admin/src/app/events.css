@@ -1,0 +1,40 @@
+/* Event composition; shared geometry and responsive thresholds live in workspace.css. */
+.event-editor {
+  overflow:auto;
+}
+.event-columns {
+  grid-template-columns:var(--workspace-event-columns);
+}
+.event-fields {
+  display:grid;
+  gap:var(--workspace-field-gap);
+}
+.event-fields label {
+  min-width:0;
+}
+.event-actions {
+  flex-wrap:wrap;
+}
+.event-save-state {
+  padding:var(--space-1) var(--space-4);
+  font-size:var(--text-caption);
+  color:var(--muted-foreground);
+  background:var(--card);
+}
+.event-save-state:empty {
+  display:none;
+}
+.event-history {
+  padding:var(--space-4);
+  overflow:auto;
+  overflow-wrap:anywhere;
+  min-height:0;
+}
+.event-history[hidden] {
+  display:none;
+}
+.event-history-meta {
+  display:grid;
+  gap:var(--space-2);
+  margin-bottom:var(--space-4);
+}

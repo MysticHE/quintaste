@@ -4,6 +4,7 @@ import './globals.css';
 import './workspace.css';
 import './recipes.css';
 import './places.css';
+import './events.css';
 
 export const metadata: Metadata = { title: 'QuinTaste Admin', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';

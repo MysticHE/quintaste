@@ -30,6 +30,7 @@
   --workspace-directory-width: 14rem;
   --workspace-header-height: 3rem;
   --workspace-panel-bar-height: 2.75rem;
+  --workspace-compact-panel-height: 20rem;
   --workspace-gap: var(--space-3);
   --workspace-panel-padding: var(--space-3);
   --workspace-field-gap: var(--space-3);
@@ -53,6 +54,7 @@
   --workspace-textarea-height: 4.5rem;
   --workspace-recipe-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(0, 1.25fr);
   --workspace-place-columns: minmax(0, .9fr) minmax(0, 1.45fr) minmax(0, .9fr);
+  --workspace-event-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
   --workspace-recipe-facts: 1.1fr .9fr .9fr;
   --workspace-popover-layer: 9;
   --opacity-disabled: .5;

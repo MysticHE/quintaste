@@ -46,10 +46,12 @@ export function Recipes() {
 }
 export function Events() {
   const [selected, select] = useSelection();
-  return <ContentList path="/api/content/events" noun="events" selected={selected} select={select} add="Event"
+  const dirty = useRef(false), busy = useRef(false);
+  const choose = (id: string | null) => { if (id === selected || busy.current) return; if (dirty.current && !window.confirm('Discard changes?')) return; dirty.current = false; select(id); };
+  return <ContentList path="/api/content/events" noun="events" selected={selected} select={choose} add="Event"
     filters={[['all', 'All'], ['upcoming', 'Upcoming'], ['bot', 'QT Manager'], ['staff', 'Staff'], ['edited', 'Edited'], ['hidden', 'Hidden']]}
     describe={r => ({ title: String(r.title), meta: [r.startsAt ? date(r.startsAt) : '', sourceLabel(r.source), r.status !== 'scheduled' ? r.status : ''].filter(Boolean).join(' · '), search: [r.title], staff: r.source === 'staff' })}
-    detail={(id, changed) => <EventPanel key={id} id={id} onChanged={changed}/>}/>;
+    detail={(id, changed) => <EventPanel key={id} id={id} onChanged={changed} onDirty={v => { dirty.current = v; }} onBusy={v => { busy.current = v; }}/>}/>;
 }
 const sourceLabel = (source: unknown) => ({ bundled: 'App', bot: 'QT Manager', staff: 'Staff' } as Record<string, string>)[String(source)] ?? '';
 const passes = (filter: string, row: Row) => row.deleted ? filter === 'deleted' : filter === 'deleted' ? false : ({ all: true, edited: row.edited, hidden: row.hidden, newer: !!row.newer, reported: (row.reports ?? 0) > 0,
@@ -62,7 +64,7 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
   detail: (id: string, changed: (id?: string | null) => void) => ReactNode; scope?: ReactNode; keep?: (row: Row) => boolean;
 }) {
   const resource = useResource<Row[]>(path), [query, setQuery] = useState(''), [filter, setFilter] = useState('all'), [limit, setLimit] = useState(STEP);
-  const workspace = noun === 'recipes' || noun === 'places';
+  const workspace = ['recipes', 'places', 'events'].includes(noun);
   const root = useRef<HTMLDivElement>(null), opened = useRef(false);
   const rows = (resource.data ?? []).filter(row => keep(row) && passes(filter, row) && matches(query, row.id, ...describe(row).search));
   useEffect(() => {
@@ -82,7 +84,7 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
       <div className="stack compact list-tools">
         <div className="row nowrap"><div className="search"><Icon name="search" size={16}/><input type="search" aria-label={'Search ' + noun} placeholder={'Search ' + noun}
           value={query} maxLength={100} onChange={e => { setQuery(e.target.value); setLimit(STEP); }}/></div>
-          <button type="button" className="primary" aria-label={'New ' + add.toLowerCase()} title={'New ' + add.toLowerCase()} onClick={() => select('new')}><Icon name="plus" size={16}/>{!['recipes','places'].includes(noun) && add}</button></div>
+          <button type="button" className="primary" aria-label={'New ' + add.toLowerCase()} title={'New ' + add.toLowerCase()} onClick={() => select('new')}><Icon name="plus" size={16}/>{!workspace && add}</button></div>
         {scope}
         {workspace ? <select aria-label={add + ' filter'} value={filter} onChange={e => { setFilter(e.target.value); setLimit(STEP); }}>{filters.map(([id,text]) => <option key={id} value={id}>{text}{counts[id] ? ' · '+counts[id] : ''}</option>)}</select>
           : <Chips label="Filter" value={filter} onChange={v => { setFilter(v); setLimit(STEP); }} options={filters.filter(([id]) => id === 'all' || counts[id]).map(([id, text]) => [id, text, id === 'all' ? undefined : counts[id]])}/>}
@@ -97,6 +99,6 @@ function ContentList({ path, noun, filters, describe, detail, selected, select, 
         {resource.data && !rows.length && <li><Empty icon="search">{query ? `No ${noun} match “${query}”` : `No ${noun} in this filter`}</Empty></li>}</ul>
     </section>
     <div className="content-detail">{selected ? <><button type="button" className="back plain" onClick={() => select(null)}><Icon name="back" size={16}/>{noun[0].toUpperCase() + noun.slice(1)}</button>{detail(selected, changed)}</>
-      : <div className={workspace ? 'workspace-empty' : 'panel'}><Empty icon="content">{workspace ? 'Select a ' + add.toLowerCase() : `Choose one of the ${noun} to see and edit what members see`}</Empty></div>}</div>
+      : <div className={workspace ? 'workspace-empty' : 'panel'}><Empty icon="content">{workspace ? (noun === 'events' ? 'Select an ' : 'Select a ') + add.toLowerCase() : `Choose one of the ${noun} to see and edit what members see`}</Empty></div>}</div>
   </div>;
 }
