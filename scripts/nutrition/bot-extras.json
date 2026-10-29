@@ -30,6 +30,8 @@
     "pineapple": "yellow",
     "cucumber": "green",
     "kangkung": "green",
+    "spinach": "green",
+    "chinese_spinach": "green",
     "red_chilli": "red",
     "green_chilli": "green",
     "dried_chilli": "red",
@@ -143,6 +145,7 @@
     "taro": "tuber"
   },
   "taiwan": {
+    "chinese_spinach": "E4800101",
     "doubanjiang": "P1004101",
     "chilli_paste": "P1003201",
     "legacy_udon": "R2001301",

@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-19",
+  "version": "2026-10-30",
   "notes": "Reviewed ingredient keys for scripts/recipe-nutrition.ts. `usda` is a USDA FoodData Central SR Legacy fdcId (public domain). `gPerMl` converts volume units (tbsp 15 ml, tsp 5 ml, cup 240 ml); `each`/`per` give grams for count units. `analogue` names a stand-in when no USDA entry exists for the Singapore ingredient. `negligible` foods count as matched with no nutrients (water, pandan, tea leaves, curry leaves). Lines with amount null (to taste) are skipped and shown as such.",
   "units": {
     "ml": 1,
@@ -724,13 +724,30 @@
     },
     "kangkung": {
       "name": "Kangkung (water spinach)",
-      "usda": "168462",
-      "analogue": "spinach, raw",
+      "usda": "169301",
       "match": [
         "kangkung",
         "kangkong",
-        "water spinach",
+        "water spinach"
+      ]
+    },
+    "spinach": {
+      "name": "Spinach",
+      "usda": "168462",
+      "match": [
         "spinach"
+      ]
+    },
+    "chinese_spinach": {
+      "name": "Chinese spinach (amaranth leaves, bayam)",
+      "usda": "168385",
+      "match": [
+        "chinese spinach",
+        "amaranth",
+        "bayam",
+        "xian ?cai",
+        "苋菜",
+        "莧菜"
       ]
     },
     "fermented_beancurd": {

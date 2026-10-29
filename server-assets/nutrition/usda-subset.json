@@ -1,6 +1,6 @@
 {
  "source": "USDA FoodData Central, SR Legacy (April 2018), per 100 g; public domain",
- "built": "2026-10-19",
+ "built": "2026-10-29",
  "foods": {
   "167747": {
    "name": "Lemon juice, raw",
@@ -41,6 +41,14 @@
    "sodium": 2,
    "fibre": 2.8,
    "kcal": 30
+  },
+  "168385": {
+   "name": "Amaranth leaves, raw",
+   "carbs": 4.02,
+   "kcal": 23,
+   "fat": 0.33,
+   "sodium": 20,
+   "protein": 2.46
   },
   "168409": {
    "name": "Cucumber, with peel, raw",
@@ -191,6 +199,15 @@
    "protein": 3.09,
    "carbs": 3.26,
    "kcal": 22
+  },
+  "169301": {
+   "name": "Water convolvulus,raw",
+   "carbs": 3.13,
+   "protein": 2.6,
+   "fibre": 2.1,
+   "sodium": 113,
+   "fat": 0.2,
+   "kcal": 19
   },
   "169308": {
    "name": "Taro, raw",
