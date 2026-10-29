@@ -18,7 +18,7 @@ export const aiPlans: readonly AiPlan[] = [
 /**
  * What AI recipes include, shown once below the plans (not promised for every recipe: nutrition needs the ingredients to
  * be recognised, badges are earned, and photos need a video). Nutrition wording follows docs/NUTRITION_HEALTH_PLAN.md:
- * figures per serving and HPB claim badges ("High in fibre"), never a score, "healthy" or disease wording.
+ * figures per serving and claim badges ("High in fibre"), never a score, "healthy" or disease wording.
  */
 export const aiRecipeFeatures: readonly { icon: string; label: CookKey; detail: CookKey }[] = [
   { icon: "list-outline", label: "featSteps", detail: "featStepsDetail" },

@@ -1,54 +1,50 @@
 /**
  * Nutrition standards used to read a recipe's per-serving figures. Figures come from the recipe (`Recipe.nutrition`);
- * everything here is a published Singapore reference, dated so a later HPB revision is a data edit.
- * Source: HPB, "A Guide to Nutrition Labelling for Food Products (Singapore)", August 2024 (nutrient claim criteria,
- * Appendix I; nutrient function claims, Appendix II) and HPB daily guidance (2,000 mg sodium; sugar at 10% of a
- * 2,000 kcal day; dietary fibre 20 g women / 26 g men). None of this is dietary advice or a reviewed health claim.
+ * everything here is a published international reference, dated so a later revision is a data edit (owner, 28 Oct 2026:
+ * international standards rather than HPB; docs/RECIPE_SOURCING_PLAN.md §5c). Sources: Codex CXG 23-1997 (nutrition claims)
+ * and CXG 2-1985 (nutrient reference values), EU Regulation 1924/2006 Annex (nutrition claims), EU Regulation 432/2012
+ * (authorised health claims), WHO guidelines on sodium (under 2,000 mg a day) and free sugars (under 10% of energy).
+ * None of this is dietary advice.
  */
 import type { RecipeCategory } from "../types/food";
 
-export const nutritionStandardsVersion = "HPB guide Aug 2024 · reviewed 2026-10-19";
+export const nutritionStandardsVersion = "Codex · EU 1924/2006, 432/2012 · WHO · reviewed 2026-10-30";
 
-/** Daily references for "% of a day": a 2,000 kcal adult day as HPB uses for sugar; fibre uses the higher adult figure. */
-export const dailyReference = { kcal: 2000, sodium: 2000, sugar: 50, fibre: 26 } as const;
+/** Daily references for "% of a day": a 2,000 kcal day (Codex/EU reference intake), WHO sodium and free-sugar limits, and the
+ * Codex NRV for dietary fibre. */
+export const dailyReference = { kcal: 2000, sodium: 2000, sugar: 50, fibre: 25 } as const;
 export type DailyNutrient = keyof typeof dailyReference;
 
-/** Recipe categories that are a meal in HPB's sense (meal-type product criteria apply). */
+/** Recipe categories that are a meal (the calorie line applies to them only). */
 export const mealCategories: readonly RecipeCategory[] = ["Breakfast", "Noodles", "Rice meals", "With rice", "Soups"];
 
-/** Nutrient claim criteria (HPB guide, Appendix I). Per-serving and per-100 kcal conditions only: recipes carry no
- * serving weight, so per-100 g conditions (low sodium, low fat) are not applied. */
+/** Claim conditions. Per-serving and per-100 kcal forms only: recipes carry no serving weight, so per-100 g conditions are
+ * not applied. */
 export const claimCriteria = {
-  /** Healthier Dining Programme meal cap. */
+  /** A plain calorie fact for a meal, not a claim. */
   mealUnder500Kcal: 500,
-  /** "Light meal": ≤ 300 kcal per serving (meal-type product). */
-  lightMealKcal: 300,
-  /** "Source of protein": ≥ 12% of energy from protein and ≥ 10 g per day's recommended quantity (taken per serving). */
-  proteinSource: { energyShare: 0.12, gramsPerServing: 10 },
-  /** "High in protein": ≥ 20% of energy from protein and ≥ 10 g. */
-  proteinHigh: { energyShare: 0.2, gramsPerServing: 10 },
-  /** "Source of dietary fibre": ≥ 1.5 g per 100 kcal. */
+  /** EU 1924/2006 "Source of protein": at least 12% of the energy from protein. */
+  proteinSourceEnergyShare: 0.12,
+  /** EU 1924/2006 "High protein": at least 20% of the energy from protein. */
+  proteinHighEnergyShare: 0.2,
+  /** EU 1924/2006 and Codex "Source of fibre": at least 1.5 g per 100 kcal. */
   fibreSourcePer100Kcal: 1.5,
-  /** "High in dietary fibre": ≥ 4 g per serving or ≥ 3 g per 100 kcal. */
-  fibreHigh: { gramsPerServing: 4, per100Kcal: 3 },
-  /** "Low in sugar", meal-type product: ≤ 2 g sugars per serving. */
-  lowSugarMealGrams: 2,
-  /** Sodium at or under 15% of the 2,000 mg daily limit per serving (the guide's reduced-sodium reference quantity). */
+  /** EU 1924/2006 "High fibre": at least 3 g per 100 kcal. */
+  fibreHighPer100Kcal: 3,
+  /** Sodium at or under 15% of WHO's 2,000 mg daily limit per serving. */
   sodiumUnder15PercentMg: 300,
 } as const;
 
-export const nutritionBadges = ["Light meal", "Under 500 kcal", "High in protein", "Source of protein", "High in fibre", "Source of fibre", "Low in sugar", "Under 300 mg sodium"] as const;
+export const nutritionBadges = ["Under 500 kcal", "High in protein", "Source of protein", "High in fibre", "Source of fibre", "Under 300 mg sodium"] as const;
 export type NutritionBadge = (typeof nutritionBadges)[number];
 
 /**
- * Approved nutrient function claims (HPB guide, Appendix II), verbatim, with HPB's claim number. Shown only when the matching
- * badge is earned. The wording is shown verbatim in every interface language; only the source line is translated.
+ * Authorised health claims (EU Regulation 432/2012), verbatim, shown only when the badge that meets the claim's condition is
+ * earned. The wording is shown verbatim in every interface language; only the source line is translated. The EU authorises no
+ * general dietary-fibre claim (only claims for named fibres), so the fibre badges carry none.
  */
-export const nutrientFunctionClaims: { badge: NutritionBadge; nutrient: "Protein" | "Dietary fibre"; text: string; claim: number }[] = [
-  { badge: "High in fibre", nutrient: "Dietary fibre", text: "Dietary fibre aids in digestion.", claim: 5 },
-  { badge: "High in protein", nutrient: "Protein", text: "Protein helps in tissue building and growth.", claim: 2 },
-  { badge: "Source of fibre", nutrient: "Dietary fibre", text: "Dietary fibre aids in digestion.", claim: 5 },
-  { badge: "Source of protein", nutrient: "Protein", text: "Protein helps in tissue building and growth.", claim: 2 },
+export const healthClaims: { badges: readonly NutritionBadge[]; nutrient: "Protein"; text: string }[] = [
+  { badges: ["High in protein", "Source of protein"], nutrient: "Protein", text: "Protein contributes to a growth in muscle mass." },
 ];
 
 /** Energy per gram used to turn protein grams into an energy share (Atwater factor). */

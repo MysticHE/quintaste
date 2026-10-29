@@ -12,7 +12,7 @@ const ROWS: [keyof NonNullable<Recipe["nutrition"]>["perServing"], CookKey, Cook
   ["fibre", "nutrientFibre", "unitGram"], ["sugar", "nutrientSugar", "unitGram"], ["sodium", "nutrientSodium", "unitMilligram"],
 ];
 
-/** Per-serving figures with HPB claim badges and one approved nutrient function claim; "Unavailable" when a recipe has
+/** Per-serving figures with claim badges and one authorised health claim (Codex, EU, WHO); "Unavailable" when a recipe has
  * no reliable figures. Never a score or medical wording; the standards live in config/nutrition-standards.ts. */
 export function NutritionFacts({ recipe }: { recipe: Recipe }) {
   const { theme } = usePreferences(), t = useT("cook"), language = useLanguage();

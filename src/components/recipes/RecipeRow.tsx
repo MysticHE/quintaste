@@ -27,7 +27,7 @@ export function RecipeRow({ recipe, onPress, when, edgeToEdge = false }: { recip
   const fit = recipeFit(recipe, draft.diets, draft.excluded), diet = fit.labels.map(dietText.spoken).join(t("sentenceJoin"));
   const category = recipe.categories[0] ? categoryName(recipe.categories[0], language) : "", minutes = tc("minutes", { n: recipe.minutes });
   const facts = [category, recipe.onePot ? t("onePot") : "", recipe.member ? t("byAuthor", { author: recipe.author }) : ""].filter(Boolean).join(" · ");
-  // At most two HPB badges (first two in claim order); recipes without figures show no nutrition line.
+  // At most two claim badges (first two in claim order); recipes without figures show no nutrition line.
   const badges = recipeBadges(recipe).slice(0, 2).map(badge => badgeName(badge, language)).join(" · ");
   return <PhotoPostCard testID="recipe-card" edgeToEdge={edgeToEdge} photo={{ path: recipe.image?.path, source: recipe.image?.path ? undefined : recipe.photo ? photos[recipe.photo] : undefined, fallback: category || t("recipeFallback") }}
     title={recipe.name} label={[recipe.name, minutes, facts, diet, badges].filter(Boolean).join(t("sentenceJoin"))} hint={t("opensRecipe")} onPress={onPress}

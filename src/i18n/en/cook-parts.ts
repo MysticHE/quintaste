@@ -85,7 +85,7 @@ const en = {
   nutritionFromSite: "From {site}.",
   nutritionEstimated: "Estimated from the raw ingredients (USDA data).",
   nutritionToTaste: " Salt, sauces or garnishes added to taste are not included.",
-  nutritionPercentNote: " Percent of a 2,000 kcal day (HPB). Not dietary advice.",
+  nutritionPercentNote: " Percent of a 2,000 kcal day (Codex; WHO for sodium and sugar). Not dietary advice.",
   yourRecipePhoto: "Your recipe photo",
   addIngredientsInEdit: "Add ingredients in Edit.",
   incompleteIngredient: "Incomplete ingredient",

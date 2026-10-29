@@ -7,7 +7,7 @@ import { house, recipeSchema, searchSystem, videoPrompt, videoSystem, requestPro
 import { obtain, youtubeThumbnail } from './video-job.mjs';
 import { downloadVideo, downloaderAvailable } from './download.mjs';
 import { clip, toRecipe } from './recipe.mjs';
-import { failJob, finishJob, progress } from './pipeline.mjs';
+import { failJob, finishJob, noPungentFor, progress } from './pipeline.mjs';
 import { frameAt, framesAvailable, photoJpeg, shrinkVideo, videoSeconds } from './frames.mjs';
 import { jobDir, jobPath, removeDir } from './work.mjs';
 
@@ -57,7 +57,7 @@ export async function handToBots(job) {
         video: { bytes: video.size, mimeType: video.mimeType },
         // Server-only: never sent to the bots.
         _file: video.path, _upload: upload };
-    } else payload = { kind: job.kind, request: job.input };
+    } else payload = { kind: job.kind, request: job.input, noPungent: await noPungentFor(job) };
     await pool.query(`INSERT INTO recipes.ai_bot_task (job_id, payload) VALUES ($1, $2)
       ON CONFLICT (job_id) DO UPDATE SET status='queued', payload=EXCLUDED.payload, result=NULL, error='', claimed_at=NULL, answered_at=NULL, settling_at=NULL, created_at=now()`, [job.id, payload]);
     await progress(job)('In line…');
@@ -91,7 +91,7 @@ export function brief(payload) {
       + (payload.creator ? '\nCreator: ' + payload.creator : '');
     return { system: videoSystem, prompt: videoPrompt + context, schema: botSchema };
   }
-  const ask = payload.kind === 'demand' ? demandPrompt(payload.request) : requestPrompt(payload.request);
+  const ask = payload.kind === 'demand' ? demandPrompt(payload.request) : requestPrompt(payload.request, payload.noPungent === true);
   return { system: house + '\n' + researchSystem + '\nThen write the final recipe JSON from the version you propose. Set creator to the author of the page it mainly follows, and at, shotAt and coverAt to null.',
     prompt: ask, schema: botSchema };
 }

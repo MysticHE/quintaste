@@ -44,6 +44,9 @@ jobs:
       - name: Typecheck server
         run: npm run typecheck:server
 
+      - name: Recipe rulebook in sync with the bots
+        run: node scripts/recipe-charter-sync.mjs --check
+
       - name: Export web
         env:
           EXPO_NO_DOTENV: "1"

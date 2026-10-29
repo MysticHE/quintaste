@@ -3,6 +3,7 @@ import { pool, logger } from '../config.mjs';
 import { GeminiError, generate } from './gemini.mjs';
 import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSystem } from './prompts.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
+import { houseNotes, pungent, wantsNoPungent } from './charter.mjs';
 import { fromVideo } from './video-job.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
 import { recipeKeys } from '../nutrition/dynamic.mjs';
@@ -17,7 +18,7 @@ export const REVIEW_BELOW = 0.6;
 
 async function fromRequest(job, signal, usage, progress) {
   await progress('Finding rated recipes…');
-  const prompt = job.kind === 'demand' ? demandPrompt(job.input) : requestPrompt(job.input);
+  const prompt = job.kind === 'demand' ? demandPrompt(job.input) : requestPrompt(job.input, await noPungentFor(job));
   const research = await generate({ parts: [{ text: prompt }], system: searchSystem, tools: [{ google_search: {} }], signal, maxOutputTokens: 6000 });
   usage.calls.push(research.usage);
   await progress('Writing the recipe…');
@@ -25,6 +26,20 @@ async function fromRequest(job, signal, usage, progress) {
   usage.calls.push(structured.usage);
   const sources = [...new Set(research.sources)].slice(0, 6);
   return { recipe: toRecipe(structured.data, { source: { kind: 'request', request: clip(job.input, 200), urls: sources } }), photos: null };
+}
+
+/** Whether this job is written without the five pungent (charter.mjs), worked out once per job. */
+export async function noPungentFor(job) {
+  if (job.noPungent === undefined) job.noPungent = await wantsNoPungent(job);
+  return job.noPungent;
+}
+
+/** Notes for staff, and whether they hold the recipe back: a Wanted recipe always waits for staff and carries the owner's
+ * lessons; a member's recipe waits only when it still uses the five pungent their Food Choices leave out. */
+async function reviewNotes(job, recipe) {
+  if (job.kind === 'demand') return houseNotes(recipe);
+  const used = pungent(recipe);
+  return used.length && await noPungentFor(job) ? ['uses ' + used.join(', ').toLowerCase() + ', which the member\'s Food Choices leave out'] : [];
 }
 
 /** Saves the recipe and its photos together (live, or pending for staff review); steps with a photo are marked. */
@@ -63,12 +78,16 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
   await progress(job)('Working out the nutrition…');
   const { nutrition, complete } = await nutritionFor(recipe, { usage, signal, ai: aiNutrition });
   if (nutrition) recipe.nutrition = nutrition;
+  const notes = await reviewNotes(job, recipe);
+  if (notes.length) recipe.source.notes = clip(['For review: ' + notes.join('; '), recipe.source.notes].filter(Boolean).join(' · '), 500);
   // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
-  const review = job.kind === 'demand' || recipe.source.confidence < REVIEW_BELOW;
+  const unclear = recipe.source.confidence < REVIEW_BELOW, review = job.kind === 'demand' || unclear || notes.length > 0;
   const saved = await save(job, recipe, photos, review, complete);
   const status = review ? 'review' : 'published';
   await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
-    [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : review ? 'Some quantities or steps were unclear, so staff will check it before it goes public.' : '', { ...usage, photos: saved.photos }]);
+    [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : !review ? ''
+      : unclear ? 'Some quantities or steps were unclear, so staff will check it before it goes public.'
+      : 'It still uses onion or garlic, so staff will check it before it goes public.', { ...usage, photos: saved.photos }]);
   logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, photos: saved.photos });
   if (status === 'published' && job.user_id) await levelFor(job.user_id, saved.id);
   return status;

@@ -56,7 +56,8 @@ export const house = `You write recipes for QuinTaste, a Singapore vegetarian co
 - One action per step, with heat level, time and a visual or sensory doneness cue when the source gives one.
 - A step's ingredients are what that step adds or handles, shown to the cook as "For this step": "Whisk until hot" or "Steam for 12 minutes" lists none, "Lower the battered pieces into the oil" lists only the oil, "Taste and add more sugar" lists the sugar again.
 - Categories: Breakfast, Noodles, Rice meals (one-dish rice meals), With rice (dishes eaten with rice), Soups, Snacks & kueh, Desserts & drinks.
-- Diet: Vegan when no egg, dairy or honey; Vegetarian when those appear; NotVegetarian when any meat, poultry, seafood, fish sauce, oyster sauce made from oysters, lard or gelatine appears.
+- Name each ingredient as one food by its everyday Singapore name ("Choy sum", not "Greens" or "Broccoli & bok choy"); never a generic "stock" or "seasoning": list what goes in it.
+- Diet: Vegan when no egg, dairy or honey; Vegetarian when those appear; NotVegetarian when any meat, poultry, seafood, fish sauce, oyster sauce made from oysters, shrimp paste or belacan, dried shrimp, dashi or bonito, lard, gelatine, or cheese made with animal rennet (Parmesan, Pecorino) appears.
 - Return JSON matching the schema and nothing else.`;
 
 export const videoSystem = house + `
@@ -70,9 +71,14 @@ export const searchSystem = `You research vegetarian recipes for a Singapore coo
 export const structureSystem = house + `
 You are given research notes about recipes found on the web plus a proposed version. Produce the final recipe JSON from the proposed version. Set creator to the author of the page the version mainly follows, and at to null for every step.`;
 
-export const requestPrompt = text => `Recipe request from a member: "${text}". Find matching vegetarian recipes and propose the QuinTaste version.`;
+/** Written without the five pungent: QuinTaste's own Wanted recipes, and members whose Food Choices include Vegetarian. */
+export const NO_PUNGENT = ' Write it without garlic, onion, shallot, spring onion, leek, chive or asafoetida and without sauces or pastes made with them; '
+  + 'use ginger, pepper, coriander, celery or mushrooms for flavour, and say what you changed in notes.';
+export const requestPrompt = (text, noPungent = false) => `Recipe request from a member: "${text}". Find matching vegetarian recipes and propose the QuinTaste version.`
+  + (noPungent ? NO_PUNGENT : '');
 /** A dish several members searched Cook for and could not find (server/cook-search/demand.mjs). */
-export const demandPrompt = text => `Several members searched a Singapore vegetarian cooking app for "${text}" and found no recipe. Find matching vegetarian recipes, or vegetarian versions if the dish usually has meat or seafood, and propose the QuinTaste home version.`;
+export const demandPrompt = text => `Several members searched a Singapore vegetarian cooking app for "${text}" and found no recipe. Find matching vegetarian recipes, or vegetarian versions if the dish usually has meat or seafood, and propose the QuinTaste home version.`
+  + NO_PUNGENT + ' Prefer pan-frying, baking or steaming to deep-frying.';
 
 export const verifySystem = house + `
 You are checking a draft recipe against the cooking video it was written from. Watch the whole video again, start to end, frame by frame where needed, and listen to every spoken instruction and on-screen text.

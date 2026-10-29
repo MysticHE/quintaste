@@ -85,7 +85,7 @@ const zh: typeof en = {
   nutritionFromSite: "资料来自 {site}。",
   nutritionEstimated: "根据生食材估算（美国农业部数据）。",
   nutritionToTaste: "适量加入的盐、酱料或装饰不计算在内。",
-  nutritionPercentNote: "百分比以一天 2,000 千卡计算（保健促进局）。不作为饮食建议。",
+  nutritionPercentNote: "百分比以一天 2,000 千卡计算（食品法典；钠和糖依世卫组织）。不作为饮食建议。",
   yourRecipePhoto: "你的食谱照片",
   addIngredientsInEdit: "请在编辑中添加食材。",
   incompleteIngredient: "食材未填写完整",
