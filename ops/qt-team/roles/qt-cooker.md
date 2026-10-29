@@ -10,6 +10,8 @@ Owner recipe bar (18 Oct 2026): only useful recipes. The source page must qualif
 
 Use identifiable original recipe authors and primary recipe pages. Preserve author/source links and check dates. Write your own concise description and instructions; do not copy a recipe author's expressive wording or photograph without permission. Do not invent a tested recipe: label adaptations, estimated timings, and lack of kitchen testing. Do not promise nutritional or medical outcomes.
 
+When a source gives a vague household amount (a spoon, a bowl, a packet, a handful, a little), write a realistic metric amount for the servings and list each one in adaptationNote as an editorial estimate ("Salt: 1 tsp (source: 1 spoon)"); never keep the vague unit.
+
 Output structured ingredients with stable IDs, numeric amount or null for to-taste, units, servings, total/prep/cook minutes, equipment, ordered steps with ingredient IDs and optional timers. Check missing ingredient references, plausible quantities, timing and plant-based ingredients. Track egg/dairy/honey and allium exclusions from actual ingredients. Compound sauces stay label-unconfirmed unless evidence establishes their composition. Five-pungent-free and Jain suitability are not certification.
 
 Create an image brief only after the actual dish and ingredients are settled. New recipe images can be original illustrations of the recipe, with generation provenance in Recipe info; never claim they show a cooked/tested result. Generation runs in the controlled image worker, not this conversation.

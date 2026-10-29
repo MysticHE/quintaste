@@ -468,10 +468,29 @@ def shortlist_prompt(baseline, counts, rejected, creators=(), rules=''):
             'Do not repeat existing recipes: ' + json.dumps([r['name'] for r in baseline.get('recipeNames', [])][-150:]) +
             '. Previously rejected pages (skip): ' + json.dumps(rejected[-40:]) + '. Use web_search and open pages to confirm they exist. '
             'Extracted page text usually hides the star rating, time and ingredient data; the coordinator reads that data from each page '
-            'itself and rejects pages that miss the bar. So do NOT filter candidates on ratings you cannot see: return up to 8 promising '
-            'pages that look allium-free, quick, hearty and colourful. An empty list is only right when you found no plausible page at all. '
+            'itself and rejects pages that miss the bar. So do NOT filter candidates on ratings you cannot see: return 6 to 8 promising '
+            'pages that look allium-free, quick, hearty and colourful, from at least three different websites (creators own sites, '
+            'temple and society kitchens, English and Chinese recipe sites), never all from one site. An empty list is only right '
+            'when you found no plausible page at all. '
             'Return ONLY JSON {"role":"qt-cooker","candidates":[{"url":"https recipe page","name":"","category":"one of the categories you may source"}],'
             '"notes":""}. No Google Maps.')
+
+
+MIN_SHORTLIST = 4  # fewer pages than this from the first search starts one more search on other websites
+
+
+def _usable(result, skip, blocked):
+    """The model's candidate pages that are new and not on a blocked host, each page once."""
+    out, seen = [], set()
+    for c in result.get('candidates', []):
+        if not (isinstance(c, dict) and isinstance(c.get('url'), str)):
+            continue
+        key = page_key(c['url'])
+        if key in skip or key in seen or key.split('/')[0] in blocked:
+            continue
+        seen.add(key)
+        out.append(c)
+    return out
 
 
 def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=None, blocked=()):
@@ -497,11 +516,18 @@ def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=No
         pass  # rotation is a preference; the shortlist still works without counts
     log = root / 'state/recipe-shortlist.json'
     history = _read(log, {'rejected': []})
-    result, _ = run_model('qt-cooker', shortlist_prompt(baseline, counts, history['rejected'] + sorted(skip)[-40:], creators or trusted(root).items(),
-                                                        recipe_charter.prompt_rules(root)),
-                          folder, policy, seconds=min(600, policy.get('workerSeconds', 600)))
-    candidates = [c for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)
-                  and page_key(c['url']) not in skip and page_key(c['url']).split('/')[0] not in blocked][:8]
+    prompt = shortlist_prompt(baseline, counts, history['rejected'] + sorted(skip)[-40:], creators or trusted(root).items(),
+                              recipe_charter.prompt_rules(root))
+    seconds = min(600, policy.get('workerSeconds', 600))
+    result, _ = run_model('qt-cooker', prompt, folder, policy, seconds=seconds)
+    candidates = _usable(result, skip, blocked)
+    if len(candidates) < MIN_SHORTLIST:
+        # 30 Oct 2026: a whole round's search returned 2 pages from one site. Look once more, elsewhere.
+        found = ', '.join(c['url'] for c in candidates) or 'none'
+        more, _ = run_model('qt-cooker', prompt + ' Your first search found too few pages (' + found + '). Search again on other '
+                            'websites and return new pages only.', folder.with_name(folder.name + '-more'), policy, seconds=seconds)
+        candidates += _usable(more, skip | {page_key(c['url']) for c in candidates}, blocked)
+    candidates = candidates[:8]
     checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
     for c in checked:  # categories the owner no longer wants (recipe_charter.json); the gate checks Cooker's own category too
         wrong = recipe_charter.category_problems(root, c.get('category'))

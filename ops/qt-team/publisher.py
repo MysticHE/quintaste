@@ -134,7 +134,11 @@ SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(' + DAIRY_WORDS + r')\b', 'Dairy'),
                (r'\bgarlic\b', 'Garlic'), (r'\bonions?\b', 'Onion'), (r'\bsoy sauce|\bwheat\b', 'Gluten'))
 # Allergen tags the app finds in ingredient names (server/diet-labels.mjs TAGS) but the server does not require: QT Manager
 # holds a recipe whose almond milk is not tagged Tree nuts (22 Oct 2026, golden milk).
-NUT_TAGS = ((r'\bpeanuts?\b', 'Peanuts'), (r'\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b', 'Tree nuts'))
+# 30 Oct 2026: a pumpkin and shimeji rice bowl was held for its missing Mushrooms tag; Root vegetables follows the same app rule.
+NUT_TAGS = ((r'\bpeanuts?\b', 'Peanuts'), (r'\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b', 'Tree nuts'),
+            (r'\b(mushrooms?|shiitake|enoki|shimeji|portobello)\b', 'Mushrooms'),
+            (r'\b(potato(es)?|carrots?|radish(es)?|turnips?|beet(root)?s?|yams?|taro|sweet potato(es)?|ginger|lotus root|onions?|garlic|shallots?)\b',
+             'Root vegetables'))
 EVENT_FIELDS = ('id','title','organiser','startsAt','endsAt','location','address','feeAmount','currency','feeNote','registrationUrl',
                 'registrationDeadline','dietEvidence','status','checkedAt','sources')  # server/editorial/validation.mjs validateEvent
 
@@ -247,7 +251,7 @@ def server_recipe_problem(d):
 
 def recipe_contains(r):
     """Exclusion tags recipe_data publishes: declared tags plus those implied by ingredient names."""
-    aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms'}
+    aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms', 'root vegetables': 'Root vegetables'}
     contains = {aliases[t.lower()] for t in r.get('contains', []) if isinstance(t, str) and t.lower() in aliases}
     names = diet_names(r.get('ingredients', []))
     for pattern, tag in SERVER_TAGS + NUT_TAGS:
@@ -269,7 +273,7 @@ def recipe_data(row, evidence):
     if r.get('compoundIngredientsUnconfirmed'):
         raise ValueError('Unconfirmed compound ingredients')
     contains = set(recipe_contains(r))
-    aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms'}
+    aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms', 'root vegetables': 'Root vegetables'}
     for tag in r.get('contains', []):
         if tag.lower() in aliases:
             contains.add(aliases[tag.lower()])
