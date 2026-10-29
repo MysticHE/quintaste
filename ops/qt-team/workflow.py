@@ -161,8 +161,9 @@ def validate(role, obj, assigned=None):
 SOURCE_FIELDS = ('url', 'name', 'site', 'author', 'rating', 'ratings', 'minutes', 'ingredients', 'steps', 'category', 'concerns')
 
 
-def cooker_sources(held_retries, passed, candidates, prior, assess=None):
-    """(approvedSources, priorCandidates) for a Cooker round: two recipes a round, due retries first, new pages fill the rest.
+def cooker_sources(held_retries, passed, candidates, prior, assess=None, limit=2):
+    """(approvedSources, priorCandidates) for a Cooker round: `limit` recipes a round (policy maxRecipesPerCycle, 2), due retries
+    first, new pages fill the rest.
     A due retry is re-approved with its own source page, because Cooker writes approved pages only, and the names of the recipes
     being reworked are kept out of priorCandidates (22 Oct 2026: the four retried recipes were held as "approvedSources is empty"
     and as duplicates of their own earlier drafts)."""
@@ -173,7 +174,7 @@ def cooker_sources(held_retries, passed, candidates, prior, assess=None):
         if url:
             page = assess(ROOT, url) if assess else {}
             approved.append({**{k: page.get(k) for k in SOURCE_FIELDS}, 'url': url, 'name': retry.get('name') or page.get('name'), 'retryId': retry['id']})
-    approved += [{k: c.get(k) for k in SOURCE_FIELDS} for c in passed[:max(0, 2 - len(held_retries))]]
+    approved += [{k: c.get(k) for k in SOURCE_FIELDS} for c in passed[:max(0, limit - len(held_retries))]]
     pages = {recipe_quality.page_key(a['url']) for a in approved}
     own = {str(r.get('name') or '').strip().casefold() for r in held_retries}
     own |= {str(v.get('name') or '').strip().casefold() for k, v in prior.items() if k in pages}
@@ -522,7 +523,7 @@ def contract(role):
         import recipe_charter
         from recipe_policy import RULE
         allowed = recipe_charter.load(ROOT)['allowedCategories']
-        return common + RULE + ' ' + recipe_charter.prompt_rules(ROOT) + (" Propose up to 2 recipes. Each proposed record has recipe: {name, category, servings, minutes, cuisine, "
+        return common + RULE + ' ' + recipe_charter.prompt_rules(ROOT) + (" Propose one recipe for each approvedSources entry. Each proposed record has recipe: {name, category, servings, minutes, cuisine, "
                          "ingredients:[{id,name,amount:number|null,unit,grams:number|null (your best estimate of the weight in grams of that amount, for nutrition; null if unsure)}],steps:[{title (2-4 words, e.g. \"Blanch the stems\"),instruction,ingredientIds:[id]}], "
                          "diet:Vegetarian|Vegan,contains:[string],compoundIngredientsUnconfirmed:[string],author,adaptationNote,kitchenTested:false," 
                          "imageBrief}. Categories: " + ", ".join(allowed) + ". Use original wording; source and attribution remain required. Do not copy entire recipes verbatim. "
@@ -1270,7 +1271,8 @@ class Round:
                 library['record'] += [{'url': c['url'], 'status': 'shortlisted' if c.get('passes') else 'rejected', 'name': c.get('name') or '',
                                        'reasons': [str(r) for r in c.get('reasons', [])][:8]} for c in picks['checked'] if c.get('url')]
             approved, prior_names = cooker_sources(held_retries, picks['passed'], state.get("recipeCandidates", []),
-                                                   library['prior'] if library else sources, recipe_quality.assess if strict else None)
+                                                   library['prior'] if library else sources, recipe_quality.assess if strict else None,
+                                                   limit=int(self.policy.get('maxRecipesPerCycle', 2)))
             self.note("qt-cooker", f"Recipe shortlist: {len(picks['passed'])}/{len(picks['checked'])} pages met the bar")
             if not approved and not held_retries and strict:
                 if library:
