@@ -10,7 +10,7 @@ import { memberRecipeAction, memberRecipeList, memberRecipePhoto } from '../../.
 import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
 import { demandAction, demandList } from '../../../../lib/recipe-demand';
 import { ingredientAction, ingredientList } from '../../../../lib/content-ingredients';
-import { creatorAction, creatorList } from '../../../../lib/creators';
+import { creatorAction, creatorDetail, creatorList } from '../../../../lib/creators';
 import { gameLevelAction, gameCafeList, gameCafeAction, gameLevelList, gameLevelMake, gameLevelRecipes, gamePicture, gamePictureAction, gamePictureList } from '../../../../lib/game-content';
 
 type Context = { params: Promise<{ resource: string }> };
@@ -36,7 +36,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'ai-summary') return json(await aiSummary(member));
   if (resource === 'recipe-demand') return json(await demandList(member, status, q, skip));
   if (resource === 'ingredients') return json(await ingredientList(member, status, q, skip));
-  if (resource === 'creators') return json(await creatorList(member, status, q, skip));
+  if (resource === 'creators') return json(id ? await creatorDetail(member, id) : await creatorList(member, status, q, skip));
   if (resource === 'game-levels') return json(await gameLevelList(member, status, q, skip));
   if (resource === 'game-cafes') return json(await gameCafeList(member, status, q, skip));
   if (resource === 'game-pictures') return json(await gamePictureList(member, status, skip));

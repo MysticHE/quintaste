@@ -1,0 +1,68 @@
+/* Creator composition; responsive thresholds stay in workspace.css. */
+.creator-editor {
+  overflow:auto;
+}
+.creator-editor .workspace-editor-head {
+  padding-bottom:var(--space-3);
+}
+.creator-columns {
+  grid-template-columns:var(--workspace-creator-columns);
+}
+.creator-fields {
+  display:grid;
+  gap:var(--workspace-field-gap);
+  overflow-wrap:anywhere;
+}
+.creator-actions {
+  flex-wrap:wrap;
+}
+.creator-search {
+  display:flex;
+  align-items:center;
+  min-width:0;
+  gap:var(--space-1);
+}
+.creator-state {
+  min-height:var(--space-4);
+  margin:var(--space-2) 0;
+  font-size:var(--text-caption);
+  color:var(--muted-foreground);
+}
+.creator-state:empty {
+  display:none;
+}
+.creator-split .pager {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  gap:var(--space-1);
+}
+.creator-split .pager button {
+  white-space:normal;
+  line-height:var(--line-tight);
+  min-width:0;
+}
+:is(.creator-channel,.creator-source) {
+  display:grid;
+  justify-items:start;
+  min-width:0;
+  gap:var(--space-2);
+  padding-bottom:var(--space-3);
+  border-bottom:var(--border-width) solid var(--separator);
+}
+.creator-facts {
+  display:grid;
+  margin:0;
+  gap:var(--space-2);
+}
+.creator-facts>div {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:var(--space-2);
+}
+.creator-facts dt {
+  color:var(--muted-foreground);
+}
+.creator-facts dd {
+  margin:0;
+}

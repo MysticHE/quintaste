@@ -12,7 +12,7 @@ type Row = { id: string; hidden: boolean; edited: boolean; newer?: boolean; upda
 const STEP = 400;
 
 /** The open item lives in the address (?id=), so a link or a reload lands on the same place, recipe or event. */
-function useSelection() {
+export function useSelection() {
   const [selected, setSelected] = useState<string | null>(() => typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('id'));
   const select = (id: string | null) => {
     setSelected(id);

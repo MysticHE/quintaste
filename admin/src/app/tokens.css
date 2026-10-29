@@ -55,6 +55,7 @@
   --workspace-recipe-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(0, 1.25fr);
   --workspace-place-columns: minmax(0, .9fr) minmax(0, 1.45fr) minmax(0, .9fr);
   --workspace-event-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  --workspace-creator-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1fr);
   --workspace-recipe-facts: 1.1fr .9fr .9fr;
   --workspace-popover-layer: 9;
   --opacity-disabled: .5;

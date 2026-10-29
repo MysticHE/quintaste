@@ -15,7 +15,7 @@ const DIETS = ['vegan', 'vegetarian', 'five-pungent-free', 'buddhist', 'jain'] a
 const missing = (error: unknown) => ['42P01', '3F000'].includes((error as { code?: string })?.code ?? '');
 const notInstalled = () => new HttpError(503, 'The creator library is not installed on this server yet.');
 
-export async function creatorList(member: Session, status: string, q: string, skip = 0) {
+export async function creatorList(member: Session, status: string, q: string, skip = 0, id?: string) {
   authorize(member, 'content');
   const view = choice(status || 'active', Object.keys(views) as (keyof typeof views)[], 'status'), term = search(q);
   try {
@@ -26,13 +26,21 @@ export async function creatorList(member: Session, status: string, q: string, sk
         coalesce((SELECT json_agg(r ORDER BY r.last_seen DESC) FROM (SELECT url, name, status, recipe_id, coverage::float AS coverage, last_seen
             FROM creators.recipe_source WHERE creator_id = c.id ORDER BY last_seen DESC LIMIT 5) r), '[]') AS sources
       FROM creators.creator c JOIN creators.score s ON s.creator_id = c.id
-      WHERE ${views[view]} AND ($1 = '' OR c.name ILIKE $1 OR c.id ILIKE $1 OR EXISTS (SELECT 1 FROM creators.channel ch WHERE ch.creator_id = c.id AND ch.handle ILIKE $1))
+      WHERE ${id ? 'c.id = $3' : views[view]} AND ($1 = '' OR c.name ILIKE $1 OR c.id ILIKE $1 OR EXISTS (SELECT 1 FROM creators.channel ch WHERE ch.creator_id = c.id AND ch.handle ILIKE $1))
       ORDER BY c.pinned DESC, array_position(ARRAY['singapore','asia','world'], c.region), s.published DESC, s.passed DESC, c.name
-      LIMIT ${pageSize} OFFSET $2`, [term, skip])).rows;
+      LIMIT ${pageSize} OFFSET $2`, id ? [term, skip, id] : [term, skip])).rows;
   } catch (error) {
     if (missing(error)) throw notInstalled();
     throw error;
   }
+}
+
+/** A stable editor link can resolve a creator outside the current list page or status. */
+export async function creatorDetail(member: Session, raw: string) {
+  const id = text(raw, 'creator', 80, 3);
+  const row = (await creatorList(member, 'active', '', 0, id))[0];
+  if (!row) throw new HttpError(404, 'This creator is no longer in the library.');
+  return row;
 }
 
 const httpsUrl = (value: unknown, name: string, max = 300) => {

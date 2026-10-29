@@ -29,7 +29,7 @@ export async function api<T>(path: string, input?: unknown, signal?: AbortSignal
   }
   return value as T;
 }
-export function useResource<T>(path: string | null) {
+export function useResource<T>(path: string | null, retainOnError = false) {
   const [version,setVersion] = useState(0);
   const key = `${path}:${version}`;
   const [result,setResult] = useState<{ key: string; data: T | null; error: string } | null>(null);
@@ -40,10 +40,12 @@ export function useResource<T>(path: string | null) {
     api<T>(path, undefined, controller.signal).then(data => {
       if (!controller.signal.aborted) setResult({ key, data, error: '' });
     }).catch(error => {
-      if (!controller.signal.aborted) setResult({ key, data: null, error: error instanceof Error ? error.message : 'Request failed.' });
+      if (!controller.signal.aborted) setResult(previous => ({ key,
+        data: retainOnError && previous?.key.slice(0, previous.key.lastIndexOf(':')) === path ? previous.data : null,
+        error: error instanceof Error ? error.message : 'Request failed.' }));
     });
     return () => controller.abort();
-  },[path,key]);
+  },[path,key,retainOnError]);
   const current = path && result?.key === key ? result : null;
   // While the same resource reloads, keep showing what was there, so open panels and their confirmations stay mounted.
   const previous = path && result?.data && result.key.slice(0, result.key.lastIndexOf(':')) === path ? result : null;
