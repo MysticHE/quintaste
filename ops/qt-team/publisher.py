@@ -454,6 +454,31 @@ def prepare(packages, live):
     return selected,[asset for sha256,asset in image_assets.items() if sha256 in used],held
 
 
+def apply_review_edits(candidates, review):
+    """QT Manager's corrections from the final review (recipe_edits), applied to the exact payloads before the batch is made. The
+    recipe rules and the app's limits are checked again; an edit that fails turns that approval into a hold (owner, 30 Oct 2026)."""
+    import recipe_edits
+    from recipe_policy import require_recipe
+    by_key = {c['kind']+':'+c['id']: c for c in candidates}
+    for decision in review.get('decisions', []):
+        candidate = by_key.get(decision.get('key'))
+        if not candidate or not decision.get('edits') or decision.get('decision') != 'approved':
+            continue
+        try:
+            if candidate['kind'] != 'recipe':
+                raise recipe_edits.EditError('edits are only for recipes')
+            data, log = recipe_edits.apply(candidate['data'], decision['edits'])
+            if 'adaptationNote' in data:
+                data['adaptationNote'] = plain_note(data['adaptationNote'])
+            require_recipe(data)
+            if (problem := server_recipe_problem(data)):
+                raise recipe_edits.EditError(problem)
+            candidate['data'] = data
+            decision['reason'] = (decision['reason'] + ' Edits: ' + '; '.join(e['path'] for e in log))[:1800]
+        except (ValueError, KeyError, TypeError) as exc:
+            decision.update(decision='hold', reason=(str(decision.get('reason', '')) + ' Edits not applied: ' + str(exc))[:1800])
+
+
 def set_aside_held_images(review):
     """A recipe image QT Manager held is moved aside (images/<key>.held-<time>, with the reason), so Cooker draws a new one next round
     instead of the same image being reviewed again for ever (22 Oct 2026, step photos). Venue and place images are left as they are."""
@@ -695,11 +720,15 @@ def publication_review(candidates, images, held, folder, policy, acceptance=Fals
       'while a drawing of the food a flavour is named after (bread for a "Banana Bread" gelato) does not. '
       'Approve it when it shows appetising plant-based food fitting the listed dishes with no meat, fish or seafood, and has no text, '
       'letters, logos, signs, people, hands, shopfront or recognisable venue interior. '
-      'Return ONLY JSON {decisions:[{key:"kind:id",decision:"approved"|"hold",reason:string}],images:[{sha256:string,decision:"approved"|"hold",reason:string}],summary:string}. '
+      'Return ONLY JSON {decisions:[{key:"kind:id",decision:"approved"|"hold",reason:string,edits?:[{path,value,reason}]}],images:[{sha256:string,decision:"approved"|"hold",reason:string}],summary:string}. '
       'Recipe dietary.contains can only use the app\'s fixed tags (Garlic, Onion, Leeks, Chives, Scallions, Shallots, Asafoetida, Eggs, '
       'Dairy, Honey, Peanuts, Tree nuts, Gluten, Mushrooms, Root vegetables). Other allergens such as sesame or soy cannot be tagged '
       'and are visible in the ingredient list, so never hold a recipe for a missing tag outside this list. '
-      'Give one decision per candidate and image. Do not change payloads. Use saved captured evidence; fetch a source only if necessary, never Google APIs.\n'
+      'Give one decision per candidate and image. FIX, DON\'T HOLD (owner, 30 Oct 2026): a recipe that needs only a small correction you have verified '
+      '(credit, timing, the adaptation note, an amount or unit, an ingredient\'s name, a step\'s wording) is approved WITH edits:[{path,value,reason}] on its '
+      'payload (paths: name, author, adaptationNote, description, minutes, servings, ingredients.<id>.name|amount|unit, steps.<number from 1>.title|instruction); '
+      'the publisher applies them and checks the result again. Hold only what an edit cannot fix; a wrong picture is held under images and redrawn with your reason. '
+      'Make no other payload change. Use saved captured evidence; fetch a source only if necessary, never Google APIs.\n'
       +js_json({'candidates':[__import__('veg_kitchen').manager_view(c) for c in candidates],'images':[dict(i,requestHash=Path(i['file']).parent.name) for i in images],'held':held,'sourceCaptures':excerpts,
         'recipeIdentityBaseline':baseline['recipeNames'],
         'identityCheck':'The fixed publisher compares exact IDs and normalized names with every packaged recipe and every live published recipe before acceptance. Compare the listed baseline semantically as well. Older status reports predate this adapter and its full baseline checks.'}))
@@ -767,6 +796,7 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         write(folder/'candidates.json',{'parent':live['revision'],'candidates':candidates,'images':images,'held':held})
         if not candidates:return {'status':'no-eligible-changes','productionWrites':0,'held':held}
         review=publication_review(candidates,images,held,folder/'manager-publication',policy)
+        apply_review_edits(candidates,review)
         set_aside_held_images(review)
         batch=make_batch(candidates,images,review,live['revision'],'qt-'+dt.datetime.now(dt.timezone.utc).strftime('%Y%m%d-%H%M%S'))
         write(folder/'batch.json',batch)

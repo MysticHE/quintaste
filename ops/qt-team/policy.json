@@ -7,7 +7,7 @@
   "eventCadence": "daily-known-events-weekly-discovery",
   "exploreBatchSize": 4,
   "maxExploreBatchesPerRun": 50,
-  "maxRecipesPerCycle": 2,
+  "maxRecipesPerCycle": 3,
   "maxEventsPerRun": 20,
   "workerSeconds": 900,
   "workerMaxTurns": 40,
@@ -33,8 +33,8 @@
     "blockedSourceRetryDays": 30,
     "preservePriorVerificationOnFetchFailure": true
   },
-  "workWindow": "Explorer 24 hours; Cooker and Event 18:00-22:00 Asia/Singapore",
-  "researchCutoff": "Last 15 minutes of each ~55-minute tick; Cooker/Event start no later than 21:45",
+  "workWindow": "Explorer 24 hours; Event 18:00-22:00 Asia/Singapore; Cooker any hour until dailyRecipeTarget recipes are published (owner, 30 Oct 2026)",
+  "researchCutoff": "None while timeLimits is false (owner, 30 Oct 2026): rounds run until done; hangSeconds only guards a stuck call",
   "monthlyModelAlertPercent": 80,
   "googleFreeOnly": {
     "requestedByOwner": true,
@@ -53,5 +53,8 @@
       "placeDetailsPhotos": 1000
     }
   },
-  "mixedKitchenParallel": 2
+  "mixedKitchenParallel": 2,
+  "timeLimits": false,
+  "hangSeconds": 3600,
+  "dailyRecipeTarget": 5
 }

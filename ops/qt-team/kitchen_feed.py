@@ -29,7 +29,7 @@ MAX_ITEMS, MAX_BYTES, MAX_TEXT = 40, 15_500, 90
 LIVE = dt.timedelta(minutes=10)  # QT Gamer and the writer count as working this long after their last file
 STUCK = dt.timedelta(minutes=45)  # a call's live.json older than this was left by a killed round, not a running call
 RECENT = dt.timedelta(minutes=3)  # stays working this long after a call ends, so the short gaps between calls do not flicker
-ROLE_WINDOWS = {'wok': BOT_WINDOWS['qt-cooker'], 'host': BOT_WINDOWS['qt-event']}  # the bots' own shift hours (SGT)
+ROLE_WINDOWS = {chef: BOT_WINDOWS[role] for chef, role in (('wok', 'qt-cooker'), ('host', 'qt-event')) if role in BOT_WINDOWS}  # shift hours (SGT)
 RUN_FOLDERS = {
     'scout': ('explorer-', 'veg-kitchen-', 'mixed-kitchen-', 'cover-search'),
     'wok': ('cooker', 'creator-scout'),

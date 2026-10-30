@@ -1,5 +1,7 @@
 """Work schedule (owner, 18 Oct 2026): Explorer, Manager review and publication run around the clock in
-rolling ~55-minute ticks; Cooker and Event run 6-10 pm Singapore time. Short cron ticks resume checkpoints."""
+rolling ~55-minute ticks; Event runs 6-10 pm Singapore time. Short cron ticks resume checkpoints.
+Owner, 30 Oct 2026: Cooker has no window; it works any hour until the day's recipe target is published (policy
+dailyRecipeTarget), and with policy timeLimits false no tick deadline applies (workflow.without_time_limits)."""
 import datetime as dt
 from zoneinfo import ZoneInfo
 
@@ -8,7 +10,7 @@ SG = ZoneInfo('Asia/Singapore')
 
 TICK_SECONDS = 3300          # one supervised tick; the next cron tick resumes from checkpoints
 RESEARCH_TAIL = 900          # last 15 minutes of a tick: review and publish only
-ROLE_WINDOWS = {'qt-cooker': (18, 22), 'qt-event': (18, 22)}  # SGT [start, end) hours; others always
+ROLE_WINDOWS = {'qt-event': (18, 22)}  # SGT [start, end) hours; others always (Cooker since 30 Oct 2026)
 LAST_START = 15 * 60         # no new Cooker/Event work in the final 15 minutes of their window
 
 

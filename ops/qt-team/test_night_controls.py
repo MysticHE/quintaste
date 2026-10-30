@@ -71,8 +71,9 @@ class NightControls(unittest.TestCase):
         for patcher in self.patches: patcher.stop()
         self.temp.cleanup()
 
-    def test_explorer_all_day_and_cooker_event_only_6_to_10_pm(self):
-        # Owner schedule, 18 Oct 2026: rolling ticks all day; Cooker/Event start between 18:00 and 21:45 SGT.
+    def test_explorer_and_cooker_all_day_and_event_only_6_to_10_pm(self):
+        # Owner schedule, 18 Oct 2026: rolling ticks all day; Event starts between 18:00 and 21:45 SGT.
+        # Owner, 30 Oct 2026: Cooker works any hour (until the day's recipe target is published).
         for hour in (0, 3, 9, 13, 23):
             window=n.limits(dt.datetime(2026,10,18,hour,0,tzinfo=n.SG))
             self.assertTrue(window['active'] and window['research'])
@@ -80,7 +81,7 @@ class NightControls(unittest.TestCase):
             self.assertTrue(n.role_open('qt-explorer',dt.datetime(2026,10,18,hour,0,tzinfo=n.SG)))
         for hour,minute,open_ in [(17,59,False),(18,0,True),(21,45,True),(21,46,False),(22,0,False),(2,0,False)]:
             at=dt.datetime(2026,10,18,hour,minute,tzinfo=n.SG)
-            self.assertEqual((n.role_open('qt-cooker',at),n.role_open('qt-event',at)),(open_,open_),(hour,minute))
+            self.assertEqual((n.role_open('qt-cooker',at),n.role_open('qt-event',at)),(True,open_),(hour,minute))
 
     def test_80_percent_alert_once_and_month_reset(self):
         t.write(self.root/'policy.json',{'monthlyModelInvocations':2000})

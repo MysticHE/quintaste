@@ -22,7 +22,8 @@ import setup
 HERE = Path(__file__).resolve().parent
 NAMES = ['recipe_quality.py', 'recipe_charter.py', 'recipe_charter.json', 'recipe_standards.py', 'recipe_page.py', 'nutrition.py', 'nutrition_sg.json',
          'publisher.py', 'workflow.py', 'roles/qt-cooker.md', 'roles/qt-manager.md', 'learning.py',
-         'test_workflow.py', 'recipe_policy.py']  # its tests run on the server before the change is kept
+         'test_workflow.py', 'recipe_policy.py', 'recipe_edits.py', 'night_window.py', 'kitchen_feed.py', 'image_worker.py',
+         'test_night_controls.py']  # its tests run on the server before the change is kept
 TESTS = ['test_workflow', 'test_creator_scout', 'test_publisher', 'test_telegram_reporter', 'test_learning', 'test_night_controls', 'test_recipe_policy',
          'test_publication_delivery', 'test_menu_coverage', 'test_outlet_capture', 'test_gamer']
 

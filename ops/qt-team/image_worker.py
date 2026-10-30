@@ -7,7 +7,7 @@ import sys
 
 # Hermes owns provider authentication, model selection and image transport.
 sys.path.insert(0, '/opt/hermes')
-os.environ['HERMES_HOME'] = '/opt/data/profiles/qt-cooker'
+os.environ['HERMES_HOME'] = '/opt/data/profiles/qt-gamer'  # QT Gamer draws the pictures (owner, 30 Oct 2026); same image engine
 from tools.image_generation_tool import _handle_image_generate
 from PIL import Image
 
@@ -35,7 +35,7 @@ if not result.get('success'):
     (request_path.parent / 'failure.json').write_text(json.dumps({'status': 'failed', 'errorType': result.get('error_type'), 'error': str(result.get('error', ''))[:400]}))
     raise SystemExit('Hermes image provider returned failure; no automatic retry')
 source = pathlib.Path(result['image']).resolve()
-allowed = pathlib.Path('/opt/data/profiles/qt-cooker/cache').resolve()
+allowed = pathlib.Path('/opt/data/profiles/qt-gamer/cache').resolve()
 if not source.is_relative_to(allowed) or not source.is_file() or source.stat().st_size > 25 * 1024 * 1024:
     raise SystemExit('Image result is outside the profile cache or too large')
 original_hash = hashlib.sha256(source.read_bytes()).hexdigest()
