@@ -374,6 +374,8 @@ def _assess(root, url):
              - CONCERN_PENALTY * len(concerns))
     return {'url': url, 'site': site, 'siteName': known or site, 'trusted': bool(known), 'name': _norm(recipe.get('name', ''))[:160], 'author': author[:160],
             'rating': value, 'ratings': int(count or 0), 'minutes': total, 'ingredients': lines[:40], 'steps': steps, 'plainPage': plain,
+            'timing': {k: v for k, v in (('prep', minutes(recipe.get('prepTime'))), ('cook', minutes(recipe.get('cookTime'))), ('total', total))
+                       if v is not None},
             'outsidePantry': [core(x) for x in outside], 'passes': not hard, 'reasons': hard, 'concerns': concerns, 'score': round(score, 3),
             'path': 'rated' if rated else 'content',
             'content': recipe_standards.summary(figures) if figures and not content else 'measured on the QuinTaste version',
@@ -416,7 +418,16 @@ def gate(root, record):
         if source['path'] == 'rated':
             recipe['sourceRating'] = {'value': round(source['rating'], 1), 'count': source['ratings'], 'site': source['siteName'][:80],
                                       'url': source['url'], 'checkedAt': source['checkedAt']}
-        recipe['author'] = source['author']  # the credit comes from the page's own data, not the model
+        # The credit comes from the page's own data, not the model; but a site login such as 'weiny' is the account that posted
+        # it, not its creator (30 Oct 2026: QT Manager held a Tzu Chi volunteers' recipe credited to 'weiny'). Then Cooker's named
+        # credit is used, or the site's name.
+        own = recipe.get('author') if isinstance(recipe.get('author'), str) else ''
+        login = re.fullmatch(r'[a-z0-9_.-]{2,24}', source['author'] or '')
+        recipe['author'] = (own.strip() if own.strip() and not re.fullmatch(r'[a-z0-9_.-]{2,24}', own.strip()) else source['siteName']) if login else source['author']
+        # The source's own timing, read from the page, so Cooker cannot misstate it (30 Oct 2026: a curry held for "prep 12, cook
+        # 18" when the page says 10 and 15); without one, the total is marked as an editorial estimate.
+        recipe['sourceTimingMinutes'] = ({**source['timing'], 'note': 'as the source page states (read by the coordinator)'} if source.get('timing')
+                                         else {'estimated': True, 'note': 'the source page states no time; the total is an editorial estimate'})
         try:  # optional: a recipe without reliable nutrition is still published, just without the section
             import nutrition
             nutrition.attach(root, recipe, fetch(root, source['url']).get('recipe'), source['siteName'])
