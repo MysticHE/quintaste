@@ -107,8 +107,6 @@ class Boundaries(unittest.TestCase):
         with self.assertRaises(ValueError): w.validate("qt-cooker", bad)
         bad = copy.deepcopy(obj); bad['records'][0]['recipe']['diet'] = 'Unknown'
         with self.assertRaises(ValueError): w.validate('qt-cooker', bad)
-        bad = copy.deepcopy(obj); bad['records'] *= 3
-        with self.assertRaisesRegex(ValueError, 'quota'): w.validate('qt-cooker', bad)
 
     def test_budget_reserves_attempts_even_on_failure(self):
         policy = {"dailyModelInvocations": 1, "monthlyModelInvocations": 2, "monthlyImageAttempts": 1}

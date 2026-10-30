@@ -259,6 +259,14 @@ def recipe_contains(r):
     return sorted(contains)
 
 
+def qualification(row):
+    """The coordinator's own qualification of a recipe ('Qualified by content: source of vitamin A...', written last into its
+    notes by recipe_quality.gate). QT Manager's final review sees it beside the record; it is never sent to the app.
+    30 Oct 2026: the final review held a content-qualified curry because the packet showed only its 2-vote star rating."""
+    found = re.search(r'Qualified by (?:rated|content):.*', str(row.get('notes', '')), re.S)
+    return found.group(0).strip()[:700] if found else None
+
+
 def plain_note(text):
     """The app shows notes as plain text: drop Markdown citations like ([site](url)) and keep link words only."""
     text = re.sub(r'\s*\(\[[^\]]*\]\([^)]*\)\)', '', str(text))
@@ -417,7 +425,8 @@ def prepare(packages, live):
                             raise ValueError('Owner removed this identity; automatic republication blocked')
                     if any(x['kind'] == kind and x['id'] == row['id'] and (x.get('proposalHash') == proposal_hash or x.get('dataHash') == sha(data)) for x in live.get('reverts', [])):
                         raise ValueError('Owner reverted this proposal; automatic republication blocked')
-                    candidates.append({'kind':kind,'id':row['id'],'data':data,'sources':evidence,'expectedHash':states.get(key),'proposalHash':proposal_hash})
+                    candidates.append({'kind':kind,'id':row['id'],'data':data,'sources':evidence,'expectedHash':states.get(key),'proposalHash':proposal_hash,
+                                       **({'qualification':q} if kind == 'recipe' and (q := qualification(row)) else {})})
                 except (KeyError,ValueError,TypeError) as exc: held.append({'kind':kind,'id':row['id'],'reason':str(exc)})
     closure_candidates(live, states, outcomes, candidates, held)
     cover_candidates(live, states, outcomes, candidates, held, image_assets)
@@ -717,7 +726,8 @@ def make_batch(candidates, images, review, parent, batch_id):
         used.update(new)
         reason=d['reason'].strip() if len(d['reason'].strip())>=10 else 'Approved by QT Manager: '+d['reason'].strip()  # server: 10-1800 chars
         data=js_numbers(r['data'])  # sent and hashed exactly as the server will see it
-        records.append(dict(r,data=data,review={'decision':'approved','reviewedBy':'QT Manager','dataHash':sha(data),'reason':reason[:1800]}))
+        record={k:v for k,v in r.items() if k!='qualification'}  # for QT Manager only, never sent
+        records.append(dict(record,data=data,review={'decision':'approved','reviewedBy':'QT Manager','dataHash':sha(data),'reason':reason[:1800]}))
     for image in images:
         if image['sha256'] not in used:continue
         raw=Path(image['file']).read_bytes()
