@@ -242,10 +242,30 @@ def chef_activity(prefixes: tuple[str, ...], runs: list[Path], now: dt.datetime)
     return since, last
 
 
+# Round stages that are work without a model call (workflow.mark_stage): pictures and publishing above all (owner, 30 Oct 2026).
+STAGE_CHEFS = {'cooker': 'wok', 'recipe_audit': 'wok', 'creator_scout': 'wok', 'event': 'host', 'explorer': 'scout',
+               'cover_search': 'scout', 'veg_kitchen': 'scout', 'mixed_kitchen': 'scout', 'manager_review': 'head',
+               'images': 'artist', 'gamer': 'artist', 'publish': 'head'}
+STAGE_SETTLE = dt.timedelta(seconds=30)  # a stage with nothing to do ends at once; only one still running after this counts
+
+
+def stage_now(now: dt.datetime) -> tuple[str | None, dt.datetime | None]:
+    """(chef, since) for the stage the running round is in, or (None, None). A marker whose round is gone is ignored."""
+    marker = read(ROOT / 'state' / 'stage.json', {}) or {}
+    started = when(marker.get('startedAt'))
+    pid = marker.get('pid')
+    if not (started and isinstance(pid, int) and Path(f'/proc/{pid}').exists() and now - started >= STAGE_SETTLE):
+        return None, None
+    return STAGE_CHEFS.get(marker.get('stage')), started
+
+
 def chef_states(now: dt.datetime) -> list[dict]:
     """Working while a model call runs (and a few minutes after), at any hour: the owner wants the page live (30 Oct 2026)."""
     runs = [r for r in sorted((ROOT / 'runs').glob('2*'))[-6:] + sorted((ROOT / 'runs').glob('publish-*'))[-3:] if r.is_dir()]
     activity = {chef: chef_activity(prefixes, runs, now) for chef, prefixes in RUN_FOLDERS.items()}
+    staged, staged_since = stage_now(now)
+    if staged in activity and not activity[staged][0]:
+        activity[staged] = (staged_since, activity[staged][1])  # working this stage though no model call runs right now
     busy = {chef: bool(since or last and now - last < RECENT) for chef, (since, last) in activity.items()}
     states = []
     for chef in ('scout', 'wok', 'host'):
@@ -267,7 +287,8 @@ def chef_states(now: dt.datetime) -> list[dict]:
     if waiting:
         states.append({'id': 'artist', 'state': 'waiting', 'waiting': waiting})
     else:
-        states.append({'id': 'artist', 'state': 'working' if drawn and now - drawn < LIVE else 'resting'})
+        artist = staged == 'artist' or bool(drawn and now - drawn < LIVE)  # drawing recipe pictures or game art
+        states.append({'id': 'artist', 'state': 'working' if artist else 'resting', **({'since': iso(staged_since)} if staged == 'artist' else {})})
     wrote = mtime(ROOT / 'ai-recipes' / 'last.json')
     states.append({'id': 'writer', 'state': 'working' if wrote and now - wrote < LIVE else 'resting'})
     return states

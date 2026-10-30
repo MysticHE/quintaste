@@ -2036,6 +2036,21 @@ class Round:
         print(report_text)
 
 
+def mark_stage(name):
+    """The stage this round is in, for the kitchen page (owner, 30 Oct 2026: show the chefs busy while pictures are drawn and
+    recipes published, not only during model calls). The pid lets the page ignore a marker left by a round that died."""
+    path = ROOT / 'state' / 'stage.json'
+    try:
+        if name is None:
+            path.unlink(missing_ok=True)
+        else:
+            tmp = path.with_suffix('.tmp')
+            tmp.write_text(json.dumps({'stage': name, 'startedAt': now(), 'pid': os.getpid()}), encoding='utf-8')
+            os.replace(tmp, path)
+    except OSError:
+        pass  # the page is a nicety; never stop a round for it
+
+
 def without_time_limits(policy):
     """Owner, 30 Oct 2026: no time limits at any stage. With policy timeLimits false a round runs until its work is done (the
     next cron tick waits on the run lock), so no stage is skipped or deferred for time. Each model call keeps only a guard
@@ -2070,7 +2085,9 @@ def run(trial=False, nightly=False):
     tick = Round(policy, trial, nightly)
     tick.prepare()
     for stage in tick.stages():
+        mark_stage(stage.__name__)
         stage()
+    mark_stage(None)
     if tick.errors:
         sys.exit(1)
 
