@@ -14,7 +14,7 @@ export const dairy = /(?<!\b(coconut|oat|soy|soya|almond|rice|cashew|peanut|plan
 /** @type {Array<[string, RegExp]>} */
 const TAGS = [
   ['Garlic', /\bgarlic\b/], ['Onion', /\b(onions?|bawang)\b/], ['Shallots', /\bshallots?\b/], ['Scallions', /\b(scallions?|spring onions?|green onions?)\b/],
-  ['Leeks', /\bleeks?\b/], ['Chives', /\bchives?\b/], ['Asafoetida', /\b(asafoetida|hing)\b/],
+  ['Leeks', /\bleeks?\b/], ['Chives', /\bchives?\b/], ['Asafoetida', /\b(asafoetida|(?<!chin )hing)\b/],  // not the Oh Chin Hing sesame oil brand
   // Egg-based foods count as egg (kaya, mayonnaise, custard, meringue, aioli, brioche) unless named vegan or plant-based;
   // custard powder is cornflour, so it is not.
   ['Eggs', /(?<!\b(vegan|plant-based|eggless)\s)\b(eggs?|kaya|mayo|mayonnaise|custard(?!\s+powder)|meringues?|aioli|brioche)\b/],

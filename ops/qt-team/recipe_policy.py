@@ -11,7 +11,7 @@ RULE = ('QuinTaste recipe rule (owner requirement): exclude all five pungent veg
         'This rule applies to recipe eligibility, not a claim about all vegetarian traditions.')
 
 PUNGENT = re.compile(r'\b(?:garlic|onions?|shallots?|scallions?|leeks?|chives?|alliums?|'
-                     r'asafoetida|asafetida|hing|heeng|ramps?|rakkyo|bawang|kucai)\b|[葱蔥蒜韭薤]|兴渠|興渠', re.I)
+                     r'asafoetida|asafetida|(?<!chin )hing|heeng|ramps?|rakkyo|bawang|kucai)\b|[葱蔥蒜韭薤]|兴渠|興渠', re.I)
 
 
 def problem(recipe):

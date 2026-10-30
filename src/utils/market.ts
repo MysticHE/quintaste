@@ -76,7 +76,7 @@ const animal = /\b(egg|eggs|milk|butter|cream|cheese|ghee|whey|yogh?urt|honey|ge
 /** Plant-based names that contain a dairy word, such as coconut milk or peanut butter. */
 const plantDairy = /\b(coconut|soy|soya|oat|almond|rice|cashew|nut|peanut|cocoa|shea|vegan|plant[- ]based)\s+(milk|butter|cream|cheese|yogh?urt)\b|\bcream of tartar\b/gi;
 const roots = /\b(potato(es)?|carrots?|beetroots?|radish(es)?|ginger|garlic|onions?|turnips?|yams?|cassava|tapioca|turmeric|leeks?|shallots?|scallions?)\b/i;
-const pungent = /\b(garlic|onions?|leeks?|chives|scallions?|shallots?|spring onions?|asafoetida|hing)\b/i;
+const pungent = /\b(garlic|onions?|leeks?|chives|scallions?|shallots?|spring onions?|asafoetida|(?<!chin )hing)\b/i; // not the Oh Chin Hing brand
 const meat = /\b(chicken|beef|pork|mutton|lamb|fish|prawns?|shrimp|crab|squid|anchov(y|ies)|ikan bilis|belacan|bacon|ham|lard|gelatine?)\b/i;
 const qualified = /\b(vegetarian|vegan|mock|plant[- ]based|meatless)\b/i;
 /** A hard contradiction between declared practices and declared allergens; the server blocks the same. */
