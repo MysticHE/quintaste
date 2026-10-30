@@ -73,7 +73,8 @@ h1, h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.
 
 .link-button { min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--accent); font: 700 .95rem var(--font-body); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
-.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px var(--gutter); }
+/* The logo row is part of the kitchen grid, so on wide screens the scene starts level with it (owner, 30 Oct 2026). */
+.top { display: flex; align-items: center; gap: 12px; padding-top: 10px; }
 .brand img { width: 112px; min-width: 96px; height: auto; }
 @media (prefers-color-scheme: dark) { .brand img { filter: brightness(0) invert(.96); } }
 /* The language switch sits in the scene's top right corner (owner, 30 Oct 2026), on a card like the notice. */
@@ -85,8 +86,7 @@ h1, h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.
 }
 .lang button[aria-pressed="true"] { background: var(--muted); color: var(--foreground); }
 
-.kitchen { display: grid; gap: 18px; padding: 0 var(--gutter) 28px; }
-.intro { padding-top: 6px; }
+.kitchen { display: grid; gap: 12px; padding: 0 var(--gutter) 28px; }
 h1 { font-size: clamp(2.3rem, 3.2vw + 1.4rem, 4.2rem); }
 .lead { margin: 12px 0 0; max-width: 34ch; font-size: 1.08rem; color: var(--muted-foreground); }
 
@@ -309,14 +309,19 @@ h2 { font-size: clamp(1.5rem, 1.2vw + 1.2rem, 2rem); }
   .how-list li { grid-template-columns: 1fr; align-items: start; }
 }
 
+/* Wide screens: the scene takes three quarters of the width from the logo row down; the intro and tickets share the rest. */
 @media (min-width: 1200px) {
   .kitchen {
-    grid-template-columns: minmax(340px, 400px) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 32px;
-    grid-template-areas: "intro scene" "rail scene" "rail how"; align-items: start;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); grid-template-rows: auto auto auto 1fr; column-gap: 28px; row-gap: 14px;
+    grid-template-areas: "top scene" "intro scene" "rail scene" "rail how"; align-items: start; padding-top: 16px;
   }
-  .intro { grid-area: intro; padding-top: 18px; }
+  .top { grid-area: top; padding-top: 0; }
+  .intro { grid-area: intro; }
+  h1 { font-size: clamp(2.2rem, 1.6vw + 1rem, 3.2rem); }
+  .lead { font-size: 1rem; }
   .scene-wrap { grid-area: scene; }
   .rail-wrap { grid-area: rail; }
+  .rail-wrap h2 { font-size: 1.6rem; }
   .kitchen > .how { grid-area: how; padding: 26px 0 0; }
 }
 
