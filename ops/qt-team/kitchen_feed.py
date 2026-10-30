@@ -26,7 +26,8 @@ SG = dt.timezone(dt.timedelta(hours=8))
 DELAY = dt.timedelta(0)  # owner, 30 Oct 2026: tickets show as soon as they are published
 WINDOW = dt.timedelta(days=13)  # the app accepts items from the last 14 days
 MAX_ITEMS, MAX_BYTES, MAX_TEXT = 40, 15_500, 90
-LIVE = dt.timedelta(minutes=10)  # a call whose files have not changed for this long has stopped (crashed), not running
+LIVE = dt.timedelta(minutes=10)  # QT Gamer and the writer count as working this long after their last file
+STUCK = dt.timedelta(minutes=45)  # a call's live.json older than this was left by a killed round, not a running call
 RECENT = dt.timedelta(minutes=3)  # stays working this long after a call ends, so the short gaps between calls do not flicker
 ROLE_WINDOWS = {'wok': BOT_WINDOWS['qt-cooker'], 'host': BOT_WINDOWS['qt-event']}  # the bots' own shift hours (SGT)
 RUN_FOLDERS = {
@@ -229,13 +230,15 @@ def calls(prefixes: tuple[str, ...], runs: list[Path]):
 
 
 def chef_activity(prefixes: tuple[str, ...], runs: list[Path], now: dt.datetime) -> tuple[dt.datetime | None, dt.datetime | None]:
-    """(since, last): since is when the chef's running call started (None when nothing runs now); last is its latest touch."""
+    """(since, last): since is when the chef's running call started (None when nothing runs now); last is its latest touch.
+    A call is running while its live.json exists (workflow.execute_model writes it and removes it when the call ends, failed
+    or not), however long the model stays quiet."""
     since = last = None
     for folder in calls(prefixes, runs):
-        touched = newest(mtime(f) for f in folder.iterdir())
-        last = newest([last, touched])
-        if not (folder / 'receipt.json').exists() and touched and now - touched < LIVE:  # started, not finished, still writing
-            since = newest([since, mtime(folder / 'prompt.txt')])
+        last = newest([last, newest(mtime(f) for f in folder.iterdir())])
+        started = mtime(folder / 'live.json')
+        if started and now - started < STUCK:
+            since = newest([since, started])
     return since, last
 
 
@@ -297,22 +300,39 @@ def push(feed: dict) -> dict:
         return json.loads(response.read(10_000))
 
 
+def push_latest(editorial) -> dict | None:
+    """Push the newest snapshot, one push at a time. A push asked for while another runs leaves `wanted` and returns at once;
+    the running push sees it and sends once more. So a burst of pings from parallel calls costs one or two pushes, never a
+    queue of waiting processes, and the alarm stops a hung push before the timer's 120 s limit so the lock is never held."""
+    import fcntl
+    import signal
+    signal.alarm(110)
+    wanted, result = ROOT / 'state' / 'kitchen-feed.wanted', None
+    wanted.touch()
+    while wanted.exists():  # checked again after the lock is released, so a request made just then is not lost
+        with (ROOT / 'state' / 'kitchen-feed.lock').open('a+') as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return result
+            while wanted.exists():
+                wanted.unlink(missing_ok=True)
+                feed = build(editorial('GET', '/control/state'))
+                result = push(feed)
+                (ROOT / 'state' / 'kitchen-feed.json').write_text(json.dumps({'pushedAt': feed['generatedAt'], 'items': result.get('items')}),
+                                                                  encoding='utf-8')
+    return result
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--push', action='store_true', help='send the snapshot to the app')
     args = ap.parse_args()
     from publisher import request as editorial  # the signed, read-only state route the publisher already uses
-    if args.push:  # one push at a time: a start and an end push can arrive together; the later one waits and sends the newer state
-        import fcntl
-        lock = (ROOT / 'state' / 'kitchen-feed.lock').open('a+')
-        fcntl.flock(lock, fcntl.LOCK_EX)
-    feed = build(editorial('GET', '/control/state'))
     if args.push:
-        result = push(feed)
-        (ROOT / 'state' / 'kitchen-feed.json').write_text(json.dumps({'pushedAt': feed['generatedAt'], 'items': result.get('items')}), encoding='utf-8')
-        print(json.dumps(result))
+        print(json.dumps(push_latest(editorial)))
     else:
-        print(json.dumps(feed, ensure_ascii=False, indent=1))
+        print(json.dumps(build(editorial('GET', '/control/state')), ensure_ascii=False, indent=1))
 
 
 if __name__ == '__main__':

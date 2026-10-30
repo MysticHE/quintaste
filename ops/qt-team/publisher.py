@@ -132,13 +132,14 @@ def diet_names(ingredients):
 
 SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(' + DAIRY_WORDS + r')\b', 'Dairy'), (r'\bhoney\b', 'Honey'),
                (r'\bgarlic\b', 'Garlic'), (r'\bonions?\b', 'Onion'), (r'\bsoy sauce|\bwheat\b', 'Gluten'))
-# Allergen tags the app finds in ingredient names (server/diet-labels.mjs TAGS) but the server does not require: QT Manager
-# holds a recipe whose almond milk is not tagged Tree nuts (22 Oct 2026, golden milk).
-# 30 Oct 2026: a pumpkin and shimeji rice bowl was held for its missing Mushrooms tag; Root vegetables follows the same app rule.
-NUT_TAGS = ((r'\bpeanuts?\b', 'Peanuts'), (r'\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b', 'Tree nuts'),
+# Tags the app finds in ingredient names (server/diet-labels.mjs TAGS) but the server does not require. QT Manager holds a
+# recipe that misses one: almond milk not tagged Tree nuts (22 Oct 2026, golden milk), shimeji not tagged Mushrooms (30 Oct 2026).
+NAME_TAGS = ((r'\bpeanuts?\b', 'Peanuts'), (r'\b(almonds?|cashews?|walnuts?|pecans?|pistachios?|hazelnuts?|macadamias?)\b', 'Tree nuts'),
             (r'\b(mushrooms?|shiitake|enoki|shimeji|portobello)\b', 'Mushrooms'),
             (r'\b(potato(es)?|carrots?|radish(es)?|turnips?|beet(root)?s?|yams?|taro|sweet potato(es)?|ginger|lotus root|onions?|garlic|shallots?)\b',
              'Root vegetables'))
+# Declared tags Cooker may write in other words, mapped to the app's tag names.
+TAG_ALIASES = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms', 'root vegetables': 'Root vegetables'}
 EVENT_FIELDS = ('id','title','organiser','startsAt','endsAt','location','address','feeAmount','currency','feeNote','registrationUrl',
                 'registrationDeadline','dietEvidence','status','checkedAt','sources')  # server/editorial/validation.mjs validateEvent
 
@@ -251,10 +252,9 @@ def server_recipe_problem(d):
 
 def recipe_contains(r):
     """Exclusion tags recipe_data publishes: declared tags plus those implied by ingredient names."""
-    aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms', 'root vegetables': 'Root vegetables'}
-    contains = {aliases[t.lower()] for t in r.get('contains', []) if isinstance(t, str) and t.lower() in aliases}
+    contains = {TAG_ALIASES[t.lower()] for t in r.get('contains', []) if isinstance(t, str) and t.lower() in TAG_ALIASES}
     names = diet_names(r.get('ingredients', []))
-    for pattern, tag in SERVER_TAGS + NUT_TAGS:
+    for pattern, tag in SERVER_TAGS + NAME_TAGS:
         if re.search(pattern, names, re.ASCII): contains.add(tag)
     return sorted(contains)
 
@@ -272,11 +272,7 @@ def recipe_data(row, evidence):
     require_recipe(r)
     if r.get('compoundIngredientsUnconfirmed'):
         raise ValueError('Unconfirmed compound ingredients')
-    contains = set(recipe_contains(r))
-    aliases = {'egg': 'Eggs', 'eggs': 'Eggs', 'dairy': 'Dairy', 'honey': 'Honey', 'gluten': 'Gluten', 'wheat': 'Gluten', 'garlic': 'Garlic', 'onion': 'Onion', 'peanuts': 'Peanuts', 'tree nuts': 'Tree nuts', 'mushrooms': 'Mushrooms', 'root vegetables': 'Root vegetables'}
-    for tag in r.get('contains', []):
-        if tag.lower() in aliases:
-            contains.add(aliases[tag.lower()])
+    contains = set(recipe_contains(r))  # declared tags (TAG_ALIASES) plus those found in ingredient names
     checked = max(s['checkedAt'] for s in evidence)
     author = r['author']['name'] if isinstance(r['author'], dict) else r['author']
     rating = {'sourceRating': r['sourceRating']} if isinstance(r.get('sourceRating'), dict) else {}  # attached by recipe_quality.gate, never by the model

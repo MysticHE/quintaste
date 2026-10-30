@@ -428,13 +428,21 @@ def kitchen_ping():
 def execute_model(call):
     """The model call itself (a Hermes subprocess). Thread-safe: reads no shared state and writes only the call's
     own folder. Never raises: returns {'obj', 'receipt', 'tools', 'error'}; finish_model() applies the outcome.
-    The kitchen page hears when the call starts and ends."""
+    live.json marks the call as running for the kitchen page (kitchen_feed.chef_activity), which hears when it starts and ends."""
     outcome = {'obj': None, 'receipt': None, 'tools': None, 'error': None}
+    live = call['folder'] / 'live.json'
+    try:
+        live.write_text(json.dumps({'role': call['role'], 'startedAt': now()}), encoding='utf-8')
+    except OSError:
+        live = None
     kitchen_ping()
     try:
         _execute(call, outcome)
     except Exception as exc:
         outcome['error'] = exc
+    finally:
+        if live:
+            live.unlink(missing_ok=True)
     kitchen_ping()
     return outcome
 
@@ -641,7 +649,8 @@ def worker(role, context, folder, policy, prior_sources=None):
             # coordinator had already passed each page. A hold on a written-up approved page goes to the gate and QT Manager instead.
             recipe = record.get('recipe') or {}
             first = next((s.get('url') for s in record.get('sources', []) if isinstance(s, dict) and s.get('url')), None)
-            if record.get('status') == 'held' and recipe.get('ingredients') and recipe.get('steps') and first and recipe_quality.page_key(first) in approved:
+            if (record.get('status') == 'held' and receipt.get('successfulExtractCalls') and recipe.get('ingredients') and recipe.get('steps')
+                    and first and recipe_quality.page_key(first) in approved):  # a hold because no page loaded stays a hold
                 record['status'] = 'proposed'
                 record['notes'] = 'Cooker\'s doubts, for QT Manager to judge: ' + str(record.get('notes', ''))
         for record in obj['records']:

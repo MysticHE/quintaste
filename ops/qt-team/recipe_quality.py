@@ -521,11 +521,14 @@ def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=No
     seconds = min(600, policy.get('workerSeconds', 600))
     result, _ = run_model('qt-cooker', prompt, folder, policy, seconds=seconds)
     candidates = _usable(result, skip, blocked)
-    if len(candidates) < MIN_SHORTLIST:
-        # 30 Oct 2026: a whole round's search returned 2 pages from one site. Look once more, elsewhere.
-        found = ', '.join(c['url'] for c in candidates) or 'none'
-        more, _ = run_model('qt-cooker', prompt + ' Your first search found too few pages (' + found + '). Search again on other '
-                            'websites and return new pages only.', folder.with_name(folder.name + '-more'), policy, seconds=seconds)
+    deadline = policy.get('_researchDeadline')
+    if len(candidates) < MIN_SHORTLIST and (deadline is None or time.time() + seconds < deadline):
+        # 30 Oct 2026: a whole round's search returned 2 pages from one site. Look once more, elsewhere, in half the time so a
+        # round stays short enough for the evening's rounds; every page the first search named is listed so none comes back.
+        tried = [c['url'] for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)]
+        more, _ = run_model('qt-cooker', prompt + ' Your first search found too few new pages. Skip these (found already, done '
+                            'or blocked): ' + (', '.join(tried) or 'none') + '. Search again on other websites and return new pages only.',
+                            folder.with_name(folder.name + '-more'), policy, seconds=seconds // 2)
         candidates += _usable(more, skip | {page_key(c['url']) for c in candidates}, blocked)
     candidates = candidates[:8]
     checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
