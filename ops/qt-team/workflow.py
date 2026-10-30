@@ -507,7 +507,10 @@ def _execute(call, outcome):
     discovery = ("tool_search", "tool_describe")  # Hermes built-in, read-only tool lookup (added in Hermes 0.22)
     allowed = ("web_search", "web_extract", "qt_review_image", "qt_team_status") + discovery if call['publication'] else ("web_search", "web_extract") + discovery
     # Read-only browsing is allowed (18 Oct 2026); script execution, CDP and credential-vault tools never are.
-    unexpected = [t for t in tools if t.get("name") not in allowed and not (str(t.get("name")).startswith("browser_")
+    # Hermes's tool_call batches several calls in one (30 Oct 2026: QT Manager batched qt_review_image checks and the review
+    # failed); each call inside it is checked like a direct one.
+    calls = [c for t in tools for c in ((t.get("input") or {}).get("calls") or [{"name": None}] if t.get("name") == "tool_call" else [t])]
+    unexpected = [t for t in calls if t.get("name") not in allowed and not (str(t.get("name")).startswith("browser_")
                   and not str(t.get("name")).startswith(("browser_vault", "browser_exec", "browser_cdp")))]
     if unexpected:
         raise RuntimeError("Unexpected tool outside web-only research scope")
