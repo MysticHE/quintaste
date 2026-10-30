@@ -267,11 +267,21 @@ def qualification(row):
     return found.group(0).strip()[:700] if found else None
 
 
-def plain_note(text):
-    """The app shows notes as plain text: drop Markdown citations like ([site](url)) and keep link words only."""
+def plain_note(text, limit=700):
+    """The app shows notes as plain text: drop Markdown citations like ([site](url)) and keep link words only. The app takes at
+    most 700 characters (server/editorial/validation.mjs): a longer note keeps its whole first sentences (30 Oct 2026: one
+    over-long note made the server refuse a batch of three approved recipes)."""
     text = re.sub(r'\s*\(\[[^\]]*\]\([^)]*\)\)', '', str(text))
     text = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', text)
-    return re.sub(r'\s{2,}', ' ', text).strip()
+    text = re.sub(r'\s{2,}', ' ', text).strip()
+    if len(text) <= limit:
+        return text
+    kept = ''
+    for sentence in re.split(r'(?<=[.;!?])\s+', text):
+        if len(kept) + len(sentence) + 1 > limit:
+            break
+        kept = (kept + ' ' + sentence).strip()
+    return kept or text[:limit - 1].rsplit(' ', 1)[0] + '…'
 
 
 def recipe_data(row, evidence):
