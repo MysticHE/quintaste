@@ -23,7 +23,7 @@ import re
 import time
 import unicodedata
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 
@@ -33,9 +33,19 @@ class NothingToCook(Exception):
 
 
 def page_key(url):
-    """One key per recipe page: host without www, path without a trailing slash; query and fragment dropped."""
+    """One key per recipe page: host without www, path without a trailing slash; query and fragment dropped. The path is
+    decoded, so a Chinese page written plainly or percent-encoded is the same page (30 Oct 2026)."""
     parts = urlsplit(str(url or '').strip())
-    return (parts.hostname or '').lower().removeprefix('www.') + parts.path.rstrip('/')
+    return (parts.hostname or '').lower().removeprefix('www.') + unquote(parts.path).rstrip('/')
+
+
+def ascii_url(url):
+    """The URL as an HTTP request needs it: a non-ASCII host in IDNA, a non-ASCII path or query percent-encoded (30 Oct
+    2026: every taipei.tzuchi.com.tw page failed with UnicodeEncodeError). Already-encoded parts stay as they are."""
+    parts = urlsplit(url)
+    host = parts.netloc.encode('idna').decode('ascii') if not parts.netloc.isascii() else parts.netloc
+    return urlunsplit((parts.scheme, host, quote(parts.path, safe="/%:@!$&'()*+,;=-._~"),
+                       quote(parts.query, safe="/%:@!$&'()*+,;=-._~?"), ''))
 BAR = {'rating': 4.5, 'ratings': 20, 'minutes': 30, 'ingredients': 12, 'steps': 8, 'outsidePantry': 1}
 CACHE_SECONDS = 7 * 86400
 CACHE_VERSION = 3  # 2: author @id references resolved; 3: plain-text recipe pages (recipe_page.py)
@@ -195,7 +205,7 @@ def fetch(root, url):
         return stored
     import urllib.request
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({'https': GUARD, 'http': GUARD}))
-    request = urllib.request.Request(url, headers={'User-Agent': USER_AGENT, 'Accept': 'text/html'})
+    request = urllib.request.Request(ascii_url(url), headers={'User-Agent': USER_AGENT, 'Accept': 'text/html'})
     with opener.open(request, timeout=30) as response:
         page = response.read(MAX_PAGE + 1).decode('utf-8', 'replace')
     import recipe_page
@@ -476,9 +486,6 @@ def shortlist_prompt(baseline, counts, rejected, creators=(), rules=''):
             '"notes":""}. No Google Maps.')
 
 
-MIN_SHORTLIST = 4  # fewer pages than this from the first search starts one more search on other websites
-
-
 def _usable(result, skip, blocked):
     """The model's candidate pages that are new and not on a blocked host, each page once."""
     out, seen = [], set()
@@ -520,26 +527,32 @@ def shortlist(root, baseline, folder, policy, live=None, drafted=(), creators=No
                               recipe_charter.prompt_rules(root))
     seconds = min(600, policy.get('workerSeconds', 600))
     result, _ = run_model('qt-cooker', prompt, folder, policy, seconds=seconds)
-    candidates = _usable(result, skip, blocked)
-    deadline = policy.get('_researchDeadline')
-    if len(candidates) < MIN_SHORTLIST and (deadline is None or time.time() + seconds < deadline):
-        # 30 Oct 2026: a whole round's search returned 2 pages from one site. Look once more, elsewhere, in half the time so a
-        # round stays short enough for the evening's rounds; every page the first search named is listed so none comes back.
-        tried = [c['url'] for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)]
-        more, _ = run_model('qt-cooker', prompt + ' Your first search found too few new pages. Skip these (found already, done '
-                            'or blocked): ' + (', '.join(tried) or 'none') + '. Search again on other websites and return new pages only.',
-                            folder.with_name(folder.name + '-more'), policy, seconds=seconds // 2)
-        candidates += _usable(more, skip | {page_key(c['url']) for c in candidates}, blocked)
-    candidates = candidates[:8]
-    checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
-    for c in checked:  # categories the owner no longer wants (recipe_charter.json); the gate checks Cooker's own category too
-        wrong = recipe_charter.category_problems(root, c.get('category'))
-        if wrong:
-            c.update(passes=False, reasons=c.get('reasons', []) + wrong)
+    rejected = {page_key(u) for u in history['rejected']}  # pages that already failed the bar are not checked again
     library_sites = {site for site, _ in creators or ()}
-    for c in checked:  # library creators rank first like the trusted list does; never a substitute for the bar
-        if not c.get('trusted') and c.get('site') in library_sites and 'score' in c:
-            c.update(score=round(c['score'] + TRUSTED_BOOST, 3), trusted=True)
+
+    def check(candidates):
+        checked = [dict(assess(root, c['url']), category=c.get('category')) for c in candidates]
+        for c in checked:  # categories the owner no longer wants (recipe_charter.json); the gate checks Cooker's own category too
+            wrong = recipe_charter.category_problems(root, c.get('category'))
+            if wrong:
+                c.update(passes=False, reasons=c.get('reasons', []) + wrong)
+        for c in checked:  # library creators rank first like the trusted list does; never a substitute for the bar
+            if not c.get('trusted') and c.get('site') in library_sites and 'score' in c:
+                c.update(score=round(c['score'] + TRUSTED_BOOST, 3), trusted=True)
+        return checked
+
+    checked = check(_usable(result, skip | rejected, blocked)[:8])
+    need = int(policy.get('maxRecipesPerCycle', 2))
+    deadline = policy.get('_researchDeadline')
+    if sum(c['passes'] for c in checked) < need and (deadline is None or time.time() + seconds < deadline):
+        # 30 Oct 2026: one round's search returned 2 pages from one site, the next 5 pages that all failed. When too few pages
+        # pass, look once more, elsewhere, in half the time so a round stays short; the pages already tried are listed so none
+        # comes back.
+        tried = [c['url'] for c in result.get('candidates', []) if isinstance(c, dict) and isinstance(c.get('url'), str)]
+        more, _ = run_model('qt-cooker', prompt + ' Too few of the pages you found met the bar. Skip these (tried already): '
+                            + (', '.join(tried) or 'none') + '. Search again on other websites and return new pages only.',
+                            folder.with_name(folder.name + '-more'), policy, seconds=seconds // 2)
+        checked += check(_usable(more, skip | rejected | {page_key(c['url']) for c in checked}, blocked)[:8])
     passed = sorted((c for c in checked if c['passes']), key=lambda c: -c['score'])
     history['rejected'] = (history['rejected'] + [c['url'] for c in checked if not c['passes']])[-200:]
     history['last'] = {'at': dt.datetime.now(dt.timezone.utc).isoformat(), 'checked': len(checked), 'passed': len(passed),
