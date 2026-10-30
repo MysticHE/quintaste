@@ -84,12 +84,12 @@ def parse_json(text):
 MAX_RECORDS = 60
 
 
-def validate(role, obj, assigned=None):
+def validate(role, obj, assigned=None, recipes=2):
     if obj.get("role") != role or not isinstance(obj.get("summary"), str):
         raise ValueError("Wrong role or missing summary")
     if not isinstance(obj.get("records"), list) or len(obj["records"]) > MAX_RECORDS:  # broad discovery returns held/excluded leads too
         raise ValueError("Invalid bounded record list")
-    proposed_limit = {'qt-cooker': 2, 'qt-event': 12}.get(role, 12)
+    proposed_limit = {'qt-cooker': recipes, 'qt-event': 12}.get(role, 12)  # recipes: policy maxRecipesPerCycle (30 Oct 2026)
     if sum(r.get('status') == 'proposed' for r in obj['records'] if isinstance(r, dict)) > proposed_limit:
         raise ValueError('Proposed record quota exceeded')
     seen = set()
@@ -617,7 +617,7 @@ def worker(role, context, folder, policy, prior_sources=None):
                 continue
             prior = normalize_recipe_packet(read(candidate))
             try:
-                validate(role, prior)
+                validate(role, prior, recipes=int(policy.get('maxRecipesPerCycle', 2)))
             except (ValueError, TypeError, KeyError):
                 continue
             # A recovery is useful only for unseen work. Replaying old evidence for
@@ -651,7 +651,7 @@ def worker(role, context, folder, policy, prior_sources=None):
     if role == "qt-event":
         obj = normalize_event_packet(obj)
     assigned = [v["venueId"] for v in context["venues"]] if role == "qt-explorer" else None
-    validate(role, obj, assigned)
+    validate(role, obj, assigned, recipes=int(policy.get('maxRecipesPerCycle', 2)))
     if role == 'qt-cooker':
         from recipe_policy import problem
         import recipe_quality
