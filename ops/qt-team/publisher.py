@@ -812,9 +812,14 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         write(folder/'batch.json',batch)
         outcomes=read(ROOT/'state/publication-outcomes.json',{})
         held_images={d.get('sha256') for d in review.get('images',[]) if d.get('decision')=='hold'}
+        in_batch={r['kind']+':'+r['id'] for r in batch['records']}
         for candidate,decision in zip(candidates, [next(d for d in review['decisions'] if d['key']==r['kind']+':'+r['id']) for r in candidates]):
             if candidate['kind']=='recipe' and decision['decision']=='hold' and held_images.intersection(record_images(candidate['data'])):
                 continue  # its picture is set aside and redrawn, so the recipe is offered again with the new one (22 Oct 2026)
+            if decision['decision']=='approved' and candidate['kind']+':'+candidate['id'] not in in_batch:
+                # Approved but left out of the batch (a picture held, or not reviewed): no outcome, so it is offered again with
+                # its redrawn pictures. 30 Oct 2026: five approved recipes were recorded as approved and never published.
+                continue
             outcomes[candidate['proposalHash']]={'at':now(),'decision':decision['decision'],'reason':decision['reason']}
         if not batch['records']:
             write(ROOT/'state/publication-outcomes.json',outcomes)
