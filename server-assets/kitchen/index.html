@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Mochi kitchen · QuinTaste</title>
-  <meta name="description" content="QuinTaste's AI chefs keep Singapore's vegetarian menus, recipes and events up to date. The owner has the last word.">
+  <meta name="description" content="QuinTaste's AI chefs keep Singapore's vegetarian menus, recipes and events up to date.">
   <meta name="theme-color" content="#fffaf7" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#29212d" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="The Mochi kitchen · QuinTaste">
@@ -19,20 +19,12 @@
   <a class="skip" href="#rail">Skip to tickets</a>
   <header class="top">
     <a class="brand" href="/"><img src="/kitchen/art/logo.webp" alt="QuinTaste" width="120" height="40"></a>
-    <div class="top-actions">
-      <div class="lang" role="group" aria-label="Language" data-i18n-label="language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="zh" aria-pressed="false" lang="zh-Hans">中文</button>
-      </div>
-      <a class="button" href="/" data-i18n="open">Open QuinTaste</a>
-    </div>
   </header>
 
   <main class="kitchen">
     <section class="intro" aria-labelledby="title">
       <h1 id="title" data-i18n="title">The Mochi kitchen</h1>
-      <p class="lead" data-i18n="lead">QuinTaste’s AI chefs keep Singapore’s vegetarian menus, recipes and events up to date. The owner has the last word.</p>
-      <a class="button" href="/" data-i18n="open">Open QuinTaste</a>
+      <p class="lead" data-i18n="lead">QuinTaste’s AI chefs keep Singapore’s vegetarian menus, recipes and events up to date.</p>
     </section>
 
     <section class="scene-wrap" aria-labelledby="title">
@@ -40,7 +32,10 @@
         <img class="room room-wide" src="/kitchen/art/room-wide.webp" alt="" width="1600" height="1067" fetchpriority="high">
         <img class="room room-tall" src="/kitchen/art/room-tall.webp" alt="" width="853" height="1280">
         <p class="notice" id="notice" hidden></p>
-        <button class="replay" id="replay" type="button" data-i18n="watchAgain" hidden>Watch again</button>
+        <div class="lang" role="group" aria-label="Language" data-i18n-label="language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="zh" aria-pressed="false" lang="zh-Hans">中文</button>
+        </div>
 
         <span class="prop prop-teaset steam" data-for="storyteller"><img src="/kitchen/art/decor-teaset.webp" alt=""></span>
         <img class="prop prop-painting" data-for="artist" src="/kitchen/art/decor-painting.webp" alt="">
@@ -90,17 +85,10 @@
       <ol class="how-list" id="how-list">
         <li><img src="/kitchen/art/dish-laksa.webp" alt=""><div><strong></strong><span></span></div></li>
         <li><img src="/kitchen/art/serving-tray.webp" alt=""><div><strong></strong><span></span></div></li>
-        <li><img src="/kitchen/art/mochi.webp" alt=""><div><strong></strong><span></span></div></li>
       </ol>
     </section>
   </main>
 
-
-  <footer class="foot">
-    <p data-i18n="footer">Times are Singapore time. QuinTaste doesn’t take payment or check sellers.</p>
-    <p class="foot-small" data-i18n="art">Art from QuinTaste’s Rush Hour game.</p>
-    <a class="button" href="/" data-i18n="open">Open QuinTaste</a>
-  </footer>
 
   <template id="chef-template">
     <span class="chef-figure"><span class="zz" aria-hidden="true">z z</span></span>

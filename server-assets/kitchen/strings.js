@@ -46,11 +46,11 @@ const REASONS = {
 const UI = {
   en: {
     title: 'The Mochi kitchen',
-    lead: 'QuinTaste’s AI chefs keep Singapore’s vegetarian menus, recipes and events up to date. The owner has the last word.',
-    open: 'Open QuinTaste', language: 'Language', rail: 'Tickets from the kitchen', allChefs: 'All chefs', showAll: 'Show all',
+    lead: 'QuinTaste’s AI chefs keep Singapore’s vegetarian menus, recipes and events up to date.',
+    language: 'Language', rail: 'Tickets from the kitchen', allChefs: 'All chefs', showAll: 'Show all',
     showMore: 'Show more', railEmpty: 'No tickets yet. The chefs are getting ready.', chefEmpty: 'No tickets from this chef today.',
     sample: 'Sample tickets · not real activity', delayed: t => 'Kitchen update delayed · last update ' + t,
-    opening: 'The kitchen opens soon', watchAgain: 'Watch again', openTicket: 'Open', sfaLink: 'Read on SFA',
+    opening: 'The kitchen opens soon', openTicket: 'Open', sfaLink: 'Read on SFA',
     pass: (out, back) => out + ' out today · ' + back + ' sent back', sentBack: 'Sent back today', scene: 'The Mochi kitchen. Choose a chef to see their tickets.',
     working: 'Working', reviewing: 'Checking plates', resting: 'Resting', waiting: n => n + ' waiting for the owner', soon: 'Joining soon', unknown: 'Off duty',
     since: t => 'since ' + t, back: t => 'back at ' + t, online: 'On shift', offline: 'Off shift', onShift: 'On shift',
@@ -58,18 +58,15 @@ const UI = {
     how: [
       ['Chefs find and check.', 'Menus, prices, hours, recipes and events, from each place’s own pages and listings.'],
       ['Kaya, the Head Chef, checks every plate.', 'Anything it can’t trace to a source goes back to the chef who made it.'],
-      ['The owner has the last word.', 'Every update can be taken back with one tap, and reports about people go to our team, not a bot.'],
     ],
-    footer: 'Times are Singapore time. QuinTaste doesn’t take payment or check sellers.',
-    art: 'Art from QuinTaste’s Rush Hour game.',
   },
   zh: {
     title: 'Mochi 厨房',
-    lead: 'QuinTaste 的 AI 小厨师，帮你把新加坡的素食菜单、食谱和活动保持最新。最后由店主把关。',
-    open: '打开 QuinTaste', language: '语言', rail: '厨房出单', allChefs: '全部厨师', showAll: '显示全部',
+    lead: 'QuinTaste 的 AI 小厨师，帮你把新加坡的素食菜单、食谱和活动保持最新。',
+    language: '语言', rail: '厨房出单', allChefs: '全部厨师', showAll: '显示全部',
     showMore: '显示更多', railEmpty: '还没有出单，小厨师们正在准备。', chefEmpty: '这位厨师今天还没有出单。',
     sample: '示例单据 · 非真实动态', delayed: t => '厨房更新延迟 · 上次更新 ' + t,
-    opening: '厨房即将开张', watchAgain: '再看一次', openTicket: '打开', sfaLink: '在食品局网站阅读',
+    opening: '厨房即将开张', openTicket: '打开', sfaLink: '在食品局网站阅读',
     pass: (out, back) => '今天出菜 ' + out + ' · 退回 ' + back, sentBack: '今天退回', scene: 'Mochi 厨房。选择一位厨师，查看他的单据。',
     working: '忙碌中', reviewing: '检查菜品', resting: '休息中', waiting: n => n + ' 项等店主确认', soon: '即将加入', unknown: '未上班',
     since: t => t + ' 开始', back: t => t + ' 回来', online: '值班中', offline: '下班', onShift: '值班中',
@@ -77,10 +74,7 @@ const UI = {
     how: [
       ['小厨师查找并核对。', '菜单、价格、营业时间、食谱和活动，都以店家自己的页面和资料为准。'],
       ['主厨咖椰逐一检查。', '找不到来源的，一律退回给负责的小厨师。'],
-      ['店主最后把关。', '每一项更新都能一键撤回；有关会员的举报由我们的团队处理，不交给机器人。'],
     ],
-    footer: '时间为新加坡时间。QuinTaste 不经手付款，也不审核卖家。',
-    art: '插画来自 QuinTaste 的 Rush Hour 游戏。',
   },
 };
 

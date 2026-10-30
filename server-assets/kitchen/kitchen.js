@@ -4,8 +4,8 @@ import { createWorld } from './world.js';
 import { createTickets } from './tickets.js';
 
 const FEED_URL = '/api/kitchen/feed';
-const POLL_MS = 60_000;
-const STALE_MS = 2 * 3_600_000;
+const POLL_MS = 10_000;  // owner, 30 Oct 2026: live; the bots push whenever a chef starts or finishes
+const STALE_MS = 10 * 60_000;  // the feed arrives every minute, so ten minutes without one means the pipeline stopped
 const PAGE = 6;
 const SFA = /^https:\/\/www\.sfa\.gov\.sg\//;
 const ROUTE = /^\/(?!\/)[A-Za-z0-9/?=&%._~-]*$/;
@@ -13,7 +13,6 @@ const $ = id => document.getElementById(id);
 
 const state = { lang: initialLang(), feed: null, chef: null, expanded: false, loaded: false, replayed: false, seen: new Set() };
 const scene = $('scene');
-const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let world = null, tickets = null;
 
 function initialLang() {
@@ -152,7 +151,7 @@ async function load() {
     if (!state.replayed) { state.replayed = true; tickets.replay(items.slice(0, PAGE).reverse()); }
     else tickets.play(arrivals.reverse());
   } catch {
-    // Keep what is on screen; the notice turns to "delayed" once the last snapshot is two hours old.
+    // Keep what is on screen; the notice turns to "delayed" once the last snapshot is ten minutes old.
     if (!state.feed) { state.feed = { version: 1, generatedAt: null, items: [], chefs: [], sentBack: [] }; render(); }
   } finally {
     state.loaded = true;
@@ -175,16 +174,11 @@ scene.addEventListener('click', event => {
 });
 $('show-all').addEventListener('click', () => { state.chef = null; render(); });
 $('more').addEventListener('click', () => { state.expanded = true; renderRail(); });
-$('replay').addEventListener('click', () => {
-  $('replay').hidden = true;
-  tickets.replay((state.feed?.items ?? []).slice(0, PAGE).reverse());
-});
 document.addEventListener('visibilitychange', () => { if (!document.hidden && state.loaded) load(); });
 
 render();
 world = createWorld({ scene });
-tickets = createTickets({ world, findTicket: key => $('rail').querySelector(`[data-key="${CSS.escape(key)}"]`),
-  onReplayDone: () => { $('replay').hidden = reduced.matches; } });
+tickets = createTickets({ world, findTicket: key => $('rail').querySelector(`[data-key="${CSS.escape(key)}"]`) });
 renderChefs();
 load();
 setInterval(() => { if (!document.hidden) load(); }, POLL_MS);

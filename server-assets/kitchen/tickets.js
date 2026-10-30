@@ -5,9 +5,9 @@ import { ticketLine, ticketKey } from './strings.js';
  * the ticket glows on the rail. If the chef is asleep, motion is reduced, the tab is hidden or the kitchen is off screen, only the
  * rail ticket glows.
  */
-export function createTickets({ world, findTicket, onReplayDone }) {
+export function createTickets({ world, findTicket }) {
   const queue = [];
-  let running = false, replaying = false;
+  let running = false;
   const lang = () => (document.documentElement.lang === 'zh-Hans' ? 'zh' : 'en');
 
   function flash(item) {
@@ -39,7 +39,6 @@ export function createTickets({ world, findTicket, onReplayDone }) {
       }
     } finally {
       running = false;
-      if (replaying) { replaying = false; onReplayDone(); }
     }
   }
 
@@ -47,7 +46,6 @@ export function createTickets({ world, findTicket, onReplayDone }) {
     play(items) { queue.push(...items); run(); },
     replay(items) {
       if (!items.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      replaying = true;
       queue.push(...items);
       setTimeout(run, 1200);
     },

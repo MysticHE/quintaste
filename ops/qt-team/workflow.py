@@ -414,14 +414,28 @@ def prepare_model(role, prompt, folder, policy, seconds=None, publication=False,
             'maxArtifactBytes': policy['maxArtifactBytes'], 'learningError': learning_error}
 
 
+def kitchen_ping():
+    """Push the public kitchen page's snapshot now, in the background (owner, 30 Oct 2026: live, no delay). Best effort: the
+    page also refreshes every minute from a timer, so a failed or skipped push changes nothing else."""
+    if (ROOT / 'kitchen_feed.py').exists():
+        try:
+            subprocess.Popen([sys.executable, 'kitchen_feed.py', '--push'], cwd=ROOT, stdin=subprocess.DEVNULL,
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        except OSError:
+            pass
+
+
 def execute_model(call):
     """The model call itself (a Hermes subprocess). Thread-safe: reads no shared state and writes only the call's
-    own folder. Never raises: returns {'obj', 'receipt', 'tools', 'error'}; finish_model() applies the outcome."""
+    own folder. Never raises: returns {'obj', 'receipt', 'tools', 'error'}; finish_model() applies the outcome.
+    The kitchen page hears when the call starts and ends."""
     outcome = {'obj': None, 'receipt': None, 'tools': None, 'error': None}
+    kitchen_ping()
     try:
         _execute(call, outcome)
     except Exception as exc:
         outcome['error'] = exc
+    kitchen_ping()
     return outcome
 
 
@@ -523,7 +537,7 @@ def contract(role):
         import recipe_charter
         from recipe_policy import RULE
         allowed = recipe_charter.load(ROOT)['allowedCategories']
-        return common + RULE + ' ' + recipe_charter.prompt_rules(ROOT) + (" Propose one recipe for each approvedSources entry. Each proposed record has recipe: {name, category, servings, minutes, cuisine, "
+        return common + RULE + ' ' + recipe_charter.prompt_rules(ROOT) + (" Propose one recipe for each approvedSources entry; the coordinator already checked each page qualifies (rating or content), so give each status proposed and put any doubt in notes. Each proposed record has recipe: {name, category, servings, minutes, cuisine, "
                          "ingredients:[{id,name,amount:number|null,unit,grams:number|null (your best estimate of the weight in grams of that amount, for nutrition; null if unsure)}],steps:[{title (2-4 words, e.g. \"Blanch the stems\"),instruction,ingredientIds:[id]}], "
                          "diet:Vegetarian|Vegan,contains:[string],compoundIngredientsUnconfirmed:[string],author,adaptationNote,kitchenTested:false," 
                          "imageBrief}. Categories: " + ", ".join(allowed) + ". Use original wording; source and attribution remain required. Do not copy entire recipes verbatim. "
@@ -620,12 +634,21 @@ def worker(role, context, folder, policy, prior_sources=None):
     validate(role, obj, assigned)
     if role == 'qt-cooker':
         from recipe_policy import problem
+        import recipe_quality
+        approved = {recipe_quality.page_key(s['url']) for s in context.get('approvedSources', []) if isinstance(s, dict) and s.get('url')}
+        for record in obj['records']:
+            # 30 Oct 2026: Cooker held all three recipes of an approved round as "qualification not established", although the
+            # coordinator had already passed each page. A hold on a written-up approved page goes to the gate and QT Manager instead.
+            recipe = record.get('recipe') or {}
+            first = next((s.get('url') for s in record.get('sources', []) if isinstance(s, dict) and s.get('url')), None)
+            if record.get('status') == 'held' and recipe.get('ingredients') and recipe.get('steps') and first and recipe_quality.page_key(first) in approved:
+                record['status'] = 'proposed'
+                record['notes'] = 'Cooker\'s doubts, for QT Manager to judge: ' + str(record.get('notes', ''))
         for record in obj['records']:
             reason = problem(record.get('recipe') or {}) or early_server_problem(record)
             if reason:
                 record['status'] = 'held'
                 record['notes'] = str(record.get('notes', '')) + ' ' + reason
-        import recipe_quality
         existing = context.get('existingRecipeNames', [])
         existing_ids = {r['id'] for r in existing}
         published_names = {r['name'].strip().casefold() for r in existing}
@@ -649,7 +672,6 @@ def worker(role, context, folder, policy, prior_sources=None):
                 record['status'] = 'held'
                 record['notes'] = str(record.get('notes', '')) + ' Existing recipe ID/title match: held for duplicate review; do not create another app record.'
         if policy.get('automaticProductionWrites'):
-            import recipe_quality
             for record in obj['records']:
                 recipe_quality.gate(ROOT, record)  # owner's bar: rated source, quick, few ingredients, local, naturally allium-free
     if not receipt["toolCalls"]:

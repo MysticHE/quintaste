@@ -1,8 +1,9 @@
 """Mochi kitchen feed (docs/MOCHI_KITCHEN_PLAN.md §4): the public snapshot behind the /kitchen page.
 
-Built every 15 minutes from what really happened: verified publication receipts (state/publications/), QT Manager's review
-outcomes, QT Gamer's owner-approved pictures, the AI recipe ledger and the work schedule. Reads the live editorial state first so
-anything the owner reverted or deleted, or staff hid, is left out. Items appear 30 minutes after publication.
+Built from what really happened: verified publication receipts (state/publications/), QT Manager's review outcomes, QT Gamer's
+owner-approved pictures, the AI recipe ledger and the model calls running now. Owner, 30 Oct 2026: live, with no delay. Each model
+call pushes a snapshot when it starts and when it ends (workflow.kitchen_ping) and a timer pushes one every minute. Reads the live
+editorial state first so anything the owner reverted or deleted, or staff hid, is left out (and drops off at the next push).
 
 Public facts only: place, recipe and event names that are already live, counts, and each chef's state. Never members, sellers,
 reporters, Market items, transcripts, prompts, costs or the reasons QT Manager wrote (only a fixed category per sent-back item).
@@ -22,10 +23,11 @@ from night_window import ROLE_WINDOWS as BOT_WINDOWS
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 ROUTE = '/api/kitchen/bot/feed'
 SG = dt.timezone(dt.timedelta(hours=8))
-DELAY = dt.timedelta(minutes=30)
+DELAY = dt.timedelta(0)  # owner, 30 Oct 2026: tickets show as soon as they are published
 WINDOW = dt.timedelta(days=13)  # the app accepts items from the last 14 days
 MAX_ITEMS, MAX_BYTES, MAX_TEXT = 40, 15_500, 90
-WORKING, REVIEWING = dt.timedelta(minutes=70), dt.timedelta(minutes=20)
+LIVE = dt.timedelta(minutes=10)  # a call whose files have not changed for this long has stopped (crashed), not running
+RECENT = dt.timedelta(minutes=3)  # stays working this long after a call ends, so the short gaps between calls do not flicker
 ROLE_WINDOWS = {'wok': BOT_WINDOWS['qt-cooker'], 'host': BOT_WINDOWS['qt-event']}  # the bots' own shift hours (SGT)
 RUN_FOLDERS = {
     'scout': ('explorer-', 'veg-kitchen-', 'mixed-kitchen-', 'cover-search'),
@@ -201,24 +203,6 @@ def sent_back(now: dt.datetime) -> list[dict]:
     return [{'reason': key, 'count': n} for key, n in sorted(tally.items(), key=lambda kv: -kv[1])]
 
 
-def run_start(run: Path) -> dt.datetime | None:
-    """Rounds are named by their UTC start (20261027T013000Z, or publish-20261027T013000Z)."""
-    try:
-        return dt.datetime.strptime(run.name.removeprefix('publish-'), '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc)
-    except ValueError:
-        return None
-
-
-def last_run_activity(prefixes: tuple[str, ...], runs: list[Path]) -> tuple[dt.datetime | None, dt.datetime | None]:
-    """When a chef last touched its work in a recent round, and when that round started."""
-    found = [(mtime(sub), run) for run in runs if run.is_dir() for sub in run.iterdir() if sub.name.startswith(prefixes)]
-    found = [(t, run) for t, run in found if t]
-    if not found:
-        return None, None
-    t, run = max(found, key=lambda pair: pair[0])
-    return t, run_start(run) or t
-
-
 def next_shift(now: dt.datetime, start_hour: int) -> dt.datetime:
     local = now.astimezone(SG)
     start = local.replace(hour=start_hour, minute=0, second=0, microsecond=0)
@@ -237,37 +221,52 @@ def mtime(path: Path) -> dt.datetime | None:
         return None
 
 
+def calls(prefixes: tuple[str, ...], runs: list[Path]):
+    """Each model call folder of a chef in recent rounds (a call folder holds prompt.txt; publication nests one level down)."""
+    for run in runs:
+        for sub in (s for s in run.iterdir() if s.is_dir() and s.name.startswith(prefixes)):
+            yield from (p.parent for p in [sub / 'prompt.txt', *sub.glob('*/prompt.txt')] if p.exists())
+
+
+def chef_activity(prefixes: tuple[str, ...], runs: list[Path], now: dt.datetime) -> tuple[dt.datetime | None, dt.datetime | None]:
+    """(since, last): since is when the chef's running call started (None when nothing runs now); last is its latest touch."""
+    since = last = None
+    for folder in calls(prefixes, runs):
+        touched = newest(mtime(f) for f in folder.iterdir())
+        last = newest([last, touched])
+        if not (folder / 'receipt.json').exists() and touched and now - touched < LIVE:  # started, not finished, still writing
+            since = newest([since, mtime(folder / 'prompt.txt')])
+    return since, last
+
+
 def chef_states(now: dt.datetime) -> list[dict]:
-    runs = sorted((ROOT / 'runs').glob('2*'))[-6:] + sorted((ROOT / 'runs').glob('publish-*'))[-3:]
-    activity = {chef: last_run_activity(prefixes, runs) for chef, prefixes in RUN_FOLDERS.items()}
-    seen = {chef: last for chef, (last, _start) in activity.items()}
-    hour = now.astimezone(SG).hour
+    """Working while a model call runs (and a few minutes after), at any hour: the owner wants the page live (30 Oct 2026)."""
+    runs = [r for r in sorted((ROOT / 'runs').glob('2*'))[-6:] + sorted((ROOT / 'runs').glob('publish-*'))[-3:] if r.is_dir()]
+    activity = {chef: chef_activity(prefixes, runs, now) for chef, prefixes in RUN_FOLDERS.items()}
+    busy = {chef: bool(since or last and now - last < RECENT) for chef, (since, last) in activity.items()}
     states = []
     for chef in ('scout', 'wok', 'host'):
-        window = ROLE_WINDOWS.get(chef)
-        on_shift = not window or window[0] <= hour < window[1]
-        busy = seen[chef] and now - seen[chef] < WORKING
-        entry = {'id': chef, 'state': 'working' if on_shift and busy else 'resting'}
-        if entry['state'] == 'working':
-            entry['since'] = iso(activity[chef][1])
-        elif window and not on_shift:  # idle inside its own shift: resting, never "back tomorrow"
+        since, last = activity[chef]
+        entry = {'id': chef, 'state': 'working' if busy[chef] else 'resting'}
+        if busy[chef]:
+            entry['since'] = iso(since or last)
+        elif (window := ROLE_WINDOWS.get(chef)) and not window[0] <= now.astimezone(SG).hour < window[1]:
             entry['nextShift'] = iso(next_shift(now, window[0]))
         states.append(entry)
-    head = seen['head']
-    anyone = newest(seen.values())
-    if head and now - head < REVIEWING:
-        states.append({'id': 'head', 'state': 'reviewing', 'since': iso(activity['head'][1])})
+    since, last = activity['head']
+    if busy['head']:
+        states.append({'id': 'head', 'state': 'reviewing', 'since': iso(since or last)})
     else:
-        states.append({'id': 'head', 'state': 'working' if anyone and now - anyone < WORKING else 'resting'})
+        states.append({'id': 'head', 'state': 'working' if any(busy.values()) else 'resting'})
     gamer = read(ROOT / 'gamer' / 'state.json', {}) or {}
     waiting = sum(1 for a in (gamer.get('assets') or {}).values() if a.get('status') == 'awaiting-owner')
     drawn = newest(mtime(p) for p in (ROOT / 'gamer' / 'runs').glob('*'))
     if waiting:
         states.append({'id': 'artist', 'state': 'waiting', 'waiting': waiting})
     else:
-        states.append({'id': 'artist', 'state': 'working' if drawn and now - drawn < WORKING else 'resting'})
+        states.append({'id': 'artist', 'state': 'working' if drawn and now - drawn < LIVE else 'resting'})
     wrote = mtime(ROOT / 'ai-recipes' / 'last.json')
-    states.append({'id': 'writer', 'state': 'working' if wrote and now - wrote < dt.timedelta(minutes=30) else 'resting'})
+    states.append({'id': 'writer', 'state': 'working' if wrote and now - wrote < LIVE else 'resting'})
     return states
 
 
@@ -303,6 +302,10 @@ def main() -> None:
     ap.add_argument('--push', action='store_true', help='send the snapshot to the app')
     args = ap.parse_args()
     from publisher import request as editorial  # the signed, read-only state route the publisher already uses
+    if args.push:  # one push at a time: a start and an end push can arrive together; the later one waits and sends the newer state
+        import fcntl
+        lock = (ROOT / 'state' / 'kitchen-feed.lock').open('a+')
+        fcntl.flock(lock, fcntl.LOCK_EX)
     feed = build(editorial('GET', '/control/state'))
     if args.push:
         result = push(feed)

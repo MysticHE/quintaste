@@ -90,7 +90,7 @@ export function readFeed(body) {
 
 export const kitchen = express.Router();
 kitchen.get('/feed', async (_req, res) => {
-  res.set('Cache-Control', 'public, max-age=60');
+  res.set('Cache-Control', 'no-cache');  // live (owner, 30 Oct 2026): every poll sees the latest push
   try { res.type('application/json').send(await fs.readFile(feedFile)); }
   catch (error) {
     if (error?.code !== 'ENOENT') throw error;

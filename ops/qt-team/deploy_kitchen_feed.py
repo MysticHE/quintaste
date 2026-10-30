@@ -2,7 +2,7 @@
 
 Copies kitchen_feed.py into /opt/data/qt-team, guarded like deploy_game_bridges.py: run lock, release-hash check, backup, atomic
 replace, an import check as the hermes user and automatic restore on failure. Then installs qt-kitchen-feed.service (one push)
-and qt-kitchen-feed.timer (every 15 minutes) on the host. Each push runs inside the Hermes container as uid 10000, reads state
+and qt-kitchen-feed.timer (every minute; owner, 30 Oct 2026: live) on the host. Each push runs inside the Hermes container as uid 10000, reads state
 only and signs with the publisher key; it publishes nothing. `systemctl disable --now qt-kitchen-feed.timer` stops it.
 
 Deploy the app first: the push needs /api/kitchen/bot/feed (server/kitchen/router.mjs). Run on 27 Oct 2026 at the owner's request.
@@ -65,11 +65,11 @@ TimeoutStartSec=120
 """);service.chmod(0o644)
 timer=pathlib.Path('/etc/systemd/system/qt-kitchen-feed.timer')
 timer.write_text("""[Unit]
-Description=Mochi kitchen feed every 15 minutes
+Description=Mochi kitchen feed every minute
 
 [Timer]
-OnCalendar=*:0/15
-RandomizedDelaySec=60
+OnCalendar=*:*:00
+AccuracySec=1s
 Persistent=true
 
 [Install]
