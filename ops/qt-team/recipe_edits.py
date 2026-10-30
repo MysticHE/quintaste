@@ -30,8 +30,15 @@ def _check(value, kinds, path):
     return value.strip() if isinstance(value, str) else value
 
 
-def apply(recipe, edits):
-    """A copy of the recipe with Manager's edits applied, and the log of what changed. Raises EditError on a bad edit."""
+def shape(path):
+    """'ingredients.salt.amount' -> 'ingredients.*.amount', so allowed paths can be listed once."""
+    parts = path.split('.')
+    return '.'.join([parts[0], '*', parts[2]]) if len(parts) == 3 else path
+
+
+def apply(recipe, edits, paths=None):
+    """A copy of the recipe with Manager's edits applied, and the log of what changed. Raises EditError on a bad edit.
+    paths: the path shapes allowed here (None: every editable field)."""
     if not isinstance(edits, list):
         raise EditError('edits must be a list')
     out, log = copy.deepcopy(recipe), []
@@ -39,6 +46,8 @@ def apply(recipe, edits):
         if not isinstance(edit, dict) or not isinstance(edit.get('path'), str):
             raise EditError('each edit needs a path')
         path, value = edit['path'].strip(), edit.get('value')
+        if paths is not None and shape(path) not in paths:
+            raise EditError(f'{path}: not editable at this review')
         parts = path.split('.')
         if len(parts) == 1 and parts[0] in TOP:
             before = out.get(parts[0])

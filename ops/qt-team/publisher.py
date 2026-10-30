@@ -454,6 +454,11 @@ def prepare(packages, live):
     return selected,[asset for sha256,asset in image_assets.items() if sha256 in used],held
 
 
+# What the final review may correct on an app payload. Amounts, units and servings change the nutrient level and figures, which
+# only the first review's gate re-measures, so they are fixed there (owner, 30 Oct 2026).
+FINAL_EDITS = {'name', 'author', 'adaptationNote', 'description', 'minutes', 'ingredients.*.name', 'steps.*.title', 'steps.*.instruction'}
+
+
 def apply_review_edits(candidates, review):
     """QT Manager's corrections from the final review (recipe_edits), applied to the exact payloads before the batch is made. The
     recipe rules and the app's limits are checked again; an edit that fails turns that approval into a hold (owner, 30 Oct 2026)."""
@@ -467,9 +472,14 @@ def apply_review_edits(candidates, review):
         try:
             if candidate['kind'] != 'recipe':
                 raise recipe_edits.EditError('edits are only for recipes')
-            data, log = recipe_edits.apply(candidate['data'], decision['edits'])
+            data, log = recipe_edits.apply(candidate['data'], decision['edits'], FINAL_EDITS)
             if 'adaptationNote' in data:
                 data['adaptationNote'] = plain_note(data['adaptationNote'])
+            if not 1 <= data['minutes'] <= 30:
+                raise recipe_edits.EditError('minutes: the QuinTaste version must take 30 minutes or less')
+            # Renamed ingredients can add a tag (a mushroom sauce): the tags are found again; an existing tag is never dropped.
+            dietary = data['dietary']
+            dietary['contains'] = sorted(set(dietary.get('contains') or []) | set(recipe_contains({'contains': [], 'ingredients': data['ingredients']})))
             require_recipe(data)
             if (problem := server_recipe_problem(data)):
                 raise recipe_edits.EditError(problem)

@@ -223,11 +223,35 @@ def creator_library(sources, live):
             'blocked': [h for h in lib.get('blocked', []) if isinstance(h, str)], 'record': record}
 
 
+def recipes_on_their_way(live_ids, days=2):
+    """Recipes QT Manager approved in the last two days that are not live yet and were not held at the final review: they are
+    waiting for pictures or publication, so Mango need not write another for them. An older approval no longer counts."""
+    import publisher
+    outcomes = read(ROOT / 'state' / 'publication-outcomes.json', {}) or {}
+    since, seen, count = time.time() - days * 86400, set(), 0
+    for path in sorted((ROOT / 'outbox').glob('*.json'), reverse=True)[:60]:
+        if path.stat().st_mtime < since:
+            continue
+        package = read(path, {}) or {}
+        decisions = {d.get('id'): d.get('decision') for d in (package.get('manager') or {}).get('decisions', []) if isinstance(d, dict)}
+        for packet in package.get('packets', []):
+            for record in packet.get('records', []) if packet.get('role') == 'qt-cooker' else []:
+                if record['id'] in seen:
+                    continue
+                seen.add(record['id'])  # the newest decision about a recipe is the one that counts
+                held = (outcomes.get(publisher.sha(record)) or {}).get('decision') == 'hold'
+                if decisions.get(record['id']) == 'ready-for-editorial-review' and record.get('status') == 'proposed' and not held \
+                        and record['id'] not in live_ids:
+                    count += 1
+    return count
+
+
 def recipes_published_on(day):
     """New recipes the publisher put live on this Singapore date, from its receipts (state/publications)."""
     from kitchen_feed import is_new
     count = 0
-    for path in (ROOT / 'state' / 'publications').glob('*.json'):
+    recent = time.time() - 2 * 86400  # receipts are written when published: older files cannot be today's
+    for path in (p for p in (ROOT / 'state' / 'publications').glob('*.json') if p.stat().st_mtime >= recent):
         receipt = read(path, {}) or {}
         try:
             at = dt.datetime.fromisoformat(str(receipt.get('publishedAt', '')).replace('Z', '+00:00'))
@@ -461,6 +485,20 @@ def execute_model(call):
     return outcome
 
 
+def batched(value):
+    """The calls inside a Hermes tool_call (its input may be logged as a dict or as a JSON string); anything unreadable counts
+    as one unknown call, which the scope check then refuses."""
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except ValueError:
+            value = None
+    calls = value.get('calls') if isinstance(value, dict) else None
+    if not isinstance(calls, list) or not calls:
+        return [{'name': None}]
+    return [c if isinstance(c, dict) else {'name': None} for c in calls]
+
+
 def _execute(call, outcome):
     role, folder, seconds = call['role'], call['folder'], call['seconds']
     env = os.environ.copy()
@@ -509,7 +547,7 @@ def _execute(call, outcome):
     # Read-only browsing is allowed (18 Oct 2026); script execution, CDP and credential-vault tools never are.
     # Hermes's tool_call batches several calls in one (30 Oct 2026: QT Manager batched qt_review_image checks and the review
     # failed); each call inside it is checked like a direct one.
-    calls = [c for t in tools for c in ((t.get("input") or {}).get("calls") or [{"name": None}] if t.get("name") == "tool_call" else [t])]
+    calls = [c for t in tools for c in (batched(t.get("input")) if t.get("name") == "tool_call" else [t])]
     unexpected = [t for t in calls if t.get("name") not in allowed and not (str(t.get("name")).startswith("browser_")
                   and not str(t.get("name")).startswith(("browser_vault", "browser_exec", "browser_cdp")))]
     if unexpected:
@@ -899,7 +937,7 @@ def image_jobs_to_draw(row):
     def left(jobs, drawn):
         return [j for j in jobs if not (ROOT / 'images' / j['key'] / 'result.json').exists()
                 and not (j.get('step') and j['stepKey'] in drawn)
-                and not (j.get('step') and len(list((ROOT / 'images').glob(j['key'] + '.held-*'))) >= STEP_IMAGE_TRIES)]
+                and len(list((ROOT / 'images').glob(j['key'] + '.held-*'))) < STEP_IMAGE_TRIES]  # covers too (30 Oct 2026)
     jobs = left(recipe_image_jobs(row), {})
     if any(j.get('step') for j in jobs):
         try:
@@ -1188,7 +1226,7 @@ class Round:
         if not self.nightly: return True
         import night_window
         return (time.time() < self.policy["_researchDeadline"] and self.state.get('roleCooldown', {}).get(role, {}).get('until', 0) <= time.time()
-                and night_window.role_open(role) and (role not in KITCHEN_ROLES or self.kitchen_turn()))
+                and night_window.role_open(role) and (role not in KITCHEN_ROLES or role == 'qt-cooker' or self.kitchen_turn()))
 
     def kitchen_turn(self):
         """Owner, 20 Oct 2026: Cooker and Event run at most every other round. When they worked in the last finished round, this
@@ -1324,10 +1362,16 @@ class Round:
         self.pending = pending
 
     def recipes_needed(self):
-        """Recipes still to publish today (owner, 30 Oct 2026: Mango publishes 5 a day at any hour, then rests). Counted from the
-        publication receipts the way the kitchen page counts new recipes. No dailyRecipeTarget in policy: always needed."""
+        """Recipes still to find today (owner, 30 Oct 2026: Mango publishes 5 a day at any hour, then rests): the target less
+        today's published recipes (receipts, counted like the kitchen page) and those approved and still on their way to the
+        app (pictures, final review). No dailyRecipeTarget in policy: always needed; 0: none. Counted once per round."""
         target = self.policy.get('dailyRecipeTarget')
-        return 1 if not target else target - recipes_published_on(dt.datetime.now(SG).date().isoformat())
+        if target is None:
+            return 1
+        if not hasattr(self, '_recipes_needed'):
+            self._recipes_needed = (target - recipes_published_on(dt.datetime.now(SG).date().isoformat())
+                                    - recipes_on_their_way({r['id'] for r in (self.live or {}).get('records', []) if r.get('kind') == 'recipe'}))
+        return self._recipes_needed
 
     def cooker(self):
         if not (self.research_due("qt-cooker") and (self.nightly or self.state.get("cookCycle") != self.month) and self.time_left(1500)
@@ -1829,6 +1873,13 @@ class Round:
                     reason = problem(recipe) or early_server_problem(dict(record, recipe=recipe))
                     if reason:
                         raise recipe_edits.EditError(reason)
+                    if self.policy.get('automaticProductionWrites'):
+                        # The whole gate again: 30 min / 12 ingredients / 8 steps, nutrient level and colours, fresh nutrition.
+                        import recipe_quality
+                        checked = recipe_quality.gate(ROOT, dict(record, recipe=recipe, status='proposed', notes=''))
+                        if checked['status'] != 'proposed':
+                            raise recipe_edits.EditError(checked['notes'].split('Quality bar: ')[-1][:600])
+                        recipe, _ = recipe_edits.apply(checked['recipe'], decision['edits'])  # the gate re-reads the credit from the page
                     record['recipe'] = recipe
                     record['managerEdits'] = record.get('managerEdits', []) + log
                     self.note('qt-manager', 'Fixed ' + record['id'] + ': ' + '; '.join(e['path'] for e in log))
@@ -1919,11 +1970,11 @@ class Round:
                 from publisher import run_publication
                 self.publication = run_publication(policy, self.folder / 'publication')
                 # Owner, 30 Oct 2026: every ready recipe goes out this round, one batch each (the app takes 10 pictures / 2 MB a batch).
-                for extra in range(2, 13):
-                    if self.publication.get('status') != 'published':
+                for extra in range(2, 13):  # a held batch does not stop the recipes behind it; its holds are recorded
+                    if self.publication.get('status') not in ('published', 'all-held'):
                         break
                     more = run_publication(policy, self.folder / f'publication-{extra}')
-                    if more.get('status') != 'published':
+                    if more.get('status') not in ('published', 'all-held'):
                         break
                     self.publication = dict(more, productionWrites=self.publication['productionWrites'] + more['productionWrites'],
                                             records=list(self.publication.get('records') or []) + list(more.get('records') or []),
