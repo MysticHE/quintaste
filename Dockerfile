@@ -21,6 +21,8 @@ COPY src/data/lunar.ts ./src/data/lunar.ts
 COPY src/data/recipes.ts ./src/data/recipes.ts
 COPY src/data/recipe-library ./src/data/recipe-library
 COPY src/utils/sg-datetime.ts ./src/utils/sg-datetime.ts
+# The level compiler (src/game/compile.ts) reads which ingredients a step names the way Cook mode does.
+COPY src/utils/step-ingredients.ts ./src/utils/step-ingredients.ts
 COPY dist ./dist
 COPY server-assets ./server-assets
 COPY assets/fonts/Fredoka-OFL.txt ./licenses/Fredoka-OFL.txt

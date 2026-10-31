@@ -13,6 +13,20 @@ const words = (text: string) => new Set((text.toLowerCase().match(/[a-z]+/g) ?? 
 const core = (name: string) => name.split(/[,(（，]/)[0].trim();
 
 /**
+ * The ingredients a piece of recipe text names, by a word no other ingredient in the recipe shares: "coconut" in a recipe with coconut
+ * milk, oil and sugar names none of them, and "black pepper" names the black pepper, not the bell pepper. Chinese names match whole.
+ * Shared by Cook mode and the game's level compiler (src/game/compile.ts), so both read a step the same way.
+ */
+export function namedIngredientIds(ingredients: Pick<Ingredient, "id" | "name">[], text: string): string[] {
+  const names = ingredients.map(item => ({ id: item.id, name: core(item.name) }));
+  const owners = new Map<string, number>();
+  for (const { name } of names) for (const word of words(name)) owners.set(word, (owners.get(word) ?? 0) + 1);
+  const said = words(text), lower = text.toLowerCase();
+  return names.filter(({ name }) => CJK.test(name) ? lower.includes(name.toLowerCase())
+    : [...words(name)].some(word => word.length > 2 && !PLAIN.has(word) && owners.get(word) === 1 && said.has(word))).map(({ id }) => id);
+}
+
+/**
  * The ingredients Cook mode lists under a step: what the step adds or handles. Recipes sometimes tag a step with everything already in
  * the pan ("Whisk until hot" listing all eight ingredients of step 1, "Lower in the coated pieces" listing the whole batter). Such a
  * step re-lists at least three earlier tags, two thirds of its own, and puts nothing in; it lists its new ingredients plus the earlier
@@ -26,15 +40,6 @@ export function stepIngredientIds(recipe: { ingredients: Pick<Ingredient, "id" |
   const earlier = new Set(recipe.steps.slice(0, index).flatMap(item => item.ingredientIds));
   const repeated = step.ingredientIds.filter(id => earlier.has(id)).length;
   if (repeated < 3 || repeated * 3 < step.ingredientIds.length * 2 || ADDS.test(step.instruction)) return step.ingredientIds;
-  const names = new Map(recipe.ingredients.map(item => [item.id, core(item.name)]));
-  // A word counts only if it picks out one ingredient: "coconut" in a recipe with coconut milk, oil and sugar names none of them.
-  const owners = new Map<string, number>();
-  for (const name of names.values()) for (const word of words(name)) owners.set(word, (owners.get(word) ?? 0) + 1);
-  const said = words(step.instruction), text = step.instruction.toLowerCase();
-  const named = (id: string) => {
-    const name = names.get(id) ?? "";
-    if (CJK.test(name)) return text.includes(name.toLowerCase());
-    return [...words(name)].some(word => word.length > 2 && !PLAIN.has(word) && owners.get(word) === 1 && said.has(word));
-  };
-  return step.ingredientIds.filter(id => !earlier.has(id) || named(id));
+  const named = new Set(namedIngredientIds(recipe.ingredients, step.instruction));
+  return step.ingredientIds.filter(id => !earlier.has(id) || named.has(id));
 }
