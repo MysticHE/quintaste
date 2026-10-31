@@ -31,6 +31,9 @@ PAGE_FIELDS = {'calories': 'kcal', 'proteinContent': 'protein', 'fatContent': 'f
 MIN_COVERAGE = 0.9
 MAX_MISSING_SHARE = 0.1
 MAX_GRAMS = 3000  # per ingredient line; larger values are treated as a bad conversion
+# An ingredient the table does not know is left out of the totals. A pinch of spice does not matter, but 160 g of pasta or 35 g
+# of cashews made two published recipes far too low in calories (31 Oct 2026), so one this heavy means no estimate at all.
+MAX_UNMATCHED_GRAMS = 15
 COUNT_UNITS = {'each', 'egg', 'eggs', 'leaves', 'leaf', 'cloves', 'clove', 'slices', 'slice', 'cubes', 'cube', 'sprig', 'sprigs',
                'inch', 'handful', 'handfuls', 'pods', 'pod', 'sticks', 'stick'}
 GRAM_UNITS = {'g', 'gram', 'grams'}
@@ -186,7 +189,9 @@ def estimate(root, recipe, detail=False):
             return None  # an unweighed measured ingredient makes any total unreliable
         nutritive += grams
         if food is None or not food.get('per100g'):
-            continue  # unmatched but weighed by the Cooker: counts against coverage only
+            if grams >= MAX_UNMATCHED_GRAMS:
+                return None  # a real food the table does not know: the totals would be wrong, not just incomplete
+            continue  # a pinch the table does not know: counts against coverage only
         matched += grams
         if grams / servings >= MIN_COLOUR_GRAMS:
             colour = _colour(food, ingredient.get('name'))

@@ -1,5 +1,5 @@
 {
-  "notes": "Inputs to scripts/nutrition/build_bot_v3.py (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md §5). colour: one of the five colours (green, red, yellow, black, white; purple counts as black), set only for foods that show on the plate. staple: one of the five grains (rice, wheat, soybean, corn, tuber). taiwan: Taiwan FDA Food Nutrient Database id (整合編號) whose figures replace a USDA stand-in. noMicro: USDA stand-ins whose vitamins and minerals would mislead (e.g. USDA oyster sauce is made from oysters). newFoods: foods USDA lacks, figures from Taiwan FDA; their match patterns are removed from older keys so the specific food wins.",
+  "notes": "Inputs to scripts/nutrition/build_bot_v3.py (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md §5). colour: one of the five colours (green, red, yellow, black, white; purple counts as black), set only for foods that show on the plate. staple: one of the five grains (rice, wheat, soybean, corn, tuber). taiwan: Taiwan FDA Food Nutrient Database id (整合編號) whose figures replace a USDA stand-in. noMicro: USDA stand-ins whose vitamins and minerals would mislead (e.g. USDA oyster sauce is made from oysters). newFoods: foods USDA lacks, figures from Taiwan FDA; their match patterns are removed from older keys so the specific food wins. labels (31 Oct 2026): open product-label figures (Open Food Facts, ODbL) that replace a misleading stand-in, or a new food copied from a base food; micro: false drops the stand-in's vitamins and minerals.",
   "colour": {
     "coconut_milk": "white",
     "coconut_fresh": "white",
@@ -182,6 +182,21 @@
       "match": [
         "sweet ?corn"
       ]
+    },
+    "legacy_pasta": {
+      "match": [
+        "(?<![a-z])(?:angel hair|capellini|linguine|fettuccine|tagliatelle|penne|fusilli|rigatoni|farfalle|macaroni|orecchiette)(?![a-z])"
+      ]
+    },
+    "legacy_cashews": {
+      "match": [
+        "(?<![a-z])cashew(?: nuts?)?(?![a-z])"
+      ]
+    },
+    "legacy_tapioca_starch": {
+      "match": [
+        "(?<![a-z])(?:potato starch|corn ?starch|cornflour|corn flour)(?![a-z])"
+      ]
     }
   },
   "negligible": {
@@ -189,6 +204,19 @@
       "name": "Bay leaf",
       "match": [
         "bay lea(?:f|ves)"
+      ]
+    },
+    "garam_masala": {
+      "name": "Garam masala",
+      "match": [
+        "garam masala"
+      ]
+    },
+    "fenugreek_leaves": {
+      "name": "Dried fenugreek leaves",
+      "match": [
+        "fenugreek lea(?:f|ves)",
+        "kasuri methi"
       ]
     }
   },
@@ -375,6 +403,57 @@
         "black vinegar",
         "chinkiang vinegar"
       ]
+    }
+  },
+  "labels": {
+    "legacy_paneer": {
+      "name": "Paneer",
+      "micro": false,
+      "source": {
+        "dataset": "Open Food Facts (ODbL)",
+        "id": "8901262180016",
+        "name": "Amul Malai Paneer label, per 100 g"
+      },
+      "per100g": {
+        "kcal": 314,
+        "protein": 20.0,
+        "fat": 25.0,
+        "carbs": 4.5,
+        "fibre": 0,
+        "sugar": 4.5,
+        "sodium": 22
+      }
+    },
+    "tau_kwa": {
+      "base": "tofu_firm",
+      "name": "Tau kwa (pressed firm tofu)",
+      "match": [
+        "tau kwa",
+        "taukwa",
+        "tau-kwa"
+      ],
+      "source": {
+        "dataset": "Open Food Facts (ODbL)",
+        "id": "8888351200070",
+        "name": "Unicurd Tau Kwa label, per 100 g"
+      },
+      "per100g": {
+        "kcal": 117,
+        "protein": 13.1,
+        "fat": 6.7,
+        "carbs": 1.0,
+        "fibre": 2.3,
+        "sugar": 0.8,
+        "sodium": 106
+      }
+    },
+    "cherry_tomato": {
+      "base": "tomato",
+      "name": "Cherry tomatoes",
+      "match": [
+        "cherry tomato"
+      ],
+      "each": 17
     }
   }
 }

@@ -111,7 +111,7 @@ def build(usda_folder, taiwan_csv, repo):
     validate(extras, foods)
     micro = usda_micro(usda_folder, [f['fdcId'] for f in foods.values() if f.get('fdcId')])
     tw = taiwan_foods(taiwan_csv, set(extras['taiwan'].values()) | {f['taiwan'] for f in extras['newFoods'].values()})
-    claimed = {p for f in extras['newFoods'].values() for p in f['match']}
+    claimed = {p for f in [*extras['newFoods'].values(), *extras.get('labels', {}).values()] for p in f.get('match', [])}
     for key, food in foods.items():
         food['match'] = [p for p in food.get('match', []) if p not in claimed]
         if key in extras['taiwan']:
@@ -136,6 +136,20 @@ def build(usda_folder, taiwan_csv, repo):
         source = tw[spec['taiwan']]
         food = {k: spec[k] for k in ('name', 'each', 'gPerMl', 'colour', 'staple') if k in spec}
         food.update(match=spec['match'], per100g=source['per100g'], source={'dataset': 'Taiwan FDA', 'id': spec['taiwan'], 'name': source['name']})
+        foods[key] = food
+    for key, spec in extras.get('labels', {}).items():
+        # Open product labels (owner, 31 Oct 2026: the ricotta stand-in halved paneer's protein; tau kwa used a softer tofu).
+        # A new food starts as a copy of its base food (vitamins, minerals, colour, staple); the label's main figures replace
+        # the base's, and micro: false drops vitamins and minerals the stand-in would misstate.
+        food = dict(foods[spec['base']]) if spec.get('base') else foods[key]
+        food = {k: v for k, v in food.items() if k not in ('fdcId', 'usda', 'legacy')} if spec.get('base') or spec.get('per100g') else food
+        per = dict(food.get('per100g') or {})
+        if spec.get('micro') is False:
+            per = {k: v for k, v in per.items() if k not in MICRO}
+        per.update(spec.get('per100g') or {})
+        food.update({k: spec[k] for k in ('name', 'each', 'match') if k in spec}, per100g=per)
+        if spec.get('source'):
+            food['source'] = spec['source']
         foods[key] = food
     return {'version': 3, 'built': dt.date.today().isoformat(), 'table': v2['table'],
             'source': v2['source'] + ' Vitamins and minerals: USDA SR Legacy (public domain). Foods marked with source: Taiwan FDA Food '
