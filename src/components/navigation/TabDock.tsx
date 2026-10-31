@@ -32,7 +32,8 @@ export function TabDock({ state, descriptors, emitter, navigateToTab, insets }: 
   useEffect(() => { setHidden?.(false); }, [state.index, setHidden]);
   if (keyboardVisible) return null;
   return <Animated.View testID="navigation-dock" style={[s.host, slideStyle]} pointerEvents="box-none" onLayout={event => setHeight?.(event.nativeEvent.layout.height)}>
-    <View testID="navigation-surface" style={[s.dock, { paddingBottom: Math.max(insets.bottom, 2),
+    {/* Half the bottom inset: the icons sit just above the home indicator instead of a full inset higher (owner, 31 Oct 2026). */}
+    <View testID="navigation-surface" style={[s.dock, { paddingBottom: Math.max(Math.round(insets.bottom / 2), 6),
       paddingLeft: Math.max(insets.left, 8), paddingRight: Math.max(insets.right, 8),
       backgroundColor: glass?.reduceTransparency ? theme.card : theme.transparent }]}>
       {!glass?.reduceTransparency && (Platform.OS !== "android" || !!target) &&
@@ -79,8 +80,9 @@ function DockTab({ icon, selected, onPress, onLongPress, onFocus, accessibilityL
 }
 
 const s = StyleSheet.create({
-  host: { position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center" },
-  dock: { width: "100%", maxWidth: 760, borderWidth: 0, borderTopLeftRadius: 24, borderTopRightRadius: 24, overflow: "hidden" },
+  host: { position: "absolute", left: 0, right: 0, bottom: 0 },
+  // A flat bar from edge to edge on every width: no rounded top and no width cap (owner, 31 Oct 2026).
+  dock: { width: "100%", borderWidth: 0, paddingTop: 4, overflow: "hidden" },
   tabs: { flexDirection: "row", gap: 6 },
   tab: { flex: 1, minWidth: 48, minHeight: 48, paddingHorizontal: 2,
     borderWidth: 2, borderRadius: 18, alignItems: "center", justifyContent: "center", overflow: "hidden" },
