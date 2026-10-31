@@ -697,8 +697,9 @@ def flag_nutrient_bar(rid, name, figures_detail):
     way the published-recipe audit does (state/recipe-audit.json, Remove or Keep). The corrected figures are still published."""
     import recipe_standards
     from workflow import read, write
-    problems = recipe_standards.problems(figures_detail) if figures_detail else []
-    if not problems or problems[0].startswith('nutrition could not be measured'):
+    # Only real failures: a figure the table cannot measure (no vitamin data for paneer) is not a failure of the standard.
+    problems = [x for x in (recipe_standards.problems(figures_detail) if figures_detail else []) if 'could not be measured' not in x]
+    if not problems:
         return None
     path = ROOT/'state'/'recipe-audit.json'
     audit = read(path, {}) or {}
