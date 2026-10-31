@@ -60,6 +60,8 @@ Requires=docker.service
 
 [Service]
 Type=simple
+# docker exec leaves the process inside the container running when systemd stops the client: clear it before each start.
+ExecStartPre=-/usr/bin/docker exec CONTAINER pkill -f recipe_drawing_bridge.py
 ExecStart=/usr/bin/docker exec --user 10000 --workdir /opt/data/qt-team -e HERMES_HOME=/opt/data CONTAINER /opt/hermes/.venv/bin/python -u recipe_drawing_bridge.py
 Restart=always
 RestartSec=15
