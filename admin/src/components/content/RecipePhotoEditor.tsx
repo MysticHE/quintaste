@@ -7,14 +7,15 @@ export const recipePhotoSrc = (path?: string) => path && /^\/api\/(catalogue-pho
   ? '/api/content/recipe-photo?path=' + encodeURIComponent(path) : '';
 const bundled = new Set(['bowl','laksa','greens','kaya-toast','claypot-rice','sweet-sour-tofu','kangkung','abc-soup','oat-porridge','popiah','gentle-laksa','mapo-tofu','bubur-cha-cha','sago-gula-melaka','mee-goreng','fried-bee-hoon','nasi-lemak']);
 export const bundledPhotoSrc = (key?: string) => key && bundled.has(key) ? '/recipe-photos/' + key + '.jpg' : '';
-export function RecipePhotoEditor({ path, fallback, label, disabled, compact, onChange, onBusy }: {
-  path?: string; fallback?: string; label: string; disabled?: boolean; compact?: boolean;
+/** `src` shows a fixed image instead of a stored path; `readOnly` leaves preview only (no upload, replace or remove). */
+export function RecipePhotoEditor({ path, fallback, src: fixedSrc, readOnly, label, disabled, compact, onChange, onBusy }: {
+  path?: string; fallback?: string; src?: string; readOnly?: boolean; label: string; disabled?: boolean; compact?: boolean;
   onChange: (photo: RecipePhoto | null) => void; onBusy: (busy: boolean) => void;
 }) {
   const [busy, setBusy] = useState(false), [error, setError] = useState(''), [preview, setPreview] = useState(false);
   const request = useRef<AbortController | null>(null);
   useEffect(() => () => request.current?.abort(), []);
-  const src = recipePhotoSrc(path) || bundledPhotoSrc(fallback);
+  const src = fixedSrc || recipePhotoSrc(path) || bundledPhotoSrc(fallback);
   async function upload(file?: File) {
     if (!file || busy || disabled) return;
     if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 8 * 1024 * 1024) { setError('Use a JPEG, PNG or WebP under 8 MB.'); return; }
@@ -34,11 +35,11 @@ export function RecipePhotoEditor({ path, fallback, label, disabled, compact, on
   return <div className={'recipe-photo-editor' + (compact ? ' is-compact' : '')}>
     {src ? <button type="button" className="recipe-photo-thumb" aria-label={'Preview ' + label} onClick={() => setPreview(true)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- authenticated asset preview */}
-      <img src={src} alt={label}/></button> : <label className="recipe-photo-empty upload" title={'Upload ' + label} aria-disabled={disabled || busy}><Icon name="photo"/><span>{busy ? 'Uploading…' : 'Add photo'}</span>{input}</label>}
-    <div className="recipe-photo-actions">{src && <label className="upload" title={'Replace ' + label}><Icon name="photo"/>{busy ? 'Uploading…' : 'Replace'}{input}</label>}
+      <img src={src} alt={label} loading="lazy" decoding="async"/></button> : readOnly ? <div className="recipe-photo-empty"><Icon name="photo"/><span>No photo</span></div> : <label className="recipe-photo-empty upload" title={'Upload ' + label} aria-disabled={disabled || busy}><Icon name="photo"/><span>{busy ? 'Uploading…' : 'Add photo'}</span>{input}</label>}
+    {!readOnly && <div className="recipe-photo-actions">{src && <label className="upload" title={'Replace ' + label}><Icon name="photo"/>{busy ? 'Uploading…' : 'Replace'}{input}</label>}
       {src && <button type="button" className="plain" disabled={disabled || busy} onClick={() => onChange(null)} aria-label={'Remove ' + label} title={'Remove ' + label}>{compact ? <Icon name="trash" size={13}/> : 'Remove'}</button>}
       {error && <span role="alert" className="recipe-error">{error}</span>}
-    </div>
+    </div>}
     {preview && <RecipeDialog title={label} onClose={() => setPreview(false)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- authenticated asset preview */}
       <img className="recipe-full-photo" src={src} alt={label}/>

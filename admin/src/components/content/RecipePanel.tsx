@@ -5,7 +5,7 @@ import { Feedback, IconButton } from '../Primitives';
 import { Icon } from '../Icon';
 import { Badges, History } from './Parts';
 import { RecipeDialog } from './RecipeDialog';
-import { RecipeColumns } from './RecipeColumns';
+import { RecipeColumns, RecipeTabs } from './RecipeColumns';
 import { fields, initial, type Detail, type Form } from './recipe-model';
 import { bundledPhotoSrc, recipePhotoSrc } from './RecipePhotoEditor';
 import MemberRecipePanel from './MemberRecipePanel';
@@ -63,10 +63,7 @@ function RecipeForm({ detail, onSaved, onDirty, onBusy, refreshing = false }: { 
             <button type="button" className="primary" disabled={locked || (!!detail && !dirty)} onClick={() => void run(detail ? 'save' : 'create')}>{busy ? 'Saving…' : detail ? 'Save' : 'Create'}</button>
           </>}</div>
       </div>
-      <div className="recipe-tabs" role="tablist" aria-label="Recipe sections">{['overview','sources','history'].map((name, index, names) => <button type="button" key={name} role="tab" id={'recipe-tab-' + name}
-        aria-controls={'recipe-page-' + name} aria-selected={tab === name} tabIndex={tab === name ? 0 : -1} onClick={() => setTab(name)}
-        onKeyDown={event => { const at = event.key === 'Home' ? 0 : event.key === 'End' ? 2 : event.key === 'ArrowRight' ? (index + 1) % 3 : event.key === 'ArrowLeft' ? (index + 2) % 3 : -1;
-          if (at >= 0) { event.preventDefault(); setTab(names[at]); document.getElementById('recipe-tab-' + names[at])?.focus(); } }}>{name[0].toUpperCase() + name.slice(1)}</button>)}</div>
+      <RecipeTabs tab={tab} setTab={setTab}/>
     </header>
     {error && !confirm && <div role="alert" className="notice error">{error}</div>}
     <div className="recipe-page" role="tabpanel" id="recipe-page-overview" aria-labelledby="recipe-tab-overview" hidden={tab !== 'overview'}>

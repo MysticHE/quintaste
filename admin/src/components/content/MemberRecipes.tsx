@@ -6,7 +6,7 @@ import { recipeLabels } from '../../lib/diet-labels';
 import { Moderation, toggle } from './MemberContent';
 
 type Listing = { id: string; name: string; status: string; price_cents: number } | null;
-type Source = { kind: 'video' | 'request'; platform?: string; url?: string; request?: string; urls?: string[]; creator?: string; notes?: string; confidence?: number };
+export type Source = { kind: 'video' | 'request'; platform?: string; url?: string; request?: string; urls?: string[]; creator?: string; notes?: string; confidence?: number };
 type Nutrition = { perServing?: Record<string, number>; [key: string]: unknown };
 type Recipe = {
   id: string; version: 'live' | 'pending'; pending_state: 'review' | 'declined' | null; decision_note: string; live: boolean; hidden_reason: string | null; ai: boolean;
@@ -58,7 +58,7 @@ function Decide({ r, done }: { r: Recipe; done: () => void }) {
     </ActionBar></details>;
 }
 /** Where an AI recipe came from, with the model's own confidence: below the review line, a person checks quantities and steps. */
-function SourceLine({ source }: { source: Source }) {
+export function SourceLine({ source }: { source: Source }) {
   const confidence = typeof source.confidence === 'number' ? Math.round(source.confidence * 100) + '% confidence' : '';
   return <div className="stack compact">
     <small>{source.kind === 'video' ? <>From {source.platform === 'upload' ? 'an uploaded video' : (source.platform ?? 'a') + ' video'}{source.url && <> · <a href={source.url} target="_blank" rel="noreferrer">Open</a></>}</>

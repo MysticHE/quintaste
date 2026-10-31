@@ -15,9 +15,10 @@ import { gameLevelAction, gameCafeList, gameCafeAction, gameLevelList, gameLevel
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
-const image = (bytes: Buffer | null) => {
+/** `cache`: seconds the staff member's own browser may keep the photo, for addresses that change whenever the photo does. */
+const image = (bytes: Buffer | null, cache = 0) => {
   if (!bytes) throw new HttpError(404, 'Photo not found.');
-  return new Response(new Uint8Array(bytes), { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
+  return new Response(new Uint8Array(bytes), { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': cache ? `private, max-age=${cache}` : 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
 };
 export function GET(request: Request, context: Context) { return route(async () => {
   const member = await session(request), { resource } = await context.params, params = new URL(request.url).searchParams;
@@ -51,7 +52,9 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'market-photo') return image(await marketPhoto(member, text(id, 'item', 36), text(params.get('slot'), 'photo', 10)));
   if (resource === 'photo') return image(await contentPhoto(member, text(id, 'photo', 64)));
   if (resource === 'recipe-photo') return image(await recipePhoto(member, text(params.get('path'), 'recipe photo', 140)));
-  if (resource === 'member-recipe-photo') return image(await memberRecipePhoto(member, text(id, 'recipe', 36), text(params.get('version'), 'version', 10), text(params.get('slot'), 'photo', 10)));
+  // A live photo addressed with its revision (`rev`) changes only when a new revision is published, which changes the address.
+  if (resource === 'member-recipe-photo') return image(await memberRecipePhoto(member, text(id, 'recipe', 36), text(params.get('version'), 'version', 10), text(params.get('slot'), 'photo', 10)),
+    params.get('version') === 'live' && /^[0-9]{1,5}$/.test(params.get('rev') ?? '') ? 86400 : 0);
   throw new HttpError(404, 'Not found.');
 }); }
 export function POST(request: Request, context: Context) { return route(async () => {

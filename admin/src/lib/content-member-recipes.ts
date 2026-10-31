@@ -5,6 +5,7 @@ import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, integer, pageSize, text, uuid } from './http';
 import { search } from './content-members';
+import { historyOf } from './content-store';
 import { isMemberRecipeId, memberRecipePrefix } from './recipe-ids';
 
 // Member recipes are published or declined, hidden or restored, never rewritten: staff must not put words in a member's name.
@@ -51,13 +52,14 @@ export async function memberRecipeRows() {
 export async function memberRecipeSummary(member: Session, publicId: string) {
   authorize(member, 'content');
   if (!isMemberRecipeId(publicId)) throw new HttpError(400, 'Check recipe.');
-  const row = (await query<{ id: string; recipe: Version; hidden: boolean; restricted: boolean; hidden_reason: string | null; ai: boolean; published_at: string; username: string; cover: boolean }>(`SELECT r.id,
+  const id = publicId.slice(memberRecipePrefix.length);
+  const row = (await query<{ id: string; recipe: Version; hidden: boolean; restricted: boolean; hidden_reason: string | null; ai: boolean; published_at: string; username: string; photos: string[] }>(`SELECT r.id,
       r.live AS recipe, r.hidden_at IS NOT NULL AS hidden, r.hidden_reason, r.draft_key LIKE 'ai-%' AS ai, r.published_at, coalesce(u.username, 'QuinTaste') AS username,
       EXISTS (SELECT 1 FROM ops.restriction x WHERE x.user_id=r.author_id AND x.active) AS restricted,
-      EXISTS (SELECT 1 FROM recipes.photo p WHERE p.recipe_id=r.id AND p.version='live' AND p.slot='cover') AS cover
-    FROM recipes.recipe r LEFT JOIN public."user" u ON u.id=r.author_id WHERE r.id=$1 AND r.live IS NOT NULL`, [publicId.slice(memberRecipePrefix.length)])).rows[0];
+      coalesce((SELECT json_agg(p.slot ORDER BY p.slot) FROM recipes.photo p WHERE p.recipe_id=r.id AND p.version='live'), '[]') AS photos
+    FROM recipes.recipe r LEFT JOIN public."user" u ON u.id=r.author_id WHERE r.id=$1 AND r.live IS NOT NULL`, [id])).rows[0];
   if (!row) throw new HttpError(404, 'Recipe not found.');
-  return row;
+  return { ...row, history: await historyOf('member-recipe:' + id) };
 }
 export async function memberRecipePhoto(member: Session, id: string, version: string, slot: string) {
   authorize(member, 'content');

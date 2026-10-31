@@ -23,9 +23,11 @@ export async function staffRow(kind: Kind, id: string) {
   return (await query<StaffRow>(`SELECT ${columns} FROM content.item i LEFT JOIN staff.member m ON m.id=i.updated_by WHERE i.kind=$1 AND i.id=$2`, [kind, id])).rows[0] ?? null;
 }
 /** The audit trail of one item, newest first. */
-export async function history(kind: Kind, id: string) {
+export const history = (kind: Kind, id: string) => historyOf(kind + ':' + id);
+/** The audit trail of any audit target (such as `member-recipe:<uuid>`), newest first. */
+export async function historyOf(target: string) {
   return (await query(`SELECT a.occurred_at,a.action,a.reason,m.email AS actor FROM staff.audit a LEFT JOIN staff.member m ON m.id=a.actor_id
-    WHERE a.target=$1 ORDER BY a.id DESC LIMIT 20`, [kind + ':' + id])).rows;
+    WHERE a.target=$1 ORDER BY a.id DESC LIMIT 20`, [target])).rows;
 }
 /** Whether packaged or bot data changed under a staff edit since staff saved it. */
 export const newerBelow = (row: StaffRow | null, hash: string | undefined) => !!row && row.origin === 'edit' && typeof row.data.base === 'string' && !!hash && row.data.base !== hash;
