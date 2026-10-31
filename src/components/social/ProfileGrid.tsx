@@ -75,11 +75,12 @@ type ResultReporter = (id: string, count: number) => void;
 function RecipeTile({ id, query = "", saved = false, report, onGone }: { id: string; query?: string; saved?: boolean; report?: ResultReporter; onGone?: (id: string) => void }) {
   const { recipe, loading, error, refresh, gone } = usePublishedRecipe(id), t = useT("profile"), language = useLanguage(), food = useFood();
   useReactions("recipe", recipe ? [id] : []);
-  const count = recipe ? (!query || recipe.name.toLowerCase().includes(query) ? 1 : 0) : loading ? -2 : -1;
+  const count = recipe ? (!query || recipe.name.toLowerCase().includes(query) ? 1 : 0) : gone ? 0 : loading ? -2 : -1;
   useEffect(() => { report?.("r:" + id, count); }, [report, id, count]);
   useEffect(() => { if (gone) onGone?.(id); }, [gone, onGone, id]);
+  // Deleted or hidden by staff: the tile leaves the profile (Saved offers to remove such saves together).
+  if (!recipe && gone) return null;
   if (loading && !recipe) return <TileLoading />;
-  if (!recipe && gone && !saved) return null;
   if (!recipe) return <UnavailableTile retry={error && !gone ? refresh : undefined} remove={saved ? () => void food.toggleSave("recipe", id) : undefined} />;
   if (query && !recipe.name.toLowerCase().includes(query)) return null;
   return <GridTile title={recipe.name} type={t("recipe")} path={recipe.image?.path} source={!recipe.image?.path && recipe.photo ? photos[recipe.photo] as ImageSource : undefined}
@@ -110,7 +111,7 @@ export function MyPostGrid({ kind }: { kind: ContentKind }) {
   const t0 = useT("common"), firstLoad = !ready || [recipes && status, market && seller, market && items, events && classes]
     .some(remote => remote && remote.loading && remote.data === undefined && !remote.error);
   const error = (recipes && status.error) || (market && (seller.error || items.error)) || (events && classes.error);
-  useReactions("recipe", drafts.map(d => status.byDraft.get(d.id)).filter(r => r?.live).map(r => r!.id));
+  useReactions("recipe", drafts.map(d => status.byDraft.get(d.id)).filter(r => r?.live && !r.hidden).map(r => r!.id));
   return <>
     {recipes && <RemoteStatus remote={status} icon="book-outline" returnTo="/social" placeholder={null} />}
     {market && <><RemoteStatus remote={seller} icon="storefront-outline" returnTo="/social" placeholder={null} /><RemoteStatus remote={items} icon="storefront-outline" returnTo="/social" placeholder={null} /></>}
@@ -120,7 +121,7 @@ export function MyPostGrid({ kind }: { kind: ContentKind }) {
     <View testID="profile-post-grid" style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start" }}>
       {drafts.map(d => { const live = status.byDraft.get(d.id); return <GridTile key={d.id} title={d.title || t("untitled")} type={t("recipe")} path={d.photo} icon="restaurant-outline"
         note={recipeStatus(d, live, language)} href={("/recipe-draft/" + d.id) as Href}>
-        {live?.live && <ReactionBar kind="recipe" id={live.id} name={d.title} shareMessage={() => d.title + " " + Linking.createURL("/cook/recipe/" + live.id)} />}
+        {live?.live && !live.hidden && <ReactionBar kind="recipe" id={live.id} name={d.title} shareMessage={() => d.title + " " + Linking.createURL("/cook/recipe/" + live.id)} />}
       </GridTile>; })}
       {remoteOnly.map(r => <RecipeTile key={r.id} id={r.id} onGone={markGone} />)}
       {listings.map(l => <GridTile key={l.id} title={l.name} type={t("market")} path={l.photos.item} icon="storefront-outline" note={marketMoney(l.priceCents) + " · " + tm(({ active: "itemLive", draft: "itemDraft", paused: "itemPaused", removed: "itemRemoved" } as const)[l.status])} href={{ pathname: "/market/edit", params: { id: l.id } }} />)}
@@ -147,9 +148,23 @@ export function PersonPostGrid({ posts, kind }: { posts: PersonPosts; kind: Cont
   </View>;
 }
 export function SavedGrid({ kind, query }: { kind: ContentKind; query: string }) {
-  const { doc } = useFood(), feeds = useFeeds(), t = useT("profile"), q = useDebounced(query).trim().toLowerCase(), [limit, setLimit] = useState(6);
+  const { doc, update } = useFood(), { setNotice } = usePreferences(), feeds = useFeeds(), t = useT("profile"), q = useDebounced(query).trim().toLowerCase(), [limit, setLimit] = useState(6);
+  // Saved recipes staff deleted or hid leave the grid (so pages fill with the rest) and are offered for removal together.
+  const [gone, setGone] = useState<ReadonlySet<string>>(() => new Set()), [clearing, setClearing] = useState(false);
+  const markGone = useCallback((id: string) => { setGone(current => (current.has(id) ? current : new Set([...current, id]))); }, []);
   const newest = (type: "recipe" | "place") => doc.saves.filter(s => s.kind === type).sort((a, b) => b.savedAt - a.savedAt).map(s => s.id);
-  const ids = newest("recipe").filter(id => !id.startsWith("private-"));
+  const ids = newest("recipe").filter(id => !id.startsWith("private-") && !gone.has(id));
+  const goneSaved = [...gone].filter(id => doc.saves.some(s => s.kind === "recipe" && s.id === id));
+  const removeGone = async () => {
+    if (clearing) return;
+    setClearing(true);
+    try {
+      const removed = new Set(goneSaved);
+      if (await update(current => ({ ...current, saves: current.saves.filter(s => s.kind !== "recipe" || !removed.has(s.id)) }))) setGone(new Set());
+      else setNotice({ text: t("savedFailed"), error: true });
+    } catch { setNotice({ text: t("savedFailed"), error: true }); }
+    finally { setClearing(false); }
+  };
   // Only Explore catalogue places have a tile; older saves (Google places, sample venues) stay in Saved places.
   const placeIds = newest("place").filter(id => id.startsWith("catalogue-")).map(id => id.slice(10));
   const places = kind === "all" || kind === "places", recipes = kind === "all" || kind === "recipes", market = kind === "all" || kind === "market", events = kind === "all" || kind === "events";
@@ -170,9 +185,13 @@ export function SavedGrid({ kind, query }: { kind: ContentKind; query: string })
     return () => clearTimeout(next);
   }, [q, remaining, settled, total]);
   return <>
+    {recipes && !!goneSaved.length && <View style={[common.row, { gap: 8, marginBottom: 8 }]}>
+      <T variant="small" muted style={common.flex}>{t("goneSaved", { n: goneSaved.length })}</T>
+      <Button label={t("removeGone")} variant="link" disabled={clearing} onPress={() => void removeGone()} />
+    </View>}
     <View testID="profile-saved-grid" style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start" }}>
       {places && placeIds.slice(0, limit).map(id => <SavedPlace key={id} id={id} query={q} report={report} />)}
-      {recipes && ids.slice(0, limit).map(id => <RecipeTile key={id} id={id} query={q} saved report={report} />)}
+      {recipes && ids.slice(0, limit).map(id => <RecipeTile key={id} id={id} query={q} saved report={report} onGone={markGone} />)}
       {market && <SavedMarket query={q} report={report} />}
       {events && feeds.savedEvents.slice(0, limit).map(id => <SavedEvent key={id} id={id} query={q} report={report} />)}
     </View>

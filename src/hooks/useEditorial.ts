@@ -15,7 +15,7 @@ function remember(path: string, data: unknown) {
   if (cache.size > cacheSize) cache.delete(cache.keys().next().value!);
 }
 /** `keepPrevious` keeps the last page on screen while a new search or page loads (`stale` is then true); see useRemote. */
-export function useEditorial<T>(path: string | null, keepPrevious = false): { data?: T; error?: string; loading: boolean; stale?: boolean; refresh: () => void } {
+export function useEditorial<T>(path: string | null, keepPrevious = false): { data?: T; error?: string; loading: boolean; stale?: boolean; gone?: boolean; refresh: () => void } {
   const t = useT("cook");
   // The failure is kept as a key so its message follows the language chosen afterwards.
   // `previous` is what the last path showed, kept until the new path's first result or failure.
@@ -43,7 +43,8 @@ export function useEditorial<T>(path: string | null, keepPrevious = false): { da
   const { failure, previous: _previous, ...rest } = state;
   if (rest.data === undefined && !failure && cached !== undefined) return { ...rest, data: cached, refresh };
   if (rest.data === undefined && !failure && previous !== undefined) return { ...rest, data: previous, stale: true, refresh };
-  return { ...rest, error: failure && t(failure), refresh };
+  // `gone`: the server says this content no longer exists (staff deleted or hid it, or it was withdrawn).
+  return { ...rest, error: failure && t(failure), gone: failure === "errorRecipeGone", refresh };
 }
 export function usePublishedRecipe(id: string | null) {
   // Bundled recipes come with the app; staff edits and hides of them arrive in one small list, never per recipe.
@@ -51,6 +52,8 @@ export function usePublishedRecipe(id: string | null) {
   const existing = id ? recipeById(id) : undefined, member = useMemberRecipe(id);
   const remote = useEditorial<Recipe>(id && !bundled && !isMemberRecipe(id) && (!existing || existing.provenance) && !id.startsWith("private-") ? "/recipes/" + encodeURIComponent(id) : null);
   if (isMemberRecipe(id)) return member;
-  if (bundled) return { loading: staff.loading && !existing, error: undefined as string | undefined, refresh: staff.refresh, recipe: existing, gone: false };
-  return { ...remote, recipe: remote.data ?? existing, gone: false };
+  // A bundled recipe missing from the bundle as staff left it was hidden or deleted in the console (the last hide list is
+  // kept on the device, so this holds offline too).
+  if (bundled) return { loading: staff.loading && !existing, error: undefined as string | undefined, refresh: staff.refresh, recipe: existing, gone: !existing };
+  return { ...remote, recipe: remote.gone ? undefined : remote.data ?? existing, gone: !!remote.gone };
 }

@@ -13,7 +13,7 @@ const profile = {
   noMessages: "No conversations yet", noMessagesText: "Chat with a friend, message a shop or ask a class teacher.", noUnread: "You're all caught up", noMessageMatch: "No matching conversations",
   messageFailed: "Some conversations could not load", retry: "Try Again", viewClass: "View Class",
   messagePerson: "Message {name}…", messageShop: "Message the shop…", askTeacher: "Ask the teacher…", viewOrder: "View Order", allOrders: "All Orders", order: "Order {id}",
-  buyingRole: "Market · You're buying", sellingRole: "Market · You're selling", classUpdate: "Class update", more: "Show More", newCount: "{n} new", waitingBadge: "{label}, {n} waiting", savedFailed: "Your save could not be updated.",
+  buyingRole: "Market · You're buying", sellingRole: "Market · You're selling", classUpdate: "Class update", more: "Show More", newCount: "{n} new", waitingBadge: "{label}, {n} waiting", savedFailed: "Your save could not be updated.", goneSaved: "Saved recipes no longer available: {n}", removeGone: "Remove",
   addFriend: "Add friend", addFriendWaiting: "Add friend, {n} waiting", verifiedTick: "Verified", statPosts: "Posts", statDinners: "Dinners", statLine: "{n} {label}",
   addBio: "Add bio", myHobbies: "My hobbies are…", search: "Search", requests: "Friend requests", sent: "Sent", results: "Results", accept: "Accept", add: "Add",
   cancel: "Cancel", requested: "Requested", alreadyFriends: "Friends", noHandleMatch: "No one with that handle", noRequests: "No friend requests",

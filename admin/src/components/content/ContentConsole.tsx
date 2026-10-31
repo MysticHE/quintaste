@@ -40,8 +40,8 @@ export function Recipes() {
   const dirty = useRef(false), busy = useRef(false);
   const choose = (id: string | null) => { if (id === selected || busy.current) return; if (dirty.current && !window.confirm('Discard changes?')) return; dirty.current = false; select(id); };
   return <ContentList path="/api/content/recipes" noun="recipes" selected={selected} select={choose} add="Recipe"
-    filters={[['all', 'All'], ['bundled', 'App'], ['bot', 'QT Manager'], ['staff', 'Staff'], ['edited', 'Edited'], ['newer', 'Newer source'], ['hidden', 'Hidden'], ['deleted', 'Deleted']]}
-    describe={r => ({ title: String(r.title), meta: [sourceLabel(r.source), (r.categories as string[]).join(', '), r.withdrawn ? 'Withdrawn' : ''].filter(Boolean).join(' · '), search: [r.title, r.categories], staff: r.source === 'staff' })}
+    filters={[['all', 'All'], ['bundled', 'App'], ['bot', 'QT Manager'], ['staff', 'Staff'], ['member', 'Members'], ['ai', 'AI'], ['edited', 'Edited'], ['newer', 'Newer source'], ['hidden', 'Hidden'], ['deleted', 'Deleted']]}
+    describe={r => ({ title: String(r.title), meta: [sourceLabel(r.source), (r.categories as string[]).join(', '), r.withdrawn ? 'Withdrawn' : '', r.restricted ? 'Author restricted' : ''].filter(Boolean).join(' · '), search: [r.title, r.categories, r.author], staff: r.source === 'staff' })}
     detail={(id, changed) => <RecipePanel key={id} id={id} onChanged={changed} onDirty={value => { dirty.current = value; }} onBusy={value => { busy.current = value; }}/>}/>;
 }
 export function Events() {
@@ -53,9 +53,9 @@ export function Events() {
     describe={r => ({ title: String(r.title), meta: [r.startsAt ? date(r.startsAt) : '', sourceLabel(r.source), r.status !== 'scheduled' ? r.status : ''].filter(Boolean).join(' · '), search: [r.title], staff: r.source === 'staff' })}
     detail={(id, changed) => <EventPanel key={id} id={id} onChanged={changed} onDirty={v => { dirty.current = v; }} onBusy={v => { busy.current = v; }}/>}/>;
 }
-const sourceLabel = (source: unknown) => ({ bundled: 'App', bot: 'QT Manager', staff: 'Staff' } as Record<string, string>)[String(source)] ?? '';
+const sourceLabel = (source: unknown) => ({ bundled: 'App', bot: 'QT Manager', staff: 'Staff', member: 'Member', ai: 'AI' } as Record<string, string>)[String(source)] ?? '';
 const passes = (filter: string, row: Row) => row.deleted ? filter === 'deleted' : filter === 'deleted' ? false : ({ all: true, edited: row.edited, hidden: row.hidden, newer: !!row.newer, reported: (row.reports ?? 0) > 0,
-  staff: row.origin === 'staff' || row.source === 'staff', bundled: row.source === 'bundled', bot: row.source === 'bot', explorer: row.origin === 'explorer',
+  staff: row.origin === 'staff' || row.source === 'staff', bundled: row.source === 'bundled', bot: row.source === 'bot', member: row.source === 'member', ai: row.source === 'ai', explorer: row.origin === 'explorer',
   upcoming: typeof row.startsAt === 'string' && Date.parse(row.startsAt) > Date.now() } as Record<string, boolean>)[filter] ?? true;
 
 function ContentList({ path, noun, filters, describe, detail, selected, select, add, scope, keep = () => true }: {

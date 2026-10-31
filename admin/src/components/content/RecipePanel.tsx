@@ -8,8 +8,14 @@ import { RecipeDialog } from './RecipeDialog';
 import { RecipeColumns } from './RecipeColumns';
 import { fields, initial, type Detail, type Form } from './recipe-model';
 import { bundledPhotoSrc, recipePhotoSrc } from './RecipePhotoEditor';
+import MemberRecipePanel from './MemberRecipePanel';
+import { isMemberRecipeId } from '../../lib/recipe-ids';
 
 export default function RecipePanel({ id, onChanged, onDirty, onBusy }: { id: string; onChanged: (id?: string | null) => void; onDirty: (dirty: boolean) => void; onBusy: (busy: boolean) => void }) {
+  if (isMemberRecipeId(id)) return <MemberRecipePanel id={id} onChanged={onChanged}/>;
+  return <StaffRecipePanel id={id} onChanged={onChanged} onDirty={onDirty} onBusy={onBusy}/>;
+}
+function StaffRecipePanel({ id, onChanged, onDirty, onBusy }: { id: string; onChanged: (id?: string | null) => void; onDirty: (dirty: boolean) => void; onBusy: (busy: boolean) => void }) {
   const resource = useResource<Detail>(id === 'new' ? null : '/api/content/recipes?id=' + encodeURIComponent(id));
   if (id === 'new') return <RecipeForm detail={null} onSaved={onChanged} onDirty={onDirty} onBusy={onBusy}/>;
   return <><Feedback {...resource} retry={resource.reload}/>{resource.data && <RecipeForm key={resource.data.staff?.version ?? 0} detail={resource.data}

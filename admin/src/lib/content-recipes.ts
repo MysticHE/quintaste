@@ -4,6 +4,8 @@ import { HttpError } from './http';
 import { packagedEvents, packagedRecipes, type Packaged, type Recipe, type Event } from './content-base';
 import { action, contentId, expectedVersion, history, newerBelow, newId, staffRow, staffRows, staffState, visibility, writeItem, type Kind, type StaffRow } from './content-store';
 import { event, recipeFields, today } from './content-validate';
+import { memberRecipeRows, memberRecipeSummary } from './content-member-recipes';
+import { isMemberRecipeId } from './recipe-ids';
 
 type Source = 'bundled' | 'bot' | 'staff';
 const titleOf = (data: Record<string, unknown>) => String(data.name ?? data.title ?? '');
@@ -19,7 +21,11 @@ async function listOf(kind: 'recipe' | 'event', base: Packaged<Recipe | Event>[]
   };
   return [...rows.filter(r => r.origin === 'staff').map(r => item(r.id, r.data, 'staff')), ...base.map(b => item(b.data.id, b.data, b.source ?? 'bot', b.hash))];
 }
-export async function recipeList(member: Session) { authorize(member, 'content'); return listOf('recipe', await packagedRecipes()); }
+export async function recipeList(member: Session) {
+  authorize(member, 'content');
+  const [own, members] = await Promise.all([packagedRecipes().then(base => listOf('recipe', base)), memberRecipeRows()]);
+  return [...own, ...members];
+}
 export async function eventList(member: Session) { authorize(member, 'content'); return listOf('event', await packagedEvents()); }
 
 async function detailOf(kind: 'recipe' | 'event', raw: string, base: Packaged<Recipe | Event>[]) {
@@ -28,7 +34,11 @@ async function detailOf(kind: 'recipe' | 'event', raw: string, base: Packaged<Re
   if (!packaged && row?.origin !== 'staff') throw new HttpError(404, kind === 'recipe' ? 'Recipe not found.' : 'Event not found.');
   return { id, app: process.env.CUSTOMER_APP_URL ?? null, source: packaged?.source ?? 'staff', base: packaged?.data ?? null, staff: row && { ...staffState(row), data: row.data }, newer: newerBelow(row, packaged?.hash), history: trail };
 }
-export async function recipeDetail(member: Session, id: string) { authorize(member, 'content'); return detailOf('recipe', id, await packagedRecipes()); }
+export async function recipeDetail(member: Session, id: string) {
+  if (isMemberRecipeId(id)) return memberRecipeSummary(member, id);
+  authorize(member, 'content');
+  return detailOf('recipe', id, await packagedRecipes());
+}
 export async function eventDetail(member: Session, id: string) { authorize(member, 'content'); return detailOf('event', id, await packagedEvents()); }
 
 /** A complete recipe: staff fields over the packaged or bot recipe, keeping its photo key, links and provenance. */

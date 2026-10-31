@@ -71,7 +71,8 @@ editorial.post('/control/revert', async (req, res) => {
   catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Revert unavailable; check current state before retrying.' }); }
 });
 function conditional(req, res, value) {
-  const etag = '"' + hash(value) + '"'; res.set({ ETag: etag, 'Cache-Control': 'public, max-age=60, must-revalidate', 'X-Content-Type-Options': 'nosniff' });
+  // no-cache: every read revalidates (an unchanged item is a 304), so a staff hide or delete never waits out a cache lifetime.
+  const etag = '"' + hash(value) + '"'; res.set({ ETag: etag, 'Cache-Control': 'public, no-cache', 'X-Content-Type-Options': 'nosniff' });
   return req.get('If-None-Match') === etag ? res.status(304).end() : res.json(value);
 }
 editorial.get('/status', async (req, res, next) => {
@@ -100,7 +101,9 @@ editorial.get('/staff-recipes', async (req, res, next) => {
   try {
     const [snapshot, staff] = await Promise.all([readSnapshot(root), staffContent()]);
     const items = [...staff.items.values()].filter(item => item.kind === 'recipe');
-    conditional(req, res, { revision: staff.revision, hidden: items.filter(item => item.hidden).map(item => item.id),
+    // Hides of bundled and bot recipes (a bot record can share a bundled id, which the device never fetches); the server
+    // already drops hidden staff-created recipes, so they are left out.
+    conditional(req, res, { revision: staff.revision, hidden: items.filter(item => item.hidden && item.origin === 'edit').map(item => item.id),
       recipes: items.filter(item => !item.hidden && item.origin === 'edit' && staffEdited(item) && !snapshot.records['recipe:' + item.id]).map(item => staffRecord(staff, 'recipe', item.id, null)) });
   } catch (e) { next(e); }
 });

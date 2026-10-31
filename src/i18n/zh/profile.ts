@@ -14,7 +14,7 @@ const profile: Record<keyof typeof en, string> = {
   noMessages: "还没有对话", noMessagesText: "与朋友聊天、联系店铺或向课程老师提问。", noUnread: "没有未读消息", noMessageMatch: "没有匹配的对话",
   messageFailed: "部分对话未能加载", retry: "重试", viewClass: "查看课程",
   messagePerson: "给 {name} 发消息…", messageShop: "给店铺发消息…", askTeacher: "向老师提问…", viewOrder: "查看订单", allOrders: "全部订单", order: "订单 {id}",
-  buyingRole: "市集 · 你是买家", sellingRole: "市集 · 你是卖家", classUpdate: "课程更新", more: "显示更多", newCount: "{n} 个新订单", waitingBadge: "{label}，{n} 项待处理", savedFailed: "未能更新收藏。",
+  buyingRole: "市集 · 你是买家", sellingRole: "市集 · 你是卖家", classUpdate: "课程更新", more: "显示更多", newCount: "{n} 个新订单", waitingBadge: "{label}，{n} 项待处理", savedFailed: "未能更新收藏。", goneSaved: "已下架的收藏食谱：{n}", removeGone: "移除",
   addFriend: "添加朋友", addFriendWaiting: "添加朋友，{n} 个好友请求", verifiedTick: "已认证", statPosts: "发布", statDinners: "约饭", statLine: "{n} {label}",
   addBio: "添加简介", myHobbies: "我的爱好是…", search: "搜索", requests: "好友请求", sent: "已发送", results: "搜索结果", accept: "接受", add: "添加",
   cancel: "取消", requested: "已请求", alreadyFriends: "已是朋友", noHandleMatch: "没有这个用户名", noRequests: "没有好友请求",

@@ -5,6 +5,7 @@ import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, integer, pageSize, text, uuid } from './http';
 import { search } from './content-members';
+import { isMemberRecipeId, memberRecipePrefix } from './recipe-ids';
 
 // Member recipes are published or declined, hidden or restored, never rewritten: staff must not put words in a member's name.
 type Version = { title: string; description: string; author: string; language: string; servings: number; minutes: number; diet: string; categories: string[];
@@ -31,6 +32,32 @@ export async function memberRecipeList(member: Session, status: string, q: strin
   const items = ids.length ? (await query<{ id: string; name: string; status: string; price_cents: number }>('SELECT id, name, status, price_cents FROM market.listing WHERE id = ANY($1::uuid[])', [ids])).rows : [];
   const byId = new Map(items.map(item => [item.id, item]));
   return rows.map(row => ({ ...row, recipe: { ...row.recipe, ingredients: row.recipe.ingredients.map(i => ({ ...i, listing: i.listingId ? byId.get(i.listingId) ?? null : undefined })) } }));
+}
+/**
+ * Published member and AI recipes as rows of the Recipes list, so staff see every recipe members can find in Cook. A recipe
+ * whose author is restricted is hidden from members too (server/recipes/router.mjs), so it is marked hidden here. Newest
+ * 1,000 only: the Member recipes and AI recipes pages search and page through all of them.
+ */
+export async function memberRecipeRows() {
+  return (await query<{ id: string; title: string; categories: unknown; hidden: boolean; restricted: boolean; ai: boolean; updated_at: string; username: string }>(`SELECT r.id,
+      r.live->>'title' AS title, r.live->'categories' AS categories, r.hidden_at IS NOT NULL AS hidden, r.draft_key LIKE 'ai-%' AS ai, r.updated_at,
+      EXISTS (SELECT 1 FROM ops.restriction x WHERE x.user_id=r.author_id AND x.active) AS restricted, coalesce(u.username, 'QuinTaste') AS username
+    FROM recipes.recipe r LEFT JOIN public."user" u ON u.id=r.author_id WHERE r.live IS NOT NULL ORDER BY r.published_at DESC, r.id LIMIT 1000`)).rows
+    .map(r => ({ id: memberRecipePrefix + r.id, title: r.title, source: r.ai ? 'ai' : 'member', startsAt: null, status: null,
+      categories: Array.isArray(r.categories) ? r.categories : [], hidden: r.hidden || r.restricted, restricted: r.restricted, deleted: false, edited: false, newer: false,
+      updatedAt: r.updated_at, withdrawn: false, author: r.username }));
+}
+/** One published member or AI recipe for the Recipes workspace: staff hide or show it there, and review it on its own page. */
+export async function memberRecipeSummary(member: Session, publicId: string) {
+  authorize(member, 'content');
+  if (!isMemberRecipeId(publicId)) throw new HttpError(400, 'Check recipe.');
+  const row = (await query<{ id: string; recipe: Version; hidden: boolean; restricted: boolean; hidden_reason: string | null; ai: boolean; published_at: string; username: string; cover: boolean }>(`SELECT r.id,
+      r.live AS recipe, r.hidden_at IS NOT NULL AS hidden, r.hidden_reason, r.draft_key LIKE 'ai-%' AS ai, r.published_at, coalesce(u.username, 'QuinTaste') AS username,
+      EXISTS (SELECT 1 FROM ops.restriction x WHERE x.user_id=r.author_id AND x.active) AS restricted,
+      EXISTS (SELECT 1 FROM recipes.photo p WHERE p.recipe_id=r.id AND p.version='live' AND p.slot='cover') AS cover
+    FROM recipes.recipe r LEFT JOIN public."user" u ON u.id=r.author_id WHERE r.id=$1 AND r.live IS NOT NULL`, [publicId.slice(memberRecipePrefix.length)])).rows[0];
+  if (!row) throw new HttpError(404, 'Recipe not found.');
+  return row;
 }
 export async function memberRecipePhoto(member: Session, id: string, version: string, slot: string) {
   authorize(member, 'content');

@@ -10,7 +10,12 @@ type Cache = { data: unknown; etag: string; at: number };
 const cache = new Map<string, Cache>();
 const requests = new Map<string, { promise: Promise<unknown>; controller: AbortController; users: number }>();
 const failures = new Map<string, number>();
-const key = "quintaste:public-editorial:v1", fresh = 15 * 60000, offline = 86400000;
+// `fresh` only spares a second request for the same content moments apart; after it the app asks again (an unchanged
+// item costs a 304), so staff hides and deletes reach members at once instead of up to 15 minutes later.
+const key = "quintaste:public-editorial:v1", fresh = 30000, offline = 86400000;
+// The last hide list of bundled and bot recipes, kept without expiry: the shared cache drops it after a day or when it
+// fills, and bundled recipes would then come back on screen until the next successful read (hides fail closed).
+const hidesKey = "quintaste:staff-recipe-hides:v1";
 let hydration: Promise<void> | undefined, writes = Promise.resolve();
 const bytes = (value: unknown) => utf8Bytes(JSON.stringify(value));
 const imagePath = /^\/api\/(editorial\/assets|catalogue-photos)\/[a-f0-9]{64}\.jpg$/;
@@ -46,8 +51,8 @@ function validate(path: string, data: unknown, at = Date.now()) {
       && r.steps.every(s => s && typeof s.title === "string" && typeof s.instruction === "string" && Array.isArray(s.ingredientIds)));
   if (path === "/staff-recipes") {
     const staff = data as StaffRecipes;
-    if (typeof staff.revision !== "string" || !Array.isArray(staff.hidden) || staff.hidden.length > 200 || !staff.hidden.every(id => short(id, 150))
-      || !Array.isArray(staff.recipes) || staff.recipes.length > 40) throw new Error("Invalid staff recipes");
+    if (typeof staff.revision !== "string" || !Array.isArray(staff.hidden) || staff.hidden.length > 2000 || !staff.hidden.every(id => short(id, 150))
+      || !Array.isArray(staff.recipes) || staff.recipes.length > 100) throw new Error("Invalid staff recipes");
     applyStaffRecipes(staff.hidden, staff.recipes.filter(staffRecipe));
   } else if (path.startsWith("/recipes/")) {
     const r = data as Recipe;
@@ -66,6 +71,10 @@ function validate(path: string, data: unknown, at = Date.now()) {
 }
 async function hydrate() {
   hydration ??= (async () => {
+    try {
+      const hides: unknown = JSON.parse(await AsyncStorage.getItem(hidesKey) ?? "null");
+      if (Array.isArray(hides) && hides.length <= 2000 && hides.every(id => short(id, 150))) applyStaffRecipes(hides, []);
+    } catch { /* A damaged hide list is replaced by the next read. */ }
     try {
       const raw = await AsyncStorage.getItem(key); if (!raw || raw.length > 512000) return;
       const entries: unknown = JSON.parse(raw); if (!Array.isArray(entries) || entries.length > 40) return;
@@ -90,8 +99,15 @@ export async function editorialRequest<T>(path: string, signal?: AbortSignal): P
   }
   let pending = requests.get(path);
   if (pending?.controller.signal.aborted) { requests.delete(path); pending = undefined; }
+  // At most 8 requests at once: past that, show the copy already held, or wait for a slot instead of failing.
+  while (!pending && requests.size >= 8) {
+    if (prior && Date.now() - prior.at < offline) return validate(path, prior.data, prior.at) as T;
+    await Promise.race([...requests.values()].map(request => request.promise.catch(() => undefined)));
+    if (signal?.aborted) throw new Error("Cancelled");
+    pending = requests.get(path);
+    if (pending?.controller.signal.aborted) { requests.delete(path); pending = undefined; }
+  }
   if (!pending) {
-    if (requests.size >= 8) throw new Error("Please try again shortly.");
     const controller = new AbortController();
     const promise = (async () => {
       const timeout = setTimeout(() => controller.abort(), 15000);
@@ -101,7 +117,9 @@ export async function editorialRequest<T>(path: string, signal?: AbortSignal): P
         if (response.status === 404 && path.startsWith("/recipes/")) { cache.delete(path); forgetPublishedRecipe(path.slice(9)); throw Object.assign(new Error("Recipe is no longer available."), { unavailable: true }); }
         if (!response.ok) throw new Error("Content is temporarily unavailable.");
         const text = await response.text(); if (text.length > (path === "/staff-recipes" ? 200000 : 64000)) throw new Error("Content response too large");
-        const data = validate(path, JSON.parse(text)); save(path, { data, at: Date.now(), etag: response.headers.get("etag") ?? "" }); failures.delete(path); return data;
+        const data = validate(path, JSON.parse(text)); save(path, { data, at: Date.now(), etag: response.headers.get("etag") ?? "" }); failures.delete(path);
+        if (path === "/staff-recipes") { const hides = JSON.stringify((data as StaffRecipes).hidden); writes = writes.catch(() => {}).then(() => AsyncStorage.setItem(hidesKey, hides)).catch(() => {}); }
+        return data;
       } catch (e) {
         if ((e as { unavailable?: boolean }).unavailable) throw e;
         if (!controller.signal.aborted) { failures.set(path, Date.now()); while (failures.size > 40) failures.delete(failures.keys().next().value!); }
