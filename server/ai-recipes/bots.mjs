@@ -92,7 +92,7 @@ export function brief(payload) {
     return { system: videoSystem, prompt: videoPrompt + context, schema: botSchema };
   }
   const ask = payload.kind === 'demand' ? demandPrompt(payload.request) : requestPrompt(payload.request, payload.noPungent === true);
-  return { system: house + '\n' + researchSystem + '\nThen write the final recipe JSON from the version you propose. Set creator to the author of the page it mainly follows, and at, shotAt and coverAt to null.',
+  return { system: house + '\n' + researchSystem + '\nThen write the final recipe JSON from the version you propose. Set creator to the author of the page it mainly follows, and at and shotAt to null.',
     prompt: ask, schema: botSchema };
 }
 

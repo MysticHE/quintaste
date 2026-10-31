@@ -9,19 +9,21 @@ import { method, reviewAll, stepsToDraw } from './photos.mjs';
  * stickers and logos, or draws the step from the method when no frame shows it. Raw frames are never published.
  * A saved recipe queues one row per step (`queueDrawings`), with its frame as the reference; the bridge
  * (ops/qt-team/recipe_drawing_bridge.py) claims and answers them through the signed routes in bot-router.mjs; the worker
- * (`settleDrawings`) checks a recipe's drawings against its steps once none is still out, attaches the ones that fit and asks
- * once more for the others, telling the redraw what was wrong. The recipe is already published or in review meanwhile.
+ * (`settleDrawings`) checks a recipe's pictures against their own steps in batches as they arrive, attaches the ones that fit
+ * and asks once more for the others, telling the redo what was wrong. The recipe is already published or in review meanwhile.
  */
-const MAX_DRAWINGS = 20, MAX_TRIES = 2, ANSWER_MINUTES = 30;
+const MAX_DRAWINGS = 20, MAX_TRIES = 2, ANSWER_MINUTES = 30, CHECK_BATCH = 4;
 export const BRIDGE_ID = 'qt-gamer-drawings';
 let failedAt = 0;
 
 let tableSeen = false, tableCheckedAt = 0;
-/** True once schema v4 (recipes.ai_drawing) is applied; until then recipes are saved without drawings, as before. */
+/** True once schema v5 (recipes.ai_drawing with its reference column) is applied; until then nothing is queued. */
 async function tableReady() {
   if (tableSeen || Date.now() - tableCheckedAt < 60000) return tableSeen;
   tableCheckedAt = Date.now();
-  tableSeen = Boolean((await pool.query("SELECT to_regclass('recipes.ai_drawing') AS t")).rows[0]?.t);
+  tableSeen = (await pool.query(`SELECT 1 FROM information_schema.columns
+    WHERE table_schema='recipes' AND table_name='ai_drawing' AND column_name='reference'`)).rowCount > 0;
+  if (!tableSeen) logger.warn({ event: 'ai_recipes_drawings_schema_missing' });
   return tableSeen;
 }
 
@@ -51,19 +53,24 @@ const NO_TEXT = 'Also refuse a photo that shows any text, caption, subtitle, sti
 
 /** Queues a picture for each step of a just-saved recipe (at most MAX_DRAWINGS), with the step's chosen video frame when there is one. */
 export async function queueDrawings(recipeId, recipe, photos) {
+  if (!await tableReady().catch(() => false)) return 0;
+  const chosen = stepsToDraw(recipe, recipe.steps.map((_, index) => index), MAX_DRAWINGS);
+  const client = await pool.connect();
   try {
-    if (!await tableReady()) return 0;
-    const chosen = stepsToDraw(recipe, recipe.steps.map((_, index) => index), MAX_DRAWINGS);
+    // All of a recipe's pictures are queued together or not at all.
+    await client.query('BEGIN');
     for (const index of chosen) {
       const frame = photos?.steps?.get(index) ?? null;
-      await pool.query('INSERT INTO recipes.ai_drawing (recipe_id, slot, prompt, reference) VALUES ($1, $2, $3, $4) ON CONFLICT (recipe_id, slot) DO NOTHING',
+      await client.query('INSERT INTO recipes.ai_drawing (recipe_id, slot, prompt, reference) VALUES ($1, $2, $3, $4) ON CONFLICT (recipe_id, slot) DO NOTHING',
         [recipeId, 'step-' + index, drawingPrompt(recipe, index, '', Boolean(frame)), frame]);
     }
+    await client.query('COMMIT');
     return chosen.length;
   } catch (error) {
+    await client.query('ROLLBACK').catch(() => {});
     logger.warn({ event: 'ai_recipes_drawings_not_queued', detail: String(error?.message ?? error).slice(0, 160) });
     return 0;
-  }
+  } finally { client.release(); }
 }
 
 /** The version the drawings belong to: the one staff are reviewing while there is one, otherwise the live recipe. */
@@ -132,8 +139,9 @@ async function check(recipeId, rows) {
 
 /**
  * One worker pass. A claimed drawing gets ANSWER_MINUTES before it is offered again (or fails after MAX_TRIES); a queued one
- * fails after a day, or after an hour while no bridge has asked for work. Then one recipe whose drawings are all answered is
- * checked. A check that cannot run (Gemini unavailable) is tried again a minute later, for up to two hours.
+ * fails after a day, or after an hour while no bridge has asked for work. Then one recipe's answered pictures are checked, as
+ * soon as CHECK_BATCH are waiting or none is still out, so pictures appear while the rest are made. A check that cannot run
+ * (Gemini unavailable) is tried again a minute later, for up to two hours.
  */
 export async function settleDrawings() {
   if (!await tableReady()) return;
@@ -145,9 +153,9 @@ export async function settleDrawings() {
         AND NOT EXISTS (SELECT 1 FROM recipes.ai_bot_bridge WHERE id=$1 AND seen_at > now() - interval '1 hour'))))
       OR (status='drawn' AND answered_at < now() - interval '2 hours')`, [BRIDGE_ID]);
   if (Date.now() - failedAt < 60000) return;
-  const recipeId = (await pool.query(`SELECT recipe_id FROM recipes.ai_drawing d WHERE status='drawn'
-      AND NOT EXISTS (SELECT 1 FROM recipes.ai_drawing o WHERE o.recipe_id=d.recipe_id AND o.status IN ('queued','claimed'))
-    ORDER BY answered_at LIMIT 1`)).rows[0]?.recipe_id;
+  const recipeId = (await pool.query(`SELECT d.recipe_id FROM recipes.ai_drawing d WHERE d.status='drawn' GROUP BY d.recipe_id
+    HAVING count(*) >= $1 OR NOT EXISTS (SELECT 1 FROM recipes.ai_drawing o WHERE o.recipe_id=d.recipe_id AND o.status IN ('queued','claimed'))
+    ORDER BY min(d.answered_at) LIMIT 1`, [CHECK_BATCH])).rows[0]?.recipe_id;
   if (!recipeId) return;
   const rows = (await pool.query("SELECT id, slot, image, attempts, reference IS NOT NULL AS from_frame FROM recipes.ai_drawing WHERE recipe_id=$1 AND status='drawn'", [recipeId])).rows;
   try { await check(recipeId, rows); }

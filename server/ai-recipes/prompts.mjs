@@ -41,7 +41,6 @@ export const recipeSchema = {
         required: ['title', 'instruction', 'ingredientNames', 'timerMinutes', 'at', 'shotAt'],
       },
     },
-    coverAt: { type: 'INTEGER', nullable: true, description: 'whole seconds from the start showing the finished dish best (1:04 is 64); null for text sources' },
     confidence: { type: 'NUMBER', description: '0 to 1: how completely the quantities and steps were shown or stated' },
     notes: { type: 'STRING', description: 'what was unclear or assumed; empty when nothing' },
   },
@@ -87,7 +86,7 @@ Return the complete corrected recipe in the same JSON schema:
 - for each amount the video does not give, a realistic suggested amount for the servings that matches what the video shows (how much oil goes in, how many chillies), with suggested true; stated amounts keep suggested false;
 - every action as its own step, in the order the video does them, with heat, time and doneness cues the video gives; nothing skipped, nothing invented;
 - preparation stated in the caption or speech but not shown (soaking, deseeding, boiling, slicing, dissolving) as steps of their own before the step that uses it, with at and shotAt null; notes never hold a needed action;
-- correct start times (at), best still-frame times (shotAt) and the finished-dish time (coverAt);
+- correct start times (at) and best still-frame times (shotAt);
 - when the creator's caption is given, go through it sentence by sentence: every instruction in it (soaking, boiling, resting, seasoning, storing) must appear in a step, and every amount in it must be used;
 - list what you changed in notes.`;
 
@@ -102,9 +101,8 @@ export const photoReviewSchema = {
       betterAt: { type: 'INTEGER', nullable: true, description: 'when choice is null and a video is available: whole seconds from the start where this step is clearly visible' },
       note: { type: 'STRING' },
     }, required: ['step', 'choice', 'betterAt', 'note'] } },
-    cover: { type: 'STRING', nullable: true, description: 'label of the photo that shows the finished dish best, or null' },
   },
-  required: ['steps', 'cover'],
+  required: ['steps'],
 };
 
-export const photoReviewSystem = `You check step photos for a cooking recipe app. Each photo is labelled. For every step, pick the one photo that a home cook would recognise as that exact step: the right ingredients, the right stage (raw, frying, simmering, plated), the action described. Reject photos that show only a face or a person talking, title cards or frames mostly covered by text, transitions, black or blurry frames, or a different step (short subtitles from the creator are fine). Use the whole method to know what should be in the pan at that stage: reject a photo that shows an ingredient the method adds later or cooks or serves separately, a wrong cooking state, or readable labels on packaging in a drawn photo. When you reject, say in note exactly what is wrong. Never choose the same photo for two steps. If no photo fits a step, set choice to null and, when a video is available, give betterAt: a second inside that step where it is clearly visible. For the cover, choose the photo that best shows the finished dish. Answer choice and cover with the bare label only, for example S3-B. Return JSON only.`;
+export const photoReviewSystem = `You check step photos for a cooking recipe app. Each photo is labelled. For every step, pick the one photo that a home cook would recognise as that exact step: the right ingredients, the right stage (raw, frying, simmering, plated), the action described. Reject photos that show only a face or a person talking, title cards or frames mostly covered by text, transitions, black or blurry frames, or a different step (short subtitles from the creator are fine). Use the whole method to know what should be in the pan at that stage: reject a photo that shows an ingredient the method adds later or cooks or serves separately, a wrong cooking state, or readable labels on packaging in a drawn photo. When you reject, say in note exactly what is wrong. Never choose the same photo for two steps. If no photo fits a step, set choice to null and, when a video is available, give betterAt: a second inside that step where it is clearly visible. Answer choice with the bare label only, for example S3-B. Return JSON only.`;

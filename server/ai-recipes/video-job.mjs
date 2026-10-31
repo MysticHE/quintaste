@@ -6,7 +6,8 @@ import { recipeSchema, verifyPrompt, verifySystem, videoPrompt, videoSystem } fr
 import { loadVideo, parseLink } from './video.mjs';
 import { deleteFile, storeFile } from './files.mjs';
 import { canDownload, downloadVideo } from './download.mjs';
-import { framesAvailable } from './frames.mjs';
+import { framesAvailable, videoSeconds } from './frames.mjs';
+import { MAX_VIDEO_SECONDS } from './limits.mjs';
 import { framesFor } from './photos.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { jobDir, removeDir, uploadPath } from './work.mjs';
@@ -17,6 +18,20 @@ import { jobDir, removeDir, uploadPath } from './work.mjs';
  * only references: QT Gamer makes every step's published picture after saving (drawings.mjs). `progress` updates the
  * member's request card.
  */
+
+const TOO_LONG = 'That video is longer than 20 minutes. Pick a shorter one.';
+
+/**
+ * A YouTube video's length from its public watch page, or 0 when the page does not say (a consent or check page, a slow
+ * answer): an unknown length is let through, so the 20-minute limit never refuses a video by mistake.
+ */
+async function youtubeSeconds(link) {
+  try {
+    const response = await fetch(link.canonical, { redirect: 'follow', signal: AbortSignal.timeout(20000), headers: { 'accept-language': 'en' } });
+    const page = response.ok ? await response.text() : '';
+    return Number(/"lengthSeconds":"(\d+)"/.exec(page)?.[1] ?? 0);
+  } catch { return 0; }
+}
 
 async function youtubeDetails(link) {
   try {
@@ -35,10 +50,19 @@ export async function obtain(job, dir, signal, progress) {
     const file = uploadPath(upload.name);
     if (!file) throw new GeminiError(422, 'This upload came from an older version of the app. Upload the video again.');
     if (!existsSync(file)) throw new GeminiError(410, 'The uploaded video is no longer on the server. Upload it again.');
+    // Same 20-minute limit as links; a length ffprobe cannot read is let through.
+    if (framesAvailable() && await videoSeconds(file) > MAX_VIDEO_SECONDS) {
+      await rm(file, { force: true }).catch(() => {});
+      throw new GeminiError(422, 'That video is longer than 20 minutes. Trim it or pick a shorter clip.');
+    }
     return { link, local: { path: file, mimeType: upload.mimeType, size: (await stat(file)).size }, creator: '', caption: '', upload: file };
   }
   const link = parseLink(job.input);
-  if (link.platform === 'youtube') return { link, local: null, ...await youtubeDetails(link) };
+  if (link.platform === 'youtube') {
+    const [seconds, details] = await Promise.all([youtubeSeconds(link), youtubeDetails(link)]);
+    if (seconds > MAX_VIDEO_SECONDS) throw new GeminiError(422, TOO_LONG);
+    return { link, local: null, ...details };
+  }
   if (!canDownload(link)) return { link, local: null, inline: await loadVideo(link, signal), creator: '', caption: '' };
   await progress('Downloading the video…');
   const download = await downloadVideo(link, dir, signal);

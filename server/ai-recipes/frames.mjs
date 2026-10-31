@@ -40,6 +40,12 @@ export async function videoSeconds(file) {
   return Number.isFinite(seconds) && seconds > 0 ? seconds : 0;
 }
 
+/** Whether the video has a sound track. */
+export async function hasAudio(file) {
+  const { code, out } = await run(FFPROBE, ['-v', 'error', '-select_streams', 'a', '-show_entries', 'stream=codec_type', '-of', 'csv=p=0', file]);
+  return code === 0 && String(out).includes('audio');
+}
+
 /** One frame at `seconds` as JPEG bytes, or null when the video has no frame there. */
 export async function frameAt(file, seconds) {
   const at = Math.max(0, Number(seconds) || 0).toFixed(2);

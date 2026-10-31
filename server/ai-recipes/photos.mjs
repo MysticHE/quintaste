@@ -57,9 +57,11 @@ export async function reviewAll(recipe, candidates, chosen, hasVideo, usage, rul
     const { picks } = await review(recipe, steps, pool, hasVideo, usage, rules);
     let unmatched = 0;
     for (const number of batch) {
-      // A frame taken for a neighbouring step may show this one better; each frame is still used once.
-      const pick = picks[number], candidate = pool.find(c => c.label === pick?.choice);
-      if (pick?.choice && !candidate) unmatched++;
+      // A frame taken for a neighbouring step may show this one better; each frame is still used once. A drawing (no video)
+      // was made for one step and only counts for that step.
+      const pick = picks[number], found = pool.find(c => c.label === pick?.choice);
+      if (pick?.choice && !found) unmatched++;
+      const candidate = found && (hasVideo || found.step === number) ? found : null;
       if (candidate && !used.has(candidate.label)) { chosen.set(number, candidate); used.add(candidate.label); }
       else misses.push({ number, betterAt: finite(pick?.betterAt) ? pick.betterAt : null, note: String(pick?.note ?? '').slice(0, 300) });
     }
@@ -95,7 +97,11 @@ function spans(recipe, total) {
   });
 }
 
-/** Real frames from the downloaded or uploaded video, every one checked by the model against its step. */
+/**
+ * Real frames from the downloaded or uploaded video, every one checked by the model against its step: two candidates per
+ * step (the moment the model named, or a third of the way in, and later in the step), since the chosen frame is only
+ * QT Gamer's reference and its clean picture is checked again (drawings.mjs).
+ */
 export async function framesFor(file, recipe, usage) {
   const total = await videoSeconds(file);
   const clamp = t => Math.round(Math.min(Math.max(0, t), Math.max(0, total - 0.5)) * 2) / 2;
@@ -103,8 +109,8 @@ export async function framesFor(file, recipe, usage) {
   const span = spans(recipe, total), jobs = [];
   span.forEach((s, index) => {
     if (!s) return;
-    const times = [s.shot, s.from + (s.to - s.from) * 0.35, s.from + (s.to - s.from) * 0.7].filter(finite).map(clamp);
-    [...new Set(times)].slice(0, 3).forEach((t, n) => jobs.push({ t, label: `S${index + 1}-${'ABC'[n]}`, step: index + 1 }));
+    const times = [s.shot ?? s.from + (s.to - s.from) * 0.35, s.from + (s.to - s.from) * 0.7].filter(finite).map(clamp);
+    [...new Set(times)].slice(0, 2).forEach((t, n) => jobs.push({ t, label: `S${index + 1}-${'AB'[n]}`, step: index + 1 }));
   });
   const made = await take(jobs);
   const chosen = new Map();
