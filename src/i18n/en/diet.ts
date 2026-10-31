@@ -9,10 +9,6 @@ const en = {
   ruleVegetarian: "no five pungent",
   rulePlantBased: "meat-free",
   labelSpoken: (v: Vars) => String(v.name) + ", " + String(v.rule),
-  pungentUnconfirmed: "Five pungent: not confirmed",
-  askStallTitle: "Ask the stall",
-  askStallQuestion: "请问这个有没有放葱、蒜、洋葱或韭菜？",
-  askStallTranslation: "Does this have spring onion, garlic, onion or chives?",
   jainRoots: "Jain: root vegetables not checked",
 } satisfies Record<string, string | ((vars: Vars) => string)>;
 export default en;

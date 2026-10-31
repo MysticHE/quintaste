@@ -66,7 +66,6 @@ export function RecipeOverview({ recipe, shareFallback, clearShareFallback }: { 
     {!!creator && <T variant="caption" muted>{t("videoBy", { creator })}</T>}
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>{t("containsList", { list: exclusionList(result.conflicts, language) })}</T>}
-    {!!result.unknown.length && <T variant="small" color={theme.warning}>{t("unconfirmedList", { list: exclusionList(result.unknown, language) })}</T>}
     {!!shareFallback && <View style={{ gap: 6 }}><T variant="small">{t("shareFailed")}</T><T selectable>{shareFallback}</T><IconButton label={t("closeShareText")} icon="close" onPress={clearShareFallback} /></View>}
   </View>;
 }

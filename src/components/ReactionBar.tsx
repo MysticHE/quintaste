@@ -30,7 +30,6 @@ export function ReactionBar({ kind, id, name, shareMessage, trailing, onShareFai
       label={t(reaction.liked ? "unlikeName" : "likeName", { name }) + t("likesCount", { n: reaction.likes })} selected={reaction.liked} onPress={() => void toggleLike()} />}
     <Action icon="arrow-redo-outline" color={theme.foreground} count={enabled ? compactCount(reaction.shares) : ""}
       label={t("shareName", { name }) + (enabled ? t("sharesCount", { n: reaction.shares }) : "")} onPress={() => void share()} />
-    <View style={common.flex} />
     {trailing}
   </View>;
 }

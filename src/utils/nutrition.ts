@@ -28,10 +28,10 @@ export function nutritionBadgesFor(figures: Figures, categories: readonly Recipe
 }
 
 /** The one authorised health claim that applies, in the regulation's own words; undefined when no badge supports one. */
-export function nutrientBenefitFor(badges: readonly NutritionBadge[], language: Language = "en") {
+export function nutrientBenefitFor(badges: readonly NutritionBadge[]) {
   const claim = healthClaims.find(item => item.badges.some(badge => badges.includes(badge)));
-  // The claim wording is authorised as written, so it is always shown verbatim in English; only the source line is translated.
-  return claim && { text: claim.text, source: translate(language, "cook", "claimSource") };
+  // The claim wording is authorised as written, so it is always shown verbatim in English. Members see no regulation reference (owner, 31 Oct 2026).
+  return claim && { text: claim.text };
 }
 
 const badgeKeys: Record<NutritionBadge, CookKey> = {

@@ -82,7 +82,7 @@ const en = {
   filterOn: "{label}, on",
   clearSearch: "Clear search",
   servings: "Servings",
-  servingsCount: "{n} servings",
+  servingsCount: (v: Vars) => String(v.n) + (String(v.n) === "1" ? " serving" : " servings"),
   mainNavigation: "Main navigation",
   tabActivity: ", new activity",
   tabPosition: ", tab {i} of {n}",

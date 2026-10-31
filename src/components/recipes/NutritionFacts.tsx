@@ -22,7 +22,7 @@ export function NutritionFacts({ recipe }: { recipe: Recipe }) {
   </CookSection>;
   const figures = nutrition.perServing;
   const rows = ROWS.filter(([key]) => typeof figures[key] === "number");
-  const badges = nutritionBadgesFor(figures, recipe.categories), benefit = nutrientBenefitFor(badges, language);
+  const badges = nutritionBadgesFor(figures, recipe.categories), benefit = nutrientBenefitFor(badges);
   const names = badges.map(badge => badgeName(badge, language));
   const toTaste = recipe.ingredients.some(ingredient => ingredient.amount === null);
   return <CookSection title={t("nutritionPerServing")} initiallyOpen>
@@ -40,7 +40,8 @@ export function NutritionFacts({ recipe }: { recipe: Recipe }) {
         </View>;
       })}
     </View>
-    {benefit && <T variant="small">{benefit.text} <T variant="caption" muted>{benefit.source}</T></T>}
+    {/* Authorised wording is English only and may not be reworded, so the Chinese interface leaves it out rather than show it unexplained. */}
+    {benefit && language === "en" && <T variant="small">{benefit.text}</T>}
     <T variant="caption" muted>
       {nutrition.basis === "source" ? t("nutritionFromSite", { site: nutrition.site ?? "" }) : t("nutritionEstimated")}
       {toTaste ? t("nutritionToTaste") : ""}{t("nutritionPercentNote")}

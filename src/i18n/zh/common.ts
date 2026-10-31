@@ -82,7 +82,7 @@ const zh: typeof en = {
   filterOn: "{label}，已开启",
   clearSearch: "清除搜索",
   servings: "份量",
-  servingsCount: "{n} 份",
+  servingsCount: v => String(v.n) + " 份",
   mainNavigation: "主导航",
   tabActivity: "，有新动态",
   tabPosition: "，第 {i} 个标签，共 {n} 个",

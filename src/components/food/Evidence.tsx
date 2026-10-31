@@ -23,17 +23,17 @@ export function FitBadge({ fit }: { fit: Fit }) {
 export function EvidenceLine({ dietary, uncertain }: { dietary: Dietary; uncertain?: readonly Exclusion[] }) {
   const { draft } = usePreferences(), t = useT("explore");
   const result = dietaryResult(dietary, draft.diets, draft.excluded, undefined, uncertain);
-  return <View style={s.evidenceRow}><FitBadge fit={result.fit} /><T variant="small" muted>{result.evidence === "Current sample" ? t(dietary.evidence.kind === "menu" ? "venueSaysSample" : "editorialSample") : t("evidence", { value: result.evidence })}</T></View>;
+  // An unproven fit shows no badge: only a clash or a proven label is worth a label (owner, 31 Oct 2026: no unconfirmed labels).
+  return <View style={s.evidenceRow}>{result.fit !== "Unknown" && <FitBadge fit={result.fit} />}<T variant="small" muted>{result.evidence === "Current sample" ? t(dietary.evidence.kind === "menu" ? "venueSaysSample" : "editorialSample") : t("evidence", { value: result.evidence })}</T></View>;
 }
 export function EvidencePanel({ dietary }: { dietary: Dietary }) {
   const { draft, theme } = usePreferences(), t = useT("explore"), language = useLanguage(), dietText = useDietText();
   const compact = useCompactUI();
   const result = dietaryResult(dietary, draft.diets, draft.excluded);
-  const conflicts = exclusionList(result.conflicts, language), unknown = exclusionList(result.unknown, language);
+  const conflicts = exclusionList(result.conflicts, language);
   if (compact) return <View style={{ gap: 6 }}><EvidenceLine dietary={dietary} />
     <T variant="small" muted>{dietary.evidence.source}{" · " + (dietary.evidence.checkedAt || t("undated"))}</T>
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>{t("containsList", { list: conflicts })}</T>}
-    {!!result.unknown.length && <T variant="small" muted>{t("unconfirmedList", { list: unknown })}</T>}
     {dietary.evidence.withdrawn && <T variant="small" color={theme.warning}>{t("evidenceWithdrawn")}</T>}
     <T variant="small" muted>{t("checkLabels")}</T>
   </View>;
@@ -41,9 +41,8 @@ export function EvidencePanel({ dietary }: { dietary: Dietary }) {
     <T variant="subtitle" accessibilityRole="header">{t("fitEvidence")}</T>
     <EvidenceLine dietary={dietary} />
     <T variant="small" muted>{dietary.evidence.source}{" · " + (dietary.evidence.checkedAt || t("noConfirmationDate"))}</T>
-    <T>{t(result.fit === "Conflicts" ? "conflictsWithChoices" : result.fit === "Unknown" ? "notEnoughEvidence" : "sampleFits")}</T>
+    <T>{t(result.fit === "Conflicts" ? "conflictsWithChoices" : result.fit === "Unknown" ? "checkLabels" : "sampleFits")}</T>
     {!!result.conflicts.length && <T color={theme.warning}>{t("containsList", { list: conflicts })}</T>}
-    {!!result.unknown.length && <T muted>{t("notConfirmedList", { list: unknown })}</T>}
     {!result.conflicts.length && draft.diets.includes("Vegan") && dietary.diet === "Vegetarian" && <T color={theme.warning}>{t("vegetarianNotVegan", { vegetarian: dietText.name("Vegetarian"), vegan: dietText.name("Vegan") })}</T>}
     {dietary.evidence.withdrawn && <T muted>{t("previousWithdrawn")}</T>}
     <T variant="small" muted>{t("askSauces")}</T>
