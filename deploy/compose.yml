@@ -118,6 +118,17 @@ services:
       traefik.http.middlewares.quintaste-game-bots-body.buffering.memRequestBodyBytes: '1700000'
       traefik.http.middlewares.quintaste-game-bots-rate.ratelimit.average: '1'
       traefik.http.middlewares.quintaste-game-bots-rate.ratelimit.burst: '5'
+      # QT bots' signed AI-recipe answers: a recipe JSON (router allows 240 KB) and a QT Gamer step drawing (router allows 1 MB).
+      traefik.http.routers.quintaste-ai-bots.rule: Host(`${APP_HOST}`) && Method(`POST`) && PathRegexp(`^/api/ai-recipes/bot/(tasks/[0-9a-f-]{36}/result|drawings/[0-9a-f-]{36}/answer)$`)
+      traefik.http.routers.quintaste-ai-bots.priority: '106'
+      traefik.http.routers.quintaste-ai-bots.entrypoints: websecure
+      traefik.http.routers.quintaste-ai-bots.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-ai-bots.service: quintaste
+      traefik.http.routers.quintaste-ai-bots.middlewares: quintaste-ai-bots-body,quintaste-ai-bots-rate
+      traefik.http.middlewares.quintaste-ai-bots-body.buffering.maxRequestBodyBytes: '1100000'
+      traefik.http.middlewares.quintaste-ai-bots-body.buffering.memRequestBodyBytes: '1100000'
+      traefik.http.middlewares.quintaste-ai-bots-rate.ratelimit.average: '1'
+      traefik.http.middlewares.quintaste-ai-bots-rate.ratelimit.burst: '5'
       # Social profile photos (1 MB) and the live selfie (2 MB), one data URI per request (router allows 3 MB).
       traefik.http.routers.quintaste-social-photos.rule: Host(`${APP_HOST}`) && Method(`POST`) && (Path(`/api/social/me/photos`) || Path(`/api/social/me/verify`))
       traefik.http.routers.quintaste-social-photos.priority: '106'
