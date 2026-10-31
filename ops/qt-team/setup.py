@@ -26,12 +26,12 @@ REMOTE = "/opt/data/qt-team"
 PROFILES = {"qt-manager": "QT Manager", "qt-explorer": "QT Explorer", "qt-cooker": "QT Cooker", "qt-event": "QT Event"}
 
 
-def remote_container(code, user="10000"):
+def remote_container(code, user="10000", timeout=120):
     wrapper = ("import subprocess\nr=subprocess.run(['docker','exec','--user'," + repr(user) +
                ",'--workdir','/opt/hermes','-i'," + repr(helper.CONTAINER) + ",'python','-'],input=" +
                repr(code) + ",text=True,capture_output=True)\n"
                "if r.returncode: raise RuntimeError(r.stderr[-1500:])\nprint(r.stdout)")
-    return helper.remote(wrapper)
+    return helper.remote(wrapper, timeout)
 
 
 def urls(value):

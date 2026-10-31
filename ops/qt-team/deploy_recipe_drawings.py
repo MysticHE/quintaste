@@ -78,5 +78,5 @@ print(subprocess.check_output(['systemctl','is-active','qt-recipe-drawings.servi
 '''.replace('CONTAINER', CONTAINER)
 
 if __name__ == '__main__':
-    print(setup.remote_container(code, 'root'))
+    print(setup.remote_container(code, 'root', timeout=2700))  # the script itself waits up to 40 minutes for the run lock
     print(setup.helper.remote(UNIT))

@@ -26,7 +26,7 @@ import urllib.error
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 from app_signing import open_signed  # noqa: E402  (the shared signer)
 ROUTE = '/api/ai-recipes/bot/drawings/'
-DRAW_SECONDS, IDLE_SECONDS = 900, 20
+DRAW_SECONDS, IDLE_SECONDS, ANSWER_TRIES = 900, 20, 4
 MAX_PICTURE = 700_000  # the app accepts 1 MB of base64
 
 
@@ -94,7 +94,15 @@ def once() -> bool:
         return False
     started = time.monotonic()
     answer = draw(drawing)
-    result = signed(f"{ROUTE}{drawing['id']}/answer", answer)
+    # A finished picture is not thrown away over a brief network error: the answer is sent again a few times.
+    for attempt in range(ANSWER_TRIES):
+        try:
+            result = signed(f"{ROUTE}{drawing['id']}/answer", answer)
+            break
+        except (urllib.error.URLError, OSError) as exc:
+            if isinstance(exc, urllib.error.HTTPError) or attempt == ANSWER_TRIES - 1:
+                raise
+            time.sleep(15 * (attempt + 1))
     print(json.dumps({'drawing': drawing['id'], 'fromFrame': bool(drawing.get('reference')), 'drawn': 'image' in answer,
                       'error': answer.get('error'), 'accepted': result.get('ok'),
                       'seconds': round(time.monotonic() - started)}), flush=True)
