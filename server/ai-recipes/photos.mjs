@@ -4,10 +4,10 @@ import { generate } from './gemini.mjs';
 import { photoReviewSchema, photoReviewSystem } from './prompts.mjs';
 
 /**
- * Step photos and a cover for an AI recipe. With the video file: three candidate frames per step (around the moment
+ * The video frame for each step of an AI recipe. With the video file: three candidate frames per step (around the moment
  * the model named and across the step), reviewed by the model against each step's text; steps with no fitting frame
- * get a second look (the moment the reviewer names, or five frames across the step). Steps no frame shows, and every
- * step when there is no file, are drawn by QT Gamer afterwards (drawings.mjs), checked with the same review.
+ * get a second look (the moment the reviewer names, or five frames across the step). The chosen frames are only
+ * references: QT Gamer recreates each one as a clean picture, and draws the steps no frame shows (drawings.mjs).
  */
 const BATCH = 12;
 const finite = value => typeof value === 'number' && Number.isFinite(value);
@@ -26,11 +26,11 @@ async function inPool(items, limit, work) {
 /** The whole method in short, so a check or a drawing knows what is already in the pan at each stage. */
 export const method = recipe => recipe.steps.map((s, index) => `${index + 1}. ${s.instruction}`).join('\n');
 
-/** One review call for a batch of steps; returns { stepNumber: { choice, betterAt, note } } and the cover label. */
-async function review(recipe, steps, candidates, hasVideo, usage) {
+/** One review call for a batch of steps; returns { stepNumber: { choice, betterAt, note } }. */
+async function review(recipe, steps, candidates, hasVideo, usage, rules = '') {
   /** @type {Array<Record<string, unknown>>} */
   const parts = [{ text: `Recipe: ${recipe.title}\nWhole method:\n${method(recipe)}\n\nSteps to check:\n` + steps.map(s => `${s.number}. ${s.title}: ${s.instruction}`).join('\n')
-    + '\nPhotos follow, each after its label.' + (hasVideo ? '' : ' There is no video, so betterAt must be null.') }];
+    + '\nPhotos follow, each after its label.' + (hasVideo ? '' : ' There is no video, so betterAt must be null.') + (rules ? ' ' + rules : '') }];
   for (const candidate of candidates) {
     parts.push({ text: 'Photo ' + candidate.label + (candidate.step ? ' (taken for step ' + candidate.step + ')' : ' (cover candidate)') });
     parts.push({ inline_data: { mime_type: 'image/jpeg', data: candidate.preview.toString('base64') } });
@@ -42,22 +42,19 @@ async function review(recipe, steps, candidates, hasVideo, usage) {
     const step = Number(row.step);
     if (steps.some(s => s.number === step)) picks[step] = { ...row, choice: labelOf(row.choice) };
   }
-  return { picks, cover: labelOf(result.data.cover) };
+  return { picks };
 }
 
 /** Reviews candidates in batches of steps and fills `chosen` (step number -> candidate); returns steps still missing. */
-export async function reviewAll(recipe, candidates, chosen, hasVideo, usage, cover = []) {
+export async function reviewAll(recipe, candidates, chosen, hasVideo, usage, rules = '') {
   const numbers = [...new Set(candidates.filter(c => c.step).map(c => c.step))];
   const used = new Set([...chosen.values()].map(c => c.label));
-  let coverPick = null;
   const misses = [];
-  for (let i = 0; i < numbers.length || (i === 0 && cover.length); i += BATCH) {
+  for (let i = 0; i < numbers.length; i += BATCH) {
     const batch = numbers.slice(i, i + BATCH);
     const steps = batch.map(number => ({ number, ...recipe.steps[number - 1] }));
-    const last = i + BATCH >= numbers.length;
-    const pool = [...candidates.filter(c => batch.includes(c.step)), ...(last ? cover : [])];
-    if (!pool.length) break;
-    const { picks, cover: coverLabel } = await review(recipe, steps, pool, hasVideo, usage);
+    const pool = candidates.filter(c => batch.includes(c.step));
+    const { picks } = await review(recipe, steps, pool, hasVideo, usage, rules);
     let unmatched = 0;
     for (const number of batch) {
       // A frame taken for a neighbouring step may show this one better; each frame is still used once.
@@ -67,9 +64,8 @@ export async function reviewAll(recipe, candidates, chosen, hasVideo, usage, cov
       else misses.push({ number, betterAt: finite(pick?.betterAt) ? pick.betterAt : null, note: String(pick?.note ?? '').slice(0, 300) });
     }
     if (unmatched) logger.warn({ event: 'ai_recipes_photo_unmatched', steps: batch.length, unmatched });
-    if (last && coverLabel) coverPick = pool.find(c => c.label === coverLabel) ?? null;
   }
-  return { misses, coverPick };
+  return { misses };
 }
 
 async function candidate(file, seconds, label, step) {
@@ -100,7 +96,7 @@ function spans(recipe, total) {
 }
 
 /** Real frames from the downloaded or uploaded video, every one checked by the model against its step. */
-export async function framesFor(file, recipe, { coverAt = null } = {}, usage) {
+export async function framesFor(file, recipe, usage) {
   const total = await videoSeconds(file);
   const clamp = t => Math.round(Math.min(Math.max(0, t), Math.max(0, total - 0.5)) * 2) / 2;
   const take = jobs => inPool(jobs, 3, job => candidate(file, job.t, job.label, job.step)).then(made => made.filter(Boolean));
@@ -110,11 +106,9 @@ export async function framesFor(file, recipe, { coverAt = null } = {}, usage) {
     const times = [s.shot, s.from + (s.to - s.from) * 0.35, s.from + (s.to - s.from) * 0.7].filter(finite).map(clamp);
     [...new Set(times)].slice(0, 3).forEach((t, n) => jobs.push({ t, label: `S${index + 1}-${'ABC'[n]}`, step: index + 1 }));
   });
-  const coverTimes = [seconds(coverAt, total), total - 2, total * 0.9].filter(t => finite(t) && t > 0).map(clamp);
-  [...new Set(coverTimes)].slice(0, 3).forEach((t, n) => jobs.push({ t, label: `C-${'ABC'[n]}`, step: null }));
   const made = await take(jobs);
   const chosen = new Map();
-  const first = await reviewAll(recipe, made.filter(c => c.step), chosen, true, usage, made.filter(c => !c.step));
+  const first = await reviewAll(recipe, made, chosen, true, usage);
   // Second look for every step still without a photo: the moment the reviewer named, else five frames across the
   // step's span widened by two seconds each side.
   const retry = first.misses.flatMap(m => {
@@ -126,7 +120,7 @@ export async function framesFor(file, recipe, { coverAt = null } = {}, usage) {
     const second = await take(retry);
     if (second.length) await reviewAll(recipe, second, chosen, true, usage);
   }
-  return finish(chosen, first.coverPick?.bytes ?? null, 'frame');
+  return finish(chosen);
 }
 
 /** Knife work and washing on its own, which a reader follows without a picture. */
@@ -149,12 +143,12 @@ export function stepsToDraw(recipe, indexes, count) {
   return [...new Set([...pool, ...(keepFinal ? [final] : [])])].sort((a, b) => a - b);
 }
 
-/** Stored photos keyed by 0-based step index, with what each one is (a video frame). */
-async function finish(chosen, coverBytes, kind) {
-  const steps = new Map(), kinds = new Map();
+/** The chosen frames keyed by 0-based step index. */
+async function finish(chosen) {
+  const steps = new Map();
   for (const [number, candidate] of chosen) {
     const bytes = await photoJpeg(candidate.bytes);
-    if (bytes) { steps.set(number - 1, bytes); kinds.set(number - 1, kind); }
+    if (bytes) steps.set(number - 1, bytes);
   }
-  return { cover: coverBytes ? await photoJpeg(coverBytes) : null, steps, kinds };
+  return { steps };
 }

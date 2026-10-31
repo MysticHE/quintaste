@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto';
 import { pool, logger } from '../config.mjs';
 import { GeminiError, generate } from './gemini.mjs';
 import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSystem } from './prompts.mjs';
@@ -45,28 +44,20 @@ async function reviewNotes(job, recipe, used) {
   return notes;
 }
 
-/** Saves the recipe and its photos together (live, or pending for staff review); steps with a photo are marked. */
-async function save(job, recipe, photos, review, nutritionComplete) {
-  const steps = recipe.steps.map(({ shotAt, ...step }, index) => photos?.kinds.has(index) ? { ...step, image: photos.kinds.get(index) } : step);
-  const saved = { ...recipe, steps };
-  const cover = photos?.cover ?? (photos?.steps.size ? photos.steps.get(Math.max(...photos.steps.keys())) : null);
-  const version = review ? 'pending' : 'live';
+/** Saves the recipe (live, or pending for staff review); its pictures follow from QT Gamer (drawings.mjs). */
+async function save(job, recipe, review, nutritionComplete) {
+  const saved = { ...recipe, steps: recipe.steps.map(({ shotAt, ...step }) => step) };
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
     const row = (await client.query(`INSERT INTO recipes.recipe (author_id, draft_key, live, live_revision, pending, pending_revision, pending_state, submitted_at, published_at)
       VALUES ($1, $2, $3, $4, $5, $6, $7, now(), $8) RETURNING id`,
       [job.user_id, 'ai-' + job.id, review ? null : saved, review ? null : 1, review ? saved : null, review ? 1 : null, review ? 'review' : null, review ? null : new Date()])).rows[0];
-    const images = [...(cover ? [['cover', cover]] : []), ...[...(photos?.steps ?? new Map())].map(([index, bytes]) => ['step-' + index, bytes])];
-    for (const [slot, bytes] of images) {
-      await client.query('INSERT INTO recipes.photo (recipe_id, version, slot, bytes, digest) VALUES ($1, $2, $3, $4, $5)',
-        [row.id, version, slot, bytes, createHash('sha256').update(bytes).digest('hex')]);
-    }
     // A live recipe is linked to its ingredient names, so later corrections in the ingredient database reach it; when
     // some names were left for later (AI off or failed) the hourly refresh checks it again.
     if (!review) await linkRecipe(client, row.id, 1, recipeKeys(saved.ingredients), nutritionComplete);
     await client.query('COMMIT');
-    return { id: row.id, photos: images.length };
+    return { id: row.id };
   } catch (error) {
     await client.query('ROLLBACK').catch(() => {});
     throw error;
@@ -89,16 +80,16 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
   if (notes.length) recipe.reviewNotes = notes.map(note => clip(note, 300));
   // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
   const unclear = recipe.source.confidence < REVIEW_BELOW, review = job.kind === 'demand' || unclear || notes.length > 0;
-  const saved = await save(job, recipe, photos, review, complete);
-  // Every step without a video frame is drawn by QT Gamer; the pictures are attached when they pass the check.
+  const saved = await save(job, recipe, review, complete);
+  // QT Gamer makes every step's picture (from its video frame when there is one); each is attached when it passes the check.
   const drawings = await queueDrawings(saved.id, recipe, photos);
   const status = review ? 'review' : 'published';
   await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
     [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : !review ? ''
       : unclear ? 'Some quantities or steps were unclear, so staff will check it before it goes public.'
       : used.length && await noPungentFor(job) ? `It still uses ${used.join(', ').toLowerCase()}, so staff will check it before it goes public.`
-      : 'Staff will check an ingredient before it goes public.', { ...usage, photos: saved.photos, drawings }]);
-  logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, photos: saved.photos, drawings });
+      : 'Staff will check an ingredient before it goes public.', { ...usage, frames: photos?.steps?.size ?? 0, drawings }]);
+  logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, frames: photos?.steps?.size ?? 0, drawings });
   if (status === 'published' && job.user_id) await levelFor(job.user_id, saved.id);
   return status;
 }

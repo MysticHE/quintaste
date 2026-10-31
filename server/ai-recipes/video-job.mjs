@@ -6,17 +6,17 @@ import { recipeSchema, verifyPrompt, verifySystem, videoPrompt, videoSystem } fr
 import { loadVideo, parseLink } from './video.mjs';
 import { deleteFile, storeFile } from './files.mjs';
 import { canDownload, downloadVideo } from './download.mjs';
-import { framesAvailable, photoJpeg } from './frames.mjs';
+import { framesAvailable } from './frames.mjs';
 import { framesFor } from './photos.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { jobDir, removeDir, uploadPath } from './work.mjs';
 
 /**
  * A video job: get the video (member upload, yt-dlp download, or YouTube by link), write the recipe, check it against
- * the whole video a second time, then choose a real frame for every step the server has the video file for (steps
- * without one are drawn by QT Gamer after saving, drawings.mjs). `progress` updates the member's request card.
+ * the whole video a second time, then choose the video frame for every step the server has the file for. The frames are
+ * only references: QT Gamer makes every step's published picture after saving (drawings.mjs). `progress` updates the
+ * member's request card.
  */
-const youtubeId = canonical => /[?&]v=([A-Za-z0-9_-]{11})/.exec(canonical)?.[1] ?? null;
 
 async function youtubeDetails(link) {
   try {
@@ -24,17 +24,6 @@ async function youtubeDetails(link) {
     const info = /** @type {{ author_name?: string, title?: string }} */ (response.ok ? await response.json() : {});
     return { creator: clip(info.author_name, 80), caption: clip(info.title, 300) };
   } catch { return { creator: '', caption: '' }; }
-}
-/** The video's own cover image, used as the recipe cover with the creator credited. */
-export async function youtubeThumbnail(link) {
-  const id = youtubeId(link.canonical);
-  for (const name of ['maxresdefault', 'hqdefault']) {
-    try {
-      const response = await fetch(`https://i.ytimg.com/vi/${id}/${name}.jpg`, { redirect: 'error', signal: AbortSignal.timeout(10000) });
-      if (response.ok) return Buffer.from(await response.arrayBuffer());
-    } catch { /* Try the next size. */ }
-  }
-  return null;
 }
 
 /** The job's video: a member upload, a download into `dir`, or (YouTube, or no downloader) the link alone. */
@@ -86,15 +75,11 @@ export async function fromVideo(job, signal, usage, progress) {
       // The platform's own channel or uploader name wins over the model's reading of the video.
       creator: clip(got.creator || checked.creator, 80) } });
     await progress('Choosing a photo for each step…');
-    let photos = { cover: null, steps: new Map(), kinds: new Map() };
+    // The frames are references for QT Gamer's clean pictures, made once the recipe is saved (drawings.mjs).
+    let photos = null;
     try {
-      if (got.local && framesAvailable()) photos = await framesFor(got.local.path, recipe, { coverAt: checked.coverAt }, usage);
+      if (got.local && framesAvailable()) photos = await framesFor(got.local.path, recipe, usage);
     } catch (error) { logger.warn({ event: 'ai_recipes_frames_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
-    // Steps without a matching frame are drawn by QT Gamer once the recipe is saved (drawings.mjs).
-    try {
-      const thumbnail = !photos.cover && got.link?.platform === 'youtube' ? await youtubeThumbnail(got.link) : null;
-      if (thumbnail) photos.cover = await photoJpeg(thumbnail);
-    } catch (error) { logger.warn({ event: 'ai_recipes_thumbnail_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
     return { recipe, photos };
   } finally {
     if (stored) await deleteFile(stored.name);

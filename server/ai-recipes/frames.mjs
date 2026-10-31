@@ -58,5 +58,14 @@ export async function photoJpeg(input) {
   return null;
 }
 
+/** An AI-recipe step picture at the app's one mobile size: 4:3, 1200 x 900, centre-cropped (owner, 31 Oct 2026). */
+export async function stepJpeg(input) {
+  for (const quality of [82, 74, 66]) {
+    const bytes = await sharp(input, { failOn: 'error' }).resize({ width: 1200, height: 900, fit: 'cover' }).jpeg({ quality, mozjpeg: true }).toBuffer();
+    if (bytes.length <= 590000) return bytes;
+  }
+  return null;
+}
+
 /** A small copy for the reviewing model (fewer tokens, same content). */
 export const previewJpeg = input => sharp(input, { failOn: 'error' }).resize({ width: 512, height: 512, fit: 'inside' }).jpeg({ quality: 70 }).toBuffer();

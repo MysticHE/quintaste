@@ -1,10 +1,11 @@
-"""QT Gamer draws the step pictures of members' AI recipes (owner, 31 Oct 2026: Gemini no longer draws them).
+"""QT Gamer makes the step pictures of members' AI recipes (owner, 31 Oct 2026: Gemini no longer draws them).
 
-The app queues one drawing per recipe step that has no video frame (server/ai-recipes/drawings.mjs). This bridge claims one
-at a time over the signed app routes (/api/ai-recipes/bot/drawings/*), has QT Gamer draw it through Hermes's own image tool
-(image_worker.py, the same call Mango's recipe pictures use, on the team's ChatGPT plan), and posts the picture back, or a
-failure. The app checks every drawing against its step before attaching it and asks for one redraw of a picture that does
-not fit. Nothing here publishes, and no other image model is ever tried: a failure is reported as a failure.
+The app queues one picture per recipe step (server/ai-recipes/drawings.mjs), with the step's video frame when there is one.
+This bridge claims one at a time over the signed app routes (/api/ai-recipes/bot/drawings/*) and has QT Gamer make it
+through Hermes's own image tool (image_worker.py, on the team's ChatGPT plan): a clean 4:3 recreation of the frame without
+the video's captions, stickers and logos, or a drawing of the step. It posts the picture back, or a failure. The app checks
+every picture against its step before attaching it and asks for one redo of a picture that does not fit. Nothing here
+publishes, and no other image model is ever tried: a failure is reported as a failure.
 
 Run with Hermes's Python as the hermes user: `python recipe_drawing_bridge.py` (long-lived; qt-recipe-drawings.service)
 or `--once` for a single claim.
@@ -36,7 +37,7 @@ def signed(route: str, data=None):
     raw = json.dumps(data, separators=(',', ':'), ensure_ascii=False).encode() if data is not None else b''
     try:
         with open_signed(ROOT, 'POST', route, raw) as response:
-            return json.loads(response.read(100_001))
+            return json.loads(response.read(2_000_001))  # a claim carries the step's video frame
     except urllib.error.HTTPError as exc:
         if exc.code == 409:  # the drawing was taken back (answer too late); nothing to do
             return {'ok': False}
@@ -59,8 +60,11 @@ def draw(drawing: dict) -> dict:
             reserve()
         except RuntimeError as exc:
             return {'error': str(exc)[:200]}
-        (folder / 'request.json').write_text(json.dumps({'prompt': drawing['prompt'], 'step': 1, 'kind': 'ai-recipe-step',
-                                                         'requestHash': 'ai-drawing-' + drawing['id']}), encoding='utf-8')
+        request = {'prompt': drawing['prompt'], 'step': 1, 'kind': 'ai-recipe-step', 'requestHash': 'ai-drawing-' + drawing['id']}
+        if drawing.get('reference'):
+            (folder / 'reference.jpg').write_bytes(base64.b64decode(drawing['reference']))
+            request['reference'] = 'reference.jpg'
+        (folder / 'request.json').write_text(json.dumps(request), encoding='utf-8')
         with (folder / 'worker.log').open('w') as log:
             proc = subprocess.Popen([sys.executable, str(ROOT / 'image_worker.py'), str(folder / 'request.json')],
                                     stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
@@ -91,7 +95,8 @@ def once() -> bool:
     started = time.monotonic()
     answer = draw(drawing)
     result = signed(f"{ROUTE}{drawing['id']}/answer", answer)
-    print(json.dumps({'drawing': drawing['id'], 'drawn': 'image' in answer, 'error': answer.get('error'), 'accepted': result.get('ok'),
+    print(json.dumps({'drawing': drawing['id'], 'fromFrame': bool(drawing.get('reference')), 'drawn': 'image' in answer,
+                      'error': answer.get('error'), 'accepted': result.get('ok'),
                       'seconds': round(time.monotonic() - started)}), flush=True)
     return True
 

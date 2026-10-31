@@ -90,6 +90,8 @@ CREATE TABLE IF NOT EXISTS recipes.ai_drawing (
   UNIQUE (recipe_id, slot)
 );
 CREATE INDEX IF NOT EXISTS recipes_ai_drawing_open ON recipes.ai_drawing(created_at) WHERE status IN ('queued','claimed','drawn');
+-- v5 (31 Oct 2026, owner): every step picture is made by QT Gamer; the step's chosen video frame is its reference, never published.
+ALTER TABLE recipes.ai_drawing ADD COLUMN IF NOT EXISTS reference bytea CHECK (reference IS NULL OR octet_length(reference) <= 600000);
 GRANT SELECT, INSERT, UPDATE, DELETE ON recipes.ai_drawing TO quintaste_app;
 DO $$
 BEGIN

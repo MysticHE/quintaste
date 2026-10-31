@@ -1,10 +1,11 @@
 """Owner request 31 Oct 2026: QT Gamer draws the step pictures of members' AI recipes instead of Gemini.
 
 Guarded like deploy_videomaker.py: run lock, release-hash check, backup, atomic replace, import check as the hermes user,
-automatic restore on failure. Uses the existing qt-gamer profile through image_worker.py (unchanged). Then installs
-qt-recipe-drawings.service on the host, which runs recipe_drawing_bridge.py inside the Hermes container as uid 10000.
+automatic restore on failure. Uses the existing qt-gamer profile through image_worker.py (which recreates a step's video
+frame as a clean 4:3 picture). Then installs or restarts qt-recipe-drawings.service on the host, which runs
+recipe_drawing_bridge.py inside the Hermes container as uid 10000.
 
-Order: apply server/ai-recipes/schema.sql (v4, recipes.ai_drawing) and deploy the app first, then run this.
+Order: apply server/ai-recipes/schema.sql (v5, recipes.ai_drawing.reference), run this, then deploy the app.
 `systemctl disable --now qt-recipe-drawings.service` stops the drawings; queued ones then fail after an hour.
 """
 import base64
@@ -12,7 +13,7 @@ from pathlib import Path
 import setup
 
 HERE = Path(__file__).resolve().parent
-NAMES = ['recipe_drawing_bridge.py']
+NAMES = ['recipe_drawing_bridge.py', 'image_worker.py']
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 CONTAINER = 'hermes-agent-yril-hermes-agent-1'
 
@@ -69,7 +70,8 @@ WantedBy=multi-user.target
 """);unit.chmod(0o644)
 subprocess.run(['systemd-analyze','verify',str(unit)],check=True,capture_output=True)
 subprocess.run(['systemctl','daemon-reload'],check=True)
-subprocess.run(['systemctl','enable','--now','qt-recipe-drawings.service'],check=True,capture_output=True)
+subprocess.run(['systemctl','enable','qt-recipe-drawings.service'],check=True,capture_output=True)
+subprocess.run(['systemctl','restart','qt-recipe-drawings.service'],check=True,capture_output=True)
 print(subprocess.check_output(['systemctl','is-active','qt-recipe-drawings.service'],text=True).strip())
 '''.replace('CONTAINER', CONTAINER)
 

@@ -28,6 +28,14 @@ if request.get('kind') == 'venue-enhancement':
     if source_file.is_symlink() or not source_file.is_file() or source_file.stat().st_size > 2_000_000 or hashlib.sha256(source_file.read_bytes()).hexdigest() != reference['sha256']:
         raise SystemExit('Approved reference integrity failure')
     arguments['image_url'] = str(source_file)
+elif request.get('kind') == 'ai-recipe-step' and request.get('reference'):
+    # A member's AI recipe (recipe_drawing_bridge.py): the video frame QT Gamer recreates as a clean photo (owner, 31 Oct 2026).
+    frame = (request_path.parent / request['reference']).resolve()
+    if frame.parent != request_path.parent or frame.is_symlink() or not frame.is_file() or frame.stat().st_size > 2_000_000:
+        raise SystemExit('Invalid reference frame')
+    with Image.open(frame) as check:
+        check.verify()
+    arguments['image_url'] = str(frame)
 result = _handle_image_generate(arguments)
 if isinstance(result, str):
     result = json.loads(result)
@@ -45,9 +53,24 @@ with Image.open(source) as image:
     image.load()
     image = image.convert('RGB')
     step = request.get('step')  # a recipe step photo (owner, 22 Oct 2026): smaller, so a cover and 8 steps fit one publication
-    image.thumbnail((640, 640) if step else (960, 960))
     output = request_path.parent / 'candidate.jpg'
-    image.save(output, format='JPEG', quality=80 if step else 86, optimize=True)
+    if request.get('kind') == 'ai-recipe-step':
+        # One mobile size for every AI-recipe step picture (owner, 31 Oct 2026): 4:3, 1200 x 900, centre-cropped.
+        width, height = image.size
+        if width * 3 > height * 4:
+            cut = (width - height * 4 // 3) // 2
+            image = image.crop((cut, 0, cut + height * 4 // 3, height))
+        else:
+            cut = (height - width * 3 // 4) // 2
+            image = image.crop((0, cut, width, cut + width * 3 // 4))
+        image = image.resize((1200, 900), Image.LANCZOS)
+        for quality in (86, 80, 72):
+            image.save(output, format='JPEG', quality=quality, optimize=True)
+            if output.stat().st_size <= 450 * 1024:
+                break
+    else:
+        image.thumbnail((640, 640) if step else (960, 960))
+        image.save(output, format='JPEG', quality=80 if step else 86, optimize=True)
     dimensions = image.size
 if output.stat().st_size > 512 * 1024:
     raise SystemExit('Image exceeds application asset limit')
@@ -55,6 +78,7 @@ metadata = {'status': 'generated-awaiting-visual-review', 'recipeId': request.ge
             'provider': result.get('provider'), 'model': result.get('model'),
             'prompt': request['prompt'], 'placeId': request.get('placeId'),
             'sourceKind': 'approved-reference-enhancement' if reference else 'place-dish-illustration' if request.get('kind') == 'place-illustration'
+            else 'ai-recipe-step-from-video-frame' if request.get('kind') == 'ai-recipe-step' and request.get('reference')
             else 'original-generated-recipe-step-illustration' if step else 'original-generated-recipe-illustration',
             'step': step, 'stepKey': request.get('stepKey'),
             'recipeSources': request.get('sources', []), 'originalSha256': original_hash,

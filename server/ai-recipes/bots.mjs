@@ -4,7 +4,7 @@ import path from 'node:path';
 import { pool, logger } from '../config.mjs';
 import { GeminiError } from './gemini.mjs';
 import { house, recipeSchema, searchSystem, videoPrompt, videoSystem, requestPrompt, demandPrompt } from './prompts.mjs';
-import { obtain, youtubeThumbnail } from './video-job.mjs';
+import { obtain } from './video-job.mjs';
 import { canDownload, downloadVideo } from './download.mjs';
 import { clip, toRecipe } from './recipe.mjs';
 import { failJob, finishJob, noPungentFor, progress } from './pipeline.mjs';
@@ -102,22 +102,20 @@ export function publicTask(jobId, payload) {
   return { id: jobId, ...visible, video: payload.video ? { ...payload.video, path: `/api/ai-recipes/bot/tasks/${jobId}/video` } : null, brief: brief(payload) };
 }
 
-/** Step photos at the seconds the bots named (no second model review on this path); a cover at coverAt. */
-async function framesAtTimes(file, recipe, coverAt) {
+/** Step frames at the seconds the bots named (no second model review on this path), as references for QT Gamer. */
+async function framesAtTimes(file, recipe) {
   const total = await videoSeconds(file);
   const clamp = t => Math.min(Math.max(0, t), Math.max(0, total - 0.5));
   const usable = t => Number.isFinite(t) && t >= 0 && (!total || t <= total);
-  const steps = new Map(), kinds = new Map();
+  const steps = new Map();
   for (const [index, step] of recipe.steps.entries()) {
     const t = usable(step.shotAt) ? step.shotAt : usable(step.at) ? step.at + 2 : null;
     if (t === null) continue;
     const raw = await frameAt(file, clamp(t));
     const bytes = raw ? await photoJpeg(raw) : null;
-    if (bytes) { steps.set(index, bytes); kinds.set(index, 'frame'); }
+    if (bytes) steps.set(index, bytes);
   }
-  const coverTime = usable(coverAt) ? coverAt : total > 3 ? total - 2 : null;
-  const coverRaw = coverTime !== null ? await frameAt(file, clamp(coverTime)) : null;
-  return { cover: coverRaw ? await photoJpeg(coverRaw) : null, steps, kinds };
+  return { steps };
 }
 
 const isHttps = url => typeof url === 'string' && url.length <= 2000 && /^https:\/\//.test(url);
@@ -151,13 +149,7 @@ async function settle(row) {
     let photos = null;
     const file = payload._file && existsSync(payload._file) ? payload._file : null;
     try {
-      if (file && framesAvailable()) photos = await framesAtTimes(file, recipe, result.recipe?.coverAt);
-      // A YouTube video's own thumbnail is the cover when no frame made one.
-      if (!photos?.cover && payload.platform === 'youtube' && payload.link) {
-        const thumb = await youtubeThumbnail({ canonical: payload.link });
-        const cover = thumb ? await photoJpeg(thumb) : null;
-        if (cover) photos = { steps: new Map(), kinds: new Map(), ...photos, cover };
-      }
+      if (file && framesAvailable()) photos = await framesAtTimes(file, recipe);
     } catch (error) { logger.warn({ event: 'ai_recipes_bot_frames_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
     await finishJob(job, recipe, photos, usage, { aiNutrition: false });
   } catch (error) {
