@@ -165,9 +165,11 @@ def _colour(food, name):
     return {'purple': 'black'}.get(word.group(1).lower(), word.group(1).lower()) if word else food['colour']
 
 
-def estimate(root, recipe, detail=False):
+def estimate(root, recipe, detail=False, strict=False):
     """Estimate per-serving figures from the ingredient lines, or None when they cannot be weighed reliably. detail=True also
-    returns vitamins and minerals per serving ('micro', only those known for at least 90% of the weight), 'colours' and 'staples'."""
+    returns vitamins and minerals per serving ('micro', only those known for at least 90% of the weight), 'colours' and 'staples'.
+    strict=True (figures that are published): an unknown ingredient of MAX_UNMATCHED_GRAMS or more means no estimate. The quality
+    bar's own measurement (recipe_quality) keeps the 90% coverage rule alone, so it qualifies the same pages as before."""
     servings = recipe.get('servings')
     if not isinstance(servings, (int, float)) or isinstance(servings, bool) or servings <= 0:
         return None
@@ -189,7 +191,7 @@ def estimate(root, recipe, detail=False):
             return None  # an unweighed measured ingredient makes any total unreliable
         nutritive += grams
         if food is None or not food.get('per100g'):
-            if grams >= MAX_UNMATCHED_GRAMS:
+            if strict and grams >= MAX_UNMATCHED_GRAMS:
                 return None  # a real food the table does not know: the totals would be wrong, not just incomplete
             continue  # a pinch the table does not know: counts against coverage only
         matched += grams
@@ -221,7 +223,7 @@ def estimate(root, recipe, detail=False):
 
 def attach(root, recipe, page_recipe, site):
     """Set recipe['nutrition'] when reliable figures exist; otherwise leave the recipe without one."""
-    found = from_page(page_recipe, site, recipe.get('servings')) or estimate(root, recipe)
+    found = from_page(page_recipe, site, recipe.get('servings')) or estimate(root, recipe, strict=True)
     if found:
         recipe['nutrition'] = found
     else:

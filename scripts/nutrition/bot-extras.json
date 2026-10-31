@@ -1,5 +1,5 @@
 {
-  "notes": "Inputs to scripts/nutrition/build_bot_v3.py (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md §5). colour: one of the five colours (green, red, yellow, black, white; purple counts as black), set only for foods that show on the plate. staple: one of the five grains (rice, wheat, soybean, corn, tuber). taiwan: Taiwan FDA Food Nutrient Database id (整合編號) whose figures replace a USDA stand-in. noMicro: USDA stand-ins whose vitamins and minerals would mislead (e.g. USDA oyster sauce is made from oysters). newFoods: foods USDA lacks, figures from Taiwan FDA; their match patterns are removed from older keys so the specific food wins. labels (31 Oct 2026): open product-label figures (Open Food Facts, ODbL) that replace a misleading stand-in, or a new food copied from a base food; micro: false drops the stand-in's vitamins and minerals.",
+  "notes": "Inputs to scripts/nutrition/build_bot_v3.py (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md §5). colour: one of the five colours (green, red, yellow, black, white; purple counts as black), set only for foods that show on the plate. staple: one of the five grains (rice, wheat, soybean, corn, tuber). taiwan: Taiwan FDA Food Nutrient Database id (整合編號) whose figures replace a USDA stand-in. noMicro: USDA stand-ins whose vitamins and minerals would mislead (e.g. USDA oyster sauce is made from oysters). newFoods: foods USDA lacks, figures from Taiwan FDA; their match patterns are removed from older keys so the specific food wins. labels (31 Oct 2026): open product-label figures (Open Food Facts, ODbL) that replace a misleading stand-in, or a new food copied from a base food; micro: false drops the stand-in's vitamins and minerals. A label with fdcId is a USDA food of its own (its vitamins and minerals come from that id).",
   "colour": {
     "coconut_milk": "white",
     "coconut_fresh": "white",
@@ -454,6 +454,29 @@
         "cherry tomato"
       ],
       "each": 17
+    },
+    "pasta_cooked": {
+      "base": "legacy_pasta",
+      "name": "Pasta, cooked",
+      "fdcId": 169737,
+      "match": [
+        "(?<![a-z])cooked (?:pasta|spaghetti|spaghettini|angel hair|capellini|linguine|fettuccine|tagliatelle|penne|fusilli|rigatoni|farfalle|macaroni|orecchiette)(?![a-z])",
+        "(?<![a-z])(?:pasta|spaghetti|spaghettini|angel hair|capellini|linguine|fettuccine|tagliatelle|penne|fusilli|rigatoni|farfalle|macaroni|orecchiette)[^,]*, cooked(?![a-z])"
+      ],
+      "source": {
+        "dataset": "USDA SR Legacy (public domain)",
+        "id": 169737,
+        "name": "Pasta, cooked, enriched, without added salt"
+      },
+      "per100g": {
+        "kcal": 158,
+        "protein": 5.8,
+        "fat": 0.93,
+        "carbs": 30.86,
+        "fibre": 1.8,
+        "sugar": 0.56,
+        "sodium": 1
+      }
     }
   }
 }

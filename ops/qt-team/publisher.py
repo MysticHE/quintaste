@@ -664,16 +664,49 @@ def nutrition_changed(before, after):
 
 
 def cooker_recipes():
-    """Each recipe's latest Cooker record in the outbox (with Manager's edits): it keeps Cooker's gram estimates for lines the
-    table cannot weigh (pieces, bunches), which the published recipe drops."""
-    from workflow import read
-    found = {}
-    for path in sorted((ROOT/'outbox').glob('*.json'), reverse=True)[:300]:
-        for packet in (read(path, {}) or {}).get('packets', []):
+    """Cooker's recipes QT Manager approved, newest first per id, with Manager's edits: they keep Cooker's gram estimates for lines
+    the table cannot weigh (pieces, bunches), which the published recipe drops. Kept in state/cooker-recipes.json and updated from
+    the outbox packages written since the last call, so every recipe ever approved can be found without rereading the outbox."""
+    from workflow import read, write
+    path = ROOT/'state'/'cooker-recipes.json'
+    index = read(path, None) or {'files': [], 'recipes': {}}
+    seen = set(index['files'])
+    new = [p for p in sorted((ROOT/'outbox').glob('*.json')) if p.name not in seen]
+    for package_path in new:
+        package = read(package_path, {}) or {}
+        decisions = {d.get('id'): d.get('decision') for d in (package.get('manager') or {}).get('decisions', []) if isinstance(d, dict)}
+        for packet in package.get('packets', []):
             for record in packet.get('records', []) if packet.get('role') == 'qt-cooker' else []:
-                if record.get('recipe') and record['id'] not in found:
-                    found[record['id']] = record['recipe']
-    return found
+                if record.get('recipe') and record.get('status') == 'proposed' and decisions.get(record['id']) == 'ready-for-editorial-review':
+                    index['recipes'][record['id']] = ([record['recipe']] + index['recipes'].get(record['id'], []))[:5]
+    if new:
+        index['files'] = sorted(seen | {p.name for p in new})
+        write(path, index)
+    return index['recipes']
+
+
+def published_draft(drafts, data):
+    """The approved draft whose ingredients are the live recipe's, or None: a later redraft (held or still in review) never
+    stands in for what members see."""
+    names = sorted(str(i.get('name', '')).strip().casefold() for i in data.get('ingredients', []))
+    return next((d for d in drafts if sorted(str(i.get('name', '')).strip().casefold() for i in d.get('ingredients', [])) == names), None)
+
+
+def flag_nutrient_bar(rid, name, figures_detail):
+    """A live recipe whose corrected figures miss the owner's nutrient level or colours goes to the owner on Telegram, the same
+    way the published-recipe audit does (state/recipe-audit.json, Remove or Keep). The corrected figures are still published."""
+    import recipe_standards
+    from workflow import read, write
+    problems = recipe_standards.problems(figures_detail) if figures_detail else []
+    if not problems or problems[0].startswith('nutrition could not be measured'):
+        return None
+    path = ROOT/'state'/'recipe-audit.json'
+    audit = read(path, {}) or {}
+    reason = 'Corrected nutrition (31 Oct 2026 table fix): ' + '; '.join(problems)
+    if (audit.get(rid) or {}).get('reasons') != reason:
+        audit[rid] = {'name': name, 'passes': False, 'reasons': reason, 'at': dt.datetime.now(dt.timezone.utc).isoformat()}
+        write(path, audit)
+    return reason
 
 
 def nutrition_candidates(live, states, outcomes, candidates, held):
@@ -684,7 +717,7 @@ def nutrition_candidates(live, states, outcomes, candidates, held):
     own figures are never recomputed."""
     import nutrition
     import recipe_quality
-    cooker = cooker_recipes()
+    cooker = None  # read only when a live estimate needs it
     for row in live['records']:
         data, key = row['data'], ('recipe', row['id'])
         rating, urls = data.get('sourceRating'), data.get('provenance', {}).get('sources', [])
@@ -693,10 +726,16 @@ def nutrition_candidates(live, states, outcomes, candidates, held):
                 or any((c['kind'], c['id']) == key for c in candidates)):
             continue
         try:
+            draft = None
             if current:
-                if row['id'] not in cooker:
-                    continue  # no gram estimates to recompute from: the published figures stay
-                figures = nutrition.estimate(ROOT, cooker[row['id']])
+                cooker = cooker if cooker is not None else cooker_recipes()
+                draft = published_draft(cooker.get(row['id'], []), data)
+                if draft is None:
+                    continue  # no approved draft with these ingredients to recompute from: the published figures stay
+                detail = nutrition.estimate(ROOT, draft, detail=True, strict=True)
+                figures = {k: v for k, v in detail.items() if k not in ('micro', 'colours', 'staples')} if detail else None
+                if figures:  # checked every round, also when the live figures are already right (owner's standard)
+                    flag_nutrient_bar(row['id'], data.get('name', row['id']), detail)
                 if figures and not nutrition_changed(current['perServing'], figures['perServing']):
                     continue
             else:
@@ -704,14 +743,20 @@ def nutrition_candidates(live, states, outcomes, candidates, held):
                 url = rating['url'] if isinstance(rating, dict) else urls[0]
                 site = rating['site'] if isinstance(rating, dict) else (urllib.parse.urlparse(url).hostname or url)[:80]
                 page = recipe_quality.fetch(ROOT, url).get('recipe')
-                figures = nutrition.from_page(page, site, data.get('servings')) or nutrition.estimate(ROOT, cooker.get(row['id']) or data)
+                if cooker is None:
+                    cooker = cooker_recipes()
+                draft = published_draft(cooker.get(row['id'], []), data)
+                figures = nutrition.from_page(page, site, data.get('servings')) or nutrition.estimate(ROOT, draft or data, strict=True)
                 if not figures:
                     continue  # nothing reliable to add; the recipe simply shows no nutrition
             proposal_hash = sha({'nutrition': row['id'], 'figures': figures['perServing'] if figures else None})
             if proposal_hash in outcomes and outcomes[proposal_hash].get('decision') != 'approved':
                 continue  # an approval that never reached the live record is proposed again; a hold stands
             today = dt.datetime.now(dt.timezone.utc).date().isoformat()
-            why = ('Estimate removed: an ingredient the table does not know is too heavy to leave out of the totals.' if not figures
+            unknown = not figures and nutrition.estimate(ROOT, draft) is not None  # only the strict unknown-ingredient rule fails
+            why = (('Estimate removed: an ingredient the table does not know is too heavy to leave out of the totals.' if unknown else
+                    'Estimate removed: the recipe can no longer be estimated reliably (an amount cannot be weighed, or too little of it '
+                    'is in the table).') if not figures
                    else 'Per-serving nutrition published on the source recipe page.' if figures['basis'] == 'source'
                    else ('Corrected per-serving estimate after the 31 Oct 2026 table fix (paneer and tau kwa from their product labels, '
                          'cherry tomatoes weighed singly, pasta and cashews recognised; coverage %s).' if current else

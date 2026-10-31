@@ -6171,6 +6171,39 @@
     "magnesium": 11.0
    },
    "colour": "red"
+  },
+  "pasta_cooked": {
+   "name": "Pasta, cooked",
+   "per100g": {
+    "kcal": 158,
+    "protein": 5.8,
+    "fat": 0.93,
+    "carbs": 30.86,
+    "fibre": 1.8,
+    "sugar": 0.56,
+    "sodium": 1,
+    "calcium": 7.0,
+    "potassium": 44.0,
+    "zinc": 0.51,
+    "folate": 119.0,
+    "vitA": 0.0,
+    "iron": 1.28,
+    "magnesium": 18.0,
+    "vitC": 0.0,
+    "b12": 0.0,
+    "vitE": 0.06
+   },
+   "match": [
+    "(?<![a-z])cooked (?:pasta|spaghetti|spaghettini|angel hair|capellini|linguine|fettuccine|tagliatelle|penne|fusilli|rigatoni|farfalle|macaroni|orecchiette)(?![a-z])",
+    "(?<![a-z])(?:pasta|spaghetti|spaghettini|angel hair|capellini|linguine|fettuccine|tagliatelle|penne|fusilli|rigatoni|farfalle|macaroni|orecchiette)[^,]*, cooked(?![a-z])"
+   ],
+   "colour": "yellow",
+   "staple": "wheat",
+   "source": {
+    "dataset": "USDA SR Legacy (public domain)",
+    "id": 169737,
+    "name": "Pasta, cooked, enriched, without added salt"
+   }
   }
  }
 }

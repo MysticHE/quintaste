@@ -97,6 +97,13 @@ def validate(extras, foods):
             raise SystemExit(f'bad new food {key}')
         for pattern in food['match']:
             re.compile(pattern)
+    for key, label in extras.get('labels', {}).items():
+        if (label.get('base') and label['base'] not in foods) or (not label.get('base') and key not in foods):
+            raise SystemExit(f'bad label {key}: unknown base or food')
+        if set(label.get('per100g') or {}) - {'kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium'}:
+            raise SystemExit(f'bad label {key}: per100g takes the seven main figures only')
+        for pattern in label.get('match', []):
+            re.compile(pattern)
 
 
 def build(usda_folder, taiwan_csv, repo):
@@ -109,7 +116,8 @@ def build(usda_folder, taiwan_csv, repo):
     extras = json.loads((repo / 'scripts/nutrition/bot-extras.json').read_text(encoding='utf-8'))
     foods = {k: dict(v) for k, v in v2['foods'].items()}
     validate(extras, foods)
-    micro = usda_micro(usda_folder, [f['fdcId'] for f in foods.values() if f.get('fdcId')])
+    micro = usda_micro(usda_folder, [f['fdcId'] for f in foods.values() if f.get('fdcId')]
+                       + [l['fdcId'] for l in extras.get('labels', {}).values() if l.get('fdcId')])
     tw = taiwan_foods(taiwan_csv, set(extras['taiwan'].values()) | {f['taiwan'] for f in extras['newFoods'].values()})
     claimed = {p for f in [*extras['newFoods'].values(), *extras.get('labels', {}).values()] for p in f.get('match', [])}
     for key, food in foods.items():
@@ -146,6 +154,8 @@ def build(usda_folder, taiwan_csv, repo):
         per = dict(food.get('per100g') or {})
         if spec.get('micro') is False:
             per = {k: v for k, v in per.items() if k not in MICRO}
+        if spec.get('fdcId'):  # a USDA food of its own: its vitamins and minerals, not the base food's
+            per = {**{k: v for k, v in per.items() if k not in MICRO}, **micro.get(str(spec['fdcId']), {})}
         per.update(spec.get('per100g') or {})
         food.update({k: spec[k] for k in ('name', 'each', 'match') if k in spec}, per100g=per)
         if spec.get('source'):
