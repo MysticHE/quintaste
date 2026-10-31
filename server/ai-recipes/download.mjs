@@ -7,6 +7,7 @@ import { logger } from '../config.mjs';
 import { GeminiError } from './gemini.mjs';
 import { VIDEO_TYPES } from './files.mjs';
 import { MAX_VIDEO_SECONDS } from './limits.mjs';
+import { downloadDouyin } from './douyin.mjs';
 
 /**
  * Downloads a public TikTok, Instagram or Facebook video with yt-dlp (pinned release in the app image, run without
@@ -16,6 +17,8 @@ import { MAX_VIDEO_SECONDS } from './limits.mjs';
 const BIN = process.env.YT_DLP_BIN || '/usr/local/bin/yt-dlp';
 const MAX_SECONDS = MAX_VIDEO_SECONDS;
 export const downloaderAvailable = () => existsSync(BIN);
+/** Whether the server can fetch this link's video file: Douyin through its own downloader, the rest through yt-dlp. */
+export const canDownload = link => link?.platform === 'douyin' || downloaderAvailable();
 
 const blocked = {
   tiktok: 'This site does not let our server open the video. Save it on your phone, then tap Upload Video.',
@@ -46,6 +49,7 @@ function run(args, signal, timeoutMs) {
 
 /** Downloads `link` into `dir` (a job folder on disk); returns the file path, type, size and caption metadata. */
 export async function downloadVideo(link, dir, signal) {
+  if (link.platform === 'douyin') return downloadDouyin(link, dir, signal);
   const { code, stderr } = await run(['--ignore-config', '--no-cache-dir', '--no-playlist', '--no-warnings', '--no-progress', '--no-part',
     '--socket-timeout', '20', '--retries', '2', '--max-filesize', '60M', '--match-filter', 'duration <=? ' + MAX_SECONDS,
     '-f', 'b[ext=mp4][height<=720]/b[ext=mp4]/b[height<=720]/b', '--write-info-json', '-o', path.join(dir, 'video.%(ext)s'), '--', link.canonical],

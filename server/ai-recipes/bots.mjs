@@ -5,7 +5,7 @@ import { pool, logger } from '../config.mjs';
 import { GeminiError } from './gemini.mjs';
 import { house, recipeSchema, searchSystem, videoPrompt, videoSystem, requestPrompt, demandPrompt } from './prompts.mjs';
 import { obtain, youtubeThumbnail } from './video-job.mjs';
-import { downloadVideo, downloaderAvailable } from './download.mjs';
+import { canDownload, downloadVideo } from './download.mjs';
 import { clip, toRecipe } from './recipe.mjs';
 import { failJob, finishJob, noPungentFor, progress } from './pipeline.mjs';
 import { frameAt, framesAvailable, photoJpeg, shrinkVideo, videoSeconds } from './frames.mjs';
@@ -46,7 +46,7 @@ export async function handToBots(job) {
       const got = await obtain(job, dir, undefined, progress(job));
       upload = got.upload ?? null;
       let original = got.local?.path ?? null, creator = got.creator, caption = got.caption;
-      if (!original && got.link && downloaderAvailable()) {
+      if (!original && got.link && canDownload(got.link)) {
         await progress(job)('Downloading the video…');
         const download = await downloadVideo(got.link, dir, undefined);
         original = download.path; creator = creator || download.creator; caption = caption || download.caption;

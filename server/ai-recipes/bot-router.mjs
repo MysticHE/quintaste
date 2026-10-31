@@ -5,6 +5,7 @@ import { pipeline } from 'node:stream/promises';
 import { pool, logger } from '../config.mjs';
 import { json, raw, signed } from '../bot-signature.mjs';
 import { publicTask } from './bots.mjs';
+import { answerDrawing, claimDrawing } from './drawings.mjs';
 
 /**
  * Routes the QT bots call (ops/qt-team/ai_recipes_bridge.py), signed like the editorial publisher: X-QT-Time and
@@ -61,6 +62,24 @@ aiRecipeBots.post('/tasks/:id/result', raw(RESULT_LIMIT), signed, async (req, re
       WHERE job_id=$1 AND status='claimed' RETURNING job_id`, [req.params.id, failed ? 'failed' : 'done', result, failed ? String(body.error).slice(0, 300) : '']);
     if (!updated.rowCount) return res.status(409).json({ error: 'This task is not waiting for an answer.' });
     logger.info({ event: 'ai_recipe_bot_answer', failed });
+    res.json({ ok: true });
+  } catch (error) { next(error); }
+});
+
+/** QT Gamer's drawing bridge: the oldest step drawing waiting, or { drawing: null }. */
+aiRecipeBots.post('/drawings/claim', raw('1kb'), signed, async (_req, res, next) => {
+  try { res.json({ drawing: await claimDrawing() }); } catch (error) { next(error); }
+});
+
+/** One drawing: { image: base64 JPEG/PNG/WebP } or { error }. Only a claimed drawing accepts one. */
+aiRecipeBots.post('/drawings/:id/answer', raw('1mb'), signed, async (req, res, next) => {
+  try {
+    if (!ID.test(req.params.id)) return res.sendStatus(404);
+    const body = json(req);
+    const image = typeof body?.image === 'string' && body.image.length <= 1_000_000 ? Buffer.from(body.image, 'base64') : null;
+    if (!image?.length && typeof body?.error !== 'string') return res.status(400).json({ error: 'Send image or error.' });
+    const taken = await answerDrawing(req.params.id, image?.length ? { image } : { error: body.error });
+    if (!taken) return res.status(409).json({ error: 'This drawing is not waiting for an answer.' });
     res.json({ ok: true });
   } catch (error) { next(error); }
 });

@@ -5,6 +5,7 @@ import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSyste
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { hiddenAnimal, houseNotes, pungent, wantsNoPungent } from './charter.mjs';
 import { fromVideo } from './video-job.mjs';
+import { queueDrawings } from './drawings.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
 import { recipeKeys } from '../nutrition/dynamic.mjs';
 import { linkRecipe } from '../nutrition/learned.mjs';
@@ -89,13 +90,15 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
   // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
   const unclear = recipe.source.confidence < REVIEW_BELOW, review = job.kind === 'demand' || unclear || notes.length > 0;
   const saved = await save(job, recipe, photos, review, complete);
+  // Every step without a video frame is drawn by QT Gamer; the pictures are attached when they pass the check.
+  const drawings = await queueDrawings(saved.id, recipe, photos);
   const status = review ? 'review' : 'published';
   await pool.query(`UPDATE recipes.ai_job SET status=$2, recipe_id=$3, message=$4, usage=$5, finished_at=now() WHERE id=$1`,
     [job.id, status, saved.id, job.kind === 'demand' ? 'Waiting for staff review.' : !review ? ''
       : unclear ? 'Some quantities or steps were unclear, so staff will check it before it goes public.'
       : used.length && await noPungentFor(job) ? `It still uses ${used.join(', ').toLowerCase()}, so staff will check it before it goes public.`
-      : 'Staff will check an ingredient before it goes public.', { ...usage, photos: saved.photos }]);
-  logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, photos: saved.photos });
+      : 'Staff will check an ingredient before it goes public.', { ...usage, photos: saved.photos, drawings }]);
+  logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, photos: saved.photos, drawings });
   if (status === 'published' && job.user_id) await levelFor(job.user_id, saved.id);
   return status;
 }

@@ -3,8 +3,8 @@ import net from 'node:net';
 import { GeminiError } from './gemini.mjs';
 
 /**
- * Turns a pasted link into something the model can watch. YouTube links go to Gemini by URL (nothing is downloaded).
- * TikTok, Instagram and Facebook posts are read from their public page to find the MP4, which is fetched inline
+ * Turns a pasted link into something the model can watch. YouTube links go to Gemini by URL (nothing is downloaded);
+ * Douyin links are downloaded through the self-hosted downloader (douyin.mjs). TikTok, Instagram and Facebook posts are read from their public page to find the MP4, which is fetched inline
  * (20 MB cap). Any fetch is https-only, follows at most 5 redirects and refuses private addresses.
  */
 export const MAX_BYTES = 20 * 1024 * 1024;
@@ -12,10 +12,13 @@ export const MAX_BYTES = 20 * 1024 * 1024;
 export const MAX_LINK = 300;
 const UA = 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36';
 const PAGE_HOSTS = /(^|\.)(tiktok\.com|instagram\.com|facebook\.com|fb\.watch|fb\.com)$/i;
+const DOUYIN_HOSTS = /(^|\.)(douyin\.com|iesdouyin\.com)$/i;
 
 export function parseLink(input) {
   let url;
-  try { url = new URL(String(input ?? '').trim()); } catch { throw new GeminiError(400, 'Paste a full link, starting with https://.'); }
+  // Douyin's Share button copies a line of text around the link; the link is what counts.
+  const text = String(input ?? '').trim(), shared = /\s/.test(text) ? /https?:\/\/[^\s，。]+/i.exec(text)?.[0] : null;
+  try { url = new URL(shared ?? text); } catch { throw new GeminiError(400, 'Paste a full link, starting with https://.'); }
   if (url.protocol !== 'https:') throw new GeminiError(400, 'Only https links are accepted.');
   const host = url.hostname.toLowerCase().replace(/^www\.|^m\.|^mobile\./, '');
   let id = null;
@@ -26,6 +29,13 @@ export function parseLink(input) {
   if (id !== null) {
     if (!/^[A-Za-z0-9_-]{11}$/.test(id)) throw new GeminiError(400, 'That link has no video id.');
     return { platform: 'youtube', canonical: 'https://www.youtube.com/watch?v=' + id, fileUri: 'https://www.youtube.com/watch?v=' + id };
+  }
+  if (DOUYIN_HOSTS.test(host)) {
+    const post = url.pathname.match(/\/(?:video|note)\/(\d{8,24})/)?.[1] ?? (/^\d{8,24}$/.test(url.searchParams.get('modal_id') ?? '') ? url.searchParams.get('modal_id') : null);
+    const canonical = post ? 'https://www.douyin.com/video/' + post
+      : host === 'v.douyin.com' && /^\/[A-Za-z0-9_-]{4,20}\/?$/.test(url.pathname) ? 'https://v.douyin.com' + url.pathname.replace(/\/?$/, '/') : null;
+    if (!canonical) throw new GeminiError(400, "Paste the link from Douyin's Share button.");
+    return { platform: 'douyin', canonical };
   }
   if (PAGE_HOSTS.test(host)) {
     const platform = /tiktok/.test(host) ? 'tiktok' : /instagram/.test(host) ? 'instagram' : 'facebook';
@@ -42,7 +52,7 @@ export function parseLink(input) {
   throw new GeminiError(400, 'Paste a link to a public video.');
 }
 
-async function publicAddress(hostname) {
+export async function publicAddress(hostname) {
   const { address } = await dns.lookup(hostname).catch(() => { throw new GeminiError(400, 'That link could not be resolved.'); });
   const v4 = net.isIPv4(address) ? address : address.startsWith('::ffff:') ? address.slice(7) : null;
   if (v4) {

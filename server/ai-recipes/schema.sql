@@ -69,6 +69,28 @@ CREATE TABLE IF NOT EXISTS recipes.ai_bot_bridge (
 GRANT SELECT, INSERT, UPDATE ON recipes.ai_bot_bridge TO quintaste_app;
 -- Off: Gemini writes AI recipes. On: the QT bots do. Turning it off sends new jobs back to Gemini.
 INSERT INTO ops.control(key, enabled, notice) VALUES ('ai_recipes_bots', false, '') ON CONFLICT DO NOTHING;
+-- Step drawings (v4, 31 Oct 2026, owner): every step picture a recipe has no video frame for is drawn by QT Gamer on the
+-- team's ChatGPT plan (ops/qt-team/recipe_drawing_bridge.py, HMAC routes /api/ai-recipes/bot/drawings/*), not by Gemini.
+-- One row per picture; the worker checks each drawing against its step and attaches it, or asks for one redraw.
+CREATE TABLE IF NOT EXISTS recipes.ai_drawing (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  recipe_id uuid NOT NULL REFERENCES recipes.recipe(id) ON DELETE CASCADE,
+  slot text NOT NULL CHECK (slot ~ '^step-[0-9]{1,2}$'),
+  -- queued -> claimed by the bridge -> drawn (answered) -> done (attached) or back to queued for a redraw, or failed.
+  status text NOT NULL DEFAULT 'queued' CHECK (status IN ('queued','claimed','drawn','done','failed')),
+  prompt text NOT NULL CHECK (length(prompt) <= 6000),
+  -- What the check found wrong with the previous drawing, told to the redraw.
+  note text NOT NULL DEFAULT '' CHECK (length(note) <= 300),
+  image bytea CHECK (image IS NULL OR octet_length(image) <= 600000),
+  error text NOT NULL DEFAULT '' CHECK (length(error) <= 300),
+  attempts integer NOT NULL DEFAULT 0,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  claimed_at timestamptz,
+  answered_at timestamptz,
+  UNIQUE (recipe_id, slot)
+);
+CREATE INDEX IF NOT EXISTS recipes_ai_drawing_open ON recipes.ai_drawing(created_at) WHERE status IN ('queued','claimed','drawn');
+GRANT SELECT, INSERT, UPDATE, DELETE ON recipes.ai_drawing TO quintaste_app;
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN

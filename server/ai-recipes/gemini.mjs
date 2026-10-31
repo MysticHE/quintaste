@@ -1,4 +1,3 @@
-import { Buffer } from 'node:buffer';
 import { readFileSync } from 'node:fs';
 import { logger } from '../config.mjs';
 import { loadProviderKey } from './secret.mjs';
@@ -90,27 +89,3 @@ async function call({ parts, schema = null, system = null, tools = null, model =
     sources: pages.filter(Boolean).map(page => page.url), pages, supports };
 }
 
-// Flash-Lite Image ($0.0336 an image) first; the full Flash Image only when Lite is not offered to this key.
-const IMAGE_MODELS = ['gemini-3.1-flash-lite-image', 'gemini-3.1-flash-image'];
-/** One generated image (step illustrations for videos the server cannot download). Returns bytes and type, or null. */
-export async function generateImage(prompt, signal = undefined) {
-  const config = await geminiConfig();
-  if (config.mode !== 'direct') return null;
-  for (const model of IMAGE_MODELS) {
-    const body = { contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseModalities: ['IMAGE'], imageConfig: { aspectRatio: '16:9' } } };
-    let response;
-    try {
-      response = await fetch(config.base + model + ':generateContent', { method: 'POST', redirect: 'error', signal: signal ?? AbortSignal.timeout(120000),
-        headers: { 'content-type': 'application/json', ...config.headers }, body: JSON.stringify(body) });
-    } catch { return null; }
-    // a model this key cannot use answers 400, 403 or 404 depending on the model: try the next one
-    if ([400, 403, 404].includes(response.status) && model !== IMAGE_MODELS[IMAGE_MODELS.length - 1]) {
-      logger.warn({ event: 'ai_recipes_image_model_unavailable', model, status: response.status }); await response.body?.cancel(); continue;
-    }
-    if (!response.ok) { logger.warn({ event: 'ai_recipes_image_error', model, status: response.status }); await response.body?.cancel(); return null; }
-    const data = /** @type {{ candidates?: { content?: { parts?: { inlineData?: { mimeType?: string, data?: string } }[] } }[] }} */ (await response.json().catch(() => ({})));
-    const image = data.candidates?.[0]?.content?.parts?.find(part => part.inlineData?.data)?.inlineData;
-    return image?.data ? { bytes: Buffer.from(image.data, 'base64'), mimeType: image.mimeType ?? 'image/png', model } : null;
-  }
-  return null;
-}

@@ -5,16 +5,16 @@ import { GeminiError, generate } from './gemini.mjs';
 import { recipeSchema, verifyPrompt, verifySystem, videoPrompt, videoSystem } from './prompts.mjs';
 import { loadVideo, parseLink } from './video.mjs';
 import { deleteFile, storeFile } from './files.mjs';
-import { downloadVideo, downloaderAvailable } from './download.mjs';
+import { canDownload, downloadVideo } from './download.mjs';
 import { framesAvailable, photoJpeg } from './frames.mjs';
-import { framesFor, illustrationsFor } from './photos.mjs';
+import { framesFor } from './photos.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { jobDir, removeDir, uploadPath } from './work.mjs';
 
 /**
  * A video job: get the video (member upload, yt-dlp download, or YouTube by link), write the recipe, check it against
- * the whole video a second time, then choose a photo for every step (real frames when the server has the file,
- * reviewed illustrations for YouTube). `progress` updates the member's request card.
+ * the whole video a second time, then choose a real frame for every step the server has the video file for (steps
+ * without one are drawn by QT Gamer after saving, drawings.mjs). `progress` updates the member's request card.
  */
 const youtubeId = canonical => /[?&]v=([A-Za-z0-9_-]{11})/.exec(canonical)?.[1] ?? null;
 
@@ -50,7 +50,7 @@ export async function obtain(job, dir, signal, progress) {
   }
   const link = parseLink(job.input);
   if (link.platform === 'youtube') return { link, local: null, ...await youtubeDetails(link) };
-  if (!downloaderAvailable()) return { link, local: null, inline: await loadVideo(link, signal), creator: '', caption: '' };
+  if (!canDownload(link)) return { link, local: null, inline: await loadVideo(link, signal), creator: '', caption: '' };
   await progress('Downloading the video…');
   const download = await downloadVideo(link, dir, signal);
   return { link, local: download, creator: download.creator, caption: download.caption };
@@ -90,18 +90,11 @@ export async function fromVideo(job, signal, usage, progress) {
     try {
       if (got.local && framesAvailable()) photos = await framesFor(got.local.path, recipe, { coverAt: checked.coverAt }, usage);
     } catch (error) { logger.warn({ event: 'ai_recipes_frames_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
-    // Every step without a matching frame gets a reviewed illustration, so no step is left without a picture.
-    const missing = recipe.steps.map((_, index) => index).filter(index => !photos.steps.has(index));
+    // Steps without a matching frame are drawn by QT Gamer once the recipe is saved (drawings.mjs).
     try {
-      if (missing.length) {
-        if (missing.length < recipe.steps.length) await progress('Drawing the steps the video does not show…');
-        const drawn = await illustrationsFor(recipe, null, usage, missing);
-        for (const [index, bytes] of drawn.steps) { photos.steps.set(index, bytes); photos.kinds.set(index, 'illustration'); }
-      }
       const thumbnail = !photos.cover && got.link?.platform === 'youtube' ? await youtubeThumbnail(got.link) : null;
       if (thumbnail) photos.cover = await photoJpeg(thumbnail);
-    } catch (error) { logger.warn({ event: 'ai_recipes_illustrations_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
-    if (photos.steps.size < recipe.steps.length) logger.warn({ event: 'ai_recipes_steps_without_photo', steps: recipe.steps.length, photos: photos.steps.size });
+    } catch (error) { logger.warn({ event: 'ai_recipes_thumbnail_failed', detail: String(error?.message ?? error).slice(0, 160) }); }
     return { recipe, photos };
   } finally {
     if (stored) await deleteFile(stored.name);

@@ -3,6 +3,7 @@ import { allowed } from '../operations.mjs';
 import { engine, engineReady } from './engine.mjs';
 import { HELD_BY_BOTS, botTableReady, handToBots, settleBotTasks } from './bots.mjs';
 import { parseUpload, runJob } from './pipeline.mjs';
+import { settleDrawings } from './drawings.mjs';
 import { deleteFile } from './files.mjs';
 import { sweepWork, uploadPath } from './work.mjs';
 import { rm } from 'node:fs/promises';
@@ -21,6 +22,7 @@ export function startAiRecipeWorker() {
     try {
       if (!await allowed('ai_recipes') || !await allowed('recipes')) return;
       await settleBotTasks();
+      await settleDrawings();
       if (!await engineReady()) return;
       const stale = await pool.query(`UPDATE recipes.ai_job SET status='failed', finished_at=now(),
           message=CASE WHEN input LIKE 'upload %' THEN 'The job was interrupted. Upload the video again.' ELSE 'The job was interrupted. Try again.' END

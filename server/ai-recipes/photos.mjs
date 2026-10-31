@@ -1,16 +1,15 @@
 import { logger } from '../config.mjs';
 import { frameAt, photoJpeg, previewJpeg, videoSeconds } from './frames.mjs';
-import { generate, generateImage } from './gemini.mjs';
+import { generate } from './gemini.mjs';
 import { photoReviewSchema, photoReviewSystem } from './prompts.mjs';
 
 /**
  * Step photos and a cover for an AI recipe. With the video file: three candidate frames per step (around the moment
  * the model named and across the step), reviewed by the model against each step's text; steps with no fitting frame
  * get a second look (the moment the reviewer names, or five frames across the step). Steps no frame shows, and every
- * step when there is no file (YouTube blocks servers), get an illustration reviewed the same way and redrawn once.
- * A recipe gets at most MAX_DRAWINGS drawings, redraws included (owner, 20 Oct 2026).
+ * step when there is no file, are drawn by QT Gamer afterwards (drawings.mjs), checked with the same review.
  */
-const BATCH = 12, MAX_DRAWINGS = 10, REDRAW_RESERVE = 2;
+const BATCH = 12;
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 /** The model may answer "Photo S1-A" or "s1-a"; reduce it to the bare label. */
 const labelOf = value => /\b(?:S\d+|C)-(?:[A-C]|R\d)\b/i.exec(String(value ?? ''))?.[0].toUpperCase() ?? null;
@@ -25,7 +24,7 @@ async function inPool(items, limit, work) {
 }
 
 /** The whole method in short, so a check or a drawing knows what is already in the pan at each stage. */
-const method = recipe => recipe.steps.map((s, index) => `${index + 1}. ${s.instruction}`).join('\n');
+export const method = recipe => recipe.steps.map((s, index) => `${index + 1}. ${s.instruction}`).join('\n');
 
 /** One review call for a batch of steps; returns { stepNumber: { choice, betterAt, note } } and the cover label. */
 async function review(recipe, steps, candidates, hasVideo, usage) {
@@ -47,7 +46,7 @@ async function review(recipe, steps, candidates, hasVideo, usage) {
 }
 
 /** Reviews candidates in batches of steps and fills `chosen` (step number -> candidate); returns steps still missing. */
-async function reviewAll(recipe, candidates, chosen, hasVideo, usage, cover = []) {
+export async function reviewAll(recipe, candidates, chosen, hasVideo, usage, cover = []) {
   const numbers = [...new Set(candidates.filter(c => c.step).map(c => c.step))];
   const used = new Set([...chosen.values()].map(c => c.label));
   let coverPick = null;
@@ -138,7 +137,7 @@ const COOKING = /\b(pans?|woks?|pots?|oven|heat|fry|fries|fried|saut\w*|simmer|b
  * The steps (0-based) worth drawing when there are more than `count`: the last step (the finished dish) always, plain
  * prep steps dropped first, then an even spread over what is left so no stretch of the method goes unshown.
  */
-function stepsToDraw(recipe, indexes, count) {
+export function stepsToDraw(recipe, indexes, count) {
   if (indexes.length <= count) return indexes;
   const prep = index => PREP.test(recipe.steps[index].instruction.trim()) && !COOKING.test(recipe.steps[index].instruction);
   // only the recipe's own final step is the finished dish; with `only` the last index may just be the last unfilmed step
@@ -150,46 +149,7 @@ function stepsToDraw(recipe, indexes, count) {
   return [...new Set([...pool, ...(keepFinal ? [final] : [])])].sort((a, b) => a - b);
 }
 
-/**
- * Drawn, reviewed step illustrations: for every step when the server cannot get the video (YouTube), or only for the
- * steps (0-based `only`) no frame shows, such as preparation the creator describes but does not film. When there are
- * more steps than drawings allowed, the chosen steps keep two drawings back for redraws; steps not drawn show no photo.
- */
-export async function illustrationsFor(recipe, coverBytes, usage, only = null) {
-  const names = new Map(recipe.ingredients.map(i => [i.id, i.name]));
-  const draw = async (step, number, note = '') => {
-    const ingredients = step.ingredientIds.map(id => names.get(id)).filter(Boolean).join(', ');
-    const image = await generateImage(`Photorealistic photo of one step of the home-cooked vegetarian recipe "${recipe.title}".\nWhole method:\n${method(recipe)}\n\n`
-      + `Draw step ${number} only: ${step.instruction}` + (ingredients ? ` Ingredients in this step: ${ingredients}.` : '')
-      + ' Show exactly what is in the pan or on the board at this moment: what earlier steps put there plus this step, nothing the method adds later'
-      + ' and nothing it cooks or serves separately. Right cookware, natural kitchen light, seen from above or at a slight angle.'
-      + ' No faces, no readable text or labels on packaging, no logos, no meat or seafood.' + (note ? ` Avoid this mistake from a previous attempt: ${note}` : ''));
-    usage.images = (usage.images ?? 0) + 1;
-    if (!image) return null;
-    usage.imageModel = image.model;
-    const bytes = await photoJpeg(image.bytes);
-    return bytes ? { label: `S${number}-A`, step: number, bytes, preview: await previewJpeg(bytes) } : null;
-  };
-  const wanted = only ?? recipe.steps.map((_, index) => index);
-  const indexes = stepsToDraw(recipe, wanted, wanted.length <= MAX_DRAWINGS - REDRAW_RESERVE ? wanted.length : MAX_DRAWINGS - REDRAW_RESERVE);
-  const chosen = new Map();
-  const first = (await inPool(indexes, 3, index => draw(recipe.steps[index], index + 1))).filter(Boolean);
-  const { misses } = await reviewAll(recipe, first, chosen, false, usage);
-  const retried = misses.slice(0, MAX_DRAWINGS - indexes.length);
-  const redo = (await inPool(retried, 3, m => draw(recipe.steps[m.number - 1], m.number, m.note || 'it did not match the step')))
-    .filter(Boolean).map(c => ({ ...c, label: `S${c.step}-B` }));
-  if (redo.length) await reviewAll(recipe, redo, chosen, false, usage);
-  // Drawings the redraws did not need go to more of the steps left out, picked the same way.
-  const spare = MAX_DRAWINGS - indexes.length - retried.length;
-  const rest = wanted.filter(index => !indexes.includes(index));
-  if (spare > 0 && rest.length) {
-    const more = (await inPool(stepsToDraw(recipe, rest, spare), 3, index => draw(recipe.steps[index], index + 1))).filter(Boolean);
-    if (more.length) await reviewAll(recipe, more, chosen, false, usage);
-  }
-  return finish(chosen, coverBytes, 'illustration');
-}
-
-/** Stored photos keyed by 0-based step index, with what each one is (a video frame or a drawn illustration). */
+/** Stored photos keyed by 0-based step index, with what each one is (a video frame). */
 async function finish(chosen, coverBytes, kind) {
   const steps = new Map(), kinds = new Map();
   for (const [number, candidate] of chosen) {
