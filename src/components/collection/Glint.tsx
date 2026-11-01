@@ -18,6 +18,9 @@ const STAR = "M0-10L1.5-1.5L10 0L1.5 1.5L0 10L-1.5 1.5L-10 0L-1.5-1.5Z";
 /** A clock for one screen of items: ticks about every 1.2 s while the screen is in view and motion is allowed. */
 export function useGlintClock(count: number) {
   const { reducedMotion } = usePreferences(), focused = useIsFocused(), [tick, setTick] = useState(0);
+  // A new set of items (a sheet opened again, another tab) starts the clock afresh.
+  const [lastCount, setLastCount] = useState(count);
+  if (count !== lastCount) { setLastCount(count); setTick(0); }
   useEffect(() => {
     if (reducedMotion || !focused || count === 0) return;
     const timer = setInterval(() => setTick(n => n + 1), 1200);
@@ -30,8 +33,9 @@ export function useGlintClock(count: number) {
 }
 
 /** One glint on an item `size` points wide, at one of its edge `points`, in its `tone`; it plays each time `pulse` changes to a new non-zero value. */
-export function Glint({ points, pulse, size, tone }: { points: [number, number][]; pulse: number; size: number; tone: string }) {
-  // The glint takes the item's own highlight colour (art.tone), so it reads as the item catching light, not a white sticker.
+export function Glint({ points, pulse, size, tone, spark }: { points: [number, number][]; pulse: number; size: number; tone: string; spark: string }) {
+  // The glint takes the item's own highlight colour (art.tone) with a paler core of the same hue (art.spark), so it reads as
+  // the item catching light, not a white sticker, and still stands out where it sits over the same colour.
   const progress = useSharedValue(0);
   useEffect(() => {
     if (!pulse) return;
@@ -48,8 +52,8 @@ export function Glint({ points, pulse, size, tone }: { points: [number, number][
     <Svg viewBox="-10 -10 20 20" width={star} height={star}>
       <Circle r={6} fill={tone} opacity={0.3} />
       <Path d={STAR} fill={tone} />
-      <Path d={STAR} fill={tone} opacity={0.7} transform="rotate(45) scale(0.5)" />
-      <Circle r={1.8} fill={tone} />
+      <Path d={STAR} fill={spark} opacity={0.85} transform="rotate(45) scale(0.55)" />
+      <Circle r={2} fill={spark} />
     </Svg>
   </Animated.View>;
 }
@@ -69,7 +73,7 @@ export function ItemArt({ art, size, pulse = 0, loop = false, dim = false, insid
       borderRadius: size, overflow: "hidden" }}>{inside}</View>}
     <Image source={art.image} style={{ width: size, height: size, opacity: dim ? 0.35 : 1 }} contentFit="contain" accessible={false} />
     {!dim && <Sheen art={art} size={size} pulse={pulse} loop={loop} />}
-    {!dim && <Glint points={art.glints} pulse={pulse} size={size} tone={art.tone} />}
+    {!dim && <Glint points={art.glints} pulse={pulse} size={size} tone={art.tone} spark={art.spark} />}
   </View>;
 }
 

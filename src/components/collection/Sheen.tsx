@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Image } from "expo-image";
-import Animated, { Easing, cancelAnimation, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withTiming, type SharedValue } from "react-native-reanimated";
+import Animated, { Easing, cancelAnimation, runOnJS, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withTiming, type SharedValue } from "react-native-reanimated";
+import { useIsFocused } from "expo-router";
 import { usePreferences } from "../../state/Preferences";
 import type { CollectionArt } from "../../config/collection-art";
 
@@ -14,26 +15,38 @@ const LAYERS = [{ width: 0.62, opacity: 0.45 }, { width: 0.4, opacity: 0.6 }, { 
  * Light passing over a Collection item in its own colours (owner, 1 Nov 2026: no white reflection; the shine must match the
  * design): a tilted window slides across the item and shows, inside it, the item lit up (`art.lit`, made by
  * scripts/import-collection-art.py), so gold flares brighter gold and petals glow deeper pink. It sweeps once each time
- * `pulse` changes to a new non-zero value, or over and over with a rest between when `loop` is set. Nothing is drawn with
- * Reduce motion on.
+ * `pulse` changes to a new non-zero value, or over and over with a rest between when `loop` is set. A loop runs only while
+ * its screen is in view and starts at the item's own moment, so items on one screen do not flash together; a single
+ * sweep's lit layers exist only while it plays. Nothing is drawn with Reduce motion on.
  */
 export function Sheen({ art, size, pulse = 0, loop = false }: { art: CollectionArt; size: number; pulse?: number; loop?: boolean }) {
-  const { reducedMotion } = usePreferences(), progress = useSharedValue(0);
+  const { reducedMotion } = usePreferences(), focused = useIsFocused(), progress = useSharedValue(0), [active, setActive] = useState(false);
+  const looping = loop && focused && !reducedMotion, phase = phaseOf(art.tone);
+  // A new pulse mounts the layers for its sweep (state adjusted during render, so they exist when the sweep starts).
+  const [lastPulse, setLastPulse] = useState(pulse);
+  if (pulse !== lastPulse) { setLastPulse(pulse); if (pulse && !loop && !reducedMotion) setActive(true); }
   useEffect(() => {
-    if (reducedMotion) return;
-    if (loop) {
-      progress.value = 0;
-      progress.value = withRepeat(withDelay(1000, withTiming(1, { duration: SWEEP_MS * 1.3, easing: Easing.inOut(Easing.quad) })), -1, false);
-      return () => cancelAnimation(progress);
-    }
-    if (!pulse) return;
-    progress.value = 0;
-    progress.value = withTiming(1, { duration: SWEEP_MS, easing: Easing.inOut(Easing.quad) });
+    if (!looping) return;
+    progress.set(0);
+    progress.set(withDelay(phase, withRepeat(withDelay(1000, withTiming(1, { duration: SWEEP_MS * 1.3, easing: Easing.inOut(Easing.quad) })), -1, false)));
+    return () => { cancelAnimation(progress); progress.set(0); };
+  }, [looping, phase, progress]);
+  useEffect(() => {
+    if (!pulse || loop || reducedMotion) return;
+    progress.set(0);
+    progress.set(withTiming(1, { duration: SWEEP_MS, easing: Easing.inOut(Easing.quad) }, done => { if (done) runOnJS(setActive)(false); }));
   }, [pulse, loop, reducedMotion, progress]);
-  if (reducedMotion) return null;
+  if (reducedMotion || !(looping || active)) return null;
   return <View pointerEvents="none" style={[StyleSheet.absoluteFill, { width: size, height: size, overflow: "hidden" }]}>
     {LAYERS.map(layer => <Window key={layer.width} art={art} size={size} width={layer.width * size} opacity={layer.opacity} progress={progress} />)}
   </View>;
+}
+
+/** A start delay (0 to 1.7 s) from the item's colour, so different items begin their loops at different moments. */
+function phaseOf(tone: string) {
+  let h = 0;
+  for (const c of tone) h = (h * 31 + c.charCodeAt(0)) % 1701;
+  return h;
 }
 
 /**
