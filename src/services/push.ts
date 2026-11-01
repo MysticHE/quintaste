@@ -16,6 +16,8 @@ export async function enablePush(_userId: string, _language: string): Promise<Pu
 export async function disablePush(_userId: string): Promise<void> { /* No phone alerts on the web. */ }
 /** Whether member `userId` turned alerts on on this phone. */
 export async function pushIsOn(_userId: string): Promise<boolean> { return false; }
+/** "on"; "off"; "blocked" when turned on here but the phone's settings now block QuinTaste's notifications. */
+export async function pushState(_userId: string): Promise<"on" | "off" | "blocked"> { return "off"; }
 /** Registers the token again (it can change) when alerts are on; called once a session is restored. */
 export async function refreshPush(_userId: string, _language: string): Promise<void> { /* No phone alerts on the web. */ }
 

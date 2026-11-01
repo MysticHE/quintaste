@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Pressable, StyleSheet, View } from "react-native";
+import { Linking, Modal, Pressable, StyleSheet, View } from "react-native";
 import { Button, Field, Icon, T, common } from "../ui";
 import { Sheet } from "../Sheet";
 import { ItemArt, useGlintClock } from "./Glint";
@@ -48,6 +48,8 @@ export const refreshGifts = () => invalidate(giftsKey, "/api/social/chats", "/ap
 export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; onClose: () => void; to: string; data: GiftCatalog }) {
   const t = useT("collection"), giftName = useGiftName(), { theme, setNotice } = usePreferences(), first = data.weekly ?? data.catalog[0]?.id ?? "";
   const [picked, setPicked] = useState(first), [note, setNote] = useState(""), [busy, setBusy] = useState(false), [problem, setProblem] = useState("");
+  // A paid gift the server refused after payment: Google refunds it by itself; Apple needs the member to ask.
+  const [refund, setRefund] = useState(false);
   const clock = useGlintClock(visible ? data.catalog.length : 0);
   // Opening again starts from this week's choice (state adjusted during render, not in an effect).
   const [wasVisible, setWasVisible] = useState(visible);
@@ -55,21 +57,23 @@ export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; on
   const gift = data.catalog.find(g => g.id === picked), isFree = (id: string) => data.sending === "free" || id === data.weekly;
   const store = giftStore(), canBuy = !!store && !!data.stores?.[store];
   const priceOf = (id: string, cents: number) => isFree(id) ? t("giftFree") : t("giftPrice", { price: sgd(cents) });
-  const close = () => { setProblem(""); onClose(); };
+  const close = () => { setProblem(""); setRefund(false); onClose(); };
   const send = async () => {
     if (!gift) return;
-    setBusy(true); setProblem("");
+    setBusy(true); setProblem(""); setRefund(false);
     try {
       if (isFree(gift.id)) await sendGift(to, gift.id, note.trim());
       else {
         if (!canBuy) { setProblem(t("giftStore") as string); return; }
         // The same checks as sending run first, so nobody pays for a gift that can't go.
-        const { pay, product } = await checkGift(to, gift.id);
+        const { pay, product, account } = await checkGift(to, gift.id);
         if (pay !== "store") await sendGift(to, gift.id, note.trim());
         else {
-          const result = await buyGift({ to, gift: gift.id, note: note.trim() }, product);
+          const result = await buyGift({ to, gift: gift.id, note: note.trim() }, product, account);
           if (result === "cancelled") return;
           if (result === "failed") { setProblem(t("giftBuyFailed") as string); return; }
+          if (result === "refused") { setProblem(t(store === "apple" ? "giftRefusedApple" : "giftRefusedGoogle") as string); setRefund(store === "apple"); return; }
+          if (result === "pending") { setNote(""); close(); setNotice({ text: t("giftPending", { gift: giftName(gift.id) }) }); return; }
         }
       }
       refreshGifts();
@@ -80,6 +84,7 @@ export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; on
   };
   const footer = <View style={{ gap: 8 }}>
     {!!problem && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{problem}</T>}
+    {refund && <View style={{ alignSelf: "flex-start" }}><Button variant="link" label={t("askRefund")} onPress={() => void Linking.openURL("https://reportaproblem.apple.com")} /></View>}
     <Button label={!gift ? t("sendGift") : isFree(gift.id) ? t("sendFree") : t("sendPrice", { price: sgd(gift.priceCents) })} onPress={send} loading={busy} disabled={!gift} />
   </View>;
   return <Sheet visible={visible} onClose={close} title={t("sendGift")} footer={footer}>

@@ -37,10 +37,7 @@ export async function enablePush(userId: string, language: string): Promise<Push
   if (pushSupport() !== "ok") return "failed";
   // Android 13+ shows the permission prompt only once a channel exists.
   try { await channel(language); } catch { /* The permission is still asked below. */ }
-  const permission = await Notifications.requestPermissionsAsync({ ios: { allowAlert: true, allowSound: true, allowBadge: false }, android: {} });
-  const granted = permission.ios ? permission.ios.status === Notifications.IosAuthorizationStatus.AUTHORIZED
-    || permission.ios.status === Notifications.IosAuthorizationStatus.PROVISIONAL : permission.granted;
-  if (!granted) return "denied";
+  if (!allowed(await Notifications.requestPermissionsAsync({ ios: { allowAlert: true, allowSound: true, allowBadge: false }, android: {} }))) return "denied";
   try { await register(userId, language); }
   catch { return "failed"; }
   await AsyncStorage.setItem(storeKey(userId), "on");
@@ -52,9 +49,13 @@ export async function disablePush(userId: string) {
   if (value) await call("/api/push/device", { method: "DELETE", body: { token: value } }).catch(() => undefined);
 }
 export const pushIsOn = async (userId: string) => (await AsyncStorage.getItem(storeKey(userId))) === "on";
+const allowed = (p: Awaited<ReturnType<typeof Notifications.getPermissionsAsync>>) => p.ios
+  ? p.ios.status === Notifications.IosAuthorizationStatus.AUTHORIZED || p.ios.status === Notifications.IosAuthorizationStatus.PROVISIONAL : p.granted;
+export async function pushState(userId: string): Promise<"on" | "off" | "blocked"> {
+  if (pushSupport() !== "ok" || !(await pushIsOn(userId))) return "off";
+  return allowed(await Notifications.getPermissionsAsync()) ? "on" : "blocked";
+}
 export async function refreshPush(userId: string, language: string) {
-  if (pushSupport() !== "ok" || !(await pushIsOn(userId))) return;
-  const permission = await Notifications.getPermissionsAsync();
-  if (!permission.granted && permission.ios?.status !== Notifications.IosAuthorizationStatus.PROVISIONAL) return;
+  if ((await pushState(userId)) !== "on") return;
   await register(userId, language).catch(() => undefined);
 }

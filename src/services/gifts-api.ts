@@ -16,7 +16,7 @@ export type GiftCatalog = {
 export type Gifts = GiftCatalog & {
   received: { id: string; gift: string; note: string; at: string; opened: boolean; liked: boolean; thanked: boolean; fromId: string | null; fromName: string }[];
   sent: { id: string; gift: string; note: string; at: string; opened: boolean; liked: boolean; thanked: boolean;
-    /** A like or thank-you you haven't looked at yet. */
+    /** A like or thank-you you haven't looked at yet, from someone who isn't a friend (friends' come as chat lines). */
     news: boolean; toId: string; toName: string }[];
   receiving: boolean;
 };
@@ -28,7 +28,7 @@ export const loadGiftCatalog = (signal: AbortSignal) => call<GiftCatalog>(giftCa
 export type GiftReceipt = { store: "apple" | "google"; receipt: { transactionId: string } | { purchaseToken: string } };
 export const sendGift = (to: string, gift: string, note: string, paid?: GiftReceipt) => call<{ id: string }>(giftsKey, { method: "POST", body: { to, gift, note, ...paid } });
 /** The checks before paying for a gift in the store; `product` is its store product id. */
-export const checkGift = (to: string, gift: string) => call<{ pay: "free" | "weekly" | "store"; product: string }>(giftsKey + "/check", { method: "POST", body: { to, gift } });
+export const checkGift = (to: string, gift: string) => call<{ pay: "free" | "weekly" | "store"; product: string; account: string }>(giftsKey + "/check", { method: "POST", body: { to, gift } });
 export const openGift = (id: string) => call<{ ok: boolean }>(giftsKey + "/" + encodeURIComponent(id) + "/open", { method: "POST" });
 export const likeGift = (id: string, on: boolean) => call<{ liked: boolean }>(giftsKey + "/" + encodeURIComponent(id) + "/like", { method: "PUT", body: { on } });
 export const thankGift = (id: string) => call<{ thanked: boolean }>(giftsKey + "/" + encodeURIComponent(id) + "/thanks", { method: "PUT" });

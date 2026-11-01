@@ -1,4 +1,4 @@
-import { createHash, createPrivateKey, sign } from 'node:crypto';
+import { createHash, createHmac, createPrivateKey, sign } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { logger, pool } from '../config.mjs';
 import { CommunityError } from '../community/http.mjs';
@@ -14,6 +14,14 @@ import { CommunityError } from '../community/http.mjs';
  * account JSON with access to the Play Console). Without them, that store's gifts are refused as not available yet.
  */
 export const APP_ID = process.env.APP_BUNDLE_ID || 'com.mystiche.quintaste';
+/**
+ * Member `userId`'s account tag, a UUID made from the account id with the server's secret: purchases carry it (Apple's
+ * appAccountToken, Google's obfuscated account id), so a receipt only sends a gift for the member who bought it.
+ */
+export function accountTag(userId) {
+  const h = createHmac('sha256', process.env.BETTER_AUTH_SECRET ?? '').update('gift-account:' + userId).digest('hex');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-4${h.slice(13, 16)}-a${h.slice(17, 20)}-${h.slice(20, 32)}`;
+}
 /** The store product id of gift `id`: "golden-lotus" is "quintaste.gift.golden_lotus" in both stores. */
 export const productOf = id => 'quintaste.gift.' + id.replaceAll('-', '_');
 const read = name => { try { return process.env[name] ? readFileSync(process.env[name], 'utf8') : ''; } catch (error) { logger.warn({ event: 'store_key_unreadable', name, message: error.message }); return ''; } };
@@ -75,18 +83,18 @@ async function playGet(path) {
 }
 
 /**
- * Confirms a store purchase of gift `gift`: Apple by its transaction id, Google by its purchase token. Returns the id kept on
- * the gift (Apple's transaction id, Google's order id), or throws 402 when the store doesn't confirm an unrefunded purchase
- * of that gift for this app.
+ * Confirms a store purchase of gift `gift` by member `userId`: Apple by its transaction id, Google by its purchase token.
+ * Returns the id kept on the gift (Apple's transaction id, Google's order id), or throws 402 when the store doesn't confirm
+ * an unrefunded purchase of that gift for this app, made by this member.
  */
-export async function confirmPurchase(store, gift, receipt) {
-  const product = productOf(gift);
+export async function confirmPurchase(store, gift, receipt, userId) {
+  const product = productOf(gift), tag = accountTag(userId);
   if (store === 'apple') {
     if (!storesReady.apple) throw unavailable();
     const id = typeof receipt?.transactionId === 'string' && /^\d{1,30}$/.test(receipt.transactionId) ? receipt.transactionId : null;
     if (!id) throw notConfirmed();
     const t = await appleTransaction(id);
-    if (!t || t.bundleId !== APP_ID || t.productId !== product || t.type !== 'Consumable' || t.revocationDate) throw notConfirmed();
+    if (!t || t.bundleId !== APP_ID || t.productId !== product || t.type !== 'Consumable' || t.revocationDate || t.appAccountToken !== tag) throw notConfirmed();
     return String(t.transactionId);
   }
   if (store === 'google') {
@@ -95,7 +103,7 @@ export async function confirmPurchase(store, gift, receipt) {
     if (!token) throw notConfirmed();
     const p = await playGet(`products/${encodeURIComponent(product)}/tokens/${encodeURIComponent(token)}`);
     // purchaseState 0 = purchased (1 cancelled, 2 pending).
-    if (!p || p.purchaseState !== 0) throw notConfirmed();
+    if (!p || p.purchaseState !== 0 || p.obfuscatedExternalAccountId !== tag) throw notConfirmed();
     // Licence-test purchases can come without an order id; their token stands in (hashed, as tokens are long).
     return p.orderId ? String(p.orderId) : 'token:' + createHash('sha256').update(token).digest('hex');
   }

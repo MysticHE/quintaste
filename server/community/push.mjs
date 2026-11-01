@@ -9,7 +9,9 @@ import { nameSql } from '../social/access.mjs';
  * its Expo push token here after the member turns Phone alerts on; the server sends a short alert when something needs
  * them: a message, a friend request, a gift or a reaction to one, a dinner invite, a new order. Alerts never carry what
  * was written, only who and what kind, so nothing private shows on a locked screen. Each kind can be switched off
- * (`community.push_setting.off`), and the `push` service switch stops all sending. Schema: server/community/push.sql.
+ * (`community.push_setting.off`), and the `push` service switch stops all sending. A phone's registration belongs to the
+ * sign-in session that made it: signing out by any route or an expired session stops its alerts. Schema:
+ * server/community/push.sql.
  */
 export const pushKinds = ['messages', 'friends', 'gifts', 'dinners', 'orders'];
 const SEND = 'https://exp.host/--/api/v2/push/send', RECEIPTS = 'https://exp.host/--/api/v2/push/getReceipts';
@@ -47,6 +49,7 @@ export function notify(to, kind, what, { from = null, gift = null, url = '/' } =
 async function send(to, kind, what, from, gift, url) {
   if (!(await allowed('push'))) return;
   const devices = (await pool.query(`SELECT d.token, d.language, d.platform FROM community.push_device d
+    JOIN public."session" s ON s.id=d.session_id AND s."expiresAt" > now()
     WHERE d.user_id=$1 AND NOT EXISTS (SELECT 1 FROM community.push_setting s WHERE s.user_id=d.user_id AND $2=ANY(s.off))`, [to, kind])).rows;
   if (!devices.length) return;
   const name = from ? (await pool.query(`SELECT ${nameSql('p', 'u')} AS name FROM public."user" u LEFT JOIN social.profile p ON p.user_id=u.id WHERE u.id=$1`, [from])).rows[0]?.name ?? '' : '';
@@ -95,7 +98,10 @@ async function checkReceipts() {
 setInterval(() => checkReceipts().catch(error => logger.warn({ event: 'push_receipts_failed', message: error.message })), 5 * 60000).unref();
 
 export const push = communityRouter();
-/** The phone's push token, for the signed-in member (a token moves to whoever signs in on that phone). */
+/**
+ * The phone's push token, for the signed-in member and this sign-in session. Another member registering the same token
+ * (someone else signing in on that phone) adds their own row; it never moves the first member's.
+ */
 push.put('/device', async (req, res) => {
   const me = res.locals.user.id, b = req.body ?? {}, token = text(b.token, 220, { min: 1, field: 'Token' });
   if (!TOKEN.test(token)) throw new CommunityError(400, 'Check the push token.');
@@ -103,8 +109,9 @@ push.put('/device', async (req, res) => {
   if (!platform) throw new CommunityError(400, 'Check the platform.');
   const language = b.language === 'zh' ? 'zh' : 'en';
   await throttle('push-device:' + me, 30, 3600);
-  await pool.query(`INSERT INTO community.push_device(token, user_id, platform, language) VALUES($1,$2,$3,$4)
-    ON CONFLICT(token) DO UPDATE SET user_id=EXCLUDED.user_id, platform=EXCLUDED.platform, language=EXCLUDED.language, updated_at=now()`, [token, me, platform, language]);
+  await pool.query(`INSERT INTO community.push_device(token, user_id, session_id, platform, language) VALUES($1,$2,$3,$4,$5)
+    ON CONFLICT(token, user_id) DO UPDATE SET session_id=EXCLUDED.session_id, platform=EXCLUDED.platform, language=EXCLUDED.language, updated_at=now()`,
+    [token, me, res.locals.user.session, platform, language]);
   // A member keeps the ten most recently used phones.
   await pool.query(`DELETE FROM community.push_device WHERE user_id=$1 AND token NOT IN
     (SELECT token FROM community.push_device WHERE user_id=$1 ORDER BY updated_at DESC LIMIT ${DEVICES_PER_MEMBER})`, [me]);

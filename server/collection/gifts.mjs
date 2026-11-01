@@ -5,7 +5,7 @@ import { friendsSql, nameSql, reachableSql, seeableSql } from '../social/access.
 import { postLine } from '../social/friends.mjs';
 import { notify } from '../community/push.mjs';
 import { GIFTS, WEEKLY_GIFT } from './catalog.mjs';
-import { confirmPurchase, productOf, storesReady } from './stores.mjs';
+import { accountTag, confirmPurchase, productOf, storesReady } from './stores.mjs';
 
 /**
  * Gifts (docs/COLLECTION_PLAN.md §5): a member with a Social profile sends one to anyone whose profile they can see (owner,
@@ -46,7 +46,7 @@ gifts.get('/', async (_req, res) => {
         LEFT JOIN social.profile p ON p.user_id=g.sender_id WHERE g.receiver_id=$1 AND g.status='sent' AND ${fromVisible}
         ORDER BY g.created_at DESC LIMIT 200`, [me]).then(r => r.rows),
     pool.query(`SELECT g.id, g.gift, ${noteSql} AS note, g.created_at AS at, g.opened_at IS NOT NULL AS opened, g.liked_at IS NOT NULL AS liked,
-        g.thanked_at IS NOT NULL AS thanked, ${newsSql} AS news, g.receiver_id AS "toId", ${nameSql('p', 'u')} AS "toName" FROM community.gift g JOIN public."user" u ON u.id=g.receiver_id
+        g.thanked_at IS NOT NULL AS thanked, ${newsSql} AND NOT ${friendsSql('g.sender_id', 'g.receiver_id')} AS news, g.receiver_id AS "toId", ${nameSql('p', 'u')} AS "toName" FROM community.gift g JOIN public."user" u ON u.id=g.receiver_id
         LEFT JOIN social.profile p ON p.user_id=g.receiver_id WHERE g.sender_id=$1 AND g.status='sent' AND ${reachableSql('g.receiver_id', '$1')}
         ORDER BY g.created_at DESC LIMIT 200`, [me]).then(r => r.rows),
     pool.query('SELECT gifts_off FROM social.profile WHERE user_id=$1', [me]).then(r => r.rows[0]?.gifts_off ?? false),
@@ -58,8 +58,10 @@ gifts.get('/', async (_req, res) => {
  * The checks before a gift goes: a Social profile of your own; the receiver visible to you, receiving gifts and either a
  * friend (the gift arrives as a card in your chat) or someone with a Social profile (their gifts wait in Collection ›
  * Gifts); 5 a day to one person; S$30 a day of paid gifts. Returns how it is paid ('free', 'weekly' or 'store').
+ * `limits: false` skips the daily limits, for a purchase the store already took payment for (they were checked by
+ * POST /check before paying); who may receive it is always checked.
  */
-async function checkSend(db, me, to, id) {
+async function checkSend(db, me, to, id, { limits = true } = {}) {
   const mine = await db.query('SELECT 1 FROM social.profile WHERE user_id=$1', [me]);
   if (!mine.rowCount) throw new CommunityError(409, 'Set up your Social profile first.', 'SOCIAL_SETUP');
   const them = (await db.query(`SELECT coalesce(p.gifts_off, false) AS gifts_off, p.user_id IS NOT NULL AS profile, ${friendsSql('$1::text', '$2::text')} AS friend
@@ -68,10 +70,10 @@ async function checkSend(db, me, to, id) {
   if (them.gifts_off) throw new CommunityError(409, 'They aren\'t receiving gifts.', 'GIFTS_OFF');
   const today = (await db.query(`SELECT count(*) FILTER (WHERE receiver_id=$2)::int AS person, coalesce(sum(price_cents), 0)::int AS cents, ${weeklyUsedSql} AS weekly
     FROM community.gift WHERE sender_id=$1 AND status='sent' AND created_at >= ${sgToday}`, [me, to])).rows[0];
-  if (today.person >= PER_PERSON_DAY) throw new CommunityError(429, 'That\'s enough gifts to them for today.', 'GIFT_LIMIT');
+  if (limits && today.person >= PER_PERSON_DAY) throw new CommunityError(429, 'That\'s enough gifts to them for today.', 'GIFT_LIMIT');
   const free = (await accountAccess(me, db)).role === 'master';
   const pay = free ? 'free' : id === WEEKLY_GIFT && !today.weekly ? 'weekly' : 'store';
-  if (pay === 'store' && today.cents + GIFTS[id].priceCents > PAID_CENTS_DAY) throw new CommunityError(429, 'You\'ve reached today\'s gift spending limit.', 'GIFT_LIMIT');
+  if (limits && pay === 'store' && today.cents + GIFTS[id].priceCents > PAID_CENTS_DAY) throw new CommunityError(429, 'You\'ve reached today\'s gift spending limit.', 'GIFT_LIMIT');
   return { pay, friend: them.friend };
 }
 /** The receiver and gift of a send or check. */
@@ -81,12 +83,15 @@ function readSend(req) {
   return { b, to, id };
 }
 
-/** Whether a gift could go now, before paying for it in the store (the same checks as sending). */
+/**
+ * Whether a gift could go now, before paying for it in the store (the same checks as sending), with the store product and
+ * the member's account tag, which the purchase carries so its receipt only works for this member.
+ */
 gifts.post('/check', async (req, res) => {
   const me = res.locals.user.id, { to, id } = readSend(req);
   if (to === me) throw new CommunityError(400, 'Choose someone else.');
   const { pay } = await checkSend(pool, me, to, id);
-  res.json({ pay, product: productOf(id) });
+  res.json({ pay, product: productOf(id), account: accountTag(me) });
 });
 
 /**
@@ -100,7 +105,7 @@ gifts.post('/', async (req, res) => {
   const note = text(b.note, 100, { field: 'Note' }), gift = GIFTS[id], store = b.store === 'apple' || b.store === 'google' ? b.store : null;
   await throttle('gift-send:' + me, 30, 3600);
   // The store is asked before the transaction, so no database lock waits on the network.
-  const transactionId = store ? await confirmPurchase(store, id, b.receipt) : null;
+  const transactionId = store ? await confirmPurchase(store, id, b.receipt, me) : null;
   const sent = await transaction(async db => {
     if (transactionId) {
       const used = (await db.query('SELECT id, sender_id, receiver_id, gift FROM community.gift WHERE store_transaction=$1', [transactionId])).rows[0];
@@ -109,11 +114,11 @@ gifts.post('/', async (req, res) => {
         throw new CommunityError(409, 'This purchase was already used.', 'GIFT_PURCHASE');
       }
     }
-    const { pay, friend } = await checkSend(db, me, to, id);
+    const { pay, friend } = await checkSend(db, me, to, id, { limits: !transactionId });
     if (pay === 'store' && !transactionId) throw new CommunityError(402, 'Buy this gift in the app first.', 'GIFT_STORE');
-    const kind = pay === 'store' ? store : pay;
+    // A confirmed purchase is always kept as the paid gift it is, so its receipt can't be used again.
     const row = (await db.query(`INSERT INTO community.gift(sender_id, receiver_id, gift, note, store, store_transaction, price_cents) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id`,
-      [me, to, id, note, kind, pay === 'store' ? transactionId : null, pay === 'store' ? gift.priceCents : 0])).rows[0];
+      [me, to, id, note, transactionId ? store : pay, transactionId, transactionId ? gift.priceCents : 0])).rows[0];
     if (friend) await postLine(db, me, to, { kind: 'gift', body: id, giftId: row.id, sender: me });
     return { id: row.id, friend };
   }, 'gift-send:' + me);

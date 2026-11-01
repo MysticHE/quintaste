@@ -4,7 +4,7 @@ import { Screen } from "../components/Screen";
 import { Button, T } from "../components/ui";
 import { ListGroup, SwitchRow } from "../components/GroupedList";
 import { useRemote, setRemoteData } from "../hooks/useRemote";
-import { disablePush, enablePush, loadPushSettings, pushIsOn, pushKinds, pushSettingsKey, pushSupport, savePushSettings, type PushKind } from "../services/push";
+import { disablePush, enablePush, loadPushSettings, pushKinds, pushSettingsKey, pushState, pushSupport, savePushSettings, type PushKind } from "../services/push";
 import { useAuth } from "../state/Auth";
 import { usePreferences } from "../state/Preferences";
 import { useLanguage, useT } from "../i18n";
@@ -19,7 +19,11 @@ export function PhoneAlertsScreen() {
   const [on, setOn] = useState<boolean | null>(null), [busy, setBusy] = useState(false), [problem, setProblem] = useState<"" | "denied" | "failed" | "save">("");
   const settings = useRemote(user && on ? pushSettingsKey : null, loadPushSettings), off = settings.data?.off ?? [];
   const userId = user?.id;
-  useEffect(() => { if (userId) pushIsOn(userId).then(setOn, () => setOn(false)); }, [userId]);
+  // Turned on here but blocked in the phone's settings shows off, with the way to fix it.
+  useEffect(() => {
+    if (!userId) return;
+    pushState(userId).then(state => { setOn(state === "on"); if (state === "blocked") setProblem("denied"); }, () => setOn(false));
+  }, [userId]);
   if (!userId) return <Screen title={t("phoneAlerts")} />;
   const toggle = async (next: boolean) => {
     setBusy(true); setProblem("");

@@ -15,7 +15,7 @@ async function sessionUser(req) {
   const session = await auth.api.getSession({ headers: fromNodeHeaders(req.headers) });
   const user = session?.user;
   if (!user?.adultConfirmed || await restricted(user.id)) return null;
-  return { id: user.id, name: (user.name || user.username || 'Member').trim().slice(0, 50) };
+  return { id: user.id, name: (user.name || user.username || 'Member').trim().slice(0, 50), session: session.session.id };
 }
 /**
  * Common guard: no caching, trusted origin for writes and a signed-in, age-checked, unrestricted account, then a JSON body limit.

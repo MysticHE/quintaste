@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { Icon } from "../ui";
 import { ItemArt, useGlintClock } from "./Glint";
@@ -31,11 +31,14 @@ export function GiftsTab({ data }: { data: Gifts }) {
     catch (failure) { setNotice({ text: failure instanceof ApiError ? failure.message : t("actionFailed") as string, error: true }); }
     finally { setBusy(false); }
   };
-  // Looking at Sent clears its count on the Collection button.
+  // Looking at Sent clears its count on the Collection button, once per new batch (a refetch mid-request doesn't ask again).
+  const seen = useRef(""), newsKey = data.sent.filter(g => g.news).map(g => g.id).join();
   useEffect(() => {
-    if (side !== "sent" || !news) return;
-    seeSentGifts().then(() => { setRemoteData(giftsKey, { ...data, sent: data.sent.map(g => ({ ...g, news: false })) }); invalidate(inboxPath); }, () => undefined);
-  }, [side, news, data]);
+    if (side !== "sent" || !newsKey || seen.current === newsKey) return;
+    seen.current = newsKey;
+    seeSentGifts().then(() => { setRemoteData(giftsKey, { ...data, sent: data.sent.map(g => ({ ...g, news: false })) }); invalidate(inboxPath); },
+      () => { seen.current = ""; });
+  }, [side, newsKey, data]);
   const heart = <Icon name="heart" size={16} color={theme.accent} />, happy = <Icon name="happy" size={16} color={theme.accent} />;
   const badges = (g: { liked: boolean; thanked: boolean }) => g.liked && g.thanked ? <View style={{ flexDirection: "row", gap: 4 }}>{heart}{happy}</View>
     : g.liked ? heart : g.thanked ? happy : undefined;
