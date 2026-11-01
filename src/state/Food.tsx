@@ -18,6 +18,7 @@ import { reminderLimit } from "../types/meet";
 import { cookingRecipeById } from "../utils/private-recipes";
 import { useAuth } from "./Auth";
 import { accountsEnabled, authClient } from "../services/auth-client";
+import { disablePush } from "../services/push";
 import { useAccountAvatars } from "../hooks/useAccountAvatars";
 import { useT } from "../i18n";
 
@@ -121,6 +122,8 @@ function useFoodState() {
   const leavePreview = async (force = false) => {
     const leave = async () => {
       if (user) {
+        // Alerts stop on this phone first, while the session can still remove its token.
+        await disablePush(user.id).catch(() => undefined);
         const result = await authClient.signOut();
         if (result.error) { setNotice({ text: t("signOutFailed"), error: true }); return false; }
       }

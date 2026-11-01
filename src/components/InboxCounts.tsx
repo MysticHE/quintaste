@@ -9,7 +9,9 @@ import { communityRequest } from "../services/community-api";
  */
 export type InboxCounts = { friends: number; market: number; classes: number; messages: number; orders: number; requests: number; dinners: number; total: number; dining?: boolean;
   /** Unopened gifts (older servers leave it out). */
-  gifts?: number };
+  gifts?: number;
+  /** Likes and thank-yous on gifts you sent to people who aren't friends, not yet seen (older servers leave it out). */
+  giftNews?: number };
 export const inboxPath = "/api/inbox";
 const load = (signal: AbortSignal) => communityRequest<InboxCounts>(inboxPath, { signal });
 const Context = createContext<InboxCounts | undefined>(undefined);

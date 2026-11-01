@@ -15,7 +15,8 @@ const dinnerKeys: Record<string, [keyof typeof socialMessages, keyof typeof soci
   invited: ["dinnerInvitedMine", "dinnerInvitedTheirs"], suggested: ["dinnerSuggestedMine", "dinnerSuggestedTheirs"], accepted: ["dinnerAcceptedMine", "dinnerAcceptedTheirs"],
   declined: ["dinnerDeclinedMine", "dinnerDeclinedTheirs"], cancelled: ["dinnerCancelledMine", "dinnerCancelledTheirs"],
   suggestedPlace: ["dinnerPlaceMine", "dinnerPlaceTheirs"], suggestedBoth: ["dinnerBothMine", "dinnerBothTheirs"] };
-/** Running late lines are stored as 'late10', 'late20' or 'late30'. */
+/** Running late lines are stored as 'late10', 'late20' or 'late30'; gift reactions as 'giftliked:rose' or 'giftthanks:rose'. */
+const giftReaction = /^gift(liked|thanks):([a-z][a-z0-9-]{1,39})$/;
 const lateLine = /^late(10|20|30)$/;
 /** Words a friend chat's event and dinner lines (stored as keys) in the reader's language; text lines pass through. */
 export function useLineText() {
@@ -23,7 +24,12 @@ export function useLineText() {
   return (line: Pick<Line, "kind" | "body" | "mine">, name: string) => {
     if (line.kind === "text") return line.body;
     if (line.kind === "gift") return tc(line.mine ? "giftLineMine" : "giftLineTheirs", { gift: tc(("gift_" + line.body) as keyof typeof collectionMessages) as string }) as string;
-    if (line.kind === "event") return line.body === "friends" ? t("eventFriends") : line.body;
+    if (line.kind === "event") {
+      const reaction = giftReaction.exec(line.body);
+      if (!reaction) return line.body === "friends" ? t("eventFriends") : line.body;
+      const gift = tc(("gift_" + reaction[2]) as keyof typeof collectionMessages) as string;
+      return tc(reaction[1] === "liked" ? (line.mine ? "likedLineMine" : "likedLineTheirs") : (line.mine ? "thanksLineMine" : "thanksLineTheirs"), { gift, name }) as string;
+    }
     if (line.body === "again") return t("dinnerAgain");
     const late = lateLine.exec(line.body);
     if (late) return t(line.mine ? "lateLineMine" : "lateLineTheirs", { name, n: Number(late[1]) }) as string;

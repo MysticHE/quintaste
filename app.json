@@ -76,7 +76,8 @@
           "enableBackgroundPlayback": false
         }
       ],
-      "expo-status-bar"
+      "expo-status-bar",
+      "expo-iap"
     ],
     "experiments": {
       "reactCompiler": true

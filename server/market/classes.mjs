@@ -3,6 +3,7 @@ import { pool, logger } from '../config.mjs';
 import { CommunityError, member as signedIn, requireId, requireUser, text, throttle, transaction } from '../community/http.mjs';
 import { blockedBetween, notBlocked, notRestricted } from '../community/router.mjs';
 import { sgText } from '../social/rules.mjs';
+import { notify } from '../community/push.mjs';
 
 /**
  * Cooking classes by teachers staff approved, listed in Market > Events beside editorial events (tables stay in the social
@@ -120,7 +121,7 @@ classes.get('/classes/:id/chat', signedIn, async (req, res) => {
 /** Members may ask before joining, but only about a class they can see; teachers reply to anyone who wrote or joined. */
 classes.post('/classes/:id/chat', signedIn, async (req, res) => {
   const me = res.locals.user.id, id = requireId(req.params.id, 'This class is unavailable.'), body = text(req.body?.body, 1000, { min: 1, field: 'Message' });
-  const { hosting, member } = await chatFor(me, id, req.body?.member);
+  const { hosting, member, host } = await chatFor(me, id, req.body?.member);
   await throttle('social-class-chat:' + me, 30, 60, 'You are sending messages quickly. Wait a moment.');
   await transaction(async db => {
     if (hosting) {
@@ -132,6 +133,8 @@ classes.post('/classes/:id/chat', signedIn, async (req, res) => {
     const chat = await classLine(db, id, member, { kind: 'text', body, sender: me });
     await db.query(`UPDATE social.class_chat SET ${hosting ? 'host_read_at' : 'member_read_at'}=now() WHERE id=$1`, [chat]);
   });
+  // The teacher's alert opens this member's chat; the member's opens the class chat.
+  notify(hosting ? member : host, 'messages', 'message', { from: me, url: '/market/class-chat/' + id + (hosting ? '' : '?member=' + encodeURIComponent(me)) });
   res.status(201).json({ ok: true });
 });
 /** Classes the member joined, upcoming first, with unread replies from the teacher. */

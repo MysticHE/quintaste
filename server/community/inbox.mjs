@@ -5,7 +5,7 @@ import { standing } from '../social/access.mjs';
 import { dinnersDueSql, friendRequestsSql, unreadFriendChatsSql } from '../social/friends.mjs';
 import { marketAttentionSql, newOrdersSql, unreadMarketChatsSql } from '../market/conversations.mjs';
 import { unreadClassChatsSql } from '../market/classes.mjs';
-import { giftsWaitingSql } from '../collection/gifts.mjs';
+import { giftNewsSql, giftsWaitingSql } from '../collection/gifts.mjs';
 
 /**
  * Everything waiting on the member, in the one request the tab bar polls: unread conversations (friends, Market, classes)
@@ -28,11 +28,13 @@ inbox.get('/', async (_req, res) => {
     orders: market && sellers ? newOrdersSql : null,
     // Unopened gifts, shown on the Collection button (gifts live in Collection › Gifts).
     gifts: social && giftsOn ? giftsWaitingSql : null,
+    // Likes and thank-yous on gifts you sent to people who aren't your friends (a friend's come as chat lines).
+    giftNews: social && giftsOn ? giftNewsSql : null,
   };
   const live = Object.entries(parts).filter(([, sql]) => sql);
   const row = Object.fromEntries(Object.keys(parts).map(key => [key, 0]));
-  if (live.length) Object.assign(row, (await pool.query(`SELECT ${live.map(([key, sql]) => sql + ' AS ' + key).join(', ')}`, [me])).rows[0]);
+  if (live.length) Object.assign(row, (await pool.query(`SELECT ${live.map(([key, sql]) => sql + ' AS "' + key + '"').join(', ')}`, [me])).rows[0]);
   const messages = row.friends + row.market + row.classes;
-  res.json({ ...row, messages, total: messages + row.orders + row.requests + row.dinners + row.gifts, dining: meet });
+  res.json({ ...row, messages, total: messages + row.orders + row.requests + row.dinners + row.gifts + row.giftNews, dining: meet });
 });
 inbox.use(errors);

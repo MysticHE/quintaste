@@ -104,7 +104,7 @@ export type PersonPosts = { friends: number; recipes: { id: string; name: string
 export type PersonWithPosts = PersonPage & { posts: PersonPosts };
 export type LineKind = "text" | "event" | "dinner" | "gift";
 /** A gift on a chat line (server/collection/gifts.mjs); null once refunded. */
-export type LineGift = { id: string; gift: string; note: string; opened: boolean; liked?: boolean };
+export type LineGift = { id: string; gift: string; note: string; opened: boolean; liked?: boolean; thanked?: boolean };
 export type Friend = { id: string; firstName: string; handle: string | null; area: string; since: string; photo: string | null; verified: boolean; threadId: string | null; updatedAt: string;
   last: { kind: LineKind; body: string; mine: boolean; at: string } | null; unread: number; opposite: boolean; border?: string | null };
 export type FriendRequest = { id: string; note: string; createdAt: string; userId: string; firstName: string; handle: string | null; area: string; verified: boolean; photo: string | null };

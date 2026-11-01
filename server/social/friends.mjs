@@ -5,6 +5,7 @@ import { friendsSql, highSql, lowSql, nameSql, pairOf, reachableSql, seeableSql,
 import { photoUrl } from './profile.mjs';
 import { separate } from './separate.mjs';
 import { bordersOf } from '../collection/worn.mjs';
+import { notify } from '../community/push.mjs';
 
 export const friends = express.Router();
 const thumbSql = column => `(SELECT json_build_object('id', ph.id, 'digest', ph.digest) FROM social.photo ph WHERE ph.user_id=${column} AND ph.position=0)`;
@@ -98,6 +99,8 @@ friends.post('/friends/requests', async (req, res) => {
     return { id };
   }, 'social-pair:' + pairOf(me, to).join(':'));
   logger.info({ event: result.friends ? 'social_friend_accepted' : 'social_friend_requested' });
+  if (result.friends) notify(to, 'friends', 'friendAccepted', { from: me, url: '/social/chat/' + me });
+  else notify(to, 'friends', 'friendRequest', { from: me, url: '/social/add-friend' });
   res.status(201).json(result);
 });
 async function answer(req, res, accept) {
@@ -112,6 +115,7 @@ async function answer(req, res, accept) {
     if (!accept) return db.query("UPDATE social.friend_request SET status='declined', decided_at=now() WHERE id=$1", [id]);
     await befriend(db, me, request.from_id, id);
   }, 'social-pair:' + pairOf(me, from).join(':'));
+  if (accept) notify(from, 'friends', 'friendAccepted', { from: me, url: '/social/chat/' + me });
   res.json({ ok: true });
 }
 friends.post('/friends/requests/:id/accept', (req, res) => answer(req, res, true));
@@ -148,7 +152,7 @@ friends.get('/chats/:id', async (req, res) => {
   if (!thread) return res.json({ items: [], more: false });
   // A gift line carries its gift (which one, the note unless staff hid it, whether it was opened); a refunded gift is gone.
   const rows = (await pool.query(`SELECT m.id, m.kind, m.body, m.dinner_id AS "dinnerId", m.sender_id=$2 AS mine, m.created_at AS "createdAt",
-      (SELECT json_build_object('id', g.id, 'gift', g.gift, 'note', CASE WHEN g.note_hidden THEN '' ELSE g.note END, 'opened', g.opened_at IS NOT NULL, 'liked', g.liked_at IS NOT NULL)
+      (SELECT json_build_object('id', g.id, 'gift', g.gift, 'note', CASE WHEN g.note_hidden THEN '' ELSE g.note END, 'opened', g.opened_at IS NOT NULL, 'liked', g.liked_at IS NOT NULL, 'thanked', g.thanked_at IS NOT NULL)
         FROM community.gift g WHERE g.id=m.gift_id AND g.status='sent') AS gift FROM social.thread_message m
     WHERE m.thread_id=$1 ${before ? 'AND m.created_at < $3' : ''} ORDER BY m.created_at DESC LIMIT 51`, before ? [thread.id, me, before] : [thread.id, me])).rows;
   // The app polls an open chat every few seconds; the read time is written only when there is something newer to mark read.
@@ -167,6 +171,7 @@ friends.post('/chats/:id', async (req, res) => {
     await db.query(`UPDATE social.thread SET updated_at=now(), ${me < other ? 'a_read_at' : 'b_read_at'}=now() WHERE id=$1`, [thread]);
     return row;
   });
+  notify(other, 'messages', 'message', { from: me, url: '/social/chat/' + me });
   res.status(201).json({ id: id.id, createdAt: id.created_at });
 });
 friends.post('/chats/:id/read', async (req, res) => {

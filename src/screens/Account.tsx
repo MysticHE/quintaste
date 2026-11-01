@@ -57,6 +57,7 @@ export function AccountScreen() {
       <SettingsRow label={tc("language")} icon="language-outline" value={languageName} onPress={() => router.push("/language" as never)} />
       <SettingsRow label={t("appearance")} icon="color-palette-outline" onPress={() => router.push("/settings")} />
       <SettingsRow label={t("accessibility")} icon="accessibility-outline" last={Platform.OS === "web"} onPress={() => router.push("/accessibility")} />
+      {user && Platform.OS !== "web" && <SettingsRow label={t("phoneAlerts")} icon="chatbubble-ellipses-outline" onPress={() => router.push("/phone-alerts" as never)} />}
       <TimerAlertControl label={t("notifications")} />
     </Card>
     <Card style={s.group}>

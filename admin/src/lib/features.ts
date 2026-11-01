@@ -2,6 +2,7 @@
 type Feature = { name: string; effect: string };
 export const FEATURES: Record<string, Feature> = {
   registration: { name: 'Registration', effect: 'New accounts' },
+  push: { name: 'Phone alerts', effect: 'Alerts on members’ phones for messages, friends, gifts, dinners and orders' },
   menus: { name: 'Places and menus', effect: 'Explore places, menus and place reviews' },
   discovery: { name: 'Address lookup and photos', effect: 'Postal and address search, Home and Work, place photos and details' },
   areas: { name: 'Area counts', effect: 'Home and Work area counts' },
@@ -21,7 +22,7 @@ export const FEATURES: Record<string, Feature> = {
 };
 /** Features, top to bottom. AI recipes carries its engine and Wanted recipes beneath it. */
 export const GROUPS: readonly (readonly [string, readonly string[]])[] = [
-  ['Accounts', ['registration']], ['Explore', ['menus', 'discovery', 'areas']], ['Cook', ['recipes', 'ai_recipes', 'avatars']],
+  ['Accounts', ['registration', 'push']], ['Explore', ['menus', 'discovery', 'areas']], ['Cook', ['recipes', 'ai_recipes', 'avatars']],
   ['Social and Market', ['social', 'gifts', 'market', 'market_sellers']], ['Game', ['games', 'game_levels', 'game_seasons', 'collection']]];
 export const AI_SETTINGS = ['ai_recipes_bots', 'recipe_demand'] as const;
 /** What a feature needs on to run (the server checks the same switches). */

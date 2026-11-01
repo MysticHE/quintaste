@@ -17,6 +17,8 @@ import { TimerFinishHaptics } from "../components/food/Timers";
 import { CookedSync } from "../components/recipes/CookedSync";
 import { GameSync } from "../components/game/GameSync";
 import { useTimerNotification } from "../hooks/useTimerNotification";
+import { usePushAlerts } from "../hooks/usePushAlerts";
+import { useGiftPurchases } from "../hooks/useGiftPurchases";
 import { ExploreLocalProvider } from "../state/ExploreLocal";
 import { DiscoveryProvider } from "../state/Discovery";
 import { MenusProvider } from "../state/Menus";
@@ -54,6 +56,8 @@ function Navigation() {
   const { ready: collectionReady, owner, profileRoute, clearProfileRoute } = useFood();
   const navigation = useRootNavigationState();
   useTimerNotification(ready && collectionReady && !!navigation?.key);
+  usePushAlerts(ready && collectionReady && !!navigation?.key);
+  useGiftPurchases(ready && collectionReady && !!navigation?.key);
   const [fontsLoaded, fontError] = useFonts({
     Nunito_400Regular,
     Nunito_600SemiBold,

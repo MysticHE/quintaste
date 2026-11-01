@@ -57,6 +57,10 @@ CREATE TABLE IF NOT EXISTS community.gift (
 );
 -- For a gift table made before the weekly Rose and likes.
 ALTER TABLE community.gift ADD COLUMN IF NOT EXISTS liked_at timestamptz;
+-- A thank-you from the receiver, when the sender last looked at likes and thank-yous (the Collection button counts newer
+-- ones) and which reactions were already passed on to the sender (a chat line and a phone alert, once each).
+ALTER TABLE community.gift ADD COLUMN IF NOT EXISTS thanked_at timestamptz, ADD COLUMN IF NOT EXISTS seen_at timestamptz,
+  ADD COLUMN IF NOT EXISTS announced text[] NOT NULL DEFAULT '{}';
 ALTER TABLE community.gift DROP CONSTRAINT IF EXISTS gift_store_check, DROP CONSTRAINT IF EXISTS gift_check,
   ADD CONSTRAINT gift_store_check CHECK (store IN ('free','weekly','apple','google')),
   ADD CONSTRAINT gift_check CHECK ((store IN ('free','weekly')) = (store_transaction IS NULL));

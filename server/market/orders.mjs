@@ -5,6 +5,7 @@ import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
 import { sgText } from '../social/rules.mjs';
 import { limits, liveSeller, money, noContactDetails } from './rules.mjs';
 import { eventFor } from './conversations.mjs';
+import { notify } from '../community/push.mjs';
 
 /** Pre-orders for a collection slot. Buyers pay the seller at handover; QuinTaste never takes payment. */
 export const orders = express.Router();
@@ -75,6 +76,7 @@ orders.post('/orders', async (req, res) => {
     const conversationId = await eventFor(db, me, sellerId, order.id, `New order · ${money(subtotal + fee)} · ${when(slot.starts)}`);
     return { id: order.id, conversationId };
   }, 'market-slot:' + slotId);
+  notify(sellerId, 'orders', 'order', { from: me, url: '/market/order/' + result.id });
   res.status(201).json(result);
 });
 const listColumns = `o.id, o.status, o.total_cents AS "totalCents", ${sgText('o.starts')} AS starts, o.mode, o.place, o.created_at AS "createdAt",

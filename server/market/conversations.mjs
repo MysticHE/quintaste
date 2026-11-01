@@ -4,6 +4,7 @@ import { CommunityError, member, requireId, requireUser, text, throttle, transac
 import { notBlocked } from '../community/router.mjs';
 import { sgText } from '../social/rules.mjs';
 import { liveSeller, noContactDetails } from './rules.mjs';
+import { notify } from '../community/push.mjs';
 
 /** One conversation per buyer and seller. Order updates arrive as system lines. */
 export const conversations = express.Router();
@@ -87,13 +88,15 @@ conversations.get('/conversations/:id', async (req, res) => {
 conversations.post('/conversations/:id/messages', async (req, res) => {
   const me = res.locals.user.id, body = noContactDetails(text(req.body?.text, 1000, { min: 1, field: 'Message' }));
   await throttle('market-message:' + me, 30, 60, 'You are sending messages too quickly.');
-  await transaction(async db => {
+  const sent = await transaction(async db => {
     const c = await participant(db, requireId(req.params.id), me), other = c.buyer_id === me ? c.seller_id : c.buyer_id;
     if ((await db.query(`SELECT 1 WHERE ${notBlocked('$1', '$2')}`, [other, me])).rowCount === 0) throw new CommunityError(403, 'You can no longer message this person.');
     await db.query('INSERT INTO market.message(conversation_id, sender_id, body) VALUES($1,$2,$3)', [c.id, me, body]);
     await db.query(`UPDATE market.conversation SET updated_at=now(), buyer_read_at=CASE WHEN buyer_id=$2 THEN now() ELSE buyer_read_at END,
       seller_read_at=CASE WHEN seller_id=$2 THEN now() ELSE seller_read_at END WHERE id=$1`, [c.id, me]);
+    return { id: c.id, other };
   });
+  notify(sent.other, 'messages', 'message', { from: me, url: '/market/chat/' + sent.id });
   res.status(201).json({ sent: true });
 });
 conversations.post('/conversations/:id/read', async (req, res) => {

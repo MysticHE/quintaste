@@ -9,6 +9,7 @@ import { BadgesTab, BordersTab, TasksTab } from "../../components/collection/Col
 import { useGifts } from "../../components/collection/Gifts";
 import { GiftsTab } from "../../components/collection/GiftsTab";
 import { useRemote } from "../../hooks/useRemote";
+import { useLiveInbox } from "../../components/InboxCounts";
 import { collectionKey, loadCollection } from "../../services/collection-api";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
@@ -26,10 +27,12 @@ function CreditsChip({ n }: { n: number }) {
 
 /**
  * Collection (docs/COLLECTION_PLAN.md): Tasks that earn credits, Badges earned from task lists, and avatar Borders bought
- * with credits. Opening it settles: new credits and badges are announced once.
+ * with credits, and Gifts. Opening it settles: new credits and badges are announced once. It opens on Gifts while a gift is
+ * waiting or one you sent was liked or thanked.
  */
 export function CollectionScreen() {
-  const t = useT("collection"), { setNotice } = usePreferences(), [tab, setTab] = useState<Tab>("tasks");
+  const t = useT("collection"), { setNotice } = usePreferences(), inbox = useLiveInbox();
+  const [tab, setTab] = useState<Tab>((inbox?.gifts ?? 0) + (inbox?.giftNews ?? 0) > 0 ? "gifts" : "tasks");
   const remote = useRemote(collectionKey, loadCollection), me = useSocialMe().data, data = remote.data, told = useRef("");
   const gifts = useGifts(!!me?.hasProfile).data;
   useEffect(() => {

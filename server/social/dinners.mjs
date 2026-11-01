@@ -6,6 +6,7 @@ import { requirePlace, venueText } from './places.mjs';
 import { readFuture, sgText } from './rules.mjs';
 import { photoUrl } from './profile.mjs';
 import { postLine } from './friends.mjs';
+import { notify } from '../community/push.mjs';
 
 export const dinners = express.Router();
 export const pays = ['split', 'host', 'own'];
@@ -97,6 +98,7 @@ dinners.post('/dinners', async (req, res) => {
     return dinner;
   }, 'social-pair:' + pairOf(me, other).join(':'));
   logger.info({ event: 'social_dinner_invited' });
+  notify(other, 'dinners', 'dinner', { from: me, url: '/social/dinner/' + id });
   res.status(201).json({ id });
 });
 /** Loads an open invitation the member must answer, locked for this transaction. */
