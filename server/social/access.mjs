@@ -1,6 +1,7 @@
 import { pool } from '../config.mjs';
 import { CommunityError } from '../community/http.mjs';
 import { notBlocked, notRestricted } from '../community/router.mjs';
+import { birthSql } from '../community/birth-date.mjs';
 
 /** Social (People, friends, chat and dinner invites) is for members aged 21 to 45 (owner, 24 Oct 2026). Events and cooking classes live in Market, open to every member. */
 export const MEET_AGES = [21, 45];
@@ -12,10 +13,9 @@ export function ageFrom(birthDate, now = new Date()) {
   const today = new Date(now.getTime() + 8 * 3600000), y = today.getUTCFullYear(), m = today.getUTCMonth() + 1, d = today.getUTCDate();
   return y - year - (m < month || (m === month && d < day) ? 1 : 0);
 }
-/** SQL: the member in `column` is 21 to 45 today by the birth date they gave (Singapore date). */
-export const meetAgeSql = column => `EXISTS (SELECT 1 FROM social.profile ap_ WHERE ap_.user_id=${column}
-  AND ap_.birth_date <= ((now() AT TIME ZONE 'Asia/Singapore')::date - interval '${MEET_AGES[0]} years')
-  AND ap_.birth_date > ((now() AT TIME ZONE 'Asia/Singapore')::date - interval '${MEET_AGES[1] + 1} years'))`;
+/** SQL: the member in `column` is 21 to 45 today by their account's birth date (Singapore date). */
+export const meetAgeSql = column => `(${birthSql(column)} <= ((now() AT TIME ZONE 'Asia/Singapore')::date - interval '${MEET_AGES[0]} years')
+  AND ${birthSql(column)} > ((now() AT TIME ZONE 'Asia/Singapore')::date - interval '${MEET_AGES[1] + 1} years'))`;
 /** SQL: staff approved the member's selfie against the main photo they still show. */
 export const verifiedSql = column => `EXISTS (SELECT 1 FROM social.verification vr_ JOIN social.photo vp_ ON vp_.user_id=vr_.user_id AND vp_.position=0
   WHERE vr_.user_id=${column} AND vr_.status='approved' AND vr_.photo_digest=vp_.digest)`;
@@ -48,11 +48,11 @@ export const pausedUntilSql = column => `(SELECT CASE WHEN count(*) >= 2 THEN ma
 
 /**
  * Where a member stands on Social. `step` is the first thing still missing: 'photos' (no main photo), 'basics' (name,
- * gender, birth date, area), 'age' (outside 21 to 45), 'verify' (no selfie sent or it was declined, or the main photo
- * changed since it was approved), 'waiting' (staff are checking the selfie) or 'ready'. 'age' is anyone outside 21 to 45.
+ * gender, birth date, area), 'age' (outside 21 to 45), 'verify' (main photo not sent for checking or it was declined, or the main photo
+ * changed since it was approved), 'waiting' (staff are checking the photo) or 'ready'. 'age' is anyone outside 21 to 45.
  */
 export async function standing(userId, db = pool) {
-  const row = (await db.query(`SELECT p.first_name, p.gender, p.area, to_char(p.birth_date, 'YYYY-MM-DD') AS birth_date, p.visible,
+  const row = (await db.query(`SELECT p.first_name, p.gender, p.area, to_char(${birthSql('me.id')}, 'YYYY-MM-DD') AS birth_date, p.visible,
       (SELECT digest FROM social.photo WHERE user_id=$1 AND position=0) AS main,
       v.status, v.photo_digest, v.reason, ${pausedUntilSql('$1')} AS paused_until
     FROM (SELECT $1::text AS id) me LEFT JOIN social.profile p ON p.user_id=me.id LEFT JOIN social.verification v ON v.user_id=me.id`, [userId])).rows[0] ?? {};

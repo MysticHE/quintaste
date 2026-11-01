@@ -26,7 +26,7 @@ export function ClassChatScreen() {
     try { await sendClassChat(id, text, member); lines.refresh(); invalidate("/api/market/class-conversations"); return true; }
     catch (failure) { setNotice({ text: problem(failure), error: true }); return false; }
   };
-  return <Screen title={other || cls?.title || tp("class")} subtitle={tp(teaching ? "classMember" : "classTeacher")} fill hideTimers backTo="/messages">
+  return <Screen title={other || cls?.title || tp("class")} subtitle={tp(teaching ? "classMember" : "classTeacher")} fill backTo="/messages">
     <MemberGate returnTo={"/market/class-chat/" + id}>
       <RemoteStatus remote={lines} icon="chatbubbles-outline" returnTo="/cook?tab=events" missing={t("classUnavailable")} />
       {lines.data && <ChatThread lines={lines.data.items} name={other} describe={line => describe(line, teaching, memberName ?? "")} placeholder={teaching ? tp("messagePerson", { name: other }) : tp("askTeacher")} top={cls && <View style={{ gap: 8 }}><ClassCard cls={cls} seat={lines.data.seat} teaching={teaching} member={member} memberName={memberName ?? ""}

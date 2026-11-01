@@ -4,8 +4,9 @@ import { Pressable, View } from "react-native";
 import { Screen } from "../Screen";
 import { CompactUI } from "../ui-density";
 import { Icon, T, common } from "../ui";
+/** Feeds and recipe screens: compact type, and the cooking timer bar unless `timers={false}` (Cook mode has its own). */
 export function CookLayout(props: ComponentProps<typeof Screen>) {
-  return <CompactUI><Screen {...props} contentStyle={[{ gap: 10 }, props.contentStyle]} /></CompactUI>;
+  return <CompactUI><Screen timers {...props} contentStyle={[{ gap: 10 }, props.contentStyle]} /></CompactUI>;
 }
 export function CookSection({ title, children, initiallyOpen = false }: PropsWithChildren<{ title: string; initiallyOpen?: boolean }>) {
   const [open, setOpen] = useState(initiallyOpen);

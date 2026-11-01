@@ -28,8 +28,6 @@ const education: Record<Of<typeof educationOptions>, string> = { Secondary: "中
 const habit: Record<Of<typeof habitOptions>, string> = { No: "不会", Sometimes: "偶尔", Yes: "会" };
 const pet: Record<Of<typeof petOptions>, string> = { Dog: "狗", Cat: "猫", Other: "其他", None: "没有" };
 const age: Record<Of<typeof ageBands>, string> = { "21-29": "21 至 29 岁", "30s": "30 多岁", "40-45": "40 至 45 岁" };
-const poses: Record<string, string> = { "thumbs-up": "竖起大拇指", "peace-sign": "比 V 字手势", "hand-on-chin": "手托下巴", "point-up": "手指向上", wave: "挥手",
-  "touch-ear": "摸耳朵", "three-fingers": "举起三根手指", "hand-on-head": "手放在头上" };
 /** Ingredient names come from the Market table, so each is translated once. */
 const ingredient = (v: Vars) => { const name = market[ingredientKeys[String(v.value) as MarketIngredient]]; return typeof name === "string" ? name : String(v.value); };
 
@@ -49,7 +47,6 @@ const zh: typeof en = {
   petPhrase: v => pick({ Dog: "狗", Cat: "猫", Other: "其他宠物", None: "没有宠物" }, v),
   optAge: v => pick(age, v),
   optIngredient: ingredient,
-  optPose: v => pick(poses, v),
   you: "你",
   listSep: "、",
   today: "今天",

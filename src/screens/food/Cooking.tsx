@@ -118,7 +118,7 @@ export function CookingScreen() {
       <View style={common.flex}><Button label={gathering ? t("startCooking") : last ? t("finishCooking") : tc("next")} disabled={busy || !readable} loading={busy} onPress={() => void move(1)} /></View>
     </View>
   </View>;
-  return <Screen back={false} hideTimers pinHeader header={header} bottomBar={bottomBar}>
+  return <Screen back={false} timers={false} pinHeader header={header} bottomBar={bottomBar}>
     {/* Swiping moves between steps like Previous and Next, but never finishes the recipe: the last step needs the Finish button. */}
     <StepSwipe onNext={() => { if (!last || gathering) void move(1); }} onPrevious={() => { if (!gathering) void move(-1); }}>
     {gathering ? <><T variant="title">{t("gatherTitle")}</T>{servingsControl}
@@ -140,7 +140,7 @@ export function CookingScreen() {
 }
 export function TimersScreen() {
   const { doc } = useFood(), t = useT("cook"), cooking = doc.cooking;
-  return <Screen title={t("timersTitle")} hideTimers>
+  return <Screen title={t("timersTitle")} timers={false}>
     {/* Mid-cook the way out of an empty Timers page is back to the recipe being cooked, not away to browse. */}
     {!doc.timers.length && <EmptyState title={t("noTimers")} text="" icon="timer-outline" action={cooking ? t("backToCooking") : t("browseRecipesLower")}
       onPress={() => router.dismissTo((cooking ? "/cooking/" + cooking.recipeId : "/cook") as never)} />}

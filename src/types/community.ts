@@ -92,7 +92,7 @@ export type SocialPhoto = { id: string; position: number; url: string; thumb: st
 /** `handle` is the member's public handle (made from their name on first use), separate from the private sign-in username. */
 /** What a member shows from their Collection (docs/COLLECTION_PLAN.md): the border they wear and up to three badges; null while Collection is off. */
 export type Worn = { border: string | null; badges: string[] } | null;
-export type SocialMe = { id: string; accountName: string; handle: string; hasProfile: boolean; profile: SocialProfile; photos: SocialPhoto[]; standing: Standing; worn?: Worn };
+export type SocialMe = { id: string; accountName: string; handle: string; hasProfile: boolean; profile: SocialProfile; birthDateFixed?: boolean; photos: SocialPhoto[]; standing: Standing; worn?: Worn };
 export type PhotoLink = { url: string; thumb: string };
 /** Another member as the server shares them: hidden fields come back empty, the birth date as `age`. */
 export type Person = Omit<SocialProfile, "birthDate" | "hidden" | "visible" | "excluded"> & { id: string; age: number | null; photos: PhotoLink[]; km: number | null };

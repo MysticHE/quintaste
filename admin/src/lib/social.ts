@@ -9,16 +9,18 @@ import { can } from './permissions';
 import { choice, HttpError, text } from './http';
 
 /**
- * Social photo checks (capability "identity") and Market cooking-class teachers (capability "sellers"). A member's live selfie, copying a random pose, is
- * compared with their main photo; it is AES-256-GCM ciphertext under a key derived from the provider-secret-key file,
- * the same derivation as server/social/media.mjs, and is erased 30 days after the decision. Age is declared, never proven.
+ * Social photo checks (capability "identity") and Market cooking-class teachers (capability "sellers"). Since 1 Nov 2026 staff check
+ * that the member's main photo is a real selfie of them. Checks sent before then also carry a live selfie copying a random pose:
+ * AES-256-GCM ciphertext under a key derived from the provider-secret-key file (the derivation server/social/media.mjs used),
+ * erased 30 days after the decision. Age is declared, never proven.
  */
 const userId = (value: unknown) => { const id = text(value, 'member id', 64, 8); if (!/^[A-Za-z0-9_-]+$/.test(id)) throw new HttpError(400, 'Check member id.'); return id; };
 const digestOf = (value: unknown) => { const digest = text(value, 'photo', 64, 64); if (!/^[a-f0-9]{64}$/.test(digest)) throw new HttpError(400, 'Check photo.'); return digest; };
 const checkStatuses = ['pending', 'approved', 'rejected'] as const;
 const hostStatuses = ['pending', 'approved', 'rejected', 'suspended'] as const;
 const reports = `(SELECT count(*)::int FROM ops.case_record c WHERE c.kind='report' AND c.status NOT IN ('resolved','dismissed') AND split_part(c.subject_id,'|',1)='community:user:'||u.id)`;
-const age = `date_part('year', age((now() AT TIME ZONE 'Asia/Singapore')::date, p.birth_date))::int`;
+// Age comes from the account's birth date (server/community/birth-date.sql), the one Social reads.
+const age = `date_part('year', age((now() AT TIME ZONE 'Asia/Singapore')::date, (SELECT bd.birth_date FROM community.birth_date bd WHERE bd.user_id=u.id)))::int`;
 
 function selfieKey() {
   try {

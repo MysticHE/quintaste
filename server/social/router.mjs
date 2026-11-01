@@ -9,7 +9,7 @@ import { handles } from './handles.mjs';
 import { requireBrowse, standing } from './access.mjs';
 
 /** Profile photos (1 MB) and the live selfie (2 MB) arrive as data URIs, one per request; everything else stays small. */
-const photoRoute = req => req.method === 'POST' && (req.path === '/me/photos' || req.path === '/me/verify');
+const photoRoute = req => req.method === 'POST' && req.path === '/me/photos';
 /** Every Social route needs a signed-in, age-checked, unrestricted member. */
 export const social = communityRouter({ bodyLimit: '64kb', photoLimit: '3mb', photos: photoRoute });
 /**

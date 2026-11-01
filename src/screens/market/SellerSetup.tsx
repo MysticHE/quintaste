@@ -16,7 +16,7 @@ import type { SellerState } from "../../types/community";
 
 export default function SellerSetupScreen() {
   const { member } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState), t = useT("market");
-  return <Screen title={t("setupTitle")} hideTimers backTo="/market?tab=shop">
+  return <Screen title={t("setupTitle")} backTo="/market?tab=shop">
     {!member ? <MemberPrompt icon="storefront-outline" returnTo="/market?tab=shop" /> : remote.data
       ? <Setup state={remote.data} refresh={remote.refresh} />
       : <RemoteStatus remote={remote} icon="storefront-outline" returnTo="/market?tab=shop" />}

@@ -23,7 +23,7 @@ export function MemberGate({ children, returnTo = "/social" }: PropsWithChildren
 }
 const codes: Record<string, keyof typeof socialMessages> = { SOCIAL_SETUP: "codeSetup", SOCIAL_AGE: "codeAge", SOCIAL_VERIFY: "codeVerify",
   SOCIAL_WAITING: "codeWaiting", SOCIAL_PAUSED: "codePaused", SOCIAL_NOT_FRIENDS: "codeNotFriends", SOCIAL_SAME_GENDER: "codeSameGender",
-  SOCIAL_LOCKED: "codeLocked", SOCIAL_POSE: "codePose", SOCIAL_BUSY: "codeBusy" };
+  SOCIAL_LOCKED: "codeLocked", SOCIAL_BUSY: "codeBusy" };
 /** Words a failed Social request in the member's language when the server sent a known code; otherwise the server's own message. */
 export function useSocialError() {
   const t = useT("social");

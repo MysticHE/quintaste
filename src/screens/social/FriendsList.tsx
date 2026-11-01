@@ -15,7 +15,7 @@ import type { Friend } from "../../types/community";
 export function FriendsListScreen() {
   const t = useT("profile"), { member } = useMember();
   const remote = useRemote(member ? "/api/social/friends" : null, loadFriends, 30000), list = remote.data?.friends ?? [];
-  return <Screen title={t("friends")} backTo="/social" hideTimers
+  return <Screen title={t("friends")} backTo="/social"
     headerAction={<IconButton appearance="plain" icon="person-add-outline" label={t("addFriend")} onPress={() => openSocial("/add-friend")} />}>
     <MemberGate returnTo="/social/friends">
       <RemoteStatus remote={remote} icon="people-outline" returnTo="/social/friends" />

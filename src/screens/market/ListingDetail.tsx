@@ -21,7 +21,7 @@ import type { ListingDetail } from "../../types/community";
 
 export default function ListingDetailScreen() {
   const { id = "" } = useLocalSearchParams<{ id: string }>(), remote = useRemote("/api/market/listings/" + id, signal => loadListing(id, signal)), t = useT("market");
-  if (!remote.data) return <Screen hideTimers header={<MarketToolbar />}>
+  if (!remote.data) return <Screen header={<MarketToolbar />}>
     <RemoteStatus remote={remote} icon="storefront-outline" returnTo={"/market/listing/" + id} missing={t("itemUnavailable")} /></Screen>;
   return <Detail item={remote.data} />;
 }
@@ -50,7 +50,7 @@ function Detail({ item }: { item: ListingDetail }) {
   };
   const collection = [s.meetup && t("meetup"), s.delivery && [t("delivery") + (s.deliveryFeeCents ? " " + marketMoney(s.deliveryFeeCents) : ""),
     s.deliveryMinCents ? t("minAmount", { amount: marketMoney(s.deliveryMinCents) }) : "", s.deliveryAreas].filter(Boolean).join(" · ")].filter(Boolean).join(" · ");
-  return <Screen fill hideTimers header={<MarketToolbar><View style={[common.row, { gap: 6, justifyContent: "flex-end" }]}>
+  return <Screen fill header={<MarketToolbar><View style={[common.row, { gap: 6, justifyContent: "flex-end" }]}>
     <IconButton appearance="plain" label={t("shareItem")} icon="share-outline" onPress={() => void share()} />
     {!item.own && <IconButton appearance="plain" label={t("reportItem")} icon="flag-outline" onPress={() => { if (ensureMember(member, "/market/listing/" + item.id)) setReport(true); }} />}
   </View></MarketToolbar>}>

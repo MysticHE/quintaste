@@ -20,7 +20,7 @@ import type { SellerProfile } from "../../types/community";
 
 export default function SlotFormScreen() {
   const { member } = useMember(), remote = useRemote(member ? "/api/market/seller" : null, sellerState), seller = remote.data?.seller, t = useT("market");
-  return <Screen title={t("slotTitle")} hideTimers backTo="/market?tab=shop">
+  return <Screen title={t("slotTitle")} backTo="/market?tab=shop">
     {!member ? <MemberPrompt icon="calendar-outline" returnTo="/market?tab=shop" /> : seller ? <SlotForm seller={seller} />
       : remote.data ? <EmptyState title={t("setUpShopFirst")} text="" icon="storefront-outline" primary={{ label: t("setUpShop"), onPress: () => router.replace("/market?tab=shop") }} />
       : <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market?tab=shop" />}

@@ -21,7 +21,7 @@ import type { FriendRequest, HandleMatch } from "../../types/community";
  */
 export function AddFriendScreen() {
   const t = useT("profile"), [query, setQuery] = useState(""), q = cleanHandle(useDebounced(query));
-  return <Screen title={t("addFriend")} backTo="/social" hideTimers>
+  return <Screen title={t("addFriend")} backTo="/social">
     <MemberGate returnTo="/social/add-friend">
       <SearchField value={query} onChange={setQuery} placeholder={t("search")} />
       {q.length >= 2 ? <Results q={q} /> : <Requests />}

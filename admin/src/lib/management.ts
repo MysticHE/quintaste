@@ -14,18 +14,39 @@ export async function accounts(member: Session, search: string) {
   // A report may name the public handle (server/social/handles.mjs) rather than the sign-in username, so both are searched.
   const term = text(search, 'username search', 30, 2).replace(/^@/, '');
   await transaction(db => audit(db, member.id, 'account.search', 'customers', 'Searched customer usernames and handles'));
-  return (await query(`SELECT u.id,u.username,u.name,h.handle,u."createdAt" AS created_at,coalesce(r.active,false) AS restricted
+  return (await query(`SELECT u.id,u.username,u.name,h.handle,u."createdAt" AS created_at,coalesce(r.active,false) AS restricted,
+      to_char(bd.birth_date,'YYYY-MM-DD') AS birth_date
     FROM public."user" u LEFT JOIN ops.restriction r ON r.user_id=u.id LEFT JOIN social.handle h ON h.user_id=u.id
+    LEFT JOIN community.birth_date bd ON bd.user_id=u.id
     WHERE u.username ILIKE $1 ESCAPE '\\' OR h.handle ILIKE $1 ESCAPE '\\' ORDER BY u.username LIMIT 50`, [term.replace(/[\\%_]/g, '\\$&') + '%'])).rows;
+}
+/** "YYYY-MM-DD", a real date from 1920 (server/community/birth-date.mjs EARLIEST_BIRTH) and at least 18 years ago in Singapore. */
+function adultBirthDate(value: unknown) {
+  const date = typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : '';
+  const at = new Date(date + 'T00:00:00Z');
+  if (!date || Number.isNaN(at.getTime()) || at.toISOString().slice(0, 10) !== date || date < '1920-01-01') throw new HttpError(400, 'Check birth date.');
+  const today = new Date(Date.now() + 8 * 3600000), adult = new Date(Date.UTC(today.getUTCFullYear() - 18, today.getUTCMonth(), today.getUTCDate()));
+  if (at > adult) throw new HttpError(400, 'Members must be 18 or over.');
+  return date;
 }
 export async function accountAction(member: Session, input: Record<string, unknown>, reason: string) {
   authorize(member, 'accounts');
   const id = text(input.id, 'account id', 128);
-  const action = choice(input.action, ['suspend','restore','revoke_sessions','reset_handle'] as const, 'account action');
+  const action = choice(input.action, ['suspend','restore','revoke_sessions','reset_handle','set_birth_date'] as const, 'account action');
+  const birthDate = action === 'set_birth_date' ? adultBirthDate(input.birthDate) : null;
+  // A birth date decides who may use Dining, so a correction needs its own reason.
+  if (birthDate) reason = text(input.reason, 'reason', 1000, 3);
   return transaction(async db => {
     await lockPermission(db, member, 'accounts');
     const found = await db.query('SELECT id FROM public."user" WHERE id=$1', [id]);
     if (!found.rowCount) throw new HttpError(404, 'Account not found.');
+    if (birthDate) {
+      // The account's birth date is the one Social reads; members set it once, so a wrong one is corrected here.
+      await db.query(`INSERT INTO community.birth_date(user_id, birth_date) VALUES($1,$2)
+        ON CONFLICT(user_id) DO UPDATE SET birth_date=$2, updated_at=now()`, [id, birthDate]);
+      await audit(db, member.id, 'account.set_birth_date', id, reason);
+      return { saved: true };
+    }
     if (action === 'reset_handle') {
       // A neutral handle the member can change later in Basics; a clash with another member's handle just tries again.
       for (let tries = 0; tries < 8; tries++) {

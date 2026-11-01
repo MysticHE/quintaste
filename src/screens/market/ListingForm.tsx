@@ -29,7 +29,7 @@ export default function ListingFormScreen() {
   const shop = useRemote(member ? "/api/market/seller" : null, sellerState);
   const item = useRemote(member && id ? "/api/market/seller/listings/" + id : null, signal => ownListing(id ?? "", signal));
   const seller = shop.data?.seller;
-  return <Screen title={title} hideTimers backTo="/market?tab=shop">
+  return <Screen title={title} backTo="/market?tab=shop">
     {!member ? <MemberPrompt icon="storefront-outline" returnTo="/market?tab=shop" />
       : !shop.data ? <RemoteStatus remote={shop} icon="storefront-outline" returnTo="/market?tab=shop" />
       : !seller ? <EmptyState title={t("setUpShopFirst")} text="" icon="storefront-outline" primary={{ label: t("setUpShop"), onPress: () => router.replace("/market?tab=shop") }} />

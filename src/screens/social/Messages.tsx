@@ -54,7 +54,7 @@ export function MessagesScreen() {
   const sources = term ? [data.market, data.classes, data.friends] : tab === "friends" ? [data.me, data.friends] : [tab === "market" ? data.market : data.classes];
   const loading = sources.some(s => s.loading && !s.data), failed = sources.some(s => s.error);
   const label = (id: MessageTab | MessageSide) => t(id === "friends" ? "friends" : id);
-  return <Screen title={t("messages")} backTo="/social" hideTimers headerAction={<IconButton appearance="plain" icon={searching ? "close" : "search-outline"}
+  return <Screen title={t("messages")} backTo="/social" headerAction={<IconButton appearance="plain" icon={searching ? "close" : "search-outline"}
     label={t(searching ? "closeSearch" : "searchToggle")} onPress={() => { setSearching(!searching); setQuery(""); }} />}>
     <MemberGate returnTo="/messages">
       {searching && <SearchField value={query} onChange={setQuery} placeholder={t("searchMessages")} input={{ autoFocus: true }} />}

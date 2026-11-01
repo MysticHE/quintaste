@@ -10,6 +10,7 @@ import { ageFrom, seeableSql, standing } from './access.mjs';
 import { profilePhoto } from './media.mjs';
 import { changeHandle, ensureHandle } from './handles.mjs';
 import { wornBy } from '../collection/worn.mjs';
+import { EARLIEST_BIRTH, accountBirthDate, birthSql, keepBirthDate } from '../community/birth-date.mjs';
 
 export const profile = express.Router();
 /** Optional fields a member may hide from others; name, age, gender, area, photos and food always show on a public profile. */
@@ -17,12 +18,12 @@ export const hideable = ['religion', 'ethnicity', 'why', 'hobbies', 'languages',
 const optional = (value, choices) => choices.includes(value) ? value : '';
 const whole = (value, min, max) => Number.isInteger(value) && value >= min && value <= max ? value : null;
 const spotIds = value => Array.isArray(value) ? [...new Set(value.filter(id => typeof id === 'string' && /^[a-z0-9][a-z0-9-]{2,119}$/.test(id)))].slice(0, 3) : [];
-/** "YYYY-MM-DD", a real date, at least 18 years ago (the app's own minimum) and not before 1920. */
+/** "YYYY-MM-DD", a real date, at least 18 years ago (the app's own minimum) and not before 1920 (EARLIEST_BIRTH). */
 function readBirthDate(value) {
   if (value === null || value === undefined || value === '') return null;
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) throw new CommunityError(400, 'Choose your birth date.');
   const at = new Date(value + 'T00:00:00Z');
-  if (Number.isNaN(at.getTime()) || at.toISOString().slice(0, 10) !== value || value < '1920-01-01') throw new CommunityError(400, 'Choose a valid birth date.');
+  if (Number.isNaN(at.getTime()) || at.toISOString().slice(0, 10) !== value || value < EARLIEST_BIRTH) throw new CommunityError(400, 'Choose a valid birth date.');
   if (ageFrom(value) < 18) throw new CommunityError(400, 'QuinTaste is for members aged 18 and over.');
   return value;
 }
@@ -37,7 +38,7 @@ export function readMeetProfile(body) {
     drinking: optional(body.drinking, options.habits), smoking: optional(body.smoking, options.habits), pets: list(body.pets, options.pets),
     prompts: readPrompts(body.prompts), hidden: list(body.hidden, hideable) };
 }
-export const meetColumns = `p.first_name AS "firstName", p.gender, to_char(p.birth_date, 'YYYY-MM-DD') AS "birthDate", p.area, p.diets, p.excluded, p.spots,
+export const meetColumns = `p.first_name AS "firstName", p.gender, to_char(${birthSql('p.user_id')}, 'YYYY-MM-DD') AS "birthDate", p.area, p.diets, p.excluded, p.spots,
   p.about, p.opening, p.visible, p.religion, p.ethnicity, p.why, p.hobbies, p.languages, p.education, p.work, p.grew_up AS "grewUp", p.height, p.drinking,
   p.smoking, p.pets, p.prompts, p.hidden`;
 export const emptyProfile = { firstName: '', gender: '', birthDate: null, area: '', diets: ['Plant-Based'], excluded: [], spots: [], about: '', opening: '', visible: true,
@@ -50,18 +51,20 @@ const myPhotos = async (me, db = pool) => (await db.query('SELECT id, position, 
 profile.get('/me', async (_req, res) => {
   const me = res.locals.user;
   const found = (await pool.query(`SELECT p.user_id IS NOT NULL AS "hasProfile", ${meetColumns}, (SELECT h.handle FROM social.handle h WHERE h.user_id=me.id) AS handle,
-      (SELECT u.bio FROM public."user" u WHERE u.id=me.id) AS "accountBio"
+      (SELECT u.bio FROM public."user" u WHERE u.id=me.id) AS "accountBio", to_char(${birthSql('me.id')}, 'YYYY-MM-DD') AS "accountBirth"
     FROM (SELECT $1::text AS id) me LEFT JOIN social.profile p ON p.user_id=me.id`, [me.id])).rows[0];
   const [state, photos, worn] = await Promise.all([standing(me.id), myPhotos(me.id), wornBy(me.id)]);
-  const { hasProfile, handle: stored, accountBio, ...row } = found;
+  const { hasProfile, handle: stored, accountBio, accountBirth, ...row } = found;
   // Every member has a handle so friends can find them; handles.sql gave existing accounts one, and this makes the rest. A
   // failure leaves it empty rather than breaking Social, and Basics lets the member choose one.
   const handle = stored ?? await ensureHandle(pool, me.id, row.firstName || me.name).catch(error => {
     logger.warn({ event: 'social_handle_missing', error: error?.message }); return null;
   });
   // One bio (owner, 25 Oct 2026): a bio written before About me took over starts About me until the next profile save, which clears it.
-  const bio = typeof accountBio === 'string' ? accountBio.slice(0, 180) : '', profile = hasProfile ? row : emptyProfile;
-  res.json({ id: me.id, accountName: me.name, handle, hasProfile, profile: profile.about || !bio ? profile : { ...profile, about: bio }, photos, standing: state, worn });
+  const bio = typeof accountBio === 'string' ? accountBio.slice(0, 180) : '', base = hasProfile ? row : emptyProfile;
+  // One birth date (owner, 1 Nov 2026): the account's, from its 18+ check; Basics shows it and cannot change it.
+  const profile = { ...base, birthDate: accountBirth, ...(!base.about && bio ? { about: bio } : {}) };
+  res.json({ id: me.id, accountName: me.name, handle, hasProfile, profile, birthDateFixed: !!accountBirth, photos, standing: state, worn });
 });
 /** Saves the profile; `handle`, when sent (Basics), changes the member's handle in the same transaction. */
 profile.put('/me', async (req, res) => {
@@ -71,13 +74,19 @@ profile.put('/me', async (req, res) => {
   await transaction(async db => {
     const stored = (await db.query(`SELECT p.first_name AS name, p.gender, to_char(p.birth_date, 'YYYY-MM-DD') AS birth, p.practices, v.status FROM social.profile p
       LEFT JOIN social.verification v ON v.user_id=p.user_id WHERE p.user_id=$1 FOR UPDATE OF p`, [me])).rows[0];
-    // Gender decides who sees whom and age decides who may meet, so both are fixed once a selfie has been sent for checking.
-    if (stored?.status && stored.status !== 'none' && (stored.gender !== p.gender || stored.birth !== p.birthDate)) {
+    // Gender decides who sees whom and age decides who may meet, so both are fixed once a selfie has been sent for checking. Age is
+    // the account's birth date, which members cannot change; only a profile saved before dates were kept can differ here.
+    const accountBirth = await accountBirthDate(me, db);
+    if (stored?.status && stored.status !== 'none' && (stored.gender !== p.gender || (!accountBirth && stored.birth !== p.birthDate))) {
       throw new CommunityError(409, 'Gender and birth date cannot change after your photo check. Contact us if they are wrong.', 'SOCIAL_LOCKED');
     }
+    // The account's date wins over what the app sends; an older account without one keeps the first date given here.
+    if (accountBirth) p.birthDate = accountBirth;
+    else if (p.birthDate) await keepBirthDate(me, p.birthDate, db);
     // Practices declared before 24 Oct 2026 (No egg, Lunar 1st & 15th) are kept, though this app no longer edits them; the old No five
     // pungent practice follows the Vegetarian label for older app images.
     const kept = (stored?.practices ?? []).filter(practice => practice !== fivePungent);
+    // birth_date is a copy of the account's date for older app images (rollback); this image reads community.birth_date.
     await db.query(`INSERT INTO social.profile(user_id, first_name, gender, birth_date, area, diets, diet, practices, excluded, spots, about, opening, visible, religion, ethnicity,
         why, hobbies, languages, education, work, grew_up, height, drinking, smoking, pets, prompts, hidden)
       VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27)
@@ -97,19 +106,28 @@ profile.put('/me', async (req, res) => {
   res.json({ profile: p, standing: await standing(me) });
 });
 
-/** One photo per request (the edge caps request bodies): added after the last one, up to six. */
+/**
+ * One photo per request (the edge caps request bodies): added after the last one, up to six. With `replace` (one of the
+ * member's photo ids) the new picture takes that photo's place in one step, so a failed upload never loses the old one.
+ */
 profile.post('/me/photos', async (req, res) => {
-  const me = res.locals.user.id;
+  const me = res.locals.user.id, replace = req.body?.replace === undefined ? null : requireId(req.body.replace, 'That photo is unavailable.');
   await throttle('social-photo:' + me, 30, 3600, 'You have added a lot of photos. Try again later.');
   const photo = await profilePhoto(req.body?.image);
   try {
     await transaction(async db => {
+      if (replace) {
+        const swapped = await db.query('UPDATE social.photo SET image=$3, thumb=$4, digest=$5, created_at=now() WHERE id=$1 AND user_id=$2',
+          [replace, me, photo.image, photo.thumb, photo.digest]);
+        if (!swapped.rowCount) throw new CommunityError(404, 'That photo is unavailable.');
+        return;
+      }
       const count = Number((await db.query('SELECT count(*) FROM social.photo WHERE user_id=$1', [me])).rows[0].count);
       if (count >= 6) throw new CommunityError(409, 'You can show up to 6 photos. Remove one first.');
       await db.query('INSERT INTO social.photo(user_id, position, image, thumb, digest) VALUES($1,$2,$3,$4,$5)', [me, count, photo.image, photo.thumb, photo.digest]);
     }, 'social-photos:' + me);
   } finally { photo.image.fill(0); photo.thumb.fill(0); }
-  res.status(201).json({ photos: await myPhotos(me), standing: await standing(me) });
+  res.status(replace ? 200 : 201).json({ photos: await myPhotos(me), standing: await standing(me) });
 });
 /** The member's photo ids in the new order; the first is the main photo. */
 profile.put('/me/photos/order', async (req, res) => {

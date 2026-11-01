@@ -61,7 +61,7 @@ export function ExploreScreen() {
   const loading = !ready || (currentRequest && discovery.busy && !venues.length);
   const failed = currentRequest && !!discovery.error, showHeader = privateMissing || locationExpired || failed;
   const showFooter = accepted && (discovery.capped || !discovery.busy && !venues.length) || !!mixedCount;
-  return <Screen back={false} compact list contentInset={0} header={<TopBar testID="explore-toolbar" actions={<>
+  return <Screen back={false} compact list timers contentInset={0} header={<TopBar testID="explore-toolbar" actions={<>
       <IconButton appearance="plain" label={count ? tc("filterOn", { label: t("searchAndFilters") }) : t("searchAndFilters")} icon="search-outline" disabled={!readable}
         dot={count > 0} onPress={() => router.push("/explore-search")} />
       <IconButton appearance="plain" label={t("searchByLocation")} icon="locate-outline" disabled={!readable} loading={nearby.busy}

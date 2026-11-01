@@ -5,7 +5,7 @@ import { Empty, Feedback, Mutation, SearchField, Table, reveal } from './Primiti
 import { Icon } from './Icon';
 import Collection from './Collection';
 
-type Account = { id: string; username: string; name: string; handle: string | null; created_at: string; restricted: boolean };
+type Account = { id: string; username: string; name: string; handle: string | null; created_at: string; restricted: boolean; birth_date: string | null };
 export default function Accounts() {
   const [search, setSearch] = useState(''); const [query, setQuery] = useState(''); const [selectedId, setSelectedId] = useState<string | null>(null);
   const resource = useResource<Account[]>(query ? '/api/manage/accounts?q=' + encodeURIComponent(query) : null);
@@ -32,6 +32,12 @@ export default function Accounts() {
         <label>Action<select name="action" defaultValue={selected.restricted ? 'restore' : 'revoke_sessions'}>
           <option value="revoke_sessions">Sign out all devices</option><option value="suspend">Suspend</option><option value="restore">Restore</option>
           {selected.handle && <option value="reset_handle">Reset handle (@{selected.handle})</option>}</select></label>
+      </Mutation>
+      <h3>Birth date</h3>
+      <Mutation key={'b' + selected.id + selected.birth_date} endpoint="accounts" onSaved={resource.reload} label="Correct birth date"
+        values={f => ({ id: selected.id, action: 'set_birth_date', birthDate: f.get('birthDate'), reason: f.get('reason') })}>
+        <div className="fields"><label>Birth date<input type="date" name="birthDate" min="1920-01-01" defaultValue={selected.birth_date ?? ''} required/></label></div>
+        <label>Reason<textarea name="reason" rows={2} maxLength={300} required/></label>
       </Mutation>
       <Collection key={'c' + selected.id} id={selected.id}/></section>}
   </>;

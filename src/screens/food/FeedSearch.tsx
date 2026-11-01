@@ -55,7 +55,7 @@ function FeedSearch({ tab }: { tab: FeedTab }) {
     onCategory: category => setRecipes(current => ({ ...current, category: category as RecipeCategory })),
     onAi: dish => router.push({ pathname: "/cook/ai", params: { dish } }) });
   const reset = () => { setQuery(""); setRecipes({ ...defaultCookBrowse }); setEvents(defaultEventFilters()); setMarket(defaultShopFilter()); };
-  return <Screen back={false} hideTimers header={<View testID="feed-search-toolbar" style={s.toolbar}>
+  return <Screen back={false} header={<View testID="feed-search-toolbar" style={s.toolbar}>
     <IconButton appearance="plain" label={tc("goBack")} icon="chevron-back" disabled={submitting} onPress={finish} />
     <View style={s.input}>{tab === "recipes" ? box.field : <SearchField value={query} onChange={setQuery} placeholder={placeholder} onSubmit={() => void submit()} />}</View>
     <Button label={t("search")} variant="link" disabled={!food.readable || submitting} onPress={() => void submit()} />

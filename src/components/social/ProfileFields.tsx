@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Button, Field, Icon, T } from "../ui";
 import { Chip, Chips, IconButton, SearchField } from "../food/Controls";
 import { DateField } from "../DateField";
+import { EARLIEST_BIRTH } from "../account/date-of-birth";
 import { FieldLabel, ListGroup, ListItem, ThemedSwitch } from "../GroupedList";
 import { DietIcon } from "../food/DietIcon";
 import { useDietText } from "../food/DietLabels";
@@ -40,17 +41,17 @@ export function AreaField({ value, onChange, label }: { value: string; onChange:
   </View>;
 }
 /** Name, gender, birth date (18+; only the age is shown) and area. Gender and birth date lock once a selfie is sent. */
-/** `afterName` sits under First name (the handle on My Profile > Basics; setup leaves it out). */
-export function BasicsFields({ value: p, onChange, locked, afterName }: Edit & { locked: boolean; afterName?: ReactNode }) {
+/** `afterName` sits under First name (the handle on My Profile > Basics; setup leaves it out). `birthFixed`: the date came from the account's age check. */
+export function BasicsFields({ value: p, onChange, locked, afterName, birthFixed = false }: Edit & { locked: boolean; afterName?: ReactNode; birthFixed?: boolean }) {
   const t = useT("social");
   return <View style={{ gap: 14 }}>
     <Field label={t("firstName")} value={p.firstName} onChangeText={firstName => onChange({ ...p, firstName })} maxLength={40} autoCapitalize="words" />
     {afterName}
     <ChoiceGroup label={t("gender")}>{genderOptions.map(g => <Chip key={g.id} label={t("optGender", { value: g.id })} role="radio" disabled={locked}
       selected={p.gender === g.id} onPress={() => onChange({ ...p, gender: g.id })} />)}</ChoiceGroup>
-    <DateField label={t("birthDate")} value={p.birthDate ?? ""} onChange={birthDate => onChange({ ...p, birthDate })} disabled={locked}
-      minimum="1920-01-01" maximum={yearsAgo(18)} />
-    {locked && <T variant="small" muted>{t("genderLock")}</T>}
+    <DateField label={t("birthDate")} value={p.birthDate ?? ""} onChange={birthDate => onChange({ ...p, birthDate })} disabled={locked || birthFixed}
+      minimum={EARLIEST_BIRTH} maximum={yearsAgo(18)} />
+    {locked ? <T variant="small" muted>{t("genderLock")}</T> : birthFixed && <T variant="small" muted>{t("birthFromAccount")}</T>}
     <AreaField value={p.area} onChange={area => onChange({ ...p, area })} />
   </View>;
 }

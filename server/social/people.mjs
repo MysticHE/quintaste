@@ -5,6 +5,7 @@ import { hobbies, languages } from './options.mjs';
 import { readDiets } from './rules.mjs';
 import { ageFrom, meetAgeSql, friendsSql, pausedUntilSql, reachableSql, requireBrowse, seeableSql, standing, verifiedSql } from './access.mjs';
 import { emptyProfile, hideable, meetColumns, photoUrl } from './profile.mjs';
+import { birthSql } from '../community/birth-date.mjs';
 import { notRestricted } from '../community/router.mjs';
 import { allowed } from '../operations.mjs';
 import { wornBy } from '../collection/worn.mjs';
@@ -66,7 +67,7 @@ people.get('/people', async (req, res) => {
   const liked = csv(q.hobbies, hobbies);
   if (liked.length) where.push(`NOT 'hobbies' = ANY(p.hidden) AND p.hobbies && ${add(liked)}::text[]`);
   const bands = csv(q.ages, Object.keys(ageBands));
-  if (bands.length) where.push(`(${bands.map(band => `date_part('year', age((now() AT TIME ZONE 'Asia/Singapore')::date, p.birth_date)) BETWEEN ${ageBands[band][0]} AND ${ageBands[band][1]}`).join(' OR ')})`);
+  if (bands.length) where.push(`(${bands.map(band => `date_part('year', age((now() AT TIME ZONE 'Asia/Singapore')::date, ${birthSql('p.user_id')})) BETWEEN ${ageBands[band][0]} AND ${ageBands[band][1]}`).join(' OR ')})`);
   if (typeof q.q === 'string' && q.q.trim()) {
     where.push(`(p.first_name || ' ' || p.area || ' ' || p.about || ' ' || p.opening || ' ' || CASE WHEN 'hobbies' = ANY(p.hidden) THEN '' ELSE array_to_string(p.hobbies, ' ') END)
       ILIKE ${add('%' + q.q.trim().slice(0, 60).replace(/[\\%_]/g, '\\$&') + '%')}`);

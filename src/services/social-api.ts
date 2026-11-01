@@ -15,12 +15,12 @@ export const findKey = (q: string) => "/api/social/people/find?q=" + encodeURICo
 export const findPeople = (q: string, signal: AbortSignal) => call<{ items: HandleMatch[] }>(findKey(q), { signal });
 type Photos = { photos: SocialPhoto[]; standing: Standing };
 /** One photo per request (the edge caps request size); added after the last, up to six. */
-export const addPhoto = (image: string) => call<Photos>("/api/social/me/photos", { method: "POST", body: { image } });
+/** Adds a photo, or with `replace` puts it in the place of that photo in one step. */
+export const addPhoto = (image: string, replace?: string) => call<Photos>("/api/social/me/photos", { method: "POST", body: replace ? { image, replace } : { image } });
 export const orderPhotos = (ids: string[]) => call<Photos>("/api/social/me/photos/order", { method: "PUT", body: { ids } });
 export const removePhoto = (id: string) => call<Photos>("/api/social/me/photos/" + id, { method: "DELETE" });
-export const verifyState = (signal: AbortSignal) => call<{ pose: string | null; standing: Standing }>("/api/social/me/verify", { signal });
-export const newPose = () => call<{ pose: string }>("/api/social/me/verify/pose", { method: "POST" });
-export const sendSelfie = (selfie: string, pose: string) => call<{ standing: Standing }>("/api/social/me/verify", { method: "POST", body: { selfie, pose } });
+/** Sends the main photo (a selfie of the member) for staff to check. */
+export const sendForCheck = () => call<{ standing: Standing }>("/api/social/me/verify", { method: "POST" });
 
 export function peopleKey(q: string, f: MeetFilters) {
   const params = new URLSearchParams();

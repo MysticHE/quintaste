@@ -10,6 +10,8 @@ import { allowed, restricted } from './operations.mjs';
 import { googleLogin } from './google/router.mjs';
 import { googleOptions } from './google/config.mjs';
 import { accountAccess } from './account-access.mjs';
+import { EARLIEST_BIRTH, accountBirthDate, keepBirthDate } from './community/birth-date.mjs';
+import { transaction } from './community/http.mjs';
 
 export const accounts = express.Router();
 accounts.use(express.json({ limit: '16kb' }));
@@ -26,7 +28,7 @@ accounts.post('/recover', recoverAccount);
 function eligibleDate(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
   const date = new Date(value + 'T00:00:00Z');
-  if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value || value < '1900-01-01') return null;
+  if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value || value < EARLIEST_BIRTH) return null;
   const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
   if (value > today) return null;
   const [year, month, day] = today.split('-').map(Number);
@@ -34,7 +36,7 @@ function eligibleDate(value) {
   return year - by - (month < bm || (month === bm && day < bd) ? 1 : 0) >= 18;
 }
 accounts.post('/register', async (req, res) => {
-  const adult = eligibleDate(req.body?.dateOfBirth);
+  const dateOfBirth = req.body?.dateOfBirth, adult = eligibleDate(dateOfBirth);
   delete req.body?.dateOfBirth;
   if (adult === null) return res.status(400).json({ error: 'Enter a valid date of birth.' });
   if (!adult) return res.status(403).json({ error: 'Account creation is unavailable. Continue as a guest.', code: 'UNDER_AGE' });
@@ -54,6 +56,13 @@ accounts.post('/register', async (req, res) => {
   } catch {
     return res.status(400).json({ error: 'Registration could not be completed. Try a different username, or sign in if you already created this account.' });
   }
+  // The account and its birth date stand or fall together: without the date the member would be asked again in Social.
+  try { await keepBirthDate(user.id, dateOfBirth); }
+  catch {
+    logger.error({ event: 'birth_date_keep_failed' });
+    await pool.query('DELETE FROM public."user" WHERE id=$1', [user.id]).catch(() => logger.error({ event: 'registration_rollback_failed' }));
+    return res.status(503).json({ error: 'Registration could not be completed. Try again in a moment.' });
+  }
   try {
     const codes = await initialRecoveryCodes(user.id);
     res.status(201).json({ username, codes });
@@ -69,10 +78,13 @@ accounts.post('/eligibility', async (req,res) => {
     delete req.body?.dateOfBirth;
     return res.json({adultConfirmed:true});
   }
-  const adult=eligibleDate(req.body?.dateOfBirth); delete req.body?.dateOfBirth;
+  const dateOfBirth=req.body?.dateOfBirth, adult=eligibleDate(dateOfBirth); delete req.body?.dateOfBirth;
   if (adult===null) return res.status(400).json({error:'Enter a valid date of birth.'});
   if (!adult) return res.status(403).json({error:'Accounts are available to adults aged 18 and over. Continue as a guest.',code:'UNDER_AGE'});
-  await pool.query('UPDATE public."user" SET "adultConfirmed"=true,"updatedAt"=now() WHERE id=$1',[session.user.id]);
+  await transaction(async db => {
+    await db.query('UPDATE public."user" SET "adultConfirmed"=true,"updatedAt"=now() WHERE id=$1',[session.user.id]);
+    await keepBirthDate(session.user.id, dateOfBirth, db);
+  });
   res.json({adultConfirmed:true});
 });
 accounts.use(async (req, res, next) => {
@@ -101,10 +113,10 @@ accounts.patch('/profile', async (req, res) => {
   res.json({ saved: true });
 });
 accounts.get('/export', async (_req, res) => {
-  const { user } = res.locals.session;
+  const { user } = res.locals.session, birthDate = await accountBirthDate(user.id);
   res.set('Content-Disposition', 'attachment; filename="quintaste-account.json"');
   res.json({ exportedAt: new Date().toISOString(), account: {
     id: user.id, name: user.name, username: user.username, bio: user.bio || '', adultConfirmed: user.adultConfirmed,
-    createdAt: user.createdAt,
+    birthDate, createdAt: user.createdAt,
   }, note: 'Food collections remain on each device. Export them separately from Privacy & local data.' });
 });

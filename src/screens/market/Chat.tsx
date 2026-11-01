@@ -24,8 +24,8 @@ import type { Conversation } from "../../types/community";
 export default function MarketChatScreen() {
   const { id = "" } = useLocalSearchParams<{ id: string }>(), { member } = useMember(), t = useT("market");
   const remote = useRemote(member ? "/api/market/conversations/" + id : null, signal => loadConversation(id, signal), 5000);
-  if (!member) return <Screen hideTimers header={<MarketToolbar />}><MemberPrompt icon="chatbubbles-outline" returnTo="/messages" /></Screen>;
-  if (!remote.data) return <Screen hideTimers header={<MarketToolbar />}><RemoteStatus remote={remote} icon="chatbubbles-outline" returnTo="/messages" missing={t("conversationUnavailable")} /></Screen>;
+  if (!member) return <Screen header={<MarketToolbar />}><MemberPrompt icon="chatbubbles-outline" returnTo="/messages" /></Screen>;
+  if (!remote.data) return <Screen header={<MarketToolbar />}><RemoteStatus remote={remote} icon="chatbubbles-outline" returnTo="/messages" missing={t("conversationUnavailable")} /></Screen>;
   return <Thread c={remote.data} refresh={remote.refresh} />;
 }
 /** Open orders on top, then messages and order updates, then the composer. */
@@ -41,7 +41,7 @@ function Thread({ c, refresh }: { c: Conversation; refresh: () => void }) {
   };
   const blockPerson = async () => { await block(c.other.id); setMenu(false); invalidate("/api/market/"); refresh(); return true; };
   const buyer = c.role === "buyer";
-  return <Screen fill hideTimers title={c.other.name} subtitle={tp(buyer ? "buyingRole" : "sellingRole")} backTo="/messages"
+  return <Screen fill title={c.other.name} subtitle={tp(buyer ? "buyingRole" : "sellingRole")} backTo="/messages"
     headerAction={<View style={[common.row, { gap: 4 }]}>{buyer && <IconButton label={t("viewShop")} icon="storefront-outline" onPress={() => router.push({ pathname: "/market/shop/[id]", params: { id: c.sellerId } })} />}
       {!c.blocked && <IconButton label={t("moreOptions")} icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}</View>}>
     {c.openOrders.length > 0 && <ScrollView style={{ maxHeight: "40%", flexGrow: 0 }} contentContainerStyle={{ gap: 8 }}>

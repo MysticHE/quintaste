@@ -3,8 +3,10 @@ import { Modal, Platform, View } from 'react-native';
 import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { usePreferences } from '../../state/Preferences';
 import { Button, Card, T } from '../ui';
-import { birthDateValue, initialBirthDate, type DateOfBirthProps } from './date-of-birth';
+import { EARLIEST_BIRTH, birthDateValue, initialBirthDate, type DateOfBirthProps } from './date-of-birth';
 import { useLanguage, useT } from '../../i18n';
+
+const earliest = new Date(Number(EARLIEST_BIRTH.slice(0, 4)), 0, 1);
 
 export function DateOfBirthField({ value, onChange, disabled }: DateOfBirthProps) {
   const { theme } = usePreferences(), t = useT('me'), tc = useT('common'), language = useLanguage();
@@ -13,7 +15,7 @@ export function DateOfBirthField({ value, onChange, disabled }: DateOfBirthProps
     const date = initialBirthDate(value);
     if (Platform.OS === 'android') {
       DateTimePickerAndroid.open({ value: date, mode: 'date', display: 'spinner',
-        minimumDate: new Date(1900, 0, 1), maximumDate: new Date(),
+        minimumDate: earliest, maximumDate: new Date(),
         onValueChange: (_event, selected) => onChange(birthDateValue(selected)) });
     } else { setDraft(date); setOpen(true); }
   };
@@ -25,7 +27,7 @@ export function DateOfBirthField({ value, onChange, disabled }: DateOfBirthProps
       <View style={{ flex: 1, justifyContent: 'center', padding: 16, backgroundColor: theme.overlay }}>
         <Card><View accessibilityViewIsModal style={{ gap: 12 }}>
           <T variant="subtitle">{t('dateOfBirthTitle')}</T>
-          <DateTimePicker value={draft} mode="date" display="spinner" minimumDate={new Date(1900, 0, 1)} maximumDate={new Date()}
+          <DateTimePicker value={draft} mode="date" display="spinner" minimumDate={earliest} maximumDate={new Date()}
             themeVariant={theme.dark ? 'dark' : 'light'} onValueChange={(_event, selected) => setDraft(selected)} />
           <Button label={tc('useThisDate')} onPress={() => { onChange(birthDateValue(draft)); setOpen(false); }} />
           <Button label={tc('cancel')} variant="link" onPress={() => setOpen(false)} />

@@ -57,7 +57,7 @@ function MarketHub({ tab }: { tab: MarketTab }) {
   const [queries, setQueries] = useState<Record<MarketTab, string>>({ orders: "", shop: "" }), [shopTab, setShopTab] = useState<ShopTab>("orders");
   const query = queries[tab], setQuery = (value: string) => setQueries(current => ({ ...current, [tab]: value }));
   const add = useShopAdd(shopTab);
-  return <Screen title={tc("tabMarket")} hideTimers floatingAction={tab === "shop" ? add : undefined} header={<View style={[common.row, { gap: 4 }]}>
+  return <Screen title={tc("tabMarket")} floatingAction={tab === "shop" ? add : undefined} header={<View style={[common.row, { gap: 4 }]}>
     <IconButton appearance="plain" icon="chevron-back" label={tc("goBack")} onPress={() => goBack("/social")} />
     <T variant="subtitle" accessibilityRole="header" style={common.flex}>{tc("tabMarket")}</T>
     <IconButton appearance="plain" label={counts?.market ? t("inboxNew", { n: counts.market }) : t("inbox")} icon="chatbubbles-outline" badge={counts?.market ?? 0}

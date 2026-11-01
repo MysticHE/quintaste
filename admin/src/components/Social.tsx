@@ -3,17 +3,20 @@ import { useState } from 'react';
 import { date, useResource } from './client';
 import { Feedback, IconButton, Mutation, Segmented, Table, reveal } from './Primitives';
 
-type CheckRow = { id: string; name: string; username: string; gender: string; age: number | null; area: string; pose: string; submitted_at: string; decided_at: string | null; reason: string; reports: number };
+type CheckRow = { id: string; name: string; username: string; gender: string; age: number | null; area: string; pose: string | null; submitted_at: string; decided_at: string | null; reason: string; reports: number };
 type Check = CheckRow & { status: string; account_created: string; has_selfie: boolean; decided_by: string | null; photos: { id: string; position: number; digest: string }[]; mainChanged: boolean };
 type TeacherRow = { id: string; display_name: string; area: string; status: string; applied_at: string; decided_at: string | null; username: string; reports: number; classes: number };
 type Teacher = { teacher: Record<string, string | number | null> & { status: string; display_name: string; experience: string; teaches: string };
   classes: { id: string; title: string; starts: string; status: string; seats: number; taken: number; hidden_at: string | null; hidden_reason: string | null }[] };
 const checkStatuses = [['pending', 'Waiting'], ['approved', 'Approved'], ['rejected', 'Declined']] as const;
 const teacherStatuses = [['pending', 'Waiting'], ['approved', 'Approved'], ['rejected', 'Declined'], ['suspended', 'Suspended']] as const;
-/** Pose keys from server/social/verify.mjs, in the words the member saw. */
+/** Pose keys from checks sent before 1 Nov 2026 (live selfie with a pose), in the words the member saw. Newer checks have no pose. */
 const poses: Record<string, string> = { 'thumbs-up': 'Thumbs up', 'peace-sign': 'Peace sign', 'hand-on-chin': 'Hand on chin', 'point-up': 'Pointing up', wave: 'Waving',
   'touch-ear': 'Touching an ear', 'three-fingers': 'Three fingers up', 'hand-on-head': 'Hand on head' };
-const declineReasons = ['The selfie does not show the same person as the main photo.', 'The pose was not copied.', 'The face is not clear in the selfie.',
+const declineReasons = ['The main photo is not a real selfie of you.', 'The face is not clear in the main photo.', 'The photos do not all show the same person.',
+  'The person does not look 21 to 45.'];
+/** For checks sent before 1 Nov 2026 with a live selfie and pose. */
+const selfieReasons = ['The selfie does not show the same person as the main photo.', 'The pose was not copied.', 'The face is not clear in the selfie.',
   'The main photo does not clearly show a face.', 'The person does not look 21 to 45.'];
 const badge = (status: string) => 'badge ' + (status === 'approved' ? 'good' : ['rejected', 'suspended'].includes(status) ? 'warn' : '');
 const who = (r: { gender: string; age: number | null; area: string }) => [r.gender === 'woman' ? 'Woman' : r.gender === 'man' ? 'Man' : '', r.age ? `${r.age}` : '', r.area].filter(Boolean).join(' · ');
@@ -41,16 +44,17 @@ function CheckDetail({ id, onSaved, onClose }: { id: string; onSaved: () => void
     <Feedback {...resource} retry={resource.reload}/>
     {d && <div className="stack">
       <div className="row badges"><span className={badge(d.status)}>{d.status === 'rejected' ? 'declined' : d.status}</span>
-        {d.mainChanged && <span className="badge warn">Main photo changed since the selfie</span>}{!!d.reports && <span className="badge warn">{d.reports} open reports</span>}</div>
-      <ul className="list inset">{([['Account', d.username], ['Gender · age · area', who(d)], ['Pose asked for', poses[d.pose] ?? d.pose], ['Sent', date(d.submitted_at)],
+        {d.mainChanged && <span className="badge warn">Main photo changed since it was sent</span>}{!!d.reports && <span className="badge warn">{d.reports} open reports</span>}</div>
+      <ul className="list inset">{([['Account', d.username], ['Gender · age · area', who(d)], ...(d.pose ? [['Pose asked for', poses[d.pose] ?? d.pose]] as const : []), ['Sent', date(d.submitted_at)],
         ['Account created', date(d.account_created)], ['Decision', d.decided_at ? `${date(d.decided_at)}${d.decided_by ? ' · ' + d.decided_by : ''}` : '—'], ['Reason given', d.reason || '—']] as const)
         .map(([k, v]) => <li key={k}><span>{k}</span><span className="value">{v || '—'}</span></li>)}</ul>
       <div className="compare">
-        <figure>{/* eslint-disable-next-line @next/next/no-img-element -- private staff view of member photos */}
+        {d.pose && <figure>{/* eslint-disable-next-line @next/next/no-img-element -- private staff view of member photos */}
           {d.has_selfie ? <img src={image(id, 'selfie')} alt={'Live selfie, ' + (poses[d.pose] ?? d.pose).toLowerCase()}/> : <div className="empty">Selfie erased</div>}
-          <figcaption>Live selfie · should show: {poses[d.pose] ?? d.pose}</figcaption></figure>
+          <figcaption>Live selfie · should show: {poses[d.pose] ?? d.pose}</figcaption></figure>}
         <figure>{/* eslint-disable-next-line @next/next/no-img-element -- private staff view of member photos */}
-          {main ? <img src={image(id, 0)} alt="Main photo"/> : <div className="empty">No main photo</div>}<figcaption>Main photo (shown first on People)</figcaption></figure>
+          {main ? <img src={image(id, 0)} alt="Main photo"/> : <div className="empty">No main photo</div>}
+          <figcaption>{d.pose ? 'Main photo (shown first on People)' : 'Main photo · must be a real, recent selfie of this member'}</figcaption></figure>
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element -- private staff view of member photos */}
       {d.photos.length > 1 && <div className="row thumbs">{d.photos.slice(1).map(p => <img key={p.id} src={image(id, p.position)} alt={'Photo ' + (p.position + 1)} width={88} height={88}/>)}</div>}
@@ -59,7 +63,7 @@ function CheckDetail({ id, onSaved, onClose }: { id: string; onSaved: () => void
       {(d.status === 'pending' || d.status === 'approved') && <details><summary>{d.status === 'pending' ? 'Decline' : 'Remove the ✓'}</summary><div className="editor">
         <Mutation key={'decline' + d.status} endpoint="photo-checks" onSaved={saved} label={d.status === 'pending' ? 'Decline' : 'Remove the ✓'} tone="danger"
           values={f => ({ id, action: d.status === 'pending' ? 'reject' : 'revoke', note: f.get('note') })}>
-          <label>Reason the member sees<select name="note">{declineReasons.map(r => <option key={r} value={r}>{r}</option>)}</select></label></Mutation></div></details>}
+          <label>Reason the member sees<select name="note">{(d.pose ? selfieReasons : declineReasons).map(r => <option key={r} value={r}>{r}</option>)}</select></label></Mutation></div></details>}
     </div>}
   </section>;
 }

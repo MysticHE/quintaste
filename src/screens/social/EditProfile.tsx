@@ -34,7 +34,7 @@ function Editor({ me, section }: { me: SocialMe; section: Section }) {
     finally { setBusy(false); }
   };
   return <>
-    {section === "basics" && <BasicsFields value={draft} onChange={setDraft} locked={me.standing.verification !== "none"}
+    {section === "basics" && <BasicsFields value={draft} onChange={setDraft} locked={me.standing.verification !== "none"} birthFixed={me.birthDateFixed}
       afterName={<HandleField value={handle} onChange={setHandle} state={handleState} />} />}
     {section === "food" && <FoodFields value={draft} onChange={setDraft} places={known} />}
     {section === "about" && <AboutFields value={draft} onChange={setDraft} details />}

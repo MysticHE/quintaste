@@ -25,14 +25,14 @@ export default function MarketShopScreen() {
   const remote = useRemote("/api/market/shops/" + id, signal => loadShop(id, signal));
   const [menu, setMenu] = useState(false), [report, setReport] = useState(false);
   const s = remote.data;
-  if (!s) return <Screen hideTimers header={<MarketToolbar />}><RemoteStatus remote={remote} icon="storefront-outline" returnTo={"/market/shop/" + id} missing={t("shopUnavailable")} /></Screen>;
+  if (!s) return <Screen header={<MarketToolbar />}><RemoteStatus remote={remote} icon="storefront-outline" returnTo={"/market/shop/" + id} missing={t("shopUnavailable")} /></Screen>;
   const message = async () => {
     if (!ensureMember(member, "/market/shop/" + s.id)) return;
     try { const c = await openConversation(s.id); router.push({ pathname: "/market/chat/[id]", params: { id: c.id } }); }
     catch (error) { setNotice({ text: error instanceof ApiError ? error.message : t("conversationFailed"), error: true }); }
   };
   const blockShop = async () => { await block(s.id); invalidate("/api/market/"); setMenu(false); router.dismissTo("/cook?tab=market"); return true; };
-  return <Screen hideTimers header={<MarketToolbar><View style={[common.row, { justifyContent: "flex-end", gap: 6 }]}>
+  return <Screen header={<MarketToolbar><View style={[common.row, { justifyContent: "flex-end", gap: 6 }]}>
     {!s.own && <IconButton label={t("messageShop")} icon="chatbubble-outline" onPress={() => void message()} />}
     {!s.own && member.member && <IconButton label={t("moreOptions")} icon="ellipsis-horizontal" onPress={() => setMenu(true)} />}
   </View></MarketToolbar>}>

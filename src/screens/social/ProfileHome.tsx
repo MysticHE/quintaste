@@ -40,7 +40,7 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
   const shown = useDeferredValue(tab);
   const kinds = (shown === "saved" ? savedKinds : postKinds).map(id => ({ id, label: t(id) }));
   const dinners = inbox?.dinners ?? 0, orders = inbox?.orders ?? 0;
-  return <Screen back={false} hideTimers header={<TopRow name={name} data={data} />}>
+  return <Screen back={false} header={<TopRow name={name} data={data} />}>
     <MemberGate returnTo="/social">
       <ProfileSummary data={data} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} />
       <View testID="social-profile-tabs"><IconTabs label={t("profile")} value={tab} onChange={select} tabs={[

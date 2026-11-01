@@ -34,7 +34,8 @@ type ScreenProps = {
   compact?: boolean;
   header?: ReactNode;
   backTo?: Href;
-  hideTimers?: boolean;
+  /** Shows the cooking timer bar: Explore, Feeds and recipe pages (CookLayout); off elsewhere so flows like Social setup stay clean. */
+  timers?: boolean;
   fill?: boolean;
   /** Keeps the top bar in view while the page scrolls (Cook mode), instead of sliding it away. */
   pinHeader?: boolean;
@@ -52,7 +53,7 @@ type ScreenProps = {
 const ScrollTop = createContext<() => void>(() => {});
 /** Scrolls the enclosing screen back to its top, for example after changing a results page. */
 export const useScreenScrollToTop = () => useContext(ScrollTop);
-export function Screen({ children, title, subtitle, back = true, footer, headerAction, titleAccessory, compact = true, header, backTo, hideTimers = false, fill = false, pinHeader = false, bottomBar, list = false, contentStyle, contentInset, floatingAction }: PropsWithChildren<ScreenProps>) {
+export function Screen({ children, title, subtitle, back = true, footer, headerAction, titleAccessory, compact = true, header, backTo, timers = false, fill = false, pinHeader = false, bottomBar, list = false, contentStyle, contentInset, floatingAction }: PropsWithChildren<ScreenProps>) {
   const { theme, reducedMotion } = usePreferences();
   const segments = useSegments(), hasTabDock = segments.some(segment => segment === "(tabs)");
   const glass = useGlassNavigation(), { width } = useWindowDimensions(), nativeFrame = Platform.OS !== "web" || width < 600;
@@ -108,7 +109,7 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
         {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
         <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
           style={hasTabDock ? { position: "absolute", bottom: glass?.height ?? 0, left: 0, right: 0 } : undefined}>
-          {!hideTimers && <TimerDock />}<FoodStorageBanner /><OfflineBanner /><NoticeBanner />{bottomBar}
+          {timers && <TimerDock />}<FoodStorageBanner /><OfflineBanner /><NoticeBanner />{bottomBar}
         </Pinned>
           </View>
         </KeyboardAvoidingView>

@@ -46,7 +46,7 @@ function SocialHome({ section }: { section: SocialTab }) {
   }), [counts, t]);
   // Members outside 21 to 45 see only the notice that points them to Events in Feeds: no search, filters or tabs.
   const outside = me.data?.standing.step === "age";
-  return <Screen title={tc("tabSocial")} hideTimers header={<View style={{ gap: 8 }}><View style={[common.row, { gap: 8 }]}>
+  return <Screen title={tc("tabSocial")} header={<View style={{ gap: 8 }}><View style={[common.row, { gap: 8 }]}>
     <IconButton appearance="plain" icon="chevron-back" label={tc("goBack")} onPress={() => router.canGoBack() ? router.back() : router.replace("/social?tab=dining")} />
     <T variant="subtitle" style={common.flex}>{t(tabKeys[section])}</T></View>
     {!outside && <BrowseHeader query={query} onChange={setQuery} placeholder={t(findKeys[section])}

@@ -52,7 +52,7 @@ export function ExploreSearchScreen() {
     if ((mode === "home" || mode === "work") && !privateOrigin(doc.privatePlaces, mode))
       router.push({ pathname: "/location-place", params: { kind: mode } });
   };
-  return <Screen back={false} hideTimers header={<View testID="explore-search-toolbar" style={s.toolbar}>
+  return <Screen back={false} header={<View testID="explore-search-toolbar" style={s.toolbar}>
     <IconButton appearance="plain" label={tc("goBack")} icon="chevron-back" onPress={finish} />
     <View style={s.input}><SearchField value={control.displayValue} placeholder={t("placeDishOrPostal")} onSubmit={submit}
       onChange={next => { control.changed(); setValue(next); setEdited(true); }}

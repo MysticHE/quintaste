@@ -61,7 +61,7 @@ export function ChatScreen() {
   const name = p?.firstName ?? "", tp = useT("profile"), tg = useT("collection");
   const title = p ? <Pressable onPress={() => openSocial("/person/" + id)} accessibilityRole="button" accessibilityLabel={t("openPerson", { name })} style={[common.row, { gap: 8, flex: 1, minWidth: 0 }]}>
     <BorderFrame art={p.worn?.border ? borderArt(p.worn.border) : undefined} size={36}><Avatar uri={p.photos[0]?.thumb} size={36} /></BorderFrame><View style={{ flex: 1 }}><T variant="subtitle" numberOfLines={1}>{name}</T><T variant="caption" muted>{tp("friend")}</T></View></Pressable> : null;
-  return <Screen hideTimers backTo="/messages" title={title ? undefined : name} fill titleAccessory={title} headerAction={p ? <View style={[common.row, { gap: 4 }]}>
+  return <Screen backTo="/messages" title={title ? undefined : name} fill titleAccessory={title} headerAction={p ? <View style={[common.row, { gap: 4 }]}>
       <IconButton appearance="plain" label={t("inviteToDinner")} icon="restaurant-outline" onPress={invite} />
       <IconButton appearance="plain" label={t("flagLabel", { name })} icon="flag-outline" onPress={() => setFlag(true)} /></View> : undefined}>
     <MemberGate returnTo={"/social/chat/" + id}>

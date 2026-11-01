@@ -19,7 +19,7 @@ import type { SlotPack } from "../../types/community";
 export default function SlotPackScreen() {
   const { id = "" } = useLocalSearchParams<{ id: string }>(), { member } = useMember();
   const remote = useRemote(member && id ? "/api/market/seller/slots/" + id : null, signal => slotPack(id, signal), 20000), t = useT("market");
-  return <Screen title={t("slotPackTitle")} hideTimers backTo="/market?tab=shop">
+  return <Screen title={t("slotPackTitle")} backTo="/market?tab=shop">
     {!member ? <MemberPrompt icon="calendar-outline" returnTo="/market?tab=shop" />
       : remote.data ? <Pack pack={remote.data} refresh={remote.refresh} />
       : <RemoteStatus remote={remote} icon="calendar-outline" returnTo="/market?tab=shop" missing={t("slotUnavailable")} />}
