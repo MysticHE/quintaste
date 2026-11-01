@@ -2,7 +2,7 @@ import { Platform } from "react-native";
 import { apiUrl } from "../utils/api-url";
 import { sessionHeaders } from "./community-api";
 
-type OwnedReadPath = "/api/catalogue" | "/api/menus" | `/api/menus?${string}` | "/api/location-search" | "/api/dish-search" | `/api/editorial/${string}`;
+type OwnedReadPath = "/api/catalogue" | "/api/menus" | `/api/menus?${string}` | "/api/location-search" | "/api/dish-search" | `/api/dish-search?${string}` | `/api/editorial/${string}`;
 // Native fetch does not use BetterAuth's SecureStore cookies automatically.
 // Resolve the current cookie per request; never cache a principal or attach it to photo/provider URLs.
 export async function ownedApiRequest(path: OwnedReadPath, options: RequestInit = {}): Promise<Response> {

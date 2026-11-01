@@ -57,6 +57,7 @@ const zh: typeof en = {
   stepNumber: "步骤 {n}",
   stepLabel: "步骤 {n}：{title}",
   noAlliumVersion: "无五辛版本",
+  findDishNearby: "在附近找{dish}",
   privateNote: "私人笔记",
   myRecipe: "我的食谱",
   openingRecipe: "正在打开食谱",

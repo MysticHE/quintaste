@@ -4,7 +4,7 @@ import aliases from "../../data/menus/catalogue-aliases.json";
 import previews from "../../data/menus/catalogue-photo-previews.json";
 import phones from "../../data/menus/catalogue-phones.json";
 import { areas } from "../data/areas";
-import type { CatalogueContact, CataloguePage, CatalogueVenue } from "../types/catalogue";
+import type { CatalogueContact, CataloguePage, CatalogueVenue, RecipeDish } from "../types/catalogue";
 import type { DiscoverySearch } from "../types/discovery";
 import { distanceKm } from "../utils/discovery-search";
 import { editorialContent, editorialPlaces, editorialPlaceVenue, editorialVenue } from "./editorial-content";
@@ -13,7 +13,7 @@ import type { StaffContent, StaffPlaceData } from "../types/staff-content";
 import type { MenuItem } from "../types/menus";
 import { matchTier, searchWords } from "../utils/search-words";
 import { shortAddress } from "../utils/location-search";
-import { dishTerms } from "./dish-search";
+import { dishTerms, dishTitle, recipeDishPhrases } from "./dish-search";
 import type { PlaceSignals } from "./place-signals";
 import { openState } from "../utils/catalogue-hours";
 
@@ -330,4 +330,41 @@ export function placeSuggestions(query: string, search: DiscoverySearch, withdra
   if (named.byQuery.size >= 200) named.byQuery.delete(named.byQuery.keys().next().value!);
   named.byQuery.set(scope, places);
   return places;
+}
+
+// Every Veg Kitchen place's dish names, built once per catalogue revision; `words` (each Latin-script word in them) lets a
+// phrase no menu holds skip the place-by-place count.
+let recipeDishes: { key: string; menus: string[][]; words: Set<string>; byName: Map<string, RecipeDish | null> } = { key: "", menus: [], words: new Set(), byName: new Map() };
+/** Whether a Latin-script phrase could be whole words in some dish (matchTier 0 or 1; the last word may end in s or es). Others always could. */
+function mayHold(words: ReadonlySet<string>, phrase: string) {
+  if (!/^[a-z0-9 ]+$/.test(phrase)) return true;
+  const parts = phrase.split(" "), last = parts.pop()!;
+  return parts.every(word => words.has(word)) && [last, last + "s", last + "es"].some(word => words.has(word));
+}
+/** Explore's Veg Kitchen list for all of Singapore at any hour, as a keyword search sees it before the keyword. */
+const vegKitchen: DiscoverySearch = { area: "Singapore", query: "", vegan: false, labels: [], radius: 5000 };
+/**
+ * The dish a recipe's name names that published menus list, with how many Veg Kitchen places (all Singapore, the list the
+ * link opens) list it as whole words, for Find It Nearby on the recipe page. Mixed Kitchen places never count (owner,
+ * 2 Nov 2026). The first phrase from recipeDishPhrases that any of those menus lists wins.
+ */
+export function recipeDish(name: string, withdrawn: ReadonlySet<string>, staff = noStaff): RecipeDish | null {
+  const content = editorialContent(), key = hash([staff.catalogueRevision, content.revision, [...withdrawn].sort()]);
+  if (recipeDishes.key !== key) {
+    const menus = eligibleVenues(vegKitchen, withdrawn, staff, content).map(({ venue }) => menuFacts(venue.id, staff, content).dishes.map(dish => dish.text))
+      .filter(dishes => dishes.length);
+    recipeDishes = { key, menus, words: new Set(menus.flatMap(dishes => dishes.flatMap(text => text.match(/[a-z0-9]+/g) ?? []))), byName: new Map() };
+  }
+  // Punctuation decides which parts are other names for the dish, so the cache keeps the name as written.
+  const scope = name.trim(), cached = recipeDishes.byName.get(scope);
+  if (cached !== undefined) return cached;
+  let found: RecipeDish | null = null;
+  for (const phrase of recipeDishPhrases(scope)) {
+    if (!mayHold(recipeDishes.words, phrase)) continue;
+    const places = recipeDishes.menus.filter(dishes => dishes.some(text => { const tier = matchTier(text, phrase); return tier === 0 || tier === 1; })).length;
+    if (places) { found = { dish: dishTitle(phrase), places }; break; }
+  }
+  if (recipeDishes.byName.size >= 500) recipeDishes.byName.delete(recipeDishes.byName.keys().next().value!);
+  recipeDishes.byName.set(scope, found);
+  return found;
 }

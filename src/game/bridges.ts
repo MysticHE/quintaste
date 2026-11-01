@@ -34,6 +34,6 @@ export function ingredientTerm(itemId: string): string | null {
 }
 
 export const openRecipe = (id: string) => router.push({ pathname: "/cook/recipe/[id]", params: { id } });
-export const openNearby = (term: string) => router.push({ pathname: "/", params: { q: term } });
+export { openNearby } from "../utils/navigation";
 export const openIngredient = (term: string) => router.push({ pathname: "/cook", params: { ingredient: term } });
 export const openFoodChoices = () => router.push("/food-choices");

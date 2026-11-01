@@ -6,6 +6,8 @@ export function safeReturn(value: string | string[] | undefined): Href {
   return path && /^\/(?:account|avatar|profile|recovery-codes|saved|social(?:\/profile)?|game|market(?:\/my-shop|\/my-listings|\/(?:listing|shop)\/[A-Za-z0-9_-]+)?|cook(?:\/recipe\/[a-z0-9-]+)?|dish\/[a-z0-9-]+|place\/[a-z0-9-]+(?:\?review=1)?|cases|private-places)?(?:\?tab=[a-z]+)?$/.test(path)
     ? path as Href : "/account";
 }
+/** Explore searching for a dish on menus, as if typed (the game's and the recipe page's Find It Nearby). */
+export const openNearby = (term: string) => router.push({ pathname: "/", params: { q: term } });
 export function goBack(fallback: Href = "/") {
   if (router.canGoBack()) router.back(); else router.replace(fallback);
 }

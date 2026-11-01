@@ -57,6 +57,7 @@ const en = {
   stepNumber: "Step {n}",
   stepLabel: "Step {n}: {title}",
   noAlliumVersion: "No-Allium Version",
+  findDishNearby: "Find {dish} Nearby",
   privateNote: "Private Note",
   myRecipe: "My Recipe",
   openingRecipe: "Opening Recipe",

@@ -1,7 +1,7 @@
 import { BodyError, readSmallJson } from "../../server/read-json";
 import { object } from "../../server/google-provider";
 import { addSavedIds, discoveryInput } from "../../server/discovery-input";
-import { dishSuggestions, placeSuggestions } from "../../server/venue-catalogue";
+import { dishSuggestions, placeSuggestions, recipeDish } from "../../server/venue-catalogue";
 import { hiddenPlaces, staffContent } from "../../server/staff-content";
 import { closedVenues } from "../../server/editorial-content";
 import { localEnabled } from "../../server/local-explore/store";
@@ -23,9 +23,7 @@ export async function POST(request: Request) {
   if (!query || !search || !addSavedIds(search, (input as Record<string, unknown>).search))
     return Response.json({ error: "Enter 2–100 characters in a valid search." }, { status: 400, headers });
   try {
-    const withdrawn = await localEnabled() ? await readLocalMenuWithdrawals() : new Set<string>();
-    const staff = await staffContent();
-    for (const id of [...hiddenPlaces(staff), ...closedVenues()]) withdrawn.add(id);
+    const staff = await staffContent(), withdrawn = await unlisted(staff);
     const terms = dishSuggestions(query, search, withdrawn, staff);
     // Shop names are an extra: a problem there leaves the dish suggestions in place.
     let places: ReturnType<typeof placeSuggestions> = [];
@@ -34,4 +32,22 @@ export async function POST(request: Request) {
   } catch {
     return Response.json({ error: "Dish suggestions are unavailable." }, { status: 503, headers });
   }
+}
+
+/** The dish a recipe's name names and how many places list it on their menus, for Find It Nearby on the recipe page; null when none does. */
+export async function GET(request: Request) {
+  const name = new URL(request.url).searchParams.get("recipe")?.trim();
+  if (!name || name.length > 160) return Response.json({ error: "Enter a recipe name." }, { status: 400, headers });
+  try {
+    const staff = await staffContent();
+    return Response.json({ dish: recipeDish(name, await unlisted(staff), staff) }, { headers });
+  } catch {
+    return Response.json({ error: "Places are unavailable." }, { status: 503, headers });
+  }
+}
+/** Places Explore never lists: locally withdrawn menus, staff-hidden and closed places. */
+async function unlisted(staff: Awaited<ReturnType<typeof staffContent>>) {
+  const withdrawn = await localEnabled() ? await readLocalMenuWithdrawals() : new Set<string>();
+  for (const id of [...hiddenPlaces(staff), ...closedVenues()]) withdrawn.add(id);
+  return withdrawn;
 }

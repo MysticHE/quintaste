@@ -18,6 +18,8 @@ import { ensureMember, useMember } from "../CommunityGate";
 import { nextTier, useKitchen } from "../../hooks/useKitchen";
 import { MakeLevelAction } from "./MakeLevel";
 import { useLanguage, useT } from "../../i18n";
+import { useRecipeDish } from "../../hooks/useRecipeDish";
+import { openNearby } from "../../utils/navigation";
 
 /** Like, share, save, play and (on another member's recipe) report, for the recipe page header. */
 export function RecipeActions({ recipe, onShareFailed }: { recipe: Recipe; onShareFailed: (text: string) => void }) {
@@ -65,6 +67,7 @@ export function RecipeOverview({ recipe, shareFallback, clearShareFallback }: { 
     {!!recipe.description && <T variant="small" muted>{recipe.description}</T>}
     {!!creator && <T variant="caption" muted>{t("videoBy", { creator })}</T>}
     {recipe.member?.shop && <AuthorShop author={recipe.author} shop={recipe.member.shop} />}
+    <FindNearby name={recipe.name} />
     {!!result.conflicts.length && <T variant="small" color={theme.warning}>{t("containsList", { list: exclusionList(result.conflicts, language) })}</T>}
     {!!shareFallback && <View style={{ gap: 6 }}><T variant="small">{t("shareFailed")}</T><T selectable>{shareFallback}</T><IconButton label={t("closeShareText")} icon="close" onPress={clearShareFallback} /></View>}
   </View>;
@@ -82,9 +85,20 @@ function AuthorShop({ author, shop }: { author: string; shop: { id: string; name
     <T variant="small" numberOfLines={1} style={{ flexShrink: 1 }}>{t("authorShopLine", { author })}<T variant="small" color={theme.accent} style={common.bold}>{shop.name}</T></T>
   </Pressable>;
 }
+/** Explore searching menus for the dish this recipe makes; shown only once some listed place serves it. */
+function FindNearby({ name }: { name: string }) {
+  const { theme } = usePreferences(), t = useT("cook"), found = useRecipeDish(name);
+  if (!found) return null;
+  return <Pressable accessibilityRole="link" accessibilityLabel={t("findDishNearby", { dish: found.dish })} onPress={() => openNearby(found.dish)}
+    style={({ pressed }) => [common.row, s.link, { opacity: pressed ? 0.7 : 1 }]}>
+    <Icon name="location-outline" size={16} color={theme.accent} />
+    <T variant="small" numberOfLines={1} color={theme.accent} style={[common.bold, { flexShrink: 1 }]}>{t("findDishNearby", { dish: found.dish })}</T>
+  </Pressable>;
+}
 const s = StyleSheet.create({
   overview: { gap: 10 },
   hero: { width: "100%", aspectRatio: 16 / 9, maxHeight: 240, borderRadius: 18 },
   heading: { gap: 6 },
   facts: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", columnGap: 12, rowGap: 6 },
+  link: { gap: 6, minHeight: 48, alignSelf: "flex-start" },
 });

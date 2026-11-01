@@ -40,6 +40,8 @@ export type CatalogueVenue = MenuSummary & {
   /** The place's phone number (place page only), from data/menus/catalogue-phones.json: where it came from and when it was checked. */
   contact?: CatalogueContact;
 };
+/** The dish a recipe's name names and how many Veg Kitchen places serve it (GET /api/dish-search?recipe=). */
+export type RecipeDish = { dish: string; places: number };
 /** "+65 6123 4567" or "1800 123 4567". */
 export type CatalogueContact = { phone: string; source: "website" | "research" | "google-maps"; sourceUrl?: string; checkedAt: string };
 export type CataloguePage = {

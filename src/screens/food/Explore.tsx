@@ -34,13 +34,14 @@ export function ExploreScreen() {
   const now = useMinuteClock(), { input, locationExpired, privateMissing, privateKind, point, searchPlaces } = useDiscoveryInput(now);
   const nearby = useNearbyLocation(), { ensure } = discovery;
   const eligible = ready && !privateMissing && !locationExpired;
-  // Find it nearby (the game's bridges, GAME_PLAN §11): /?q=laksa runs the same search as typing it, once.
+  // Find it nearby (the game's bridges, GAME_PLAN §11, and recipe pages): /?q=laksa runs the same search as typing it, once,
+  // in the Veg Kitchen list, which is what the recipe page's link counted.
   const { q } = useLocalSearchParams<{ q?: string }>();
   useEffect(() => {
     if (typeof q !== "string" || !ready || !readable) return;
     router.setParams({ q: undefined });
     const term = q.trim().slice(0, 80);
-    if (term) searchPlaces(term);
+    if (term) { discovery.setMixed(false); searchPlaces(term); }
   }, [q, ready, readable]); // eslint-disable-line react-hooks/exhaustive-deps
   useFocusEffect(useCallback(() => {
     const refresh = () => { if (eligible && AppState.currentState !== "background" && AppState.currentState !== "inactive") ensure(input); };

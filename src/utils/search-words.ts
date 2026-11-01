@@ -28,9 +28,9 @@ const variants: [string, string[]][] = [
 const canonical = new Map(variants.flatMap(([word, spellings]) => spellings.map(spelling => [spelling, word] as const)));
 const pattern = new RegExp("(^| )(" + [...canonical.keys()].sort((a, b) => b.length - a.length).join("|") + ")(?= |$)", "g");
 
-/** Text as search compares it: no case, accents or punctuation, and one spelling per dish. */
+/** Text as search compares it: no case, accents or punctuation, "&" read as "and", and one spelling per dish. */
 export function searchWords(value: string) {
-  const plain = value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  const plain = value.normalize("NFKD").replace(/\p{M}/gu, "").replace(/&/g, " and ").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
   return plain.replace(pattern, (_, space: string, word: string) => space + canonical.get(word));
 }
 
