@@ -66,6 +66,8 @@ export function readCatalogueVenue(value: unknown): CatalogueVenue {
   if (v.matchCount !== undefined && (!Number.isSafeInteger(v.matchCount) || v.matchCount < 2 || v.matchCount > 999)) throw new Error("Invalid dish match");
   if (v.priceRange !== undefined && (!v.priceRange || !Number.isSafeInteger(v.priceRange.low) || !Number.isSafeInteger(v.priceRange.high)
     || v.priceRange.low < 1 || v.priceRange.high < v.priceRange.low || v.priceRange.high > 1000)) throw new Error("Invalid price range");
+  if (v.contact !== undefined && (!v.contact || !/^(\+65 [3689]\d{3} \d{4}|1800 \d{3} \d{4})$/.test(v.contact.phone)
+    || !["website", "research", "google-maps"].includes(v.contact.source) || !validDate(v.contact.checkedAt))) throw new Error("Invalid phone number");
   if (v.photo !== undefined) readCataloguePhoto(v.photo);
   if (v.hours !== undefined) readCatalogueHours(v.hours);
   if (v.research) {

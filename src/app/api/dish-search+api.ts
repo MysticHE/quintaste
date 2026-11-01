@@ -1,7 +1,7 @@
 import { BodyError, readSmallJson } from "../../server/read-json";
 import { object } from "../../server/google-provider";
 import { addSavedIds, discoveryInput } from "../../server/discovery-input";
-import { dishSuggestions } from "../../server/venue-catalogue";
+import { dishSuggestions, placeSuggestions } from "../../server/venue-catalogue";
 import { hiddenPlaces, staffContent } from "../../server/staff-content";
 import { closedVenues } from "../../server/editorial-content";
 import { localEnabled } from "../../server/local-explore/store";
@@ -10,8 +10,8 @@ import { locationQuery } from "../../utils/location-search";
 
 const headers = { "Cache-Control": "private, no-store" };
 /**
- * Dish names for Explore's search box while a member types, from the published menus of the places the same search (tab,
- * labels, area) may list; no outside service. POST keeps private coordinates out of URLs; the server's per-member read
+ * Dish names and place names for Explore's search box while a member types, from the places (and their published menus)
+ * the same search (tab, labels, area) may list; no outside service. POST keeps private coordinates out of URLs; the server's per-member read
  * limit applies (server/api-rate-limits.mjs).
  */
 export async function POST(request: Request) {
@@ -26,7 +26,11 @@ export async function POST(request: Request) {
     const withdrawn = await localEnabled() ? await readLocalMenuWithdrawals() : new Set<string>();
     const staff = await staffContent();
     for (const id of [...hiddenPlaces(staff), ...closedVenues()]) withdrawn.add(id);
-    return Response.json({ terms: dishSuggestions(query, search, withdrawn, staff) }, { headers });
+    const terms = dishSuggestions(query, search, withdrawn, staff);
+    // Shop names are an extra: a problem there leaves the dish suggestions in place.
+    let places: ReturnType<typeof placeSuggestions> = [];
+    try { places = placeSuggestions(query, search, withdrawn, staff); } catch { places = []; }
+    return Response.json({ terms, places }, { headers });
   } catch {
     return Response.json({ error: "Dish suggestions are unavailable." }, { status: 503, headers });
   }

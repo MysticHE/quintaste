@@ -1,5 +1,6 @@
 import { FlashList, type FlashListProps, type FlashListRef, type ListRenderItem } from "@shopify/flash-list";
-import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
+import { useFocusEffect } from "expo-router";
+import { createContext, useCallback, useContext, useEffect, useRef, type ReactNode } from "react";
 import { View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native";
 import { FEED_GAP, SCREEN_GUTTER } from "../theme/layout";
 
@@ -14,6 +15,8 @@ export type ScreenListFrame = {
   setScroller: (scroll: ((animated: boolean) => void) | null) => void;
   /** A list that has just appeared (another tab, new results) starts with the top bar and dock showing. */
   reveal: () => void;
+  /** Shows or hides the screen's back-to-top button (lists with `scrollButton`). */
+  setScrollButton: (show: boolean) => void;
 };
 export const ScreenListContext = createContext<ScreenListFrame | null>(null);
 /** The space between a page's items, as the scrolling page spaces its children (`common.stack`). */
@@ -39,6 +42,8 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
   feedGap?: boolean;
   /** The items belong to the previous search while the new one loads: they stay put, faded, instead of collapsing. */
   dimmed?: boolean;
+  /** A back-to-top button appears once the list is scrolled well down (long feeds such as Explore). */
+  scrollButton?: boolean;
 };
 
 /**
@@ -46,15 +51,39 @@ type Props<T> = Omit<FlashListProps<T>, "ListHeaderComponent" | "ListFooterCompo
  * switching a tab or filter mounts a handful of cards rather than every card at once. It keeps the screen's sliding top bar,
  * dock, padding and scroll-to-top. Outside such a Screen it lays the items out in place (no virtualisation) instead of failing.
  */
-export function ScreenList<T>({ header, headerBleed, footer, columnGap = 0, rowGap, feedGap = false, dimmed = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
+export function ScreenList<T>({ header, headerBleed, footer, columnGap = 0, rowGap, feedGap = false, dimmed = false, scrollButton = false, renderItem, numColumns = 1, data, ...props }: Props<T>) {
   const frame = useContext(ScreenListContext), list = useRef<FlashListRef<T>>(null);
-  const setScroller = frame?.setScroller, reveal = frame?.reveal;
+  const setScroller = frame?.setScroller, reveal = frame?.reveal, setScrollButton = frame?.setScrollButton;
+  const offset = useRef(0), height = useRef(0), saved = useRef({ offset: 0, shown: "" }), buttonShown = useRef(false);
+  // Which results are on screen: a new search while away (the same list, new data) starts at the top instead.
+  const shown = useRef(""), keyOf = props.keyExtractor, signature = data.length + ":" + (data.length ? keyOf?.(data[0], 0) ?? "" : "");
+  useEffect(() => { shown.current = signature; }, [signature]);
   useEffect(() => {
     if (!setScroller || !reveal) return;
     setScroller(animated => list.current?.scrollToOffset({ offset: 0, animated }));
     reveal();
     return () => setScroller(null);
   }, [setScroller, reveal]);
+  const showButton = useCallback((show: boolean) => {
+    if (!scrollButton || show === buttonShown.current) return;
+    buttonShown.current = show; setScrollButton?.(show);
+  }, [scrollButton, setScrollButton]);
+  useEffect(() => () => { if (buttonShown.current) setScrollButton?.(false); }, [setScrollButton]);
+  // Coming back from a place (or any page above) continues where the member was: the position is noted on leaving and put
+  // back on return, since the hidden screen may lose it (the web hides it with display:none, which resets its scroll).
+  useFocusEffect(useCallback(() => {
+    const back = saved.current.shown === shown.current ? saved.current.offset : 0, frameId = back > 0 ? requestAnimationFrame(() => {
+      if (Math.abs(offset.current - back) > 4) list.current?.scrollToOffset({ offset: back, animated: false });
+    }) : 0;
+    return () => { if (frameId) cancelAnimationFrame(frameId); saved.current = { offset: offset.current, shown: shown.current }; };
+  }, []));
+  const frameScroll = frame?.onScroll, frameLayout = frame?.onLayout;
+  const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    offset.current = event.nativeEvent.contentOffset.y;
+    showButton(offset.current > Math.max(800, height.current * 1.5));
+    frameScroll?.(event);
+  }, [frameScroll, showButton]);
+  const onLayout = useCallback((event: LayoutChangeEvent) => { height.current = event.nativeEvent.layout.height; frameLayout?.(event); }, [frameLayout]);
   const gap = frame?.gap ?? LIST_GAP, half = columnGap / 2, grid = numColumns > 1;
   // Every cell keeps the same wrapper, so fading old results changes a style, never the element: the cards are not rebuilt.
   const cell: ListRenderItem<T> = info => <View style={[grid && { paddingHorizontal: half, paddingBottom: rowGap ?? gap }, { opacity: dimmed ? 0.55 : 1 }]}>
@@ -76,7 +105,7 @@ export function ScreenList<T>({ header, headerBleed, footer, columnGap = 0, rowG
     ListHeaderComponent={top} ListFooterComponent={bottom} ItemSeparatorComponent={grid ? null : feedGap ? FeedGap : Separator}
     // Near the top, content that grows above the items (a notice, a chip row) stays in view; further down, the visible item holds still.
     maintainVisibleContentPosition={{ autoscrollToTopThreshold: 32 }}
-    onScroll={frame.onScroll} onLayout={frame.onLayout} onContentSizeChange={frame.onContentSizeChange} scrollEventThrottle={64}
+    onScroll={onScroll} onLayout={onLayout} onContentSizeChange={frame.onContentSizeChange} scrollEventThrottle={64}
     keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} />;
 }
 // An edge-to-edge feed's notices and buttons sit on the screen gutter, clear of the top bar (as the page's own 8-point top

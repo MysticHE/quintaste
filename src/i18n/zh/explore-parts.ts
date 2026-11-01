@@ -59,6 +59,7 @@ const zh: typeof en = {
 
   actionFailed: "你的设备无法执行这个操作。",
   call: "致电",
+  callPlace: "致电{name}，{phone}",
   shareUnavailableBelow: "系统分享不可用，公开链接显示在下方。",
   shareThisPlace: "分享这家店",
   openSystemShare: "打开系统分享",
@@ -79,9 +80,10 @@ const zh: typeof en = {
   tryLocationAgain: "再次尝试定位",
   keepCurrentSearch: "保留目前搜索",
   placeOrPostal: "地点或邮区编号",
-  placeDishOrPostal: "地点、菜色或邮区编号",
-  searchDishOrPlaceA11y: "按菜色、店名、地址或邮区编号搜索",
+  placeDishOrPostal: "店名、菜色或邮区编号",
+  searchDishOrPlaceA11y: "按店名、菜色、地址或邮区编号搜索",
   dishSuggestion: "菜色",
+  placeSuggestion: "店铺",
   searchThisPlace: "搜索这个地点或邮区编号",
   privateAddressA11y: "私人地址或邮区编号",
   searchByA11y: "按店名、地址或邮区编号搜索",
@@ -91,6 +93,7 @@ const zh: typeof en = {
   retryLocationSuggestions: "重新获取位置建议",
   matchingLocations: "相符的地点",
   matchingDishesAndLocations: "相符的菜色和地点",
+  matchingPlacesAndMore: "相符的店、菜色和地点",
 
   menuCategoriesA11y: "菜单类别，可多选",
   allDishes: "全部菜色",

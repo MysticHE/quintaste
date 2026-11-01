@@ -1,7 +1,7 @@
 import { useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { DiscoverySearch } from "../types/discovery";
-import type { LocationSuggestion, SearchSuggestion } from "../types/location-search";
+import type { LocationSuggestion, PlaceSuggestion, SearchSuggestion } from "../types/location-search";
 import { searchWords } from "../utils/search-words";
 import { locationQuery } from "../utils/location-search";
 import { fetchLocationSuggestions, useLocationSuggestions } from "./useLocationSuggestions";
@@ -10,8 +10,9 @@ import { useSuggestionKeys } from "./useSuggestionKeys";
 import { useLanguage } from "../i18n";
 import { exploreText, problemText } from "../utils/location-feedback";
 
+/** `onPlace` opens a place chosen from its name; Enter never jumps to one place but searches names, dishes and locations. */
 export function useLocationSearchControl(value: string, onChoose: (item: LocationSuggestion) => void,
-  onSearch?: (query: string) => void, addressesOnly = false, dishScope?: DiscoverySearch) {
+  onSearch?: (query: string) => void, addressesOnly = false, dishScope?: DiscoverySearch, onPlace?: (item: PlaceSuggestion) => void) {
   const [resolving, setResolving] = useState(false), [submitError, setSubmitError] = useState(""), language = useLanguage();
   // A recent entry can be submitted without changing the parent's value (which cancels pending requests).
   // Keep that text visible and retryable until the user edits it or leaves the screen.
@@ -38,7 +39,7 @@ export function useLocationSearchControl(value: string, onChoose: (item: Locatio
   }, [setOpen, keepOpen]));
   const choose = (item: SearchSuggestion) => {
     cancel(); keepOpen(); setOpen(false); setResolving(false);
-    if (item.kind === "dish") onSearch?.(item.name); else onChoose(item);
+    if (item.kind === "dish") onSearch?.(item.name); else if (item.kind === "place") onPlace?.(item); else onChoose(item);
   };
   const changed = () => { cancel(); setSubmittedText(null); setIndex(-1); setSubmitError(""); setResolving(false); setOpen(true); };
   const submit = async (submittedValue = displayValue) => {
@@ -48,7 +49,9 @@ export function useLocationSearchControl(value: string, onChoose: (item: Locatio
     if (!submittedValue.trim() && onSearch) { setOpen(false); onSearch(""); return; }
     if (!query) { setSubmitError("enterTwoChars"); setOpen(true); return; }
     if (sameValue && suggestions[index]) { choose(suggestions[index]); return; }
-    if (sameValue && suggestions.length && !looking) { choose(suggestions[0]); return; }
+    // With shops among the suggestions, Enter searches the typed words (every matching shop) rather than one row below them.
+    if (sameValue && onSearch && !looking && suggestions.some(item => item.kind === "place")) { setOpen(false); onSearch(submittedValue.trim()); return; }
+    if (sameValue && suggestions[0] && !looking) { choose(suggestions[0]); return; }
     cancel(); keepOpen();
     const controller = new AbortController(); active.current = controller;
     const timeout = setTimeout(() => controller.abort(), 10000);
@@ -62,7 +65,8 @@ export function useLocationSearchControl(value: string, onChoose: (item: Locatio
       // A failed location lookup still lets a dish match through; with no dish it reports the failure as before.
       if (failure !== undefined && !dishFound[0]) throw failure;
       const matches = ordered(addressesOnly ? found.suggestions.filter(item => item.kind === "address") : found.suggestions, dishFound, submittedValue);
-      if (matches[0]) choose(matches[0]);
+      if (onSearch && matches.some(item => item.kind === "place")) { setOpen(false); onSearch(submittedValue.trim()); }
+      else if (matches[0]) choose(matches[0]);
       else if (/^\d+$/.test(query)) setSubmitError(query.length === 6 ? "noPostalAddress" : "enterSixDigit");
       else if (onSearch) { setOpen(false); onSearch(submittedValue.trim()); }
       else setSubmitError("noMatchingLocations");

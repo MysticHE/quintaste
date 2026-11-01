@@ -84,6 +84,8 @@ function CataloguePlaceDetail({ id }: { id: string }) {
       </View>
       <View testID="place-primary-actions" style={s.actions}>
         <PlaceDetailAction inline variant="primary" label={t("directions")} icon="navigate-outline" onPress={() => void open(directions)} />
+        {!!venue.contact && <PlaceDetailAction inline variant="secondary" label={t("call")} icon="call-outline"
+          accessibleLabel={t("callPlace", { name: venue.name, phone: venue.contact.phone })} onPress={() => void open("tel:" + venue.contact!.phone.replace(/\s/g, ""))} />}
         {venue.itemCount > 0 && <PlaceDetailAction inline variant="secondary" label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })} onPress={() => router.push({ pathname: "/menu/[id]", params: search ? { id: venue.id, q: search } : { id: venue.id } } as never)} />}
         <PlaceDetailAction inline label={tc(saved ? "saved" : "save")} accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} icon={saved ? "bookmark" : "bookmark-outline"}
           selected={saved} disabled={!readable || saving} onPress={() => void save()} />

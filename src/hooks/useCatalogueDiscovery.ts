@@ -47,8 +47,14 @@ export function useCatalogueDiscovery() {
     active.current?.abort(); active.current = null; activeKey.current = key;
     const display = (page: CataloguePage) => {
       const previous = current.current;
+      // A refresh of the first page for the same search keeps the pages already loaded with Load more, so returning to
+      // Explore after a while does not cut the list back and lose the member's place in it.
+      const refresh = !cursor && previous && currentSearch.current && previous.revision === page.revision
+        && catalogueRequestKey(currentSearch.current) === catalogueRequestKey(search) && previous.venues.length > page.venues.length;
       const merged = cursor && previous?.revision === page.revision
-        ? { ...page, venues: [...new Map([...previous.venues, ...page.venues].map(v => [v.id, v])).values()] } : page;
+        ? { ...page, venues: [...new Map([...previous.venues, ...page.venues].map(v => [v.id, v])).values()] }
+        : refresh ? { ...previous, ...page, venues: [...new Map([...page.venues, ...previous.venues].map(v => [v.id, v])).values()], nextCursor: previous.nextCursor }
+        : page;
       current.current = merged; currentSearch.current = search; setCatalogue(merged); setAccepted(search);
     };
     setRequested(search); setError("");

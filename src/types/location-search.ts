@@ -7,4 +7,6 @@ export type LocationSuggestion = SuggestionLabel & (
 export type LocationSearchResult = { suggestions: LocationSuggestion[]; warning?: string };
 /** A dish name offered above the locations in Explore's search box; choosing it searches for places serving it. */
 export type DishSuggestion = SuggestionLabel & { kind: "dish" };
-export type SearchSuggestion = LocationSuggestion | DishSuggestion;
+/** A vegetarian or vegan place whose name matches what is typed; `id` is its catalogue id and choosing it opens the place. */
+export type PlaceSuggestion = SuggestionLabel & { kind: "place" };
+export type SearchSuggestion = LocationSuggestion | DishSuggestion | PlaceSuggestion;

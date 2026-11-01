@@ -51,6 +51,7 @@ const en = {
   minutes: (v: Vars) => String(v.n) + " min",
 
   goBack: "Go back",
+  backToTop: "Back to top",
   goBackAction: "Go Back",
   dismissMessage: "Dismiss message",
   retrySavingPreferences: "Retry saving preferences",

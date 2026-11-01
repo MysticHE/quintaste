@@ -2,8 +2,9 @@ import { createHash } from "node:crypto";
 import index from "../../data/menus/catalogue-index.json";
 import aliases from "../../data/menus/catalogue-aliases.json";
 import previews from "../../data/menus/catalogue-photo-previews.json";
+import phones from "../../data/menus/catalogue-phones.json";
 import { areas } from "../data/areas";
-import type { CataloguePage, CatalogueVenue } from "../types/catalogue";
+import type { CatalogueContact, CataloguePage, CatalogueVenue } from "../types/catalogue";
 import type { DiscoverySearch } from "../types/discovery";
 import { distanceKm } from "../utils/discovery-search";
 import { editorialContent, editorialPlaces, editorialPlaceVenue, editorialVenue } from "./editorial-content";
@@ -11,6 +12,7 @@ import { editorialPlaceIds, menuSummary, staffMenu, staffPlaceIds } from "./menu
 import type { StaffContent, StaffPlaceData } from "../types/staff-content";
 import type { MenuItem } from "../types/menus";
 import { matchTier, searchWords } from "../utils/search-words";
+import { shortAddress } from "../utils/location-search";
 import { dishTerms } from "./dish-search";
 import type { PlaceSignals } from "./place-signals";
 import { openState } from "../utils/catalogue-hours";
@@ -28,6 +30,9 @@ function withPreview(venue: CatalogueVenue): CatalogueVenue {
   const sha = venue.photo?.path.match(/([a-f0-9]{64})\.jpg$/)?.[1], thumbhash = sha ? photoPreviews[sha] : undefined;
   return thumbhash && venue.photo ? { ...venue, photo: { ...venue.photo, thumbhash } } : venue;
 }
+/** Phone numbers from our records (owner, 1 Nov 2026), added to the place page only so Explore's pages stay small. */
+const contacts = phones.places as Record<string, CatalogueContact>;
+const withContact = (venue: CatalogueVenue): CatalogueVenue => contacts[venue.id] ? { ...venue, contact: contacts[venue.id] } : venue;
 const hiddenAliases = new Map(aliases.entries.filter(alias => {
   const old = catalogue.find(venue => venue.id === alias.aliasId), next = catalogue.find(venue => venue.id === alias.canonicalId);
   return old?.name === alias.name && next?.name === alias.name && old?.address === alias.address && next?.address === alias.address;
@@ -108,7 +113,7 @@ export function catalogueVenue(id: string, withdrawn: ReadonlySet<string>, staff
   const venue = catalogue.find(venue => venue.id === id), content = editorialContent(), place = venue ? undefined : editorialPlaces(content).get(id);
   const base = venue ? editorialVenue(venue, true, content) : place ? editorialPlaceVenue(place, true) : undefined;
   const found = kitchenVenue(staffVenue(id, base, staff, content), staff, content);
-  return found && withPreview(withPriceRange(found, staff, content));
+  return found && withContact(withPreview(withPriceRange(found, staff, content)));
 }
 
 const hiddenAliasEntries = [...hiddenAliases];
@@ -297,4 +302,32 @@ export function dishSuggestions(query: string, search: DiscoverySearch, withdraw
   if (terms.byQuery.size >= 200) terms.byQuery.delete(terms.byQuery.keys().next().value!);
   terms.byQuery.set(scope, found);
   return found;
+}
+/** A place offered in Explore's search box: its catalogue id, name and the street part of its address. */
+export type PlaceSuggestion = { id: string; name: string; address: string };
+let named: { key: string; byQuery: Map<string, PlaceSuggestion[]> } = { key: "", byQuery: new Map() };
+/**
+ * Places whose name (or a known alias) matches what a member is typing, among those the same search (tab, labels, area) may
+ * list at any hour: whole-word matches before partial ones, then by name. Up to five; the box shows them above dishes.
+ */
+export function placeSuggestions(query: string, search: DiscoverySearch, withdrawn: ReadonlySet<string>, staff = noStaff): PlaceSuggestion[] {
+  const content = editorialContent(), q = searchWords(query);
+  if (!q) return [];
+  // Cached like dish suggestions: per catalogue revision, for the same search (tab, labels, area) and typed words.
+  search = { ...search, query: "", openNow: undefined, sort: undefined };
+  const key = hash([staff.catalogueRevision, content.revision, [...withdrawn].sort()]), scope = hash({ ...search, origin: search.origin
+    ? { latitude: search.origin.latitude, longitude: search.origin.longitude } : undefined }) + ":" + q;
+  if (named.key !== key) named = { key, byQuery: new Map() };
+  const cached = named.byQuery.get(scope);
+  if (cached) return cached;
+  const found: { tier: number; venue: CatalogueVenue }[] = [];
+  for (const { listing, venue } of eligibleVenues(search, withdrawn, staff, content)) {
+    const tier = listing.names.reduce((low, name) => { const at = matchTier(name, q); return at >= 0 && (low < 0 || at < low) ? at : low; }, -1);
+    if (tier >= 0) found.push({ tier, venue });
+  }
+  const places = found.sort((a, b) => a.tier - b.tier || a.venue.name.localeCompare(b.venue.name)).slice(0, 5)
+    .map(({ venue }) => ({ id: "catalogue-" + venue.id, name: venue.name, address: shortAddress(venue.address) }));
+  if (named.byQuery.size >= 200) named.byQuery.delete(named.byQuery.keys().next().value!);
+  named.byQuery.set(scope, places);
+  return places;
 }

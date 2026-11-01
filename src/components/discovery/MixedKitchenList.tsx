@@ -6,6 +6,7 @@ import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { matchedDish } from "../../utils/menu-display";
+import { shortAddress } from "../../utils/location-search";
 import { useDiscovery } from "../../state/Discovery";
 import { dishCount, isVegOptions, placeLabels, placeTileIcon } from "../../utils/venue-kitchen";
 import { useLanguage, useT } from "../../i18n";
@@ -16,7 +17,6 @@ import { useOpenStatus } from "../../hooks/useOpenStatus";
 import { FocusOutline } from "../FocusOutline";
 
 /** The address without its trailing "Singapore 123456": the row has one line, and every place is in Singapore. */
-const shortAddress = (address: string) => address.replace(/,?\s*singapore\s*\d{6}\s*$/i, "").trim() || address;
 
 /**
  * Explore results without a cover photo (owner, 28 Oct 2026): one compact row each, the same on both kitchen tabs. A tap opens the

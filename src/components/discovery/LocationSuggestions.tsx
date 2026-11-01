@@ -22,8 +22,8 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
       nestedScrollEnabled style={s.scroll} showsVerticalScrollIndicator={false}>
       {busy && <View style={s.status}><ActivityIndicator size="small" color={theme.accent} accessibilityLabel={t("findingLocations")} />
         <T variant="small" muted accessibilityLiveRegion="polite">{t("findingLocationsNow")}</T></View>}
-      <SuggestionList id={id} label={t(suggestions.some(item => item.kind === "dish") ? "matchingDishesAndLocations" : "matchingLocations")}>{suggestions.map((item, position) => <Pressable key={item.id} nativeID={id + "-" + position} role="option"
-        accessibilityLabel={[item.name, item.kind === "dish" ? t("dishSuggestion") : addressLine(item)].filter(Boolean).join(", ")} accessibilityState={{ selected: position === index }}
+      <SuggestionList id={id} label={t(suggestions.some(item => item.kind === "place") ? "matchingPlacesAndMore" : suggestions.some(item => item.kind === "dish") ? "matchingDishesAndLocations" : "matchingLocations")}>{suggestions.map((item, position) => <Pressable key={item.id} nativeID={id + "-" + position} role="option"
+        accessibilityLabel={[item.name, item.kind === "dish" ? t("dishSuggestion") : item.kind === "place" ? t("placeSuggestion") : addressLine(item)].filter(Boolean).join(", ")} accessibilityState={{ selected: position === index }}
         {...(Platform.OS === "web" ? { "aria-selected": position === index } : {})}
         onLayout={event => {
           const y = event.nativeEvent.layout.y; rows.current.set(item.id, y);
@@ -34,9 +34,11 @@ export function LocationSuggestions({ id, suggestions, busy, error, index, choos
         onFocus={() => { keepOpen(); setHover(position); }} onBlur={() => setHover(-1)}
         style={({ pressed }) => [s.option, { backgroundColor: pressed || position === hover || position === index
           ? theme.accentSoft : theme.card }]}>
-        <Icon name={item.kind === "dish" ? "restaurant-outline" : item.kind === "area" ? "map-outline" : "location-outline"} size={18} />
+        <Icon name={item.kind === "place" ? "storefront-outline" : item.kind === "dish" ? "restaurant-outline" : item.kind === "area" ? "map-outline" : "location-outline"} size={18}
+          color={item.kind === "place" ? theme.accent : undefined} />
         <View style={common.flex}><T variant="small" style={common.bold}>{item.name}{" "}</T>
-          {(item.kind === "dish" || !!addressLine(item)) && <T variant="caption" muted>{item.kind === "dish" ? t("dishSuggestion") : addressLine(item)}</T>}</View>
+          {item.kind === "place" ? !!item.address && <T variant="caption" muted numberOfLines={1}>{item.address}</T>
+            : (item.kind === "dish" || !!addressLine(item)) && <T variant="caption" muted>{item.kind === "dish" ? t("dishSuggestion") : addressLine(item)}</T>}</View>
       </Pressable>)}</SuggestionList>
       {!busy && !suggestions.length && !error && <T variant="small" muted style={s.status} accessibilityLiveRegion="polite">
         {t("noMatchingLocations")}</T>}

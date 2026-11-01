@@ -37,7 +37,11 @@ export type CatalogueVenue = MenuSummary & {
   matchCount?: number;
   /** Typical dish price in whole SGD: the middle half of priced dishes (25th to 75th percentile), from three priced dishes up. */
   priceRange?: { low: number; high: number };
+  /** The place's phone number (place page only), from data/menus/catalogue-phones.json: where it came from and when it was checked. */
+  contact?: CatalogueContact;
 };
+/** "+65 6123 4567" or "1800 123 4567". */
+export type CatalogueContact = { phone: string; source: "website" | "research" | "google-maps"; sourceUrl?: string; checkedAt: string };
 export type CataloguePage = {
   version: 1;
   revision: string;

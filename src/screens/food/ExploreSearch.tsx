@@ -36,7 +36,9 @@ export function ExploreSearchScreen() {
   const finish = () => { Keyboard.dismiss(); goBack("/"); };
   const control = useLocationSearchControl(value, item => {
     recent.remember(item.name); choose(item); finish();
-  }, query => { recent.remember(query); searchPlaces(query, true); finish(); }, false, input);
+  }, query => { recent.remember(query); searchPlaces(query, true); finish(); }, false, input,
+  // A place picked by name opens straight away (Back returns to Explore, not to this search); recent searches stay typed words.
+  place => { finish(); router.push({ pathname: "/place/[id]", params: { id: place.id } } as never); });
   const expanded = control.open && (!!locationQuery(control.displayValue) || !!control.error);
   const submit = () => {
     if (!readable) return;

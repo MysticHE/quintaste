@@ -71,7 +71,7 @@ export function ExploreScreen() {
     {/* Each kitchen is its own list, so switching starts at the top with the bars showing. Only cards near the screen are drawn. */}
     <LocationFeedback nearby={nearby} />
     <View testID="explore-feed" style={common.flex}><OpenClock now={now}>
-    <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={reviews.data} feedGap
+    <ScreenList key={discovery.mixed ? "mixed" : "veg"} data={venues} keyExtractor={venue => venue.id} extraData={reviews.data} feedGap scrollButton
       // Rows and photo cards recycle in their own pools, so a scroll never rebuilds a row's cell as a card.
       getItemType={item => discovery.mixed || !item.photo?.path ? "row" : "card"}
       renderItem={({ item }) => discovery.mixed || !item.photo?.path

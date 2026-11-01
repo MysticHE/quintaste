@@ -51,6 +51,7 @@ const zh: typeof en = {
   minutes: v => String(v.n) + " 分钟",
 
   goBack: "返回",
+  backToTop: "回到顶部",
   goBackAction: "返回",
   dismissMessage: "关闭消息",
   retrySavingPreferences: "重试保存偏好",

@@ -3,6 +3,9 @@ import type { LocationSearchResult, LocationSuggestion } from "../types/location
 import { inSingapore } from "./discovery-search";
 import { ExploreError } from "./location-feedback";
 
+/** An address without its trailing "Singapore 123456" (the whole address when nothing else is left). */
+export const shortAddress = (address: string) => address.replace(/,?\s*singapore\s*\d{6}\s*$/i, "").trim() || address;
+
 export function locationQuery(value: unknown): string | undefined {
   if (typeof value !== "string" || value.length > 100 || /[\u0000-\u001f\u007f]/.test(value)) return;
   const query = value.trim().replace(/\s+/g, " ");

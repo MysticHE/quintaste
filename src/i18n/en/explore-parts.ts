@@ -59,6 +59,7 @@ const en = {
 
   actionFailed: "This action could not open on your device.",
   call: "Call",
+  callPlace: "Call {name}, {phone}",
   shareUnavailableBelow: "System sharing is unavailable. Your public link is shown below.",
   shareThisPlace: "Share This Place",
   openSystemShare: "Open System Share",
@@ -79,9 +80,10 @@ const en = {
   tryLocationAgain: "Try location again",
   keepCurrentSearch: "Keep current search",
   placeOrPostal: "Place or postal code",
-  placeDishOrPostal: "Place, dish or postal code",
-  searchDishOrPlaceA11y: "Search by dish, place name, address or postal code",
+  placeDishOrPostal: "Shop name, dish or postal code",
+  searchDishOrPlaceA11y: "Search by shop name, dish, address or postal code",
   dishSuggestion: "Dish",
+  placeSuggestion: "Shop",
   searchThisPlace: "Search this place or postal code",
   privateAddressA11y: "Private address or postal code",
   searchByA11y: "Search by place name, address or postal code",
@@ -91,6 +93,7 @@ const en = {
   retryLocationSuggestions: "Retry location suggestions",
   matchingLocations: "Matching locations",
   matchingDishesAndLocations: "Matching dishes and locations",
+  matchingPlacesAndMore: "Matching shops, dishes and locations",
 
   menuCategoriesA11y: "Menu categories, choose any",
   allDishes: "All dishes",

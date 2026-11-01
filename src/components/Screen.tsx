@@ -83,8 +83,10 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
   const setDockHidden = glass?.setHidden, showTop = top.show;
   const reveal = useCallback(() => { showTop(); setDockHidden?.(false); }, [showTop, setDockHidden]);
   const setScroller = useCallback((next: ((animated: boolean) => void) | null) => setScrollerState(() => next), []);
+  const [scrollButton, setScrollButton] = useState(false), tc = useT("common");
   const frame = useMemo<ScreenListFrame | null>(() => list ? { padding: { paddingTop, paddingBottom, paddingHorizontal: gutter }, gap: LIST_GAP,
-    onScroll, onLayout, onContentSizeChange, setScroller, reveal } : null, [list, paddingTop, paddingBottom, gutter, onScroll, onLayout, onContentSizeChange, setScroller, reveal]);
+    onScroll, onLayout, onContentSizeChange, setScroller, reveal, setScrollButton } : null,
+    [list, paddingTop, paddingBottom, gutter, onScroll, onLayout, onContentSizeChange, setScroller, reveal]);
   const body = <><View style={[common.stack, common.flex, compact && { gap: 12 }]}><ScrollTop.Provider value={scrollToTop}>{children}</ScrollTop.Provider></View>
     {footer && <View style={s.footer}>{footer}</View>}</>;
   // On a phone one gradient runs from the status bar to the bottom edge, so the bars and the page are the same colour.
@@ -107,6 +109,11 @@ export function Screen({ children, title, subtitle, back = true, footer, headerA
               contentContainerStyle={[s.content, compact && s.compact, contentStyle, contentInset !== undefined && { paddingHorizontal: contentInset }, { paddingTop, paddingBottom }]}
               showsVerticalScrollIndicator={false}>{body}</PhotoScrollView>}
         {floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>{floatingAction}</Pinned>}
+        {/* Back to top on long lists: centred above the dock, clear of the cards' like/save/share column at the right edge. */}
+        {frame && scrollButton && !floatingAction && <Pinned pointerEvents="box-none" style={{ position: "absolute", bottom: bottomSpace + 12, left: 0, right: 0, alignItems: "center" }}>
+          <Pressable accessibilityRole="button" accessibilityLabel={tc("backToTop")} onPress={scrollToTop} hitSlop={4}
+            style={({ pressed }) => [s.toTop, { backgroundColor: pressed ? theme.accentSoft : theme.card, borderColor: theme.border }]}>
+            <Icon name="arrow-up" size={22} color={theme.accent} /></Pressable></Pinned>}
         <Pinned pointerEvents="box-none" onLayout={event => setFeedbackHeight(event.nativeEvent.layout.height)}
           style={hasTabDock ? { position: "absolute", bottom: glass?.height ?? 0, left: 0, right: 0 } : undefined}>
           {timers && <TimerDock />}<FoodStorageBanner /><OfflineBanner /><NoticeBanner />{bottomBar}
@@ -194,6 +201,7 @@ function NoticeBanner() {
 }
 const s = StyleSheet.create({
   root: { flex: 1 },
+  toTop: { width: 48, height: 48, borderRadius: 24, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   safe: {
     flex: 1,
     alignItems: "center",
