@@ -7,6 +7,7 @@ import { readFuture, sgText } from './rules.mjs';
 import { photoUrl } from './profile.mjs';
 import { postLine } from './friends.mjs';
 import { notify } from '../community/push.mjs';
+import { currentDinnerSql, pairBusyError, pairSql } from './dinner-pair.mjs';
 
 export const dinners = express.Router();
 export const pays = ['split', 'host', 'own'];
@@ -63,6 +64,24 @@ dinners.get('/dinners', async (_req, res) => {
   const met = (await pool.query("SELECT count(*)::int AS n FROM social.dinner_report WHERE user_id=$1 AND met='yes'", [me])).rows[0].n;
   res.json({ upcoming: rows.filter(live).reverse(), past: rows.filter(row => !live(row)), met });
 });
+const historyPage = 20;
+/**
+ * The Dining tab's History, all time, newest first, 20 at a time (`offset`), optionally matching `q` against the place or
+ * the other person's name. Finished dinners only: never an invite or a confirmed dinner still ahead, nor one still waiting
+ * for you to say how it went (those show under Needs you).
+ */
+dinners.get('/dinners/history', async (req, res) => {
+  const me = res.locals.user.id, q = typeof req.query.q === 'string' ? req.query.q.trim().slice(0, 60) : '';
+  const offset = Math.min(Math.max(Number.parseInt(String(req.query.offset ?? '0'), 10) || 0, 0), 5000);
+  await expire(pool, me);
+  const like = q ? '%' + q.replace(/[\\%_]/g, '\\$&') + '%' : null;
+  const rows = (await pool.query(`SELECT ${view} FROM ${from} WHERE (d.host_id=$1 OR d.guest_id=$1) AND ${reachableSql('u.id', '$1')}
+    AND d.status <> 'invited' AND NOT (d.status='accepted' AND d.starts >= now())
+    AND NOT (d.status='accepted' AND d.starts > now() - ${reportWindow} AND NOT EXISTS (SELECT 1 FROM social.dinner_report r WHERE r.dinner_id=d.id AND r.user_id=$1))
+    AND ($2::text IS NULL OR d.place_name ILIKE $2 OR ${nameSql('p', 'u')} ILIKE $2)
+    ORDER BY d.starts DESC, d.id LIMIT ${historyPage + 1} OFFSET $3`, [me, like, offset])).rows.map(shape);
+  res.json({ items: rows.slice(0, historyPage), more: rows.length > historyPage });
+});
 /**
  * One dinner. After it, each person sees only their own report and the note the other person left for them. "Eat
  * together again" is never shown on its own: `again` is true only when both said yes.
@@ -79,7 +98,10 @@ dinners.get('/dinners/:id', async (req, res) => {
   res.json({ ...shape(row), again: row.again === true });
 });
 
-/** A 1-to-1 invitation: when, a catalogue place, who pays and an optional message. One open invitation per pair; five a day. */
+/**
+ * A 1-to-1 invitation: when, a catalogue place, who pays and an optional message. One dinner at a time per pair (an invite
+ * waiting or a confirmed dinner still ahead: change that one instead); five a day.
+ */
 dinners.post('/dinners', async (req, res) => {
   const me = res.locals.user.id, other = requireUser(req.body?.userId), b = req.body ?? {};
   if (other === me) throw new CommunityError(400, 'Choose a friend to invite.');
@@ -89,8 +111,8 @@ dinners.post('/dinners', async (req, res) => {
   const id = await transaction(async db => {
     await expire(db, me);
     await requirePair(db, me, other);
-    const open = await db.query(`SELECT 1 FROM social.dinner WHERE status='invited' AND ((host_id=$1 AND guest_id=$2) OR (host_id=$2 AND guest_id=$1))`, [me, other]);
-    if (open.rowCount) throw new CommunityError(409, 'There is already an invite waiting between you.');
+    const open = (await db.query(`SELECT d.status FROM social.dinner d WHERE ${currentDinnerSql('d')} AND ${pairSql('d', '$1', '$2')} LIMIT 1`, [me, other])).rows[0];
+    if (open) throw pairBusyError(open.status);
     if (await busyAt(db, me, starts)) throw busyError();
     const dinner = (await db.query(`INSERT INTO social.dinner(host_id, guest_id, place_id, place_name, starts, pay, message, waiting_on, expires_at)
       VALUES($1,$2,$3,$4,$5,$6,$7,$2,${openFor.replace('$starts', '$5')}) RETURNING id`, [me, other, place.id, venueText(place), starts, pay, message])).rows[0].id;
@@ -117,6 +139,10 @@ async function act(req, res, work) {
 dinners.post('/dinners/:id/accept', (req, res) => act(req, res, async (db, me, id) => {
   const dinner = await waitingOn(db, me, id);
   await requirePair(db, me, dinner.other);
+  // One dinner at a time per pair: an invite sent before that rule (1 Nov 2026) can't become a second confirmed dinner.
+  const ahead = await db.query(`SELECT 1 FROM social.dinner d WHERE d.id <> $3 AND d.status='accepted' AND ${currentDinnerSql('d')} AND ${pairSql('d', '$1', '$2')} LIMIT 1`,
+    [me, dinner.other, id]);
+  if (ahead.rowCount) throw pairBusyError('accepted');
   if (await busyAt(db, me, dinner.starts, id)) throw busyError();
   // The inviter may have said yes to another dinner at this time since sending it; they suggest a new time or cancel.
   if (await busyAt(db, dinner.other, dinner.starts, id)) throw new CommunityError(409, 'This time no longer works for them. Suggest another time.', 'SOCIAL_THEM_BUSY');

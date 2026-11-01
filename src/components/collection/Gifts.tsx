@@ -156,8 +156,13 @@ function GiftOpening({ open, onLike, onThanks, onReport, onClose }: {
   </Modal>;
 }
 
-/** A gift in a friend chat: the gift's name and where it stands (Tap to open, Opened, Liked), on your side or theirs. */
-export function GiftLine({ gift, mine, onPress }: { gift: GiftView | null | undefined; mine: boolean; onPress: () => void }) {
+/**
+ * A gift in a friend chat, never a still picture (owner, 1 Nov 2026): with `fx` (the chat's newest few) the full effects in its
+ * own colours (glow, light sweeping across, ring light and twinkles); otherwise light sweeps across with a star glint each time
+ * `pulse` changes (the chat's shared clock). Then its name and where it stands (Tap to open, Opened, Liked), on your side or
+ * theirs. Nothing moves with Reduce motion or while the chat is not on screen.
+ */
+export function GiftLine({ gift, mine, onPress, fx = true, pulse = 0 }: { gift: GiftView | null | undefined; mine: boolean; onPress: () => void; fx?: boolean; pulse?: number }) {
   const t = useT("collection"), giftName = useGiftName(), { theme } = usePreferences();
   if (!gift) return <T variant="small" muted style={[s.center, { paddingVertical: 4 }]}>{t("giftLineGone")}</T>;
   const waiting = !mine && !gift.opened, liked = !!gift.liked;
@@ -165,7 +170,7 @@ export function GiftLine({ gift, mine, onPress }: { gift: GiftView | null | unde
   const title = t(mine ? "giftLineMine" : "giftLineTheirs", { gift: giftName(gift.gift) }) as string;
   return <Pressable onPress={onPress} accessibilityRole="button" accessibilityLabel={title + ", " + state}
     style={({ pressed }) => [s.line, { alignSelf: mine ? "flex-end" : "flex-start", backgroundColor: theme.accentSoft, borderColor: theme.border, opacity: pressed ? 0.85 : 1 }]}>
-    <ItemArt art={giftArt(gift.gift)} size={44} dim={waiting} />
+    <ItemArt art={giftArt(gift.gift)} size={64} fx={fx} pulse={pulse} />
     <View style={{ flexShrink: 1, minWidth: 0, gap: 2 }}>
       <T variant="small" numberOfLines={1} style={common.bold}>{giftName(gift.gift)}</T>
       <View style={[common.row, { gap: 4 }]}>

@@ -5,7 +5,7 @@ const profile = {
   searchSaved: "Find a saved item", noPosts: "Your posts belong here",
   noPostsText: "Share a recipe, list an item or create a cooking class.", noSaved: "Nothing saved here yet", noMatch: "No matching saved items",
   browse: "Explore Feeds", recipe: "Recipe", event: "Event", draft: "Draft", untitled: "Untitled recipe", unavailable: "Unavailable", remove: "Remove Save",
-  comingUp: "Coming up", viewAll: "View All", openDinner: "Open Dinner", invitations: "Invitations", invite: "Invite A Friend", past: "Past Dinners",
+  comingUp: "Coming up", history: "History", showAll: "Show All", findDinners: "Find dinners", noMatchingDinners: "No matching dinners", historyFailed: "More dinners could not load.", openDinner: "Open Dinner", invite: "Invite A Friend",
   findPeople: "Find People", findFriends: "Find Friends", friends: "Friends", dinnerWith: "Dinner with {name}", noDinner: "Make time for dinner", noDinnerText: "Choose a friend and plan your next meal together.",
   viewInvite: "View Invitation", orders: "My orders", shop: "Manage my shop", classes: "My classes", savedPlaces: "Saved Places", places: "Places", place: "Place", manage: "Manage",
   searchMessages: "Search people, shops or classes", unreadOnly: "Unread only", friend: "Friend", buying: "Market · Buying", selling: "Market · Selling", class: "Class",

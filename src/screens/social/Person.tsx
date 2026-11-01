@@ -113,7 +113,8 @@ function PhotoViewer({ p, visible, onClose }: { p: PersonPage; visible: boolean;
 }
 /**
  * Where the two of you stand: Add Friend; a request you sent (Cancel); a request they sent (their hello, Decline, Accept);
- * or Message and Invite To Dinner once friends. Your own page offers Edit profile. Invalidating Social reloads this page.
+ * or, once friends, Message beside Invite, or View Dinner while an invite waits or a dinner is ahead (one at a time). Your
+ * own page offers Edit profile. Invalidating Social reloads this page.
  */
 function Relationship({ p, me }: { p: PersonPage; me: SocialMe }) {
   const t = useT("social"), tp = useT("profile"), { setNotice, theme } = usePreferences(), problem = useSocialError();
@@ -125,7 +126,9 @@ function Relationship({ p, me }: { p: PersonPage; me: SocialMe }) {
   if (p.id === me.id) return <Button label={tp("edit")} icon="create-outline" variant="secondary" onPress={() => router.push("/social/profile")} />;
   if (p.friend) return <View style={[common.row, { gap: 8 }]}>
     <View style={common.flex}><Button label={t("message")} icon="chatbubble-outline" onPress={() => openSocial("/chat/" + p.id)} /></View>
-    {p.canInvite && <View style={common.flex}><Button label={t("inviteToDinner")} icon="restaurant-outline" variant="secondary" onPress={() => openSocial("/invite/" + p.id)} /></View>}
+    {p.dinnerId ? <View style={common.flex}><Button label={t("viewDinner")} icon="restaurant-outline" variant="secondary" onPress={() => openSocial("/dinner/" + p.dinnerId)} /></View>
+      : p.canInvite && <View style={common.flex}><Button label={t("inviteShort")} accessibilityLabel={t("inviteNamed", { name: p.firstName })} icon="restaurant-outline"
+        variant="secondary" onPress={() => openSocial("/invite/" + p.id)} /></View>}
   </View>;
   const request = p.request;
   if (request?.mine) return <RequestCard icon="time-outline" tone="muted" title={t("requestSent")}

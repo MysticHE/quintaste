@@ -96,7 +96,9 @@ export type SocialMe = { id: string; accountName: string; handle: string; hasPro
 export type PhotoLink = { url: string; thumb: string };
 /** Another member as the server shares them: hidden fields come back empty, the birth date as `age`. */
 export type Person = Omit<SocialProfile, "birthDate" | "hidden" | "visible" | "excluded"> & { id: string; age: number | null; photos: PhotoLink[]; km: number | null };
-export type PersonPage = Person & { handle: string | null; verified: boolean; friend: boolean; request: { id: string; mine: boolean; note: string } | null; openInvite: boolean; canInvite: boolean; worn?: Worn };
+export type PersonPage = Person & { handle: string | null; verified: boolean; friend: boolean; request: { id: string; mine: boolean; note: string } | null; openInvite: boolean; canInvite: boolean; worn?: Worn;
+  /** The invite waiting or the confirmed dinner not yet over (until an hour after it starts) between you, one at a time; `openInvite` mirrors it for older builds. */
+  dinnerId?: string | null };
 /** Another member's posts on their profile (GET /api/social/people/:id?posts=1): recipes, items on sale and classes, plus their friend count. */
 export type PersonPosts = { friends: number; recipes: { id: string; name: string; image: string | null }[];
   items: { id: string; name: string; priceCents: number; photo: string | null }[]; classes: { id: string; title: string; starts: string }[] };

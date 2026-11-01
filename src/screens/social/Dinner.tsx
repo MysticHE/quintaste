@@ -27,23 +27,24 @@ import { formatSgDateTime, formatSgText, parseSgDateTime, sgDateTile } from "../
 import type { DinnerDetail, SocialPlace } from "../../types/community";
 
 /**
- * Who the dinner is with: their picture, name and age, area and diet (a tap opens their profile), then their bio, hobbies and
- * lifestyle details, so an invite can be weighed on this page (owner, 26 Oct 2026). Until their profile loads, the name row;
- * if it fails to load, Try again (a profile that is gone keeps just the name row).
+ * Who the dinner is with: their picture, name and age, area and diet (a tap opens their profile). While the invite waits on you,
+ * their bio, hobbies and lifestyle details follow, so it can be weighed on this page (owner, 26 Oct 2026); after that the row
+ * alone, as the profile is one tap away. Until their profile loads, the name row; if it fails to load, Try again (a profile
+ * that is gone keeps just the name row).
  */
 function WithPerson({ d }: { d: DinnerDetail }) {
   const t = useT("social"), diet = useDietText(), whereOf = useWhere();
   const remote = useRemote("/api/social/people/" + d.withId, signal => loadPerson(d.withId, signal)), p = remote.data;
   const where = p ? [whereOf(p), ...p.diets.map(diet.name)].filter(Boolean).join(" · ") : "";
-  const name = p?.age ? t("nameAge", { name: p.firstName, age: p.age }) : d.withName;
+  const name = p?.age ? t("nameAge", { name: p.firstName, age: p.age }) : d.withName, deciding = d.status === "invited" && d.yourTurn;
   return <>
     <ListGroup title={t("withLabel")}>
       <ListItem title={name} subtitle={where || undefined} wrap
         leading={<Avatar uri={p?.photos[0]?.thumb ?? d.photo} size={48} />} onPress={() => openSocial("/person/" + d.withId)} />
     </ListGroup>
     {!p && remote.error?.status !== 404 && <RemoteStatus remote={remote} icon="person-outline" returnTo={"/social/dinner/" + d.id} placeholder={null} />}
-    {p && <PersonAbout p={p} />}
-    {p && <LifestyleDetails p={p} />}
+    {p && deciding && <PersonAbout p={p} />}
+    {p && deciding && <LifestyleDetails p={p} />}
   </>;
 }
 /** After the dinner: your own answer, the note they left you, and the mutual card only when you both said yes. */
@@ -127,9 +128,9 @@ export function DinnerScreen() {
   // DinnerReminderSync follows.
   const shape = d ? [d.status, d.starts, d.placeName, d.reported].join("|") : "";
   useEffect(() => { if (shape) invalidate("/api/social/dinners"); }, [shape]);
-  return <Screen title={t("dinnerTitle")} headerAction={d ? <IconButton label={t("flagLabel", { name: d.withName })} icon="flag-outline" onPress={() => setFlag(true)} /> : undefined}>
+  return <Screen title={t("dinnerTitle")} headerAction={d ? <IconButton appearance="plain" label={t("flagLabel", { name: d.withName })} icon="flag-outline" onPress={() => setFlag(true)} /> : undefined}>
     <SocialGate returnTo={"/social/dinner/" + id}>
-      <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social?tab=dinners" missing={t("dinnerUnavailable")} />
+      <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social?tab=dining" missing={t("dinnerUnavailable")} />
       {d && <DinnerView d={d} place={place} refresh={remote.refresh} />}
       {d && <FlagSheet person={{ id: d.withId, firstName: d.withName }} hasPhoto={!!d.photo} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
     </SocialGate>

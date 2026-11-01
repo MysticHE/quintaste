@@ -25,9 +25,10 @@ const postKinds = ["recipes", "market", "events"] as const, savedKinds = ["place
 export function SocialHomeScreen() {
   const { tab } = useLocalSearchParams<{ tab?: string }>();
   if (tab === "friends") return <Redirect href="/social/friends" />;
-  if (tab && ["people", "dinners", "plans"].includes(tab)) return <Redirect href={{ pathname: "/social/community", params: { tab } }} />;
+  if (tab === "people") return <Redirect href="/social/community" />;
   if (tab === "events" || tab === "tables") return <Redirect href="/cook?tab=events" />;
-  return <ProfileHome tab={tab === "saved" || tab === "dining" ? tab : "posts"} />;
+  // Dinners (and the older My plans) live in the Dining tab since 1 Nov 2026.
+  return <ProfileHome tab={tab === "saved" ? tab : tab === "dining" || tab === "dinners" || tab === "plans" ? "dining" : "posts"} />;
 }
 /** Where the pencil goes: My Profile, where every member edits photos, basics and About me (owner, 25 Oct 2026). */
 const editTarget = "/social/profile";
@@ -42,7 +43,7 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
   const dinners = inbox?.dinners ?? 0, orders = inbox?.orders ?? 0;
   return <Screen back={false} header={<TopRow name={name} data={data} />}>
     <MemberGate returnTo="/social">
-      <ProfileSummary data={data} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} />
+      <ProfileSummary data={data} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} onDinners={() => select("dining")} />
       <View testID="social-profile-tabs"><IconTabs label={t("profile")} value={tab} onChange={select} tabs={[
         { id: "posts", label: t("posts"), icon: "grid-outline", activeIcon: "grid" },
         { id: "saved", label: t("saved"), icon: "bookmark-outline", activeIcon: "bookmark" },
@@ -71,8 +72,9 @@ function TopRow({ name, data }: { name: string; data: SocialMe | undefined }) {
   const verified = !!data?.standing.verified;
   return <View testID="social-profile-header" style={[common.row, { minHeight: 56, gap: 4 }]}>
     <View style={[common.flex, { minWidth: 0 }]} accessible accessibilityRole="header" accessibilityLabel={[name, verified ? t("verifiedTick") : "", data?.handle ? "@" + data.handle : ""].filter(Boolean).join(", ")}>
-      <View style={[common.row, { gap: 4 }]}><T variant="title" numberOfLines={1} style={[common.bold, { flexShrink: 1 }]}>{name}</T>
-        {verified && <Icon name="checkmark-circle" size={18} color={theme.success} />}</View>
+      {/* The same size as a member's name on their profile, so it fits beside the four buttons instead of cutting off. */}
+      <View style={[common.row, { gap: 4 }]}><T variant="subtitle" numberOfLines={1} style={[common.bold, { flexShrink: 1 }]}>{name}</T>
+        {verified && <Icon name="checkmark-circle" size={17} color={theme.success} />}</View>
       {!!data?.handle && <T variant="small" muted numberOfLines={1}>{"@" + data.handle}</T>}
     </View>
     {!!data && <IconButton appearance="plain" icon="person-add-outline" badge={requests} label={requests ? t("addFriendWaiting", { n: requests }) : t("addFriend")}

@@ -9,7 +9,7 @@ import { DinnerSummary } from "../../components/social/DiningOverview";
 import { MemberGate, useSocialError, useSocialMe } from "../../components/social/SocialState";
 import { ChatThread, useLineText } from "../../components/social/ChatThread";
 import { GiftLine, GiftSheet, useGiftCatalog, useGiftOpener } from "../../components/collection/Gifts";
-import { BorderFrame } from "../../components/collection/Glint";
+import { BorderFrame, useGlintClock } from "../../components/collection/Glint";
 import { borderArt } from "../../config/collection";
 import { AnswerButtons, LateChips, isDayOf } from "../../components/social/DinnerParts";
 import { useMinuteClock } from "../../components/food/Timers";
@@ -22,11 +22,13 @@ import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
 import type { PersonPage, SocialMe } from "../../types/community";
 
-/** Why Invite is not offered, in plain words; null when it is. */
+/** How many of the newest gifts in a chat play their full effects; older ones only catch the light now and then. */
+const LIVELY_GIFTS = 3;
+/** Why Invite is not offered, in plain words; null when it is. A dinner already between you opens instead (see `invite`). */
 function useInviteBlock() {
   const t = useT("social");
   return (p: PersonPage | undefined, me: SocialMe | undefined) => !p || !me ? null : p.canInvite ? null
-    : !me.standing.canMeet ? t("codeVerify") : me.standing.pausedUntil ? t("codePaused") : p.openInvite ? t("inviteWaiting")
+    : !me.standing.canMeet ? t("codeVerify") : me.standing.pausedUntil ? t("codePaused")
     : me.standing.gender && p.gender && me.standing.gender === p.gender ? t("codeSameGender") : t("codeThem", { name: p.firstName });
 }
 /**
@@ -52,24 +54,29 @@ export function ChatScreen() {
   const lines = useRemote(id ? chatKey(id) : null, signal => chat(id, signal), 5000), [flag, setFlag] = useState(false), blocked = useInviteBlock()(p, me);
   const gifts = useGiftCatalog(!!me?.hasProfile).data, [giving, setGiving] = useState(false), opener = useGiftOpener();
   const newest = lines.data?.items.at(-1)?.id;
+  // The chat draws every line, so only the newest gifts get the full looping effects; older ones take turns catching the
+  // light (one sweep and glint every few seconds across them all), which keeps a long chat smooth on any phone.
+  const giftIds = (lines.data?.items ?? []).filter(line => line.kind === "gift").map(line => line.id), clock = useGlintClock(giftIds.length);
+  const giftFx = (lineId: string) => { const at = giftIds.indexOf(lineId); return { fx: at >= giftIds.length - LIVELY_GIFTS, pulse: clock.tile(at) }; };
   useEffect(() => { if (newest) invalidate("/api/social/badges", "/api/social/friends"); }, [newest]);
   const send = async (text: string) => {
     try { await sendChat(id, text); lines.refresh(); return true; }
     catch (failure) { setNotice({ text: problem(failure, p?.firstName), error: true }); return false; }
   };
-  const invite = () => blocked ? setNotice({ text: blocked }) : openSocial("/invite/" + id);
+  // The dinner icon opens the dinner already between you (an invite waiting or one ahead) instead of a second invite.
+  const invite = () => p?.dinnerId ? openSocial("/dinner/" + p.dinnerId) : blocked ? setNotice({ text: blocked }) : openSocial("/invite/" + id);
   const name = p?.firstName ?? "", tp = useT("profile"), tg = useT("collection");
   const title = p ? <Pressable onPress={() => openSocial("/person/" + id)} accessibilityRole="button" accessibilityLabel={t("openPerson", { name })} style={[common.row, { gap: 8, flex: 1, minWidth: 0 }]}>
     <BorderFrame art={p.worn?.border ? borderArt(p.worn.border) : undefined} size={36}><Avatar uri={p.photos[0]?.thumb} size={36} /></BorderFrame><View style={{ flex: 1 }}><T variant="subtitle" numberOfLines={1}>{name}</T><T variant="caption" muted>{tp("friend")}</T></View></Pressable> : null;
   return <Screen backTo="/messages" title={title ? undefined : name} fill titleAccessory={title} headerAction={p ? <View style={[common.row, { gap: 4 }]}>
-      <IconButton appearance="plain" label={t("inviteToDinner")} icon="restaurant-outline" onPress={invite} />
+      <IconButton appearance="plain" label={p.dinnerId ? t("viewDinner") : t("inviteToDinner")} icon="restaurant-outline" onPress={invite} />
       <IconButton appearance="plain" label={t("flagLabel", { name })} icon="flag-outline" onPress={() => setFlag(true)} /></View> : undefined}>
     <MemberGate returnTo={"/social/chat/" + id}>
       <RemoteStatus remote={lines} icon="chatbubbles-outline" returnTo="/social/friends" missing={t("profileUnavailable")} />
       {lines.data && <ChatThread lines={lines.data.items} name={name} describe={line => describe(line, name)} onSend={send} empty={t("chatEmpty", { name })}
         placeholder={tp("messagePerson", { name })} top={<DinnerBar friendId={id} />}
         composerLeading={gifts && p ? <IconButton label={tg("sendGift")} icon="gift-outline" onPress={() => setGiving(true)} /> : undefined}
-        renderLine={line => line.kind === "gift" ? <GiftLine key={line.id} gift={line.gift} mine={line.mine} onPress={() => line.gift && opener.show({ ...line.gift, fromId: id }, name, line.mine)} /> : null} />}
+        renderLine={line => line.kind === "gift" ? <GiftLine key={line.id} gift={line.gift} mine={line.mine} {...giftFx(line.id)} onPress={() => line.gift && opener.show({ ...line.gift, fromId: id }, name, line.mine)} /> : null} />}
       {gifts && p && <GiftSheet visible={giving} onClose={() => setGiving(false)} to={id} data={gifts} />}
       {opener.opening}
       {p && <FlagSheet person={p} hasPhoto={!!p.photos.length} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}

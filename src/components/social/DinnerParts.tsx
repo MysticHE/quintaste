@@ -167,6 +167,6 @@ export function DinnerReminder({ dinner: d }: { dinner: Dinner }) {
     await commit({ type: "reminder", groupId: d.id, reminder: reminderFor(d) });
     if (status === "timing-unverified") setNotice({ text: t("remindersApprox") });
   };
-  return <ListItem title={t("remindMe")} subtitle={t("remindWhen")} leading={<RowIcon name="notifications-outline" />}
+  return <ListItem title={t("remindMe")} subtitle={t("remindWhen")} wrap leading={<RowIcon name="notifications-outline" />}
     trailing={<ThemedSwitch label={t("remindSwitch")} value={on} onChange={() => void toggle().catch(() => setNotice({ text: t("remindersFailed"), error: true }))} />} />;
 }

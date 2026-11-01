@@ -48,6 +48,10 @@ export const sendChat = (id: string, body: string) => call<{ id: string; created
 
 /** `met`: every dinner the member reported going to (the profile's Dinners count). */
 export const dinners = (signal: AbortSignal) => call<{ upcoming: Dinner[]; past: Dinner[]; met: number }>("/api/social/dinners", { signal });
+/** The Dining tab's History, all time, newest first, 20 at a time; `q` matches the place or the other person's name. */
+export const dinnerHistoryKey = (q: string) => "/api/social/dinners/history?q=" + encodeURIComponent(q);
+export const dinnerHistory = (q: string, offset: number, signal?: AbortSignal) =>
+  call<{ items: Dinner[]; more: boolean }>(dinnerHistoryKey(q) + "&offset=" + offset, { signal });
 export const dinner = (id: string, signal: AbortSignal) => call<DinnerDetail>("/api/social/dinners/" + id, { signal });
 export type DinnerInput = { userId: string; placeId: string; starts: string; pay: DinnerPay; message: string };
 export const inviteDinner = (input: DinnerInput) => call<{ id: string }>("/api/social/dinners", { method: "POST", body: input });

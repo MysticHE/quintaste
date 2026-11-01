@@ -42,7 +42,7 @@ export function AreaLine({ parts, diets }: { parts: string[]; diets: string }) {
   </View>;
 }
 /** Photo with the pencil, Friends · Posts · Dinners beside it, area and diet under the counts, then bio and hobbies. */
-export function ProfileSummary({ data, onEdit, onPosts }: { data: SocialMe | undefined; onEdit: () => void; onPosts: () => void }) {
+export function ProfileSummary({ data, onEdit, onPosts, onDinners }: { data: SocialMe | undefined; onEdit: () => void; onPosts: () => void; onDinners: () => void }) {
   const t = useT("profile"), diet = useDietText(), canMeet = !!data?.standing.canMeet;
   const friends = useRemote(data ? "/api/social/friends" : null, loadFriends, 30000).data;
   const dinners = useRemote(canMeet ? "/api/social/dinners" : null, loadDinners, 30000).data, posts = usePostCount();
@@ -50,7 +50,7 @@ export function ProfileSummary({ data, onEdit, onPosts }: { data: SocialMe | und
   const stats: Stat[] = [
     { label: t("friends"), n: friends?.friends.length ?? null, onPress: () => router.push("/social/friends") },
     { label: t("statPosts"), n: posts, onPress: onPosts },
-    ...(canMeet ? [{ label: t("statDinners"), n: dinners?.met ?? null, onPress: () => router.push("/social/community?tab=dinners") }] : []),
+    ...(canMeet ? [{ label: t("statDinners"), n: dinners?.met ?? null, onPress: onDinners }] : []),
   ];
   const area = data?.profile.area ?? "", diets = area ? (data?.profile.diets ?? []).map(diet.name).join(" · ") : "";
   return <>

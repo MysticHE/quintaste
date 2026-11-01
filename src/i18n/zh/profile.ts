@@ -6,7 +6,7 @@ const profile: Record<keyof typeof en, string> = {
   searchSaved: "搜索收藏", noPosts: "在这里分享你的作品",
   noPostsText: "分享食谱、上架商品或创建烹饪课程。", noSaved: "还没有收藏", noMatch: "没有匹配的收藏",
   browse: "浏览动态", recipe: "食谱", event: "活动", draft: "草稿", untitled: "未命名食谱", unavailable: "无法查看", remove: "取消收藏",
-  comingUp: "即将到来", viewAll: "查看全部", openDinner: "查看约饭", invitations: "邀请", invite: "邀请朋友", past: "过去的约饭",
+  comingUp: "即将到来", history: "历史记录", showAll: "显示全部", findDinners: "搜索约饭", noMatchingDinners: "没有符合的约饭", historyFailed: "未能加载更多约饭。", openDinner: "查看约饭", invite: "邀请朋友",
   findPeople: "发现朋友", findFriends: "找朋友", friends: "朋友", dinnerWith: "与 {name} 约饭", noDinner: "一起吃顿饭吧", noDinnerText: "选择一位朋友，安排下一次见面。",
   viewInvite: "查看邀请", orders: "我的订单", shop: "管理店铺", classes: "我的课程", savedPlaces: "收藏地点", places: "地点", place: "地点", manage: "管理",
   searchMessages: "搜索朋友、店铺或课程", unreadOnly: "仅未读", friend: "朋友", buying: "市集 · 购买", selling: "市集 · 出售", class: "课程",

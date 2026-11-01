@@ -157,6 +157,7 @@ const zh: typeof en = {
   codeNotFriends: "饭局邀请只能发给好友。",
   codeSameGender: "饭局邀请只限异性好友。",
   inviteWaiting: "你们之间已经有一个待回复的邀请。",
+  dinnerAhead: "你们已经约好了一顿饭。",
   codeThem: "{name}暂时无法接受饭局邀请。",
   codeBusy: "那个时间你已经有饭局了。",
   codeThemBusy: "{name}那个时间已经有别的饭局。请提议其他时间。",

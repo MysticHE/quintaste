@@ -157,6 +157,7 @@ const en = {
   codeNotFriends: "Dinner invites are only for friends.",
   codeSameGender: "Dinner invites are for friends of the opposite gender.",
   inviteWaiting: "There's already an invite waiting between you.",
+  dinnerAhead: "You already have a dinner planned together.",
   codeThem: "{name} can't take dinner invites right now.",
   codeBusy: "You already have a dinner around then.",
   codeThemBusy: "{name} has another dinner around then. Suggest another time.",

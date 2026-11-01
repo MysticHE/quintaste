@@ -13,6 +13,7 @@ import { recipesBy } from '../recipes/router.mjs';
 import { itemsBy } from '../market/shop.mjs';
 import { classesBy } from '../market/classes.mjs';
 import { pointOf, points } from './area-points.mjs';
+import { currentDinnerSql, pairSql } from './dinner-pair.mjs';
 
 export const people = express.Router();
 const areaNames = Object.keys(points), areaLats = areaNames.map(name => points[name][0]), areaLngs = areaNames.map(name => points[name][1]);
@@ -94,21 +95,23 @@ people.get('/people/:id', async (req, res) => {
   const row = (await pool.query(`SELECT u.id, u.name AS "accountName", p.user_id IS NOT NULL AS "hasProfile", ${meetColumns}, ${friendsSql('u.id', '$1')} AS friend,
       ${verifiedSql('u.id')} AS verified, (SELECT h.handle FROM social.handle h WHERE h.user_id=u.id) AS handle,
       ${meetAgeSql('u.id')} AS adult, ${pausedUntilSql('u.id')} > now() AS "theyPaused",
-      EXISTS (SELECT 1 FROM social.dinner d WHERE d.status='invited' AND d.expires_at > now() AND d.starts > now()
-        AND ((d.host_id=$1 AND d.guest_id=u.id) OR (d.host_id=u.id AND d.guest_id=$1))) AS "openInvite",
+      (SELECT d.id FROM social.dinner d WHERE ${currentDinnerSql('d')} AND ${pairSql('d', '$1', 'u.id')} ORDER BY d.starts LIMIT 1) AS "dinnerId",
       (SELECT json_build_object('id', r.id, 'mine', r.from_id=$1, 'note', r.note) FROM social.friend_request r WHERE r.status='pending'
         AND ((r.from_id=$1 AND r.to_id=u.id) OR (r.from_id=u.id AND r.to_id=$1)) LIMIT 1) AS request
     FROM public."user" u LEFT JOIN social.profile p ON p.user_id=u.id WHERE u.id=$2 AND ${seeableSql('u.id', '$1')}`, [me, id])).rows[0];
   if (!row) throw new CommunityError(404, 'This profile is unavailable.');
   const [state, photos, posts, worn] = await Promise.all([standing(me), photosOf([id]), req.query.posts === '1' ? postsOf(id, me) : null, wornBy(id)]);
-  const { friend, verified, adult, request, theyPaused, openInvite, accountName, hasProfile, ...stored } = row;
+  const { friend, verified, adult, request, theyPaused, dinnerId, accountName, hasProfile, ...stored } = row;
   // Without a Social profile every field is empty but the name, which comes from the account.
   const profile = hasProfile ? stored : { ...emptyProfile, ...Object.fromEntries(Object.entries(stored).filter(([, value]) => value !== null)), firstName: accountName || 'Member' };
   const opposite = !!state.gender && !!profile.gender && state.gender !== profile.gender;
-  // The same rules the server applies when an invite is sent (dinners.mjs requirePair), plus one open invite per pair.
+  // The same rules the server applies when an invite is sent (dinners.mjs requirePair), plus one dinner at a time per pair:
+  // `dinnerId` is the invite waiting or the confirmed dinner not yet over (dinner-pair.mjs), which the profile and chat open
+  // instead of Invite. `openInvite` mirrors it for app builds from before 1 Nov 2026, which only know that field and would
+  // otherwise say the friend can't take invites.
   const dining = id === me || (state.canMeet && opposite && verified && adult), shared = shareable(profile, photos.get(id));
-  res.json({ ...(dining ? shared : { ...shared, ...noLifestyle }), km: areaKm(state.area, profile.area), verified, friend, request, openInvite,
-    canInvite: friend && opposite && verified && adult && !theyPaused && !openInvite && state.canMeet && !state.pausedUntil, worn, ...(posts ? { posts } : {}) });
+  res.json({ ...(dining ? shared : { ...shared, ...noLifestyle }), km: areaKm(state.area, profile.area), verified, friend, request, openInvite: !!dinnerId, dinnerId,
+    canInvite: friend && opposite && verified && adult && !theyPaused && !dinnerId && state.canMeet && !state.pausedUntil, worn, ...(posts ? { posts } : {}) });
 });
 
 /**

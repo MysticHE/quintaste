@@ -16,14 +16,14 @@ import type { Person, SocialMe } from "../../types/community";
 
 export const activePeopleFilters = (f: MeetFilters) => f.diets.length > 0 || f.ages.length > 0 || f.languages.length > 0 || f.hobbies.length > 0 || f.km > 0;
 
-/** People to meet: public, verified members of the opposite gender aged 21+, nearest areas first. Your own profile row sits on top. */
+/** People to meet: public, verified members of the opposite gender aged 21+, nearest areas first. Your own profile row sits on top only when it needs you. */
 export function PeopleTab({ query, me }: { query: string; me: SocialMe }) {
   const { network: n, commit } = useMeet(), t = useT("social"), search = useDebounced(query), key = peopleKey(search, n.filters);
   // Sending a request refetches People, and the server leaves out anyone with an open request, so the card simply goes.
   const remote = useRemote(key, signal => people(key, signal), { keepPrevious: true }), [adding, setAdding] = useState<Person | null>(null);
   const filtered = activePeopleFilters(n.filters) || !!search.trim(), items = remote.data?.items ?? [];
   return <>
-    <StandingRow data={me} />
+    <StandingRow data={me} onlyIfNeeded />
     <RemoteStatus remote={remote} icon="people-outline" returnTo="/social" />
     {/* New filters keep the last people, faded, until their own results arrive; empty states wait for those results. */}
     {remote.data && (items.length ? <View style={{ gap: 12, opacity: remote.stale ? 0.55 : 1 }}>{items.map(person => <PersonCard key={person.id} person={person} onAdd={() => setAdding(person)} />)}</View>

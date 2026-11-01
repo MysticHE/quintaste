@@ -23,7 +23,7 @@ export function MemberGate({ children, returnTo = "/social" }: PropsWithChildren
 }
 const codes: Record<string, keyof typeof socialMessages> = { SOCIAL_SETUP: "codeSetup", SOCIAL_AGE: "codeAge", SOCIAL_VERIFY: "codeVerify",
   SOCIAL_WAITING: "codeWaiting", SOCIAL_PAUSED: "codePaused", SOCIAL_NOT_FRIENDS: "codeNotFriends", SOCIAL_SAME_GENDER: "codeSameGender",
-  SOCIAL_LOCKED: "codeLocked", SOCIAL_BUSY: "codeBusy" };
+  SOCIAL_LOCKED: "codeLocked", SOCIAL_BUSY: "codeBusy", SOCIAL_INVITE_WAITING: "inviteWaiting", SOCIAL_DINNER_AHEAD: "dinnerAhead" };
 /** Words a failed Social request in the member's language when the server sent a known code; otherwise the server's own message. */
 export function useSocialError() {
   const t = useT("social");
@@ -47,9 +47,13 @@ export function standingLabel(s: Standing): readonly [keyof typeof socialMessage
   if (s.step === "verify") return states.verify;
   return s.public ? states.public : states.friends;
 }
-/** Your profile as one row: main photo, name and how others find you; opens My Profile, or the photo check when that is the next step. */
-export function StandingRow({ data }: { data: SocialMe }) {
+/**
+ * Your profile as one row: main photo, name and how others find you; opens My Profile, or the photo check when that is the next
+ * step. With `onlyIfNeeded` it stays away while all is well (public and checked), so it never reads like a search result.
+ */
+export function StandingRow({ data, onlyIfNeeded = false }: { data: SocialMe; onlyIfNeeded?: boolean }) {
   const t = useT("social"), [key, tone] = standingLabel(data.standing), name = data.profile.firstName || t("yourProfile");
+  if (onlyIfNeeded && key === states.public[0]) return null;
   return <ListGroup><ListItem title={name} leading={<Avatar uri={data.photos[0]?.thumb} size={44} />}
     trailing={<StatusPill label={t(key)} tone={tone} />} label={name + ", " + t(key)}
     onPress={() => openSocial(data.standing.step === "verify" ? "/verify" : "/profile")} /></ListGroup>;
