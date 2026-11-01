@@ -54,7 +54,7 @@ export function ProfileSummary({ data, onEdit, onPosts }: { data: SocialMe | und
   ];
   const area = data?.profile.area ?? "", diets = area ? (data?.profile.diets ?? []).map(diet.name).join(" · ") : "";
   return <>
-    <SummaryLayout stats={stats} picture={<View><BorderFrame art={data?.worn?.border ? borderArt(data.worn.border) : undefined} size={88}><ProfilePicture data={data} size={88} /></BorderFrame>
+    <SummaryLayout stats={stats} picture={<View><BorderFrame art={data?.worn?.border ? borderArt(data.worn.border) : undefined} size={88} shine><ProfilePicture data={data} size={88} /></BorderFrame>
       <EditBadge label={t("edit")} onPress={onEdit} /></View>}>
       {!!area && <AreaLine parts={[area]} diets={diets} />}
       <BadgeRow ids={data?.worn?.badges ?? []} />

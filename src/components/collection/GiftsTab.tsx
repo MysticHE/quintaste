@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { Icon } from "../ui";
-import { ItemArt } from "./Glint";
+import { ItemArt, useGlintClock } from "./Glint";
 import { Tile, TileGrid } from "./CollectionParts";
 import { useGiftName, useGiftOpener } from "./Gifts";
 import { ListGroup, ListItem, SwitchRow } from "../GroupedList";
@@ -22,7 +22,7 @@ type Side = "received" | "sent";
 export function GiftsTab({ data }: { data: Gifts }) {
   const t = useT("collection"), giftName = useGiftName(), language = useLanguage(), { theme, setNotice } = usePreferences();
   const [side, setSide] = useState<Side>("received"), [busy, setBusy] = useState(false), opener = useGiftOpener(data.catalog);
-  const count = (id: string) => data.received.filter(g => g.gift === id).length;
+  const count = (id: string) => data.received.filter(g => g.gift === id).length, clock = useGlintClock(data.catalog.length);
   const receive = async (on: boolean) => {
     setBusy(true);
     try { await setReceiving(on); setRemoteData(giftsKey, { ...data, receiving: on }); }
@@ -34,9 +34,9 @@ export function GiftsTab({ data }: { data: Gifts }) {
   return <>
     <ChoiceChips label={t("tabGifts")} value={side} onChange={setSide} options={[{ id: "received", label: t("tabReceived") }, { id: "sent", label: t("tabSent") }]} />
     {side === "received" && <>
-      <TileGrid>{width => data.catalog.map(g => {
+      <TileGrid>{width => data.catalog.map((g, index) => {
         const n = count(g.id), last = data.received.find(r => r.gift === g.id);
-        return <Tile key={g.id} width={width} art={giftArt(g.id)} pulse={0} dim={!n} name={giftName(g.id)} sub={t("giftCount", { n })} selected={false}
+        return <Tile key={g.id} width={width} art={giftArt(g.id)} pulse={clock.tile(index)} dim={!n} name={giftName(g.id)} sub={t("giftCount", { n })} selected={false}
           onPress={() => last && opener.show(last, last.fromName, false)} label={giftName(g.id) + ", " + t("giftCount", { n })} />;
       })}</TileGrid>
       <ListGroup>

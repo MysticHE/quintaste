@@ -85,7 +85,7 @@ function PersonView({ p, me }: { p: PersonWithPosts; me: SocialMe }) {
 /** Their first photo (or Lian) in a circle; with photos it opens them full size, and a count shows when there are several. */
 function Picture({ p }: { p: PersonPage }) {
   const t = useT("social"), { theme } = usePreferences(), [open, setOpen] = useState(false), count = p.photos.length;
-  const picture = <BorderFrame art={p.worn?.border ? borderArt(p.worn.border) : undefined} size={88}><Avatar uri={p.photos[0]?.thumb} size={88} /></BorderFrame>;
+  const picture = <BorderFrame art={p.worn?.border ? borderArt(p.worn.border) : undefined} size={88} shine><Avatar uri={p.photos[0]?.thumb} size={88} /></BorderFrame>;
   if (!count) return picture;
   return <>
     <Pressable accessibilityRole="button" accessibilityLabel={t("photosOfName", { name: p.firstName })} onPress={() => setOpen(true)} style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}>

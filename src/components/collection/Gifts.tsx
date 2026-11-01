@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { Button, Field, Icon, T, common } from "../ui";
 import { Sheet } from "../Sheet";
-import { ItemArt } from "./Glint";
+import { ItemArt, useGlintClock } from "./Glint";
 import { TileGrid } from "./CollectionParts";
 import { ApiError } from "../../services/community-api";
 import { giftCatalogKey, giftsKey, likeGift, loadGiftCatalog, loadGifts, openGift, sendGift, sgd, type GiftCatalog } from "../../services/gifts-api";
@@ -45,6 +45,7 @@ export const refreshGifts = () => invalidate(giftsKey, "/api/social/chats", "/ap
 export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; onClose: () => void; to: string; data: GiftCatalog }) {
   const t = useT("collection"), giftName = useGiftName(), { theme, setNotice } = usePreferences(), first = data.weekly ?? data.catalog[0]?.id ?? "";
   const [picked, setPicked] = useState(first), [note, setNote] = useState(""), [busy, setBusy] = useState(false), [problem, setProblem] = useState("");
+  const clock = useGlintClock(visible ? data.catalog.length : 0);
   // Opening again starts from this week's choice (state adjusted during render, not in an effect).
   const [wasVisible, setWasVisible] = useState(visible);
   if (visible !== wasVisible) { setWasVisible(visible); if (visible) { setPicked(first); setProblem(""); } }
@@ -68,14 +69,14 @@ export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; on
   </View>;
   return <Sheet visible={visible} onClose={close} title={t("sendGift")} footer={footer}>
     <View accessibilityRole="radiogroup">
-      <TileGrid>{width => data.catalog.map(g => {
+      <TileGrid>{width => data.catalog.map((g, index) => {
         const selected = g.id === picked, price = priceOf(g.id, g.priceCents), weekly = g.id === data.weekly && data.sending !== "free";
         // The free weekly Rose reads "Free" on the tile (green) and "Free this week" to screen readers.
         return <Pressable key={g.id} onPress={() => setPicked(g.id)} accessibilityRole="radio" accessibilityState={{ checked: selected }} aria-checked={selected}
           accessibilityLabel={giftName(g.id) + ", " + (weekly ? t("giftWeekly") : price)}
           style={({ pressed }) => [s.tile, { width, borderWidth: selected ? 2 : 1, borderColor: selected ? theme.accent : theme.border,
             backgroundColor: selected ? theme.accentSoft : theme.card, opacity: pressed ? 0.85 : 1 }]}>
-          <ItemArt art={giftArt(g.id)} size={width * 0.6} />
+          <ItemArt art={giftArt(g.id)} size={width * 0.6} pulse={clock.tile(index)} />
           <View style={s.grow}><T variant="small" numberOfLines={2} style={[common.bold, s.center]}>{giftName(g.id)}</T></View>
           <T variant="caption" numberOfLines={1} color={weekly ? theme.success : theme.mutedForeground} style={weekly && common.bold}>{price}</T>
         </Pressable>;
@@ -106,7 +107,7 @@ function GiftOpening({ open, burst, onLike, onReport, onClose }: {
     <View style={[s.opening, { backgroundColor: theme.overlay }]}>
       <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel={t("tapToClose")} style={StyleSheet.absoluteFill} />
       {open && <View style={[s.card, { backgroundColor: theme.background }]} accessibilityViewIsModal>
-        <View style={[s.spot, { backgroundColor: theme.accentSoft }]}><ItemArt art={giftArt(open.view.gift)} size={184} pulse={pulse} /></View>
+        <View style={[s.spot, { backgroundColor: theme.accentSoft }]}><ItemArt art={giftArt(open.view.gift)} size={184} pulse={pulse} loop /></View>
         <T variant="title" numberOfLines={1} style={[common.bold, s.center]} accessibilityRole="header">{giftName(open.view.gift)}</T>
         {!!open.from && <T muted numberOfLines={1} style={s.center}>{t("giftFrom", { name: open.from })}</T>}
         {!!open.view.note && <T style={s.center}>{open.view.note}</T>}
