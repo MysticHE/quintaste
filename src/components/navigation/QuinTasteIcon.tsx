@@ -1,8 +1,15 @@
-import Svg, { Circle, Path } from "react-native-svg";
+import Svg, { Defs, G, Mask, Path, Rect } from "react-native-svg";
 import { Platform } from "react-native";
+import { useId } from "react";
 export type QuinTasteTab = "explore" | "cook" | "social" | "market" | "game";
 type QuinTasteSymbol = QuinTasteTab | "saved";
 const feed = "M11 4h14a3 3 0 0 1 3 3v15a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z";
+// Explore: a map pin with a leaf inside (owner's pick, 1 Nov 2026); selected, the leaf is cut out of the filled pin.
+// Social: two people (owner's pick, 1 Nov 2026). The friend behind is cut away around the front person by a mask, so the gap
+// stays even on the glass dock in light and dark; the cut is wider for outlines so it clears their stroke.
+const frontPerson = "M12 7.8a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2z M3.8 27.2c0-4.8 3.7-8.3 8.2-8.3s8.2 3.5 8.2 8.3v.2c0 .9-.7 1.6-1.6 1.6H5.4c-.9 0-1.6-.7-1.6-1.6z";
+const backPerson = "M21.6 5.5a3.9 3.9 0 1 1 0 7.8 3.9 3.9 0 0 1 0-7.8z M14.8 23.6c0-4.2 3.1-7.2 6.8-7.2s6.8 3 6.8 7.2v.3c0 .8-.6 1.4-1.4 1.4H16.2c-.8 0-1.4-.6-1.4-1.4z";
+const explorePin = "M16 29.2S7 20.8 7 13.6a9 9 0 0 1 18 0c0 7.2-9 15.6-9 15.6z", exploreLeaf = "M12.4 16.4c0-4.4 3-7 7.6-7 0 4.4-3 7-7.6 7z";
 // Authored silhouettes: conversation bowl, seamless leaf bag, and leaf controller.
 
 const marketBag = "M6 10h5V8a5 5 0 0 1 10 0v2h5l1.2 15.8a2 2 0 0 1-2 2.2H6.8a2 2 0 0 1-2-2.2z";
@@ -19,11 +26,12 @@ export function QuinTasteIcon({ name, color, selected = false, size = 25 }: {
   // propList when explicit selected paint is replaced by inherited group paint.
   const outline = { fill: "none", stroke: color, strokeWidth: 2.2,
     strokeLinecap: "round", strokeLinejoin: "round", fillRule: "nonzero" } as const;
+  const mask = "friend-" + useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  const person = (d: string) => selected ? <Path {...outline} d={d} fill={color} stroke="none" /> : <Path {...outline} d={d} />;
   return <Svg width={size} height={size} viewBox="0 0 32 32"
     {...(Platform.OS === "web" ? { "aria-hidden": true } : { accessible: false })}>
-      {name === "explore" && (selected ? <Path {...outline} stroke="none" fill={color} fillRule="evenodd"
-        d="M16 3a13 13 0 1 0 0 26 13 13 0 0 0 0-26z M21.8 10.2l-3.5 8.1-8.1 3.5 3.5-8.1z" /> : <>
-        <Circle {...outline} cx={16} cy={16} r={12} /><Path {...outline} d="m21.8 10.2-3.5 8.1-8.1 3.5 3.5-8.1z" />
+      {name === "explore" && (selected ? <Path {...outline} stroke="none" fill={color} fillRule="evenodd" d={explorePin + " " + exploreLeaf} /> : <>
+        <Path {...outline} d={explorePin} /><Path {...outline} stroke="none" fill={color} d={exploreLeaf} />
       </>)}
       {name === "cook" && <>
         <Path {...outline} d="M4 9v16a4 4 0 0 0 4 4h15" />
@@ -36,8 +44,11 @@ export function QuinTasteIcon({ name, color, selected = false, size = 25 }: {
         {!selected && <Path {...outline} d={marketLeaf} fill={color} stroke="none" />}
       </>}
       {name === "social" && <>
-        <Circle {...outline} cx={16} cy={9} r={5} fill={selected ? color : "none"} />
-        <Path {...outline} d="M5 28v-2a11 9 0 0 1 22 0v2z" fill={selected ? color : "none"} />
+        <Defs><Mask id={mask} maskUnits="userSpaceOnUse" x={0} y={0} width={32} height={32}>
+          <Rect x={0} y={0} width={32} height={32} fill="white" stroke="none" />
+          <Path d={frontPerson} fill="black" stroke="black" strokeWidth={selected ? 5.2 : 7.4} strokeLinejoin="round" />
+        </Mask></Defs>
+        <G mask={`url(#${mask})`}>{person(backPerson)}</G>{person(frontPerson)}
       </>}
       {name === "game" && <>
         <Path {...outline} d={leafController} />

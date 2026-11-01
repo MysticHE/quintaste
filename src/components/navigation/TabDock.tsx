@@ -32,8 +32,8 @@ export function TabDock({ state, descriptors, emitter, navigateToTab, insets }: 
   useEffect(() => { setHidden?.(false); }, [state.index, setHidden]);
   if (keyboardVisible) return null;
   return <Animated.View testID="navigation-dock" style={[s.host, slideStyle]} pointerEvents="box-none" onLayout={event => setHeight?.(event.nativeEvent.layout.height)}>
-    {/* Half the bottom inset: the icons sit just above the home indicator instead of a full inset higher (owner, 31 Oct 2026). */}
-    <View testID="navigation-surface" style={[s.dock, { paddingBottom: Math.max(Math.round(insets.bottom / 2), 6),
+    {/* The full bottom inset: half of it left the icons on the home indicator line (owner, 1 Nov 2026; was half since 31 Oct). */}
+    <View testID="navigation-surface" style={[s.dock, { paddingBottom: Math.max(insets.bottom, 8),
       paddingLeft: Math.max(insets.left, 8), paddingRight: Math.max(insets.right, 8),
       backgroundColor: glass?.reduceTransparency ? theme.card : theme.transparent }]}>
       {!glass?.reduceTransparency && (Platform.OS !== "android" || !!target) &&
