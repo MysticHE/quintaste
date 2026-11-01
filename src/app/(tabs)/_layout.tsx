@@ -4,6 +4,7 @@ import { useFood } from "../../state/Food";
 import { TabDock } from "../../components/navigation/TabDock";
 import { GlassNavigationProvider, TabBackdrop } from "../../components/navigation/GlassNavigation";
 import { MarketReminderSync } from "../../components/market/MarketReminderSync";
+import { DinnerReminderSync } from "../../components/social/DinnerReminderSync";
 import { InboxProvider } from "../../components/InboxCounts";
 import { useT } from "../../i18n";
 
@@ -18,5 +19,5 @@ export default function TabLayout() {
     <Tabs.Screen name="cook" options={{ title: t("tabCook") }} />
     <Tabs.Screen name="social" options={{ title: t("tabSocial") }} />
     <Tabs.Screen name="game" options={{ title: t("tabGame") }} />
-  </Tabs><MarketReminderSync /></InboxProvider></GlassNavigationProvider>;
+  </Tabs><MarketReminderSync /><DinnerReminderSync /></InboxProvider></GlassNavigationProvider>;
 }

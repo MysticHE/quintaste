@@ -9,6 +9,12 @@ export async function allowed(feature) {
   const result = await pool.query('SELECT enabled,notice FROM ops.control WHERE key=$1', [feature]);
   return result.rows[0]?.enabled === true && (feature !== 'registration' || registrationOpen);
 }
+/** Several switches in one read, as { [feature]: on }; the same rules as allowed(). */
+export async function allowedAll(features) {
+  if (!operationsEnabled) return Object.fromEntries(features.map(f => [f, f !== 'registration' || registrationOpen]));
+  const on = new Set((await pool.query('SELECT key FROM ops.control WHERE key = ANY($1::text[]) AND enabled', [features])).rows.map(r => r.key));
+  return Object.fromEntries(features.map(f => [f, on.has(f) && (f !== 'registration' || registrationOpen)]));
+}
 export async function restricted(userId) {
   if (!operationsEnabled) return false;
   const result = await pool.query('SELECT active FROM ops.restriction WHERE user_id=$1', [userId]);

@@ -12,6 +12,7 @@ import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers'
 import { setDailyCap } from '../../../../lib/ai-recipes';
 import { photoCheck, photoCheckAction, photoCheckImage, photoChecks, teacher, teacherAction, teachers } from '../../../../lib/social';
 import { chefDecisions, staffChefAction } from '../../../../lib/chefs';
+import { collection, collectionAction } from '../../../../lib/collection';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -21,6 +22,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   const params = new URL(request.url).searchParams;
   if (resource === 'overview') return json(await overview(member));
   if (resource === 'accounts') return json(await accounts(member, params.get('q') || ''));
+  if (resource === 'collection') return json(await collection(member, params.get('id')));
   if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || '', offset(params.get('page'))));
   if (resource === 'sellers') return json(params.has('id') ? await sellerDetail(member, text(params.get('id'),'seller id',64)) : await sellerList(member, params.get('status') || ''));
   if (resource === 'integrations') return json({ ...await gatewayStatus(member), ...await providerKeyStatus(member) });
@@ -60,6 +62,8 @@ export function POST(request: Request, context: Context) { return route(async ()
     : resource + (typeof input.action === 'string' ? ' ' + input.action : '');
   const reason = reasonText(input.reason, what + ' (no reason given)');
   if (resource === 'accounts') return json(await accountAction(member,input,reason));
+  // Credit adjustments and badge revokes require their own reason (checked in lib/collection.ts).
+  if (resource === 'collection') return json(await collectionAction(member,input));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'photo-checks') return json(await photoCheckAction(member,input,reason));

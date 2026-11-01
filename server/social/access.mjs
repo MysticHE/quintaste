@@ -31,11 +31,20 @@ export const reachableSql = (column, param) => `EXISTS (SELECT 1 FROM public."us
 export const pairOf = (a, b) => a < b ? [a, b] : [b, a];
 export const nameSql = (profile, user) => `coalesce(nullif(${profile}.first_name,''), ${user}.name, 'Member')`;
 
-/** Two no-shows in 90 days pause dinner invites for 30 days after the latest one. */
-export const pausedUntilSql = column => `(SELECT CASE WHEN count(*) >= 2 THEN max(nd_.starts) + interval '30 days' END FROM social.dinner nd_
-  WHERE (nd_.host_id=${column} OR nd_.guest_id=${column}) AND nd_.status='accepted' AND nd_.starts > now() - interval '90 days' AND nd_.starts < now() AND (
+/**
+ * Two missed dinners in 90 days pause dinner invites for 30 days after the latest one. A dinner counts when the member said
+ * "I didn't go", or the other person said "They didn't come" and the member did not say "We met" (a disagreement goes to staff
+ * instead, see dinners.mjs). Claims by one person count once, at their first dinner in the 90 days, so a single friend can
+ * neither pause anyone on their own nor make a pause last longer.
+ */
+export const pausedUntilSql = column => `(SELECT CASE WHEN count(*) >= 2 THEN max(ns_.starts) + interval '30 days' END FROM (
+  SELECT min(nm_.starts) AS starts FROM (SELECT nd_.starts, CASE WHEN EXISTS (SELECT 1 FROM social.dinner_report nr_ WHERE nr_.dinner_id=nd_.id AND nr_.user_id=${column} AND nr_.met='didnt_go')
+      THEN 'self:' || nd_.id::text ELSE CASE WHEN nd_.host_id=${column} THEN nd_.guest_id ELSE nd_.host_id END END AS strike
+  FROM social.dinner nd_ WHERE (nd_.host_id=${column} OR nd_.guest_id=${column}) AND nd_.status='accepted' AND nd_.starts > now() - interval '90 days' AND nd_.starts < now() AND (
     EXISTS (SELECT 1 FROM social.dinner_report nr_ WHERE nr_.dinner_id=nd_.id AND nr_.user_id=${column} AND nr_.met='didnt_go')
-    OR EXISTS (SELECT 1 FROM social.dinner_report nr_ WHERE nr_.dinner_id=nd_.id AND nr_.user_id<>${column} AND nr_.met='no_show')))`;
+    OR (EXISTS (SELECT 1 FROM social.dinner_report nr_ WHERE nr_.dinner_id=nd_.id AND nr_.user_id<>${column} AND nr_.met='no_show')
+      AND NOT EXISTS (SELECT 1 FROM social.dinner_report nr_ WHERE nr_.dinner_id=nd_.id AND nr_.user_id=${column} AND nr_.met='yes')))) nm_
+  GROUP BY nm_.strike) ns_)`;
 
 /**
  * Where a member stands on Social. `step` is the first thing still missing: 'photos' (no main photo), 'basics' (name,

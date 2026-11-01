@@ -52,14 +52,22 @@ export const dinner = (id: string, signal: AbortSignal) => call<DinnerDetail>("/
 export type DinnerInput = { userId: string; placeId: string; starts: string; pay: DinnerPay; message: string };
 export const inviteDinner = (input: DinnerInput) => call<{ id: string }>("/api/social/dinners", { method: "POST", body: input });
 export const acceptDinner = (id: string) => call("/api/social/dinners/" + id + "/accept", { method: "POST" });
-export const suggestDinner = (id: string, starts: string) => call("/api/social/dinners/" + id + "/suggest", { method: "POST", body: { starts } });
+/** A new time, a new place, or both (leave one empty to keep it). */
+export const suggestDinner = (id: string, change: { starts?: string; placeId?: string }) => call("/api/social/dinners/" + id + "/suggest", { method: "POST", body: change });
+/** Twin of `lateMinutes` in server/social/dinners.mjs, which refuses anything else; change both together. */
+export const lateMinutes = [10, 20, 30] as const;
+/** Running late on the day: a line in the chat saying how late. */
+export const lateDinner = (id: string, minutes: typeof lateMinutes[number]) => call("/api/social/dinners/" + id + "/late", { method: "POST", body: { minutes } });
 export const declineDinner = (id: string) => call("/api/social/dinners/" + id + "/decline", { method: "POST" });
 export const cancelDinner = (id: string) => call("/api/social/dinners/" + id + "/cancel", { method: "POST" });
 export const reportDinner = (id: string, body: { met: Met; eatAgain: boolean | null; note: string }) => call("/api/social/dinners/" + id + "/report", { method: "POST", body });
 
-/** Name search (`q`) and/or nearest-first places (`near`, rounded to about 100 m so no exact address leaves the phone). */
-export const placesKey = (q: string, near?: SearchPoint | null) => "/api/social/places?q=" + encodeURIComponent(q.trim())
-  + (near ? "&near=" + near.latitude.toFixed(3) + "," + near.longitude.toFixed(3) : "");
+/**
+ * Name search (`q`) and/or nearest-first places: to `near` (rounded to about 100 m so no exact address leaves the phone), or halfway
+ * to a friend (`withId`, worked out on the server from both areas).
+ */
+export const placesKey = (q: string, near?: SearchPoint | null, withId?: string) => "/api/social/places?q=" + encodeURIComponent(q.trim())
+  + (withId ? "&with=" + encodeURIComponent(withId) : near ? "&near=" + near.latitude.toFixed(3) + "," + near.longitude.toFixed(3) : "");
 export const placesByIdKey = (ids: readonly string[]) => ids.length ? "/api/social/places?ids=" + ids.map(encodeURIComponent).join(",") : null;
 export const places = (path: string, signal: AbortSignal) => call<{ items: SocialPlace[] }>(path, { signal });
 export const blocks = (signal: AbortSignal) => call<{ items: { id: string; name: string; createdAt: string }[] }>("/api/community/blocks", { signal });

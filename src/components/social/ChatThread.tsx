@@ -6,20 +6,27 @@ import { usePreferences } from "../../state/Preferences";
 import { useLanguage, useT } from "../../i18n";
 import { chatTime } from "../../utils/chat-time";
 import { formatSgDateTime } from "../../utils/sg-datetime";
-import type { LineKind } from "../../types/community";
+import type { LineGift, LineKind } from "../../types/community";
 import type socialMessages from "../../i18n/en/social";
+import type collectionMessages from "../../i18n/en/collection";
 
-type Line = { id: string; kind: LineKind; body: string; mine: boolean; createdAt: string };
+type Line = { id: string; kind: LineKind; body: string; mine: boolean; createdAt: string; gift?: LineGift | null };
 const dinnerKeys: Record<string, [keyof typeof socialMessages, keyof typeof socialMessages]> = {
   invited: ["dinnerInvitedMine", "dinnerInvitedTheirs"], suggested: ["dinnerSuggestedMine", "dinnerSuggestedTheirs"], accepted: ["dinnerAcceptedMine", "dinnerAcceptedTheirs"],
-  declined: ["dinnerDeclinedMine", "dinnerDeclinedTheirs"], cancelled: ["dinnerCancelledMine", "dinnerCancelledTheirs"] };
+  declined: ["dinnerDeclinedMine", "dinnerDeclinedTheirs"], cancelled: ["dinnerCancelledMine", "dinnerCancelledTheirs"],
+  suggestedPlace: ["dinnerPlaceMine", "dinnerPlaceTheirs"], suggestedBoth: ["dinnerBothMine", "dinnerBothTheirs"] };
+/** Running late lines are stored as 'late10', 'late20' or 'late30'. */
+const lateLine = /^late(10|20|30)$/;
 /** Words a friend chat's event and dinner lines (stored as keys) in the reader's language; text lines pass through. */
 export function useLineText() {
-  const t = useT("social");
+  const t = useT("social"), tc = useT("collection");
   return (line: Pick<Line, "kind" | "body" | "mine">, name: string) => {
     if (line.kind === "text") return line.body;
+    if (line.kind === "gift") return tc(line.mine ? "giftLineMine" : "giftLineTheirs", { gift: tc(("gift_" + line.body) as keyof typeof collectionMessages) as string }) as string;
     if (line.kind === "event") return line.body === "friends" ? t("eventFriends") : line.body;
     if (line.body === "again") return t("dinnerAgain");
+    const late = lateLine.exec(line.body);
+    if (late) return t(line.mine ? "lateLineMine" : "lateLineTheirs", { name, n: Number(late[1]) }) as string;
     const keys = dinnerKeys[line.body];
     return keys ? t(keys[line.mine ? 0 : 1], { name }) as string : line.body;
   };
@@ -32,10 +39,12 @@ function SystemLine({ text, at }: { text: string; at: string }) {
 }
 /**
  * A 1-to-1 conversation filling the screen: lines scroll and stay pinned to the newest, the composer stays at the bottom.
- * `top` sits above the first line (an invitation card, Load Earlier); `describe` words system lines.
+ * `top` sits above the first line (an invitation card, Load Earlier); `describe` words system lines; `renderLine` draws a line
+ * itself (a gift card) when it returns something.
  */
-export function ChatThread({ lines, describe, name, onSend, empty, top, disabled = false, placeholder }: {
+export function ChatThread({ lines, describe, name, onSend, empty, top, disabled = false, placeholder, renderLine, composerLeading }: {
   lines: Line[]; describe: (line: Line) => string; name: string; onSend: (text: string) => Promise<boolean>; empty: string; top?: ReactNode; disabled?: boolean; placeholder?: string;
+  renderLine?: (line: Line) => ReactNode; composerLeading?: ReactNode;
 }) {
   const scroll = useRef<ScrollViewInstance>(null), t = useT("social"), language = useLanguage();
   return <View style={[common.flex, { gap: 8, minHeight: 0 }]}>
@@ -43,10 +52,10 @@ export function ChatThread({ lines, describe, name, onSend, empty, top, disabled
     <ScrollView ref={scroll} style={common.flex} contentContainerStyle={{ gap: 8, paddingVertical: 4 }} keyboardShouldPersistTaps="handled"
       onContentSizeChange={() => scroll.current?.scrollToEnd({ animated: false })} showsVerticalScrollIndicator={false}>
       {!lines.length && <T muted style={{ textAlign: "center", paddingVertical: 24 }}>{empty}</T>}
-      {lines.map(line => line.kind === "text"
+      {lines.map(line => renderLine?.(line) ?? (line.kind === "text"
         ? <ChatBubble key={line.id} text={line.body} mine={line.mine} time={chatTime(line.createdAt, language)} label={(line.mine ? t("you") : name) + ": " + line.body + ", " + formatSgDateTime(Date.parse(line.createdAt), language)} />
-        : <SystemLine key={line.id} text={describe(line)} at={line.createdAt} />)}
+        : <SystemLine key={line.id} text={describe(line)} at={line.createdAt} />))}
     </ScrollView>
-    <ChatComposer onSend={onSend} disabled={disabled} placeholder={placeholder} />
+    <ChatComposer onSend={onSend} disabled={disabled} placeholder={placeholder} leading={composerLeading} />
   </View>;
 }

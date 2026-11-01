@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "note": "Achievement badges, redraw 2 (owner, 1 Nov 2026): distinct silhouettes in one layered family, tier shown by metal (copper, silver, gold, mythic), one bold contrasting centrepiece each. Test run only.",
+  "assets": [
+    {
+      "id": "badge-first-dinner",
+      "kind": "badge",
+      "chroma": "cyan",
+      "reference": false,
+      "subject": "a warm polished copper badge with a round raised front plate on a scalloped back plate and two small leaf-shaped copper wings",
+      "details": "The centrepiece is two small teacups clinking together, in glossy white enamel with a thin copper rim, a tiny curl of steam above them. One small amber accent below. Bronze tier: simple and warm. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-good-company",
+      "kind": "badge",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a cool polished silver badge shaped like a heart-topped crest on a pointed back plate, with short silver blades fanning out at both sides",
+      "details": "The centrepiece is two interlinked hearts in glossy ruby-red enamel. Small sapphire-blue accents at the blade tips. Silver tier: crisp and friendly. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-explorer",
+      "kind": "badge",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a polished gold badge shaped like an eight-pointed star burst on a round back plate",
+      "details": "The centrepiece is a compass with a deep blue enamel ring and a gold needle pointing up, set in the middle of the star. A small blue gem at the top point. Gold tier: adventurous. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-home-cook",
+      "kind": "badge",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a polished gold badge shaped like a tall shield with notched shoulders on a back plate, with a short red enamel banner ribbon across the bottom",
+      "details": "The centrepiece is a chef's hat in glossy white enamel above a crossed gold ladle and whisk. The banner is plain with no words. Gold tier: proud and warm. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-lotus-legend",
+      "kind": "badge",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a grand mythic badge with a gold crest, large layered gold wings sweeping up both sides, a small gold crown at the top and a violet ribbon tail below",
+      "details": "The centrepiece is a lotus flower carved from glowing violet-and-pink crystal, softly lit from inside, set on a deep violet enamel plate. Mythic tier: the grandest badge, still clean and readable. No words or numbers.",
+      "status": "todo"
+    }
+  ]
+}

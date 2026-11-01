@@ -67,7 +67,7 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
  * chats that need the member: unread ones, plus a seller's chat with a new order not yet answered (server/community/inbox.mjs).
  */
 function TopRow({ name, data }: { name: string; data: SocialMe | undefined }) {
-  const t = useT("profile"), { theme } = usePreferences(), inbox = useInbox(), requests = inbox?.requests ?? 0;
+  const t = useT("profile"), tc = useT("collection"), { theme } = usePreferences(), inbox = useInbox(), requests = inbox?.requests ?? 0;
   const verified = !!data?.standing.verified;
   return <View testID="social-profile-header" style={[common.row, { minHeight: 56, gap: 4 }]}>
     <View style={[common.flex, { minWidth: 0 }]} accessible accessibilityRole="header" accessibilityLabel={[name, verified ? t("verifiedTick") : "", data?.handle ? "@" + data.handle : ""].filter(Boolean).join(", ")}>
@@ -77,6 +77,8 @@ function TopRow({ name, data }: { name: string; data: SocialMe | undefined }) {
     </View>
     {!!data && <IconButton appearance="plain" icon="person-add-outline" badge={requests} label={requests ? t("addFriendWaiting", { n: requests }) : t("addFriend")}
       onPress={() => router.push("/social/add-friend")} />}
+    {data?.worn && <IconButton appearance="plain" icon="trophy-outline" badge={inbox?.gifts ?? 0}
+      label={inbox?.gifts ? tc("giftsWaiting", { n: inbox.gifts }) : tc("openCollection")} onPress={() => router.push("/social/collection")} />}
     <MessagesButton unread={inbox?.messages ?? 0} />
     {/* The full Me menu (Saved, Food choices, Location, Appearance, Privacy, Help, sign-out); this is its only entry point. */}
     <IconButton appearance="plain" icon="settings-outline" label={t("settings")} onPress={() => router.push({ pathname: "/account", params: { returnTo: "/social" } })} />

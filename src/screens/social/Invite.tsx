@@ -10,6 +10,7 @@ import { useMinuteClock } from "../../components/food/Timers";
 import { SocialGate, useSocialError } from "../../components/social/SocialState";
 import { PlacePicker, PlaceRow } from "../../components/social/PlacePicker";
 import { SlotPicker } from "../../components/social/SlotPicker";
+import { askForReminders } from "../../components/social/DinnerParts";
 import { Avatar } from "../../components/social/SocialPhoto";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { inviteDinner, person } from "../../services/social-api";
@@ -29,6 +30,7 @@ function InviteForm({ p }: { p: PersonPage }) {
     setBusy(true); setError("");
     try {
       await inviteDinner({ userId: p.id, placeId: place.id, starts, pay, message });
+      askForReminders();
       setNotice({ text: t("inviteSent", { name: p.firstName }) }); invalidate("/api/social"); router.back();
     } catch (failure) { setError(problem(failure, p.firstName)); }
     finally { setBusy(false); }
@@ -43,7 +45,7 @@ function InviteForm({ p }: { p: PersonPage }) {
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     <Button label={t("sendInvite")} icon="send-outline" loading={busy} onPress={() => void send()} />
     <T variant="small" muted style={{ textAlign: "center" }}>{t("inviteOpenNote")}</T>
-    <PlacePicker visible={picking} onClose={() => setPicking(false)} onPick={setPlace} selectedId={place?.id} />
+    <PlacePicker visible={picking} onClose={() => setPicking(false)} onPick={setPlace} selectedId={place?.id} withPerson={{ id: p.id, name: p.firstName }} />
   </>;
 }
 /** A 1-to-1 dinner invite to a friend: when, a catalogue place, who pays and an optional message. */

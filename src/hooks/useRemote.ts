@@ -5,6 +5,12 @@ import { ApiError, sessionHeaders } from "../services/community-api";
 
 const cache = new Map<string, unknown>();
 const listeners = new Map<string, Set<() => void>>(), followers = new Set<(prefixes: string[]) => void>();
+const receivers = new Map<string, Set<(value: unknown) => void>>();
+/** Shows `value` for `key` right away (a write that returned the new state), with no second request. */
+export function setRemoteData(key: string, value: unknown) {
+  cache.set(key, value);
+  receivers.get(key)?.forEach(receive => receive(value));
+}
 /** Refetches every mounted view whose key starts with one of the prefixes. */
 export function invalidate(...prefixes: string[]) {
   for (const [key, set] of listeners) if (prefixes.some(prefix => key.startsWith(prefix))) set.forEach(run => run());
@@ -58,7 +64,9 @@ export function useRemote<T>(key: string | null, load: (signal: AbortSignal) => 
   useEffect(() => {
     if (!key) return;
     const set = listeners.get(key) ?? new Set(); set.add(refresh); listeners.set(key, set);
-    return () => { set.delete(refresh); current.current?.abort(); };
+    const receive = (value: unknown) => { current.current?.abort(); setEntry({ key, epoch, data: value as T, error: null }); };
+    const got = receivers.get(key) ?? new Set(); got.add(receive); receivers.set(key, got);
+    return () => { set.delete(refresh); got.delete(receive); current.current?.abort(); };
   }, [key, refresh]);
   useFocusEffect(useCallback(() => {
     refresh();

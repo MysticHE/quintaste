@@ -16,15 +16,17 @@ export const FEATURES: Record<string, Feature> = {
   games: { name: 'Game progress', effect: 'Saving progress and café credits; the game still plays' },
   game_levels: { name: 'Recipe levels', effect: 'Turning recipes staff choose into game levels' },
   game_seasons: { name: 'Seasons', effect: 'The Seasons shelf and new season runs' },
+  collection: { name: 'Collection', effect: 'Credits from tasks, avatar borders and badges' },
+  gifts: { name: 'Gifts', effect: 'Sending gifts and the free weekly Rose (paid gifts need the store build)' },
 };
 /** Features, top to bottom. AI recipes carries its engine and Wanted recipes beneath it. */
 export const GROUPS: readonly (readonly [string, readonly string[]])[] = [
   ['Accounts', ['registration']], ['Explore', ['menus', 'discovery', 'areas']], ['Cook', ['recipes', 'ai_recipes', 'avatars']],
-  ['Social and Market', ['social', 'market', 'market_sellers']], ['Game', ['games', 'game_levels', 'game_seasons']]];
+  ['Social and Market', ['social', 'gifts', 'market', 'market_sellers']], ['Game', ['games', 'game_levels', 'game_seasons', 'collection']]];
 export const AI_SETTINGS = ['ai_recipes_bots', 'recipe_demand'] as const;
 /** What a feature needs on to run (the server checks the same switches). */
 export const NEEDS: Record<string, readonly string[]> = { ai_recipes: ['recipes'], recipe_demand: ['ai_recipes', 'recipes'],
-  game_levels: ['games', 'recipes'], game_seasons: ['games'] };
+  game_levels: ['games', 'recipes'], game_seasons: ['games'], collection: ['games'], gifts: ['social', 'collection'] };
 /** Not shown: "AI features" and "Identity review" were retired placeholders (owner, 19 Oct 2026); member cafés wait for their terms. */
 export const HIDDEN = ['ai', 'identity', 'game_cafes'];
 /** Switches that are not on/off features: the AI engine choice and the chef lanes. */

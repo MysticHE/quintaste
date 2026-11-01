@@ -8,7 +8,6 @@ import { Avatar } from "./SocialPhoto";
 import { ProfileSection } from "./ProfileControls";
 import { useDinnerStatus, usePayText } from "./DinnerParts";
 import { useRemote } from "../../hooks/useRemote";
-import { useReminderSync } from "../../hooks/useReminderSync";
 import { dinners } from "../../services/social-api";
 import { usePreferences } from "../../state/Preferences";
 import { useLanguage, useT } from "../../i18n";
@@ -31,7 +30,6 @@ export function DinnerSummary({ dinner: d, compact = false }: { dinner: Dinner; 
 }
 export function DiningOverview() {
   const t = useT("profile"), remote = useRemote("/api/social/dinners", dinners, 30000), data = remote.data;
-  useReminderSync(data ? [...data.upcoming, ...data.past] : undefined, true);
   const next = data?.upcoming.filter(d => d.status === "accepted" && !d.past).sort((a, b) => a.starts.localeCompare(b.starts))[0];
   const invitations = data?.upcoming.filter(d => d.status === "invited") ?? [];
   const all = () => router.push("/social/community?tab=dinners");

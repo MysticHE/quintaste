@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "note": "Dining gifts as premium game-style crests (owner review, 1 Nov 2026), after the owner's reference video of game achievement medals: crisp polished metal, cut gems, star glints. Tiers step up in metal and size: Little bronze/rose gold, Sweet silver and jade, Grand gold with gems and small wings, Signature a mythic winged crest. Original designs; no game logos. Test run only.",
+  "assets": [
+    {
+      "id": "crest-rose",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a compact heart-shaped crest in polished rose gold with a sculpted ruby-red rose at its centre",
+      "details": "The rose is carved from glossy faceted ruby with layered petals, two small engraved rose-gold leaves curl beneath it, a fine filigree border runs around the heart, and one small brilliant-cut diamond sits at the top point. Small and elegant. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-kopi",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a compact round crest in polished bronze with a cream enamel kopi cup and saucer embossed at its centre",
+      "details": "The cup is glossy cream enamel with a thin jade-green rim, a gold swirl of steam rising from it, the rim of the crest engraved with small coffee-bean motifs, and one round amber gem at the bottom. Warm, friendly and premium. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-kaya",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a compact shield crest in polished bronze with a pandan-green enamel field and a sculpted golden slice of kaya toast at its centre",
+      "details": "The toast is two golden triangles with a glossy jade-green kaya layer, framed by a bronze border with fine leaf engraving and two tiny emerald gems at the shoulders. Cosy and premium. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-bubble-tea",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a polished silver crest with jade inlays and swept side flourishes, holding a crystal bubble tea cup emblem at its centre",
+      "details": "The cup is clear faceted crystal with amber brown-sugar stripes and small glossy black onyx pearls at the bottom, a rose-quartz straw, the silver frame inlaid with pale jade and two small aquamarine gems at the sides. Playful but precious. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-lotus",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a polished silver crest shaped like an open lotus, with a sculpted pink lotus flower in rose quartz at its centre",
+      "details": "Layered rose-quartz petals with a golden seed pod, silver petal points radiating around the rim, jade leaf inlays at the base and a small pearl at the top. Serene and precious. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-chendol",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a polished silver crest with emerald-green enamel ribbons wrapping it and a sculpted bowl of chendol at its centre",
+      "details": "The bowl is crystal glass filled with frosted white ice, glossy amber gula melaka, green enamel jelly ribbons and small garnet red beans, with a teardrop amber gem at the bottom of the crest. Cool and refreshing. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-bouquet",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "an ornate polished gold crest with small swept wings, holding a bouquet of ruby and pink-diamond roses tied with a rose-gold ribbon",
+      "details": "A dozen faceted gem roses in ruby red and pink diamond with gold leaves, the gold frame layered with petal-shaped points, a large pink gem at the top and fine engraved lines across the wings. Celebratory and luxurious. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-mochi",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "refs": ["ref-mochi-chef.png"],
+      "subject": "an ornate polished gold crest with small swept wings, with Mochi Chef from the attached picture at its centre hugging a pink diamond heart",
+      "details": "Mochi Chef is a glossy white porcelain-and-enamel figure exactly on model with the attached picture: a dumpling body pinched at the top into a tall puffy chef hat, closed happy curved eyes, a small closed smile and peach blush cheeks; its tiny hands hold a faceted pink diamond heart. The gold frame has petal-shaped points and a small pink gem at the top. No open eyes, no open mouth, no words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "crest-golden-lotus",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a mythic-tier crest with large layered golden wings and a radiant golden lotus at its centre",
+      "details": "The lotus is polished gold petals with a glowing white-gold heart, set on a deep sapphire enamel disc ringed with small diamonds; large layered gold wings sweep out on both sides with violet enamel inlays, a crown of gold petals at the top holds a glowing violet-pink gem, and a small tail of gold points hangs below. The grandest and most precious emblem. No words or numbers.",
+      "status": "todo"
+    }
+  ]
+}

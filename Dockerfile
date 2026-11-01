@@ -23,6 +23,9 @@ COPY src/data/recipe-library ./src/data/recipe-library
 COPY src/utils/sg-datetime.ts ./src/utils/sg-datetime.ts
 # The level compiler (src/game/compile.ts) reads which ingredients a step names the way Cook mode does.
 COPY src/utils/step-ingredients.ts ./src/utils/step-ingredients.ts
+# Collection's Explorer badge (server/collection/areas.mjs) finds a place's planning area with the app's own lookup.
+COPY src/utils/planning-area.ts ./src/utils/planning-area.ts
+COPY src/data/planning-areas.ts ./src/data/planning-areas.ts
 COPY dist ./dist
 COPY server-assets ./server-assets
 COPY assets/fonts/Fredoka-OFL.txt ./licenses/Fredoka-OFL.txt

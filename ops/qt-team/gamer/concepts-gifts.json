@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "note": "Dining gift proposals for owner review, 1 Nov 2026. Paid one-off gifts sent between friends in Social Dining. Shine and sparkles are animated in the app, so each picture is the gift alone with a soft glow and no separate sparkles. Test run only; not part of the production asset list.",
+  "assets": [
+    {
+      "id": "gift-rose",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a single long-stemmed red rose lying at a gentle diagonal",
+      "details": "A perfect velvety crimson rose in full bloom with layered petals, two glossy green leaves and one dewdrop on a petal. Jewel-like premium finish: soft glossy highlights on the petal edges and a warm rose-gold rim light. A gift, elegant and romantic but cute. No ribbon, no vase, no floating sparkles or particles separate from the rose, no words.",
+      "status": "todo"
+    },
+    {
+      "id": "gift-kopi",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a cup of Singapore kopi in a classic thick white porcelain cup with a thin green rim on a matching saucer",
+      "details": "Rich caramel-brown kopi with a smooth creamy top and a little curl of steam, a small silver teaspoon on the saucer. Glossy porcelain highlights and a warm golden glow around the cup, like a treat being offered. No floating sparkles or particles separate from the cup, no words or logos.",
+      "status": "todo"
+    },
+    {
+      "id": "gift-kaya-toast",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a stack of two triangles of Singapore kaya toast on a small white plate",
+      "details": "Crisp golden-brown toast with a thick layer of green pandan kaya and a cold slab of plant-based butter peeking out, toasty grill marks. Appetising glossy highlights and a warm golden glow. No eggs on the plate, no floating sparkles or particles separate from the plate, no words.",
+      "status": "todo"
+    },
+    {
+      "id": "gift-bubble-tea",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a cup of brown sugar bubble tea with a wide straw",
+      "details": "A clear rounded cup with tiger stripes of dark brown sugar syrup running down the inside, creamy oat milk tea, glossy black tapioca pearls at the bottom, a sealed domed top and a thick pastel-pink straw. Glassy highlights and a soft warm glow. No floating sparkles or particles separate from the cup, no words or logos.",
+      "status": "todo"
+    },
+    {
+      "id": "gift-lotus",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a fully open soft pink lotus flower on a round lily pad",
+      "details": "Blush-pink petals in three layers around a golden seed pod, the petal tips fading to deeper rose, a dewdrop on the lily pad. Serene and precious, with a soft inner glow from the centre and a pearly sheen on the petals. No floating sparkles or particles separate from the flower, no words.",
+      "status": "todo"
+    },
+    {
+      "id": "gift-chendol",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a bowl of Singapore chendol dessert",
+      "details": "A small glass bowl of finely shaved ice drizzled with dark gula melaka syrup and coconut milk, bright green pandan jelly noodles and soft red beans on top. Cool icy sparkle on the ice crystals and a gentle glow around the bowl. No floating sparkles or particles separate from the bowl, no words.",
+      "status": "todo"
+    },
+    {
+      "id": "gift-bouquet",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "a hand-tied bouquet of red and blush-pink roses wrapped in soft cream paper with a satin ribbon",
+      "details": "About a dozen roses in full bloom with a few green leaves and baby's breath, the cream wrapping folded neatly and tied with a glossy rose-gold satin bow. Luxurious and celebratory, with glossy highlights and a warm rose-gold glow. No floating sparkles or particles separate from the bouquet, no words or card text.",
+      "status": "todo"
+    },
+    {
+      "id": "gift-mochi-heart",
+      "kind": "character",
+      "chroma": "green",
+      "subject": "Mochi Chef, the QuinTaste mascot in the attached picture, hugging a big glossy pink heart",
+      "details": "Keep Mochi exactly on model with the attached picture: a soft cream dumpling body pinched at the top into a tall puffy chef hat, closed happy curved eyes, a small closed curved smile, round peach blush cheeks. Two tiny stubby hands hold a plump glossy pink heart in front of the body; the heart covers only the lower middle so the face stays fully visible. Soft squishy mochi texture, pearly highlight on the heart, gentle warm glow. No open eyes, no open mouth, no floating hearts or sparkles separate from Mochi, no words.",
+      "status": "todo",
+      "refs": [
+        "ref-mochi-chef.png"
+      ]
+    },
+    {
+      "id": "gift-golden-lotus",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a radiant golden lotus flower on a round jade-green lily pad",
+      "details": "Petals of polished gold with warm champagne highlights in three layers, a softly glowing white-gold centre, delicate engraved veins on the petals and a deep jade lily pad with a single dewdrop. The most precious gift: opulent, luminous and serene, with a strong warm golden glow hugging the flower. No floating sparkles or particles separate from the flower, no words.",
+      "status": "todo"
+    }
+  ]
+}

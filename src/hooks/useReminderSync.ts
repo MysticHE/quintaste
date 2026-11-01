@@ -1,29 +1,17 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useMeet } from "./useMeet";
-import type { MeetAction } from "../state/meet-actions";
-import type { Dinner } from "../types/community";
+import { syncedReminders, type Remindable } from "../utils/dinner-reminders";
 import type { PlanReminder } from "../types/meet";
 
-/** A reminder stays only while the dinner is accepted and still ahead; it follows a changed time or place. */
-export function reminderFor(d: Pick<Dinner, "id" | "status" | "past" | "placeName" | "starts" | "pay">): PlanReminder | null {
-  return d.status === "accepted" && !d.past ? { groupId: d.id, venue: d.placeName, starts: d.starts, pay: d.pay } : null;
-}
+export { reminderFor } from "../utils/dinner-reminders";
 /**
- * Keeps device dinner reminders in step with the dinners just loaded. With `complete`, reminders for dinners missing
- * from the list are dropped too; otherwise only the listed dinners are checked.
+ * Keeps device dinner reminders in step with the member's whole dinner list (see syncedReminders). Only DinnerReminderSync calls
+ * it: one writer, so two screens holding different copies of a dinner can never undo each other's reminders.
  */
-export function useReminderSync(dinners: Dinner[] | undefined, complete: boolean) {
-  const { network, commit } = useMeet(), latest = useRef(commit);
+export function useReminderSync(dinners: Remindable[] | undefined) {
+  const { network, commit, ready } = useMeet(), latest = useRef(commit);
   useEffect(() => { latest.current = commit; });
-  const changes = useMemo(() => {
-    if (!dinners) return [];
-    return network.reminders.flatMap((reminder): MeetAction[] => {
-      const dinner = dinners.find(item => item.id === reminder.groupId);
-      if (!dinner) return complete ? [{ type: "reminder", groupId: reminder.groupId, reminder: null }] : [];
-      const next = reminderFor(dinner);
-      return JSON.stringify(next) === JSON.stringify(reminder) ? [] : [{ type: "reminder", groupId: reminder.groupId, reminder: next }];
-    });
-  }, [dinners, network.reminders, complete]);
-  const key = JSON.stringify(changes);
-  useEffect(() => { for (const change of JSON.parse(key) as MeetAction[]) void latest.current(change); }, [key]);
+  const next = useMemo(() => dinners && ready ? syncedReminders(dinners, network) : null, [dinners, ready, network]);
+  const key = next ? JSON.stringify(next) : "";
+  useEffect(() => { if (key) void latest.current({ type: "reminders", reminders: JSON.parse(key) as PlanReminder[] }); }, [key]);
 }

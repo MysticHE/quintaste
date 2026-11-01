@@ -1,14 +1,15 @@
 import * as Linking from "expo-linking";
 import { router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
-import { View } from "react-native";
+import { useEffect, useState } from "react";
+import { Share, StyleSheet, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, T, common } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { SocialGate } from "../../components/social/SocialState";
-import { AfterDinnerSheet, AnswerButtons, DinnerReminder, useDinnerStatus, usePayText } from "../../components/social/DinnerParts";
+import { AfterDinnerSheet, AnswerButtons, DinnerReminder, LateChips, isDayOf, useDinnerStatus, usePayText } from "../../components/social/DinnerParts";
+import { useMinuteClock } from "../../components/food/Timers";
 import { FlagSheet } from "../../components/social/PersonSheets";
 import { PlaceThumb } from "../../components/social/Face";
 import { Avatar } from "../../components/social/SocialPhoto";
@@ -17,13 +18,12 @@ import { useWhere } from "../../components/social/PersonCard";
 import { useDietText } from "../../components/food/DietLabels";
 import { Confirm, openSocial } from "../../components/social/Shared";
 import { invalidate, useRemote } from "../../hooks/useRemote";
-import { useReminderSync } from "../../hooks/useReminderSync";
 import { cancelDinner, dinner as loadDinner, person as loadPerson, places, placesByIdKey } from "../../services/social-api";
 import { exportCalendarEvent } from "../../services/calendar-export";
 import { usePreferences } from "../../state/Preferences";
 import { useLanguage, useT } from "../../i18n";
 import { directionsUrl } from "../../utils/directions";
-import { formatSgDateTime, formatSgText, parseSgDateTime } from "../../utils/sg-datetime";
+import { formatSgDateTime, formatSgText, parseSgDateTime, sgDateTile } from "../../utils/sg-datetime";
 import type { DinnerDetail, SocialPlace } from "../../types/community";
 
 /**
@@ -64,8 +64,16 @@ function Afterwards({ d }: { d: DinnerDetail }) {
     {!!d.theirNote && <ListGroup title={t("theirNote", { name: d.withName })}><ListItem title={d.theirNote} wrap leading={<Avatar uri={d.photo} size={36} />} /></ListGroup>}
   </>;
 }
+/** On the day of a confirmed dinner: its time and one tap to say you're running late. */
+function DayOf({ d }: { d: DinnerDetail }) {
+  const t = useT("social"), { theme } = usePreferences(), language = useLanguage(), time = sgDateTile(d.starts, language)?.time ?? "";
+  return <View style={[s.dayOf, { backgroundColor: theme.accentSoft }]}>
+    <View style={[common.row, { gap: 8 }]}><RowIcon name="restaurant-outline" /><T style={[common.bold, common.flex]}>{t("dayOfTitle", { time })}</T></View>
+    <LateChips dinner={d} />
+  </View>;
+}
 function DinnerView({ d, place, refresh }: { d: DinnerDetail; place: SocialPlace | null; refresh: () => void }) {
-  const t = useT("social"), { setNotice } = usePreferences(), language = useLanguage(), pay = usePayText()(d), [status, tone] = useDinnerStatus()(d);
+  const t = useT("social"), { setNotice } = usePreferences(), language = useLanguage(), pay = usePayText()(d), [status, tone] = useDinnerStatus()(d), now = useMinuteClock();
   const open = (url: string) => { void Linking.openURL(url).catch(() => setNotice({ text: t("directionsFailed"), error: true })); };
   const calendar = async () => {
     const start = parseSgDateTime(d.starts);
@@ -74,10 +82,17 @@ function DinnerView({ d, place, refresh }: { d: DinnerDetail; place: SocialPlace
       description: pay + (language === "zh" ? "。" : ". ") + t("fromQuinTaste") }); }
     catch { setNotice({ text: t("calendarFailed"), error: true }); }
   };
-  const upcoming = d.status === "accepted" && !d.past, waiting = d.status === "invited" && !d.yourTurn;
+  // Someone you trust can know where you'll be: the plan goes out through the phone's own share sheet, nothing is stored.
+  const share = async () => {
+    const lines = [t("calendarTitle", { name: d.withName }), formatSgText(d.starts, language), d.placeName, place?.address, place?.address ? directionsUrl(place.address) : ""];
+    try { await Share.share({ message: lines.filter(Boolean).join("\n") }); }
+    catch { setNotice({ text: t("sharingUnavailableDevice"), error: true }); }
+  };
+  const upcoming = d.status === "accepted" && !d.past, waiting = d.status === "invited" && !d.yourTurn, today = isDayOf(d, now);
   return <>
     <View style={{ height: 170 }}><PlaceThumb place={place} size="fill" radius={20} /></View>
     <View style={{ gap: 6 }}><T variant="title" style={common.bold}>{d.placeName}</T><View style={{ alignSelf: "flex-start" }}><StatusPill label={status} tone={tone} /></View></View>
+    {today && <DayOf d={d} />}
     <ListGroup>
       <ListItem title={formatSgText(d.starts, language)} subtitle={t("when")} leading={<RowIcon name="time-outline" />} />
       <ListItem title={place?.address || d.placeName} subtitle={t("whereLabel")} wrap leading={<RowIcon name="location-outline" />}
@@ -89,17 +104,29 @@ function DinnerView({ d, place, refresh }: { d: DinnerDetail; place: SocialPlace
     <WithPerson d={d} />
     {d.status === "invited" && d.yourTurn && <><T variant="small" muted>{t("answerBy", { date: formatSgDateTime(Date.parse(d.expiresAt), language) })}</T>
       <AnswerButtons dinner={d} onDone={refresh} /></>}
-    {upcoming && <Button label={t("addToCalendar")} icon="calendar-outline" variant="secondary" onPress={() => void calendar()} />}
+    {upcoming && <View style={s.actions}>
+      <View style={s.action}><Button label={t("addToCalendar")} icon="calendar-outline" variant="secondary" onPress={() => void calendar()} /></View>
+      <View style={s.action}><Button label={t("sharePlan")} icon="share-outline" variant="secondary" onPress={() => void share()} /></View>
+    </View>}
     <Afterwards d={d} />
-    {(waiting || upcoming) && <View style={{ alignItems: "center" }}><Confirm link label={t(waiting ? "cancelInvite" : "cancelDinner")} text={t("cancelDinnerText", { name: d.withName })}
-      action={t(waiting ? "cancelInvite" : "cancelDinner")} run={async () => { await cancelDinner(d.id); setNotice({ text: t("dinnerCancelled") }); invalidate("/api/social"); refresh(); return true; }} /></View>}
+    {(waiting || upcoming) && <View style={{ alignItems: "center" }}><Confirm link label={t(waiting ? "cancelInvite" : today ? "cantMakeIt" : "cancelDinner")}
+      text={t(today ? "cantMakeItText" : "cancelDinnerText", { name: d.withName })} action={t(waiting ? "cancelInvite" : today ? "cantMakeIt" : "cancelDinner")}
+      run={async () => { await cancelDinner(d.id); setNotice({ text: t("dinnerCancelled") }); invalidate("/api/social"); refresh(); return true; }} /></View>}
   </>;
 }
+const s = StyleSheet.create({
+  dayOf: { borderRadius: 16, padding: 14, gap: 12 },
+  actions: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  action: { flexGrow: 1, flexBasis: 150 },
+});
 /** One dinner: when, where, who pays and with whom, then what to do now — answer, get ready, or say how it went. */
 export function DinnerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), t = useT("social"), remote = useRemote(id ? "/api/social/dinners/" + id : null, signal => loadDinner(id, signal));
   const d = remote.data, key = d ? placesByIdKey([d.placeId]) : null, place = useRemote(key, signal => places(key!, signal)).data?.items[0] ?? null, [flag, setFlag] = useState(false);
-  useReminderSync(d ? [d] : undefined, false);
+  // What reminders depend on; when this page sees it change (the other person cancelled or moved it), the list reloads so
+  // DinnerReminderSync follows.
+  const shape = d ? [d.status, d.starts, d.placeName, d.reported].join("|") : "";
+  useEffect(() => { if (shape) invalidate("/api/social/dinners"); }, [shape]);
   return <Screen title={t("dinnerTitle")} headerAction={d ? <IconButton label={t("flagLabel", { name: d.withName })} icon="flag-outline" onPress={() => setFlag(true)} /> : undefined}>
     <SocialGate returnTo={"/social/dinner/" + id}>
       <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social?tab=dinners" missing={t("dinnerUnavailable")} />

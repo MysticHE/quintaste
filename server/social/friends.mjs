@@ -4,6 +4,7 @@ import { CommunityError, requireId, requireUser, text, throttle, transaction } f
 import { friendsSql, highSql, lowSql, nameSql, pairOf, reachableSql, seeableSql, verifiedSql } from './access.mjs';
 import { photoUrl } from './profile.mjs';
 import { separate } from './separate.mjs';
+import { bordersOf } from '../collection/worn.mjs';
 
 export const friends = express.Router();
 const thumbSql = column => `(SELECT json_build_object('id', ph.id, 'digest', ph.digest) FROM social.photo ph WHERE ph.user_id=${column} AND ph.position=0)`;
@@ -15,9 +16,9 @@ export async function threadFor(db, a, b) {
   return (await db.query(`INSERT INTO social.thread(a_id, b_id) VALUES($1,$2) ON CONFLICT(a_id, b_id) DO UPDATE SET updated_at=social.thread.updated_at RETURNING id`, [x, y])).rows[0].id;
 }
 /** Posts a line into the pair's chat. Event bodies are keys the app words in the reader's language. */
-export async function postLine(db, from, to, { kind = 'event', body, dinnerId = null, sender = null }) {
+export async function postLine(db, from, to, { kind = 'event', body, dinnerId = null, giftId = null, sender = null }) {
   const thread = await threadFor(db, from, to);
-  await db.query('INSERT INTO social.thread_message(thread_id, sender_id, kind, body, dinner_id) VALUES($1,$2,$3,$4,$5)', [thread, sender, kind, body, dinnerId]);
+  await db.query('INSERT INTO social.thread_message(thread_id, sender_id, kind, body, dinner_id, gift_id) VALUES($1,$2,$3,$4,$5,$6)', [thread, sender, kind, body, dinnerId, giftId]);
   await db.query('UPDATE social.thread SET updated_at=now() WHERE id=$1', [thread]);
   return thread;
 }
@@ -50,8 +51,9 @@ friends.get('/friends', async (_req, res) => {
       ${thumbSql('u.id')} AS photo
     FROM social.friend_request r JOIN public."user" u ON u.id=CASE WHEN r.from_id=$1 THEN r.to_id ELSE r.from_id END LEFT JOIN social.profile p ON p.user_id=u.id
     WHERE r.status='pending' AND (r.from_id=$1 OR r.to_id=$1) AND ${reachableSql('u.id', '$1')} ORDER BY r.created_at DESC LIMIT 100`, [me])).rows;
-  const mine = (await pool.query('SELECT gender FROM social.profile WHERE user_id=$1', [me])).rows[0]?.gender ?? '';
-  res.json({ friends: rows.map(({ photo, gender, ...row }) => ({ ...row, photo: thumbOf(photo), opposite: !!gender && !!mine && gender !== mine })),
+  const [mine, borders] = await Promise.all([pool.query('SELECT gender FROM social.profile WHERE user_id=$1', [me]).then(r => r.rows[0]?.gender ?? ''),
+    bordersOf(rows.map(r => r.id))]);
+  res.json({ friends: rows.map(({ photo, gender, ...row }) => ({ ...row, photo: thumbOf(photo), opposite: !!gender && !!mine && gender !== mine, border: borders.get(row.id) ?? null })),
     received: requests.filter(r => !r.mine).map(({ photo, mine: _m, ...r }) => ({ ...r, photo: thumbOf(photo) })),
     sent: requests.filter(r => r.mine).map(({ photo, mine: _m, ...r }) => ({ ...r, photo: thumbOf(photo) })) });
 });
@@ -144,7 +146,10 @@ friends.get('/chats/:id', async (req, res) => {
   const thread = (await pool.query(`SELECT id, a_id, CASE WHEN a_id=$1 THEN a_read_at ELSE b_read_at END AS read_at FROM social.thread
     WHERE a_id=${lowSql('$1::text', '$2::text')} AND b_id=${highSql('$1::text', '$2::text')}`, [me, other])).rows[0];
   if (!thread) return res.json({ items: [], more: false });
-  const rows = (await pool.query(`SELECT m.id, m.kind, m.body, m.dinner_id AS "dinnerId", m.sender_id=$2 AS mine, m.created_at AS "createdAt" FROM social.thread_message m
+  // A gift line carries its gift (which one, the note unless staff hid it, whether it was opened); a refunded gift is gone.
+  const rows = (await pool.query(`SELECT m.id, m.kind, m.body, m.dinner_id AS "dinnerId", m.sender_id=$2 AS mine, m.created_at AS "createdAt",
+      (SELECT json_build_object('id', g.id, 'gift', g.gift, 'note', CASE WHEN g.note_hidden THEN '' ELSE g.note END, 'opened', g.opened_at IS NOT NULL, 'liked', g.liked_at IS NOT NULL)
+        FROM community.gift g WHERE g.id=m.gift_id AND g.status='sent') AS gift FROM social.thread_message m
     WHERE m.thread_id=$1 ${before ? 'AND m.created_at < $3' : ''} ORDER BY m.created_at DESC LIMIT 51`, before ? [thread.id, me, before] : [thread.id, me])).rows;
   // The app polls an open chat every few seconds; the read time is written only when there is something newer to mark read.
   if (!before && rows.length && new Date(rows[0].createdAt) > new Date(thread.read_at)) {

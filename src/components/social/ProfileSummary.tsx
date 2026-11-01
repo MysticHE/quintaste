@@ -3,6 +3,9 @@ import type { ReactNode } from "react";
 import { Pressable, View } from "react-native";
 import { Icon, T, common } from "../ui";
 import { ProfilePicture } from "./ProfilePicture";
+import { BorderFrame } from "../collection/Glint";
+import { BadgeRow } from "../collection/CollectionParts";
+import { borderArt } from "../../config/collection";
 import { usePostCount } from "./ProfileGrid";
 import { useDietText } from "../food/DietLabels";
 import { useRemote } from "../../hooks/useRemote";
@@ -22,14 +25,20 @@ export function SummaryLayout({ picture, stats, children }: { picture: ReactNode
     </View>
   </View>;
 }
-/** Location pin, then the parts given (area, distance), then the diet labels in green, wrapping as one line of text. Nothing when every part is empty. */
+/**
+ * Location pin, then the parts given (area, distance), then the diet labels in green. When they don't fit on one line they
+ * wrap between parts, never inside one, and a line never starts with "·" (the dot stays with the part before it). Nothing
+ * when every part is empty.
+ */
 export function AreaLine({ parts, diets }: { parts: string[]; diets: string }) {
-  const { theme } = usePreferences(), shown = parts.filter(Boolean).join(" · ");
-  if (!shown && !diets) return null;
-  return <View style={[common.row, { gap: 4, alignItems: "flex-start" }]}>
+  const { theme } = usePreferences(), items = [...parts.flatMap(part => part.split(" · ")).filter(Boolean).map(text => ({ text, diet: false })), ...(diets ? [{ text: diets, diet: true }] : [])];
+  if (!items.length) return null;
+  return <View style={[common.row, { gap: 4, alignItems: "flex-start" }]} accessible accessibilityLabel={items.map(item => item.text).join(", ")}>
     <View style={{ marginTop: 2 }}><Icon name="location-outline" size={14} color={theme.mutedForeground} /></View>
-    <T variant="small" muted style={[common.flex, { minWidth: 0 }]}>{shown}{!!shown && !!diets && " ·\u00a0"}
-      {!!diets && <T variant="small" color={theme.success} style={common.bold}>{diets}</T>}</T>
+    <View style={[common.flex, { minWidth: 0, flexDirection: "row", flexWrap: "wrap", columnGap: 4 }]}>
+      {items.map((item, index) => <T key={index} variant="small" numberOfLines={1} style={[{ flexShrink: 1 }, item.diet && common.bold]}
+        color={item.diet ? theme.success : theme.mutedForeground}>{item.text + (index < items.length - 1 ? " ·" : "")}</T>)}
+    </View>
   </View>;
 }
 /** Photo with the pencil, Friends · Posts · Dinners beside it, area and diet under the counts, then bio and hobbies. */
@@ -45,8 +54,10 @@ export function ProfileSummary({ data, onEdit, onPosts }: { data: SocialMe | und
   ];
   const area = data?.profile.area ?? "", diets = area ? (data?.profile.diets ?? []).map(diet.name).join(" · ") : "";
   return <>
-    <SummaryLayout stats={stats} picture={<View><ProfilePicture data={data} size={88} /><EditBadge label={t("edit")} onPress={onEdit} /></View>}>
+    <SummaryLayout stats={stats} picture={<View><BorderFrame art={data?.worn?.border ? borderArt(data.worn.border) : undefined} size={88}><ProfilePicture data={data} size={88} /></BorderFrame>
+      <EditBadge label={t("edit")} onPress={onEdit} /></View>}>
       {!!area && <AreaLine parts={[area]} diets={diets} />}
+      <BadgeRow ids={data?.worn?.badges ?? []} />
     </SummaryLayout>
     <AboutRow data={data} onEdit={onEdit} />
   </>;

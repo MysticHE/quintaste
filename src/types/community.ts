@@ -90,26 +90,30 @@ export type Standing = { step: SocialStep; age: number | null; gender: Gender; v
   pausedUntil: string | null; canMeet: boolean };
 export type SocialPhoto = { id: string; position: number; url: string; thumb: string };
 /** `handle` is the member's public handle (made from their name on first use), separate from the private sign-in username. */
-export type SocialMe = { id: string; accountName: string; handle: string; hasProfile: boolean; profile: SocialProfile; photos: SocialPhoto[]; standing: Standing };
+/** What a member shows from their Collection (docs/COLLECTION_PLAN.md): the border they wear and up to three badges; null while Collection is off. */
+export type Worn = { border: string | null; badges: string[] } | null;
+export type SocialMe = { id: string; accountName: string; handle: string; hasProfile: boolean; profile: SocialProfile; photos: SocialPhoto[]; standing: Standing; worn?: Worn };
 export type PhotoLink = { url: string; thumb: string };
 /** Another member as the server shares them: hidden fields come back empty, the birth date as `age`. */
 export type Person = Omit<SocialProfile, "birthDate" | "hidden" | "visible" | "excluded"> & { id: string; age: number | null; photos: PhotoLink[]; km: number | null };
-export type PersonPage = Person & { handle: string | null; verified: boolean; friend: boolean; request: { id: string; mine: boolean; note: string } | null; openInvite: boolean; canInvite: boolean };
+export type PersonPage = Person & { handle: string | null; verified: boolean; friend: boolean; request: { id: string; mine: boolean; note: string } | null; openInvite: boolean; canInvite: boolean; worn?: Worn };
 /** Another member's posts on their profile (GET /api/social/people/:id?posts=1): recipes, items on sale and classes, plus their friend count. */
 export type PersonPosts = { friends: number; recipes: { id: string; name: string; image: string | null }[];
   items: { id: string; name: string; priceCents: number; photo: string | null }[]; classes: { id: string; title: string; starts: string }[] };
 /** Their profile page: the person with their posts. */
 export type PersonWithPosts = PersonPage & { posts: PersonPosts };
-export type LineKind = "text" | "event" | "dinner";
+export type LineKind = "text" | "event" | "dinner" | "gift";
+/** A gift on a chat line (server/collection/gifts.mjs); null once refunded. */
+export type LineGift = { id: string; gift: string; note: string; opened: boolean; liked?: boolean };
 export type Friend = { id: string; firstName: string; handle: string | null; area: string; since: string; photo: string | null; verified: boolean; threadId: string | null; updatedAt: string;
-  last: { kind: LineKind; body: string; mine: boolean; at: string } | null; unread: number; opposite: boolean };
+  last: { kind: LineKind; body: string; mine: boolean; at: string } | null; unread: number; opposite: boolean; border?: string | null };
 export type FriendRequest = { id: string; note: string; createdAt: string; userId: string; firstName: string; handle: string | null; area: string; verified: boolean; photo: string | null };
 /** An Add friend search result and how the member stands with them. */
 export type HandleMatch = { id: string; handle: string; firstName: string; area: string; verified: boolean; photo: string | null;
   state: "friend" | "sent" | "received" | "none"; requestId: string | null };
 export type Friends = { friends: Friend[]; received: FriendRequest[]; sent: FriendRequest[] };
 /** Event and dinner lines carry keys (friends, invited, suggested, accepted, declined, cancelled, again) the app words. */
-export type ChatLine = { id: string; kind: LineKind; body: string; dinnerId: string | null; mine: boolean; createdAt: string };
+export type ChatLine = { id: string; kind: LineKind; body: string; dinnerId: string | null; mine: boolean; createdAt: string; gift?: LineGift | null };
 export const dinnerPays = ["split", "host", "own"] as const;
 export type DinnerPay = typeof dinnerPays[number];
 export type DinnerStatus = "invited" | "accepted" | "declined" | "cancelled" | "expired";

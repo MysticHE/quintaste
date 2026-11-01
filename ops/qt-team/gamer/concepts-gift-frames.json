@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "note": "Medal frames behind Dining gifts, one per price tier, for the game-style showcase (owner review, 1 Nov 2026). The gift sits on the solid enamel disc in the centre. Test run only.",
+  "assets": [
+    {
+      "id": "frame-little",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a round game achievement medal badge in warm polished copper, seen straight on",
+      "details": "A thick rounded copper rim with a soft bevel and two small leaf sprigs curling up the sides, around a smooth solid deep plum-brown enamel disc in the centre that is completely empty. Glossy metal highlights. Straight-on front view, symmetrical. No symbol, gem, number, words or object in the centre disc, no floating sparkles separate from the medal.",
+      "status": "todo"
+    },
+    {
+      "id": "frame-sweet",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a round game achievement medal badge in polished jade and silver, seen straight on",
+      "details": "A rounded silver rim inlaid with pale green jade, three small lotus petals rising at the top, around a smooth solid deep teal enamel disc in the centre that is completely empty. Cool glossy highlights. Straight-on front view, symmetrical. No symbol, gem, number, words or object in the centre disc, no floating sparkles separate from the medal.",
+      "status": "todo"
+    },
+    {
+      "id": "frame-grand",
+      "kind": "prop",
+      "chroma": "cyan",
+      "subject": "an ornate game achievement medal badge in rose gold with small swept wings, seen straight on",
+      "details": "A rose-gold rim with layered petal-shaped points around the edge, two small swept wings at the sides and a little pink gem at the top, around a smooth solid deep wine-red enamel disc in the centre that is completely empty. Rich glossy highlights. Straight-on front view, symmetrical. No symbol, number, words or object in the centre disc, no floating sparkles separate from the medal.",
+      "status": "todo"
+    },
+    {
+      "id": "frame-signature",
+      "kind": "prop",
+      "chroma": "magenta",
+      "subject": "a grand ornate mythic game achievement medal badge in radiant gold with large layered wings and a crown of lotus petals, seen straight on",
+      "details": "A heavy polished gold rim with engraved details, large layered golden wings sweeping out on both sides, a crown of golden lotus petals at the top with a glowing jade gem, around a smooth solid deep midnight-blue enamel disc in the centre that is completely empty. Luminous, precious and majestic, with strong glossy gold highlights. Straight-on front view, symmetrical. No symbol, number, words or object in the centre disc, no floating sparkles separate from the medal.",
+      "status": "todo"
+    }
+  ]
+}

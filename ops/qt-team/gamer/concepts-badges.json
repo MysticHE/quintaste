@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "note": "Achievement badges (owner, 1 Nov 2026): separate from gifts and borders; earned by finishing task lists. Restrained style after the owner's reference video. Test run only.",
+  "assets": [
+    {
+      "id": "badge-first-dinner",
+      "kind": "emblem",
+      "chroma": "cyan",
+      "reference": false,
+      "subject": "a simple pointed shield badge with a plain bevelled bronze-gold rim and no wings, with a crossed gold fork and spoon in relief at its centre",
+      "details": "One cut gemstone in a ruby red, set where the fork and spoon cross, and one tiny matching gem at the top point; nothing else in colour. The badge is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-good-company",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a pointed shield badge with a bevelled silver-and-gold rim and three small points fanning out at each upper side, no wings, with two small overlapping gold hearts in relief at its centre",
+      "details": "One cut gemstone in a sapphire blue, set at the base of the hearts, and one tiny matching gem at the top point; nothing else in colour. The badge is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-explorer",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a pointed shield badge with a bevelled gold rim and three small points fanning out at each upper side, no wings, with a gold compass rose in relief at its centre",
+      "details": "One cut gemstone in an emerald green, set in the compass centre, and one tiny matching gem at the top point; nothing else in colour. The badge is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-home-cook",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a pointed shield badge with a bevelled gold rim, small swept gold wings at the upper sides and a small gold crown point at the top, with a gold chef hat above a crossed ladle and whisk, in relief at its centre",
+      "details": "One cut gemstone in an amber, set below the chef hat, and one tiny matching gem at the top point; nothing else in colour. The badge is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "badge-lotus-legend",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a pointed shield badge with a bevelled gold rim, larger layered swept gold wings, a gold crown at the top and a short violet enamel ribbon tail at the bottom, with a radiant gold lotus flower in relief at its centre",
+      "details": "One cut gemstone in a violet, set in the lotus centre, softly glowing, and one tiny matching gem at the top point; nothing else in colour. The badge is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    }
+  ]
+}

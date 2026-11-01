@@ -6,7 +6,6 @@ import { T } from "../../components/ui";
 import { DinnerRow } from "../../components/social/DinnerParts";
 import { useRemote } from "../../hooks/useRemote";
 import { useDebounced } from "../../hooks/useDebounced";
-import { useReminderSync } from "../../hooks/useReminderSync";
 import { dinners as loadDinners } from "../../services/social-api";
 import { useT } from "../../i18n";
 import type { Dinner } from "../../types/community";
@@ -17,7 +16,6 @@ export function DinnersTab({ query }: { query: string }) {
   const t = useT("social"), remote = useRemote("/api/social/dinners", loadDinners, 30000), q = useDebounced(query).trim().toLowerCase();
   const has = (d: Dinner) => !q || (d.placeName + " " + d.withName).toLowerCase().includes(q);
   const all = remote.data ? [...remote.data.upcoming, ...remote.data.past] : undefined;
-  useReminderSync(all, true);
   const shown = (all ?? []).filter(has), waiting = shown.filter(needsYou);
   const upcoming = shown.filter(d => !needsYou(d) && (d.status === "invited" || (d.status === "accepted" && !d.past)));
   const past = shown.filter(d => !needsYou(d) && !upcoming.includes(d));

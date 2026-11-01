@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "note": "Avatar borders (owner, 1 Nov 2026): separate from gifts and badges; bought with credits earned from tasks. Test run only.",
+  "assets": [
+    {
+      "id": "border-sprout",
+      "kind": "border",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a slim polished bronze ring with a small fresh green sprout curling up from the bottom",
+      "details": "Two small glossy green leaves at the bottom, one tiny leaf at the top, nothing else. Simple and fresh: the starter border. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "border-bamboo",
+      "kind": "border",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a slim polished silver ring with short jade-green bamboo stalks along the lower left and lower right",
+      "details": "A few slender bamboo leaves fanning out at the top, small silver bands on the bamboo joints. Calm and clean. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "border-lotus-pond",
+      "kind": "border",
+      "chroma": "cyan",
+      "reference": false,
+      "subject": "a slim silver-and-gold ring with pink lotus blossoms and round green lily pads gathered at the bottom",
+      "details": "Two open pink lotus flowers and three lily pads at the bottom, one small pink lotus bud at the top. Serene. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "border-mochi",
+      "kind": "border",
+      "chroma": "cyan",
+      "reference": false,
+      "subject": "a slim warm gold ring with Mochi Chef from the attached picture peeking up over the bottom edge",
+      "details": "Mochi is small, on model with the attached picture: cream dumpling body, tall puffy chef hat, closed happy curved eyes and a small closed smile, tiny hands resting on the ring. A small gold whisk and spoon cross at the top. No open eyes, no open mouth. No words or numbers.",
+      "status": "todo",
+      "refs": [
+        "ref-mochi-chef.png"
+      ]
+    },
+    {
+      "id": "border-golden-lotus",
+      "kind": "border",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a polished gold ring with layered swept golden wings at both sides and a radiant gold lotus crown at the top",
+      "details": "A small violet gem in the lotus crown, a short gold flourish at the bottom, gentle warm glow on the gold. The rarest border: majestic but still slim enough to show the photo. No words or numbers.",
+      "status": "todo"
+    }
+  ]
+}

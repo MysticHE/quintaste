@@ -26,6 +26,8 @@ import { startAreaSnapshots } from './areas/snapshot.mjs';
 import { placeReviews } from './place-reviews/router.mjs';
 import './place-signals.mjs';
 import { game, gamePublic, purgeRunLogs } from './game/router.mjs';
+import { collection } from './collection/router.mjs';
+import { gifts } from './collection/gifts.mjs';
 import { editorial, editorialAssets, editorialAssetRoot } from './editorial/router.mjs';
 import { startAvatarWorker } from './avatar/worker.mjs';
 import { aiRecipes } from './ai-recipes/router.mjs';
@@ -136,6 +138,10 @@ app.use('/api/areas', featureGate('areas'), areas);
 // Public and outside the gate, so the app can show its placeholder when staff switch the game off.
 app.get('/api/game/status', async (_req, res) => { res.set('Cache-Control', 'no-store').json({ enabled: await allowed('games') }); });
 app.use('/api/game', featureGate('games'), game);
+// Collection pays and spends café credits, so it needs Game progress on as well as its own switch.
+// Gifts have their own switch (they involve store payments); they don't touch credits.
+app.use('/api/gifts', featureGate('social'), featureGate('games'), featureGate('collection'), featureGate('gifts'), gifts);
+app.use('/api/collection', featureGate('games'), featureGate('collection'), collection);
 // Game pictures (docs/game/RECIPE_LEVELS_PLAN.md §8.5): approved pictures are public and immutable; QT Gamer's picture and level routes are signed.
 app.use('/api/game-public', featureGate('games'), gamePublic);
 app.use('/api/game-art/bot', gameArtBots);

@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Platform, Pressable, StyleSheet, TextInput, View, type TextInputInstance } from "react-native";
 import { Chip, HorizontalChips, IconButton } from "./food/Controls";
 import { Icon, T, common } from "./ui";
@@ -18,8 +18,10 @@ export function ChatBubble({ text, mine, label, time }: { text: string; mine: bo
  * One-line composer: optional starter suggestions, the message field and a send arrow. Returns true from onSend to clear the field.
  * `seed` places text in the field (for example a table-talk question) without sending it.
  */
-export function ChatComposer({ onSend, starters = [], sendLabel, disabled = false, seed, placeholder }: {
+export function ChatComposer({ onSend, starters = [], sendLabel, disabled = false, seed, placeholder, leading }: {
   onSend: (text: string) => Promise<boolean>; starters?: readonly string[]; sendLabel?: string; disabled?: boolean; seed?: { text: string; at: number }; placeholder?: string;
+  /** A button before the message box (Send a gift). */
+  leading?: ReactNode;
 }) {
   const { theme, textMultiplier } = usePreferences(), t = useT("common");
   const [text, setText] = useState(""), [open, setOpen] = useState(false), [focused, setFocused] = useState(false), [busy, setBusy] = useState(false);
@@ -56,6 +58,7 @@ export function ChatComposer({ onSend, starters = [], sendLabel, disabled = fals
     {open && <HorizontalChips>{starters.map(line => <Chip key={line} label={line} compact onPress={() => { setText(line); setOpen(false); }} />)}</HorizontalChips>}
     <View style={[common.row, { gap: 8, alignItems: "flex-end" }]}>
       {!!starters.length && <IconButton label={t("suggestedMessages")} icon="sparkles-outline" selected={open} onPress={() => setOpen(!open)} />}
+      {leading}
       <TextInput ref={input} value={text} onChangeText={setText} maxLength={1000} multiline numberOfLines={1} placeholder={placeholder ?? t("message")} accessibilityLabel={placeholder ?? t("message")}
         onLayout={measureWeb} onContentSizeChange={event => { if (Platform.OS !== "web") setInputHeight(Math.max(48, Math.min(120, event.nativeEvent.contentSize.height + 2))); }}
         editable={!disabled && !busy} placeholderTextColor={theme.mutedForeground} selectionColor={theme.accent} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}

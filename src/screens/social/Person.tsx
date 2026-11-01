@@ -12,6 +12,10 @@ import { LifestyleDetails, PersonAbout } from "../../components/social/PersonDet
 import { useWhere } from "../../components/social/PersonCard";
 import { FlagSheet, RequestSheet } from "../../components/social/PersonSheets";
 import { Avatar, PhotoCarousel } from "../../components/social/SocialPhoto";
+import { BorderFrame } from "../../components/collection/Glint";
+import { BadgeRow } from "../../components/collection/CollectionParts";
+import { borderArt } from "../../config/collection";
+import { GiftSheet, useGiftCatalog } from "../../components/collection/Gifts";
 import { AreaLine, SummaryLayout } from "../../components/social/ProfileSummary";
 import { PersonPostGrid, type ContentKind } from "../../components/social/ProfileGrid";
 import { ChoiceChips } from "../../components/social/ProfileControls";
@@ -32,12 +36,16 @@ import type { PersonPage, PersonPosts, PersonWithPosts, SocialMe } from "../../t
 export function PersonScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), t = useT("social"), me = useSocialMe().data;
   const remote = useRemote(id ? personPageKey(id) : null, signal => personWithPosts(id, signal)), [flag, setFlag] = useState(false), p = remote.data;
+  const other = !!p && !!me && p.id !== me.id, gifts = useGiftCatalog(other && me.hasProfile).data, [giving, setGiving] = useState(false), tg = useT("collection");
   return <Screen titleAccessory={<PersonTitle p={p} />} backTo="/social"
-    headerAction={p && me && p.id !== me.id ? <IconButton appearance="plain" label={t("flagLabel", { name: p.firstName })} icon="flag-outline" onPress={() => setFlag(true)} /> : undefined}>
+    headerAction={other && p ? <View style={[common.row, { gap: 4 }]}>
+      {gifts && <IconButton appearance="plain" label={tg("sendGift")} icon="gift-outline" onPress={() => setGiving(true)} />}
+      <IconButton appearance="plain" label={t("flagLabel", { name: p.firstName })} icon="flag-outline" onPress={() => setFlag(true)} /></View> : undefined}>
     <MemberGate returnTo={"/social/person/" + id}>
       <RemoteStatus remote={remote} icon="person-outline" returnTo="/social" missing={t("profileUnavailable")} />
       {p && me && <PersonView p={p} me={me} />}
       {p && <FlagSheet person={p} hasPhoto={!!p.photos.length} visible={flag} onClose={() => setFlag(false)} onBlocked={() => router.back()} />}
+      {gifts && p && other && <GiftSheet visible={giving} onClose={() => setGiving(false)} to={p.id} data={gifts} />}
     </MemberGate>
   </Screen>;
 }
@@ -63,6 +71,7 @@ function PersonView({ p, me }: { p: PersonWithPosts; me: SocialMe }) {
       { label: tp("statPosts"), n: d.recipes.length + d.items.length + d.classes.length },
     ]}>
       <AreaLine parts={[where(p)]} diets={p.diets.map(diet.name).join(" · ")} />
+      <BadgeRow ids={p.worn?.badges ?? []} />
     </SummaryLayout>
     <PersonAbout p={p} />
     <Relationship p={p} me={me} />
@@ -76,7 +85,7 @@ function PersonView({ p, me }: { p: PersonWithPosts; me: SocialMe }) {
 /** Their first photo (or Lian) in a circle; with photos it opens them full size, and a count shows when there are several. */
 function Picture({ p }: { p: PersonPage }) {
   const t = useT("social"), { theme } = usePreferences(), [open, setOpen] = useState(false), count = p.photos.length;
-  const picture = <Avatar uri={p.photos[0]?.thumb} size={88} />;
+  const picture = <BorderFrame art={p.worn?.border ? borderArt(p.worn.border) : undefined} size={88}><Avatar uri={p.photos[0]?.thumb} size={88} /></BorderFrame>;
   if (!count) return picture;
   return <>
     <Pressable accessibilityRole="button" accessibilityLabel={t("photosOfName", { name: p.firstName })} onPress={() => setOpen(true)} style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}>

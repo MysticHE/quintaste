@@ -1,0 +1,122 @@
+{
+  "border-sprout": {
+    "run": "avatar-borders",
+    "asset": "border-sprout",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a collectible avatar border rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp silhouette, limited calm colours. The ring itself is slim; decoration sits mainly at the top and bottom so the photo inside stays the focus. Not busy, not cartoon clay, not blurry, no text. A single circular avatar border for a mobile game profile: a slim polished bronze ring with a small fresh green sprout curling up from the bottom. Two small glossy green leaves at the bottom, one tiny leaf at the top, nothing else. Simple and fresh: the starter border. No words or numbers. Straight-on front view, symmetrical left to right, centred, the whole border visible and filling about 85% of the frame. The inside of the ring is a large empty circle, about 62% of the border's width, filled with exactly the same flat background colour as the rest of the picture, where the member's photo will go. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "5951f160c263491279c716edac00e8007595c1ed07804a4a8945e08ad3712d07"
+  },
+  "border-bamboo": {
+    "run": "avatar-borders",
+    "asset": "border-bamboo",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a collectible avatar border rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp silhouette, limited calm colours. The ring itself is slim; decoration sits mainly at the top and bottom so the photo inside stays the focus. Not busy, not cartoon clay, not blurry, no text. A single circular avatar border for a mobile game profile: a slim polished silver ring with short jade-green bamboo stalks along the lower left and lower right. A few slender bamboo leaves fanning out at the top, small silver bands on the bamboo joints. Calm and clean. No words or numbers. Straight-on front view, symmetrical left to right, centred, the whole border visible and filling about 85% of the frame. The inside of the ring is a large empty circle, about 62% of the border's width, filled with exactly the same flat background colour as the rest of the picture, where the member's photo will go. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "c2b215cc9c3c0843bb245f7cb58aacb452d1b9e58f0045f3ea3d1bee0a80e240"
+  },
+  "border-lotus-pond": {
+    "run": "avatar-borders",
+    "asset": "border-lotus-pond",
+    "variant": 2,
+    "prompt": "High-end mobile game UI art: a collectible avatar border rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp silhouette, limited calm colours. The ring itself is slim; decoration sits mainly at the top and bottom so the photo inside stays the focus. Not busy, not cartoon clay, not blurry, no text. A single circular avatar border for a mobile game profile: a slim silver-and-gold ring with pink lotus blossoms and round green lily pads gathered at the bottom. Two open pink lotus flowers and three lily pads at the bottom, one small pink lotus bud at the top. Serene. No words or numbers. Straight-on front view, symmetrical left to right, centred, the whole border visible and filling about 85% of the frame. The inside of the ring is a large empty circle, about 62% of the border's width, filled with exactly the same flat background colour as the rest of the picture, where the member's photo will go. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "59d2f009a30de14e1b5f711c6fc8d142beb28f70a889a1892da3139da62eaa8b"
+  },
+  "border-mochi": {
+    "run": "avatar-borders",
+    "asset": "border-mochi",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a collectible avatar border rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp silhouette, limited calm colours. The ring itself is slim; decoration sits mainly at the top and bottom so the photo inside stays the focus. Not busy, not cartoon clay, not blurry, no text. A single circular avatar border for a mobile game profile: a slim warm gold ring with Mochi Chef from the attached picture peeking up over the bottom edge. Mochi is small, on model with the attached picture: cream dumpling body, tall puffy chef hat, closed happy curved eyes and a small closed smile, tiny hands resting on the ring. A small gold whisk and spoon cross at the top. No open eyes, no open mouth. No words or numbers. Straight-on front view, symmetrical left to right, centred, the whole border visible and filling about 85% of the frame. The inside of the ring is a large empty circle, about 62% of the border's width, filled with exactly the same flat background colour as the rest of the picture, where the member's photo will go. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "be9d5d32aa67704ec04389e4dec4b71226f700ae3b3808449310724416098828"
+  },
+  "border-golden-lotus": {
+    "run": "avatar-borders",
+    "asset": "border-golden-lotus",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a collectible avatar border rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp silhouette, limited calm colours. The ring itself is slim; decoration sits mainly at the top and bottom so the photo inside stays the focus. Not busy, not cartoon clay, not blurry, no text. A single circular avatar border for a mobile game profile: a polished gold ring with layered swept golden wings at both sides and a radiant gold lotus crown at the top. A small violet gem in the lotus crown, a short gold flourish at the bottom, gentle warm glow on the gold. The rarest border: majestic but still slim enough to show the photo. No words or numbers. Straight-on front view, symmetrical left to right, centred, the whole border visible and filling about 85% of the frame. The inside of the ring is a large empty circle, about 62% of the border's width, filled with exactly the same flat background colour as the rest of the picture, where the member's photo will go. Isolated on a perfectly flat, uniform, solid green background (#00FF00) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no green reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use green anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "58d1149664b40dee2670d7aed13823b03a07e2166c34935d7e9af6dfc9b8db83"
+  },
+  "badge-tea-for-two": {
+    "run": "badges-v2",
+    "asset": "badge-first-dinner",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a premium achievement badge built in layers like a real 3D object: a back plate, a raised front plate, and wings, blades or ribbons around them, each layer with crisp bevels, polished metal, glossy specular highlights and a bright rim light. Every badge in the set shares this layered build but has its own distinct silhouette. The centrepiece is one bold symbol in a contrasting material (enamel or crystal) so it reads instantly at 64 pixels. A small, deliberate palette: the tier metal plus one or two accent colours. Not busy, not a flat coin, not cartoon clay, not blurry, no text. A single collectible achievement badge for a mobile game: a warm polished copper badge with a round raised front plate on a scalloped back plate and two small leaf-shaped copper wings. The centrepiece is two small teacups clinking together, in glossy white enamel with a thin copper rim, a tiny curl of steam above them. One small amber accent below. Bronze tier: simple and warm. No words or numbers. Straight-on front view, centred, the whole badge visible and filling about 80% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "0fe268b1b0afc9a754edf0a2c39c8eb7b843a0de0808c2c6cc6ebe03571d6c0f"
+  },
+  "badge-good-company": {
+    "run": "badges-v2",
+    "asset": "badge-good-company",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a premium achievement badge built in layers like a real 3D object: a back plate, a raised front plate, and wings, blades or ribbons around them, each layer with crisp bevels, polished metal, glossy specular highlights and a bright rim light. Every badge in the set shares this layered build but has its own distinct silhouette. The centrepiece is one bold symbol in a contrasting material (enamel or crystal) so it reads instantly at 64 pixels. A small, deliberate palette: the tier metal plus one or two accent colours. Not busy, not a flat coin, not cartoon clay, not blurry, no text. A single collectible achievement badge for a mobile game: a cool polished silver badge shaped like a heart-topped crest on a pointed back plate, with short silver blades fanning out at both sides. The centrepiece is two interlinked hearts in glossy ruby-red enamel. Small sapphire-blue accents at the blade tips. Silver tier: crisp and friendly. No words or numbers. Straight-on front view, centred, the whole badge visible and filling about 80% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "25832e731f46220ce99241b953c13e46cadc95e332ea2da94379267701022742"
+  },
+  "badge-explorer": {
+    "run": "badges-v2",
+    "asset": "badge-explorer",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a premium achievement badge built in layers like a real 3D object: a back plate, a raised front plate, and wings, blades or ribbons around them, each layer with crisp bevels, polished metal, glossy specular highlights and a bright rim light. Every badge in the set shares this layered build but has its own distinct silhouette. The centrepiece is one bold symbol in a contrasting material (enamel or crystal) so it reads instantly at 64 pixels. A small, deliberate palette: the tier metal plus one or two accent colours. Not busy, not a flat coin, not cartoon clay, not blurry, no text. A single collectible achievement badge for a mobile game: a polished gold badge shaped like an eight-pointed star burst on a round back plate. The centrepiece is a compass with a deep blue enamel ring and a gold needle pointing up, set in the middle of the star. A small blue gem at the top point. Gold tier: adventurous. No words or numbers. Straight-on front view, centred, the whole badge visible and filling about 80% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "09b72fdb41496e2297c9b507adc8f2392ad14979692af8d0e29105fe0ba95203"
+  },
+  "badge-home-cook": {
+    "run": "badges-v2",
+    "asset": "badge-home-cook",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: a premium achievement badge built in layers like a real 3D object: a back plate, a raised front plate, and wings, blades or ribbons around them, each layer with crisp bevels, polished metal, glossy specular highlights and a bright rim light. Every badge in the set shares this layered build but has its own distinct silhouette. The centrepiece is one bold symbol in a contrasting material (enamel or crystal) so it reads instantly at 64 pixels. A small, deliberate palette: the tier metal plus one or two accent colours. Not busy, not a flat coin, not cartoon clay, not blurry, no text. A single collectible achievement badge for a mobile game: a polished gold badge shaped like a tall shield with notched shoulders on a back plate, with a short red enamel banner ribbon across the bottom. The centrepiece is a chef's hat in glossy white enamel above a crossed gold ladle and whisk. The banner is plain with no words. Gold tier: proud and warm. No words or numbers. Straight-on front view, centred, the whole badge visible and filling about 80% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "792d5036cc2ad3846d2189e6ae39cafe89e227e5f48e7f238431da1560f1e2af"
+  },
+  "badge-lotus-legend": {
+    "run": "badges-v2",
+    "asset": "badge-lotus-legend",
+    "variant": 2,
+    "prompt": "High-end mobile game UI art: a premium achievement badge built in layers like a real 3D object: a back plate, a raised front plate, and wings, blades or ribbons around them, each layer with crisp bevels, polished metal, glossy specular highlights and a bright rim light. Every badge in the set shares this layered build but has its own distinct silhouette. The centrepiece is one bold symbol in a contrasting material (enamel or crystal) so it reads instantly at 64 pixels. A small, deliberate palette: the tier metal plus one or two accent colours. Not busy, not a flat coin, not cartoon clay, not blurry, no text. A single collectible achievement badge for a mobile game: a grand mythic badge with a gold crest, large layered gold wings sweeping up both sides, a small gold crown at the top and a violet ribbon tail below. The centrepiece is a lotus flower carved from glowing violet-and-pink crystal, softly lit from inside, set on a deep violet enamel plate. Mythic tier: the grandest badge, still clean and readable. No words or numbers. Straight-on front view, centred, the whole badge visible and filling about 80% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid green background (#00FF00) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no green reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use green anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "0e7e05bd3ea4f1d60435b82765b942e7b91200f6397b533a718ab4b970c9990a"
+  },
+  "gift-rose": {
+    "run": "gift-items",
+    "asset": "item-rose",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: one collectible gift item rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp clean silhouette, limited calm colours, readable at 64 pixels on a dark navy interface. Just the item itself: no frame, badge, medal, border, pedestal, plate of light or background shapes. Not busy, not cartoon clay, not blurry. A single gift item icon for a mobile game shop: a single long-stemmed red rose in full bloom. Velvety crimson petals with a glossy sheen, two green leaves, a single dewdrop. No words or numbers. Three-quarter view from slightly above, centred, the whole item visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid cyan background (#00FFFF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no cyan reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use cyan anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "ec93713168d9b00db9ba8ab85cc106bd73557252e48d3ca023a2b8db71541acd"
+  },
+  "gift-lotus": {
+    "run": "gift-items",
+    "asset": "item-lotus",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: one collectible gift item rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp clean silhouette, limited calm colours, readable at 64 pixels on a dark navy interface. Just the item itself: no frame, badge, medal, border, pedestal, plate of light or background shapes. Not busy, not cartoon clay, not blurry. A single gift item icon for a mobile game shop: a single open pink lotus flower. Soft pink petals fading to white at the base around a golden centre, no lily pad. No words or numbers. Three-quarter view from slightly above, centred, the whole item visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid green background (#00FF00) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no green reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use green anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "65c6b6fa2a96eda8dbc372b3ba24d359a2bf5c2b1b6ae5d02e493f2c81cb5001"
+  },
+  "gift-bouquet": {
+    "run": "gift-items",
+    "asset": "item-bouquet",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: one collectible gift item rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp clean silhouette, limited calm colours, readable at 64 pixels on a dark navy interface. Just the item itself: no frame, badge, medal, border, pedestal, plate of light or background shapes. Not busy, not cartoon clay, not blurry. A single gift item icon for a mobile game shop: a small hand-tied bouquet of five red and pink roses wrapped in cream paper with a satin ribbon. Neat and elegant, a rose-gold satin bow. No words or numbers. Three-quarter view from slightly above, centred, the whole item visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid green background (#00FF00) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no green reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use green anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "cbf46ed2b96f4365e6ef16069b3d8808e9e620f32d74b227c3050dff310280e8"
+  },
+  "gift-mochi": {
+    "run": "gift-items",
+    "asset": "item-mochi",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: one collectible gift item rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp clean silhouette, limited calm colours, readable at 64 pixels on a dark navy interface. Just the item itself: no frame, badge, medal, border, pedestal, plate of light or background shapes. Not busy, not cartoon clay, not blurry. A single gift item icon for a mobile game shop: Mochi Chef from the attached picture hugging a glossy pink heart. Exactly on model with the attached picture: a cream dumpling body pinched into a tall puffy chef hat, closed happy curved eyes, a small closed smile, peach blush cheeks, tiny hands on the heart. No open eyes, no open mouth. No words or numbers. Three-quarter view from slightly above, centred, the whole item visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid green background (#00FF00) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no green reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use green anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "d6d4d92033042701f2f4d638cdf9c24961b8684286ed11b4109da56810123211"
+  },
+  "gift-golden-lotus": {
+    "run": "gift-items",
+    "asset": "item-golden-lotus",
+    "variant": 1,
+    "prompt": "High-end mobile game UI art: one collectible gift item rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp clean silhouette, limited calm colours, readable at 64 pixels on a dark navy interface. Just the item itself: no frame, badge, medal, border, pedestal, plate of light or background shapes. Not busy, not cartoon clay, not blurry. A single gift item icon for a mobile game shop: a single open lotus flower made of polished gold. Smooth gold petals with warm highlights and a softly glowing white-gold centre, no lily pad, no stand. No words or numbers. Three-quarter view from slightly above, centred, the whole item visible and filling about 70% of the frame with an even margin on every side. Isolated on a perfectly flat, uniform, solid magenta background (#FF00FF) that fills the whole image edge to edge: no gradient, no vignette, no floor, no table, no cast shadow on the background and no magenta reflections on the subject. No text, letters, numbers, logos or watermarks except label text specified above. No border or frame. No other objects. Never use magenta anywhere on the subject.",
+    "tier": "gpt-image-2-high",
+    "sha256": "cacd522926f95d3403ac0f28f0fc290fcbba395897b56678647af508a2287193"
+  }
+}

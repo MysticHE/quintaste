@@ -7,15 +7,13 @@ import { ageFrom, meetAgeSql, friendsSql, pausedUntilSql, reachableSql, requireB
 import { emptyProfile, hideable, meetColumns, photoUrl } from './profile.mjs';
 import { notRestricted } from '../community/router.mjs';
 import { allowed } from '../operations.mjs';
+import { wornBy } from '../collection/worn.mjs';
 import { recipesBy } from '../recipes/router.mjs';
 import { itemsBy } from '../market/shop.mjs';
 import { classesBy } from '../market/classes.mjs';
-import { readFileSync } from 'node:fs';
+import { pointOf, points } from './area-points.mjs';
 
 export const people = express.Router();
-/** Planning-area centres (URA Master Plan 2025 label points) for rough distances between members' areas. */
-const points = JSON.parse(readFileSync(new URL('./area-points.json', import.meta.url), 'utf8'));
-const pointOf = area => points[Object.keys(points).find(name => name.toLowerCase() === String(area ?? '').trim().toLowerCase()) ?? ''] ?? null;
 const areaNames = Object.keys(points), areaLats = areaNames.map(name => points[name][0]), areaLngs = areaNames.map(name => points[name][1]);
 /** SQL: kilometres (one decimal) from `origin` to the centre of the area in `column`, the same great-circle sum as `areaKm`; NULL for an unknown area. */
 function kmSql(column, origin, add) {
@@ -101,7 +99,7 @@ people.get('/people/:id', async (req, res) => {
         AND ((r.from_id=$1 AND r.to_id=u.id) OR (r.from_id=u.id AND r.to_id=$1)) LIMIT 1) AS request
     FROM public."user" u LEFT JOIN social.profile p ON p.user_id=u.id WHERE u.id=$2 AND ${seeableSql('u.id', '$1')}`, [me, id])).rows[0];
   if (!row) throw new CommunityError(404, 'This profile is unavailable.');
-  const [state, photos, posts] = await Promise.all([standing(me), photosOf([id]), req.query.posts === '1' ? postsOf(id, me) : null]);
+  const [state, photos, posts, worn] = await Promise.all([standing(me), photosOf([id]), req.query.posts === '1' ? postsOf(id, me) : null, wornBy(id)]);
   const { friend, verified, adult, request, theyPaused, openInvite, accountName, hasProfile, ...stored } = row;
   // Without a Social profile every field is empty but the name, which comes from the account.
   const profile = hasProfile ? stored : { ...emptyProfile, ...Object.fromEntries(Object.entries(stored).filter(([, value]) => value !== null)), firstName: accountName || 'Member' };
@@ -109,7 +107,7 @@ people.get('/people/:id', async (req, res) => {
   // The same rules the server applies when an invite is sent (dinners.mjs requirePair), plus one open invite per pair.
   const dining = id === me || (state.canMeet && opposite && verified && adult), shared = shareable(profile, photos.get(id));
   res.json({ ...(dining ? shared : { ...shared, ...noLifestyle }), km: areaKm(state.area, profile.area), verified, friend, request, openInvite,
-    canInvite: friend && opposite && verified && adult && !theyPaused && !openInvite && state.canMeet && !state.pausedUntil, ...(posts ? { posts } : {}) });
+    canInvite: friend && opposite && verified && adult && !theyPaused && !openInvite && state.canMeet && !state.pausedUntil, worn, ...(posts ? { posts } : {}) });
 });
 
 /**

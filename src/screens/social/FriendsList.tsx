@@ -27,7 +27,7 @@ export function FriendsListScreen() {
 }
 function FriendRow({ friend: f }: { friend: Friend }) {
   const t = useT("profile"), line = [f.handle ? "@" + f.handle : "", f.area].filter(Boolean).join(" · ");
-  return <PersonRow id={f.id} name={f.firstName} photo={f.photo} verified={f.verified} spoken={line}
+  return <PersonRow id={f.id} name={f.firstName} photo={f.photo} verified={f.verified} spoken={line} border={f.border}
     line={!!line && <T variant="small" muted numberOfLines={1}>{line}</T>}
     trailing={<IconButton appearance="plain" icon="chatbubble-outline" label={t("chatWith", { name: f.firstName })} onPress={() => openSocial("/chat/" + f.id)} />} />;
 }

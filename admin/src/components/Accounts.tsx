@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { date, useResource } from './client';
 import { Empty, Feedback, Mutation, SearchField, Table, reveal } from './Primitives';
 import { Icon } from './Icon';
+import Collection from './Collection';
 
 type Account = { id: string; username: string; name: string; handle: string | null; created_at: string; restricted: boolean };
 export default function Accounts() {
@@ -31,6 +32,7 @@ export default function Accounts() {
         <label>Action<select name="action" defaultValue={selected.restricted ? 'restore' : 'revoke_sessions'}>
           <option value="revoke_sessions">Sign out all devices</option><option value="suspend">Suspend</option><option value="restore">Restore</option>
           {selected.handle && <option value="reset_handle">Reset handle (@{selected.handle})</option>}</select></label>
-      </Mutation></section>}
+      </Mutation>
+      <Collection key={'c' + selected.id} id={selected.id}/></section>}
   </>;
 }

@@ -30,11 +30,18 @@ export type MeetProfile = {
 };
 /** People filters. `diets`: people must keep every chosen label (Vegan and/or Vegetarian); none = everyone. Lists match any chosen value; `km` 0 is anywhere. */
 export type MeetFilters = { diets: Exclude<DietLabel, "Plant-Based">[]; ages: AgeBand[]; languages: string[]; hobbies: string[]; km: Distance };
-/** A device reminder for an accepted dinner (`groupId` is the dinner id); refreshed whenever the dinner is opened. */
-export type PlanReminder = { groupId: string; venue: string; starts: string; pay: PayOption };
-/** What Social keeps on this device: People filters and dinner reminders. `dismissedMoment` and `profile` are kept for older data. */
-export type MeetNetwork = { version: 3; profile: MeetProfile; filters: MeetFilters; dismissedMoment: string; reminders: PlanReminder[] };
+/**
+ * A device reminder for an accepted dinner (`groupId` is the dinner id): before it, and afterwards to ask how it went. `with` is
+ * the other person's first name. Refreshed whenever the dinners load.
+ */
+export type PlanReminder = { groupId: string; venue: string; starts: string; pay: PayOption; with: string };
+/**
+ * What Social keeps on this device: People filters, dinner reminders (on for every confirmed dinner) and `remindersOff`, the dinners
+ * whose reminders the member switched off. `dismissedMoment` and `profile` are kept for older data.
+ */
+export type MeetNetwork = { version: 3; profile: MeetProfile; filters: MeetFilters; dismissedMoment: string; reminders: PlanReminder[]; remindersOff: string[] };
 export const reminderLimit = 30;
+export const remindersOffLimit = 60;
 export const emptyMeetProfile = (): MeetProfile => ({ name: "", diets: ["Plant-Based"], area: "", about: "", interests: [], times: [], size: 4, excluded: [], practices: [] });
 export const defaultMeetFilters = (): MeetFilters => ({ diets: [], ages: [], languages: [], hobbies: [], km: 0 });
-export const emptyMeet = (): MeetNetwork => ({ version: 3, profile: emptyMeetProfile(), filters: defaultMeetFilters(), dismissedMoment: "", reminders: [] });
+export const emptyMeet = (): MeetNetwork => ({ version: 3, profile: emptyMeetProfile(), filters: defaultMeetFilters(), dismissedMoment: "", reminders: [], remindersOff: [] });

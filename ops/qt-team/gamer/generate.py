@@ -38,7 +38,8 @@ def build_prompt(style, asset):
     if asset["kind"] == "photo":
         parts = [kind, style["photoNegatives"]]
     else:
-        base, note = style["base"], style["referenceNote"]
+        # A kind may bring its own look (kindBase), e.g. crisp metal emblems instead of the soft clay house style.
+        base, note = style.get("kindBase", {}).get(asset["kind"], style["base"]), style["referenceNote"]
         if asset.get("reference") is False:  # the asset's own refs (or none) describe what to copy
             base, note = base.replace(" in the style of the reference image", ""), ""
         chroma = asset.get("chroma", "magenta")

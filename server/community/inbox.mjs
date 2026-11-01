@@ -1,10 +1,11 @@
 import { pool } from '../config.mjs';
-import { allowed } from '../operations.mjs';
+import { allowedAll } from '../operations.mjs';
 import { communityRouter, errors } from './http.mjs';
 import { standing } from '../social/access.mjs';
 import { dinnersDueSql, friendRequestsSql, unreadFriendChatsSql } from '../social/friends.mjs';
 import { marketAttentionSql, newOrdersSql, unreadMarketChatsSql } from '../market/conversations.mjs';
 import { unreadClassChatsSql } from '../market/classes.mjs';
+import { giftsWaitingSql } from '../collection/gifts.mjs';
 
 /**
  * Everything waiting on the member, in the one request the tab bar polls: unread conversations (friends, Market, classes)
@@ -15,7 +16,8 @@ export const inbox = communityRouter();
 inbox.get('/', async (_req, res) => {
   const me = res.locals.user.id;
   // The service switches and the member's Social standing are independent reads, so they run together.
-  const [social, market, sellers, state] = await Promise.all([allowed('social'), allowed('market'), allowed('market_sellers'), standing(me)]);
+  const [on, state] = await Promise.all([allowedAll(['social', 'market', 'market_sellers', 'games', 'collection', 'gifts']), standing(me)]);
+  const { social, market, market_sellers: sellers } = on, giftsOn = on.games && on.collection && on.gifts;
   // Friends are for every member; dinners only for members who can use Dining (owner, 25 Oct 2026).
   const meet = social && state.canMeet;
   const parts = {
@@ -24,11 +26,13 @@ inbox.get('/', async (_req, res) => {
     market: market ? (sellers ? marketAttentionSql : unreadMarketChatsSql) : null, classes: market ? unreadClassChatsSql : null,
     // New orders are acted on in My shop, which the market_sellers switch also pauses.
     orders: market && sellers ? newOrdersSql : null,
+    // Unopened gifts, shown on the Collection button (gifts live in Collection › Gifts).
+    gifts: social && giftsOn ? giftsWaitingSql : null,
   };
   const live = Object.entries(parts).filter(([, sql]) => sql);
   const row = Object.fromEntries(Object.keys(parts).map(key => [key, 0]));
   if (live.length) Object.assign(row, (await pool.query(`SELECT ${live.map(([key, sql]) => sql + ' AS ' + key).join(', ')}`, [me])).rows[0]);
   const messages = row.friends + row.market + row.classes;
-  res.json({ ...row, messages, total: messages + row.orders + row.requests + row.dinners });
+  res.json({ ...row, messages, total: messages + row.orders + row.requests + row.dinners + row.gifts, dining: meet });
 });
 inbox.use(errors);

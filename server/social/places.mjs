@@ -1,6 +1,9 @@
 import express from 'express';
-import { CommunityError } from '../community/http.mjs';
+import { pool } from '../config.mjs';
+import { CommunityError, requireUser } from '../community/http.mjs';
 import { catalogueVenues, publishedPlaceId, publishedPlaceIds } from '../catalogue-places.mjs';
+import { friendsSql, requireMeet, standing } from './access.mjs';
+import { pointOf } from './area-points.mjs';
 
 const byId = new Map(catalogueVenues.map(venue => [venue.id, venue]));
 /** What Social shows about a catalogue place; dinner invites and favourite places only use published packaged places. */
@@ -30,13 +33,27 @@ function kmBetween(a, b) {
   return Math.sqrt(x * x + y * y) * 111.32;
 }
 
-/** Places for spots and tables: search by name, branch, address or postal code (`q`), list the nearest to `near`, or look up up to 12
- *  ids (`ids`). With `near`, results come nearest first. Published packaged places only. */
+/**
+ * Halfway between the member's area and a friend's (planning-area centres), so a dinner suits both; one side's centre when only
+ * that area is known. For members who can use Dining, and only with a friend: the point itself never leaves the server.
+ */
+async function between(me, other) {
+  requireMeet(await standing(me));
+  const row = (await pool.query(`SELECT (SELECT area FROM social.profile WHERE user_id=$1) AS mine, (SELECT area FROM social.profile WHERE user_id=$2) AS theirs,
+    ${friendsSql('$1::text', '$2::text')} AS friend`, [me, other])).rows[0];
+  if (!row?.friend) throw new CommunityError(403, 'Dinner invites are only for friends.', 'SOCIAL_NOT_FRIENDS');
+  const [a, b] = [pointOf(row.mine), pointOf(row.theirs)], found = [a, b].filter(Boolean);
+  if (!found.length) return null;
+  return { latitude: found.reduce((sum, p) => sum + p[0], 0) / found.length, longitude: found.reduce((sum, p) => sum + p[1], 0) / found.length };
+}
+
+/** Places for spots and tables: search by name, branch, address or postal code (`q`), list the nearest to `near` or halfway to a
+ *  friend (`with`), or look up up to 12 ids (`ids`). With `near` or `with`, results come nearest first. Published packaged places only. */
 export const places = express.Router();
 places.get('/places', async (req, res) => {
   const ids = typeof req.query.ids === 'string' ? req.query.ids.split(',').slice(0, 12) : null;
   const q = typeof req.query.q === 'string' ? req.query.q.trim().toLowerCase().slice(0, 60) : '';
-  const near = ids ? null : readNear(req.query.near);
+  const near = ids ? null : req.query.with ? await between(res.locals.user.id, requireUser(req.query.with)) : readNear(req.query.near);
   const matched = ids ? ids.map(id => byId.get(id)).filter(Boolean)
     : q.length >= 2 ? catalogueVenues.filter(v => [v.name, v.branch, v.address, v.postalCode].join(' ').toLowerCase().includes(q))
     : near ? catalogueVenues.filter(v => v.point) : [];

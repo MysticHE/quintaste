@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "note": "Dining gifts as standalone polished items (owner, 1 Nov 2026): gifts are separate from avatar borders and badges, so no frames or medals. Test run only.",
+  "assets": [
+    {
+      "id": "item-rose",
+      "kind": "giftitem",
+      "chroma": "cyan",
+      "reference": false,
+      "subject": "a single long-stemmed red rose in full bloom",
+      "details": "Velvety crimson petals with a glossy sheen, two green leaves, a single dewdrop. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "item-kopi",
+      "kind": "giftitem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a cup of Singapore kopi in a white porcelain cup with a thin green rim on a saucer",
+      "details": "Caramel-brown coffee with a light curl of white steam. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "item-kaya",
+      "kind": "giftitem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "two triangles of kaya toast stacked on each other",
+      "details": "Crisp golden toast with a glossy pandan-green kaya layer and a pat of plant-based butter. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "item-bubble-tea",
+      "kind": "giftitem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a cup of brown sugar bubble tea with a domed lid and a straw",
+      "details": "Clear cup with caramel stripes, creamy milk tea and glossy dark pearls at the bottom, a soft pink straw. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "item-lotus",
+      "kind": "giftitem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a single open pink lotus flower",
+      "details": "Soft pink petals fading to white at the base around a golden centre, no lily pad. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "item-chendol",
+      "kind": "giftitem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a small glass bowl of chendol",
+      "details": "Shaved ice with dark gula melaka syrup, green pandan jelly and a few red beans. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "item-bouquet",
+      "kind": "giftitem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a small hand-tied bouquet of five red and pink roses wrapped in cream paper with a satin ribbon",
+      "details": "Neat and elegant, a rose-gold satin bow. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "item-mochi",
+      "kind": "giftitem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "Mochi Chef from the attached picture hugging a glossy pink heart",
+      "details": "Exactly on model with the attached picture: a cream dumpling body pinched into a tall puffy chef hat, closed happy curved eyes, a small closed smile, peach blush cheeks, tiny hands on the heart. No open eyes, no open mouth. No words or numbers.",
+      "status": "todo",
+      "refs": [
+        "ref-mochi-chef.png"
+      ]
+    },
+    {
+      "id": "item-golden-lotus",
+      "kind": "giftitem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a single open lotus flower made of polished gold",
+      "details": "Smooth gold petals with warm highlights and a softly glowing white-gold centre, no lily pad, no stand. No words or numbers.",
+      "status": "todo"
+    }
+  ]
+}

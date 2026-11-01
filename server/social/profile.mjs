@@ -9,6 +9,7 @@ import { ingredients } from '../market/rules.mjs';
 import { ageFrom, seeableSql, standing } from './access.mjs';
 import { profilePhoto } from './media.mjs';
 import { changeHandle, ensureHandle } from './handles.mjs';
+import { wornBy } from '../collection/worn.mjs';
 
 export const profile = express.Router();
 /** Optional fields a member may hide from others; name, age, gender, area, photos and food always show on a public profile. */
@@ -51,7 +52,7 @@ profile.get('/me', async (_req, res) => {
   const found = (await pool.query(`SELECT p.user_id IS NOT NULL AS "hasProfile", ${meetColumns}, (SELECT h.handle FROM social.handle h WHERE h.user_id=me.id) AS handle,
       (SELECT u.bio FROM public."user" u WHERE u.id=me.id) AS "accountBio"
     FROM (SELECT $1::text AS id) me LEFT JOIN social.profile p ON p.user_id=me.id`, [me.id])).rows[0];
-  const [state, photos] = await Promise.all([standing(me.id), myPhotos(me.id)]);
+  const [state, photos, worn] = await Promise.all([standing(me.id), myPhotos(me.id), wornBy(me.id)]);
   const { hasProfile, handle: stored, accountBio, ...row } = found;
   // Every member has a handle so friends can find them; handles.sql gave existing accounts one, and this makes the rest. A
   // failure leaves it empty rather than breaking Social, and Basics lets the member choose one.
@@ -60,7 +61,7 @@ profile.get('/me', async (_req, res) => {
   });
   // One bio (owner, 25 Oct 2026): a bio written before About me took over starts About me until the next profile save, which clears it.
   const bio = typeof accountBio === 'string' ? accountBio.slice(0, 180) : '', profile = hasProfile ? row : emptyProfile;
-  res.json({ id: me.id, accountName: me.name, handle, hasProfile, profile: profile.about || !bio ? profile : { ...profile, about: bio }, photos, standing: state });
+  res.json({ id: me.id, accountName: me.name, handle, hasProfile, profile: profile.about || !bio ? profile : { ...profile, about: bio }, photos, standing: state, worn });
 });
 /** Saves the profile; `handle`, when sent (Basics), changes the member's handle in the same transaction. */
 profile.put('/me', async (req, res) => {

@@ -19,6 +19,12 @@ function readStarts(value) {
   if (at.getTime() - Date.now() > 60 * 86400000) throw new CommunityError(400, 'Choose a date within the next two months.');
   return at;
 }
+/** True when `who` already has a confirmed dinner within two hours of `starts` (other than dinner `except`). */
+async function busyAt(db, who, starts, except = null) {
+  return (await db.query(`SELECT 1 FROM social.dinner WHERE status='accepted' AND (host_id=$1 OR guest_id=$1) AND id IS DISTINCT FROM $3::uuid
+    AND starts > $2::timestamptz - interval '2 hours' AND starts < $2::timestamptz + interval '2 hours' LIMIT 1`, [who, starts, except])).rowCount > 0;
+}
+const busyError = () => new CommunityError(409, 'You already have a dinner around then. Choose another time.', 'SOCIAL_BUSY');
 /** Lapses invitations nobody answered in time. */
 const expire = (db, me) => db.query(`UPDATE social.dinner SET status='expired', updated_at=now() WHERE status='invited' AND (expires_at < now() OR starts < now())
   AND (host_id=$1 OR guest_id=$1)`, [me]);
@@ -84,6 +90,7 @@ dinners.post('/dinners', async (req, res) => {
     await requirePair(db, me, other);
     const open = await db.query(`SELECT 1 FROM social.dinner WHERE status='invited' AND ((host_id=$1 AND guest_id=$2) OR (host_id=$2 AND guest_id=$1))`, [me, other]);
     if (open.rowCount) throw new CommunityError(409, 'There is already an invite waiting between you.');
+    if (await busyAt(db, me, starts)) throw busyError();
     const dinner = (await db.query(`INSERT INTO social.dinner(host_id, guest_id, place_id, place_name, starts, pay, message, waiting_on, expires_at)
       VALUES($1,$2,$3,$4,$5,$6,$7,$2,${openFor.replace('$starts', '$5')}) RETURNING id`, [me, other, place.id, venueText(place), starts, pay, message])).rows[0].id;
     await postLine(db, me, other, { kind: 'dinner', body: 'invited', dinnerId: dinner, sender: me });
@@ -108,17 +115,46 @@ async function act(req, res, work) {
 dinners.post('/dinners/:id/accept', (req, res) => act(req, res, async (db, me, id) => {
   const dinner = await waitingOn(db, me, id);
   await requirePair(db, me, dinner.other);
+  if (await busyAt(db, me, dinner.starts, id)) throw busyError();
+  // The inviter may have said yes to another dinner at this time since sending it; they suggest a new time or cancel.
+  if (await busyAt(db, dinner.other, dinner.starts, id)) throw new CommunityError(409, 'This time no longer works for them. Suggest another time.', 'SOCIAL_THEM_BUSY');
   await db.query("UPDATE social.dinner SET status='accepted', waiting_on=NULL, updated_at=now() WHERE id=$1", [id]);
   await postLine(db, me, dinner.other, { kind: 'dinner', body: 'accepted', dinnerId: id, sender: me });
 }));
-/** Suggest Another Time: the new time replaces the old one and the other person answers next. */
+/**
+ * Suggest a change: a new time, a new catalogue place, or both, replacing the old ones; the other person answers next. The chat
+ * line says what changed ('suggested' time, 'suggestedPlace', 'suggestedBoth').
+ */
 dinners.post('/dinners/:id/suggest', async (req, res) => {
-  const starts = readStarts(req.body?.starts);
+  const b = req.body ?? {}, starts = b.starts ? readStarts(b.starts) : null, place = b.placeId ? await requirePlace(b.placeId) : null;
+  if (!starts && !place) throw new CommunityError(400, 'Choose a new time or place.');
   await act(req, res, async (db, me, id) => {
     const dinner = await waitingOn(db, me, id);
     await requirePair(db, me, dinner.other);
-    await db.query(`UPDATE social.dinner SET starts=$2, waiting_on=$3, suggested=true, expires_at=${openFor.replace('$starts', '$2')}, updated_at=now() WHERE id=$1`, [id, starts, dinner.other]);
-    await postLine(db, me, dinner.other, { kind: 'dinner', body: 'suggested', dinnerId: id, sender: me });
+    const movedPlace = !!place && place.id !== dinner.place_id, movedTime = !!starts && starts.getTime() !== new Date(dinner.starts).getTime();
+    if (!movedPlace && !movedTime) throw new CommunityError(400, 'Choose a different time or place.');
+    if (await busyAt(db, me, starts ?? dinner.starts, id)) throw busyError();
+    await db.query(`UPDATE social.dinner SET starts=coalesce($2, starts), place_id=coalesce($4, place_id), place_name=coalesce($5, place_name), waiting_on=$3, suggested=true,
+      expires_at=least(now() + interval '3 days', coalesce($2, starts)), updated_at=now() WHERE id=$1`,
+      [id, movedTime ? starts : null, dinner.other, movedPlace ? place.id : null, movedPlace ? venueText(place) : null]);
+    await postLine(db, me, dinner.other, { kind: 'dinner', body: movedPlace ? (movedTime ? 'suggestedBoth' : 'suggestedPlace') : 'suggested', dinnerId: id, sender: me });
+  });
+});
+/**
+ * Running late: a line in the chat saying how late, from three hours before a confirmed dinner until an hour after it starts.
+ * Three a dinner per person.
+ */
+/** Twin of `lateMinutes` in src/services/social-api.ts; change both together. */
+const lateMinutes = [10, 20, 30];
+dinners.post('/dinners/:id/late', async (req, res) => {
+  const minutes = lateMinutes.find(n => n === Number(req.body?.minutes));
+  if (!minutes) throw new CommunityError(400, 'Choose how late you are.');
+  await act(req, res, async (db, me, id) => {
+    const dinner = (await db.query(`SELECT host_id, guest_id FROM social.dinner WHERE id=$1 AND status='accepted'
+      AND starts < now() + interval '3 hours' AND starts > now() - interval '1 hour'`, [id])).rows[0];
+    if (!dinner) throw new CommunityError(409, 'You can say you are running late on the day of the dinner.');
+    await throttle('social-late:' + me + ':' + id, 3, 6 * 3600, 'You already told them a few times.');
+    await postLine(db, me, dinner.host_id === me ? dinner.guest_id : dinner.host_id, { kind: 'dinner', body: 'late' + minutes, dinnerId: id, sender: me });
   });
 });
 dinners.post('/dinners/:id/decline', (req, res) => act(req, res, async (db, me, id) => {
@@ -134,6 +170,22 @@ dinners.post('/dinners/:id/cancel', (req, res) => act(req, res, async (db, me, i
   await postLine(db, me, dinner.host_id === me ? dinner.guest_id : dinner.host_id, { kind: 'dinner', body: 'cancelled', dinnerId: id, sender: me });
 }));
 /**
+ * When one person says "We met" and the other "They didn't come", the claim does not count towards a pause (access.mjs) and
+ * staff get one case for the dinner, filed under the member said not to have come.
+ */
+async function flagDisagreement(db, id, me, met) {
+  if (met !== 'yes' && met !== 'no_show') return;
+  const other = (await db.query('SELECT user_id, met FROM social.dinner_report WHERE dinner_id=$1 AND user_id<>$2', [id, me])).rows[0];
+  if (!other || !((met === 'yes' && other.met === 'no_show') || (met === 'no_show' && other.met === 'yes'))) return;
+  const [accused, accuser] = met === 'yes' ? [me, other.user_id] : [other.user_id, me];
+  // Staff screens read the member from the part before the first "|".
+  const subject = 'community:user:' + accused + '|dinner:' + id + '|by:' + accuser;
+  if ((await db.query("SELECT 1 FROM ops.case_record WHERE kind='report' AND subject_id=$1", [subject])).rowCount) return;
+  await db.query("INSERT INTO ops.case_record(kind,title,description,subject_id) VALUES('report',$1,$2,$3)", ['Dinner no-show disputed',
+    `Dinner ${id}: one person said they met, the other said they didn't come. The claim is not counted towards a pause.`, subject]);
+  logger.info({ event: 'social_dinner_disputed' });
+}
+/**
  * After the dinner (up to 30 days): did you meet, would you eat together again, and a note only the other person reads.
  * One report each. When both say they would eat together again, both are told in their chat.
  */
@@ -146,6 +198,7 @@ dinners.post('/dinners/:id/report', async (req, res) => {
     if (!dinner) throw new CommunityError(409, 'You can tell us about this dinner after it starts, for up to 30 days.');
     const saved = await db.query('INSERT INTO social.dinner_report(dinner_id, user_id, met, eat_again, note) VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING', [id, me, met, eatAgain, note]);
     if (!saved.rowCount) throw new CommunityError(409, 'You already told us about this dinner.');
+    await flagDisagreement(db, id, me, met);
     const both = (await db.query('SELECT count(*) FILTER (WHERE eat_again)::int AS yes FROM social.dinner_report WHERE dinner_id=$1', [id])).rows[0].yes === 2;
     if (both) await postLine(db, me, dinner.host_id === me ? dinner.guest_id : dinner.host_id, { kind: 'dinner', body: 'again', dinnerId: id });
   });

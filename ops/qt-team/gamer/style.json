@@ -14,7 +14,13 @@
     "diorama": "A full-frame tall portrait game scene for a cosy cooking game: {subject}. {details} Fill the entire image edge to edge. Isometric three-quarter view from above, crisp focus everywhere, rich small details, soft global illumination. No people and no animals.",
     "widen": "A wide landscape version of a finished full-frame game scene for a cosy cooking game: {subject}. The attached picture is a wide canvas: its middle holds the finished painting and the flat grey areas on the left and right are empty. Keep the middle painting exactly as it is, in the same place, size, perspective, lighting and colours, and paint the grey areas as the seamless continuation of the same room, so the whole picture reads as one wider painting of the same room from the same camera. {details} The floor continues with the same planks and light; keep the lower part of each side mostly open floor. Fill the entire image edge to edge with no grey left, no seam, no border and no frame.",
     "turnaround": "A character turnaround sheet for a cosy cooking game: {subject}. {details} The same character in several separate full-body views in one row, evenly spaced with clear empty background between them, all exactly the same size and standing on the same invisible ground line, straight-on camera at the character's own eye level.",
-    "photo": "A photorealistic product photograph of real merchandise: {subject}. {details}"
+    "mascot": "A single brand mascot render for a logo: {subject}. {details} Straight-on front view at the subject's own eye level, symmetrical, centred, the whole subject visible and filling about 70% of the frame with an even margin on every side.",
+    "banner": "A full-frame wide brand banner illustration: {subject}. {details} Fill the entire image edge to edge, crisp focus on the subject, soft clean background, plenty of calm empty space where the details ask for it.",
+    "photo": "A photorealistic product photograph of real merchandise: {subject}. {details}",
+    "emblem": "A single premium achievement emblem icon for a mobile game: {subject}. {details} Straight-on front view, symmetrical, centred, the whole emblem visible and filling about 80% of the frame with an even margin on every side.",
+    "giftitem": "A single gift item icon for a mobile game shop: {subject}. {details} Three-quarter view from slightly above, centred, the whole item visible and filling about 70% of the frame with an even margin on every side.",
+    "border": "A single circular avatar border for a mobile game profile: {subject}. {details} Straight-on front view, symmetrical left to right, centred, the whole border visible and filling about 85% of the frame. The inside of the ring is a large empty circle, about 62% of the border's width, filled with exactly the same flat background colour as the rest of the picture, where the member's photo will go.",
+    "badge": "A single collectible achievement badge for a mobile game: {subject}. {details} Straight-on front view, centred, the whole badge visible and filling about 80% of the frame with an even margin on every side."
   },
   "photoNegatives": "A real photograph, not a game render or illustration. No watermark, no border or frame, and no text except labels specified above.",
   "chroma": {
@@ -58,5 +64,11 @@
     "seamSoften": 3,
     "maxSeamDifference": 18,
     "seamBand": 300
+  },
+  "kindBase": {
+    "emblem": "High-end mobile game UI art: a collectible achievement medal in a restrained, consistent style. Mostly polished champagne gold metal (about 85 percent of the medal) with crisp bevels and engraved lines, exactly one accent gemstone colour, and the subject shown as a simple bold gold relief sculpture rather than a coloured scene. Clean, readable silhouette that still reads at 64 pixels on a dark navy interface. Not busy, not cluttered, no extra gems or ribbons beyond those described, not cartoon clay, not blurry.",
+    "giftitem": "High-end mobile game UI art: one collectible gift item rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp clean silhouette, limited calm colours, readable at 64 pixels on a dark navy interface. Just the item itself: no frame, badge, medal, border, pedestal, plate of light or background shapes. Not busy, not cartoon clay, not blurry.",
+    "border": "High-end mobile game UI art: a collectible avatar border rendered crisp, clean and polished, with glossy specular highlights, a bright rim light and a sharp silhouette, limited calm colours. The ring itself is slim; decoration sits mainly at the top and bottom so the photo inside stays the focus. Not busy, not cartoon clay, not blurry, no text.",
+    "badge": "High-end mobile game UI art: a premium achievement badge built in layers like a real 3D object: a back plate, a raised front plate, and wings, blades or ribbons around them, each layer with crisp bevels, polished metal, glossy specular highlights and a bright rim light. Every badge in the set shares this layered build but has its own distinct silhouette. The centrepiece is one bold symbol in a contrasting material (enamel or crystal) so it reads instantly at 64 pixels. A small, deliberate palette: the tier metal plus one or two accent colours. Not busy, not a flat coin, not cartoon clay, not blurry, no text."
   }
 }

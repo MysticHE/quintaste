@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "note": "Dining gift medals, restrained version after the owner's reference video (1 Nov 2026): one gold family, one accent gem each, simple relief motif, rank shown by points and wings. Test run only.",
+  "assets": [
+    {
+      "id": "medal-rose",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a simple pointed shield medal with a plain bevelled gold rim and no wings, with a single gold rose in relief at its centre",
+      "details": "One cut gemstone in a ruby red, set in the rose's centre, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "medal-kopi",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a simple pointed shield medal with a plain bevelled gold rim and no wings, with a gold kopi cup and saucer in relief with a curl of steam at its centre",
+      "details": "One cut gemstone in an amber, set below the cup, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "medal-kaya",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a simple pointed shield medal with a plain bevelled gold rim and no wings, with two gold triangles of toast in relief at its centre",
+      "details": "One cut gemstone in a jade green, set below the toast, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "medal-bubble-tea",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a pointed shield medal with a bevelled gold rim and three small gold points fanning out at each upper side, no wings, with a gold bubble tea cup in relief with a straw at its centre",
+      "details": "One cut gemstone in a deep topaz brown, set at the base of the cup, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "medal-lotus",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a pointed shield medal with a bevelled gold rim and three small gold points fanning out at each upper side, no wings, with a gold lotus flower in relief at its centre",
+      "details": "One cut gemstone in a soft pink, set in the lotus centre, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "medal-chendol",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a pointed shield medal with a bevelled gold rim and three small gold points fanning out at each upper side, no wings, with a gold dessert bowl in relief with a heap of shaved ice at its centre",
+      "details": "One cut gemstone in an emerald green, set on the front of the bowl, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "medal-bouquet",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a pointed shield medal with a bevelled gold rim, small swept gold wings at the upper sides and a small gold crown point at the top, with a small gold bouquet of three roses tied with a bow, in relief at its centre",
+      "details": "One cut gemstone in a pink, set in the bow, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    },
+    {
+      "id": "medal-mochi",
+      "kind": "emblem",
+      "chroma": "green",
+      "reference": false,
+      "subject": "a pointed shield medal with a bevelled gold rim, small swept gold wings at the upper sides and a small gold crown point at the top, with Mochi Chef from the attached picture as a small glossy white enamel figure with closed happy eyes, a small smile and a chef hat, holding a heart at its centre",
+      "details": "One cut gemstone in a pink, as the heart Mochi holds, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers. Mochi keeps closed curved eyes and a closed mouth.",
+      "status": "todo",
+      "refs": [
+        "ref-mochi-chef.png"
+      ]
+    },
+    {
+      "id": "medal-golden-lotus",
+      "kind": "emblem",
+      "chroma": "magenta",
+      "reference": false,
+      "subject": "a pointed shield medal with a bevelled gold rim, larger layered swept gold wings, a gold crown at the top and a short violet enamel ribbon tail at the bottom, with a radiant gold lotus flower in relief at its centre",
+      "details": "One cut gemstone in a violet, set in the lotus centre, softly glowing, and one tiny matching gem at the top point; nothing else in colour. The medal is mostly champagne gold. Straight-on, symmetrical. No words or numbers.",
+      "status": "todo"
+    }
+  ]
+}
