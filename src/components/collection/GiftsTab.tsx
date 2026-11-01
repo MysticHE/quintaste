@@ -21,7 +21,7 @@ type Side = "received" | "sent";
  */
 export function GiftsTab({ data }: { data: Gifts }) {
   const t = useT("collection"), giftName = useGiftName(), language = useLanguage(), { theme, setNotice } = usePreferences();
-  const [side, setSide] = useState<Side>("received"), [busy, setBusy] = useState(false), opener = useGiftOpener(data.catalog);
+  const [side, setSide] = useState<Side>("received"), [busy, setBusy] = useState(false), opener = useGiftOpener();
   const count = (id: string) => data.received.filter(g => g.gift === id).length, clock = useGlintClock(data.catalog.length);
   const receive = async (on: boolean) => {
     setBusy(true);

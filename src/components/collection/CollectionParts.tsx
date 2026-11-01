@@ -14,13 +14,13 @@ export const rarityTone: Record<Rarity, Tone> = { common: "muted", rare: "accent
 export const tierTone: Record<BadgeTier, Tone> = { bronze: "accent", silver: "muted", gold: "warning", mythic: "warning" };
 
 /** The selected item, large, on a soft spotlight, with its name, pills and whatever the tab adds below. */
-export function FeatureCard({ art, pulse, dim, inside, title, pills, children }: PropsWithChildren<{
-  art: CollectionArt | undefined; pulse: number; dim?: boolean; inside?: (size: number) => ReactNode; title: string; pills: [string, Tone][];
+export function FeatureCard({ art, dim, inside, title, pills, children }: PropsWithChildren<{
+  art: CollectionArt | undefined; dim?: boolean; inside?: (size: number) => ReactNode; title: string; pills: [string, Tone][];
 }>) {
   const { theme } = usePreferences(), size = 188, hole = art?.hole;
   return <View style={{ backgroundColor: theme.muted, borderRadius: 20, padding: 16, gap: 10, alignItems: "center" }}>
     <View style={{ width: 220, height: 220, borderRadius: 110, backgroundColor: theme.accentSoft, alignItems: "center", justifyContent: "center" }}>
-      <ItemArt art={art} size={size} pulse={pulse} loop dim={dim} inside={hole && inside ? inside((hole[2] / 100) * size) : undefined} />
+      <ItemArt art={art} size={size} fx dim={dim} inside={hole && inside ? inside((hole[2] / 100) * size) : undefined} />
     </View>
     <T variant="title" style={[common.bold, { textAlign: "center" }]} accessibilityRole="header">{title}</T>
     <View style={[common.row, { gap: 6, flexWrap: "wrap", justifyContent: "center" }]}>{pills.map(([label, tone]) => <StatusPill key={label} label={label} tone={tone} />)}</View>
@@ -72,6 +72,6 @@ export function BadgeRow({ ids }: { ids: string[] }) {
   const t = useT("collection"), names = ids.map(id => t(("badge_" + id) as keyof typeof collectionMessages) as string);
   if (!ids.length) return null;
   return <View style={[common.row, { gap: 6 }]} accessible accessibilityLabel={t("tabBadges") + ": " + names.join(", ")}>
-    {ids.map(id => <ItemArt key={id} art={badgeArt(id)} size={30} loop />)}
+    {ids.map(id => <ItemArt key={id} art={badgeArt(id)} size={30} fx />)}
   </View>;
 }

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal, Pressable, StyleSheet, View } from "react-native";
 import { Button, Field, Icon, T, common } from "../ui";
 import { Sheet } from "../Sheet";
 import { ItemArt, useGlintClock } from "./Glint";
+import { Burst } from "./Fx";
 import { TileGrid } from "./CollectionParts";
 import { ApiError } from "../../services/community-api";
 import { giftCatalogKey, giftsKey, likeGift, loadGiftCatalog, loadGifts, openGift, sendGift, sgd, type GiftCatalog } from "../../services/gifts-api";
@@ -92,22 +93,22 @@ type Opened = { view: GiftView; from: string; mine: boolean };
  * in the owner's reference video, with who sent it, the note and, for the receiver, Like and Report (gifts can come from
  * strangers). Reduce motion shows it still. Tapping outside the card closes it.
  */
-function GiftOpening({ open, burst, onLike, onReport, onClose }: {
-  open: Opened | null; burst: number; onLike: (on: boolean) => void; onReport: () => void; onClose: () => void;
+function GiftOpening({ open, onLike, onReport, onClose }: {
+  open: Opened | null; onLike: (on: boolean) => void; onReport: () => void; onClose: () => void;
 }) {
-  const t = useT("collection"), giftName = useGiftName(), { theme, reducedMotion } = usePreferences(), [pulse, setPulse] = useState(0), gift = open?.view.gift;
-  useEffect(() => {
-    if (!gift || reducedMotion) return;
-    let n = 0;
-    const timer = setInterval(() => { n += 1; setPulse(n); if (n >= burst) clearInterval(timer); }, 420);
-    return () => { clearInterval(timer); setPulse(0); };
-  }, [gift, burst, reducedMotion]);
+  const t = useT("collection"), giftName = useGiftName(), { theme, reducedMotion } = usePreferences(), gift = open?.view.gift, art = gift ? giftArt(gift) : undefined;
   const liked = !!open?.view.liked;
   return <Modal visible={!!open} transparent animationType={reducedMotion ? "none" : "fade"} onRequestClose={onClose}>
     <View style={[s.opening, { backgroundColor: theme.overlay }]}>
       <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel={t("tapToClose")} style={StyleSheet.absoluteFill} />
       {open && <View style={[s.card, { backgroundColor: theme.background }]} accessibilityViewIsModal>
-        <View style={[s.spot, { backgroundColor: theme.accentSoft }]}><ItemArt art={giftArt(open.view.gift)} size={184} pulse={pulse} loop /></View>
+        <View style={[s.spot, { backgroundColor: theme.accentSoft }]}>
+          <View style={{ width: 184, height: 184 }}>
+            <ItemArt art={art} size={184} fx />
+            {/* The moment it opens: a flash of the gift's colour and sparks, once per gift. */}
+            {art && <Burst key={open.view.id} art={art} size={184} />}
+          </View>
+        </View>
         <T variant="title" numberOfLines={1} style={[common.bold, s.center]} accessibilityRole="header">{giftName(open.view.gift)}</T>
         {!!open.from && <T muted numberOfLines={1} style={s.center}>{t("giftFrom", { name: open.from })}</T>}
         {!!open.view.note && <T style={s.center}>{open.view.note}</T>}
@@ -149,7 +150,7 @@ export function GiftLine({ gift, mine, onPress }: { gift: GiftView | null | unde
  * Plays a gift's opening. The receiver's first look marks it opened, and they can Like it, or report (and block) the sender,
  * from there.
  */
-export function useGiftOpener(catalog: GiftCatalog["catalog"] | undefined) {
+export function useGiftOpener() {
   const { setNotice } = usePreferences(), t = useT("collection"), [open, setOpen] = useState<Opened | null>(null);
   const [report, setReport] = useState<{ id: string; name: string } | null>(null);
   const show = (view: GiftView, from: string, mine: boolean) => {
@@ -162,10 +163,9 @@ export function useGiftOpener(catalog: GiftCatalog["catalog"] | undefined) {
     try { await likeGift(open.view.id, on); refreshGifts(); }
     catch { setOpen(current => current && { ...current, view: { ...current.view, liked: !on } }); setNotice({ text: t("actionFailed") as string, error: true }); }
   };
-  const burst = catalog?.find(g => g.id === open?.view.gift)?.burst ?? 3;
   const reportSender = () => { if (open?.view.fromId) setReport({ id: open.view.fromId, name: open.from }); setOpen(null); };
   return { show, opening: <>
-    <GiftOpening open={open} burst={burst} onLike={like} onReport={reportSender} onClose={() => setOpen(null)} />
+    <GiftOpening open={open} onLike={like} onReport={reportSender} onClose={() => setOpen(null)} />
     {report && <ReportSheet kind="person" targetId={report.id} name={report.name} hasPhoto={false} visible onClose={() => setReport(null)}
       onBlocked={() => invalidate("/api/social", giftsKey, "/api/inbox")} />}
   </> };

@@ -50,7 +50,7 @@ export function ChatScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), t = useT("social"), { setNotice } = usePreferences(), problem = useSocialError(), describe = useLineText();
   const me = useSocialMe().data, profile = useRemote(id ? "/api/social/people/" + id : null, signal => person(id, signal)), p = profile.data;
   const lines = useRemote(id ? chatKey(id) : null, signal => chat(id, signal), 5000), [flag, setFlag] = useState(false), blocked = useInviteBlock()(p, me);
-  const gifts = useGiftCatalog(!!me?.hasProfile).data, [giving, setGiving] = useState(false), opener = useGiftOpener(gifts?.catalog);
+  const gifts = useGiftCatalog(!!me?.hasProfile).data, [giving, setGiving] = useState(false), opener = useGiftOpener();
   const newest = lines.data?.items.at(-1)?.id;
   useEffect(() => { if (newest) invalidate("/api/social/badges", "/api/social/friends"); }, [newest]);
   const send = async (text: string) => {

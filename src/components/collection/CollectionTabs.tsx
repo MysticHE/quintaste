@@ -39,7 +39,7 @@ export function BordersTab({ data, me }: { data: Collection; me: SocialMe | unde
     : b.credits <= data.credits - data.owed ? <Button label={t("exchange", { n: b.credits.toLocaleString() })} loading={busy} onPress={() => void run(() => buyBorder(b.id), t("exchanged", { name }))} />
     : <Button label={t("needMore", { n: (b.credits - (data.credits - data.owed)).toLocaleString() })} variant="secondary" disabled onPress={nothing} />;
   return <>
-    <FeatureCard art={borderArt(b.id)} pulse={clock.feature} inside={picture} title={name}
+    <FeatureCard art={borderArt(b.id)} inside={picture} title={name}
       pills={[[t(`rarity_${b.rarity}` as Key) as string, rarityTone[b.rarity]], ...(b.owned ? [] : [[t("costChip", { n: b.credits.toLocaleString() }), "muted"] as [string, "muted"]])]}>
       <T variant="small" muted style={{ textAlign: "center" }}>{t(("borderDesc_" + b.id) as Key) as string}</T>
       {!data.hasProfile && b.owned && <T variant="small" muted style={{ textAlign: "center" }}>{t("setUpFirst")}</T>}
@@ -64,7 +64,7 @@ export function BadgesTab({ data }: { data: Collection }) {
   };
   const progress = (x: Collection["badges"][number]) => x.tasks.reduce((sum, task) => sum + task.done / task.of, 0) / Math.max(1, x.tasks.length);
   return <>
-    <FeatureCard art={badgeArt(b.id)} pulse={b.earned ? clock.feature : 0} dim={!b.earned} title={name}
+    <FeatureCard art={badgeArt(b.id)} dim={!b.earned} title={name}
       pills={[[t(`tier_${b.tier}` as Key) as string, tierTone[b.tier]], ...(b.earned ? [[t("earned"), "success"] as [string, "success"]] : []), ...(b.revoked ? [[t("revoked"), "muted"] as [string, "muted"]] : [])]}>
       <View style={{ alignSelf: "stretch", gap: 10 }}>
         {b.tasks.map(task => <TaskBar key={task.key} label={t(`bt_${b.id}_${task.key}` as Key) as string} done={task.done} of={task.of} />)}

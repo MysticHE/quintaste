@@ -5,11 +5,12 @@ import Animated, { Easing, cancelAnimation, runOnJS, useAnimatedStyle, useShared
 import { useIsFocused } from "expo-router";
 import { usePreferences } from "../../state/Preferences";
 import type { CollectionArt } from "../../config/collection-art";
+import { hashOf } from "./Fx";
 
 /** One sweep: the light crosses the item in this time, tilted by this angle. */
-const SWEEP_MS = 1300, ANGLE = 22, RAD = (ANGLE * Math.PI) / 180;
+const SWEEP_MS = 1800, ANGLE = 22, RAD = (ANGLE * Math.PI) / 180;
 /** Nested windows from wide and faint to narrow and strong, so the light's edges fade instead of cutting. */
-const LAYERS = [{ width: 0.62, opacity: 0.45 }, { width: 0.4, opacity: 0.6 }, { width: 0.2, opacity: 0.8 }];
+const LAYERS = [{ width: 0.62, opacity: 0.3 }, { width: 0.4, opacity: 0.42 }, { width: 0.2, opacity: 0.6 }];
 
 /**
  * Light passing over a Collection item in its own colours (owner, 1 Nov 2026: no white reflection; the shine must match the
@@ -21,14 +22,14 @@ const LAYERS = [{ width: 0.62, opacity: 0.45 }, { width: 0.4, opacity: 0.6 }, { 
  */
 export function Sheen({ art, size, pulse = 0, loop = false }: { art: CollectionArt; size: number; pulse?: number; loop?: boolean }) {
   const { reducedMotion } = usePreferences(), focused = useIsFocused(), progress = useSharedValue(0), [active, setActive] = useState(false);
-  const looping = loop && focused && !reducedMotion, phase = phaseOf(art.tone);
+  const looping = loop && focused && !reducedMotion, phase = hashOf(art.tone, 1701);
   // A new pulse mounts the layers for its sweep (state adjusted during render, so they exist when the sweep starts).
   const [lastPulse, setLastPulse] = useState(pulse);
   if (pulse !== lastPulse) { setLastPulse(pulse); if (pulse && !loop && !reducedMotion) setActive(true); }
   useEffect(() => {
     if (!looping) return;
     progress.set(0);
-    progress.set(withDelay(phase, withRepeat(withDelay(1000, withTiming(1, { duration: SWEEP_MS * 1.3, easing: Easing.inOut(Easing.quad) })), -1, false)));
+    progress.set(withDelay(phase, withRepeat(withDelay(4500, withTiming(1, { duration: SWEEP_MS, easing: Easing.inOut(Easing.quad) })), -1, false)));
     return () => { cancelAnimation(progress); progress.set(0); };
   }, [looping, phase, progress]);
   useEffect(() => {
@@ -40,13 +41,6 @@ export function Sheen({ art, size, pulse = 0, loop = false }: { art: CollectionA
   return <View pointerEvents="none" style={[StyleSheet.absoluteFill, { width: size, height: size, overflow: "hidden" }]}>
     {LAYERS.map(layer => <Window key={layer.width} art={art} size={size} width={layer.width * size} opacity={layer.opacity} progress={progress} />)}
   </View>;
-}
-
-/** A start delay (0 to 1.7 s) from the item's colour, so different items begin their loops at different moments. */
-function phaseOf(tone: string) {
-  let h = 0;
-  for (const c of tone) h = (h * 31 + c.charCodeAt(0)) % 1701;
-  return h;
 }
 
 /**
