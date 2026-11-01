@@ -61,11 +61,12 @@ gifts.post('/', async (req, res) => {
   const sent = await transaction(async db => {
     const mine = await db.query('SELECT 1 FROM social.profile WHERE user_id=$1', [me]);
     if (!mine.rowCount) throw new CommunityError(409, 'Set up your Social profile first.', 'SOCIAL_SETUP');
-    // Anyone with a Social profile (where Gifts lives) whose profile you can see (public, a friend, or an open friend
-    // request), never someone either of you blocked.
-    const them = (await db.query(`SELECT p.gifts_off, ${friendsSql('$1::text', '$2::text')} AS friend
-      FROM public."user" u JOIN social.profile p ON p.user_id=u.id WHERE u.id=$2 AND ${seeableSql('u.id', '$1')}`, [me, to])).rows[0];
-    if (!them) throw new CommunityError(404, 'This person is unavailable.');
+    // Anyone whose profile you can see (public, a friend, or an open friend request), never someone either of you blocked.
+    // A friend always can: the gift arrives as a card in your chat, which they open there. Anyone else needs a Social
+    // profile, because their gifts wait in Collection › Gifts, which is part of Social.
+    const them = (await db.query(`SELECT coalesce(p.gifts_off, false) AS gifts_off, p.user_id IS NOT NULL AS profile, ${friendsSql('$1::text', '$2::text')} AS friend
+      FROM public."user" u LEFT JOIN social.profile p ON p.user_id=u.id WHERE u.id=$2 AND ${seeableSql('u.id', '$1')}`, [me, to])).rows[0];
+    if (!them || !(them.friend || them.profile)) throw new CommunityError(404, 'This person is unavailable.');
     if (them.gifts_off) throw new CommunityError(409, 'They aren\'t receiving gifts.', 'GIFTS_OFF');
     const today = (await db.query(`SELECT count(*) FILTER (WHERE receiver_id=$2)::int AS person, coalesce(sum(price_cents), 0)::int AS cents, ${weeklyUsedSql} AS weekly
       FROM community.gift WHERE sender_id=$1 AND status='sent' AND created_at >= ${sgToday}`, [me, to])).rows[0];
