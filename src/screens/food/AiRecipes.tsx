@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { Pressable, StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { router, useLocalSearchParams } from "expo-router";
@@ -19,7 +20,7 @@ import { useT } from "../../i18n";
 
 /** Ask for a dish or paste a video link; the server writes the recipe and it appears in the shared Cook feed. */
 export function AiRecipesScreen() {
-  const member = useMember(), { theme, setNotice } = usePreferences(), t = useT("cook"), dietText = useDietText();
+  const member = useMember(), { theme, setNotice } = usePreferences(), t = useT("cook"), dietText = useDietText(), askForAlerts = useAskForAlerts();
   const status = useRemote("ai-recipes:status", aiRecipesStatus);
   const jobs = useRemote(member.member ? "ai-recipes:mine" : null, signal => myAiJobs(signal).then(r => r.items), 6000);
   // Cook's "Get An AI Recipe" opens this screen with the search filled in.
@@ -46,6 +47,7 @@ export function AiRecipesScreen() {
       if (kind === "video") setLink(""); else setDish("");
       invalidate("ai-recipes:mine"); jobs.refresh(); invalidate("ai-recipes:status");
       setNotice({ text: t("aiAdded") });
+      askForAlerts("recipe");
     } catch (error) {
       failed(error, t("aiStartFailed"));
     } finally { setBusy(null); }
@@ -70,6 +72,7 @@ export function AiRecipesScreen() {
       setLink("");
       invalidate("ai-recipes:mine"); jobs.refresh(); invalidate("ai-recipes:status");
       setNotice({ text: t("aiUploaded") });
+      askForAlerts("recipe");
     } catch (error) {
       failed(error, t("aiUploadFailed"));
     } finally { setBusy(null); }

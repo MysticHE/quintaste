@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMember } from "./CommunityGate";
 import { onInvalidate, useRemote } from "../hooks/useRemote";
 import { communityRequest } from "../services/community-api";
+import { setAppBadge } from "../services/app-badge";
 
 /**
  * Server counts from /api/inbox (server/community/inbox.mjs); `messages` is chats that need the member (unread, or a seller's new
@@ -32,7 +33,10 @@ export function useLiveInbox() {
  * Screens above the tabs (the Orders / My shop hub) call useLiveInbox, which shares the cached counts.
  */
 export function InboxProvider({ children }: PropsWithChildren) {
-  return <Context.Provider value={useLiveInbox()}><PhotoCheckSeenProvider>{children}</PhotoCheckSeenProvider></Context.Provider>;
+  const counts = useLiveInbox(), { member } = useMember(), total = member ? counts?.total : 0;
+  // The app-icon badge follows the same total; signed out it clears. Unknown (still loading) leaves it as it is.
+  useEffect(() => { if (total !== undefined) setAppBadge(total); }, [total]);
+  return <Context.Provider value={counts}><PhotoCheckSeenProvider>{children}</PhotoCheckSeenProvider></Context.Provider>;
 }
 export const useInbox = () => useContext(Context);
 

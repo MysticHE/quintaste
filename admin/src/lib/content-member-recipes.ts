@@ -7,6 +7,7 @@ import { choice, HttpError, integer, pageSize, text, uuid } from './http';
 import { search } from './content-members';
 import { historyOf } from './content-store';
 import { isMemberRecipeId, memberRecipePrefix } from './recipe-ids';
+import { queueAlert } from './push-alerts';
 
 // Member recipes are published or declined, hidden or restored, never rewritten: staff must not put words in a member's name.
 type Version = { title: string; description: string; author: string; language: string; servings: number; minutes: number; diet: string; categories: string[];
@@ -99,6 +100,11 @@ export async function applyMemberRecipe(db: PoolClient, actor: Actor, input: Rec
     WHERE id=$1 AND live IS NOT NULL AND (hidden_at IS NULL)=$3`, [id, act === 'hide' ? reason : null, act === 'hide']);
   if (!result.rowCount) throw new HttpError(409, 'This changed since you opened it. Refresh the list.');
   await audit(db, actor.id, 'content.member-recipe.' + act, 'member-recipe:' + id, reason, { note: input.note ?? null, revision: input.revision ?? null }, actor.bot);
+  if (act === 'publish' || act === 'decline') {
+    const recipe = (await db.query("SELECT author_id, coalesce(live->>'title', pending->>'title', '') AS title FROM recipes.recipe WHERE id=$1", [id])).rows[0];
+    if (act === 'publish') await queueAlert(db, recipe?.author_id, 'recipePublished', '/cook/recipe/' + memberRecipePrefix + id, recipe?.title ?? '');
+    else await queueAlert(db, recipe?.author_id, 'recipeDeclined', '/cook/my-recipes', recipe?.title ?? '');
+  }
   return { reply: { saved: true, note: act === 'publish' ? 'Published. Members see it in Cook within a minute.' : undefined },
     // Publishing an update replaces the live version, which cannot be brought back, so it has no undo.
     undo: (act === 'publish' && !update) || act === 'decline' ? { action: act, revision } : null };

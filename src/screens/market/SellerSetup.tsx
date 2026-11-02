@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { useState } from "react";
 import { Screen } from "../../components/Screen";
 import { Button, Field, T } from "../../components/ui";
@@ -26,6 +27,7 @@ const empty: SellerInput = { tradingName: "", about: "", area: "", meetup: true,
 /** Shop details, collection and payment. Opening needs the declarations this app shows; there is no staff review. */
 function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) {
   const { theme, setNotice } = usePreferences(), t = useT("market"), existing = state.seller, open = existing?.status === "active" && existing.declarationsVersion === declarationsVersion;
+  const askForAlerts = useAskForAlerts();
   const [form, setForm] = useState<SellerInput>(() => existing ? { ...empty, ...existing } : empty), [fee, setFee] = useState(existing?.deliveryFeeCents ? String(existing.deliveryFeeCents / 100) : "");
   const [minimum, setMinimum] = useState(existing?.deliveryMinCents ? String(existing.deliveryMinCents / 100) : "");
   const [agreed, setAgreed] = useState<number[]>([]), [busy, setBusy] = useState(false), [error, setError] = useState("");
@@ -44,7 +46,7 @@ function Setup({ state, refresh }: { state: SellerState; refresh: () => void }) 
     finally { setBusy(false); }
   };
   const save = () => run(() => saveSeller(input()), t("shopSaved"));
-  const openNow = async () => { if (await run(async () => { await saveSeller(input()); await openShop(declarationsVersion); }, t("shopOpened"))) router.replace("/market?tab=shop"); };
+  const openNow = async () => { if (await run(async () => { await saveSeller(input()); await openShop(declarationsVersion); }, t("shopOpened"))) { router.replace("/market?tab=shop"); askForAlerts("shop"); } };
   return <>
     <FormSection title={t("shop")}>
       <Field label={t("shopName")} value={form.tradingName} onChangeText={tradingName => set({ tradingName })} maxLength={60} editable={!busy} />

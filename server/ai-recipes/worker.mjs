@@ -7,6 +7,7 @@ import { settleDrawings } from './drawings.mjs';
 import { deleteFile } from './files.mjs';
 import { sweepWork, uploadPath } from './work.mjs';
 import { rm } from 'node:fs/promises';
+import { notify } from '../community/push.mjs';
 
 /**
  * One job at a time in this process, claimed with SKIP LOCKED so several app replicas can share the queue; members' jobs
@@ -26,8 +27,9 @@ export function startAiRecipeWorker() {
       if (!await engineReady()) return;
       const stale = await pool.query(`UPDATE recipes.ai_job SET status='failed', finished_at=now(),
           message=CASE WHEN input LIKE 'upload %' THEN 'The job was interrupted. Upload the video again.' ELSE 'The job was interrupted. Try again.' END
-        WHERE status='working' AND started_at < now() - interval '20 minutes' ${await botTableReady() ? 'AND NOT ' + HELD_BY_BOTS : ''} RETURNING input`);
+        WHERE status='working' AND started_at < now() - interval '20 minutes' ${await botTableReady() ? 'AND NOT ' + HELD_BY_BOTS : ''} RETURNING input, user_id`);
       for (const row of stale.rows) {
+        notify(row.user_id, 'recipeFailed', { url: '/cook/ai' });
         const upload = parseUpload(row.input);
         if (!upload) continue;
         const local = uploadPath(upload.name);

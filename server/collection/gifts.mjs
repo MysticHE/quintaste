@@ -123,8 +123,8 @@ gifts.post('/', async (req, res) => {
     return { id: row.id, friend };
   }, 'gift-send:' + me);
   if (!sent.again) {
-    logger.info({ event: 'gift_sent', gift: id, store: store ?? 'free' });
-    notify(to, 'gifts', 'gift', { from: me, gift: id, url: sent.friend ? '/social/chat/' + me : '/social/collection' });
+    logger.info({ event: 'gift_sent', detail: id, store: store ?? 'free' });
+    notify(to, 'gift', { from: me, detail: id, url: sent.friend ? '/social/chat/' + me : '/social/collection' });
   }
   res.status(201).json({ id: sent.id });
 });
@@ -153,8 +153,8 @@ async function react(me, id, set, line) {
     if (row.first && row.friend) await postLine(db, me, row.sender_id, { body: line + ':' + row.gift, giftId: id, sender: me });
     return row;
   }, 'gift-react:' + me);
-  if (gift.first) notify(gift.sender_id, 'gifts', line === 'giftliked' ? 'giftLiked' : 'giftThanks',
-    { from: me, gift: gift.gift, url: gift.friend ? '/social/chat/' + me : '/social/collection' });
+  if (gift.first) notify(gift.sender_id, line === 'giftliked' ? 'giftLiked' : 'giftThanks',
+    { from: me, detail: gift.gift, url: gift.friend ? '/social/chat/' + me : '/social/collection' });
 }
 
 /** The receiver likes a gift, or takes the like back. */

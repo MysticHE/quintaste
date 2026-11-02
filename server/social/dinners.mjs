@@ -6,7 +6,7 @@ import { requirePlace, venueText } from './places.mjs';
 import { readFuture, sgText } from './rules.mjs';
 import { photoUrl } from './profile.mjs';
 import { postLine } from './friends.mjs';
-import { notify } from '../community/push.mjs';
+import { notify, queueAlert } from '../community/push.mjs';
 import { currentDinnerSql, pairBusyError, pairSql } from './dinner-pair.mjs';
 
 export const dinners = express.Router();
@@ -120,7 +120,7 @@ dinners.post('/dinners', async (req, res) => {
     return dinner;
   }, 'social-pair:' + pairOf(me, other).join(':'));
   logger.info({ event: 'social_dinner_invited' });
-  notify(other, 'dinners', 'dinner', { from: me, url: '/social/dinner/' + id });
+  notify(other, 'dinner', { from: me, url: '/social/dinner/' + id });
   res.status(201).json({ id });
 });
 /** Loads an open invitation the member must answer, locked for this transaction. */
@@ -148,6 +148,7 @@ dinners.post('/dinners/:id/accept', (req, res) => act(req, res, async (db, me, i
   if (await busyAt(db, dinner.other, dinner.starts, id)) throw new CommunityError(409, 'This time no longer works for them. Suggest another time.', 'SOCIAL_THEM_BUSY');
   await db.query("UPDATE social.dinner SET status='accepted', waiting_on=NULL, updated_at=now() WHERE id=$1", [id]);
   await postLine(db, me, dinner.other, { kind: 'dinner', body: 'accepted', dinnerId: id, sender: me });
+  await queueAlert(db, dinner.other, 'dinnerAccepted', { from: me, url: '/social/dinner/' + id });
 }));
 /**
  * Suggest a change: a new time, a new catalogue place, or both, replacing the old ones; the other person answers next. The chat
@@ -166,6 +167,7 @@ dinners.post('/dinners/:id/suggest', async (req, res) => {
       expires_at=least(now() + interval '3 days', coalesce($2, starts)), updated_at=now() WHERE id=$1`,
       [id, movedTime ? starts : null, dinner.other, movedPlace ? place.id : null, movedPlace ? venueText(place) : null]);
     await postLine(db, me, dinner.other, { kind: 'dinner', body: movedPlace ? (movedTime ? 'suggestedBoth' : 'suggestedPlace') : 'suggested', dinnerId: id, sender: me });
+    await queueAlert(db, dinner.other, 'dinnerChanged', { from: me, url: '/social/dinner/' + id });
   });
 });
 /**
@@ -182,20 +184,25 @@ dinners.post('/dinners/:id/late', async (req, res) => {
       AND starts < now() + interval '3 hours' AND starts > now() - interval '1 hour'`, [id])).rows[0];
     if (!dinner) throw new CommunityError(409, 'You can say you are running late on the day of the dinner.');
     await throttle('social-late:' + me + ':' + id, 3, 6 * 3600, 'You already told them a few times.');
-    await postLine(db, me, dinner.host_id === me ? dinner.guest_id : dinner.host_id, { kind: 'dinner', body: 'late' + minutes, dinnerId: id, sender: me });
+    const other = dinner.host_id === me ? dinner.guest_id : dinner.host_id;
+    await postLine(db, me, other, { kind: 'dinner', body: 'late' + minutes, dinnerId: id, sender: me });
+    await queueAlert(db, other, 'dinnerLate', { from: me, detail: String(minutes), url: '/social/dinner/' + id });
   });
 });
 dinners.post('/dinners/:id/decline', (req, res) => act(req, res, async (db, me, id) => {
   const dinner = await waitingOn(db, me, id);
   await db.query("UPDATE social.dinner SET status='declined', waiting_on=NULL, updated_at=now() WHERE id=$1", [id]);
   await postLine(db, me, dinner.other, { kind: 'dinner', body: 'declined', dinnerId: id, sender: me });
+  await queueAlert(db, dinner.other, 'dinnerDeclined', { from: me, url: '/social/dinner/' + id });
 }));
 /** Either person can call off an open invitation or an upcoming dinner. */
 dinners.post('/dinners/:id/cancel', (req, res) => act(req, res, async (db, me, id) => {
   const dinner = (await db.query(`SELECT host_id, guest_id FROM social.dinner WHERE id=$1 AND (status='invited' OR (status='accepted' AND starts > now())) FOR UPDATE`, [id])).rows[0];
   if (!dinner) throw new CommunityError(409, 'This dinner can no longer be cancelled.');
   await db.query("UPDATE social.dinner SET status='cancelled', waiting_on=NULL, cancelled_by=$2, updated_at=now() WHERE id=$1", [id, me]);
-  await postLine(db, me, dinner.host_id === me ? dinner.guest_id : dinner.host_id, { kind: 'dinner', body: 'cancelled', dinnerId: id, sender: me });
+  const other = dinner.host_id === me ? dinner.guest_id : dinner.host_id;
+  await postLine(db, me, other, { kind: 'dinner', body: 'cancelled', dinnerId: id, sender: me });
+  await queueAlert(db, other, 'dinnerCancelled', { from: me, url: '/social/dinner/' + id });
 }));
 /**
  * When one person says "We met" and the other "They didn't come", the claim does not count towards a pause (access.mjs) and
@@ -228,6 +235,11 @@ dinners.post('/dinners/:id/report', async (req, res) => {
     if (!saved.rowCount) throw new CommunityError(409, 'You already told us about this dinner.');
     await flagDisagreement(db, id, me, met);
     const both = (await db.query('SELECT count(*) FILTER (WHERE eat_again)::int AS yes FROM social.dinner_report WHERE dinner_id=$1', [id])).rows[0].yes === 2;
-    if (both) await postLine(db, me, dinner.host_id === me ? dinner.guest_id : dinner.host_id, { kind: 'dinner', body: 'again', dinnerId: id });
+    const other = dinner.host_id === me ? dinner.guest_id : dinner.host_id;
+    if (both) {
+      await postLine(db, me, other, { kind: 'dinner', body: 'again', dinnerId: id });
+      // The member reporting now sees it at once; the one who reported first is told.
+      await queueAlert(db, other, 'dinnerAgain', { from: me, url: '/social/chat/' + me });
+    }
   });
 });

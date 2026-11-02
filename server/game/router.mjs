@@ -10,6 +10,7 @@ import { allowed } from '../operations.mjs';
 import { planAccess } from '../ai-recipes/limits.mjs';
 import { myLevels, requestLevel } from './levels-members.mjs';
 import { authorVisible } from './visibility.mjs';
+import { notify } from '../community/push.mjs';
 import { cafeNow, cafesOn, listCafes, myCafe, requireCafes, saveCafe as saveOpenCafe, visitableCafe } from './cafes.mjs';
 
 /**
@@ -200,6 +201,13 @@ game.post('/levels/:hash/reaction', async (req, res) => {
   if (liked === null) await pool.query('DELETE FROM game.level_reaction WHERE user_id=$1 AND hash=$2', [user.id, hash]);
   else await pool.query(`INSERT INTO game.level_reaction(user_id, hash, liked) VALUES($1,$2,$3)
     ON CONFLICT (user_id, hash) DO UPDATE SET liked=$3, updated_at=now()`, [user.id, hash, liked]);
+  // A level made from a member's recipe tells its author when someone likes it, once per person.
+  if (liked) {
+    const level = (await pool.query(`SELECT l.recipe_id, r.author_id, r.live->>'title' AS title FROM game.recipe_level l
+      JOIN recipes.recipe r ON l.recipe_id LIKE 'member-%' AND r.id = substr(l.recipe_id, 8)::uuid WHERE l.hash=$1`, [hash])).rows[0];
+    if (level) notify(level.author_id, 'levelLiked', { from: user.id, detail: level.title ?? '', url: '/cook/recipe/' + level.recipe_id,
+      once: ['levelLiked', user.id, hash].join(':') });
+  }
   res.set('Cache-Control', 'no-store').json({ liked });
 });
 

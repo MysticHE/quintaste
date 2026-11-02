@@ -4,6 +4,7 @@ import { CommunityError, requireId, text, throttle, transaction } from '../commu
 import { readFuture, sgText } from '../social/rules.mjs';
 import { limits, listingProblem, money, noContactDetails, processPhoto, readListing, slots } from './rules.mjs';
 import { eventFor } from './conversations.mjs';
+import { queueAlert } from '../community/push.mjs';
 
 /** A seller's own listings, photos and collection slots. */
 export const sellerShop = express.Router();
@@ -121,6 +122,8 @@ sellerShop.post('/listings/:id/withdraw', async (req, res) => {
       ORDER BY o.buyer_id, o.created_at DESC`, [me, id, lot, cancelled])).rows;
     for (const buyer of buyers) {
       await eventFor(db, buyer.buyer_id, me, buyer.id, `Safety notice: the seller withdrew ${name}. ${reason} Open orders with it are cancelled. Don't eat it if you still have it; ask the seller about a refund.`);
+      // No actor: a safety notice reaches a buyer who blocked the seller too.
+      await queueAlert(db, buyer.buyer_id, 'safetyNotice', { detail: name, url: '/market/order/' + buyer.id });
     }
     return { status, notified: buyers.length };
   }, 'market-seller:' + me);
@@ -211,7 +214,11 @@ sellerShop.post('/slots/:id/status', async (req, res) => {
     if (status !== 'cancelled') return;
     const open = (await db.query(`UPDATE market."order" SET status='cancelled', status_reason='The seller cancelled this collection slot.', updated_at=now()
       WHERE slot_id=$1 AND status IN ('requested','confirmed','ready') RETURNING id, buyer_id, total_cents`, [id])).rows;
-    for (const order of open) await eventFor(db, order.buyer_id, me, order.id, `Order cancelled by the seller · ${money(order.total_cents)}`);
+    const shop = (await db.query('SELECT trading_name FROM market.seller WHERE user_id=$1', [me])).rows[0]?.trading_name ?? '';
+    for (const order of open) {
+      await eventFor(db, order.buyer_id, me, order.id, `Order cancelled by the seller · ${money(order.total_cents)}`);
+      await queueAlert(db, order.buyer_id, 'orderCancelled', { from: me, detail: shop, url: '/market/order/' + order.id });
+    }
   }, 'market-seller:' + me);
   res.json({ status });
 });

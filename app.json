@@ -63,7 +63,14 @@
       ],
       "expo-image",
       "expo-secure-store",
-      "expo-notifications",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notifications/notification-icon.png",
+          "color": "#D42A14",
+          "defaultChannel": "messages"
+        }
+      ],
       "expo-web-browser",
       "@react-native-community/datetimepicker",
       "expo-sharing",

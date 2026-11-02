@@ -4,6 +4,7 @@ import { notRestricted } from '../community/router.mjs';
 import { placeAliases, publishedPlaceIds } from '../catalogue-places.mjs';
 import { rowId } from '../recipes/rules.mjs';
 import { publishedRecipe } from '../editorial/router.mjs';
+import { notify } from '../community/push.mjs';
 
 /**
  * Likes and shares on Cook recipes and Explore places (/api/reactions/recipe, /api/reactions/place), and how many
@@ -62,10 +63,22 @@ reactions.get('/:kind', async (req, res) => {
 async function react(req, res, action, adding) {
   const kind = res.locals.kind, me = res.locals.user.id, id = adding ? await writable(kind, req.params.id) : removable(kind, req.params.id);
   await throttle(`reaction-${action}:${me}`, 300, 3600);
-  if (adding) await pool.query(`INSERT INTO community.reaction(kind, target, action, user_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`, [kind, id, action, me]);
+  if (adding) {
+    const added = await pool.query(`INSERT INTO community.reaction(kind, target, action, user_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`, [kind, id, action, me]);
+    if (added.rowCount && kind === 'recipe' && action !== 'share') await tellAuthor(id, me, action === 'like' ? 'recipeLiked' : 'recipeCooked');
+  }
   else await pool.query(`DELETE FROM community.reaction WHERE kind=$1 AND target=$2 AND action=$3 AND user_id=$4`, [kind, id, action, me]);
   const row = (await counts(kind, [id], me)).get(id);
   res.json({ id: req.params.id, likes: row?.likes ?? 0, shares: row?.shares ?? 0, cooks: row?.cooks ?? 0, liked: !!row?.liked, shared: !!row?.shared, cooked: !!row?.cooked });
+}
+/**
+ * A member's recipe tells its author when someone likes it or cooks it, once per person (QuinTaste's own recipes have no
+ * author to tell). Also used by cooked photos.
+ */
+export async function tellAuthor(recipeId, from, what) {
+  if (!recipeId.startsWith('member-')) return;
+  const recipe = (await pool.query("SELECT author_id, live->>'title' AS title FROM recipes.recipe WHERE id=$1", [rowId(recipeId)])).rows[0];
+  if (recipe) notify(recipe.author_id, what, { from, detail: recipe.title ?? '', url: '/cook/recipe/' + recipeId, once: [what, from, recipeId].join(':') });
 }
 reactions.put('/:kind/:id/like', member, (req, res) => react(req, res, 'like', true));
 reactions.delete('/:kind/:id/like', member, (req, res) => react(req, res, 'like', false));

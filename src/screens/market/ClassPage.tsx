@@ -1,4 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { Button, T, common } from "../../components/ui";
@@ -20,6 +21,7 @@ import type { CookingClass } from "../../types/community";
 
 function ClassView({ c, refresh }: { c: CookingClass; refresh: () => void }) {
   const t = useT("market"), { setNotice } = usePreferences(), language = useLanguage(), tile = sgDateTile(c.starts, language), end = sgDateTile(c.ends, language)?.time;
+  const askForAlerts = useAskForAlerts();
   const now = useMinuteClock(), left = c.seats - c.taken, past = Date.parse(c.starts.replace(" ", "T") + ":00+08:00") < now, cancelled = c.status === "cancelled";
   const changed = () => { refreshClasses(); refresh(); };
   // Guests can read a class like any Market item; joining and asking the teacher need a member (sign in, then back here).
@@ -52,7 +54,7 @@ function ClassView({ c, refresh }: { c: CookingClass; refresh: () => void }) {
     </View> : !cancelled && !past && <View style={{ gap: 8 }}>
       {c.joined && <View style={{ alignSelf: "flex-start" }}><StatusPill label={t("classJoined")} tone="success" /></View>}
       <View style={[common.row, { gap: 8, flexWrap: "wrap" }]}>
-        {!c.joined && <View style={{ flexGrow: 1, flexBasis: 140 }}><Action label={t("joinClass")} icon="add-circle-outline" disabled={left <= 0} run={async () => { if (signedIn()) { await joinClass(c.id, true); changed(); } }} /></View>}
+        {!c.joined && <View style={{ flexGrow: 1, flexBasis: 140 }}><Action label={t("joinClass")} icon="add-circle-outline" disabled={left <= 0} run={async () => { if (signedIn()) { await joinClass(c.id, true); changed(); askForAlerts("class"); } }} /></View>}
         <View style={{ flexGrow: 1, flexBasis: 140 }}><Button label={t("askTeacher")} icon="chatbubble-outline" variant="secondary" onPress={() => { if (signedIn()) openMarket("/class-chat/" + c.id); }} /></View>
       </View>
       {c.joined && <Confirm link label={t("leaveClass")} text={t("leaveClassText")} action={t("leaveClass")} run={async () => { await joinClass(c.id, false); changed(); return true; }} />}

@@ -2,7 +2,7 @@ import { pool } from '../config.mjs';
 import { communityRouter, CommunityError, errors, member, requireId, text, throttle } from '../community/http.mjs';
 import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
 import { memberPhoto } from '../place-reviews/photos.mjs';
-import { liveRecipeId } from '../reactions/router.mjs';
+import { liveRecipeId, tellAuthor } from '../reactions/router.mjs';
 
 /**
  * "I cooked this" photos on Cook recipes (/api/cooked-photos): one photo per member per recipe with an optional note, shown
@@ -50,6 +50,8 @@ cookedPhotos.put('/:recipeId/me', member, async (req, res) => {
     await pool.query(`INSERT INTO community.cooked_photo(id,recipe_id,user_id,bytes,digest,note) VALUES($1,$2,$3,$4,$5,$6)
       ON CONFLICT(recipe_id,user_id) DO UPDATE SET bytes=excluded.bytes,digest=excluded.digest,note=excluded.note,updated_at=now()`,
     [photo.id, recipe, me, photo.bytes, photo.digest, note]);
+    // The recipe's author hears about a member's photo once, not on each replacement.
+    await tellAuthor(recipe, me, 'cookedPhoto');
   }
   res.json({ saved: true });
 });

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { CookLayout as Screen } from "../../components/recipes/CookLayout";
@@ -20,6 +21,7 @@ import { goBack } from "../../utils/navigation";
 export function RecipeReviewScreen() {
   const { id, from } = useLocalSearchParams<{ id: string; from?: string }>(), state = useRecipeWorkspace(), d = state.workspace.drafts.find(d => d.id === id);
   const status = useMyRecipeStatus(), { setNotice, theme } = usePreferences(), [busy, setBusy] = useState(false), t = useT("cook"), tc = useT("common"), tm = useT("me"), language = useLanguage();
+  const askForAlerts = useAskForAlerts();
   useEffect(() => { reviewedDrafts.add(id); }, [id]);
   if (!state.ready || !state.readable || !d) return <Screen title={t("publicationReview")}><EmptyState title={t("recipeUnavailable")} text={t("openDraftToReview")} /></Screen>;
   const mine = status.byDraft.get(d.id), issues = publicationIssueKeys(d), locked = state.saving || !!state.error || busy;
@@ -36,6 +38,7 @@ export function RecipeReviewScreen() {
       await submitRecipe(d);
       invalidate("member-recipes:mine");
       setNotice({ text: t("sentForReview") });
+      askForAlerts("recipe");
     } catch (error) { setNotice({ text: error instanceof Error ? error.message : t("notSent"), error: true }); }
     finally { setBusy(false); }
   };

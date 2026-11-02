@@ -3,7 +3,7 @@ import { pool, logger } from '../config.mjs';
 import { CommunityError, member as signedIn, requireId, requireUser, text, throttle, transaction } from '../community/http.mjs';
 import { blockedBetween, notBlocked, notRestricted } from '../community/router.mjs';
 import { sgText } from '../social/rules.mjs';
-import { notify } from '../community/push.mjs';
+import { notify, queueAlert } from '../community/push.mjs';
 
 /**
  * Cooking classes by teachers staff approved, listed in Market > Events beside editorial events (tables stay in the social
@@ -43,11 +43,23 @@ export const classView = param => `c.id, c.title, c.makes, ${sgText('c.starts')}
   EXISTS (SELECT 1 FROM social.class_seat s WHERE s.class_id=c.id AND s.user_id=${param} AND s.status='joined') AS joined,
   (SELECT json_build_object('id', h.user_id, 'name', h.display_name, 'classes', (SELECT count(*)::int FROM social.class x WHERE x.host_id=h.user_id AND x.status='posted' AND x.starts < now()))
     FROM social.host h WHERE h.user_id=c.host_id) AS teacher`;
+/**
+ * The phone alert each class event sends: joining and leaving tell the teacher (opening the class's people), a change, a
+ * cancellation or a removal tells the member (opening the class).
+ */
+const classAlerts = { joined: 'classJoined', left: 'classLeft', changed: 'classChanged', cancelled: 'classCancelled', removed: 'classRemoved' };
 /** Posts a line into the chat between a class's teacher and one member, made on first use. Event bodies are keys the app words. */
 export async function classLine(db, classId, memberId, { kind = 'event', body, sender = null }) {
   const chat = (await db.query(`INSERT INTO social.class_chat(class_id, member_id) VALUES($1,$2) ON CONFLICT(class_id, member_id) DO UPDATE SET updated_at=now() RETURNING id`,
     [classId, memberId])).rows[0].id;
   await db.query('INSERT INTO social.class_message(chat_id, sender_id, kind, body) VALUES($1,$2,$3,$4)', [chat, sender, kind, body]);
+  const what = kind === 'event' ? classAlerts[body] : null;
+  if (what) {
+    const { host_id: host, title } = (await db.query('SELECT host_id, title FROM social.class WHERE id=$1', [classId])).rows[0] ?? {};
+    const toTeacher = body === 'joined' || body === 'left';
+    await queueAlert(db, toTeacher ? host : memberId, what, { from: toTeacher ? memberId : host, detail: title,
+      url: toTeacher ? '/market/class-people/' + classId : '/market/class/' + classId });
+  }
   return chat;
 }
 
@@ -134,7 +146,7 @@ classes.post('/classes/:id/chat', signedIn, async (req, res) => {
     await db.query(`UPDATE social.class_chat SET ${hosting ? 'host_read_at' : 'member_read_at'}=now() WHERE id=$1`, [chat]);
   });
   // The teacher's alert opens this member's chat; the member's opens the class chat.
-  notify(hosting ? member : host, 'messages', 'message', { from: me, url: '/market/class-chat/' + id + (hosting ? '' : '?member=' + encodeURIComponent(me)) });
+  notify(hosting ? member : host, 'message', { from: me, url: '/market/class-chat/' + id + (hosting ? '' : '?member=' + encodeURIComponent(me)) });
   res.status(201).json({ ok: true });
 });
 /** Classes the member joined, upcoming first, with unread replies from the teacher. */

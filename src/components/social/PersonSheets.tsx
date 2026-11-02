@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { Button, Field } from "../ui";
 import { ListGroup, ListItem, RowIcon } from "../GroupedList";
 import { ReportSheet } from "../ReportSheet";
@@ -12,7 +13,7 @@ import { Sheet } from "../Sheet";
 
 /** Add Friend with an optional hello (200 characters). If they already asked you, this makes you friends straight away. */
 export function RequestSheet({ person, visible, onClose, onSent }: { person: { id: string; firstName: string }; visible: boolean; onClose: () => void; onSent?: () => void }) {
-  const t = useT("social"), { setNotice } = usePreferences(), problem = useSocialError();
+  const t = useT("social"), { setNotice } = usePreferences(), problem = useSocialError(), askForAlerts = useAskForAlerts();
   const [note, setNote] = useState(""), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const send = async () => {
     setBusy(true); setError("");
@@ -21,6 +22,7 @@ export function RequestSheet({ person, visible, onClose, onSent }: { person: { i
       setNotice({ text: t(result.friends ? "friendsNowNotice" : "requestSentNotice", { name: person.firstName }) });
       invalidate("/api/social/friends", "/api/social/badges", "/api/social/people");
       setNote(""); onSent?.(); onClose();
+      if (!result.friends) askForAlerts("friend");
     } catch (failure) { setError(problem(failure, person.firstName)); }
     finally { setBusy(false); }
   };

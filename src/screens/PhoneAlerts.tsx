@@ -12,7 +12,7 @@ import type meMessages from "../i18n/en/me";
 
 /**
  * Settings › Phone alerts: alerts on this phone on or off, then which kinds (messages, friend requests, gifts, dinner
- * invites, orders), kept on the server for every phone the member uses. Android Expo Go can't receive them.
+ * invites, orders), kept on the server for every phone the member uses. Expo Go can't receive them.
  */
 export function PhoneAlertsScreen() {
   const t = useT("me"), tc = useT("cook"), { user } = useAuth(), language = useLanguage(), { theme } = usePreferences(), support = pushSupport();
@@ -22,7 +22,12 @@ export function PhoneAlertsScreen() {
   // Turned on here but blocked in the phone's settings shows off, with the way to fix it.
   useEffect(() => {
     if (!userId) return;
-    pushState(userId).then(state => { setOn(state === "on"); if (state === "blocked") setProblem("denied"); }, () => setOn(false));
+    pushState(userId).then(state => {
+      setOn(state === "on");
+      if (state === "blocked") setProblem("denied");
+      // The last registration didn't reach the server: shown off, so turning it on tries again.
+      if (state === "failed") setProblem("failed");
+    }, () => setOn(false));
   }, [userId]);
   if (!userId) return <Screen title={t("phoneAlerts")} />;
   const toggle = async (next: boolean) => {

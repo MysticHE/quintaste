@@ -2,12 +2,16 @@ import * as Notifications from "./local-notifications";
 import { Platform } from "react-native";
 import { translate, type Language } from "../i18n";
 import { savedLanguage } from "./saved-language";
+import { alertOnScreen } from "./alert-focus";
 import type { AlertPermission, TimerAlertAdapter } from "./timer-alerts";
 
 const channelId = "cooking-timers";
-Notifications.setNotificationHandler({ handleNotification: async () => ({
-  shouldPlaySound: true, shouldSetBadge: false, shouldShowBanner: true, shouldShowList: true,
-}) });
+// While the app is open, alerts show as on a locked phone, except a phone alert about the screen on show (alert-focus.ts).
+// Phone alerts carry the app-icon badge (the inbox total); cooking timers carry none.
+Notifications.setNotificationHandler({ handleNotification: async notification => {
+  const quiet = alertOnScreen(notification.request.content.data?.url);
+  return { shouldPlaySound: !quiet, shouldSetBadge: true, shouldShowBanner: !quiet, shouldShowList: !quiet };
+} });
 // No `sound` key: Android then uses the phone's default notification sound. Naming "default" makes Android look for a
 // bundled file of that name and log an error.
 async function channel(language: Language) {

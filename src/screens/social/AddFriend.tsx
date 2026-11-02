@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { T, common } from "../../components/ui";
@@ -61,9 +62,9 @@ function useFriendAction(name: string) {
   return { busy, run };
 }
 function MatchRow({ match: m, q }: { match: HandleMatch; q: string }) {
-  const t = useT("profile"), { theme } = usePreferences(), { busy, run } = useFriendAction(m.firstName), at = m.handle.indexOf(q);
+  const t = useT("profile"), { theme } = usePreferences(), { busy, run } = useFriendAction(m.firstName), at = m.handle.indexOf(q), askForAlerts = useAskForAlerts();
   const handle = at < 0 ? m.handle : <>{m.handle.slice(0, at)}<T variant="small" color={theme.foreground} style={common.bold}>{m.handle.slice(at, at + q.length)}</T>{m.handle.slice(at + q.length)}</>;
-  const trailing = m.state === "none" ? <PillButton primary label={t("add")} accessibilityLabel={t("addNamed", { name: m.firstName })} busy={busy} onPress={() => void run(() => requestFriend(m.id, ""))} />
+  const trailing = m.state === "none" ? <PillButton primary label={t("add")} accessibilityLabel={t("addNamed", { name: m.firstName })} busy={busy} onPress={() => void run(async () => { const result = await requestFriend(m.id, ""); if (!result.friends) askForAlerts("friend"); })} />
     : m.state === "received" && m.requestId ? <PillButton primary label={t("accept")} accessibilityLabel={t("acceptFrom", { name: m.firstName })} busy={busy} onPress={() => void run(() => acceptRequest(m.requestId!))} />
     : <T variant="small" muted style={common.bold}>{t(m.state === "friend" ? "alreadyFriends" : "requested")}</T>;
   return <PersonRow id={m.id} name={m.firstName} photo={m.photo} verified={m.verified} trailing={trailing}

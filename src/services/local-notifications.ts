@@ -7,9 +7,11 @@ export { AndroidImportance } from "expo-notifications/build/NotificationChannelM
 export { SchedulableTriggerInputTypes } from "expo-notifications/build/Notifications.types";
 export type { NotificationResponse } from "expo-notifications/build/Notifications.types";
 export { setNotificationChannelAsync } from "expo-notifications/build/setNotificationChannelAsync";
+export { deleteNotificationChannelAsync } from "expo-notifications/build/deleteNotificationChannelAsync";
 export { getAllScheduledNotificationsAsync } from "expo-notifications/build/getAllScheduledNotificationsAsync";
 export { getPresentedNotificationsAsync } from "expo-notifications/build/getPresentedNotificationsAsync";
 export { cancelScheduledNotificationAsync } from "expo-notifications/build/cancelScheduledNotificationAsync";
 export { dismissNotificationAsync } from "expo-notifications/build/dismissNotificationAsync";
 export { scheduleNotificationAsync } from "expo-notifications/build/scheduleNotificationAsync";
-export { getLastNotificationResponse, clearLastNotificationResponse, addNotificationResponseReceivedListener } from "expo-notifications/build/NotificationsEmitter";
+export { getLastNotificationResponse, clearLastNotificationResponse, addNotificationResponseReceivedListener, addNotificationReceivedListener } from "expo-notifications/build/NotificationsEmitter";
+export type { Notification } from "expo-notifications/build/Notifications.types";

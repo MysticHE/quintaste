@@ -8,6 +8,7 @@ import { authorize, lockPermission, type Session } from './session';
 import { can } from './permissions';
 import { choice, HttpError, text } from './http';
 import { photoCheckReasons } from './photo-check-reasons';
+import { queueAlert } from './push-alerts';
 
 /**
  * Social photo checks (capability "identity") and Market cooking-class teachers (capability "sellers"). Since 1 Nov 2026 staff check
@@ -100,6 +101,7 @@ export async function photoCheckAction(member: Session, input: Record<string, un
         updated_at=now() WHERE user_id=$1`, [memberId, note, member.id]);
     }
     await audit(db, member.id, 'social.photo_check.' + action, memberId, reason, { note });
+    await queueAlert(db, memberId, action === 'approve' ? 'photoApproved' : 'photoDeclined', action === 'approve' ? '/social?tab=dining' : '/social/verify');
     return { saved: true, status: action === 'approve' ? 'approved' : action === 'reject' ? 'declined' : 'revoked' };
   });
 }
@@ -125,12 +127,13 @@ export async function teacher(member: Session, id: string) {
 /** Tells everyone who joined an upcoming class that it is cancelled, in their chat with the teacher. */
 async function cancelUpcoming(db: PoolClient, hostId: string, classId?: string) {
   const cancelled = (await db.query(`UPDATE social.class SET status='cancelled', updated_at=now() WHERE host_id=$1 AND status='posted' AND starts > now()
-    ${classId ? 'AND id=$2' : ''} RETURNING id`, classId ? [hostId, classId] : [hostId])).rows;
-  for (const { id } of cancelled) {
+    ${classId ? 'AND id=$2' : ''} RETURNING id, title`, classId ? [hostId, classId] : [hostId])).rows;
+  for (const { id, title } of cancelled) {
     const members = (await db.query("SELECT user_id FROM social.class_seat WHERE class_id=$1 AND status='joined'", [id])).rows;
     for (const { user_id } of members) {
       const chat = (await db.query(`INSERT INTO social.class_chat(class_id, member_id) VALUES($1,$2) ON CONFLICT(class_id, member_id) DO UPDATE SET updated_at=now() RETURNING id`, [id, user_id])).rows[0];
       await db.query("INSERT INTO social.class_message(chat_id, kind, body) VALUES($1,'event','cancelled')", [chat.id]);
+      await queueAlert(db, user_id, 'classCancelled', '/market/class/' + id, title);
     }
   }
   return cancelled.length;
@@ -159,6 +162,8 @@ export async function teacherAction(member: Session, input: Record<string, unkno
       if (!allowed.includes(host.status)) throw new HttpError(409, 'This teacher changed. Reload.');
       const next = { approve: 'approved', reject: 'rejected', suspend: 'suspended', reinstate: 'approved' }[action];
       await db.query('UPDATE social.host SET status=$2, reason=$3, decided_by=$4, decided_at=now(), updated_at=now() WHERE user_id=$1', [hostId, next, note, member.id]);
+      const alert = ({ approve: 'teacherApproved', reinstate: 'teacherReinstated', reject: 'teacherDeclined', suspend: 'teacherSuspended' } as const)[action];
+      await queueAlert(db, hostId, alert, '/market/teaching');
       if (action === 'suspend') cancelled = await cancelUpcoming(db, hostId);
     }
     await audit(db, member.id, 'social.teacher.' + action, hostId, reason, { note, classId: input.classId, cancelled });

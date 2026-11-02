@@ -96,7 +96,7 @@ conversations.post('/conversations/:id/messages', async (req, res) => {
       seller_read_at=CASE WHEN seller_id=$2 THEN now() ELSE seller_read_at END WHERE id=$1`, [c.id, me]);
     return { id: c.id, other };
   });
-  notify(sent.other, 'messages', 'message', { from: me, url: '/market/chat/' + sent.id });
+  notify(sent.other, 'message', { from: me, url: '/market/chat/' + sent.id });
   res.status(201).json({ sent: true });
 });
 conversations.post('/conversations/:id/read', async (req, res) => {

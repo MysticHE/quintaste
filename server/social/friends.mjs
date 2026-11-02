@@ -99,8 +99,8 @@ friends.post('/friends/requests', async (req, res) => {
     return { id };
   }, 'social-pair:' + pairOf(me, to).join(':'));
   logger.info({ event: result.friends ? 'social_friend_accepted' : 'social_friend_requested' });
-  if (result.friends) notify(to, 'friends', 'friendAccepted', { from: me, url: '/social/chat/' + me });
-  else notify(to, 'friends', 'friendRequest', { from: me, url: '/social/add-friend' });
+  if (result.friends) notify(to, 'friendAccepted', { from: me, url: '/social/chat/' + me });
+  else notify(to, 'friendRequest', { from: me, url: '/social/add-friend' });
   res.status(201).json(result);
 });
 async function answer(req, res, accept) {
@@ -115,7 +115,7 @@ async function answer(req, res, accept) {
     if (!accept) return db.query("UPDATE social.friend_request SET status='declined', decided_at=now() WHERE id=$1", [id]);
     await befriend(db, me, request.from_id, id);
   }, 'social-pair:' + pairOf(me, from).join(':'));
-  if (accept) notify(from, 'friends', 'friendAccepted', { from: me, url: '/social/chat/' + me });
+  if (accept) notify(from, 'friendAccepted', { from: me, url: '/social/chat/' + me });
   res.json({ ok: true });
 }
 friends.post('/friends/requests/:id/accept', (req, res) => answer(req, res, true));
@@ -171,7 +171,7 @@ friends.post('/chats/:id', async (req, res) => {
     await db.query(`UPDATE social.thread SET updated_at=now(), ${me < other ? 'a_read_at' : 'b_read_at'}=now() WHERE id=$1`, [thread]);
     return row;
   });
-  notify(other, 'messages', 'message', { from: me, url: '/social/chat/' + me });
+  notify(other, 'message', { from: me, url: '/social/chat/' + me });
   res.status(201).json({ id: id.id, createdAt: id.created_at });
 });
 friends.post('/chats/:id/read', async (req, res) => {

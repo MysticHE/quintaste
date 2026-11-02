@@ -8,6 +8,8 @@ import { queueDrawings } from './drawings.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
 import { recipeKeys } from '../nutrition/dynamic.mjs';
 import { linkRecipe } from '../nutrition/learned.mjs';
+import { notify } from '../community/push.mjs';
+import { publicId } from '../recipes/rules.mjs';
 
 export { parseUpload, toRecipe };
 
@@ -88,6 +90,8 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
       : used.length && await noPungentFor(job) ? `It still uses ${used.join(', ').toLowerCase()}, so staff will check it before it goes public.`
       : 'Staff will check an ingredient before it goes public.', { ...usage, frames: photos?.steps?.size ?? 0, drawings }]);
   logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, frames: photos?.steps?.size ?? 0, drawings });
+  // A recipe sent to staff review tells its member when staff publish it (admin content-member-recipes.ts).
+  if (status === 'published') notify(job.user_id, 'recipeReady', { detail: recipe.title, url: '/cook/recipe/' + publicId(saved.id) });
   // Its private Rush Hour level follows once it is live, whether now or after staff review (server/game/levels-worker.mjs sweep).
   return status;
 }
@@ -96,6 +100,7 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
 export async function failJob(job, error, usage) {
   const message = error instanceof GeminiError ? error.message : 'Something went wrong reading this. Try again later.';
   await pool.query(`UPDATE recipes.ai_job SET status='failed', message=$2, usage=$3, finished_at=now() WHERE id=$1`, [job.id, message.slice(0, 500), usage]);
+  notify(job.user_id, 'recipeFailed', { url: '/cook/ai' });
   logger.warn({ event: 'ai_recipe_job_failed', kind: job.kind, engine: usage.engine ?? 'gemini', status: error instanceof GeminiError ? error.status : 'internal', detail: error instanceof GeminiError ? undefined : String(error?.message ?? error).slice(0, 200) });
   return 'failed';
 }

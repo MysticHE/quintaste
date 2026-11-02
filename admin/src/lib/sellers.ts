@@ -4,6 +4,7 @@ import { query, transaction } from './db';
 import { audit } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, text, uuid } from './http';
+import { queueAlert } from './push-alerts';
 
 const statuses = ['active','suspended','removed','draft'] as const;
 const decisions = ['suspend','reinstate','remove'] as const;
@@ -43,14 +44,18 @@ export async function sellerDetail(member: Session, id: string) {
     return { seller, listings: listings.rows, orders: orders.rows[0], reports: reports.rows };
   });
 }
-/** Posts a system line into every open or recent (30-day) order conversation of a seller (or of one item), including orders with a reported problem. */
-async function notifyBuyers(db: PoolClient, sellerId: string, body: string, listingId?: string) {
+/**
+ * Posts a system line into every open or recent (30-day) order conversation of a seller (or of one item), including orders
+ * with a reported problem, and sends each buyer a safety notice alert about `about` (the shop or the item).
+ */
+async function notifyBuyers(db: PoolClient, sellerId: string, body: string, about: string, listingId?: string) {
   const buyers = (await db.query(`SELECT DISTINCT o.buyer_id FROM market."order" o ${listingId ? 'JOIN market.order_item i ON i.order_id=o.id AND i.listing_id=$2' : ''}
     WHERE o.seller_id=$1 AND o.buyer_id IS NOT NULL AND (o.status IN ('requested','confirmed','ready') OR (o.status IN ('completed','disputed','no_show') AND coalesce(o.completed_at, o.updated_at) > now() - interval '30 days'))`,
     listingId ? [sellerId, listingId] : [sellerId])).rows;
   for (const { buyer_id } of buyers) {
     const c = (await db.query(`INSERT INTO market.conversation(buyer_id, seller_id) VALUES($1,$2) ON CONFLICT(buyer_id, seller_id) DO UPDATE SET updated_at=now() RETURNING id`, [buyer_id, sellerId])).rows[0];
     await db.query("INSERT INTO market.message(conversation_id, kind, body) VALUES($1,'event',$2)", [c.id, body]);
+    await queueAlert(db, buyer_id, 'safetyNotice', '/market/chat/' + c.id, about);
   }
   return buyers.length;
 }
@@ -60,9 +65,12 @@ async function cancelOpen(db: PoolClient, sellerId: string, reason: string, list
 }
 /** Takes an item out of the Market, cancels open orders that include it and tells those buyers. Returns how many were told. */
 export async function removeListing(db: PoolClient, sellerId: string, listingId: string, note: string) {
-  const result = await db.query("UPDATE market.listing SET status='removed', removed_reason=$3, updated_at=now() WHERE id=$1 AND seller_id=$2 AND status<>'removed'", [listingId, sellerId, note]);
+  const result = await db.query("UPDATE market.listing SET status='removed', removed_reason=$3, updated_at=now() WHERE id=$1 AND seller_id=$2 AND status<>'removed' RETURNING name",
+    [listingId, sellerId, note]);
   if (!result.rowCount) throw new HttpError(404, 'Item not found or already removed.');
-  const notified = await notifyBuyers(db, sellerId, 'Safety notice: an item from this shop was removed by QuinTaste. Open orders with it are cancelled. Do not eat it if you still have it; contact the seller about a refund.', listingId);
+  const name = String(result.rows[0].name ?? '');
+  const notified = await notifyBuyers(db, sellerId, 'Safety notice: an item from this shop was removed by QuinTaste. Open orders with it are cancelled. Do not eat it if you still have it; contact the seller about a refund.', name, listingId);
+  await queueAlert(db, sellerId, 'itemRemoved', '/market/my-listings', name);
   await cancelOpen(db, sellerId, 'QuinTaste removed an item in this order.', listingId);
   return notified;
 }
@@ -77,8 +85,10 @@ async function decide(db: PoolClient, seller: Record<string, unknown>, action: t
   }
   if (!note) throw new HttpError(400, 'Tell the seller why.');
   if (seller.status === 'removed') throw new HttpError(409, 'This shop is already removed.');
-  await db.query('UPDATE market.seller SET status=$2, status_note=$3, updated_at=now() WHERE user_id=$1', [id, action === 'suspend' ? 'suspended' : 'removed', note]);
-  const notified = await notifyBuyers(db, id, 'QuinTaste has paused this shop. Open orders are cancelled.');
+  const shop = (await db.query('UPDATE market.seller SET status=$2, status_note=$3, updated_at=now() WHERE user_id=$1 RETURNING trading_name',
+    [id, action === 'suspend' ? 'suspended' : 'removed', note])).rows[0];
+  const notified = await notifyBuyers(db, id, 'QuinTaste has paused this shop. Open orders are cancelled.', String(shop?.trading_name ?? ''));
+  await queueAlert(db, id, 'shopPaused', '/market/my-shop');
   await cancelOpen(db, id, 'QuinTaste paused this shop.');
   return notified;
 }

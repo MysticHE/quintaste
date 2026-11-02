@@ -1,4 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { useState } from "react";
 import { View } from "react-native";
 import { Screen } from "../../components/Screen";
@@ -36,6 +37,7 @@ function Checkout({ shop, listing, slot: initialSlot, items }: { shop: ShopPage;
     : listing ? { [listing]: 1 } : {});
   const [slotId, setSlotId] = useState(initialSlot ?? ""), [address, setAddress] = useState(""), [contact, setContact] = useState(""), [note, setNote] = useState("");
   const [payment, setPayment] = useState<"cash" | "paynow">(shop.payCash ? "cash" : "paynow"), [busy, setBusy] = useState(false), [error, setError] = useState("");
+  const askForAlerts = useAskForAlerts();
   const chosen = shop.items.filter(item => (quantities[item.id] ?? 0) > 0);
   const lead = Math.max(0, ...chosen.map(item => item.leadDays)), now = useMinuteClock();
   /** Units of an item a slot still takes, or Infinity when the item has no per-slot limit. */
@@ -60,6 +62,7 @@ function Checkout({ shop, listing, slot: initialSlot, items }: { shop: ShopPage;
       const result = await placeOrder({ sellerId: shop.id, slotId: slot.id, items: chosen.map(item => ({ listingId: item.id, quantity: quantities[item.id] })), address, contact, note, payment });
       invalidate("/api/market/");
       router.replace({ pathname: "/market/order/[id]", params: { id: result.id } });
+      askForAlerts("order");
     } catch (problem) { setError(problem instanceof ApiError ? problem.message : t("orderFailed")); }
     finally { setBusy(false); }
   };

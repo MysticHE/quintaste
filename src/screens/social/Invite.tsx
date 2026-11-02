@@ -1,4 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
+import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { useMemo, useState } from "react";
 import { Screen } from "../../components/Screen";
 import { Button, Field, T } from "../../components/ui";
@@ -22,6 +23,7 @@ import { dinnerPays, type DinnerPay, type PersonPage, type SocialPlace } from ".
 const payKeys = { split: "paySplit", host: "payHost", own: "payOwn" } as const;
 function InviteForm({ p }: { p: PersonPage }) {
   const t = useT("social"), { theme, setNotice } = usePreferences(), problem = useSocialError(), now = useMinuteClock(), slots = useMemo(() => dinnerSlots(now), [now]);
+  const askForAlerts = useAskForAlerts();
   const [starts, setStarts] = useState(""), [place, setPlace] = useState<SocialPlace | null>(null), [pay, setPay] = useState<DinnerPay>("split");
   const [message, setMessage] = useState(""), [picking, setPicking] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const send = async () => {
@@ -30,7 +32,7 @@ function InviteForm({ p }: { p: PersonPage }) {
     setBusy(true); setError("");
     try {
       await inviteDinner({ userId: p.id, placeId: place.id, starts, pay, message });
-      askForReminders();
+      askForAlerts("dinner", askForReminders);
       setNotice({ text: t("inviteSent", { name: p.firstName }) }); invalidate("/api/social"); router.back();
     } catch (failure) { setError(problem(failure, p.firstName)); }
     finally { setBusy(false); }

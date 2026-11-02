@@ -6,6 +6,7 @@ import { loadSim } from './sim.mjs';
 import { queueMissingArt } from './art.mjs';
 import { LEVELS_PER_DAY } from './levels-members.mjs';
 import { planAccess } from '../ai-recipes/limits.mjs';
+import { notify } from '../community/push.mjs';
 
 /**
  * Level making (docs/game/RECIPE_LEVELS_PLAN.md §6): staff ask for a level from a recipe (Admin > Game levels). This worker compiles
@@ -262,7 +263,12 @@ export async function levelTick(sim) {
     try {
       const out = await settleJob(sim, answered);
       if (out.retry) await pool.query(`UPDATE game.level_job SET status='waiting', draft=$2, answer=NULL, message=$3 WHERE id=$1`, [answered.id, out.retry, 'Sent back to the QT bots: ' + out.retry.problem]);
-      else { await pool.query(`UPDATE game.level_job SET status='done', finished_at=now(), pack=$2, message='' WHERE id=$1`, [answered.id, out.hash]); logger.info({ event: 'game_level_made', job: answered.id, pictures: out.pictures }); }
+      else {
+        await pool.query(`UPDATE game.level_job SET status='done', finished_at=now(), pack=$2, message='' WHERE id=$1`, [answered.id, out.hash]);
+        logger.info({ event: 'game_level_made', job: answered.id, pictures: out.pictures });
+        // The member's private level: Play shows on their recipe page.
+        if (answered.owner_id) notify(answered.owner_id, 'levelReady', { detail: answered.draft?.recipe?.name ?? '', url: '/cook/recipe/' + answered.recipe_id });
+      }
     } catch (error) { await fail(answered, error); }
   }
   const queued = (await pool.query(`SELECT * FROM game.level_job WHERE id = (SELECT id FROM game.level_job WHERE status='queued' ORDER BY priority DESC, created_at LIMIT 1 FOR UPDATE SKIP LOCKED)`)).rows[0];

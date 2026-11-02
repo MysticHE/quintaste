@@ -1,7 +1,8 @@
-import { createHash, createHmac, createPrivateKey, sign } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { Buffer } from 'node:buffer';
+import { createHash, createHmac } from 'node:crypto';
 import { logger, pool } from '../config.mjs';
 import { CommunityError } from '../community/http.mjs';
+import { googleAccessToken, jwt, readKeyFile, readServiceAccount } from '../service-tokens.mjs';
 
 /**
  * Paid gifts' store checks (docs/COLLECTION_PLAN.md §5). A gift bought in the app is sent only after the store confirms the
@@ -24,20 +25,12 @@ export function accountTag(userId) {
 }
 /** The store product id of gift `id`: "golden-lotus" is "quintaste.gift.golden_lotus" in both stores. */
 export const productOf = id => 'quintaste.gift.' + id.replaceAll('-', '_');
-const read = name => { try { return process.env[name] ? readFileSync(process.env[name], 'utf8') : ''; } catch (error) { logger.warn({ event: 'store_key_unreadable', name, message: error.message }); return ''; } };
-const apple = { key: read('APPLE_IAP_KEY_FILE'), keyId: process.env.APPLE_IAP_KEY_ID ?? '', issuer: process.env.APPLE_IAP_ISSUER_ID ?? '' };
-const google = (() => { const text = read('GOOGLE_PLAY_KEY_FILE'); try { return text ? JSON.parse(text) : null; } catch { logger.warn({ event: 'store_key_invalid', name: 'GOOGLE_PLAY_KEY_FILE' }); return null; } })();
+const apple = { key: readKeyFile('APPLE_IAP_KEY_FILE'), keyId: process.env.APPLE_IAP_KEY_ID ?? '', issuer: process.env.APPLE_IAP_ISSUER_ID ?? '' };
+const google = readServiceAccount('GOOGLE_PLAY_KEY_FILE');
 /** Which stores can check purchases on this server. */
 export const storesReady = { apple: !!(apple.key && apple.keyId && apple.issuer), google: !!(google?.client_email && google?.private_key) };
 
-const b64url = value => Buffer.from(typeof value === 'string' ? value : JSON.stringify(value)).toString('base64url');
 const decodeJws = jws => JSON.parse(Buffer.from(String(jws).split('.')[1] ?? '', 'base64url').toString('utf8'));
-function jwt(header, claims, key, algorithm) {
-  const body = b64url(header) + '.' + b64url(claims);
-  const signature = algorithm === 'ES256' ? sign('sha256', Buffer.from(body), { key: createPrivateKey(key), dsaEncoding: 'ieee-p1363' })
-    : sign('sha256', Buffer.from(body), createPrivateKey(key));
-  return body + '.' + signature.toString('base64url');
-}
 const unavailable = () => new CommunityError(503, 'Paid gifts aren\'t available yet.', 'GIFT_STORE');
 const notConfirmed = () => new CommunityError(402, 'The store hasn\'t confirmed this purchase.', 'GIFT_PURCHASE');
 
@@ -60,19 +53,7 @@ async function appleTransaction(id) {
 }
 
 // Google: a service-account access token (kept until shortly before it expires), then the purchase by its token.
-let googleAccess = { token: '', until: 0 };
-async function googleToken() {
-  if (googleAccess.until > Date.now()) return googleAccess.token;
-  const now = Math.floor(Date.now() / 1000);
-  const assertion = jwt({ alg: 'RS256', typ: 'JWT' }, { iss: google.client_email, scope: 'https://www.googleapis.com/auth/androidpublisher',
-    aud: 'https://oauth2.googleapis.com/token', iat: now, exp: now + 3600 }, google.private_key, 'RS256');
-  const response = await fetch('https://oauth2.googleapis.com/token', { method: 'POST', signal: AbortSignal.timeout(10000),
-    headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion }) });
-  if (!response.ok) throw new Error('Google sign-in answered ' + response.status);
-  const { access_token: token, expires_in: seconds } = /** @type {{ access_token: string, expires_in: number }} */ (await response.json());
-  googleAccess = { token, until: Date.now() + (seconds - 300) * 1000 };
-  return token;
-}
+const googleToken = () => googleAccessToken(google, 'https://www.googleapis.com/auth/androidpublisher');
 const playApi = path => `https://androidpublisher.googleapis.com/androidpublisher/v3/applications/${APP_ID}/purchases/${path}`;
 /** @returns {Promise<any>} The Play Developer API's answer, or null when it doesn't know the purchase. */
 async function playGet(path) {

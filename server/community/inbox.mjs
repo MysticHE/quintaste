@@ -15,8 +15,8 @@ import { giftNewsSql, giftsWaitingSql } from '../collection/gifts.mjs';
  * shows it until the member has seen it, as a decision cannot be "read" on the server.
  */
 export const inbox = communityRouter();
-inbox.get('/', async (_req, res) => {
-  const me = res.locals.user.id;
+/** Everything waiting on member `me`; `total` is also the app-icon badge on phone alerts (push-send.mjs). */
+export async function inboxCounts(me) {
   // The service switches and the member's Social standing are independent reads, so they run together.
   const [on, state] = await Promise.all([allowedAll(['social', 'market', 'market_sellers', 'games', 'collection', 'gifts']), standing(me)]);
   const { social, market, market_sellers: sellers } = on, giftsOn = on.games && on.collection && on.gifts;
@@ -38,6 +38,7 @@ inbox.get('/', async (_req, res) => {
   if (live.length) Object.assign(row, (await pool.query(`SELECT ${live.map(([key, sql]) => sql + ' AS "' + key + '"').join(', ')}`, [me])).rows[0]);
   const messages = row.friends + row.market + row.classes;
   const photoCheck = social && state.step === 'verify' && ['rejected', 'paused'].includes(state.verification) ? state.verification + ':' + (state.decidedAt ?? '') : null;
-  res.json({ ...row, messages, photoCheck, total: messages + row.orders + row.requests + row.dinners + row.gifts + row.giftNews, dining: meet });
-});
+  return { ...row, messages, photoCheck, total: messages + row.orders + row.requests + row.dinners + row.gifts + row.giftNews, dining: meet };
+}
+inbox.get('/', async (_req, res) => { res.json(await inboxCounts(res.locals.user.id)); });
 inbox.use(errors);

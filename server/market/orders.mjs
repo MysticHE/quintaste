@@ -5,7 +5,7 @@ import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
 import { sgText } from '../social/rules.mjs';
 import { limits, liveSeller, money, noContactDetails } from './rules.mjs';
 import { eventFor } from './conversations.mjs';
-import { notify } from '../community/push.mjs';
+import { notify, queueAlert } from '../community/push.mjs';
 
 /** Pre-orders for a collection slot. Buyers pay the seller at handover; QuinTaste never takes payment. */
 export const orders = express.Router();
@@ -76,7 +76,7 @@ orders.post('/orders', async (req, res) => {
     const conversationId = await eventFor(db, me, sellerId, order.id, `New order · ${money(subtotal + fee)} · ${when(slot.starts)}`);
     return { id: order.id, conversationId };
   }, 'market-slot:' + slotId);
-  notify(sellerId, 'orders', 'order', { from: me, url: '/market/order/' + result.id });
+  notify(sellerId, 'order', { from: me, url: '/market/order/' + result.id });
   res.status(201).json(result);
 });
 const listColumns = `o.id, o.status, o.total_cents AS "totalCents", ${sgText('o.starts')} AS starts, o.mode, o.place, o.created_at AS "createdAt",
@@ -144,6 +144,11 @@ function step(o, me, input, cutoff) {
     default: throw new CommunityError(400, 'Choose a valid action.');
   }
 }
+/** The alert each order step sends the other side: `buyer` when the seller acts, `seller` when the buyer does. */
+const orderAlerts = {
+  confirm: { buyer: 'orderConfirmed' }, decline: { buyer: 'orderDeclined' }, ready: { buyer: 'orderReady' },
+  cancel: { buyer: 'orderCancelled', seller: 'orderCancelledByBuyer' }, problem: { seller: 'orderProblem' },
+};
 orders.post('/orders/:id/actions', async (req, res) => {
   const me = res.locals.user.id, id = requireId(req.params.id);
   await throttle('market-order-action:' + me, 60, 3600);
@@ -155,6 +160,9 @@ orders.post('/orders/:id/actions', async (req, res) => {
     const outcome = step(o, me, req.body, cutoff), keys = Object.keys(outcome.set);
     await db.query(`UPDATE market."order" SET ${keys.map((key, i) => `${key}=$${i + 2}`).join(', ')}, updated_at=now() WHERE id=$1`, [id, ...keys.map(key => outcome.set[key])]);
     if (outcome.note) await eventFor(db, o.buyer_id, o.seller_id, id, `${outcome.note} · ${money(o.total_cents)}`);
+    const alert = orderAlerts[req.body.action];
+    if (alert) await queueAlert(db, me === o.seller_id ? o.buyer_id : o.seller_id, me === o.seller_id ? alert.buyer : alert.seller,
+      { from: me, detail: o.seller_name, url: '/market/order/' + id });
     // Filed in the same transaction, so a refused or repeated action never leaves a stray case.
     if (outcome.report) {
       await fileReport(me, { subject: 'market:order:' + id, title: 'Market order · ' + req.body.problem,
