@@ -4,7 +4,7 @@ import { Screen } from "../../components/Screen";
 import { Button, T, common } from "../../components/ui";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { ListGroup, ListItem, RowIcon, StatusPill, ThemedSwitch } from "../../components/GroupedList";
-import { MemberGate, standingLabel, useSocialError, useSocialMe } from "../../components/social/SocialState";
+import { MemberGate, PhotoCheckNotice, photoCheckNeeded, standingLabel, useSocialError, useSocialMe } from "../../components/social/SocialState";
 import { ProfilePicture } from "../../components/social/ProfilePicture";
 import { openSocial } from "../../components/social/Shared";
 import { invalidate } from "../../hooks/useRemote";
@@ -27,14 +27,14 @@ function PublicSwitch({ me }: { me: SocialMe }) {
 /** My Profile: how others find you, then each part of the profile, your cooking classes and blocked people. */
 function ProfileHub({ me }: { me: SocialMe }) {
   const t = useT("social"), p = me.profile, s = me.standing, [label, tone] = standingLabel(s);
-  const name = p.firstName || t("yourProfile"), check = s.verification === "rejected" || s.verification === "paused" || s.step === "verify";
+  const name = p.firstName || t("yourProfile"), needs = photoCheckNeeded(s);
   return <>
     <View style={{ alignItems: "center", gap: 8, paddingTop: 4 }}>
       <ProfilePicture data={me} size={96} />
       <T variant="title" style={common.bold}>{s.age ? t("nameAge", { name, age: s.age }) : name}</T>
-      <StatusPill label={s.verified ? t("verifiedStatus") : s.step === "waiting" ? t("checkingStatus") : t("notVerified")} tone={s.verified ? "success" : s.step === "waiting" ? "warning" : "muted"} />
+      <StatusPill label={s.verified ? t("verifiedStatus") : s.step === "waiting" ? t("checkingStatus") : needs ? t(label) : t("notVerified")} tone={s.verified ? "success" : s.step === "waiting" || needs ? "warning" : "muted"} />
     </View>
-    {check && <ListGroup><ListItem title={t("verifyAction")} subtitle={t(label)} leading={<RowIcon name="camera-outline" tone={tone} />} onPress={() => openSocial("/verify")} /></ListGroup>}
+    {needs ? <PhotoCheckNotice standing={s} /> : s.step === "verify" && <ListGroup><ListItem title={t("verifyAction")} subtitle={t(label)} leading={<RowIcon name="camera-outline" tone={tone} />} onPress={() => openSocial("/verify")} /></ListGroup>}
     {(s.step === "photos" || s.step === "basics") && <Button label={t("setupStart")} icon="arrow-forward" onPress={() => openSocial("/setup")} />}
     <ListGroup><PublicSwitch me={me} /></ListGroup>
     <ListGroup>

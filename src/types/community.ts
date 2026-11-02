@@ -86,8 +86,12 @@ export type SocialProfile = {
 /** The first thing still missing on Social: photos, basics, age (under 21: Events only), verify, waiting (staff checking) or ready. */
 export type SocialStep = "photos" | "basics" | "age" | "verify" | "waiting" | "ready";
 export type Verification = "none" | "pending" | "approved" | "rejected" | "paused";
+/** Ready-made reasons staff give when a photo check does not pass (server/social/access.mjs checkReasons). */
+export type CheckReason = "notSelfie" | "faceUnclear" | "notSamePerson" | "ageRange" | "poseNotCopied";
 export type Standing = { step: SocialStep; age: number | null; gender: Gender; verified: boolean; verification: Verification; reason: string; public: boolean;
-  pausedUntil: string | null; canMeet: boolean };
+  pausedUntil: string | null; canMeet: boolean;
+  /** While a check has not passed (older servers leave these out): the reason as a key the app words, when staff picked a ready-made one; when they decided; and whether the profile photo is still the one they checked. */
+  reasonKey?: CheckReason | null; decidedAt?: string | null; samePhoto?: boolean };
 export type SocialPhoto = { id: string; position: number; url: string; thumb: string };
 /** `handle` is the member's public handle (made from their name on first use), separate from the private sign-in username. */
 /** What a member shows from their Collection (docs/COLLECTION_PLAN.md): the border they wear and up to three badges; null while Collection is off. */

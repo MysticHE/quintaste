@@ -47,6 +47,18 @@ export const pausedUntilSql = column => `(SELECT CASE WHEN count(*) >= 2 THEN ma
   GROUP BY nm_.strike) ns_)`;
 
 /**
+ * The ready-made reasons staff give when they decline a photo check or remove the ✓, stored by key (admin/src/lib/photo-check-reasons.ts
+ * has the same keys). The app words each key in the member's language; `reason` keeps an English sentence for app builds from
+ * before 2 Nov 2026. Anything else stored (older free text) is passed on as it is.
+ */
+const checkReasons = new Map([
+  ['notSelfie', 'Your profile photo is not a real selfie of you.'],
+  ['faceUnclear', 'Your face is not clear in your profile photo.'],
+  ['notSamePerson', 'Your photos do not all show the same person.'],
+  ['ageRange', 'You do not look 21 to 45 in your photos.'],
+  ['poseNotCopied', 'The pose was not copied.'],
+]);
+/**
  * Where a member stands on Social. `step` is the first thing still missing: 'photos' (no main photo), 'basics' (name,
  * gender, birth date, area), 'age' (outside 21 to 45), 'verify' (main photo not sent for checking or it was declined, or the main photo
  * changed since it was approved), 'waiting' (staff are checking the photo) or 'ready'. 'age' is anyone outside 21 to 45.
@@ -54,15 +66,19 @@ export const pausedUntilSql = column => `(SELECT CASE WHEN count(*) >= 2 THEN ma
 export async function standing(userId, db = pool) {
   const row = (await db.query(`SELECT p.first_name, p.gender, p.area, to_char(${birthSql('me.id')}, 'YYYY-MM-DD') AS birth_date, p.visible,
       (SELECT digest FROM social.photo WHERE user_id=$1 AND position=0) AS main,
-      v.status, v.photo_digest, v.reason, ${pausedUntilSql('$1')} AS paused_until
+      v.status, v.photo_digest, v.reason, v.decided_at, ${pausedUntilSql('$1')} AS paused_until
     FROM (SELECT $1::text AS id) me LEFT JOIN social.profile p ON p.user_id=me.id LEFT JOIN social.verification v ON v.user_id=me.id`, [userId])).rows[0] ?? {};
   const age = ageFrom(row.birth_date), basics = !!(row.first_name && row.gender && row.birth_date && row.area);
   const verification = !row.status || row.status === 'none' ? 'none' : row.status === 'approved' && row.photo_digest !== row.main ? 'paused' : row.status;
   const verified = verification === 'approved';
   const step = !row.main ? 'photos' : !basics ? 'basics' : !meetAge(age) ? 'age' : verified ? 'ready' : verification === 'pending' ? 'waiting' : 'verify';
   const pausedUntil = row.paused_until && new Date(row.paused_until) > new Date() ? row.paused_until : null;
-  return { step, age, gender: row.gender || '', area: row.area || '', verified, verification, reason: verification === 'rejected' ? row.reason : '', public: !!row.visible && verified,
-    pausedUntil, canMeet: step === 'ready' };
+  const rejected = verification === 'rejected', reasonKey = rejected && checkReasons.has(row.reason) ? row.reason : null;
+  // `samePhoto`: the profile photo is still the one that did not pass. `decidedAt`: when staff last decided (the check that did not
+  // pass, or the ✓ a changed photo paused).
+  return { step, age, gender: row.gender || '', area: row.area || '', verified, verification, reason: rejected ? checkReasons.get(row.reason) ?? row.reason : '',
+    reasonKey, decidedAt: row.decided_at ? new Date(row.decided_at).toISOString() : null, samePhoto: rejected && !!row.main && row.main === row.photo_digest,
+    public: !!row.visible && verified, pausedUntil, canMeet: step === 'ready' };
 }
 /** Browsing People needs a finished profile and age 21 to 45; appearing there and dinner invites also need the ✓. */
 export function requireBrowse(state) {

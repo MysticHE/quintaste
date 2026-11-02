@@ -4,14 +4,15 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { StateView } from "../../components/StateView";
-import { Button, T, common } from "../../components/ui";
+import { Button, T } from "../../components/ui";
 import { RemoteStatus } from "../../components/CommunityGate";
-import { AgeNotice, MemberGate, SetupPrompt, useSocialError, useSocialMe } from "../../components/social/SocialState";
+import { AgeNotice, MemberGate, PhotoCheckNotice, SetupPrompt, useSocialError, useSocialMe } from "../../components/social/SocialState";
 import { openSocial } from "../../components/social/Shared";
 import { invalidate } from "../../hooks/useRemote";
 import { sendForCheck } from "../../services/social-api";
 import { usePreferences } from "../../state/Preferences";
-import { useT } from "../../i18n";
+import { useLanguage, useT } from "../../i18n";
+import { dateText, formatDay } from "../../utils/day";
 
 /** After the photo is sent: staff check it within about a day. */
 export function WaitingState({ onDone }: { onDone: () => void }) {
@@ -23,7 +24,7 @@ export function WaitingState({ onDone }: { onDone: () => void }) {
  * real selfie of the member (owner, 1 Nov 2026); there is no separate selfie or pose. First-time setup sends it from Setup.
  */
 function VerifyPanel() {
-  const t = useT("social"), { theme } = usePreferences(), problem = useSocialError(), remote = useSocialMe();
+  const t = useT("social"), { theme } = usePreferences(), problem = useSocialError(), remote = useSocialMe(), language = useLanguage();
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [sent, setSent] = useState(false);
   const standing = remote.data?.standing, main = remote.data?.photos[0];
   const send = async () => {
@@ -37,18 +38,21 @@ function VerifyPanel() {
   if (standing?.step === "age") return <AgeNotice onEvents={() => router.replace("/cook?tab=events")} />;
   if (sent || standing?.step === "waiting") return <WaitingState onDone={() => router.replace("/social")} />;
   if (standing?.verified) return <StateView size="page" icon="checkmark-circle-outline" title={t("verifiedStatus")} text="" primary={{ label: t("done"), icon: "checkmark", onPress: () => router.replace("/social") }} />;
+  // When the profile photo itself did not pass and is still the same, a new one comes first. Other reasons are fixed elsewhere
+  // (another photo shows someone else) or not by a new photo at all, so sending stays the main step.
+  const rejected = standing?.verification === "rejected";
+  const newPhoto = rejected && !!standing.samePhoto && (standing.reasonKey === "notSelfie" || standing.reasonKey === "faceUnclear");
+  const decided = rejected && standing.decidedAt ? t("checkedOn", { date: formatDay(dateText(new Date(standing.decidedAt)), language) }) : "";
   return <View style={{ gap: 14 }}>
-    {standing?.verification === "rejected" && <View style={[s.notice, { backgroundColor: theme.warningSoft }]}>
-      <T style={common.bold}>{t("rejectedTitle")}</T>{!!standing.reason && <T variant="small">{standing.reason}</T>}</View>}
-    {standing?.verification === "paused" && <View style={[s.notice, { backgroundColor: theme.warningSoft }]}>
-      <T style={common.bold}>{t("pausedTitle")}</T><T variant="small">{t("pausedText")}</T></View>}
+    {standing && <PhotoCheckNotice standing={standing} detail={decided} />}
     {main && <View style={[s.preview, { backgroundColor: theme.muted }]}>
       <Image source={{ uri: main.url }} style={StyleSheet.absoluteFill} contentFit="cover" accessibilityLabel={t("mainPhoto")} />
     </View>}
-    <T variant="small" muted style={{ textAlign: "center" }}>{t("verifyNote")}</T>
+    <T variant="small" muted style={{ textAlign: "center" }}>{t(newPhoto ? "samePhotoNote" : "verifyNote")}</T>
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
-    <Button label={t("sendForCheck")} icon="send-outline" loading={busy} onPress={() => void send()} />
-    <Button label={t("changePhotos")} icon="images-outline" variant="secondary" disabled={busy} onPress={() => openSocial("/photos")} />
+    {newPhoto && <Button label={t("changePhotos")} icon="images-outline" disabled={busy} onPress={() => openSocial("/photos")} />}
+    <Button label={t("sendForCheck")} icon="send-outline" variant={newPhoto ? "secondary" : "primary"} loading={busy} onPress={() => void send()} />
+    {!newPhoto && <Button label={t("changePhotos")} icon="images-outline" variant="secondary" disabled={busy} onPress={() => openSocial("/photos")} />}
   </View>;
 }
 export function VerifyScreen() {
@@ -56,6 +60,5 @@ export function VerifyScreen() {
   return <Screen title={t("stepVerify")}><MemberGate returnTo="/social/verify"><VerifyPanel /></MemberGate></Screen>;
 }
 const s = StyleSheet.create({
-  notice: { borderRadius: 14, padding: 12, gap: 4 },
   preview: { width: "100%", aspectRatio: 3 / 4, borderRadius: 20, overflow: "hidden", alignSelf: "center", maxWidth: 420 },
 });

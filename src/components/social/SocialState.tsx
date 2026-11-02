@@ -1,13 +1,14 @@
-import { useCallback, type PropsWithChildren } from "react";
+import { useCallback, useEffect, type PropsWithChildren } from "react";
 import { router } from "expo-router";
 import { FirstRunState } from "../BrowseControls";
-import { ListGroup, ListItem, StatusPill, type Tone } from "../GroupedList";
+import { ListGroup, ListItem, RowIcon, StatusPill, type Tone } from "../GroupedList";
 import { MemberPrompt, useMember } from "../CommunityGate";
+import { usePhotoCheckDot } from "../InboxCounts";
 import { useRemote } from "../../hooks/useRemote";
 import { me } from "../../services/social-api";
 import { ApiError } from "../../services/community-api";
 import { useT } from "../../i18n";
-import type { SocialMe, Standing } from "../../types/community";
+import type { CheckReason, SocialMe, Standing } from "../../types/community";
 import type socialMessages from "../../i18n/en/social";
 import { Avatar } from "./SocialPhoto";
 import { openSocial } from "./Shared";
@@ -46,6 +47,26 @@ export function standingLabel(s: Standing): readonly [keyof typeof socialMessage
   if (s.step === "waiting") return states.waiting;
   if (s.step === "verify") return states.verify;
   return s.public ? states.public : states.friends;
+}
+const reasonKeys: Record<CheckReason, keyof typeof socialMessages> = { notSelfie: "reasonNotSelfie", faceUnclear: "reasonFaceUnclear",
+  notSamePerson: "reasonNotSamePerson", ageRange: "reasonAgeRange", poseNotCopied: "reasonPoseNotCopied" };
+/** Why a photo check did not pass: in the member's language when staff picked a ready-made reason, else staff's own words. */
+export function useCheckReason() {
+  const t = useT("social");
+  return useCallback((s: Standing) => s.reasonKey && reasonKeys[s.reasonKey] ? t(reasonKeys[s.reasonKey]) as string : s.reason, [t]);
+}
+/** The photo check needs the member: it did not pass, or they changed the checked photo, and sending again is the next step. */
+export const photoCheckNeeded = (s: Standing) => s.step === "verify" && (s.verification === "rejected" || s.verification === "paused");
+/**
+ * The photo check needs the member: why, and (on the check itself, `detail`) when staff decided. A row that opens the check,
+ * except on the check screen. Showing it counts as seeing it, which clears the Social tab dot.
+ */
+export function PhotoCheckNotice({ standing, detail }: { standing: Standing; detail?: string }) {
+  const t = useT("social"), reason = useCheckReason(), { seen } = usePhotoCheckDot(), rejected = standing.verification === "rejected", shown = photoCheckNeeded(standing);
+  useEffect(() => { if (shown) seen(); }, [shown, seen]);
+  if (!shown) return null;
+  return <ListGroup><ListItem wrap title={t(rejected ? "rejectedTitle" : "pausedTitle")} subtitle={rejected ? reason(standing) || undefined : t("pausedText")} detail={detail}
+    leading={<RowIcon name="camera-outline" tone="warning" />} onPress={detail === undefined ? () => openSocial("/verify") : undefined} /></ListGroup>;
 }
 /**
  * Your profile as one row: main photo, name and how others find you; opens My Profile, or the photo check when that is the next

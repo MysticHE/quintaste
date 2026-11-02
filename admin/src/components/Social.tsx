@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { date, useResource } from './client';
 import { Feedback, IconButton, Mutation, Segmented, Table, reveal } from './Primitives';
+import { declineReasons, photoCheckReasons, reasonLabel, selfieReasons } from '../lib/photo-check-reasons';
 
 type CheckRow = { id: string; name: string; username: string; gender: string; age: number | null; area: string; pose: string | null; submitted_at: string; decided_at: string | null; reason: string; reports: number };
 type Check = CheckRow & { status: string; account_created: string; has_selfie: boolean; decided_by: string | null; photos: { id: string; position: number; digest: string }[]; mainChanged: boolean };
@@ -13,11 +14,6 @@ const teacherStatuses = [['pending', 'Waiting'], ['approved', 'Approved'], ['rej
 /** Pose keys from checks sent before 1 Nov 2026 (live selfie with a pose), in the words the member saw. Newer checks have no pose. */
 const poses: Record<string, string> = { 'thumbs-up': 'Thumbs up', 'peace-sign': 'Peace sign', 'hand-on-chin': 'Hand on chin', 'point-up': 'Pointing up', wave: 'Waving',
   'touch-ear': 'Touching an ear', 'three-fingers': 'Three fingers up', 'hand-on-head': 'Hand on head' };
-const declineReasons = ['The main photo is not a real selfie of you.', 'The face is not clear in the main photo.', 'The photos do not all show the same person.',
-  'The person does not look 21 to 45.'];
-/** For checks sent before 1 Nov 2026 with a live selfie and pose. */
-const selfieReasons = ['The selfie does not show the same person as the main photo.', 'The pose was not copied.', 'The face is not clear in the selfie.',
-  'The main photo does not clearly show a face.', 'The person does not look 21 to 45.'];
 const badge = (status: string) => 'badge ' + (status === 'approved' ? 'good' : ['rejected', 'suspended'].includes(status) ? 'warn' : '');
 const who = (r: { gender: string; age: number | null; area: string }) => [r.gender === 'woman' ? 'Woman' : r.gender === 'man' ? 'Man' : '', r.age ? `${r.age}` : '', r.area].filter(Boolean).join(' · ');
 const image = (id: string, which: string | number) => `/api/manage/photo-check-image?id=${encodeURIComponent(id)}&which=${which}`;
@@ -46,7 +42,7 @@ function CheckDetail({ id, onSaved, onClose }: { id: string; onSaved: () => void
       <div className="row badges"><span className={badge(d.status)}>{d.status === 'rejected' ? 'declined' : d.status}</span>
         {d.mainChanged && <span className="badge warn">Main photo changed since it was sent</span>}{!!d.reports && <span className="badge warn">{d.reports} open reports</span>}</div>
       <ul className="list inset">{([['Account', d.username], ['Gender · age · area', who(d)], ...(d.pose ? [['Pose asked for', poses[d.pose] ?? d.pose]] as const : []), ['Sent', date(d.submitted_at)],
-        ['Account created', date(d.account_created)], ['Decision', d.decided_at ? `${date(d.decided_at)}${d.decided_by ? ' · ' + d.decided_by : ''}` : '—'], ['Reason given', d.reason || '—']] as const)
+        ['Account created', date(d.account_created)], ['Decision', d.decided_at ? `${date(d.decided_at)}${d.decided_by ? ' · ' + d.decided_by : ''}` : '—'], ['Reason given', d.reason ? reasonLabel(d.reason) : '—']] as const)
         .map(([k, v]) => <li key={k}><span>{k}</span><span className="value">{v || '—'}</span></li>)}</ul>
       <div className="compare">
         {d.pose && <figure>{/* eslint-disable-next-line @next/next/no-img-element -- private staff view of member photos */}
@@ -63,7 +59,7 @@ function CheckDetail({ id, onSaved, onClose }: { id: string; onSaved: () => void
       {(d.status === 'pending' || d.status === 'approved') && <details><summary>{d.status === 'pending' ? 'Decline' : 'Remove the ✓'}</summary><div className="editor">
         <Mutation key={'decline' + d.status} endpoint="photo-checks" onSaved={saved} label={d.status === 'pending' ? 'Decline' : 'Remove the ✓'} tone="danger"
           values={f => ({ id, action: d.status === 'pending' ? 'reject' : 'revoke', note: f.get('note') })}>
-          <label>Reason the member sees<select name="note">{(d.pose ? selfieReasons : declineReasons).map(r => <option key={r} value={r}>{r}</option>)}</select></label></Mutation></div></details>}
+          <label>Reason the member sees<select name="note">{(d.pose ? selfieReasons : declineReasons).map(r => <option key={r} value={r}>{photoCheckReasons[r]}</option>)}</select></label></Mutation></div></details>}
     </div>}
   </section>;
 }

@@ -3,7 +3,7 @@ import type { Tabs } from "expo-router";
 import { useEffect, useState, type ComponentProps } from "react";
 import { Keyboard, Platform, Pressable, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
-import { useInbox } from "../InboxCounts";
+import { useInbox, usePhotoCheckDot } from "../InboxCounts";
 import { usePreferences } from "../../state/Preferences";
 import { QuinTasteIcon, type QuinTasteTab } from "./QuinTasteIcon";
 import { useBlurTarget, useDockSlideStyle, useGlassNavigation } from "./GlassNavigation";
@@ -20,7 +20,7 @@ const tabs: Record<string, { label: "tabExplore" | "tabCook" | "tabSocial" | "ta
 
 export function TabDock({ state, descriptors, emitter, navigateToTab, insets }: DockProps) {
   // A dot, not a number: the counts themselves sit where each thing lives (Messages, My shop, Dining).
-  const { theme } = usePreferences(), activity = (useInbox()?.total ?? 0) > 0, t = useT("common");
+  const { theme } = usePreferences(), photoCheck = usePhotoCheckDot().dot, activity = (useInbox()?.total ?? 0) > 0 || photoCheck, t = useT("common");
   const glass = useGlassNavigation(), target = useBlurTarget(), setHeight = glass?.setHeight, setHidden = glass?.setHidden, slideStyle = useDockSlideStyle();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {

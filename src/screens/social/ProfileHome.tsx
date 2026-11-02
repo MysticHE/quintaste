@@ -6,7 +6,7 @@ import { Icon, T, common } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { IconTabs } from "../../components/BrowseControls";
 import { RemoteStatus } from "../../components/CommunityGate";
-import { MemberGate, MeetGate, useSocialMe } from "../../components/social/SocialState";
+import { MemberGate, MeetGate, PhotoCheckNotice, useSocialMe } from "../../components/social/SocialState";
 import { ChoiceChips, MessagesButton } from "../../components/social/ProfileControls";
 import { MyPostGrid, SavedGrid, type ContentKind } from "../../components/social/ProfileGrid";
 import { ProfileSummary } from "../../components/social/ProfileSummary";
@@ -44,6 +44,7 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
   return <Screen back={false} header={<TopRow name={name} data={data} />}>
     <MemberGate returnTo="/social">
       <ProfileSummary data={data} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} onDinners={() => select("dining")} />
+      {data && <PhotoCheckNotice standing={data.standing} />}
       <View testID="social-profile-tabs"><IconTabs label={t("profile")} value={tab} onChange={select} tabs={[
         { id: "posts", label: t("posts"), icon: "grid-outline", activeIcon: "grid" },
         { id: "saved", label: t("saved"), icon: "bookmark-outline", activeIcon: "bookmark" },

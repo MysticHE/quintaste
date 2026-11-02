@@ -10,7 +10,9 @@ import { giftNewsSql, giftsWaitingSql } from '../collection/gifts.mjs';
 /**
  * Everything waiting on the member, in the one request the tab bar polls: unread conversations (friends, Market, classes)
  * for the Messages icon, and new orders, friend requests and dinner invites where they live. Each part keeps its own service
- * switch and access rule, so a paused service or an account that cannot use Social simply counts zero.
+ * switch and access rule, so a paused service or an account that cannot use Social simply counts zero. `photoCheck` names the
+ * photo check waiting on the member (it did not pass, or they changed the checked photo), or is null; it is not in `total`: the app
+ * shows it until the member has seen it, as a decision cannot be "read" on the server.
  */
 export const inbox = communityRouter();
 inbox.get('/', async (_req, res) => {
@@ -35,6 +37,7 @@ inbox.get('/', async (_req, res) => {
   const row = Object.fromEntries(Object.keys(parts).map(key => [key, 0]));
   if (live.length) Object.assign(row, (await pool.query(`SELECT ${live.map(([key, sql]) => sql + ' AS "' + key + '"').join(', ')}`, [me])).rows[0]);
   const messages = row.friends + row.market + row.classes;
-  res.json({ ...row, messages, total: messages + row.orders + row.requests + row.dinners + row.gifts + row.giftNews, dining: meet });
+  const photoCheck = social && state.step === 'verify' && ['rejected', 'paused'].includes(state.verification) ? state.verification + ':' + (state.decidedAt ?? '') : null;
+  res.json({ ...row, messages, photoCheck, total: messages + row.orders + row.requests + row.dinners + row.gifts + row.giftNews, dining: meet });
 });
 inbox.use(errors);

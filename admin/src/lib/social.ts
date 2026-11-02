@@ -7,6 +7,7 @@ import { audit } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { can } from './permissions';
 import { choice, HttpError, text } from './http';
+import { photoCheckReasons } from './photo-check-reasons';
 
 /**
  * Social photo checks (capability "identity") and Market cooking-class teachers (capability "sellers"). Since 1 Nov 2026 staff check
@@ -81,7 +82,8 @@ export async function photoCheckAction(member: Session, input: Record<string, un
   const action = choice(input.action, ['approve', 'reject', 'revoke'] as const, 'photo check action');
   authorize(member, 'identity');
   const memberId = userId(input.id), note = text(input.note || '', 'reason for the member', 300, 0);
-  if (action !== 'approve' && !note) throw new HttpError(400, 'Tell the member why.');
+  // Reasons are stored by key (lib/photo-check-reasons.ts) so the member's app can word them in their language.
+  if (action !== 'approve' && !Object.hasOwn(photoCheckReasons, note)) throw new HttpError(400, 'Choose a reason for the member.');
   return transaction(async db => {
     await lockPermission(db, member, 'identity');
     const row = (await db.query(`SELECT v.status, (SELECT digest FROM social.photo WHERE user_id=v.user_id AND position=0) AS main FROM social.verification v
