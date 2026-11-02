@@ -1,5 +1,5 @@
 import type { CatalogueHours, CataloguePhoto, CatalogueVenue } from "./catalogue";
-import type { MenuItem } from "./menus";
+import type { MenuItem, PublishedMenu } from "./menus";
 
 /** content.item: a staff change (origin "edit") over packaged or bot content, or a staff-created item (origin "staff"). Staff wins until cleared. */
 export type StaffKind = "place" | "menu" | "recipe" | "event";
@@ -12,6 +12,7 @@ export type StaffPlaceData = Partial<Pick<CatalogueVenue, "name" | "branch" | "a
 };
 /** Menu items are keyed "sectionId/itemId". Added dishes appear in one "Added by QuinTaste" section. */
 export type StaffMenuEdit = { name?: string; category?: string; price?: MenuItem["price"]; diet?: MenuItem["diet"]; qualifier?: string; availability?: string; photo?: CataloguePhoto | null; hidden?: boolean };
-export type StaffMenuData = { items?: Record<string, StaffMenuEdit>; added?: (MenuItem & { hidden?: boolean })[]; sourceUrl?: string; base?: string };
+export type StaffMenuData = { items?: Record<string, StaffMenuEdit>; added?: (MenuItem & { hidden?: boolean })[]; sourceUrl?: string; base?: string;
+  addedSource?: Pick<PublishedMenu["sections"][number], "scope" | "checkedAt" | "coverage" | "notice" | "sourceLabel"> };
 
 export const staffKey = (kind: StaffKind, id: string) => kind + ":" + id;

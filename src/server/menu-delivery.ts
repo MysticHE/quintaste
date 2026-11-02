@@ -79,8 +79,8 @@ function applyStaff(id: string, staff: StaffContent, content: ReturnType<typeof 
       ...(change.photo !== undefined ? { photo: change.photo } : {}) }];
   }) })).filter(section => section.items.length);
   const sourceUrl = m.sourceUrl ?? p.sourceUrl ?? base?.menu.sections[0]?.sourceUrl;
-  if (m.added?.some(item => !item.hidden) && sourceUrl && edit) sections.push({ id: staffSection, title: "Added by QuinTaste", scope: "branch-dine-in", coverage: "partial",
-    checkedAt: edit.updated_at, sourceUrl, sourceLabel: "QuinTaste team", notice: "", charges: "", items: m.added.filter(item => !item.hidden).map(({ hidden: _hidden, ...item }) => item) });
+  if (m.added?.some(item => !item.hidden) && sourceUrl && edit) sections.push({ id: staffSection, title: "Added by QuinTaste", scope: m.addedSource?.scope ?? "branch-dine-in", coverage: m.addedSource?.coverage ?? "partial",
+    checkedAt: m.addedSource?.checkedAt ?? edit.updated_at, sourceUrl, sourceLabel: m.addedSource?.sourceLabel ?? "QuinTaste team", notice: m.addedSource?.notice ?? "", charges: "", items: m.added.filter(item => !item.hidden).map(({ hidden: _hidden, ...item }) => item) });
   if (!sections.length) return undefined;
   const identity = base?.menu ?? { id, name: "", branch: "", address: "", postalCode: "", aliases: [], googlePlaceId: null };
   const menu: PublishedMenu = { id, name: p.name ?? identity.name, branch: p.branch ?? identity.branch, address: p.address ?? identity.address,
