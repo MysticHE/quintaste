@@ -16,6 +16,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { bundledRecipes } from "../src/data/recipes";
+import { minerals, vitamins } from "../src/config/nutrition-standards";
 import type { MicroNutrient, Recipe } from "../src/types/food";
 
 type Figures = NonNullable<Recipe["nutrition"]>["perServing"];
@@ -30,8 +31,11 @@ const here = dirname(fileURLToPath(import.meta.url)), root = join(here, "..");
 const table: Table = JSON.parse(readFileSync(join(root, "server-assets", "nutrition", "ingredient-table.json"), "utf8"));
 const figuresPath = join(root, "server-assets", "nutrition", "library-figures.json");
 const nutrients: (keyof Figures)[] = ["kcal", "protein", "fat", "carbs", "fibre", "sugar", "sodium"];
-// The same vitamins and minerals as server/nutrition/nutrients.mjs, under the same 10% rule.
-const micronutrients: MicroNutrient[] = ["vitA", "vitC", "vitD", "vitE", "b12", "folate", "calcium", "iron", "zinc", "magnesium", "potassium"];
+// The app's vitamins and minerals (config/nutrition-standards.ts), under the same 10% rule; --check keeps the server's copy
+// (server/nutrition/nutrients.mjs) the same list.
+const micronutrients: MicroNutrient[] = [...vitamins, ...minerals];
+// The library food each table key's figures come from: a stand-in line reports that food, not the table's older note.
+const library: Record<string, { name: string; per100: Per100 }> = JSON.parse(readFileSync(figuresPath, "utf8")).foods;
 // A nutrient is left out when more than 10% of the nutritive weight comes from foods that lack it (no dataset gives a sugar
 // value for some spices and fermented foods).
 const MIN_COVERAGE = 0.9, MAX_MISSING_SHARE = 0.1;
@@ -73,8 +77,9 @@ export function estimate(recipe: Pick<Recipe, "id" | "name" | "servings" | "ingr
     if (!hit) return { line, status: "unmatched" };
     if (hit.food.negligible) return { line, key: hit.key, grams: 0, status: "negligible" };
     const grams = gramsFor(line, hit.food);
-    if (grams === undefined) return { line, key: hit.key, status: "unweighed", analogue: hit.food.analogue };
-    return { line, key: hit.key, grams, status: "matched", analogue: hit.food.analogue };
+    const analogue = hit.food.analogue ? library[hit.key]?.name ?? hit.food.analogue : undefined;
+    if (grams === undefined) return { line, key: hit.key, status: "unweighed", analogue };
+    return { line, key: hit.key, grams, status: "matched", analogue };
   });
   const matched = lines.filter(l => l.status === "matched");
   const nutritiveGrams = matched.reduce((sum, l) => sum + (l.grams ?? 0), 0);
@@ -114,7 +119,6 @@ function report(results: Estimate[]) {
 
 async function main() {
   const args = process.argv.slice(2), flag = (name: string) => args.includes(name), value = (name: string) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : undefined; };
-  const library: Record<string, { per100: Per100 }> = JSON.parse(readFileSync(figuresPath, "utf8")).foods;
   const per100: Record<string, Per100> = Object.fromEntries(Object.entries(library).map(([key, food]) => [key, food.per100]));
   const today = new Date().toISOString().slice(0, 10);
   if (flag("--live")) {
@@ -136,6 +140,9 @@ async function main() {
   report(results);
   const target = join(root, "src", "data", "recipe-library", "nutrition.ts");
   if (flag("--check")) {
+    const serverList = readFileSync(join(root, "server", "nutrition", "nutrients.mjs"), "utf8").match(/\[([^\]]*)\]/)?.[1] ?? "";
+    const server = [...serverList.matchAll(/'(\w+)'/g)].map(match => match[1]);
+    if (server.join() !== micronutrients.join()) { console.error(`server/nutrition/nutrients.mjs lists ${server.join(", ")}; the app lists ${micronutrients.join(", ")}`); process.exit(1); }
     const current = readFileSync(target, "utf8");
     const lost = results.filter(r => r.perServing && !current.includes(`"${r.id}"`));
     if (lost.length) { console.error(`Recipes with figures not in nutrition.ts: ${lost.map(r => r.id).join(", ")}; rerun without --check`); process.exit(1); }

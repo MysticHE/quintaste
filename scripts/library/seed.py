@@ -1,8 +1,9 @@
 """Fill the kitchen layer (library.ingredient) from the ingredient keys recipes already use, linked to library foods.
 
-Source: the bots' nutrition table ops/qt-team/nutrition_sg.json (213 keys; it contains every key of the app's reviewed
-server-assets/nutrition/ingredient-table.json). Each key points at the library food that holds its USDA SR or Taiwan FDA
-record; a key marked `analogue` is a stand-in. Open Food Facts figures are not used (ODbL share-alike;
+Source: the bots' nutrition table ops/qt-team/nutrition_sg.json, plus any key of the app's reviewed recipe table
+(server-assets/nutrition/ingredient-table.json) the bots' table lacks, so a key added there reaches both (export_tables.py then
+writes it into the bots' table). Each key points at the library food that holds its record; a key marked `analogue` is a
+stand-in. Open Food Facts figures are not used (ODbL share-alike;
 docs/AI_FOOD_LIBRARY_PLAN.md §2), so a key that only had those has no food until one is chosen.
 
 Writes SQL to stdout:
@@ -23,7 +24,9 @@ LINKS = {
     'cherry-tomato': ('taiwan-fda', 'E74004'),
     'garam-masala': ('uk-cofid', '13-829'),
     'legacy-paneer': ('uk-cofid', '12-495'),
-    'tau-kwa': ('taiwan-fda', 'R4700203'),
+    # Super firm tofu matches a Singapore tau kwa pack (117 kcal, 13.1 g protein, 6.7 g fat per 100 g) within 6%; Taiwan's
+    # dougan (161 kcal) is drier.
+    'tau-kwa': ('usda-sr', '174297'),
     # The bot took Taiwan's 豆腐皮 for dried tau kee, but that record is fresh beancurd skin (60% water).
     'tw-yuba': ('japan-mext', '04060'),
 }
@@ -69,16 +72,28 @@ def source_of(food, key):
     return None
 
 
+def app_food(food):
+    """A recipe-table entry in the bots' table shape: its USDA SR Legacy id becomes `fdcId`."""
+    return {**{k: v for k, v in food.items() if k != 'usda'}, **({'fdcId': food['usda']} if food.get('usda') else {})}
+
+
+def kitchen_foods(repo):
+    """Every kitchen key: the bots' table, then the recipe-table keys it lacks."""
+    bot = json.loads((Path(repo) / 'ops/qt-team/nutrition_sg.json').read_text(encoding='utf-8'))['foods']
+    app = json.loads((Path(repo) / 'server-assets/nutrition/ingredient-table.json').read_text(encoding='utf-8'))['foods']
+    return {**bot, **{key: app_food(food) for key, food in app.items() if key not in bot}}
+
+
 def statements(repo):
     """The kitchen layer's SQL, without a transaction: load.py runs it inside its own, main() wraps it in one."""
-    bot = json.loads((Path(repo) / 'ops/qt-team/nutrition_sg.json').read_text(encoding='utf-8'))['foods']
+    foods = kitchen_foods(repo)
     keys = {}
-    for bot_key in bot:
-        keys.setdefault(key_of(bot_key), []).append(bot_key)
+    for name in foods:
+        keys.setdefault(key_of(name), []).append(name)
     clash = {k: v for k, v in keys.items() if len(v) > 1}
     if clash:
-        raise SystemExit(f'bot keys that make the same kitchen key: {clash}')
-    for bot_key, food in sorted(bot.items()):
+        raise SystemExit(f'kitchen keys that make the same library key: {clash}')
+    for bot_key, food in sorted(foods.items()):
         units = {**({'each': food['each']} if 'each' in food else {}), **food.get('per', {})}
         key = key_of(bot_key)
         source = source_of(food, key)

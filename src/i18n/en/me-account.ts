@@ -42,6 +42,7 @@ const en = {
   privacyData: "Privacy & Data",
   help: "Help",
   dataSources: "Food Data Sources",
+  dataSourcesNote: "QuinTaste combined and adapted these figures (medians, unit conversions). No source endorses QuinTaste.",
   bringInGuestSaves: "Bring In Guest Saves",
   returnToGuest: "Return To Guest Collection",
   viewProfileOptions: "View Profile Options",

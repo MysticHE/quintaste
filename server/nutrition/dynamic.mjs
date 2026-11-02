@@ -1,4 +1,4 @@
-import { countUnits, gramsFor, matchFood, MAX_GRAMS, nutritionFrom, tablePer100, unitOf, volumeMl } from './estimate.mjs';
+import { countUnits, gramsFor, matchFood, MAX_GRAMS, nutritionFrom, tablePer100, tablePortionsId, unitOf, volumeMl } from './estimate.mjs';
 import { usdaFood } from './reference.mjs';
 import { nameKey } from './learned.mjs';
 
@@ -54,9 +54,10 @@ export function resolveLine(line, learned) {
   const key = nameKey(line.name), hit = matchFood(line.name), row = key ? learned.get(key) : undefined;
   const usable = row && USABLE.has(row.status) ? row : null;
   if (hit?.food.negligible || usable?.negligible) return { key, negligible: true };
-  // A reviewed table key takes the food library's figures; its USDA food still gives household portions.
+  // A reviewed table key takes the food library's figures, and household portions from the same food when USDA has it.
   const tableFigures = hit ? tablePer100(hit.key) : null;
-  const staticFood = hit?.food.usda ? usdaFood(hit.food.usda) : null;
+  const portionsId = hit ? tablePortionsId(hit.key, hit.food) : null;
+  const staticFood = portionsId ? usdaFood(portionsId) : null;
   const learnedFood = usable?.usda ? usdaFood(usable.usda) : null;
   const per100 = tableFigures ?? (usable?.food_id ? usable.per100 : learnedFood?.per100) ?? null;
   // The table weighs count units only when it lists that unit (or the line counts whole items): "4 leaves" of a food
@@ -82,10 +83,12 @@ export function namesToResolve(ingredients, learned, now = Date.now()) {
     // A usable row is asked again only for what it lacks: a weight for this unit, or a density for spoon measures.
     const due = !row || row.status === 'retry' || (row.status === 'unknown' && now - new Date(row.updated_at).getTime() > UNKNOWN_RETRY_MS)
       || (USABLE.has(row.status) && (result.unresolved || result.densityGuess));
-    // A name the reviewed table already knows only needs a weight for this unit; its food stays the table's.
-    const staticUsda = matchFood(line.name)?.food.usda ?? null;
+    // A name the reviewed table already knows (it has library figures) only needs a weight for this unit; its food stays the
+    // table's. staticUsda is the USDA food whose portions weigh it, when there is one.
+    const hit = matchFood(line.name), tableKnown = !!(hit && tablePer100(hit.key));
+    const staticUsda = hit ? tablePortionsId(hit.key, hit.food) : null;
     if (due && !out.has(result.key)) out.set(result.key, { key: result.key, name: String(line.name).slice(0, 120), unit: line.unit, amount: line.amount,
-      note: row?.staff_note ?? '', known: (!!row && USABLE.has(row.status)) || !!staticUsda, staticUsda });
+      note: row?.staff_note ?? '', known: (!!row && USABLE.has(row.status)) || tableKnown, staticUsda });
   }
   return [...out.values()];
 }

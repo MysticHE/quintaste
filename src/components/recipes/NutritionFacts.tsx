@@ -19,8 +19,9 @@ const MICRO_UNITS: Record<MicroNutrient, CookKey> = {
   vitA: "unitMicrogram", vitC: "unitMilligram", vitD: "unitMicrogram", vitE: "unitMilligram", b12: "unitMicrogram", folate: "unitMicrogram",
   calcium: "unitMilligram", iron: "unitMilligram", zinc: "unitMilligram", magnesium: "unitMilligram", potassium: "unitMilligram",
 };
-/** Whole numbers from 10 up; one decimal below (vitamin B12 0.4 µg), so small amounts do not read as nothing. */
-const amount = (value: number) => (value >= 10 ? String(Math.round(value)) : String(Math.round(value * 10) / 10));
+/** Whole numbers from 10 up, one decimal from 1, two below (vitamin B12 0.04 µg), so a small amount never reads as 0 beside
+ * its own percent. */
+const amount = (value: number) => String(value >= 10 ? Math.round(value) : value >= 1 ? Math.round(value * 10) / 10 : Math.round(value * 100) / 100);
 
 /** Per-serving figures with claim badges and one authorised health claim (Codex, EU, WHO), then vitamins and minerals with
  * their share of the Codex daily reference; "Unavailable" when a recipe has no reliable figures. Never a score or medical

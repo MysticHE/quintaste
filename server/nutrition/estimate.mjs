@@ -16,6 +16,16 @@ const figures = JSON.parse(readFileSync(path.join(root, 'library-figures.json'),
 export const nutrients = ['kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium'];
 /** Per-100 g figures of a reviewed table key from the food library, or null for keys without one (negligible foods). */
 export const tablePer100 = key => figures[key]?.per100 ?? null;
+/**
+ * The USDA SR Legacy id whose household portions weigh a table key: the library record the key's figures come from when that is
+ * a USDA SR food, none when the figures come from another dataset (a USDA stand-in's portions would weigh a different food),
+ * the table's own `usda` only for keys without a library record.
+ */
+export function tablePortionsId(key, food) {
+  const record = figures[key]?.record;
+  if (!record) return food.usda ?? null;
+  return record.startsWith('usda-sr:') ? record.slice('usda-sr:'.length) : null;
+}
 const foods = Object.entries(table.foods).map(([key, food]) => ({ key, food, patterns: food.match.map(pattern => new RegExp(pattern, 'i')) }));
 const countUnits = new Set(['each', 'whole', 'piece', 'pieces', 'egg', 'eggs', 'leaves', 'leaf', 'cloves', 'clove', 'slices', 'slice', 'cubes', 'cube', 'sprig', 'sprigs', 'inch', 'handful', 'handfuls', 'pods', 'pod', 'sticks', 'stick']);
 export const MIN_COVERAGE = 0.9, MAX_MISSING_SHARE = 0.1, MAX_GRAMS = 3000;

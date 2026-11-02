@@ -75,17 +75,18 @@ export function percentOfDay(key: string, value: number): number | undefined {
 export const percentOfReference = (key: MicroNutrient, value: number) => Math.round((value / nutrientReference[key]) * 100);
 
 export type MicroBadge = { nutrient: MicroNutrient; level: "source" | "high" };
-/** At most one vitamin and one mineral badge, the strongest of each, under Codex CXG 23-1997 (source: 5% of the NRV per
- * 100 kcal; high: twice that). The same rule as the QT bots' nutrient level, so a house recipe shows what qualified it. */
+/** At most one vitamin and one mineral badge, the strongest of each serving, under Codex CXG 23-1997: source needs 5% of the
+ * NRV per 100 kcal and 15% of it in the serving, high twice both. Stricter than the QT bots' nutrient level (per 100 kcal
+ * only, no vitamin D), which decides what Mango may publish; a badge is a claim members read. */
 export function microBadgesFor(nutrition: Pick<NonNullable<Recipe["nutrition"]>, "perServing" | "micro">): MicroBadge[] {
   const kcal = nutrition.perServing.kcal, micro = nutrition.micro ?? {};
   if (!(kcal > 0)) return [];
-  const share = (key: MicroNutrient) => (micro[key] ?? 0) / (kcal / 100) / nutrientReference[key];
-  const strongest = (group: readonly MicroNutrient[]) => group.filter(key => share(key) >= claimCriteria.microSourcePer100KcalShare)
-    .sort((a, b) => share(b) - share(a))[0];
-  return [strongest(vitamins), strongest(minerals)].filter((key): key is MicroNutrient => !!key).map(nutrient => ({
-    nutrient, level: share(nutrient) >= claimCriteria.microSourcePer100KcalShare * claimCriteria.microHighFactor ? "high" : "source",
-  }));
+  const serving = (key: MicroNutrient) => (micro[key] ?? 0) / nutrientReference[key];
+  const meets = (key: MicroNutrient, factor: number) => serving(key) / (kcal / 100) >= claimCriteria.microSourcePer100KcalShare * factor
+    && serving(key) >= claimCriteria.microSourcePerServingShare * factor;
+  const strongest = (group: readonly MicroNutrient[]) => group.filter(key => meets(key, 1)).sort((a, b) => serving(b) - serving(a))[0];
+  return [strongest(vitamins), strongest(minerals)].filter((key): key is MicroNutrient => !!key)
+    .map(nutrient => ({ nutrient, level: meets(nutrient, claimCriteria.microHighFactor) ? "high" : "source" }));
 }
 
 const microKeys: Record<MicroNutrient, CookKey> = {

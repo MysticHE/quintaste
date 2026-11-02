@@ -44,8 +44,9 @@ export const claimCriteria = {
   fibreHighPer100Kcal: 3,
   /** Sodium at or under 15% of WHO's 2,000 mg daily limit per serving. */
   sodiumUnder15PercentMg: 300,
-  /** Codex CXG 23-1997 "Source" of a vitamin or mineral: 5% of its NRV per 100 kcal; "High" is twice that. */
-  microSourcePer100KcalShare: 0.05, microHighFactor: 2,
+  /** Codex CXG 23-1997 "Source" of a vitamin or mineral: 5% of its NRV per 100 kcal, and also Codex's per-serving form, 15% of
+   * the NRV in the serving, so a light soup with a trace does not earn it (as for protein). "High" is twice both. */
+  microSourcePer100KcalShare: 0.05, microSourcePerServingShare: 0.15, microHighFactor: 2,
 } as const;
 
 export const nutritionBadges = ["Under 500 kcal", "High in protein", "Source of protein", "High in fibre", "Source of fibre", "Under 300 mg sodium"] as const;

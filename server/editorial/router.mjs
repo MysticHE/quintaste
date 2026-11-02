@@ -49,7 +49,10 @@ editorial.get('/control/state', async (_req, res, next) => {
     const staffHidden = places.filter(item => item.hidden).map(item => item.id);
     // Recipes, events and menus staff hid: the Mochi kitchen feed leaves them off the public page (ops/qt-team/kitchen_feed.py).
     const staffHiddenItems = staff ? [...staff.items.values()].filter(item => item.hidden && item.kind !== 'place').map(({ kind, id }) => ({ kind, id })) : [];
-    res.json({ revision: snapshot.revision, removals: Object.values(snapshot.removals ?? {}), reverts: Object.values(snapshot.reverts ?? {}), changes: Object.values(snapshot.records).map(r => r.change).filter(Boolean), venues: baseline.venues.map(v => ({ id: v.id, ...recordState(snapshot, baseline, 'venue', v.id) })), records: Object.values(snapshot.records).filter(r => r.kind !== 'venue').map(r => ({ kind: r.kind, id: r.id, hash: hash(r.data), data: r.data })), recipeIdentities: baseline.recipes, staffPlaces, staffHidden, staffHiddenItems });
+    // What this app version accepts in a publication: the bots send vitamins and minerals (nutrition.micro) only when it is
+    // announced, so an app rolled back to an older image keeps receiving payloads it can validate.
+    const accepts = { nutritionMicro: true };
+    res.json({ accepts, revision: snapshot.revision, removals: Object.values(snapshot.removals ?? {}), reverts: Object.values(snapshot.reverts ?? {}), changes: Object.values(snapshot.records).map(r => r.change).filter(Boolean), venues: baseline.venues.map(v => ({ id: v.id, ...recordState(snapshot, baseline, 'venue', v.id) })), records: Object.values(snapshot.records).filter(r => r.kind !== 'venue').map(r => ({ kind: r.kind, id: r.id, hash: hash(r.data), data: r.data })), recipeIdentities: baseline.recipes, staffPlaces, staffHidden, staffHiddenItems });
   } catch (e) { next(e); }
 });
 editorial.post('/control/publish', async (req, res) => {

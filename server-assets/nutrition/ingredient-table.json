@@ -658,8 +658,6 @@
     },
     "doubanjiang": {
       "name": "Chilli bean paste (doubanjiang)",
-      "usda": "172442",
-      "analogue": "miso",
       "gPerMl": 1.2,
       "match": [
         "chilli bean paste",

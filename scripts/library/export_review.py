@@ -5,11 +5,8 @@ change against the bots' current table), Disagree (figures whose sources spread 
 dataset record not in the library and why).
 Run: python -I scripts/library/export_review.py <output.xlsx> [container]
 """
-import csv
-import io
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
 
@@ -18,18 +15,12 @@ from openpyxl.styles import Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from load import query  # noqa: E402
 from seed import key_of  # noqa: E402
 
 FIGURES = ('kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium', 'calcium', 'iron', 'vitC', 'vitA', 'b12', 'vitD')
 HEADER = Font(bold=True)
 FILL = PatternFill('solid', fgColor='EEEEEE')
-
-
-def query(container, sql):
-    """Rows of a query run in the local database container, as lists of text."""
-    out = subprocess.run(['docker', 'exec', container, 'psql', '-U', 'quintaste', '-d', 'quintaste', '-X', '-q', '-c',
-                          f'COPY ({sql}) TO STDOUT WITH (FORMAT csv)'], capture_output=True, check=True)
-    return list(csv.reader(io.StringIO(out.stdout.decode('utf-8'))))
 
 
 def sheet(book, title, header, rows, widths=None):

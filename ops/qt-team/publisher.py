@@ -367,6 +367,8 @@ def prepare(packages, live):
                     if not evidence: raise ValueError('No attached primary capture')
                     if kind == 'recipe':
                         data = recipe_data(row,evidence)
+                        if 'nutrition' in data and not micro_accepted(live):
+                            data['nutrition'] = without_micro(data['nutrition'])
                         if (server_problem := server_recipe_problem(data)):raise ValueError(server_problem)
                         previous = existing_records.get(key)
                         if any((x['id']==row['id'] and previous is None) or (x['id']!=row['id'] and x['name'].casefold()==data['name'].casefold()) for x in live['recipeIdentities']): raise ValueError('Existing recipe identity')
@@ -659,6 +661,16 @@ def closure_candidates(live, states, outcomes, candidates, held):
 NUTRITION_FIELDS = ('kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium')
 
 
+def micro_accepted(live):
+    """True when the app announces it validates vitamins and minerals in nutrition (since 2 Nov 2026); an app rolled back to an
+    older image does not, and then publications leave them out."""
+    return (live.get('accepts') or {}).get('nutritionMicro') is True
+
+
+def without_micro(nutrition):
+    return {k: v for k, v in nutrition.items() if k != 'micro'} if isinstance(nutrition, dict) else nutrition
+
+
 def nutrition_changed(before, after):
     """True when a recomputed estimate differs from the published one by more than 10% (and one unit) on any figure, or its
     vitamins and minerals are new, gone or 10% apart (and 0.05 of a unit). `before` and `after` are nutrition objects."""
@@ -740,7 +752,9 @@ def nutrition_candidates(live, states, outcomes, candidates, held):
                 if draft is None:
                     continue  # no approved draft with these ingredients to recompute from: the published figures stay
                 detail = nutrition.estimate(ROOT, draft, detail=True, strict=True)
-                figures = nutrition.published(ROOT, draft) if detail else None
+                figures = nutrition.published(ROOT, draft, detail=detail) if detail else None
+                if figures and not micro_accepted(live):
+                    figures = without_micro(figures)
                 if figures:  # checked every round, also when the live figures are already right (owner's standard)
                     flag_nutrient_bar(row['id'], data.get('name', row['id']), detail)
                 if figures and not nutrition_changed(current, figures):
@@ -754,6 +768,8 @@ def nutrition_candidates(live, states, outcomes, candidates, held):
                     cooker = cooker_recipes()
                 draft = published_draft(cooker.get(row['id'], []), data)
                 figures = nutrition.published(ROOT, draft or data, page, site)
+                if figures and not micro_accepted(live):
+                    figures = without_micro(figures)
                 if not figures:
                     continue  # nothing reliable to add; the recipe simply shows no nutrition
             # Vitamins and minerals join the hash only when present, so earlier outcomes for the same figures still count.

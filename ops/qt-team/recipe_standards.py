@@ -11,9 +11,9 @@ uses the per-100-kcal or per-energy form, which needs none.
 Facts only: no score is shown to members and no claim is published from these checks.
 """
 
-# Codex NRVs-R (CXG 2-1985). Vitamin A, C and E confirmed against the CCNFSDU derivation document on 28 Oct 2026; the others are
-# the adopted adult values (iron at 15% absorption, zinc at 30% absorption) and must be re-read from the current text before
-# any of them is shown to members.
+# Codex NRVs-R (CXG 2-1985, revised 2024, §3.4.4.1; potassium is the NRV-NCD of §3.4.4.3), every value re-read from the current
+# text on 2 Nov 2026 (iron at 15% absorption, zinc at 30%). The app shows the same values (src/config/nutrition-standards.ts) and
+# adds vitamin D for display; its badges also need 15% of the NRV per serving.
 NRV = {'vitA': 800, 'vitC': 100, 'vitE': 9, 'folate': 400, 'b12': 2.4,
        'iron': 14, 'calcium': 1000, 'zinc': 11, 'magnesium': 310, 'potassium': 3500}
 VITAMINS = ('vitA', 'vitC', 'vitE', 'folate', 'b12')

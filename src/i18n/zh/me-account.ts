@@ -42,6 +42,7 @@ const zh: typeof en = {
   privacyData: "隐私与数据",
   help: "帮助",
   dataSources: "食物数据来源",
+  dataSourcesNote: "QuinTaste 合并并调整了这些数据（取中位数、换算单位）。各数据来源均未为 QuinTaste 背书。",
   bringInGuestSaves: "导入访客收藏",
   returnToGuest: "返回访客收藏",
   viewProfileOptions: "查看账户选项",

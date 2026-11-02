@@ -3,10 +3,10 @@
  "built": "2026-11-02",
  "table": "2026-10-30",
  "datasets": [
-  "Health Canada, Canadian Nutrient File 2015",
-  "MEXT, Standard Tables of Food Composition in Japan 2020 (Eighth Revised Edition), 2023 supplement; processed by QuinTaste",
-  "Taiwan Food and Drug Administration, Food Nutrient Database",
-  "Public Health England, McCance and Widdowson's Composition of Foods Integrated Dataset 2021",
+  "Contains information licensed under the Open Government Licence – Canada. Canadian Nutrient File, Health Canada, 2015; adapted by QuinTaste.",
+  "Source: MEXT, Standard Tables of Food Composition in Japan 2020 (Eighth Revised Edition), 2023 supplement (https://www.mext.go.jp/); edited and processed by QuinTaste.",
+  "Taiwan Food and Drug Administration 2026, Food Nutrient Database. The Open Data is made available to the public under the Open Government Data License; adapted by QuinTaste.",
+  "Contains public sector information licensed under the Open Government Licence v3.0. McCance and Widdowson's Composition of Foods Integrated Dataset 2021, Public Health England; adapted by QuinTaste.",
   "USDA Food and Nutrient Database for Dietary Studies 2021-2023",
   "USDA FoodData Central Foundation Foods",
   "USDA FoodData Central SR Legacy"
@@ -15,6 +15,7 @@
   "avocado": {
    "food": "avocado-raw",
    "name": "Avocado, raw",
+   "record": "usda-sr:171705",
    "per100": {
     "ala": 0.116,
     "ash": 1.39,
@@ -47,6 +48,7 @@
   "bean_sprouts": {
    "food": "mung-bean-sprouts-raw",
    "name": "Mung bean sprouts, raw",
+   "record": "usda-sr:169957",
    "per100": {
     "ala": 0.013,
     "ash": 0.3,
@@ -79,6 +81,7 @@
   "black_beans_fermented": {
    "food": "miso",
    "name": "Miso",
+   "record": "usda-sr:172442",
    "per100": {
     "ala": 0.405,
     "ash": 12.81,
@@ -109,6 +112,7 @@
   "black_pepper": {
    "food": "pepper-black",
    "name": "Pepper, black",
+   "record": "usda-sr:170931",
    "per100": {
     "ala": 0.152,
     "ash": 4.49,
@@ -139,6 +143,7 @@
   "bok_choy": {
    "food": "bok-choy-pak-choi-raw",
    "name": "Bok choy (pak choi), raw",
+   "record": "usda-sr:170390",
    "per100": {
     "ala": 0.055,
     "ash": 0.8,
@@ -169,6 +174,7 @@
   "broccoli": {
    "food": "broccoli-inflorescence-raw",
    "name": "Broccoli, inflorescence, raw",
+   "record": "usda-sr:170379",
    "per100": {
     "ala": 0.076,
     "ash": 0.885,
@@ -201,6 +207,7 @@
   "brown_rice_cooked": {
    "food": "rice-brown-long-grain-cooked",
    "name": "Rice, brown, long-grain, cooked",
+   "record": "usda-sr:169704",
    "per100": {
     "ala": 0.011,
     "ash": 0.45,
@@ -231,6 +238,7 @@
   "brown_rice_dry": {
    "food": "rice-brown-long-grain-raw",
    "name": "Rice, brown, long-grain, raw",
+   "record": "usda-sr:169703",
    "per100": {
     "ala": 0.032,
     "ash": 1.21,
@@ -261,6 +269,7 @@
   "brown_sugar": {
    "food": "sugar-brown",
    "name": "Sugar, brown",
+   "record": "usda-sr:168833",
    "per100": {
     "ala": 0.0,
     "ash": 0.275,
@@ -293,6 +302,7 @@
   "butter": {
    "food": "butter-regular",
    "name": "Butter, regular",
+   "record": "usda-sr:173410",
    "per100": {
     "ala": 0.315,
     "ash": 2.055,
@@ -325,6 +335,7 @@
   "butter_unsalted": {
    "food": "butter-unsalted",
    "name": "Butter, unsalted",
+   "record": "usda-sr:173430",
    "per100": {
     "ala": 0.33,
     "ash": 0.065,
@@ -357,6 +368,7 @@
   "cabbage": {
    "food": "cabbage-white-raw",
    "name": "Cabbage, white, raw",
+   "record": "usda-sr:169975",
    "per100": {
     "ala": 0.0,
     "ash": 0.57,
@@ -389,6 +401,7 @@
   "capsicum": {
    "food": "sweet-pepper-red-raw",
    "name": "Sweet pepper, red, raw",
+   "record": "usda-sr:170108",
    "per100": {
     "ala": 0.056,
     "ash": 0.47,
@@ -421,6 +434,7 @@
   "cardamom": {
    "food": "cardamom-ground",
    "name": "Cardamom, ground",
+   "record": "usda-sr:170919",
    "per100": {
     "ala": 0.12,
     "ash": 5.78,
@@ -447,6 +461,7 @@
   "carrot": {
    "food": "carrot-raw",
    "name": "Carrot, raw",
+   "record": "usda-sr:170393",
    "per100": {
     "ala": 0.002,
     "ash": 0.76,
@@ -477,6 +492,7 @@
   "chilli_paste": {
    "food": "chili-sauce-hot",
    "name": "Chili sauce, hot",
+   "record": "taiwan-fda:P1003201",
    "per100": {
     "ala": 0.141,
     "ash": 14.1,
@@ -509,6 +525,7 @@
   "chilli_sauce": {
    "food": "sriracha-hot-chile-sauce",
    "name": "Sriracha hot chile sauce",
+   "record": "usda-sr:171186",
    "per100": {
     "ash": 6.14,
     "fat": 0.93,
@@ -533,6 +550,7 @@
   "chinese_spinach": {
    "food": "amaranth-white-raw",
    "name": "Amaranth, white, raw",
+   "record": "taiwan-fda:E4800101",
    "per100": {
     "ash": 1.4,
     "fat": 0.3,
@@ -555,13 +573,14 @@
   "cinnamon": {
    "food": "cinnamon-ground",
    "name": "Cinnamon, ground",
+   "record": "usda-sr:171320",
    "per100": {
     "ala": 0.031,
     "ash": 3.9,
     "b12": 0.0,
     "fat": 2.07,
     "iron": 8.32,
-    "kcal": 343.0,
+    "kcal": 247.0,
     "vitA": 14.875,
     "vitC": 2.6,
     "vitD": 0.0,
@@ -586,6 +605,7 @@
   "cloves_spice": {
    "food": "clove-ground",
    "name": "Clove, ground",
+   "record": "usda-sr:171321",
    "per100": {
     "ala": 0.598,
     "ash": 5.465,
@@ -616,6 +636,7 @@
   "coconut_fresh": {
    "food": "coconut-meat-raw",
    "name": "Coconut meat, raw",
+   "record": "usda-sr:170169",
    "per100": {
     "ala": 0.0,
     "ash": 0.97,
@@ -646,6 +667,7 @@
   "coconut_milk": {
    "food": "coconut-milk-raw-liquid-expressed-from-grated-meat-and-water",
    "name": "Coconut milk, raw (liquid expressed from grated meat and water)",
+   "record": "usda-sr:170172",
    "per100": {
     "ala": 0.0,
     "ash": 0.72,
@@ -676,6 +698,7 @@
   "coconut_oil": {
    "food": "coconut-oil",
    "name": "Coconut oil",
+   "record": "usda-sr:171412",
    "per100": {
     "ala": 0.0,
     "ash": 0.0,
@@ -708,6 +731,7 @@
   "coriander_leaves": {
    "food": "coriander-leaves-raw",
    "name": "Coriander leaves, raw",
+   "record": "usda-sr:169997",
    "per100": {
     "ala": 0.0,
     "ash": 1.335,
@@ -738,6 +762,7 @@
   "coriander_seed": {
    "food": "coriander-seeds",
    "name": "Coriander seeds",
+   "record": "usda-sr:170922",
    "per100": {
     "ash": 6.02,
     "b12": 0.0,
@@ -763,13 +788,14 @@
   "corn": {
    "food": "sweet-corn-kernels-raw",
    "name": "Sweet corn, kernels, raw",
+   "record": "usda-sr:169998",
    "per100": {
     "ala": 0.015,
     "ash": 0.645,
     "b12": 0.0,
     "fat": 1.665,
     "iron": 0.61,
-    "kcal": 85.3,
+    "kcal": 86.0,
     "vitA": 4.0,
     "vitC": 8.0,
     "vitD": 0.0,
@@ -795,6 +821,7 @@
   "cornflour": {
    "food": "corn-starch",
    "name": "Corn starch",
+   "record": "usda-sr:169698",
    "per100": {
     "ala": 0.0,
     "ash": 0.1,
@@ -827,6 +854,7 @@
   "cucumber": {
    "food": "cucumber-with-peel-raw",
    "name": "Cucumber, with peel, raw",
+   "record": "usda-sr:168409",
    "per100": {
     "ala": 0.006,
     "ash": 0.38,
@@ -859,6 +887,7 @@
   "cumin": {
    "food": "cumin-seeds",
    "name": "Cumin seeds",
+   "record": "usda-sr:170923",
    "per100": {
     "ala": 0.176,
     "ash": 7.62,
@@ -887,6 +916,7 @@
   "doubanjiang": {
    "food": "bean-paste-douban-jiang",
    "name": "Bean paste (douban jiang)",
+   "record": "taiwan-fda:P1004101",
    "per100": {
     "ala": 0.306,
     "ash": 13.7,
@@ -913,6 +943,7 @@
   "dried_chilli": {
    "food": "peppers-hot-chili-sun-dried",
    "name": "Peppers, hot chili, sun-dried",
+   "record": "usda-sr:168570",
    "per100": {
     "ala": 0.023,
     "ash": 6.6,
@@ -943,6 +974,7 @@
   "edamame": {
    "food": "edamame-frozen-unprepared",
    "name": "Edamame, frozen, unprepared",
+   "record": "usda-sr:168410",
    "per100": {
     "ash": 1.27,
     "b12": 0.0,
@@ -970,6 +1002,7 @@
   "eggs": {
    "food": "egg-chicken-whole-raw-native-chicken",
    "name": "Egg, chicken, whole, raw (native chicken)",
+   "record": "usda-sr:171287",
    "per100": {
     "ala": 0.05,
     "ash": 0.98,
@@ -1002,6 +1035,7 @@
   "fermented_beancurd": {
    "food": "tofu-fermented-salted-fuyu",
    "name": "Tofu, fermented, salted (fuyu)",
+   "record": "usda-sr:174280",
    "per100": {
     "ala": 0.534,
     "ash": 8.69,
@@ -1030,6 +1064,7 @@
   "flour": {
    "food": "wheat-flour-white-all-purpose-unenriched-unbleached",
    "name": "Wheat flour, white, all-purpose, unenriched, unbleached",
+   "record": "usda-sr:169761",
    "per100": {
     "ala": 0.029,
     "ash": 0.47,
@@ -1060,13 +1095,14 @@
   "garlic": {
    "food": "garlic-bulb-raw",
    "name": "Garlic, bulb, raw",
+   "record": "usda-sr:169230",
    "per100": {
     "ala": 0.025,
     "ash": 1.5,
     "b12": 0.0,
     "fat": 0.55,
     "iron": 1.7,
-    "kcal": 136.0,
+    "kcal": 143.0,
     "vitA": 0.0,
     "vitC": 14.5,
     "vitD": 0.0,
@@ -1092,6 +1128,7 @@
   "ginger": {
    "food": "ginger-root-raw",
    "name": "Ginger root, raw",
+   "record": "usda-sr:169231",
    "per100": {
     "ala": 0.034,
     "ash": 0.77,
@@ -1122,6 +1159,7 @@
   "green_chilli": {
    "food": "jalapeno-peppers-raw",
    "name": "Jalapeno peppers, raw",
+   "record": "usda-sr:168576",
    "per100": {
     "ala": 0.05,
     "ash": 0.442,
@@ -1150,6 +1188,7 @@
   "gula_melaka": {
    "food": "sugar-brown",
    "name": "Sugar, brown",
+   "record": "usda-sr:168833",
    "per100": {
     "ala": 0.0,
     "ash": 0.275,
@@ -1182,6 +1221,7 @@
   "jaggery": {
    "food": "sugar-brown",
    "name": "Sugar, brown",
+   "record": "usda-sr:168833",
    "per100": {
     "ala": 0.0,
     "ash": 0.275,
@@ -1214,6 +1254,7 @@
   "jasmine_rice": {
    "food": "rice-white-long-grain-raw",
    "name": "Rice, white, long grain, raw",
+   "record": "usda-sr:169756",
    "per100": {
     "ala": 0.01,
     "ash": 0.463,
@@ -1246,6 +1287,7 @@
   "jicama": {
    "food": "yambean-jicama-raw",
    "name": "Yambean (jicama), raw",
+   "record": "usda-sr:170073",
    "per100": {
     "ala": 0.014,
     "ash": 0.3,
@@ -1276,6 +1318,7 @@
   "kangkung": {
    "food": "water-convolvulus-soil-grown-raw",
    "name": "Water convolvulus, soil-grown, raw",
+   "record": "usda-sr:169301",
    "per100": {
     "ala": 0.08,
     "ash": 1.0,
@@ -1306,6 +1349,7 @@
   "kecap_manis": {
    "food": "sauce-hoisin-ready-to-serve",
    "name": "Sauce, hoisin, ready-to-serve",
+   "record": "usda-sr:172886",
    "per100": {
     "ala": 0.175,
     "ash": 4.98,
@@ -1334,6 +1378,7 @@
   "ketchup": {
    "food": "ketchup",
    "name": "Ketchup",
+   "record": "usda-sr:168556",
    "per100": {
     "ala": 0.001,
     "ash": 2.94,
@@ -1364,6 +1409,7 @@
   "lemon": {
    "food": "lemon-juice-raw",
    "name": "Lemon juice, raw",
+   "record": "usda-sr:167747",
    "per100": {
     "ala": 0.01,
     "ash": 0.255,
@@ -1396,6 +1442,7 @@
   "lentils": {
    "food": "mungo-beans-mature-seeds-raw",
    "name": "Mungo beans, mature seeds, raw",
+   "record": "usda-sr:174259",
    "per100": {
     "ala": 0.999,
     "ash": 3.36,
@@ -1424,6 +1471,7 @@
   "lettuce": {
    "food": "lettuce-green-leaf-raw",
    "name": "Lettuce, green leaf, raw",
+   "record": "usda-sr:169249",
    "per100": {
     "ala": 0.049,
     "ash": 0.674,
@@ -1456,6 +1504,7 @@
   "lime": {
    "food": "lime",
    "name": "Lime",
+   "record": "usda-sr:168155",
    "per100": {
     "ala": 0.098,
     "ash": 0.3,
@@ -1486,6 +1535,7 @@
   "maple_syrup": {
    "food": "maple-syrup",
    "name": "Maple syrup",
+   "record": "usda-sr:169661",
    "per100": {
     "ala": 0.0,
     "ash": 0.535,
@@ -1517,6 +1567,7 @@
   "milk": {
    "food": "milk-whole-3-25-milkfat-with-added-vitamin-d",
    "name": "Milk, whole, 3.25% milkfat, with added vitamin D",
+   "record": "usda-sr:171265",
    "per100": {
     "ala": 0.075,
     "ash": 0.67,
@@ -1548,6 +1599,7 @@
   "millet": {
    "food": "millet-foxtail-milled-raw",
    "name": "Millet, foxtail, milled, raw",
+   "record": "usda-sr:169702",
    "per100": {
     "ala": 0.118,
     "ash": 1.4,
@@ -1579,6 +1631,7 @@
   "miso": {
    "food": "miso",
    "name": "Miso",
+   "record": "usda-sr:172442",
    "per100": {
     "ala": 0.405,
     "ash": 12.81,
@@ -1609,6 +1662,7 @@
   "mushrooms": {
    "food": "mushroom-white-raw",
    "name": "Mushroom, white, raw",
+   "record": "usda-sr:169251",
    "per100": {
     "ala": 0.0,
     "ash": 0.825,
@@ -1641,6 +1695,7 @@
   "mustard_seeds": {
    "food": "spices-mustard-seed-ground",
    "name": "Spices, mustard seed, ground",
+   "record": "usda-sr:170929",
    "per100": {
     "ala": 3.792,
     "ash": 4.33,
@@ -1671,6 +1726,7 @@
   "oats": {
    "food": "oats-quick-dry",
    "name": "Oats, quick, dry",
+   "record": "usda-sr:173904",
    "per100": {
     "ala": 0.1,
     "ash": 1.71,
@@ -1701,6 +1757,7 @@
   "oil_neutral": {
    "food": "canola-oil",
    "name": "Canola oil",
+   "record": "usda-sr:172336",
    "per100": {
     "ala": 8.391,
     "ash": 0.0,
@@ -1731,6 +1788,7 @@
   "olive_oil": {
    "food": "olive-oil",
    "name": "Olive oil",
+   "record": "usda-sr:171413",
    "per100": {
     "ala": 0.7,
     "ash": 0.0,
@@ -1763,6 +1821,7 @@
   "onion": {
    "food": "onion-white-raw",
    "name": "Onion, white, raw",
+   "record": "usda-sr:170000",
    "per100": {
     "ala": 0.004,
     "ash": 0.375,
@@ -1795,6 +1854,7 @@
   "peanut_oil": {
    "food": "peanut-oil",
    "name": "Peanut oil",
+   "record": "usda-sr:171410",
    "per100": {
     "ala": 0.045,
     "ash": 0.0,
@@ -1827,6 +1887,7 @@
   "peanuts": {
    "food": "peanuts-dry-roasted-without-salt",
    "name": "Peanuts, dry-roasted, without salt",
+   "record": "usda-sr:173806",
    "per100": {
     "ala": 0.025,
     "ash": 2.92,
@@ -1857,6 +1918,7 @@
   "peas": {
    "food": "peas-green-raw",
    "name": "Peas, green, raw",
+   "record": "usda-sr:170419",
    "per100": {
     "ala": 0.035,
     "ash": 0.885,
@@ -1889,6 +1951,7 @@
   "pineapple": {
    "food": "pineapple-flesh-only-raw",
    "name": "Pineapple, flesh only, raw",
+   "record": "usda-sr:169124",
    "per100": {
     "ala": 0.018,
     "ash": 0.246,
@@ -1921,6 +1984,7 @@
   "plant_butter": {
    "food": "margarine-regular-80-fat-tub-with-salt-with-added-vitamin-d",
    "name": "Margarine, regular, 80% fat, tub, with salt, with added vitamin D",
+   "record": "usda-sr:171436",
    "per100": {
     "ala": 4.677,
     "ash": 1.78,
@@ -1949,6 +2013,7 @@
   "poha": {
    "food": "rice-white-long-grain-raw",
    "name": "Rice, white, long grain, raw",
+   "record": "usda-sr:169756",
    "per100": {
     "ala": 0.01,
     "ash": 0.463,
@@ -1981,6 +2046,7 @@
   "popiah_skins": {
    "food": "spring-roll-wrappers-raw",
    "name": "Spring roll wrappers, raw",
+   "record": "taiwan-fda:R1800201",
    "per100": {
     "ala": 0.0,
     "ash": 1.5,
@@ -2011,6 +2077,7 @@
   "potato": {
    "food": "potato-raw-with-skin",
    "name": "Potato, raw, with skin",
+   "record": "usda-sr:170026",
    "per100": {
     "ala": 0.01,
     "ash": 1.095,
@@ -2043,6 +2110,7 @@
   "powdered_sugar": {
    "food": "sugar-powdered",
    "name": "Sugar, powdered",
+   "record": "usda-sr:169656",
    "per100": {
     "ala": 0.005,
     "ash": 0.005,
@@ -2073,6 +2141,7 @@
   "pumpkin": {
    "food": "pumpkin-flesh-only-raw",
    "name": "Pumpkin, flesh only, raw",
+   "record": "usda-sr:168448",
    "per100": {
     "ala": 0.003,
     "ash": 0.8,
@@ -2104,6 +2173,7 @@
   "red_cabbage": {
    "food": "cabbage-red-raw",
    "name": "Cabbage, red, raw",
+   "record": "usda-sr:169977",
    "per100": {
     "ala": 0.026,
     "ash": 0.64,
@@ -2136,6 +2206,7 @@
   "red_chilli": {
    "food": "chilli-pepper-red-raw",
    "name": "Chilli pepper, red, raw",
+   "record": "usda-sr:170106",
    "per100": {
     "ala": 0.011,
     "ash": 0.87,
@@ -2167,6 +2238,7 @@
   "rice_noodles_dry": {
    "food": "rice-noodles-dried",
    "name": "Rice noodles, dried",
+   "record": "usda-sr:169742",
    "per100": {
     "ala": 0.023,
     "ash": 0.625,
@@ -2199,6 +2271,7 @@
   "rice_vinegar": {
    "food": "vinegar-distilled",
    "name": "Vinegar, distilled",
+   "record": "usda-sr:172237",
    "per100": {
     "ala": 0.0,
     "ash": 0.02,
@@ -2227,6 +2300,7 @@
   "sago": {
    "food": "tapioca-pearls-dried-uncooked",
    "name": "Tapioca pearls, dried, uncooked",
+   "record": "usda-sr:169717",
    "per100": {
     "ala": 0.001,
     "ash": 0.105,
@@ -2257,6 +2331,7 @@
   "salt": {
    "food": "salt",
    "name": "Salt",
+   "record": "usda-sr:173468",
    "per100": {
     "ala": 0.0,
     "ash": 99.8,
@@ -2289,6 +2364,7 @@
   "salt_kosher_dc": {
    "food": "salt",
    "name": "Salt",
+   "record": "usda-sr:173468",
    "per100": {
     "ala": 0.0,
     "ash": 99.8,
@@ -2321,6 +2397,7 @@
   "sesame_oil": {
    "food": "sesame-oil",
    "name": "Sesame oil",
+   "record": "usda-sr:171016",
    "per100": {
     "ala": 0.305,
     "ash": 0.0,
@@ -2353,6 +2430,7 @@
   "sesame_seeds": {
    "food": "sesame-seeds-whole-dried",
    "name": "Sesame seeds, whole, dried",
+   "record": "usda-sr:170150",
    "per100": {
     "ala": 0.263,
     "ash": 4.825,
@@ -2385,13 +2463,14 @@
   "shallots": {
    "food": "shallot-raw",
    "name": "Shallot, raw",
+   "record": "usda-sr:170499",
    "per100": {
     "ala": 0.002,
     "ash": 0.8,
     "b12": 0.0,
     "fat": 0.2,
     "iron": 0.8,
-    "kcal": 72.0,
+    "kcal": 73.5,
     "vitA": 0.042,
     "vitC": 8.0,
     "vitD": 0.0,
@@ -2417,6 +2496,7 @@
   "shiitake": {
    "food": "shiitake-mushrooms-fresh-raw",
    "name": "Shiitake mushrooms, fresh, raw",
+   "record": "usda-sr:169242",
    "per100": {
     "ala": 0.0,
     "ash": 0.715,
@@ -2449,6 +2529,7 @@
   "sichuan_pepper": {
    "food": "pepper-black",
    "name": "Pepper, black",
+   "record": "usda-sr:170931",
    "per100": {
     "ala": 0.152,
     "ash": 4.49,
@@ -2479,6 +2560,7 @@
   "soy_milk": {
    "food": "soymilk-original-and-vanilla-unfortified",
    "name": "Soymilk, original and vanilla, unfortified",
+   "record": "usda-sr:172446",
    "per100": {
     "ala": 0.075,
     "ash": 0.65,
@@ -2509,6 +2591,7 @@
   "soy_sauce": {
    "food": "soy-sauce-koikuchi-regular-japanese-soy-sauce",
    "name": "Soy sauce, koikuchi (regular Japanese soy sauce)",
+   "record": "usda-sr:174277",
    "per100": {
     "ala": 0.029,
     "ash": 15.155,
@@ -2541,6 +2624,7 @@
   "soy_sauce_dark": {
    "food": "soy-sauce-koikuchi-regular-japanese-soy-sauce",
    "name": "Soy sauce, koikuchi (regular Japanese soy sauce)",
+   "record": "usda-sr:174277",
    "per100": {
     "ala": 0.029,
     "ash": 15.155,
@@ -2573,6 +2657,7 @@
   "spinach": {
    "food": "spinach-mature-raw",
    "name": "Spinach, mature, raw",
+   "record": "usda-sr:168462",
    "per100": {
     "ala": 0.134,
     "ash": 1.42,
@@ -2605,6 +2690,7 @@
   "spring_onion": {
    "food": "onion-white-raw",
    "name": "Onion, white, raw",
+   "record": "usda-sr:170000",
    "per100": {
     "ala": 0.004,
     "ash": 0.375,
@@ -2637,6 +2723,7 @@
   "strawberries": {
    "food": "strawberry-raw",
    "name": "Strawberry, raw",
+   "record": "usda-sr:167762",
    "per100": {
     "ala": 0.053,
     "ash": 0.4,
@@ -2669,6 +2756,7 @@
   "sugar": {
    "food": "sugar-granulated",
    "name": "Sugar, granulated",
+   "record": "usda-sr:169655",
    "per100": {
     "ala": 0.0,
     "ash": 0.01,
@@ -2699,6 +2787,7 @@
   "sunflower_oil": {
    "food": "sunflower-oil-high-linoleic",
    "name": "Sunflower oil, high linoleic",
+   "record": "usda-sr:171025",
    "per100": {
     "ala": 0.265,
     "ash": 0.0,
@@ -2731,6 +2820,7 @@
   "sweet_potato": {
    "food": "sweet-potato-raw",
    "name": "Sweet potato, raw",
+   "record": "usda-sr:168482",
    "per100": {
     "ala": 0.001,
     "ash": 0.99,
@@ -2761,6 +2851,7 @@
   "sweet_sauce": {
    "food": "sauce-hoisin-ready-to-serve",
    "name": "Sauce, hoisin, ready-to-serve",
+   "record": "usda-sr:172886",
    "per100": {
     "ala": 0.175,
     "ash": 4.98,
@@ -2789,6 +2880,7 @@
   "tamarind": {
    "food": "tamarind",
    "name": "Tamarind",
+   "record": "usda-sr:167763",
    "per100": {
     "ala": 0.0,
     "ash": 2.7,
@@ -2820,13 +2912,14 @@
   "taro": {
    "food": "taro-satoimo-corm-raw",
    "name": "Taro, satoimo, corm, raw",
+   "record": "usda-sr:169308",
    "per100": {
     "ala": 0.015,
     "ash": 1.2,
     "b12": 0.0,
     "fat": 0.2,
     "iron": 0.675,
-    "kcal": 109.0,
+    "kcal": 112.0,
     "vitA": 3.208,
     "vitC": 7.4,
     "vitD": 0.0,
@@ -2852,6 +2945,7 @@
   "tempeh": {
    "food": "tempeh",
    "name": "Tempeh",
+   "record": "usda-sr:174272",
    "per100": {
     "ala": 0.248,
     "ash": 1.62,
@@ -2884,6 +2978,7 @@
   "tofu_firm": {
    "food": "tofu-firm-prepared-with-calcium-sulfate-and-magnesium-chloride",
    "name": "Tofu, firm, prepared with calcium sulfate and magnesium chloride",
+   "record": "usda-sr:172448",
    "per100": {
     "ala": 0.167,
     "ash": 1.005,
@@ -2914,6 +3009,7 @@
   "tofu_puffs": {
    "food": "tofu-fried",
    "name": "Tofu, fried",
+   "record": "usda-sr:172451",
    "per100": {
     "ala": 1.343,
     "ash": 1.62,
@@ -2945,6 +3041,7 @@
   "tofu_silken": {
    "food": "tofu-soft-prepared-with-calcium-sulfate-and-magnesium-chloride",
    "name": "Tofu, soft, prepared with calcium sulfate and magnesium chloride",
+   "record": "usda-sr:172449",
    "per100": {
     "ala": 0.246,
     "ash": 0.7,
@@ -2975,6 +3072,7 @@
   "tomato": {
    "food": "tomatoes-red-ripe-raw-year-round-average",
    "name": "Tomatoes, red, ripe, raw, year round average",
+   "record": "usda-sr:170457",
    "per100": {
     "ala": 0.003,
     "ash": 0.5,
@@ -3005,6 +3103,7 @@
   "turmeric": {
    "food": "turmeric-powder",
    "name": "Turmeric powder",
+   "record": "usda-sr:172231",
    "per100": {
     "ala": 0.054,
     "ash": 7.14,
@@ -3035,6 +3134,7 @@
   "urad_dal": {
    "food": "mungo-beans-mature-seeds-raw",
    "name": "Mungo beans, mature seeds, raw",
+   "record": "usda-sr:174259",
    "per100": {
     "ala": 0.999,
     "ash": 3.36,
@@ -3063,6 +3163,7 @@
   "veg_oyster_sauce": {
    "food": "sauce-oyster-ready-to-serve",
    "name": "Sauce, oyster, ready-to-serve",
+   "record": "usda-sr:174529",
    "per100": {
     "ala": 0.002,
     "ash": 7.49,
@@ -3091,6 +3192,7 @@
   "vegetable_stock": {
    "food": "soup-vegetable-broth-ready-to-serve",
    "name": "Soup, vegetable broth, ready-to-serve",
+   "record": "usda-sr:171583",
    "per100": {
     "ala": 0.0,
     "ash": 0.605,
@@ -3119,6 +3221,7 @@
   "white_bread": {
    "food": "bread-rolls-white-soft",
    "name": "Bread rolls, white, soft",
+   "record": "usda-sr:174924",
    "per100": {
     "ala": 0.133,
     "ash": 1.98,
@@ -3149,6 +3252,7 @@
   "white_pepper": {
    "food": "pepper-white",
    "name": "Pepper, white",
+   "record": "usda-sr:170933",
    "per100": {
     "ash": 1.59,
     "b12": 0.0,
@@ -3174,6 +3278,7 @@
   "yellow_noodles": {
    "food": "oil-noodles-cooked",
    "name": "Oil noodles, cooked",
+   "record": "taiwan-fda:R2001101",
    "per100": {
     "ala": 0.133,
     "ash": 0.3,

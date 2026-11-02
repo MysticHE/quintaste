@@ -2,19 +2,20 @@
 recipe without reliable figures is still published, just without a nutrition section.
 
 1. The source page's own schema.org NutritionInformation (read from the page data, never from the model).
-2. Otherwise an estimate from nutrition_sg.json (v2): reviewed ingredient keys with USDA SR Legacy figures per
-   100 g and gram weights per household unit, generated from the app repo (scripts/recipe-nutrition.ts --bot).
+2. Otherwise an estimate from nutrition_sg.json: reviewed ingredient keys with per-100 g figures and gram weights per
+   household unit. Its figures are written by scripts/library/export_tables.py in the app repo (match words, units, colours
+   and staples are kept as they are in this file; keys new in the app's recipe table are added there).
    Each ingredient line is matched to the key whose alias matches the longest span of its name, then weighed from
    its amount and unit; the Cooker's own gram estimate is only a fallback for units the table cannot weigh.
    "To taste" lines are skipped (the app says so); water, pandan, tea leaves and curry leaves count as matched with
    no nutrients. An estimate is kept only when every measured line is matched and weighed (coverage 1.0, or at
    least 0.9 when an unmatched line carries the Cooker's weight); a nutrient is left out when more than 10% of
-   the nutritive weight comes from USDA rows that lack it. Figures are the raw inputs per serving, as recipe
+   the nutritive weight comes from foods that lack it. Figures are the raw inputs per serving, as recipe
    sites report them; cooking losses are not modelled.
 3. Table v3 (28 Oct 2026) adds vitamins and minerals per food and each food's colour and staple grain. Since 2 Nov 2026
-   every figure comes from the app's food library (scripts/library/export_tables.py in the app repo: medians of the
-   USDA, Taiwan FDA, Japan MEXT, Canada CNF and UK CoFID records of the same food). estimate(detail=True) returns them for the content check (recipe_standards.py);
-   only the seven published fields ever reach the app.
+   every figure comes from the app's food library (medians of the USDA, Taiwan FDA, Japan MEXT, Canada CNF and UK CoFID
+   records of the same food). estimate(detail=True) returns them for the content check (recipe_standards.py); published()
+   adds the vitamins and minerals to an estimate, which the publisher sends only when the app announces it accepts them.
 """
 from __future__ import annotations
 
@@ -223,13 +224,14 @@ def estimate(root, recipe, detail=False, strict=False):
     return found
 
 
-def published(root, recipe, page_recipe=None, site=None):
+def published(root, recipe, page_recipe=None, site=None, detail=None):
     """The nutrition a recipe is published with: the source page's own per-serving figures, else the strict estimate with its
-    vitamins and minerals ('micro', only those known for at least 90% of the weight). None when neither is reliable."""
+    vitamins and minerals ('micro', only those known for at least 90% of the weight). None when neither is reliable. `detail` is
+    estimate(root, recipe, detail=True, strict=True) when the caller already has it."""
     found = from_page(page_recipe, site, recipe.get('servings')) if page_recipe else None
     if found:
         return found
-    detail = estimate(root, recipe, detail=True, strict=True)
+    detail = detail or estimate(root, recipe, detail=True, strict=True)
     if not detail:
         return None
     figures = {k: v for k, v in detail.items() if k not in ('micro', 'colours', 'staples')}
