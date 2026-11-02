@@ -41,6 +41,7 @@ const en = {
   pushAskYes: "Turn On",
   privacyData: "Privacy & Data",
   help: "Help",
+  dataSources: "Food Data Sources",
   bringInGuestSaves: "Bring In Guest Saves",
   returnToGuest: "Return To Guest Collection",
   viewProfileOptions: "View Profile Options",

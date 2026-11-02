@@ -1,17 +1,21 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { microNutrients } from './nutrients.mjs';
 
 /**
  * Per-serving nutrition estimate from ingredient lines, the server-side twin of scripts/recipe-nutrition.ts: the same
- * reviewed key table and USDA SR Legacy subset (server-assets/nutrition), the same rules. Figures only when every
+ * reviewed key table and the food library's figures for each key (server-assets/nutrition/library-figures.json, generated
+ * by scripts/library/export_tables.py), the same rules. Figures only when every
  * measured line is matched and weighed; "to taste" lines are skipped; water, pandan, tea leaves and curry leaves
  * count as matched with no nutrients; a nutrient is left out when more than 10% of the nutritive weight comes from
  * rows that lack it. Raw inputs per serving; cooking losses are not modelled.
  */
 const root = path.resolve('server-assets/nutrition');
 const table = JSON.parse(readFileSync(path.join(root, 'ingredient-table.json'), 'utf8'));
-const per100 = JSON.parse(readFileSync(path.join(root, 'usda-subset.json'), 'utf8')).foods;
+const figures = JSON.parse(readFileSync(path.join(root, 'library-figures.json'), 'utf8')).foods;
 export const nutrients = ['kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium'];
+/** Per-100 g figures of a reviewed table key from the food library, or null for keys without one (negligible foods). */
+export const tablePer100 = key => figures[key]?.per100 ?? null;
 const foods = Object.entries(table.foods).map(([key, food]) => ({ key, food, patterns: food.match.map(pattern => new RegExp(pattern, 'i')) }));
 const countUnits = new Set(['each', 'whole', 'piece', 'pieces', 'egg', 'eggs', 'leaves', 'leaf', 'cloves', 'clove', 'slices', 'slice', 'cubes', 'cube', 'sprig', 'sprigs', 'inch', 'handful', 'handfuls', 'pods', 'pod', 'sticks', 'stick']);
 export const MIN_COVERAGE = 0.9, MAX_MISSING_SHARE = 0.1, MAX_GRAMS = 3000;
@@ -64,7 +68,8 @@ export function unresolvedLines(ingredients) {
 /**
  * Per-serving figures from weighed lines, shared by this estimate and the learned one (dynamic.mjs). `entries` are
  * { grams, per100 }, where per100 null means weighed but not matched. Needs 90% of the weight matched; a nutrient is
- * left out when more than 10% of the weight lacks it. Returns the Recipe.nutrition object or null.
+ * left out when more than 10% of the weight lacks it; vitamins and minerals follow the same rule. Returns the Recipe.nutrition
+ * object or null.
  */
 export function nutritionFrom(entries, servings) {
   const totals = {}, missing = {};
@@ -73,7 +78,7 @@ export function nutritionFrom(entries, servings) {
     nutritive += grams;
     if (!row) continue;
     matched += grams;
-    for (const n of nutrients) {
+    for (const n of [...nutrients, ...microNutrients]) {
       if (typeof row[n] === 'number') totals[n] = (totals[n] ?? 0) + (row[n] * grams) / 100;
       else missing[n] = (missing[n] ?? 0) + grams;
     }
@@ -84,7 +89,10 @@ export function nutritionFrom(entries, servings) {
   const perServing = { kcal: Math.round(totals.kcal / servings) };
   for (const n of nutrients) if (n !== 'kcal' && !omitted.has(n) && totals[n] !== undefined) perServing[n] = Math.round((totals[n] / servings) * 10) / 10;
   if (!(perServing.kcal > 0 && perServing.kcal <= 3000)) return null;
-  return { basis: 'estimate', coverage: Math.round((matched / nutritive) * 100) / 100, checkedAt: new Date().toISOString().slice(0, 10), perServing };
+  const micro = {};
+  for (const n of microNutrients) if (totals[n] !== undefined && (missing[n] ?? 0) / nutritive <= MAX_MISSING_SHARE) micro[n] = Math.round((totals[n] / servings) * 100) / 100;
+  return { basis: 'estimate', coverage: Math.round((matched / nutritive) * 100) / 100, checkedAt: new Date().toISOString().slice(0, 10), perServing,
+    ...(Object.keys(micro).length ? { micro } : {}) };
 }
 /** Nutrition object for Recipe.nutrition, or null when the lines cannot be weighed reliably. */
 export function estimateNutrition({ servings, ingredients }) {
@@ -97,7 +105,7 @@ export function estimateNutrition({ servings, ingredients }) {
     if (hit.food.negligible) continue;
     const grams = gramsFor(line, hit.food);
     if (grams === undefined || grams > MAX_GRAMS) return null;
-    const row = hit.food.usda ? per100[hit.food.usda] : undefined;
+    const row = tablePer100(hit.key);
     if (!row) return null;
     entries.push({ grams, per100: row });
   }

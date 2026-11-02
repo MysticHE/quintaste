@@ -32,6 +32,8 @@ const zh: typeof en = {
   badgeHighFibre: "高纤维",
   badgeSourceFibre: "纤维来源",
   badgeUnder300Sodium: "钠 300 毫克以下",
+  badgeSourceOf: "{nutrient}来源",
+  badgeHighIn: "富含{nutrient}",
   choiceHigherProtein: "蛋白质较高",
   choiceHigherFibre: "纤维较高",
   exGarlic: "蒜",

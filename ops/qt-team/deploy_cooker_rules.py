@@ -1,7 +1,7 @@
 """QT Cooker's new setup (owner, 28 Oct 2026; docs/RECIPE_SOURCING_PLAN.md): the owner's rulebook learned from the 32 recipes
 deleted in admin (recipe_charter.py/json), the nutrient level and colour dish from international standards (recipe_standards.py),
-the star rating made optional, the v3 nutrition table with vitamins, minerals, colours and grains from USDA SR Legacy and Taiwan FDA
-(nutrition.py, nutrition_sg.json, built by scripts/nutrition/build_bot_v3.py), the publisher accepting content-checked recipes,
+the star rating made optional, the v3 nutrition table with vitamins, minerals, colours and grains from the app's food library
+(nutrition.py, nutrition_sg.json, built by scripts/library/export_tables.py), the publisher accepting content-checked recipes,
 Cooker's shortlist and writing prompts, and the Cooker and Manager role files (their Hermes SOUL.md).
 
 Guarded like deploy_veg_kitchen.py: waits for the run lock, takes the reporter lock, pauses the Telegram listener, refuses when a
@@ -23,7 +23,7 @@ HERE = Path(__file__).resolve().parent
 NAMES = ['recipe_quality.py', 'recipe_charter.py', 'recipe_charter.json', 'recipe_standards.py', 'recipe_page.py', 'nutrition.py', 'nutrition_sg.json',
          'publisher.py', 'workflow.py', 'roles/qt-cooker.md', 'roles/qt-manager.md', 'learning.py',
          'test_workflow.py', 'recipe_policy.py', 'recipe_edits.py', 'night_window.py', 'kitchen_feed.py', 'image_worker.py',
-         'test_night_controls.py', 'night_supervisor.py']  # its tests run on the server before the change is kept
+         'test_night_controls.py', 'night_supervisor.py', 'test_menu_coverage.py']  # its tests run on the server before the change is kept
 TESTS = ['test_workflow', 'test_creator_scout', 'test_publisher', 'test_telegram_reporter', 'test_learning', 'test_night_controls', 'test_recipe_policy',
          'test_publication_delivery', 'test_menu_coverage', 'test_outlet_capture', 'test_gamer']
 

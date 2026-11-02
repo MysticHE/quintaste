@@ -68,15 +68,19 @@ export type Recipe = {
   adaptationNote?: string;
   /** The original recipe page's rating when the QT bot selected it (not a QuinTaste rating). */
   sourceRating?: { value: number; count: number; site: string; url: string; checkedAt: string };
-  /** Per-serving figures from the source page ("source") or estimated from the ingredients ("estimate"); absent when unreliable. */
+  /** Per-serving figures from the source page ("source") or estimated from the ingredients ("estimate"); absent when unreliable.
+   * `micro`: vitamins and minerals per serving, only with an estimate and only those known for at least 90% of the weight. */
   nutrition?: { basis: "source" | "estimate"; site?: string; coverage?: number; checkedAt: string;
-    perServing: { kcal: number; protein?: number; fat?: number; carbs?: number; fibre?: number; sugar?: number; sodium?: number } };
+    perServing: { kcal: number; protein?: number; fat?: number; carbs?: number; fibre?: number; sugar?: number; sodium?: number };
+    micro?: Partial<Record<MicroNutrient, number>> };
   author: string; language: string; revision: number; updatedAt: string; withdrawal?: string;
   /** Present on recipes members shared and staff published; `shop` is the author's Market shop when buyers can see it. */
   member?: { sponsorship: string; own: boolean; shop: { id: string; name: string } | null };
   /** Present on AI-written recipes; shown in Recipe info with the credit and links. */
   source?: RecipeSource;
 };
+/** Vitamins (A and B12, D and folate in µg; C and E in mg) and minerals (mg) carried per serving. */
+export type MicroNutrient = "vitA" | "vitC" | "vitD" | "vitE" | "b12" | "folate" | "calcium" | "iron" | "zinc" | "magnesium" | "potassium";
 export type SavedKind = "place" | "dish" | "recipe";
 export type SavedItem = { kind: SavedKind; id: string; savedAt: number; list: string };
 export type PrivatePlaceKind = "home" | "work" | "custom";

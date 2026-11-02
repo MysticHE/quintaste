@@ -63,7 +63,8 @@ export function AccountScreen() {
     <Card style={s.group}>
       {user && <SettingsRow label={t("account")} icon="person-circle-outline" value={signedInAs(user, t("googleAccount"))} onPress={() => router.push("/profile")} />}
       <SettingsRow label={t("privacyData")} icon="shield-checkmark-outline" onPress={() => router.push("/privacy")} />
-      <SettingsRow label={t("help")} icon="help-circle-outline" last={!user} onPress={() => router.push("/help")} />
+      <SettingsRow label={t("help")} icon="help-circle-outline" onPress={() => router.push("/help")} />
+      <SettingsRow label={t("dataSources")} icon="library-outline" last={!user} onPress={() => router.push("/data-sources" as never)} />
       {user && <SettingsRow label={t("bringInGuestSaves")} icon="download-outline" last onPress={() => router.push('/merge-saves')} />}
     </Card>
     {(user || preview || !enabled) && <Button label={user ? tc("signOut") : preview ? t("returnToGuest") : t("viewProfileOptions")} icon={user || preview ? "log-out-outline" : "log-in-outline"} variant="link" loading={switching} onPress={() => {

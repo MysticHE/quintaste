@@ -41,6 +41,7 @@ const zh: typeof en = {
   pushAskYes: "开启",
   privacyData: "隐私与数据",
   help: "帮助",
+  dataSources: "食物数据来源",
   bringInGuestSaves: "导入访客收藏",
   returnToGuest: "返回访客收藏",
   viewProfileOptions: "查看账户选项",

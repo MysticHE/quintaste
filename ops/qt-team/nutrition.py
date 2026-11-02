@@ -11,8 +11,9 @@ recipe without reliable figures is still published, just without a nutrition sec
    least 0.9 when an unmatched line carries the Cooker's weight); a nutrient is left out when more than 10% of
    the nutritive weight comes from USDA rows that lack it. Figures are the raw inputs per serving, as recipe
    sites report them; cooking losses are not modelled.
-3. Table v3 (28 Oct 2026, scripts/nutrition/build_bot_v3.py) adds vitamins and minerals per food (USDA SR Legacy, Taiwan FDA)
-   and each food's colour and staple grain. estimate(detail=True) returns them for the content check (recipe_standards.py);
+3. Table v3 (28 Oct 2026) adds vitamins and minerals per food and each food's colour and staple grain. Since 2 Nov 2026
+   every figure comes from the app's food library (scripts/library/export_tables.py in the app repo: medians of the
+   USDA, Taiwan FDA, Japan MEXT, Canada CNF and UK CoFID records of the same food). estimate(detail=True) returns them for the content check (recipe_standards.py);
    only the seven published fields ever reach the app.
 """
 from __future__ import annotations
@@ -23,7 +24,8 @@ import re
 from pathlib import Path
 
 FIELDS = ('kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium')  # the app's published figures
-MICRO = ('vitA', 'vitC', 'vitE', 'folate', 'b12', 'iron', 'calcium', 'zinc', 'magnesium', 'potassium')  # checks only, never published
+# Vitamins and minerals: published with an estimate since 2 Nov 2026 (the app shows them; server/nutrition/nutrients.mjs).
+MICRO = ('vitA', 'vitC', 'vitD', 'vitE', 'folate', 'b12', 'iron', 'calcium', 'zinc', 'magnesium', 'potassium')
 MIN_COLOUR_GRAMS = 5  # per serving: a sprinkle is a garnish, not a colour on the plate
 NAMED_COLOUR = re.compile(r'\b(red|green|yellow|black|white|purple)\b', re.I)
 PAGE_FIELDS = {'calories': 'kcal', 'proteinContent': 'protein', 'fatContent': 'fat', 'carbohydrateContent': 'carbs',
@@ -221,9 +223,22 @@ def estimate(root, recipe, detail=False, strict=False):
     return found
 
 
+def published(root, recipe, page_recipe=None, site=None):
+    """The nutrition a recipe is published with: the source page's own per-serving figures, else the strict estimate with its
+    vitamins and minerals ('micro', only those known for at least 90% of the weight). None when neither is reliable."""
+    found = from_page(page_recipe, site, recipe.get('servings')) if page_recipe else None
+    if found:
+        return found
+    detail = estimate(root, recipe, detail=True, strict=True)
+    if not detail:
+        return None
+    figures = {k: v for k, v in detail.items() if k not in ('micro', 'colours', 'staples')}
+    return dict(figures, micro=detail['micro']) if detail.get('micro') else figures
+
+
 def attach(root, recipe, page_recipe, site):
     """Set recipe['nutrition'] when reliable figures exist; otherwise leave the recipe without one."""
-    found = from_page(page_recipe, site, recipe.get('servings')) or estimate(root, recipe, strict=True)
+    found = published(root, recipe, page_recipe, site)
     if found:
         recipe['nutrition'] = found
     else:

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { Buffer } from 'node:buffer';
 import { dairy } from '../diet-labels.mjs';
+import { microNutrients } from '../nutrition/nutrients.mjs';
 
 export const hash = value => createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)).digest('hex');
 const categories = ['Breakfast', 'Noodles', 'Rice meals', 'With rice', 'Soups', 'Snacks & kueh', 'Desserts & drinks'];
@@ -47,10 +48,12 @@ export function validateRecipe(r) {
   requireValue(rating === undefined || keys(rating, ['value', 'count', 'site', 'url', 'checkedAt']) && typeof rating.value === 'number' && rating.value >= 0 && rating.value <= 5
     && Number.isInteger(rating.count) && rating.count >= 1 && rating.count <= 10000000 && text(rating.site, 80) && publicUrl(rating.url) && date(rating.checkedAt), 'Invalid source rating');
   const n = r.nutrition, figures = n?.perServing, bounded = (v, max) => v === undefined || typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max;
-  requireValue(n === undefined || keys(n, ['basis', 'site', 'coverage', 'checkedAt', 'perServing']) && ['source', 'estimate'].includes(n.basis) && date(n.checkedAt)
+  requireValue(n === undefined || keys(n, ['basis', 'site', 'coverage', 'checkedAt', 'perServing', 'micro']) && ['source', 'estimate'].includes(n.basis) && date(n.checkedAt)
     && (n.basis === 'source' ? text(n.site, 80) : typeof n.coverage === 'number' && n.coverage >= 0.9 && n.coverage <= 1)
     && keys(figures, ['kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium']) && typeof figures.kcal === 'number' && figures.kcal > 0 && figures.kcal <= 3000
-    && ['protein', 'fat', 'carbs', 'fibre', 'sugar'].every(k => bounded(figures[k], 3000)) && bounded(figures.sodium, 20000), 'Invalid recipe nutrition');
+    && ['protein', 'fat', 'carbs', 'fibre', 'sugar'].every(k => bounded(figures[k], 3000)) && bounded(figures.sodium, 20000)
+    // Vitamins and minerals come only with an estimate (the same ingredient weights), never with a source page's own figures.
+    && (n.micro === undefined || n.basis === 'estimate' && keys(n.micro, microNutrients) && Object.values(n.micro).every(v => bounded(v, 100000))), 'Invalid recipe nutrition');
   requireValue(Number.isInteger(r.servings) && r.servings >= 1 && r.servings <= 8 && Number.isInteger(r.minutes) && r.minutes >= 1 && r.minutes <= 180 && Number.isInteger(r.revision) && r.revision > 0 && (r.onePot === undefined || typeof r.onePot === 'boolean'), 'Invalid recipe quantities');
   requireValue(Array.isArray(r.categories) && r.categories.length >= 1 && r.categories.length <= 2 && r.categories.every(c => categories.includes(c)), 'Invalid recipe category');
   requireValue(keys(r.dietary, ['diet', 'contains', 'ingredientsKnown', 'evidence']) && ['Vegetarian', 'Vegan'].includes(r.dietary.diet) && r.dietary.ingredientsKnown === true && Array.isArray(r.dietary.contains) && r.dietary.contains.every(x => exclusions.includes(x)), 'Unverified recipe diet');

@@ -6,7 +6,7 @@
  * (authorised health claims), WHO guidelines on sodium (under 2,000 mg a day) and free sugars (under 10% of energy).
  * None of this is dietary advice.
  */
-import type { RecipeCategory } from "../types/food";
+import type { MicroNutrient, RecipeCategory } from "../types/food";
 
 export const nutritionStandardsVersion = "Codex · EU 1924/2006, 432/2012 · WHO · reviewed 2026-10-30";
 
@@ -14,6 +14,16 @@ export const nutritionStandardsVersion = "Codex · EU 1924/2006, 432/2012 · WHO
  * Codex NRV for dietary fibre. */
 export const dailyReference = { kcal: 2000, sodium: 2000, sugar: 50, fibre: 25 } as const;
 export type DailyNutrient = keyof typeof dailyReference;
+
+/** Codex NRVs-R for everyone over 36 months (CXG 2-1985, revised 2024, §3.4.4.1; potassium is the NRV-NCD of §3.4.4.3), per
+ * day, read from the current text on 2 Nov 2026. Where Codex leaves the choice to national authorities: vitamin D 15 µg
+ * (minimal sunlight; the stricter end of 5–15), iron 14 mg (15% absorption, diets rich in fruit and vegetables) and zinc 11 mg
+ * (lacto-ovo vegetarian diets). The QT bots' nutrient level (ops/qt-team/recipe_standards.py) uses the same values. */
+export const nutrientReference: Record<MicroNutrient, number> = {
+  vitA: 800, vitC: 100, vitD: 15, vitE: 9, b12: 2.4, folate: 400, calcium: 1000, iron: 14, zinc: 11, magnesium: 310, potassium: 3500,
+};
+export const vitamins: readonly MicroNutrient[] = ["vitA", "vitC", "vitD", "vitE", "b12", "folate"];
+export const minerals: readonly MicroNutrient[] = ["calcium", "iron", "zinc", "magnesium", "potassium"];
 
 /** Recipe categories that are a meal (the calorie line applies to them only). */
 export const mealCategories: readonly RecipeCategory[] = ["Breakfast", "Noodles", "Rice meals", "With rice", "Soups"];
@@ -34,6 +44,8 @@ export const claimCriteria = {
   fibreHighPer100Kcal: 3,
   /** Sodium at or under 15% of WHO's 2,000 mg daily limit per serving. */
   sodiumUnder15PercentMg: 300,
+  /** Codex CXG 23-1997 "Source" of a vitamin or mineral: 5% of its NRV per 100 kcal; "High" is twice that. */
+  microSourcePer100KcalShare: 0.05, microHighFactor: 2,
 } as const;
 
 export const nutritionBadges = ["Under 500 kcal", "High in protein", "Source of protein", "High in fibre", "Source of fibre", "Under 300 mg sodium"] as const;

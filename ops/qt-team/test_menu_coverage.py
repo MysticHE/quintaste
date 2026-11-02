@@ -12,6 +12,8 @@ import telegram_reporter as t
 
 class FullMenuCoverage(unittest.TestCase):
     def setUp(self):
+        # The fixtures are October's audit; tests that move to a new month patch it again inside.
+        month=patch.object(m,'month',return_value='2026-10');month.start();self.addCleanup(month.stop)
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
         self.url='https://example.org/menu';self.menu={'id':'venue-one','sections':[{'id':'section-one','scope':'branch-delivery','sourceUrl':self.url,'items':[{'id':'dish-'+str(i),'name':'Dish '+str(i),'price':{'amount':8,'currency':'SGD','type':'displayed'}} for i in range(68)]}]}
         self.capture={'sha256':'a'*64,'fetchedAt':'2026-10-17T12:00:00Z','fetchedEpoch':time.time(),'result':{'content':'\n'.join(i['name']+'\nSGD 8.00' for i in self.menu['sections'][0]['items'])}}

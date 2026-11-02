@@ -1,4 +1,4 @@
-import { countUnits, gramsFor, matchFood, MAX_GRAMS, nutritionFrom, unitOf, volumeMl } from './estimate.mjs';
+import { countUnits, gramsFor, matchFood, MAX_GRAMS, nutritionFrom, tablePer100, unitOf, volumeMl } from './estimate.mjs';
 import { usdaFood } from './reference.mjs';
 import { nameKey } from './learned.mjs';
 
@@ -54,16 +54,18 @@ export function resolveLine(line, learned) {
   const key = nameKey(line.name), hit = matchFood(line.name), row = key ? learned.get(key) : undefined;
   const usable = row && USABLE.has(row.status) ? row : null;
   if (hit?.food.negligible || usable?.negligible) return { key, negligible: true };
+  // A reviewed table key takes the food library's figures; its USDA food still gives household portions.
+  const tableFigures = hit ? tablePer100(hit.key) : null;
   const staticFood = hit?.food.usda ? usdaFood(hit.food.usda) : null;
   const learnedFood = usable?.usda ? usdaFood(usable.usda) : null;
-  const per100 = staticFood?.per100 ?? (usable?.food_id ? usable.per100 : learnedFood?.per100) ?? null;
+  const per100 = tableFigures ?? (usable?.food_id ? usable.per100 : learnedFood?.per100) ?? null;
   // The table weighs count units only when it lists that unit (or the line counts whole items): "4 leaves" of a food
   // matched as lime must not become four limes.
   const unit = unitOf(line.unit);
   const tableWeighs = hit && (!countUnits.has(unit) || ['each', 'egg', 'eggs'].includes(unit) || hit.food.per?.[unit] !== undefined);
   const fromTable = tableWeighs ? gramsFor(line, hit.food) : undefined;
   const weighed = fromTable !== undefined ? { grams: fromTable } : usable ? learnedGrams(line, usable, staticFood ?? learnedFood) : undefined;
-  if (per100 && weighed) return { key, grams: weighed.grams, per100, static: !!staticFood, ...(weighed.densityGuess ? { densityGuess: true } : {}) };
+  if (per100 && weighed) return { key, grams: weighed.grams, per100, static: !!tableFigures, ...(weighed.densityGuess ? { densityGuess: true } : {}) };
   // Food unknown: weights and volumes (at 1 g per ml) still count toward the total, so coverage stays honest.
   const grams = weighed?.grams ?? gramsFor(line, {});
   return grams === undefined ? { key, unresolved: true } : { key, grams, unmatched: true };

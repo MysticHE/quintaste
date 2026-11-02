@@ -1,5 +1,5 @@
-import { claimCriteria, dailyReference, healthClaims, mealCategories, proteinKcalPerGram, type DailyNutrient, type NutritionBadge } from "../config/nutrition-standards";
-import type { Recipe } from "../types/food";
+import { claimCriteria, dailyReference, healthClaims, mealCategories, minerals, nutrientReference, proteinKcalPerGram, vitamins, type DailyNutrient, type NutritionBadge } from "../config/nutrition-standards";
+import type { MicroNutrient, Recipe } from "../types/food";
 import type { NutritionChoice } from "../types/recipe-workspace";
 import { translate, type Language } from "../i18n";
 import type { CookKey } from "../i18n/en/cook";
@@ -69,4 +69,33 @@ export function matchesNutritionChoices(recipe: Pick<Recipe, "nutrition" | "cate
 export function percentOfDay(key: string, value: number): number | undefined {
   const reference = (dailyReference as Record<string, number>)[key as DailyNutrient];
   return reference ? Math.round((value / reference) * 100) : undefined;
+}
+
+/** Percent of the Codex NRV for a vitamin or mineral, whole number. */
+export const percentOfReference = (key: MicroNutrient, value: number) => Math.round((value / nutrientReference[key]) * 100);
+
+export type MicroBadge = { nutrient: MicroNutrient; level: "source" | "high" };
+/** At most one vitamin and one mineral badge, the strongest of each, under Codex CXG 23-1997 (source: 5% of the NRV per
+ * 100 kcal; high: twice that). The same rule as the QT bots' nutrient level, so a house recipe shows what qualified it. */
+export function microBadgesFor(nutrition: Pick<NonNullable<Recipe["nutrition"]>, "perServing" | "micro">): MicroBadge[] {
+  const kcal = nutrition.perServing.kcal, micro = nutrition.micro ?? {};
+  if (!(kcal > 0)) return [];
+  const share = (key: MicroNutrient) => (micro[key] ?? 0) / (kcal / 100) / nutrientReference[key];
+  const strongest = (group: readonly MicroNutrient[]) => group.filter(key => share(key) >= claimCriteria.microSourcePer100KcalShare)
+    .sort((a, b) => share(b) - share(a))[0];
+  return [strongest(vitamins), strongest(minerals)].filter((key): key is MicroNutrient => !!key).map(nutrient => ({
+    nutrient, level: share(nutrient) >= claimCriteria.microSourcePer100KcalShare * claimCriteria.microHighFactor ? "high" : "source",
+  }));
+}
+
+const microKeys: Record<MicroNutrient, CookKey> = {
+  vitA: "nutrientVitA", vitC: "nutrientVitC", vitD: "nutrientVitD", vitE: "nutrientVitE", b12: "nutrientB12", folate: "nutrientFolate",
+  calcium: "nutrientCalcium", iron: "nutrientIron", zinc: "nutrientZinc", magnesium: "nutrientMagnesium", potassium: "nutrientPotassium",
+};
+export const microName = (key: MicroNutrient, language: Language) => translate(language, "cook", microKeys[key]);
+/** "Source of iron" / "High in vitamin C" (English lower-cases the name mid-phrase), "铁来源" / "富含维生素C". */
+export function microBadgeName(badge: MicroBadge, language: Language) {
+  const name = microName(badge.nutrient, language);
+  const nutrient = language === "en" ? name.charAt(0).toLowerCase() + name.slice(1) : name;
+  return translate(language, "cook", badge.level === "high" ? "badgeHighIn" : "badgeSourceOf", { nutrient });
 }

@@ -32,6 +32,8 @@ const en = {
   badgeHighFibre: "High in fibre",
   badgeSourceFibre: "Source of fibre",
   badgeUnder300Sodium: "Under 300 mg sodium",
+  badgeSourceOf: "Source of {nutrient}",
+  badgeHighIn: "High in {nutrient}",
   choiceHigherProtein: "Higher protein",
   choiceHigherFibre: "Higher fibre",
   exGarlic: "Garlic",
