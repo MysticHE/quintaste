@@ -184,5 +184,14 @@ const zh: typeof en = {
   timerDismissNamed: "关闭{label}",
   stepTabs: "步骤",
   stepTab: "第 {n} 步，共 {total} 步：{title}",
+  fieldRequired: "必填。",
+  rangeServings: "请选择 1 到 8。",
+  rangeMinutes: "请填写 1 到 1440 分钟。",
+  rangeTimer: "可留空，或填 1 到 180 分钟。",
+  amountNumber: "请填数字，例如 1.5。",
+  amountUnit: "请填单位，或留空数量。",
+  addOneIngredient: "请至少添加一样食材。",
+  addOneStep: "请至少添加一个步骤。",
+  chooseSponsorship: "请选择一项，没有赞助也请选“无”。",
 };
 export default zh;

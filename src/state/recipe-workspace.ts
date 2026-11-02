@@ -8,12 +8,17 @@ const rows = (value: unknown) => Array.isArray(value) ? value.slice(0, 100).map(
 export const defaultCookBrowse: CookBrowse = { category: "All", labels: [], time: "Any", onePot: false, sort: "Fit", nutrition: [] };
 export const cookedLimit = 200;
 export const emptyRecipeWorkspace = (): RecipeWorkspace => ({ drafts: [], shopping: [], browse: defaultCookBrowse, cooked: [], shoppingView: "combined" });
-/** A blank amount means "to taste"; any amount given must be positive with a unit. */
-export function ingredientIssue(i: RecipeDraftIngredient) {
-  if (!i.name.trim()) return true;
-  if (!i.amount.trim()) return false;
-  return !/^\d+(\.\d{1,3})?$/.test(i.amount.trim()) || +i.amount <= 0 || !i.unit.trim();
+/** A blank amount means "to taste"; any amount given must be a positive number with a unit. */
+export function amountIssue(i: RecipeDraftIngredient) {
+  if (!i.amount.trim()) return null;
+  if (!/^\d+(\.\d{1,3})?$/.test(i.amount.trim()) || +i.amount <= 0) return "number";
+  return i.unit.trim() ? null : "unit";
 }
+export const ingredientIssue = (i: RecipeDraftIngredient) => !i.name.trim() || !!amountIssue(i);
+/** An optional step timer: blank, or 1 to 180 whole minutes. */
+export const timerIssue = (minutes: string) => minutes !== "" && (!/^\d+$/.test(minutes) || +minutes < 1 || +minutes > 180);
+/** Drafts opened on the Publish screen this session; their editor then marks what is missing. */
+export const reviewedDrafts = new Set<string>();
 const choice = <T extends string>(value: unknown, values: readonly T[], fallback: T): T => values.includes(value as T) ? value as T : fallback;
 /**
  * Diet labels chosen in Cook filters. Before 20 Oct 2026 the filter stored `diets`, matched as OR (Vegetarian then meant
@@ -46,19 +51,20 @@ export function recipePhoto(value: unknown) {
 }
 /** The first thing stopping publication, or "". `language` words it; pass useLanguage() from the caller. */
 export function publicationIssue(d: RecipeDraft, language: Language = "en") {
-  const key = publicationIssueKey(d);
+  const key = publicationIssueKeys(d)[0];
   return key ? translate(language, "me", key) : "";
 }
-function publicationIssueKey(d: RecipeDraft) {
-  if (!d.title.trim() || !d.author.trim() || !d.language.trim() || !d.description.trim()) return "issueBasics";
-  if (!d.photo) return "issuePhoto";
-  if (!/^[1-8]$/.test(d.servings) || !/^\d+$/.test(d.minutes) || +d.minutes < 1 || +d.minutes > 1440) return "issueTime";
-  if (!d.categories.length) return "issueCategory";
-  if (!d.ingredients.length || d.ingredients.some(ingredientIssue)) return "issueIngredients";
-  if (!d.steps.length || d.steps.some(s => !s.title.trim() || !s.instruction.trim() || (s.minutes !== "" && (!/^\d+$/.test(s.minutes) || +s.minutes < 1 || +s.minutes > 180)))) return "issueSteps";
-  if (!d.sponsorship) return "issueSponsorship";
-  if (!d.rights || !d.policy) return "issueRights";
-  return null;
+/** Everything stopping publication, in the order the editor shows the fields. */
+export function publicationIssueKeys(d: RecipeDraft) {
+  const step = (s: RecipeDraft["steps"][number]) => !s.title.trim() || !s.instruction.trim() || timerIssue(s.minutes);
+  const checks = [
+    ["issuePhoto", !d.photo], ["issueName", !d.title.trim()], ["issueDescription", !d.description.trim()],
+    ["issueTime", !/^[1-8]$/.test(d.servings) || !/^\d+$/.test(d.minutes) || +d.minutes < 1 || +d.minutes > 1440],
+    ["issueCategory", !d.categories.length], ["issueIngredients", !d.ingredients.length || d.ingredients.some(ingredientIssue)],
+    ["issueSteps", !d.steps.length || d.steps.some(step)], ["issueAuthor", !d.author.trim()], ["issueLanguage", !d.language.trim()],
+    ["issueSponsorship", !d.sponsorship], ["issueRights", !d.rights || !d.policy],
+  ] as const;
+  return checks.filter(([, failed]) => failed).map(([key]) => key);
 }
 export function readRecipeWorkspace(value: unknown): RecipeWorkspace {
   const v = record(value), seen = new Set<string>();

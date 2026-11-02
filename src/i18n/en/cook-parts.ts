@@ -185,5 +185,14 @@ const en = {
   timerDismissNamed: "Dismiss {label}",
   stepTabs: "Steps",
   stepTab: "Step {n} of {total}: {title}",
+  fieldRequired: "Required.",
+  rangeServings: "Choose 1 to 8.",
+  rangeMinutes: "Enter 1 to 1440 minutes.",
+  rangeTimer: "Leave blank, or 1 to 180 minutes.",
+  amountNumber: "Use a number, like 1.5.",
+  amountUnit: "Add a unit, or leave the amount blank.",
+  addOneIngredient: "Add at least one ingredient.",
+  addOneStep: "Add at least one step.",
+  chooseSponsorship: "Choose one, including None.",
 } satisfies Record<string, string | ((vars: Vars) => string)>;
 export default en;

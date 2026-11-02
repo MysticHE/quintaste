@@ -42,8 +42,8 @@ const notSmallScale = /\b(catering|caterer|buffet|party (tray|set|platter)s?|eve
 const animalIngredients = 'lard|gelatine?|bonito|anchov(?:y|ies)|ikan bilis|belacan|chicken|beef|fish|prawns?|shrimps?|pork|bacon|duck|goose|geese|turkey|mutton|lamb|venison|ham|crab|lobsters?|oysters?|squid|clams?|mussels?|seafood';
 const meat = new RegExp('\\b(?:' + animalIngredients + ')\\b', 'i');
 // Remove only explicitly qualified alternatives/absence claims, never an entire ingredient list.
-const qualifiedAlternative = new RegExp('(?<!\\b(?:non[- ]|not ))\\b(?:vegetarian|vegan|mock|plant[- ]based|meatless|meat[- ]free|no|without|free from)(?:[-\\s]+(?:roast(?:ed)?|fried|smoked|grilled|shredded|sliced|braised|crispy)){0,2}[-\\s]+(?:' + animalIngredients + ')\\b', 'gi');
-const nonMeatIngredients = /\boyster mushrooms?\b|\bfish mint\b|\b(?:chicken|duck|goose|quail|turkey) eggs?\b/gi;
+const qualifiedAlternative = new RegExp('(?<!\\b(?:non[- ]|not ))\\b(?:vegetarian|vegan|veggie|mock|plant[- ]based|meatless|meat[- ]free|no|without|free from)(?:[-\\s]+(?:roast(?:ed)?|fried|smoked|grilled|shredded|sliced|braised|crispy)){0,2}[-\\s]+(?:' + animalIngredients + ')\\b', 'gi');
+const nonMeatIngredients = /\boyster mushrooms?\b|\b(?:(?:vegetarian|vegan) mushroom|mushroom[- ]based) oyster sauce\b|\bfish mint\b|\b(?:chicken|duck|goose|quail|turkey) eggs?\b/gi;
 export const containsMeat = value => meat.test(value.replace(nonMeatIngredients, '').replace(qualifiedAlternative, ''));
 const jainRoots = /\b(potato(es)?|carrots?|beetroots?|radish(es)?|ginger|garlic|onions?|turnips?|yams?|cassava|tapioca|turmeric|leeks?|shallots?|scallions?)\b/i;
 const contactDetails = /https?:\/\/|www\.|\bt\.me\/|\bwa\.me\/|\b[\w.+-]+@[\w-]+\.[a-z]{2,}\b|(?:\+?65[\s-]?)?\b[3689]\d{3}[\s-]?\d{4}\b|\bpaynow\s*:?\s*\d/i;
