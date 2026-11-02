@@ -15,6 +15,8 @@ COPY server ./server
 # The game API replays runs with the app's own simulation (src/game, TypeScript run by Node's type stripping).
 COPY src/game ./src/game
 COPY src/config/game.ts ./src/config/game.ts
+# Egg and dairy words, shared by the diet labels (server/diet-labels.mjs) and the level compiler's ingredient tags.
+COPY src/config/diet-words.mjs ./src/config/diet-words.mjs
 # Today's special (src/game/special.ts) needs the lunar calendar and the Singapore date helper.
 COPY src/data/lunar.ts ./src/data/lunar.ts
 # Recipe Kitchen levels (server/game/levels-worker.mjs) are made from the bundled recipes too.

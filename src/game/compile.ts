@@ -9,6 +9,7 @@ import { ITEMS, type GameItem, type ItemTag } from "./content/items";
 import { readPack, type LevelPack } from "./content/pack";
 import { seedOf } from "./sim/plan";
 import { namedIngredientIds } from "../utils/step-ingredients";
+import { dairy, dietText, egg } from "../config/diet-words.mjs";
 
 export type RecipeInput = { id: string; name: string; categories: string[]; ingredients: { id: string; name: string }[]; steps: { instruction: string; ingredientIds: string[] }[] };
 /** What an ingredient name became: a built-in item, an entry on the shared list (unreviewed when no one has checked its tags), or nothing. */
@@ -59,9 +60,12 @@ const ALIASES: [RegExp, string][] = [
 ];
 /** Left out of play: nearly every recipe uses it and a step of plain water teaches nothing (gyoza's splash to steam is the one built-in exception). */
 const SKIP = /^(water|ice|hot water|cold water|water for .*|水|清水|热水|冷水|冰块?)$/;
-/** First-pass tags for a new ingredient from its name; it stays unreviewed until staff check it (§6, the diet module decides for real). */
-const TAG_WORDS: [RegExp, ItemTag][] = [[/garlic|onion|shallot|leek|chive|scallion|asafoetida|hing|葱|蒜|韭|薤|阿魏/, "allium"], [/\begg|蛋/, "egg"],
-  [/milk|butter|cheese|cream|ghee|yogh?urt|paneer|牛奶|奶酪|芝士|黄油|奶油|酸奶|酥油|牛油(?!果)/, "dairy"], [/honey|蜂蜜/, "honey"], [/mushroom|shiitake|enoki|oyster|菇|菌|蘑|木耳/, "mushroom"],
+/**
+ * First-pass tags for a new ingredient from its name; it stays unreviewed until staff check it (§6, the diet module decides for real). Egg
+ * and dairy use the app's diet words (src/config/diet-words.mjs); the Oh Chin Hing sesame oil brand is not asafoetida.
+ */
+const TAG_WORDS: [RegExp, ItemTag][] = [[/garlic|onion|shallot|leek|chive|scallion|asafoetida|(?<!chin )\bhing\b|葱|蒜|韭|薤|阿魏/, "allium"], [egg, "egg"], [dairy, "dairy"],
+  [/honey|蜂蜜/, "honey"], [/mushroom|shiitake|enoki|oyster|菇|菌|蘑|木耳/, "mushroom"],
   [/potato|carrot|radish|beet|ginger|turmeric|yam|taro|galangal|薯|萝卜|姜|芋|莲藕/, "root"], [/chilli|chili|pepper flakes|辣/, "hot"]];
 /**
  * Verbs that name a technique outright. First match wins. Baking powder is not baking; "stir to blend" and "blend in" only mix; "fried
@@ -174,7 +178,7 @@ export function builtinFor(name: string): string | null | undefined {
 }
 /** A new shared-list entry for an ingredient the game has no item for: keyword tags, a Sketch card until a picture is approved. */
 export function newItem(name: string): GameItem {
-  const id = "x-" + slug(ingredientKey(name)), tags = TAG_WORDS.filter(([re]) => re.test(ingredientKey(name))).map(([, t]) => t);
+  const id = "x-" + slug(ingredientKey(name)), words = dietText(ingredientKey(name)), tags = TAG_WORDS.filter(([re]) => re.test(words)).map(([, t]) => t);
   return { id, name: name.replace(/\(.*?\)/g, "").split(",")[0].trim().slice(0, 60) || id, art: "card-" + id, tray: "fresh", ...(tags.length ? { tags } : {}) };
 }
 
@@ -250,8 +254,12 @@ export function shapeProblem(c: Compiled, s: Shape): string | null {
   const allowed = new Set(c.stages.flatMap(x => x.items)), text = (t: unknown, max: number) => typeof t === "string" && t.trim().length > 0 && t.length <= max;
   if (!s || !Array.isArray(s.parts) || !s.parts.length || s.parts.length > MAX_STATIONS) return "give one to " + MAX_STATIONS + " parts";
   if (!text(s.remember, 240) || /https?:|www\.|tiktok|instagram|youtube|facebook/i.test(s.remember)) return "remember must be one short sentence with no links or platform names";
+  const seen = new Set<string>();
   for (const p of s.parts) {
     if (typeof p.station !== "string" || !Object.hasOwn(STATIONS, p.station)) return "station " + String(p.station) + " is not one the game has";
+    // The kitchen has one of each station, so a second part on the same station can never be cooked.
+    if (seen.has(p.station)) return "use each station once: put every " + p.station + " stage in one part";
+    seen.add(p.station);
     if (!Array.isArray(p.stages) || p.stages.length < 1 || p.stages.length > 4) return "each part needs one to four stages";
     for (const st of p.stages) {
       if (!Array.isArray(st.items) || st.items.length < 1 || st.items.length > 3 || st.items.some(i => !allowed.has(i))) return "each stage needs one to three of the given ingredient ids, and no others";

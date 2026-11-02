@@ -23,12 +23,16 @@ QUEUES = [
     ('market', 'Market report', 'Market reports', 'cases'),
     ('photoChecks', 'Dining photo check', 'Dining photo checks', 'photo-checks'),
     ('teachers', 'class teacher application', 'class teacher applications', 'teachers'),
+    ('gameLevels', 'game level to review', 'game levels to review', 'game-levels'),
+    ('gamePictures', 'game picture to approve', 'game pictures to approve', 'game-levels'),
+    ('gameMembers', "member's game level to decide", "members' game levels to decide", 'game-levels'),
+    ('gameFailed', "game level QT Manager couldn't make", "game levels QT Manager couldn't make", 'cases'),
     ('places', 'place report', 'place reports', 'cases'),
     ('posts', "report on a member's post", "reports on members' posts", 'cases'),
     ('other', 'other case', 'other cases', 'cases'),
     ('overdue', 'case overdue', 'cases overdue', 'cases'),
 ]
-SECTIONS = {'cases': 'Open cases', 'photo-checks': 'Open photo checks', 'teachers': 'Open class teachers'}
+SECTIONS = {'cases': 'Open cases', 'photo-checks': 'Open photo checks', 'teachers': 'Open class teachers', 'game-levels': 'Open game levels'}
 
 
 def _when(value):
@@ -45,7 +49,8 @@ def fetch(root: Path):
 
 def queues(data):
     """{queue: (count, latest)} from the admin response; queues admin left out (null) count as empty."""
-    flat = dict(data.get('cases') or {}, overdue=data.get('overdue'), photoChecks=data.get('photoChecks'), teachers=data.get('teachers'))
+    flat = dict(data.get('cases') or {}, overdue=data.get('overdue'), photoChecks=data.get('photoChecks'), teachers=data.get('teachers'),
+                gameLevels=data.get('gameLevels'), gamePictures=data.get('gamePictures'), gameMembers=data.get('gameMembers'))
     out = {}
     for name, *_ in QUEUES:
         row = flat.get(name) or {}

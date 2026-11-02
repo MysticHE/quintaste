@@ -21,10 +21,24 @@ const unpictured = `(SELECT count(*)::int FROM game.art a WHERE a.art_key IN (
     SELECT jsonb_array_elements(l.pack->'items')->>'art' UNION SELECT jsonb_array_elements(l.pack->'dishes')->>'art')
   AND NOT EXISTS (SELECT 1 FROM game.asset s WHERE s.sha256 = a.asset AND s.status = 'approved'))`;
 
-/** Waiting for review, live, or hidden; newest first. The pack comes whole, so staff see every stage and ingredient. */
+/**
+ * A member's private level worth a staff decision: its recipe is public, no public level of it exists, and nobody has chosen yet
+ * (Make public or Keep private). `l` is the recipe_level alias.
+ */
+const toDecide = (l: string) => `${l}.status = 'ready' AND ${l}.owner_id IS NOT NULL AND ${l}.reviewed_at IS NULL
+  AND EXISTS (SELECT 1 FROM recipes.recipe mr WHERE 'member-' || mr.id::text = ${l}.recipe_id AND mr.live IS NOT NULL AND mr.hidden_at IS NULL)
+  AND NOT EXISTS (SELECT 1 FROM game.recipe_level pl WHERE pl.recipe_id = ${l}.recipe_id AND pl.owner_id IS NULL AND pl.status <> 'hidden')`;
+/**
+ * A draft picture still waiting for the artist: no picture for its art key was approved after it was drawn. Approving one variant
+ * settles its sibling too (it stays a draft, but no longer waits); a redraw asked for later waits again. `s` is the game.asset alias.
+ */
+const waitingPicture = (s: string) => `${s}.status = 'draft' AND NOT EXISTS (SELECT 1 FROM game.art_job wj JOIN game.art wa ON wa.art_key = wj.art_key
+  JOIN game.asset wok ON wok.sha256 = wa.asset AND wok.status = 'approved' WHERE ${s}.sha256 = ANY(wj.variants) AND wok.reviewed_at >= ${s}.created_at)`;
+
+/** Waiting for review, live, hidden, or members' levels to decide; newest first. The pack comes whole, so staff see every stage and ingredient. */
 export async function gameLevelList(member: Session, status: string, q: string, skip = 0) {
   authorize(member, 'content');
-  const view = choice(status || 'review', ['review', 'ready', 'hidden'] as const, 'status'), term = search(q);
+  const view = choice(status || 'review', ['review', 'ready', 'hidden', 'decide'] as const, 'status'), term = search(q);
   return guard(async () => (await query(`SELECT l.hash AS id, l.recipe_id, l.recipe_revision, l.status, l.created_at, l.reviewed_at, l.reviewed_by,
       u.username AS owner, l.pack, ${unpictured} AS unpictured,
       (SELECT count(*)::int FROM game.run r WHERE r.pack = l.hash AND r.status = 'settled') AS plays,
@@ -32,16 +46,17 @@ export async function gameLevelList(member: Session, status: string, q: string, 
         'clears', t.clears, 'locked', t.locked_at IS NOT NULL) ORDER BY array_position(ARRAY['learn','service','memory'], t.tier)), '[]')
         FROM game.level_rating t WHERE t.hash = l.hash) AS ratings
     FROM game.recipe_level l LEFT JOIN public."user" u ON u.id = l.owner_id
-    WHERE l.status = $1 AND ($2 = '' OR l.recipe_id ILIKE $2 OR l.pack->'dishes'->0->>'name' ILIKE $2 OR u.username ILIKE $2)
+    WHERE ${view === 'decide' ? toDecide('l') + " AND $1 = 'decide'" : 'l.status = $1'} AND ($2 = '' OR l.recipe_id ILIKE $2 OR l.pack->'dishes'->0->>'name' ILIKE $2 OR u.username ILIKE $2)
     ORDER BY l.created_at DESC, l.hash LIMIT ${pageSize} OFFSET $3`, [view, term, skip])).rows);
 }
 
 /**
- * approve (review → live), hide (members can no longer start or settle it), restore (hidden → live) or public (a member's private
- * level, after review, opens to everyone; it stays playable for its author throughout). Audited.
+ * approve (review → live), hide (members can no longer start or settle it), restore (hidden → live), public (a member's private
+ * level, after review, opens to everyone; it stays playable for its author throughout) or private (staff looked at a member's level and
+ * keep it private, so it stops waiting for a decision). Audited.
  */
 export async function gameLevelAction(member: Session, input: Record<string, unknown>, reason: string) {
-  const act = choice(input.action, ['approve', 'hide', 'restore', 'public'] as const, 'action'), id = text(input.id, 'level', 15, 2);
+  const act = choice(input.action, ['approve', 'hide', 'restore', 'public', 'private'] as const, 'action'), id = text(input.id, 'level', 15, 2);
   if (!HASH.test(id)) throw new HttpError(400, 'Check the level.');
   authorize(member, 'content');
   return guard(() => transaction(async db => {
@@ -51,17 +66,17 @@ export async function gameLevelAction(member: Session, input: Record<string, unk
 }
 
 /** One level decision by staff or a chef (docs/ADMIN_CHEFS_PLAN.md); an approval can be undone while nobody has reviewed it again. */
-export async function applyGameLevel(db: PoolClient, actor: Actor, id: string, act: 'approve' | 'hide' | 'restore' | 'public', reason: string) {
+export async function applyGameLevel(db: PoolClient, actor: Actor, id: string, act: 'approve' | 'hide' | 'restore' | 'public' | 'private', reason: string) {
   const by = (actor.email ?? (actor.bot ? 'chef:' + actor.bot : 'owner')).slice(0, 120);
-  const from = { approve: "status = 'review'", hide: "status <> 'hidden'", restore: "status = 'hidden'", public: "status = 'ready' AND owner_id IS NOT NULL" }[act];
-  const changed = act === 'public'
-    ? await db.query<{ version: string }>(`UPDATE game.recipe_level SET owner_id = NULL, reviewed_at = now(), reviewed_by = $2 WHERE hash = $1 AND ${from}
+  const from = { approve: "status = 'review'", hide: "status <> 'hidden'", restore: "status = 'hidden'", public: "status = 'ready' AND owner_id IS NOT NULL", private: "status = 'ready' AND owner_id IS NOT NULL AND reviewed_at IS NULL" }[act];
+  const changed = act === 'public' || act === 'private'
+    ? await db.query<{ version: string }>(`UPDATE game.recipe_level SET ${act === 'public' ? 'owner_id = NULL, ' : ''}reviewed_at = now(), reviewed_by = $2 WHERE hash = $1 AND ${from}
       RETURNING reviewed_at::text AS version`, [id, by])
     : await db.query<{ version: string }>(`UPDATE game.recipe_level SET status = $2, reviewed_at = now(), reviewed_by = $3 WHERE hash = $1 AND ${from}
       RETURNING reviewed_at::text AS version`, [id, act === 'hide' ? 'hidden' : 'ready', by]);
   if (!changed.rowCount) throw new HttpError(409, 'This level changed since you opened it. Refresh the list.');
   await audit(db, actor.id, 'content.game_level.' + act, 'game-level:' + id, reason, {}, actor.bot);
-  return { reply: { saved: true, note: { approve: 'Live: members can play it', hide: 'Hidden: no new plays, open ones are refused', restore: 'Live again', public: 'Public: everyone can play it' }[act] },
+  return { reply: { saved: true, note: { approve: 'Live: members can play it', hide: 'Hidden: no new plays, open ones are refused', restore: 'Live again', public: 'Public: everyone can play it', private: 'Kept private: only its author plays it' }[act] },
     undo: act === 'approve' ? { version: changed.rows[0].version } : null };
 }
 /** Sends a chef-approved level back to review, unless it was reviewed again since. */
@@ -116,7 +131,7 @@ export async function gamePictureList(member: Session, status: string, skip = 0)
     FROM game.asset s
     LEFT JOIN LATERAL (SELECT art_key, kind, subject FROM game.art_job WHERE s.sha256 = ANY(variants) ORDER BY answered_at DESC NULLS LAST LIMIT 1) j ON true
     LEFT JOIN game.art a ON a.art_key = j.art_key
-    WHERE s.status = $1 ORDER BY s.created_at DESC LIMIT ${pageSize} OFFSET $2`, [view, skip])).rows);
+    WHERE s.status = $1${view === 'draft' ? ' AND ' + waitingPicture('s') : ''} ORDER BY s.created_at DESC LIMIT ${pageSize} OFFSET $2`, [view, skip])).rows);
 }
 
 /**
@@ -197,25 +212,44 @@ export async function gameLevelMake(member: Session, input: Record<string, unkno
   const id = text(input.recipeId, 'recipe', 151, 3), cuisine = input.cuisine === undefined || input.cuisine === '' ? null : text(input.cuisine, 'cuisine', 40, 1);
   if (!RECIPE.test(id)) throw new HttpError(400, 'Check the recipe.');
   authorize(member, 'content');
+  const jobId = typeof input.jobId === 'string' && /^[a-f0-9-]{36}$/.test(input.jobId) ? input.jobId : null;
   return guard(() => transaction(async db => {
     await lockPermission(db, member, 'content');
+    // Trying a member's failed level again makes their private level, as QT Manager's own tries do (requested_by 'auto'); if it fails
+    // again QT Manager files a new case. Otherwise staff ask for a public level that waits for review.
+    const owner = jobId ? (await db.query<{ owner_id: string | null }>('SELECT owner_id FROM game.level_job WHERE id = $1 AND recipe_id = $2', [jobId, id])).rows[0]?.owner_id ?? null : null;
     try {
-      await db.query(`INSERT INTO game.level_job(recipe_id, cuisine, requested_by) VALUES($1, $2, $3)`, [id, cuisine, member.email.slice(0, 120)]);
+      await db.query(`INSERT INTO game.level_job(recipe_id, cuisine, requested_by, owner_id, priority) VALUES($1, $2, $3, $4, $5)`,
+        [id, cuisine, owner ? 'auto' : member.email.slice(0, 120), owner, owner ? 1 : 0]);
     } catch (error) {
       if ((error as { code?: string }).code === '23505') throw new HttpError(409, 'A level for this recipe is already being made.');
       throw error;
     }
-    await audit(db, member.id, 'content.game_level.make', 'recipe:' + id, reason, { cuisine });
+    // Only the member's own retry answers QT Manager's case about their level; a staff level of the same recipe leaves it open.
+    if (owner) await db.query(`UPDATE ops.case_record SET status = 'resolved', resolution = 'Asked QT Gamer again', updated_at = now(), version = version + 1
+      WHERE subject_id = $1 AND status NOT IN ('resolved', 'dismissed')`, ['game:level-job:' + id]);
+    await audit(db, member.id, 'content.game_level.make', 'recipe:' + id, reason, { cuisine, ...(owner ? { member: true } : {}) });
     const on = (await db.query<{ n: number }>(`SELECT count(*)::int AS n FROM ops.control WHERE key IN ('game_levels','games') AND enabled`)).rows[0].n === 2;
     return { saved: true, note: on ? 'Asked QT Gamer for a level' : 'Asked. It starts once Game progress and Recipe levels are both on in Features' };
   }));
 }
 
-/** Sidebar count: levels and drafts waiting for a decision; null when not installed. */
-export async function gameWaiting() {
+type Waiting = { count: number; latest: string | null };
+/**
+ * What waits in Game levels: levels to review, art keys with a picture to approve and members' levels to decide, each with when the
+ * latest arrived. The sidebar badge and the staff alerts on Telegram (attention.ts) read the same numbers. Null when not installed.
+ */
+export async function gameWaiting(): Promise<{ levels: Waiting; pictures: Waiting; members: Waiting } | null> {
   try {
-    const row = (await query<{ levels: number; pictures: number }>(`SELECT (SELECT count(*)::int FROM game.recipe_level WHERE status = 'review') AS levels,
-      (SELECT count(*)::int FROM game.asset WHERE status = 'draft') AS pictures`)).rows[0];
-    return row;
+    const row = (await query<{ levels: number; made: Date | null; pictures: number; drawn: Date | null; members: number; asked: Date | null }>(
+      `SELECT (SELECT count(*)::int FROM game.recipe_level WHERE status = 'review') AS levels,
+        (SELECT max(created_at) FROM game.recipe_level WHERE status = 'review') AS made,
+        (SELECT count(DISTINCT j.art_key)::int FROM game.asset s JOIN game.art_job j ON s.sha256 = ANY(j.variants) WHERE ${waitingPicture('s')}) AS pictures,
+        (SELECT max(s.created_at) FROM game.asset s WHERE ${waitingPicture('s')}) AS drawn,
+        (SELECT count(*)::int FROM game.recipe_level l WHERE ${toDecide('l')}) AS members,
+        (SELECT max(l.created_at) FROM game.recipe_level l WHERE ${toDecide('l')}) AS asked`)).rows[0];
+    const iso = (d: Date | null) => d ? d.toISOString() : null;
+    return { levels: { count: row.levels, latest: iso(row.made) }, pictures: { count: row.pictures, latest: iso(row.drawn) },
+      members: { count: row.members, latest: iso(row.asked) } };
   } catch (error) { if (missing(error)) return null; throw error; }
 }

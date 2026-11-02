@@ -34,7 +34,7 @@ const groups: { title?: string; sections: Section[] }[] = [
     { id: 'recipes', title: 'Recipes', icon: 'book', capability: 'content' },
     { id: 'events', title: 'Events', icon: 'calendar', capability: 'content' },
     { id: 'creators', title: 'Creators', icon: 'person', capability: 'content' },
-    { id: 'game-levels', title: 'Game levels', icon: 'game', capability: 'content', count: d => d.game ? d.game.levels + d.game.pictures : null }] },
+    { id: 'game-levels', title: 'Game levels', icon: 'game', capability: 'content', count: d => d.game ? d.game.levels.count + d.game.pictures.count + d.game.members.count : null }] },
   { title: 'Community', sections: [
     { id: 'member-recipes', title: 'Member recipes', icon: 'chef', capability: 'content', count: d => d.memberRecipes },
     { id: 'ai-recipes', title: 'AI recipes', icon: 'wand', capability: 'content', count: d => d.ai?.installed ? d.ai.waiting : null },

@@ -26,7 +26,7 @@ type Row = { id: string; title: string; meta: string; status: string; kind: 'lev
 type Action = { action: string; label: string; danger?: boolean; confirm?: string };
 type Guards = { onDirty: (v: boolean) => void; onBusy: (v: boolean) => void };
 const views: [View, string][] = [['levels', 'Levels'], ['make', 'Make levels'], ['pictures', 'Pictures'], ['jobs', 'Picture jobs'], ['cafes', 'Cafés']];
-const filters: Record<View, [string, string][]> = { levels: [['review', 'Needs review'], ['ready', 'Live'], ['hidden', 'Hidden']], make: [], pictures: [['draft', 'Waiting'], ['approved', 'Approved'], ['rejected', 'Set aside']], jobs: [['jobs', 'Open and failed']], cafes: [['open', 'Open'], ['hidden', 'Hidden'], ['closed', 'Closed']] };
+const filters: Record<View, [string, string][]> = { levels: [['review', 'Needs review'], ['decide', 'Members to decide'], ['ready', 'Live'], ['hidden', 'Hidden']], make: [], pictures: [['draft', 'Waiting'], ['approved', 'Approved'], ['rejected', 'Set aside']], jobs: [['jobs', 'Open and failed']], cafes: [['open', 'Open'], ['hidden', 'Hidden'], ['closed', 'Closed']] };
 const resources: Record<View, string> = { levels: 'game-levels', make: 'game-level-jobs', pictures: 'game-pictures', jobs: 'game-pictures', cafes: 'game-cafes' };
 const TIER: Record<string, string> = { learn: 'Learn', service: 'Service', memory: 'From memory' };
 const LEVEL: Record<string, string> = { review: 'Level waiting for review', ready: 'Level live', hidden: 'Level hidden' };
@@ -96,7 +96,7 @@ function GameRecord({ row, notices, refreshing, onDone, onDirty, onBusy }: { row
   if (row.kind === 'level') {
     const l = row.data as Level, name = (id: string) => l.pack.items.find(i => i.id === id)?.name ?? words(id);
     actions = mutation('game-levels', { id: l.id }, l.status === 'review' ? [{ action: 'approve', label: 'Approve' }, { action: 'hide', label: 'Hide', danger: true, confirm: 'Hide level?' }]
-      : l.status === 'ready' ? [...(l.owner ? [{ action: 'public', label: 'Make public', confirm: 'Make level public?' }] : []), { action: 'hide', label: 'Hide', danger: true, confirm: 'Hide level?' }] : [{ action: 'restore', label: 'Show again' }]);
+      : l.status === 'ready' ? [...(l.owner ? [{ action: 'public', label: 'Make public', confirm: 'Make level public?' }, ...(l.reviewed_at ? [] : [{ action: 'private', label: 'Keep private' }])] : []), { action: 'hide', label: 'Hide', danger: true, confirm: 'Hide level?' }] : [{ action: 'restore', label: 'Show again' }]);
     sections.push({ name: 'Details', body: <>{facts([['Recipe', l.recipe_id], ['Revision', l.recipe_revision], ['Visibility', l.owner ? 'Private · ' + l.owner : 'Public'], ['Stations', l.pack.techniques.map(t => STATION[t] ?? t).join(', ')], ['Plays', l.plays], ['Created', date(l.created_at)], ['Reviewed', date(l.reviewed_at)], ['Reviewed by', l.reviewed_by]])}
       {l.unpictured > 0 && <span className="badge warn">{l.unpictured} without a picture</span>}{l.pack.dishes.map(d => <p key={d.id}>{d.remember}</p>)}{l.ratings.map(r => <div className="game-stage" key={r.tier}><strong>{TIER[r.tier] ?? r.tier}</strong><span>{r.rating} ±{r.rd}</span><small>{r.players ? r.clears + '/' + r.players + ' cleared' : r.start !== null ? 'Test player' : 'No players'}{r.locked ? ' · settled' : ''}</small></div>)}</> },
       { name: 'Stages', body: <>{l.pack.dishes.map(d => d.parts.map(p => <div className="game-stage" key={d.id + ':' + p.id}><h3>{p.name} · {STATION[p.station] ?? p.station}</h3><ol>{p.stages.map((s, n) => <li key={n}>{s.slots.map(x => <div key={x.key}>{x.label}{x.optional ? ' (optional)' : ''}: {x.accepts.map(name).join(' or ')}</div>)}<small>{s.secs} s{s.band ? ' · heat ' + Math.round(s.band[0] * 100) + '–' + Math.round(s.band[1] * 100) + '%' : ''}{s.scorchSecs ? ' · burns fast (' + s.scorchSecs + ' s)' : ''}</small>{s.hint && <p>{s.hint}</p>}</li>)}</ol></div>))}</> },
@@ -113,7 +113,7 @@ function GameRecord({ row, notices, refreshing, onDone, onDirty, onBusy }: { row
   } else if (row.kind === 'level-job') {
     const j = row.data as LevelJob;
     sections.push({ name: 'Details', body: <>{facts([['Recipe', j.recipe_id], ['Shelf', j.cuisine], ['Requested by', j.requested_by], ['Created', date(j.created_at)], ['Finished', date(j.finished_at)], ['Claims', j.attempts], ['Tokens', ((j.usage?.input ?? 0) + (j.usage?.output ?? 0)).toLocaleString()]])}{j.message && <p className={j.status === 'failed' ? 'notice error' : ''}>{j.message}</p>}</> });
-    if (j.status === 'failed') sections.push({ name: 'Retry', body: mutation('game-level-jobs', { recipeId: j.recipe_id }, [{ action: 'make', label: 'Try again' }], { key: 'cuisine', label: 'Shelf', max: 40, initial: j.cuisine ?? '' }) });
+    if (j.status === 'failed') sections.push({ name: 'Retry', body: mutation('game-level-jobs', { recipeId: j.recipe_id, jobId: j.id }, [{ action: 'make', label: 'Try again' }], { key: 'cuisine', label: 'Shelf', max: 40, initial: j.cuisine ?? '' }) });
   } else if (row.kind === 'job') {
     const j = row.data as Job;
     sections.push({ name: 'Details', body: <>{facts([['Art key', j.art_key], ['Kind', j.kind], ['Created', date(j.created_at)], ['Attempts', j.attempts], ['Drafts', j.drafts]])}{j.details && <p>{j.details}</p>}{j.error && <p className="notice error">{j.error}</p>}</> });

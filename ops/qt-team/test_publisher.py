@@ -299,10 +299,17 @@ class Publishing(unittest.TestCase):
         self.assertEqual(p.recipe_contains({'ingredients':[{'name':'coconut milk'},{'name':'milk'}]}),['Dairy'])
         self.assertEqual(p.recipe_contains({'ingredients':[{'name':'ghee'}]}),['Dairy'])  # the app's fuller dairy list
         self.assertEqual(p.recipe_contains({'ingredients':[{'name':'cream of tartar'}]}),[])
-        labels = Path(__file__).resolve().parents[2] / 'server/diet-labels.mjs'  # in the app repo only, not on the VPS
-        if labels.exists():
-            text = labels.read_text(encoding='utf-8')
-            self.assertIn(r'(?<!\b(' + p.PLANT_WORDS + r')\s)\b(' + p.DAIRY_WORDS + r')\b', text)  # same words as the app
+        # 2 Nov: buttermilk, plurals, hyphenated plant milks and Chinese dairy words follow the app's shared list.
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'buttermilk'}]}),['Dairy'])
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'grated cheeses'}]}),['Dairy'])
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'soy-milk'}]}),[])
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'炼乳'}]}),['Dairy'])
+        self.assertEqual(p.recipe_contains({'ingredients':[{'name':'椰奶'}]}),[])
+        words = Path(__file__).resolve().parents[2] / 'src/config/diet-words.mjs'  # in the app repo only, not on the VPS
+        if words.exists():
+            text = words.read_text(encoding='utf-8')
+            for same in (p.PLANT_WORDS, p.DAIRY_WORDS, p.DAIRY_ZH):  # same words as the app
+                self.assertIn(same, text)
 
     def test_server_rejection_never_leaves_a_batch_stuck(self):
         import io, urllib.error

@@ -73,10 +73,13 @@ function readStage(v: unknown, where: string, known: (item: string) => boolean, 
   return put(stage, "splitIfHot", o.splitIfHot === undefined ? undefined : list(o.splitIfHot, where, 1, LIMITS.accepts).map(a => known(id(a, where)) ? a as string : fail(where + ": unknown item")));
 }
 function readDish(v: unknown, i: number, techniques: Set<string>, known: (item: string) => boolean): Dish {
-  const where = "dish " + i, o = obj(v, where, ["id", "name", "art", "recipeId", "parts", "remember"]);
+  const where = "dish " + i, o = obj(v, where, ["id", "name", "art", "recipeId", "parts", "remember"]), stations = new Set<string>();
   const parts = list(o.parts, where, 1, LIMITS.parts).map((p, k): Part => {
     const pw = where + " part " + k, po = obj(p, pw, ["id", "name", "station", "stages", "makes"]);
     const station = typeof po.station === "string" && techniques.has(po.station) ? po.station as StationKind : fail(pw + ": station not in techniques");
+    // The kitchen has one of each station, so a dish with two parts on one station could never be served.
+    if (stations.has(station)) fail(pw + ": station " + station + " used twice");
+    stations.add(station);
     const part: Part = { id: id(po.id, pw), name: text(po.name, pw, 60), station, stages: list(po.stages, pw, 1, LIMITS.stages).map((s, n) => readStage(s, pw + " stage " + n, known, station)) };
     // A made item never comes from the shelf (sim madeItems), so a pack may not make one the built-in levels take from it.
     const makes = po.makes === undefined ? undefined : known(id(po.makes, pw)) ? po.makes as string : fail(pw + ": unknown item " + String(po.makes));

@@ -117,11 +117,12 @@ def _text(v, limit, empty=False):
 def integral(v):
     """4.0 -> 4 (JSON numbers the server reads as integers); anything else unchanged."""
     return int(v) if isinstance(v, float) and v.is_integer() else v
-# The app's Dairy rule (server/diet-labels.mjs `dairy`, which server/editorial/validation.mjs uses): these words are dairy
-# unless a plant word comes right before them (coconut milk, almond milk). Keep both lists identical to that file.
-PLANT_WORDS = 'coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nut|cocoa|shea'
-DAIRY_WORDS = r'milk|butter|cream(?!\s+of\s+tartar)|cheese|yogh?urt|ghee|paneer|whey|casein|creamer|brioche'
-PLANT_DAIRY = re.compile(r'\b(' + PLANT_WORDS + r')\s(?:' + DAIRY_WORDS + r')\b', re.ASCII)
+# The app's Dairy rule (src/config/diet-words.mjs `dairy`, which server/editorial/validation.mjs uses): these words are dairy
+# unless a plant word comes right before them (coconut milk, soy-milk). Keep the lists identical to that file.
+PLANT_WORDS = 'coconut|oat|soy|soya|almond|rice|cashew|peanut|plant-based|vegan|nondairy|nut|cocoa|shea'
+DAIRY_WORDS = r'milks?|buttermilk|butters?|creams?(?!\s+of\s+tartar)|cheeses?|yogh?urts?|ghee|paneer|whey|casein|creamers?|brioche'
+DAIRY_ZH = r'牛奶|鲜奶|奶酪|乳酪|芝士|黄油|(?<!椰)(?<!植物)奶油|(?<!椰子)酸奶|酥油|牛油(?!果)|炼乳|淡奶|(?<![豆椰])奶粉|奶精'
+PLANT_DAIRY = re.compile(r'\b(' + PLANT_WORDS + r')[\s-](?:' + DAIRY_WORDS + r')\b', re.ASCII)
 
 
 def diet_names(ingredients):
@@ -130,7 +131,7 @@ def diet_names(ingredients):
     return PLANT_DAIRY.sub(r'\1', ' '.join(str(i.get('name', '')).lower() for i in ingredients))
 
 
-SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(' + DAIRY_WORDS + r')\b', 'Dairy'), (r'\bhoney\b', 'Honey'),
+SERVER_TAGS = ((r'\beggs?\b', 'Eggs'), (r'\b(' + DAIRY_WORDS + r')\b|' + DAIRY_ZH, 'Dairy'), (r'\bhoney\b', 'Honey'),
                (r'\bgarlic\b', 'Garlic'), (r'\bonions?\b', 'Onion'), (r'\bsoy sauce|\bwheat\b', 'Gluten'))
 # Tags the app finds in ingredient names (server/diet-labels.mjs TAGS) but the server does not require. QT Manager holds a
 # recipe that misses one: almond milk not tagged Tree nuts (22 Oct 2026, golden milk), shimeji not tagged Mushrooms (30 Oct 2026).

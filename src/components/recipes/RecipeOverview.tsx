@@ -16,7 +16,6 @@ import { router } from "expo-router";
 import { ReportSheet } from "../ReportSheet";
 import { ensureMember, useMember } from "../CommunityGate";
 import { nextTier, useKitchen } from "../../hooks/useKitchen";
-import { MakeLevelAction } from "./MakeLevel";
 import { useLanguage, useT } from "../../i18n";
 import { useRecipeDish } from "../../hooks/useRecipeDish";
 import { openNearby } from "../../utils/navigation";
@@ -25,7 +24,8 @@ import { openNearby } from "../../utils/navigation";
 export function RecipeActions({ recipe, onShareFailed }: { recipe: Recipe; onShareFailed: (text: string) => void }) {
   const save = useRecipeSave(recipe.id), { theme } = usePreferences(), t = useT("cook"), language = useLanguage();
   const [report, setReport] = useState(false), member = useMember();
-  // Play it in Rush Hour when this recipe has a live Recipe Kitchen level (members only for now).
+  // Play it in Rush Hour only once a level of it is made and playable for this viewer (public, or the author's own). Members'
+  // levels are made without asking (server/game/levels-worker.mjs sweep), so there is no Make action and nothing to wait on here.
   const kitchen = useKitchen(), level = kitchen.data?.levels.find(l => l.recipeId === recipe.id);
   useReactions("recipe", [recipe.id]);
   return <>
@@ -34,7 +34,6 @@ export function RecipeActions({ recipe, onShareFailed }: { recipe: Recipe; onSha
         label={t(save.saved ? "removeSaved" : "saveName", { name: recipe.name })} selected={save.saved} onPress={save.onPress} />
       {level && <Action icon="game-controller-outline" color={theme.foreground} label={t("playName", { name: recipe.name })}
         onPress={() => router.push({ pathname: "/game/play", params: { pack: level.hash, tier: nextTier(level), run: String(Date.now()) } })} />}
-      {kitchen.data && !level && recipe.member?.own && <MakeLevelAction recipeId={recipe.id} onReady={kitchen.refresh} />}
       {recipe.member && !recipe.member.own && <Action icon="flag-outline" color={theme.foreground} label={t("reportRecipe")}
         onPress={() => { if (ensureMember(member, "/cook/recipe/" + recipe.id)) setReport(true); }} />}
     </>} />

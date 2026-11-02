@@ -8,8 +8,6 @@ import { queueDrawings } from './drawings.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
 import { recipeKeys } from '../nutrition/dynamic.mjs';
 import { linkRecipe } from '../nutrition/learned.mjs';
-import { transaction } from '../community/http.mjs';
-import { requestLevel } from '../game/levels-members.mjs';
 
 export { parseUpload, toRecipe };
 
@@ -90,17 +88,8 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
       : used.length && await noPungentFor(job) ? `It still uses ${used.join(', ').toLowerCase()}, so staff will check it before it goes public.`
       : 'Staff will check an ingredient before it goes public.', { ...usage, frames: photos?.steps?.size ?? 0, drawings }]);
   logger.info({ event: 'ai_recipe_job_done', kind: job.kind, engine: usage.engine ?? 'gemini', status, calls: usage.calls.length, frames: photos?.steps?.size ?? 0, drawings });
-  if (status === 'published' && job.user_id) await levelFor(job.user_id, saved.id);
+  // Its private Rush Hour level follows once it is live, whether now or after staff review (server/game/levels-worker.mjs sweep).
   return status;
-}
-
-/**
- * An AI recipe a member asked for gets its private Rush Hour level with the request (RECIPE_LEVELS_PLAN §11), outside the daily
- * level limits. While level making or member recipes are switched off it is simply not queued; the recipe is unaffected either way.
- */
-async function levelFor(userId, recipeUuid) {
-  try { await transaction(db => requestLevel(db, userId, 'member-' + recipeUuid, { daily: false, atOnce: false })); }
-  catch (error) { if (error?.code !== 'SERVICE_PAUSED') logger.warn({ event: 'ai_recipe_level_not_queued', detail: String(error?.message ?? error).slice(0, 160) }); }
 }
 
 /** Marks a job failed with a member-readable message (GeminiError messages are written for members). */
