@@ -1,7 +1,8 @@
 import { createHash } from 'node:crypto';
 import { postCredits } from '../game/ledger.mjs';
 import { standing } from '../social/access.mjs';
-import { EVERYDAY, MILESTONES, REVIEW_MIN_CHARS, SETTLE_HOURS, START } from './catalog.mjs';
+import { correctionProgress } from '../explore-work/rewards.mjs';
+import { CORRECTION_REWARD, EVERYDAY, MILESTONES, REVIEW_MIN_CHARS, SETTLE_HOURS, START } from './catalog.mjs';
 
 /**
  * Credits from tasks (docs/COLLECTION_PLAN.md §2), worked out from what the app already records and paid through the café
@@ -20,7 +21,7 @@ function sgWeek(at) {
 /** Everything the tasks and badges need about one member, read inside the caller's transaction. */
 export async function facts(db, userId) {
   const q = (sql, params = [userId]) => db.query(sql, params).then(r => r.rows);
-  const [state, friends, reviews, photos, cooked, dinners, misc] = await Promise.all([
+  const [state, friends, reviews, photos, cooked, dinners, misc, correction] = await Promise.all([
     standing(userId, db),
     q('SELECT count(*)::int AS n FROM social.friend WHERE a_id=$1 OR b_id=$1').then(r => r[0].n),
     q(`SELECT r.place_id AS "placeId", coalesce(r.published_at,r.created_at) AS at, r.hidden_at IS NOT NULL AS hidden, length(trim(r.body)) >= ${REVIEW_MIN_CHARS} AS long,
@@ -41,10 +42,11 @@ export async function facts(db, userId) {
         EXISTS (SELECT 1 FROM ops.restriction r WHERE r.user_id=$1 AND (r.active OR r.updated_at > now() - interval '365 days')) AS "restrictedYear",
         EXISTS (SELECT 1 FROM ops.restriction r WHERE r.user_id=$1 AND r.active) AS restricted,
         EXISTS (SELECT 1 FROM recipes.recipe x WHERE x.author_id=$1 AND x.live IS NOT NULL AND x.hidden_at IS NULL) AS "ownRecipe"`).then(r => r[0]),
+    correctionProgress(db,userId),
   ]);
   const settled = Date.now() - SETTLE_HOURS * 3600000;
   const goodReviews = reviews.filter(r => r.long && !r.hidden), goodPhotos = photos.filter(p => !p.hidden);
-  return { state, friends, reviews, photos, cooked, counted: firstPerPeriod(cooked, EVERYDAY.cook.limit), dinners, ...misc, goodReviews, goodPhotos,
+  return { state, friends, reviews, photos, cooked, counted: firstPerPeriod(cooked, EVERYDAY.cook.limit), dinners, ...misc, correction, goodReviews, goodPhotos,
     payableReviews: goodReviews.filter(r => new Date(r.at).getTime() <= settled), payablePhotos: goodPhotos.filter(p => new Date(p.at).getTime() <= settled) };
 }
 
@@ -137,6 +139,8 @@ export function taskStatus(f, { paid, src }) {
   const has = (kind, s) => paid.has(kind + '|' + s), now = Date.now(), counts = milestoneCounts(f);
   const current = (rule, at) => rule.per === 'week' ? sgWeek(at) === sgWeek(now) : sgDay(at) === sgDay(now);
   return {
+    correction: { credits: CORRECTION_REWARD.credits, limit: CORRECTION_REWARD.limit, hours: CORRECTION_REWARD.hours,
+      used: f.correction?.used ?? 0, waiting: f.correction?.waiting ?? 0, held: f.correction?.held ?? 0 },
     start: Object.entries(START).map(([key, credits]) => ({ key, credits, done: has('task_start', 'start:' + key) })),
     everyday: Object.entries(EVERYDAY).map(([key, rule]) => ({ key, credits: rule.credits, limit: rule.limit, per: rule.per,
       used: src[key].filter(item => current(rule, item.at) && has(rule.kind, item.source)).length,

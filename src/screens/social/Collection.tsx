@@ -33,7 +33,7 @@ function CreditsChip({ n }: { n: number }) {
 export function CollectionScreen() {
   const t = useT("collection"), { setNotice } = usePreferences(), inbox = useLiveInbox();
   const [tab, setTab] = useState<Tab>((inbox?.gifts ?? 0) + (inbox?.giftNews ?? 0) > 0 ? "gifts" : "tasks");
-  const remote = useRemote(collectionKey, loadCollection), me = useSocialMe().data, data = remote.data, told = useRef("");
+  const remote = useRemote(collectionKey, loadCollection, {poll:tab==="tasks"?5000:undefined}), me = useSocialMe().data, data = remote.data, told = useRef("");
   const gifts = useGifts(!!me?.hasProfile).data;
   useEffect(() => {
     const just = data?.just, key = just ? `${just.credits}|${just.badges.join()}` : "";

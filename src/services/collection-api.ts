@@ -7,6 +7,8 @@ export type Collection = {
   /** `owed`: credits to be taken back for hidden posts, which can't be spent meanwhile. `master`: everything unlocked. */
   credits: number; owed: number; lifetime: number; hasProfile: boolean; master: boolean;
   tasks: {
+    /** Optional for compatibility with a server that predates place-correction task progress. */
+    correction?: { credits: number; limit: number; hours: number; used: number; waiting: number; held: number };
     start: { key: string; credits: number; done: boolean }[];
     everyday: { key: string; credits: number; limit: number; per: "day" | "week"; used: number; waiting: number }[];
     milestones: { key: string; count: number; steps: { at: number; credits: number; done: boolean }[] }[];

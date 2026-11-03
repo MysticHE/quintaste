@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { router } from "expo-router";
 import { View } from "react-native";
 import { Button, T } from "../ui";
 import { ListGroup, ListItem, RowIcon, SwitchRow } from "../GroupedList";
@@ -80,6 +81,7 @@ export function BadgesTab({ data }: { data: Collection }) {
 
 export function TasksTab({ data }: { data: Collection }) {
   const t = useT("collection"), { theme } = usePreferences(), tasks = data.tasks;
+  const correction=tasks.correction;
   const plus = (n: number) => <T variant="small" style={{ fontWeight: "700" }} color={theme.accent}>{t("plus", { n })}</T>;
   return <>
     {data.owed > 0 && <ListGroup><ListItem title={t("owedTitle", { n: data.owed })} subtitle={t("owedText")} wrap leading={<RowIcon name="alert-circle-outline" tone="warning" />} /></ListGroup>}
@@ -88,7 +90,12 @@ export function TasksTab({ data }: { data: Collection }) {
       trailing={task.done ? <T variant="small" color={theme.success}>{t("done")}</T> : plus(task.credits)} />)}</ListGroup>
     <ListGroup title={t("groupEveryday")}>{tasks.everyday.map(task => <ListItem key={task.key} title={t(`everyday_${task.key}` as Key) as string} wrap
       subtitle={[t("everydayLine", { credits: task.credits, used: task.used, limit: task.limit, per: task.per }), task.waiting ? t("waiting", { n: task.waiting }) : ""].filter(Boolean).join(" · ")}
-      leading={<RowIcon name="sparkles-outline" />} />)}</ListGroup>
+      leading={<RowIcon name="sparkles-outline" />} />)}
+      {correction&&<ListItem title={t("correctionTask")} wrap
+        subtitle={[t("correctionLine",{credits:correction.credits,used:correction.used,limit:correction.limit}),t("correctionHint",{hours:correction.hours}),
+          correction.waiting?t("correctionWaiting",{n:correction.waiting}):"",correction.held?t("correctionHeld",{n:correction.held}):""].filter(Boolean).join("\n")}
+        leading={<RowIcon name="flag-outline"/>} onPress={()=>router.push("/explore-contributions")}/>}
+    </ListGroup>
     <ListGroup title={t("groupMilestones")}>{tasks.milestones.map(task => {
       const next = task.steps.find(step => !step.done);
       return <ListItem key={task.key} title={t(`milestone_${task.key}` as Key) as string} wrap leading={<RowIcon name="flag-outline" />}

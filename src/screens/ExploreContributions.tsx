@@ -23,6 +23,7 @@ export function ContributionsScreen(){
   return <Screen title={w.title}><MemberGate returnTo="/explore-contributions">
     {!!remote.error&&<><T>{w.load}</T><Button label={w.retry} onPress={remote.refresh}/></>}
     {remote.data?.items.length===0&&<T muted>{w.empty}</T>}
+    {remote.data&&<Button label={w.explore} icon="compass-outline" variant="secondary" onPress={()=>router.push("/")}/>}
     <ListGroup>{remote.data?.items.map(item=><ListItem key={item.id} title={item.kind==="review"?w.review:w.report}
       subtitle={item.target.replaceAll("-"," ")+" · "+contributionState(item,language)} wrap leading={<RowIcon name={item.kind==="review"?"star-outline":"flag-outline"}/>}
       onPress={()=>router.push(("/explore-contributions/"+item.id) as never)}/>)}</ListGroup>
@@ -43,6 +44,8 @@ export function ContributionDetail({id}:{id:string}){
       {!!item.photos?.length&&<ReviewPhotos photos={item.photos}/>}
       {item.reward?.state==="pending"&&<T>{w.pendingReward}</T>}
       {item.reward?.state==="paid"&&<T>{w.paidReward}</T>}
+      {item.reward?.state==="held"&&<T>{w.heldReward}</T>}
+      {item.reward?.state==="ineligible"&&<T>{w.ineligibleReward}</T>}
       <Button label={w.view} icon="open-outline" variant="link" onPress={()=>router.push(("/place/catalogue-"+item.target+(item.reviewId?"?reviewId="+item.reviewId:"")) as never)}/>
       <T variant="small" accessibilityRole="header" style={common.bold}>{w.timeline}</T>
       {item.timeline?.map((entry,i)=><View key={i} style={{gap:2}}><T variant="small">{entry.what==="received"?w.received:entry.what==="verified-live"?w.live:entry.what==="additional-information"?w.reply:w.working}</T>

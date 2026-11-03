@@ -25,6 +25,8 @@ export const EVERYDAY = {
   photo: { kind: 'task_photo', credits: 10, limit: 2, per: 'day' },
   dinner: { kind: 'task_dinner', credits: 80, limit: 2, per: 'week' },
 };
+/** Verified place corrections are paid by the resident Explore worker; Collection only shows their progress. */
+export const CORRECTION_REWARD = { credits: 20, limit: 3, hours: 24, kind: 'explore_fix' };
 /** A review counts with a rating and at least this many characters of text. */
 export const REVIEW_MIN_CHARS = 40;
 /** Hours before a review or a cooked photo pays, so staff can hide it first. */

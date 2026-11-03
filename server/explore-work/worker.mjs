@@ -5,6 +5,8 @@ import { allowed } from '../operations.mjs';
 import { publishedPlaceId } from '../catalogue-places.mjs';
 import { lockProfile,postCredits } from '../game/ledger.mjs';
 import { queueAlert } from '../community/push.mjs';
+import { CORRECTION_REWARD } from '../collection/catalog.mjs';
+import { correctionProgress } from './rewards.mjs';
 import { correctionMatches,correctionPatches,liveContext,validateProposal } from './corrections.mjs';
 import { advance,event,exploreMode,finishDelivery,placeLink,reference } from './core.mjs';
 
@@ -77,9 +79,8 @@ async function complete(db,w,name) {
     const owner=(await db.query(`SELECT user_id FROM ops.explore_submission WHERE work_id=$1 ORDER BY created_at,id LIMIT 1`,[w.id])).rows[0]?.user_id;
     if(owner) {
       await db.query('SELECT pg_advisory_xact_lock(1902915,hashtext($1))',['explore-rewards:'+owner]);
-      const used=(await db.query(`SELECT count(*)::int n FROM ops.explore_reward r JOIN ops.explore_work w ON w.id=r.work_id
-        WHERE r.user_id=$1 AND r.state IN ('pending','paid') AND (w.verified_at AT TIME ZONE 'Asia/Singapore')::date=(now() AT TIME ZONE 'Asia/Singapore')::date`,[owner])).rows[0].n;
-      await db.query(`INSERT INTO ops.explore_reward(work_id,user_id,state,due_at) VALUES($1,$2,$3,now()+interval '24 hours') ON CONFLICT DO NOTHING`,[w.id,owner,used>=3?'ineligible':'pending']);
+      const {used}=await correctionProgress(db,owner);
+      await db.query(`INSERT INTO ops.explore_reward(work_id,user_id,state,due_at) VALUES($1,$2,$3,now()+make_interval(hours=>$4)) ON CONFLICT DO NOTHING`,[w.id,owner,used>=CORRECTION_REWARD.limit?'ineligible':'pending',CORRECTION_REWARD.hours]);
     }
   }
   const reward=(await db.query('SELECT state,credits FROM ops.explore_reward WHERE work_id=$1',[w.id])).rows[0];
@@ -87,7 +88,7 @@ async function complete(db,w,name) {
   await finishDelivery(db,w,'live',{title:review?'Explore review published':'Explore updated',target:w.target,name,
     path:placeLink(w.target)+(review?'?reviewId='+w.review_id:''),reference:reference(w.id),
     detail:review?'Rating, comment and attached photos checked.':w.result.pandan.changes.map(c=>c.field==='contact'?'public phone':c.field).join(', ')+' corrected.',
-    reward:reward?.state==='pending'?20:0,verifiedAt:new Date().toISOString()});
+    reward:reward?.state==='pending'?CORRECTION_REWARD.credits:0,verifiedAt:new Date().toISOString()});
 }
 async function settleRewards() {
   if(!await allowed('games')||!await allowed('collection')) return;
@@ -108,12 +109,12 @@ async function settleRewards() {
       const row=(await db.query("SELECT * FROM ops.explore_reward WHERE work_id=$1 AND state='pending' FOR UPDATE",[r.work_id])).rows[0];
       if(!row||(await db.query('SELECT 1 FROM ops.restriction WHERE user_id=$1 AND active',[r.user_id])).rowCount) return;
       await lockProfile(db,r.user_id);
-      await postCredits(db,r.user_id,20,'explore_fix','correction:'+r.work_id);
+      await postCredits(db,r.user_id,CORRECTION_REWARD.credits,CORRECTION_REWARD.kind,'correction:'+r.work_id);
       await db.query("UPDATE ops.explore_reward SET state='paid',paid_at=now() WHERE work_id=$1",[r.work_id]);
       await db.query('UPDATE ops.explore_work SET updated_at=now() WHERE id=$1',[r.work_id]);
       await queueAlert(db,r.user_id,'exploreCredits',{url:'/explore-contributions/'+r.work_id,once:'explore:'+r.work_id+':credits'});
       const w=(await db.query('SELECT * FROM ops.explore_work WHERE id=$1',[r.work_id])).rows[0];
-      await finishDelivery(db,w,'reward',{title:'Explore contribution rewarded',target:w.target,path:placeLink(w.target),reference:reference(w.id),detail:'20 credits awarded.',verifiedAt:new Date().toISOString()});
+      await finishDelivery(db,w,'reward',{title:'Explore contribution rewarded',target:w.target,path:placeLink(w.target),reference:reference(w.id),detail:CORRECTION_REWARD.credits+' credits awarded.',verifiedAt:new Date().toISOString()});
     });
   }
 }
