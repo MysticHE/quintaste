@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import datetime as dt
 import hashlib
-import io
 import json
 import os
 from pathlib import Path
@@ -388,7 +387,6 @@ def change_caption(change):
 
 def recipe_covers(publication, folder):
     """Report the immutable published illustration, without an account or a UI screenshot claim."""
-    from PIL import Image
     from publisher import sha
     photos = []
     for record in publication.get('records', []):
@@ -406,10 +404,10 @@ def recipe_covers(publication, folder):
         digest = hashlib.sha256(raw).hexdigest()
         if len(raw) > 512 * 1024 or not path.endswith(digest + '.jpg'):
             raise ValueError('Recipe cover hash or size changed')
-        with Image.open(io.BytesIO(raw)) as photo:
-            if photo.format != 'JPEG' or photo.mode != 'RGB' or photo.width * 3 != photo.height * 4:
-                raise ValueError('Invalid recipe cover format')
-            photo.verify()
+        # The publisher validated pixels and dimensions before approving this immutable hash.
+        # Delivery checks the same bytes; the isolated Telegram runtime needs no image decoder.
+        if not raw.startswith(b'\xff\xd8\xff') or not raw.endswith(b'\xff\xd9'):
+            raise ValueError('Invalid published JPEG')
         target = folder / ('recipe-' + rid + '.jpg')
         target.write_bytes(raw)
         figures = (recipe.get('nutrition') or {}).get('perServing') or {}

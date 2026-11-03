@@ -123,7 +123,7 @@ class PublicationDelivery(unittest.TestCase):
                 'nutrition':{'basis':'estimate','perServing':{'kcal':278,'protein':16.7,'fibre':8.4,'sodium':346.6}}}
         publication={'revision':'c'*64,'records':['recipe:green-soup'],'changes':[{'kind':'recipe','id':'green-soup','changeId':'d'*64}]}
         response=unittest.mock.MagicMock();response.__enter__.return_value.read.return_value=raw
-        with patch.object(t,'get_public',return_value=recipe),patch.object(t.urllib.request,'urlopen',return_value=response),patch.object(p,'request',return_value={'changes':publication['changes']}),patch.dict(sys.modules,{'playwright.sync_api':None}):
+        with patch.object(t,'get_public',return_value=recipe),patch.object(t.urllib.request,'urlopen',return_value=response),patch.object(p,'request',return_value={'changes':publication['changes']}),patch.dict(sys.modules,{'playwright.sync_api':None,'PIL':None}):
             photos=t.capture(publication)
         self.assertEqual(len(photos),1)
         self.assertEqual(Path(photos[0]['path']).read_bytes(),raw)
