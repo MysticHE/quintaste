@@ -2,9 +2,10 @@ import { logger } from '../config.mjs';
 import { CommunityError, communityRouter, errors, member, throttle, transaction } from '../community/http.mjs';
 import { loadRecipe } from '../recipes/lookup.mjs';
 import { accountAccess } from '../account-access.mjs';
-import { invalidRules, swapPlan } from './plan.mjs';
+import { invalidRules, rulesVersion, swapPlan } from './plan.mjs';
 import { SWAP_AI_PER_DAY, aiOption, aiStatus, askAi } from './ai.mjs';
 import { planAccess } from '../ai-recipes/limits.mjs';
+import { recordGaps } from '../gaps/record.mjs';
 
 /**
  * Ingredient swaps for a recipe (docs/AI_FOOD_LIBRARY_PLAN.md §5): the reviewed rules, worked out by code for each line.
@@ -24,7 +25,8 @@ async function planFor(id, viewer) {
   const recipe = await loadRecipe(id);
   // A private recipe (Snap a dish) has swaps for its author only, like every other view of it.
   if (!recipe || (recipe.privateTo && recipe.privateTo !== viewer)) throw unavailable();
-  const key = `${id}:${recipe.revision}:${recipe.updatedAt ?? ''}`;
+  // Approved library-gap rules (server/gaps/approved.mjs) change the plans too.
+  const key = `${id}:${recipe.revision}:${recipe.updatedAt ?? ''}:${rulesVersion()}`;
   let plan = plans.get(key);
   if (!plan) {
     plan = { ...swapPlan(recipe), name: recipe.name };
@@ -63,6 +65,8 @@ swaps.get('/recipe/:id/lines/:lineId/ai', member, async (req, res) => {
 swaps.post('/recipe/:id/lines/:lineId/ai', member, async (req, res) => {
   const { recipe, line } = await aiLine(req, res), me = res.locals.user.id;
   res.json(await askAi(recipe, line, me, () => throttle('swap-ai:' + me, SWAP_AI_PER_DAY, 86400, `You can ask for ${SWAP_AI_PER_DAY} AI swaps a day. Try again tomorrow.`)));
+  // Wanting more than the reviewed rules offer for a food is a library gap: the bots can draft rules for staff.
+  recordGaps([{ kind: 'swap', key: line.key, label: line.key.replace(/_/g, ' '), context: { recipe: String(recipe.name ?? '').slice(0, 80) }, user: me }]);
 });
 
 /** "Did the swap work?" answered No: one case per member and swap, so staff can fix or drop the rule. */

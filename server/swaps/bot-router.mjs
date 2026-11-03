@@ -2,6 +2,7 @@ import express from 'express';
 import { pool, logger } from '../config.mjs';
 import { json, raw, signed } from '../bot-signature.mjs';
 import { STALE_MINUTES, readAnswer } from './ai.mjs';
+import { recordGaps } from '../gaps/record.mjs';
 
 /**
  * Routes the QT bots call for swap AI options (ops/qt-team/ai_recipes_bridge.py), signed like the other bot routes: claim the
@@ -28,12 +29,14 @@ swapBots.post('/tasks/:id/result', raw('12kb'), signed, async (req, res, next) =
     if (!ID.test(req.params.id)) return res.sendStatus(404);
     const body = json(req);
     if (!body || (typeof body.error !== 'string' && !Array.isArray(body.picks))) return res.status(400).json({ error: 'Send picks or error.' });
-    const task = (await pool.query("SELECT payload FROM recipes.swap_ai WHERE id=$1 AND status='claimed'", [req.params.id])).rows[0];
+    const task = (await pool.query("SELECT payload, requested_by FROM recipes.swap_ai WHERE id=$1 AND status='claimed'", [req.params.id])).rows[0];
     if (!task) return res.status(409).json({ error: 'This task is not waiting for an answer.' });
     const failed = typeof body.error === 'string', result = failed ? null : readAnswer(body, task.payload.candidates ?? []);
     await pool.query(`UPDATE recipes.swap_ai SET status=$2, result=$3, error=$4, answered_at=now() WHERE id=$1 AND status='claimed'`,
       [req.params.id, failed ? 'failed' : 'done', result, failed ? String(body.error).slice(0, 300) : '']);
     logger.info({ event: 'swap_ai_answer', failed, picks: result?.picks.length ?? 0 });
+    // Foods the bots thought better than any candidate are library gaps (the library does not have them yet).
+    recordGaps((result?.newItems ?? []).map(name => ({ kind: 'food', key: name, label: name, context: { swapFor: task.payload.line?.key ?? '' }, user: task.requested_by })));
     res.json({ ok: true });
   } catch (error) { next(error); }
 });

@@ -9,6 +9,7 @@ import { contentPhoto, recipePhoto, uploadPhoto } from '../../../../lib/content-
 import { memberRecipeAction, memberRecipeList, memberRecipePhoto } from '../../../../lib/content-member-recipes';
 import { aiJobs, aiSummary } from '../../../../lib/ai-recipes';
 import { demandAction, demandList } from '../../../../lib/recipe-demand';
+import { approvedFoods, gapAction, gapList } from '../../../../lib/library-gaps';
 import { ingredientAction, ingredientList } from '../../../../lib/content-ingredients';
 import { creatorAction, creatorDetail, creatorList } from '../../../../lib/creators';
 import { gameLevelAction, gameCafeList, gameCafeAction, gameLevelList, gameLevelMake, gameLevelRecipes, gamePicture, gamePictureAction, gamePictureList } from '../../../../lib/game-content';
@@ -36,6 +37,9 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'ai-jobs') return json(await aiJobs(member, status, q, skip));
   if (resource === 'ai-summary') return json(await aiSummary(member));
   if (resource === 'recipe-demand') return json(await demandList(member, status, q, skip));
+  if (resource === 'library-gaps') return json(await gapList(member, status, q, skip));
+  if (resource === 'library-foods') return new Response(JSON.stringify(await approvedFoods(member), null, 2), { headers: { 'Content-Type': 'application/json',
+    'Content-Disposition': 'attachment; filename="approved-foods.json"', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
   if (resource === 'ingredients') return json(await ingredientList(member, status, q, skip));
   if (resource === 'creators') return json(id ? await creatorDetail(member, id) : await creatorList(member, status, q, skip));
   if (resource === 'game-levels') return json(await gameLevelList(member, status, q, skip));
@@ -78,6 +82,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'market-reviews') return json(await memberAction(member, 'market-review', input, reason));
   if (resource === 'member-recipes') return json(await memberRecipeAction(member, input, reason));
   if (resource === 'recipe-demand') return json(await demandAction(member, input, reason));
+  if (resource === 'library-gaps') return json(await gapAction(member, input, reason));
   if (resource === 'ingredients') return json(await ingredientAction(member, input, reason));
   if (resource === 'creators') return json(await creatorAction(member, input, reason));
   if (resource === 'game-levels') return json(await gameLevelAction(member, input, reason));

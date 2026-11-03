@@ -126,6 +126,8 @@ const zh: typeof en = {
   aiTitle: "AI 食谱",
   aiOff: "AI 食谱目前暂停。",
   aiFull: "今天名额已满，请明天再试。",
+  aiWritingPaused: "食谱生成暂停中，请稍后再试。",
+  aiAhead: "前面还有 {n} 个",
   findRecipe: "找食谱",
   fromVideo: "从视频生成",
   videoLink: "视频链接",

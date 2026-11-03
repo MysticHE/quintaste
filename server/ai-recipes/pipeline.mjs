@@ -4,8 +4,7 @@ import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSyste
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { hiddenAnimal, houseNotes, pungent, wantsNoPungent } from './charter.mjs';
 import { fromVideo } from './video-job.mjs';
-import { CHOSEN_KINDS, dropSnap, fromPhoto } from './snap.mjs';
-import { fromIngredients } from './ingredients.mjs';
+import { CHOSEN_KINDS, dropSnap } from './snap.mjs';
 import { queueDrawings } from './drawings.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
 import { recipeKeys } from '../nutrition/dynamic.mjs';
@@ -122,8 +121,7 @@ export async function runJob(job, signal) {
   const usage = { calls: [], bytes: 0 };
   try {
     const { recipe, photos } = job.kind === 'video' ? await fromVideo(job, signal, usage, progress(job))
-      : job.kind === 'photo' ? await fromPhoto(job, signal, usage, progress(job))
-      : job.kind === 'ingredients' ? await fromIngredients(job, signal, usage, progress(job)) : await fromRequest(job, signal, usage, progress(job));
+      : await fromRequest(job, signal, usage, progress(job));
     return await finishJob(job, recipe, photos, usage, { signal });
   } catch (error) {
     return failJob(job, error, usage);

@@ -55,8 +55,8 @@ function Row({ job, onRetry, retryDisabled }: { job: AiJob; onRetry: (job: AiJob
   const open = job.status === "published" && job.recipeId && !gone ? () => router.push(("/cook/recipe/" + job.recipeId) as never) : undefined;
   const pill = { good: [theme.successSoft, theme.success], warn: [theme.warningSoft, theme.warning], busy: [theme.accentSoft, theme.accent] }[status.tone];
   const icon: IconName = job.kind === "video" ? "videocam-outline" : job.kind === "photo" ? "camera-outline" : job.kind === "ingredients" ? "basket-outline" : "restaurant-outline";
-  // Only a failure says why; other states speak through the pill.
-  const note = job.status === "failed" ? job.message : "";
+  // Only a failure says why, and a waiting one how many are ahead; other states speak through the pill.
+  const note = job.status === "failed" ? job.message : active && job.ahead ? t("aiAhead", { n: job.ahead }) : "";
   const summary = <>
     <View style={[s.icon, { backgroundColor: theme.accentSoft }]}><Icon name={icon} size={18} color={theme.accent} /></View>
     <View style={[common.flex, s.text]}>

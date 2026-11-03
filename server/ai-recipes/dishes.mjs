@@ -17,6 +17,11 @@ export const dishKey = value => String(value ?? '').normalize('NFKC').toLowerCas
   .replace(/^(vegetarian|vegan|meat free|meatless|plant based)\s+/, '').trim();
 const names = card => [card.name.en, card.name.zh, ...(card.aliases ?? [])].map(dishKey).filter(Boolean);
 const index = cards.map(card => ({ card, keys: names(card) }));
+// Dish cards staff approved from library gaps (server/gaps/approved.mjs); the reviewed file's cards win on a shared name.
+let extra = [];
+export function setExtraCards(list) {
+  extra = list.filter(card => !cards.some(c => c.id === card.id)).map(card => ({ card, keys: names(card) }));
+}
 
 /**
  * The dish card for a name the AI or the member gave: its name or an alias only. A near spelling can be another dish ("fish soup"
@@ -24,9 +29,9 @@ const index = cards.map(card => ({ card, keys: names(card) }));
  */
 export function findCard(name) {
   const key = dishKey(name);
-  return key ? index.find(entry => entry.keys.includes(key))?.card ?? null : null;
+  return key ? (index.find(entry => entry.keys.includes(key)) ?? extra.find(entry => entry.keys.includes(key)))?.card ?? null : null;
 }
-export const cardById = id => cards.find(card => card.id === id) ?? null;
+export const cardById = id => cards.find(card => card.id === id) ?? extra.find(entry => entry.card.id === id)?.card ?? null;
 
 /** The guide's part for an ingredient name: the one whose pattern matches the longest span ("minced pork" is minced meat, not pork). */
 export function guidePart(name) {

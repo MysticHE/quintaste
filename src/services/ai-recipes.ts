@@ -14,12 +14,14 @@ export type AiJob = {
   title?: string | null;
   /** False when the recipe was hidden or withdrawn after it was written. */
   openable?: boolean;
+  /** Tasks ahead of this one while it waits in line. */
+  ahead?: number;
 };
 /** `plan` stays null until payments are connected (src/config/ai-plans.ts); `usedThisMonth` counts recipes started this month. */
 /** `usedToday` covers the rolling 24 hours the daily limit uses; `fullToday` means everyone's daily total is used; `limits` come from the server. */
-/** `unlimited`: the master account (no daily count); `snap`: Snap a dish and My ingredients are open to this member. */
+/** `unlimited`: the master account (no daily count); `snap`: Snap a dish and My ingredients are open to this member; `paused`: open, but their recipe writing is not answering right now. */
 export type AiRecipesStatus = { enabled: boolean; dailyPerMember: number; plan: null | { id: string; renewsAt: string }; needsPlan?: boolean; usedThisMonth?: number;
-  usedToday?: number; fullToday?: boolean; unlimited?: boolean; snap?: boolean; limits?: { videoMinutes: number; videoMb: number; atOnce: number } };
+  usedToday?: number; fullToday?: boolean; unlimited?: boolean; snap?: boolean; paused?: boolean; limits?: { videoMinutes: number; videoMb: number; atOnce: number } };
 export const aiRecipesStatus = (signal: AbortSignal) => call<AiRecipesStatus>("/api/ai-recipes/status", { signal });
 export const myAiJobs = (signal: AbortSignal) => call<{ items: AiJob[] }>("/api/ai-recipes/mine", { signal });
 export const startAiJob = (kind: AiJobKind, input: string) => call<AiJob>("/api/ai-recipes", { method: "POST", body: { kind, input } });

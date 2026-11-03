@@ -38,12 +38,12 @@ export function startAiRecipeWorker() {
         const local = uploadPath(upload.name);
         if (local) await rm(local, { force: true }).catch(() => {}); else await deleteFile(upload.name);
       }
-      const bots = await engine() === 'bots';
-      if (bots && !await botTableReady()) return;
+      const bots = await engine() === 'bots', table = await botTableReady();
+      if (bots && !table) return;
       const job = (await pool.query(`UPDATE recipes.ai_job SET status='working', started_at=now(), attempts=attempts+1
         WHERE id = (SELECT id FROM recipes.ai_job WHERE status='queued' ORDER BY kind = 'demand', created_at LIMIT 1 FOR UPDATE SKIP LOCKED) RETURNING *`)).rows[0];
-      // Snap a dish and My ingredients run on Gemini only (no quiet switch of engine): with the QT bots on, such a job left in line fails plainly.
-      if (job) await (CHOSEN_KINDS.includes(job.kind) && bots ? failJob(job, new GeminiError(503, 'This recipe cannot be written right now. Try again later.'), { calls: [], bytes: 0 })
+      // Snap a dish and My ingredients are always written by the QT bots (Phase E; the engine switch is for videos and dish requests).
+      if (job) await (CHOSEN_KINDS.includes(job.kind) ? (table ? handToBots(job) : failJob(job, new GeminiError(503, 'This recipe cannot be written right now. Try again later.'), { calls: [], bytes: 0 }))
         : bots ? handToBots(job) : runJob(job, controller.signal));
     } catch (error) {
       logger.warn({ event: 'ai_recipe_worker_error', detail: String(error?.message ?? error).slice(0, 200) });

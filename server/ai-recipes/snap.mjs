@@ -2,20 +2,18 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { GeminiError, generate } from './gemini.mjs';
-import { NO_PUNGENT, house, recipeSchema } from './prompts.mjs';
-import { clip, toRecipe } from './recipe.mjs';
+import { NO_PUNGENT, house } from './prompts.mjs';
+import { clip } from './recipe.mjs';
 import { WORK_DIR } from './work.mjs';
-import { cardById, findCard, replacementPlan } from './dishes.mjs';
-import { boostersFor, fixInstruction, missedTargets } from './targets.mjs';
-import { nutritionFor } from '../nutrition/service.mjs';
+import { findCard } from './dishes.mjs';
 import { encodePhoto } from '../market/rules.mjs';
 import { cookName, tableKeys } from '../nutrition/estimate.mjs';
 
 /**
- * Snap a dish (docs/AI_FOOD_LIBRARY_PLAN.md §6): the AI names the dish in a member's photo (free, 20 a day), then, when they
- * choose Create recipe, writes a meat-free version from the dish card and the replacement guide, and code balances the
- * nutrition (at most two rounds). The photo stays on the app's disk for the job only: it is removed when the job ends and
- * swept after 24 hours (work.mjs), never stored in the database and never used as a recipe's picture (it may show meat).
+ * Snap a dish (docs/AI_FOOD_LIBRARY_PLAN.md §6): Gemini names the dish in a member's photo (free, 20 a day); when they choose
+ * Create recipe, the QT bots write a meat-free version from the dish card and the replacement guide (writing.mjs, Phase E). The
+ * photo stays on the app's disk only until the job reaches the bots (they never get it), and is swept after 24 hours (work.mjs);
+ * it is never stored in the database and never used as a recipe's picture (it may show meat).
  */
 export const SNAP_DIR = path.join(WORK_DIR, 'snaps');
 export const RECOGNITIONS_PER_DAY = 20;
@@ -41,7 +39,6 @@ export async function readGuesses(id) {
   const name = file(id, '.json');
   return name ? JSON.parse(await readFile(name, 'utf8').catch(() => 'null')) : null;
 }
-const readSnap = id => (file(id, '.jpg') ? readFile(file(id, '.jpg')).catch(() => null) : null);
 export const dropSnap = async id => { for (const ext of ['.jpg', '.json']) if (file(id, ext)) await rm(file(id, ext), { force: true }).catch(() => {}); };
 
 const seeSchema = {
@@ -82,7 +79,7 @@ export const DIET_RULES = {
 // The recipe table's foods as a cook names them: the recipe uses these where they fit, so code can weigh it (anything else is new).
 let pantry = '';
 export const pantryList = () => (pantry ||= [...new Set(tableKeys().filter(key => !['water', 'tea_leaves', 'salt_kosher_dc'].includes(key)).map(cookName))].join(', '));
-const photoSystem = house + `
+export const photoSystem = house + `
 You write a meat-free home version of a dish for QuinTaste. Code has already decided what replaces each meat, seafood or other part; follow its plan exactly, keep the dish recognisable and name it as people would ("Vegetarian char kway teow"). Use ingredients sold in Singapore supermarkets and wet markets. Set creator to null and at to null for every step.`;
 
 /** The writing prompt: the dish, its usual parts and the replacement plan from code, and the diet chosen. */
@@ -93,44 +90,5 @@ export function photoPrompt({ dish, card, plan, diet }) {
     card ? `Usual serving about ${card.serving} g. Keep these parts:\n${keep}` : `Parts seen in the member's photo (no dish card):\n${keep}`,
     `Replace these parts as shown:\n${swap}`,
     DIET_RULES[diet], `Prefer these ingredients where they fit: ${pantryList()}. Name anything else in notes as a new ingredient.`,
-    'The member\'s photo, when attached, is for reference only. Write 2 servings unless the dish is usually shared.'].join('\n\n');
-}
-
-/**
- * Writes a recipe from `prompt` (and the member's photo, when given), then balances its nutrition: code measures the targets,
- * and when one is missed it picks what to add and the AI works it in. Two rounds at most; then the recipe simply has no badge
- * for what is still missed. Shared by Snap a dish and My ingredients.
- */
-export async function writeBalanced({ prompt, system, photo = null, card = null, request, signal, usage, progress }) {
-  await progress('Writing the recipe…');
-  const written = await generate({ parts: [{ text: prompt }, ...(photo ? [{ inline_data: { mime_type: 'image/jpeg', data: photo.toString('base64') } }] : [])],
-    schema: recipeSchema, system, signal });
-  usage.calls.push(written.usage);
-  const source = { kind: 'request', request: clip(request, 200), urls: [], creator: 'QuinTaste' };
-  let recipe = toRecipe(written.data, { source });
-  for (let round = 0; round < 2; round++) {
-    const { nutrition } = await nutritionFor(recipe, { usage, signal, ai: false });
-    const missed = await missedTargets(recipe, nutrition, card), picks = boostersFor(recipe, missed);
-    if (!picks.length && !missed.includes('sodium')) break;
-    await progress('Balancing the nutrition…');
-    const revised = await generate({ parts: [{ text: fixInstruction(picks, missed) + '\n\n' + JSON.stringify({ title: recipe.title, servings: recipe.servings,
-      ingredients: recipe.ingredients, steps: recipe.steps, notes: recipe.notes }) }], schema: recipeSchema, system, signal });
-    usage.calls.push(revised.usage);
-    recipe = toRecipe(revised.data, { source });
-  }
-  return recipe;
-}
-
-/** Writes the recipe for a photo job and balances its nutrition; returns { recipe, photos: null }. */
-export async function fromPhoto(job, signal, usage, progress) {
-  const options = job.options ?? {};
-  const diet = readDiet(options.diet) ?? 'both', card = options.card ? cardById(options.card) : null;
-  const dish = options.dish?.en ? options.dish : { en: clip(job.input, 120), zh: '' };
-  const parts = card ? card.parts : (options.components ?? []).map(name => ({ name }));
-  const plan = replacementPlan(parts, diet);
-  try {
-    const recipe = await writeBalanced({ prompt: photoPrompt({ dish, card, plan, diet }), system: photoSystem, photo: await readSnap(options.snap), card,
-      request: dish.en, signal, usage, progress });
-    return { recipe, photos: null };
-  } finally { await dropSnap(options.snap); }
+    'Write 2 servings unless the dish is usually shared.'].join('\n\n');
 }

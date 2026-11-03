@@ -126,6 +126,8 @@ const en = {
   aiTitle: "AI Recipes",
   aiOff: "AI recipes are off right now.",
   aiFull: "Fully booked today. Try again tomorrow.",
+  aiWritingPaused: "Recipe writing is paused right now. Try again later.",
+  aiAhead: "{n} ahead",
   findRecipe: "Find Recipe",
   fromVideo: "From A Video",
   videoLink: "Video link",

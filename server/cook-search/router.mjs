@@ -1,4 +1,4 @@
-import { createHmac } from 'node:crypto';
+import { memberHasher } from '../community/member-hash.mjs';
 import { pool } from '../config.mjs';
 import { communityRouter, errors, member, throttle } from '../community/http.mjs';
 import { normaliseTerm } from './terms.mjs';
@@ -10,8 +10,7 @@ import { serverMatches, suggest } from './suggest.mjs';
  */
 export const cookSearch = communityRouter({ guests: true, bodyLimit: '2kb' });
 // Distinct searchers are counted by an HMAC of the account id; the key exists only in the server's memory.
-const memberKey = createHmac('sha256', process.env.BETTER_AUTH_SECRET ?? '').update('cook-search-demand-v1').digest();
-const memberHash = id => createHmac('sha256', memberKey).update(String(id)).digest('hex');
+const memberHash = memberHasher('cook-search-demand-v1');
 
 cookSearch.get('/suggest', async (req, res) => {
   const q = typeof req.query.q === 'string' ? req.query.q.slice(0, 100) : '';

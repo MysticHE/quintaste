@@ -6,12 +6,14 @@ qt-videomaker profile (video tasks: the `video` toolset, so video_analyze watche
 toolset), and posts the recipe JSON or a failure back. The app checks, photographs and saves the answer. Nothing here
 publishes, and nothing falls back to another model: a failure is reported as a failure.
 
-It also answers Find More With AI for ingredient swaps (3 Nov 2026, server/swaps/ai.mjs): the app sends one recipe line, its
-role and up to ten library candidates; the model picks at most three with a reason, and the app builds and checks every option
-itself. Swap asks go first, since a member waits for them in the app; no tools are given for them.
+It also answers Find More With AI for ingredient swaps (server/swaps/ai.mjs), writes the recipes for Snap a dish and My
+ingredients from the app's brief (no tools: the brief holds the dish card and replacement plan, or the member's items), and drafts
+library additions for gaps members hit (server/gaps, with web tools). The app checks every answer itself.
 
-Run as a long-lived process (`python ai_recipes_bridge.py`), or `--once` for a single claim. Several bridges can run at
-once: the app hands each task to exactly one of them.
+Lanes (docs/AI_FOOD_LIBRARY_PLAN.md, Phase E): `--lanes quick` serves swap asks and Snap / My ingredients writing; `--lanes
+slow,quick` serves videos, dish requests and library drafts first and quick work when idle. Each process names itself (`--name`),
+which tells the app its lanes are up. Run as a long-lived process, or `--once` for a single claim. Several bridges can run at once:
+the app hands each task to exactly one of them.
 """
 from __future__ import annotations
 import argparse
@@ -29,11 +31,14 @@ ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 from app_signing import open_signed  # noqa: E402  (the shared signer)
 import hermes_run  # noqa: E402  (the shared Hermes runner)
 PROFILE = 'qt-videomaker'
-ROUTES = ('/api/ai-recipes/bot/claim', '/api/ai-recipes/bot/tasks/', '/api/swaps/bot/claim', '/api/swaps/bot/tasks/')
+ROUTES = ('/api/ai-recipes/bot/claim', '/api/ai-recipes/bot/tasks/', '/api/swaps/bot/claim', '/api/swaps/bot/tasks/', '/api/gaps/bot/claim', '/api/gaps/bot/tasks/')
 MAX_VIDEO = 32 * 1024 * 1024
 RUN_SECONDS, MAX_TURNS, IDLE_SECONDS = 900, 30, 10
 MAX_ANSWER = 230_000  # the app accepts 240 KB of answer
 SWAP_SECONDS, SWAP_TURNS, MAX_SWAP_ANSWER = 180, 2, 11_000  # the app accepts 12 KB
+WRITE_SECONDS, WRITE_TURNS = 300, 3  # Snap a dish and My ingredients: no research, the brief has everything
+GAP_SECONDS, GAP_TURNS, MAX_GAP_ANSWER = 600, 20, 15_500  # library drafts: web research; the edge and the app accept 16 KB
+WRITING = ('photo', 'ingredients')
 DISCOVERY = ('tool_search', 'tool_describe')
 ALLOWED = {'video': ('video_analyze',) + DISCOVERY, 'web': ('web_search', 'web_extract') + DISCOVERY}
 
@@ -70,6 +75,8 @@ def prompt_for(task: dict, video: Path | None) -> str:
                'Ask it for every step in order with the second it starts and a second where a still frame shows that step clearly, '
                'every ingredient with the amount shown, spoken or written on screen, and the second that best shows the finished dish. '
                'Call it exactly once (each call is billed per second of video), asking for everything in that one question. Write the recipe from what it reports.')
+    elif task['kind'] in WRITING:
+        how = 'Write from the facts given; do not search the web.'
     else:
         how = 'Research with web_search and read pages with web_extract (at most about 12 calls).'
     return (brief['system'] + '\n\n' + how + '\n\nTask: ' + brief['prompt'] + '\n\nReturn ONLY one JSON object, no Markdown: '
@@ -77,9 +84,9 @@ def prompt_for(task: dict, video: Path | None) -> str:
             + json.dumps(brief['schema'], ensure_ascii=False))
 
 
-def run_hermes(prompt: str, folder: Path, toolset: str):
-    final, events = hermes_run.run(PROFILE, prompt, folder, toolset=toolset, allowed=ALLOWED[toolset], seconds=RUN_SECONDS,
-                                   turns=MAX_TURNS, grace=90, reserve=reserve)
+def run_hermes(prompt: str, folder: Path, toolset: str, allowed=None, seconds: int = RUN_SECONDS, turns: int = MAX_TURNS, keep: bool = True):
+    final, events = hermes_run.run(PROFILE, prompt, folder, toolset=toolset, allowed=ALLOWED[toolset] if allowed is None else allowed,
+                                   seconds=seconds, turns=turns, grace=90, reserve=reserve, keep=keep)
     if toolset == 'video' and not any(e.get('type') == 'tool_use' and e.get('name') == 'video_analyze' for e in events) \
             and '"error"' not in final.get('text', ''):
         raise RuntimeError('video_analyze was not called')
@@ -111,8 +118,12 @@ def handle(task: dict) -> dict:
             ext = {'video/webm': '.webm', 'video/quicktime': '.mov'}.get(task['video'].get('mimeType'), '.mp4')
             video = folder / ('video' + ext)
             signed('GET', task['video']['path'], save_to=video)
-        toolset = 'video' if task['kind'] == 'video' else 'web'
-        final, events = run_hermes(prompt_for(task, video), folder, toolset)
+        if task['kind'] in WRITING:
+            # No tools; the brief can hold a member's own words (their items), so a successful run keeps nothing.
+            final, events = run_hermes(prompt_for(task, None), folder, 'web', allowed=DISCOVERY, seconds=WRITE_SECONDS, turns=WRITE_TURNS, keep=False)
+            shutil.rmtree(folder, ignore_errors=True)
+        else:
+            final, events = run_hermes(prompt_for(task, video), folder, 'video' if task['kind'] == 'video' else 'web')
         answer = parse(final.get('text', ''))
         if 'error' in answer and 'steps' not in answer:
             return {'error': str(answer['error'])[:280]}
@@ -164,12 +175,7 @@ def handle_swap(task: dict) -> dict:
 
 
 def swap_once() -> bool:
-    try:
-        task = signed('POST', '/api/swaps/bot/claim', {}).get('task')
-    except urllib.error.HTTPError as exc:
-        if exc.code == 404:  # an app build without swap asks (older image, rollback): recipe tasks still run
-            return False
-        raise
+    task = claim_or_none('/api/swaps/bot/claim', {})  # None on an app build without swap asks: recipe tasks still run
     if not task:
         return False
     answer = handle_swap(task)
@@ -179,8 +185,48 @@ def swap_once() -> bool:
     return True
 
 
-def once() -> bool:
-    task = signed('POST', '/api/ai-recipes/bot/claim', {}).get('task')
+def handle_gap(task: dict) -> dict:
+    """A library draft: the addition, {"skip": reason} when it is not a real dish or food, or {"error": ...}."""
+    folder = ROOT / 'ai-recipes' / 'gaps' / dt.date.today().isoformat() / task['id']
+    folder.mkdir(parents=True, exist_ok=True)
+    try:
+        brief = task['brief']
+        prompt = (brief['system'] + '\n\nTask: ' + brief['prompt'] + '\n\nReturn ONLY one JSON object, no Markdown, matching this JSON Schema, '
+                  'or {"error": "<short reason>"} when you cannot do it:\n' + json.dumps(brief['schema'], ensure_ascii=False))
+        final, events = run_hermes(prompt, folder, 'web', seconds=GAP_SECONDS, turns=GAP_TURNS)
+        answer = parse(final.get('text', ''))
+        if 'error' in answer and len(answer) == 1:
+            return {'error': str(answer['error'])[:280]}
+        if 'skip' not in answer and not answer.get('sources'):
+            answer['sources'] = sources(events)  # the pages it actually read
+        return answer
+    except Exception as exc:  # reported to the app; the gap goes back in line until its tries are used
+        return {'error': (type(exc).__name__ + ': ' + str(exc))[:280]}
+
+
+def claim_or_none(route: str, body: dict):
+    """A claim on a route an older app build may not have yet (404): None then, so the other work still runs."""
+    try:
+        return signed('POST', route, body).get('task')
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            return None
+        raise
+
+
+def gap_once() -> bool:
+    task = claim_or_none('/api/gaps/bot/claim', {})
+    if not task:
+        return False
+    answer = handle_gap(task)
+    if len(json.dumps(answer, ensure_ascii=False).encode()) > MAX_GAP_ANSWER:
+        answer = {'error': 'draft too large: keep it under 15 KB (fewer aliases and sources, shorter text)'}
+    post('/api/gaps/bot/tasks/' + task['id'] + '/result', answer)
+    return True
+
+
+def once(name: str = 'qt-videomaker', lanes=('slow', 'quick')) -> bool:
+    task = signed('POST', '/api/ai-recipes/bot/claim', {'name': name, 'lanes': list(lanes)}).get('task')
     if not task:
         return False
     answer = handle(task)
@@ -195,18 +241,33 @@ def once() -> bool:
     return True
 
 
+def turn(name: str, lanes) -> bool:
+    """One piece of work in the bridge's order of lanes: quick is swap asks then quick recipes; slow is slow recipes then library drafts."""
+    for lane in lanes:
+        if lane == 'quick' and (swap_once() or once(name, ['quick'])):
+            return True
+        if lane == 'slow' and (once(name, ['slow']) or gap_once()):
+            return True
+    return False
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--once', action='store_true')
+    parser.add_argument('--name', default='qt-videomaker', help='this bridge, as the app sees its heartbeat')
+    parser.add_argument('--lanes', default='slow,quick', help='lanes in order of preference: quick, slow')
     args = parser.parse_args()
+    lanes = [lane for lane in args.lanes.split(',') if lane in ('quick', 'slow')]
+    if not lanes:
+        sys.exit('name at least one lane: quick, slow')
     if shutil.which('hermes') is None:
         sys.exit('hermes is not on PATH')
     if args.once:
-        print('claimed' if swap_once() or once() else 'no task')
+        print('claimed' if turn(args.name, lanes) else 'no task')
         return
     while True:
         try:
-            if not (swap_once() or once()):
+            if not turn(args.name, lanes):
                 time.sleep(IDLE_SECONDS)
         except (urllib.error.URLError, OSError, ValueError) as exc:
             print('bridge error:', type(exc).__name__, str(exc)[:200], file=sys.stderr, flush=True)

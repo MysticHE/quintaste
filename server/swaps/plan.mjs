@@ -38,6 +38,38 @@ for (const rule of data.rules) {
   if (!validRule(rule)) { invalidRules.push(`${rule.from} -> ${rule.to}`); continue; }
   rulesFrom.set(rule.from, [...(rulesFrom.get(rule.from) ?? []), rule]);
 }
+const reviewedFrom = new Map([...rulesFrom].map(([key, rules]) => [key, [...rules]]));
+let version = 0;
+/** Changes whenever approved library-gap rules change, so cached plans are worked out again. */
+export const rulesVersion = () => version;
+/**
+ * Swap rules staff approved from library gaps (server/gaps/approved.mjs), added after the reviewed file's rules for their food; a
+ * rule failing the same checks is left out, and a food the reviewed file already swaps to is not added twice.
+ */
+export function setExtraRules(rules) {
+  rulesFrom.clear();
+  for (const [key, list] of reviewedFrom) rulesFrom.set(key, [...list]);
+  for (const rule of rules) {
+    if (!validRule(rule) || (rulesFrom.get(rule.from) ?? []).some(other => other.to === rule.to)) continue;
+    rulesFrom.set(rule.from, [...(rulesFrom.get(rule.from) ?? []), rule]);
+  }
+  targeted.clear();
+  for (const list of rulesFrom.values()) for (const rule of list) if (rule.to) targeted.set(rule.to, (targeted.get(rule.to) ?? 0) + 1);
+  version++;
+}
+/** For a bot's rule draft (server/gaps/drafts.mjs): the food's name and roles, the vocabulary, and foods it may swap to. */
+export function ruleContext(key) {
+  const profile = data.profiles[key];
+  if (!profile || !tableFood(key)) return null;
+  const taken = new Set((rulesFrom.get(key) ?? []).map(rule => rule.to)), mine = new Set(profile.roles);
+  const candidates = Object.entries(data.profiles).filter(([other, p]) => other !== key && !taken.has(other) && tableFood(other) && p.roles.some(r => mine.has(r)))
+    .map(([other, p]) => ({ key: other, name: p.name, roles: p.roles, shared: p.roles.filter(r => mine.has(r)).length }))
+    .sort((a, b) => b.shared - a.shared || a.key.localeCompare(b.key)).slice(0, 15).map(({ shared: _shared, ...c }) => c);
+  return { key, name: profile.name, roles: profile.roles, current: [...taken].filter(Boolean), candidates, bases: [...BASES].filter(b => b !== 'leave'),
+    allRoles: data.roles, contexts: data.contexts };
+}
+/** Whether a drafted rule passes the reviewed rules' own checks. */
+export const checkRule = rule => !!validRule(rule);
 // Roles small enough for My ingredients to fill quietly from what the member has (a missing oyster sauce, not a missing tofu).
 const SMALL = new Set(['season', 'sweeten', 'sour', 'heat', 'fat', 'flavour-oil', 'thicken', 'liquid']);
 /** The foods a reviewed rule can put in place of `key` when `key` is a seasoning or similar small part; none for main foods. */

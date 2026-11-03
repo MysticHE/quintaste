@@ -3,11 +3,11 @@ import { GeminiError, generate } from './gemini.mjs';
 import { house } from './prompts.mjs';
 import { clip } from './recipe.mjs';
 import { guidePart } from './dishes.mjs';
-import { DIET_RULES, pantryList, readDiet, writeBalanced } from './snap.mjs';
+import { DIET_RULES, pantryList } from './snap.mjs';
 
 /**
  * My ingredients (docs/AI_FOOD_LIBRARY_PLAN.md §7): the AI lists the food in a member's fridge or shelf photo (free, counted with
- * Snap a dish), the member corrects the list, and "Create a new one with these" writes a recipe from mostly those items.
+ * Snap a dish), the member corrects the list, and "Create a recipe from these" has the QT bots write one from mostly those items.
  * The photo is read and dropped at once: the list, not the photo, is all a job keeps.
  */
 export const MAX_ITEMS = 25, MAX_PANTRY = 12;
@@ -53,7 +53,7 @@ export function readItems(value, max, field) {
   return items;
 }
 
-const system = house + `
+export const ingredientsSystem = house + `
 You write a home recipe for QuinTaste from the ingredients a member has. Use mostly their items, plus at most two extra ingredients from a Singapore supermarket; the basics they keep may be used freely. Never add meat or seafood. Name the dish as people would. Set creator to null and at to null for every step.`;
 
 /** The writing prompt: the member's items, their basics and the diet chosen. */
@@ -61,13 +61,4 @@ export function ingredientsPrompt({ items, pantry, diet }) {
   return [`The member has: ${items.join(', ')}.`, pantry.length ? `Basics they keep: ${pantry.join(', ')}.` : 'They keep no basics beyond water.',
     'Use as many of their items as suit one dish; leave out any that do not fit, and any meat or seafood among them. Add at most two other ingredients and name them in notes.',
     DIET_RULES[diet], `Prefer these ingredients where they fit: ${pantryList()}.`, 'Write 2 servings.'].join('\n\n');
-}
-
-/** Writes the recipe for an ingredients job and balances its nutrition; returns { recipe, photos: null }. */
-export async function fromIngredients(job, signal, usage, progress) {
-  const options = job.options ?? {};
-  const items = Array.isArray(options.items) ? options.items : [], pantry = Array.isArray(options.pantry) ? options.pantry : [];
-  const diet = readDiet(options.diet) ?? 'both';
-  const recipe = await writeBalanced({ prompt: ingredientsPrompt({ items, pantry, diet }), system, request: items.join(', '), signal, usage, progress });
-  return { recipe, photos: null };
 }

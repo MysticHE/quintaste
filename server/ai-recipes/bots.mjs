@@ -10,6 +10,8 @@ import { clip, toRecipe } from './recipe.mjs';
 import { failJob, finishJob, noPungentFor, progress } from './pipeline.mjs';
 import { frameAt, framesAvailable, photoJpeg, shrinkVideo, videoSeconds } from './frames.mjs';
 import { jobDir, jobPath, removeDir } from './work.mjs';
+import { CHOSEN_KINDS, dropSnap } from './snap.mjs';
+import { nextRound, requestOf, writingBrief, writingPayload } from './writing.mjs';
 
 /**
  * The QT bots engine. The worker hands a job over (`handToBots`: the video is fetched and kept on the app's disk), the
@@ -17,8 +19,41 @@ import { jobDir, jobPath, removeDir } from './work.mjs';
  * finishes it (`settleBotTasks`): the same checks as a Gemini result, step photos taken at the seconds the bots gave,
  * nutrition from the ingredient table, then live or staff review. No Gemini call is made on this path, and nothing
  * falls back to Gemini: a bot failure or silence fails the job.
+ *
+ * Two lanes (Phase E): `quick` for Snap a dish and My ingredients writing (always the bots, whatever engine is selected) and
+ * their fix rounds, `slow` for videos, dish requests and wanted recipes. Each bridge claims the lanes it serves; a lane is up while
+ * one of its bridges asked for work in the last 10 minutes.
  */
-const ANSWER_MINUTES = 30, HERMES_MAX_BYTES = 30 * 1024 * 1024, BOT_EXTENSIONS = new Set(['.mp4', '.webm', '.mov']);
+const HERMES_MAX_BYTES = 30 * 1024 * 1024, BOT_EXTENSIONS = new Set(['.mp4', '.webm', '.mov']);
+/** Per lane: minutes a task may wait in line, wait while no bridge of the lane asks for work, and stay claimed; the lane's bridges. */
+export const LANES = {
+  quick: { queued: 15, idle: 10, claimed: 10, bridges: ['qt-quick', 'qt-videomaker'] },
+  slow: { queued: 180, idle: 10, claimed: 30, bridges: ['qt-videomaker'] },
+};
+export const laneOf = kind => CHOSEN_KINDS.includes(kind) ? 'quick' : 'slow';
+/**
+ * SQL: the lane ($1) is alive: one of its bridges ($2) asked for work in the last $3 minutes, or holds a task of the lane it claimed
+ * within the claim limit ($4); a bridge in the middle of a long video sends no heartbeat, but its claim shows it is working.
+ */
+const ALIVE = `(EXISTS (SELECT 1 FROM recipes.ai_bot_bridge WHERE id = ANY($2::text[]) AND seen_at > now() - make_interval(mins => $3))
+  OR EXISTS (SELECT 1 FROM recipes.ai_bot_task c WHERE c.lane = $1 AND c.status = 'claimed' AND c.claimed_at > now() - make_interval(mins => $4)))`;
+/** Whether the lane's bridges are there, so a task in it will be picked up. */
+export async function laneUp(lane) {
+  if (!await botTableReady()) return false;
+  const { bridges, idle, claimed } = LANES[lane];
+  return !!(await pool.query(`SELECT ${ALIVE} AS alive`, [lane, bridges, idle, claimed])).rows[0]?.alive;
+}
+/**
+ * Most quick-lane recipes waiting or being written at once: about what the quick bridges reach within the quick lane's 15 minutes
+ * (each takes up to five). Beyond it a new recipe is refused up front ("busy, try again shortly") instead of failing after the wait.
+ */
+export const QUICK_BACKLOG = 8;
+export async function quickBusy() {
+  if (!await botTableReady()) return false;
+  const row = (await pool.query(`SELECT (SELECT count(*) FROM recipes.ai_bot_task WHERE lane = 'quick' AND status IN ('queued','claimed'))
+    + (SELECT count(*) FROM recipes.ai_job WHERE status = 'queued' AND kind = ANY($1::text[])) AS n`, [CHOSEN_KINDS])).rows[0];
+  return Number(row.n) >= QUICK_BACKLOG;
+}
 
 /** A video the bots' model can take: the original when small and in a format Hermes reads, otherwise a 480p MP4. */
 async function botVideo(file, dir) {
@@ -38,6 +73,14 @@ async function botVideo(file, dir) {
  */
 export async function handToBots(job) {
   const usage = { calls: [], bytes: 0, engine: 'bots' };
+  // Snap a dish and My ingredients: a small brief, no files; the member's photo is removed now (the bots never get it).
+  if (CHOSEN_KINDS.includes(job.kind)) {
+    try {
+      await queueTask(job.id, writingPayload(job), 'quick');
+      await progress(job)('In line…');
+      return 'working';
+    } catch (error) { return failJob(job, error, usage); } finally { await dropSnap(job.options?.snap); }
+  }
   const dir = await jobDir(job.id);
   let upload = null;
   try {
@@ -58,8 +101,7 @@ export async function handToBots(job) {
         // Server-only: never sent to the bots.
         _file: video.path, _upload: upload };
     } else payload = { kind: job.kind, request: job.input, noPungent: await noPungentFor(job) };
-    await pool.query(`INSERT INTO recipes.ai_bot_task (job_id, payload) VALUES ($1, $2)
-      ON CONFLICT (job_id) DO UPDATE SET status='queued', payload=EXCLUDED.payload, result=NULL, error='', claimed_at=NULL, answered_at=NULL, settling_at=NULL, created_at=now()`, [job.id, payload]);
+    await queueTask(job.id, payload, 'slow');
     await progress(job)('In line…');
     return 'working';
   } catch (error) {
@@ -67,6 +109,13 @@ export async function handToBots(job) {
     if (upload) await rm(upload, { force: true }).catch(() => {});
     return failJob(job, error, usage);
   }
+}
+
+/** Puts a job's task in its lane (a new task, or one handed over again). */
+async function queueTask(jobId, payload, lane) {
+  await pool.query(`INSERT INTO recipes.ai_bot_task (job_id, payload, lane) VALUES ($1, $2, $3)
+    ON CONFLICT (job_id) DO UPDATE SET status='queued', payload=EXCLUDED.payload, lane=EXCLUDED.lane, result=NULL, error='', claimed_at=NULL,
+      answered_at=NULL, settling_at=NULL, created_at=now(), queued_at=now()`, [jobId, payload, lane]);
 }
 
 /** Gemini's schema dialect (upper-case types, `nullable`) as plain JSON Schema for the bots. */
@@ -86,6 +135,7 @@ const researchSystem = searchSystem.replace('Use Google Search to find', 'Use we
 
 /** What the bots are asked to do: the same rules and schema the Gemini path uses. */
 export function brief(payload) {
+  if (CHOSEN_KINDS.includes(payload.kind)) return { ...writingBrief(payload), schema: botSchema };
   if (payload.kind === 'video') {
     const context = (payload.caption ? "\n\nThe creator's caption (it may hold the written recipe; use it together with the video):\n" + payload.caption : '')
       + (payload.creator ? '\nCreator: ' + payload.creator : '');
@@ -126,20 +176,47 @@ async function cleanup(jobId, payload) {
   if (payload?._upload) await rm(payload._upload, { force: true }).catch(() => {});
 }
 
+/**
+ * A quick-lane answer: when code finds a nutrient target missed, the task goes back in line for a fix round (keeping its first
+ * place); otherwise the recipe is finished like any other. Returns true when it went back in line.
+ */
+async function settleWriting(job, row, result, usage) {
+  const payload = row.payload, calls = [...(Array.isArray(payload.calls) ? payload.calls : []), ...usage.calls];
+  const recipe = toRecipe(result.recipe ?? {}, { source: { kind: 'request', request: requestOf(payload), urls: [], creator: 'QuinTaste' } });
+  const next = await nextRound(payload, recipe, usage);
+  if (next) {
+    await pool.query(`UPDATE recipes.ai_bot_task SET status='queued', payload=$2, result=NULL, error='', claimed_at=NULL, answered_at=NULL,
+      settling_at=NULL, queued_at=now() WHERE job_id=$1`, [row.job_id, { ...next, calls }]);
+    await progress(job)('Balancing the nutrition…');
+    return true;
+  }
+  usage.calls = calls;
+  await finishJob(job, recipe, null, usage, { aiNutrition: false });
+  return false;
+}
+
 /** Finishes one answered task: the bots' recipe through the usual checks, or their failure as the job's failure. */
 async function settle(row) {
   const job = (await pool.query('SELECT * FROM recipes.ai_job WHERE id=$1', [row.job_id])).rows[0];
   const usage = { calls: [], bytes: row.payload?.video?.bytes ?? 0, engine: 'bots' };
+  let again = false;
   try {
     if (!job || job.status !== 'working') return;
     if (row.answered === 'failed') {
       usage.botError = clip(row.error, 300);
+      // A fix round that failed or ran out of time: the recipe written before it is complete, so it is kept (without the extra).
+      if (CHOSEN_KINDS.includes(row.payload?.kind) && row.payload._draft) {
+        usage.calls = Array.isArray(row.payload.calls) ? row.payload.calls : [];
+        await finishJob(job, row.payload._draft, null, usage, { aiNutrition: false });
+        return;
+      }
       await failJob(job, new GeminiError(502, memberMessage(row.error)), usage);
       return;
     }
     const result = row.result ?? {};
     if (result.usage && typeof result.usage === 'object') usage.calls.push({ model: clip(result.usage.model, 60) || 'qt-bots', input: Number(result.usage.input) || 0, output: Number(result.usage.output) || 0 });
     const payload = row.payload;
+    if (CHOSEN_KINDS.includes(payload.kind)) { again = await settleWriting(job, row, result, usage); return; }
     if (payload.kind !== 'video') job.noPungent = payload.noPungent === true;  // the decision the bots wrote under, not today's choice
     const source = payload.kind === 'video'
       ? { kind: 'video', platform: payload.platform ?? 'upload', ...(payload.link ? { url: payload.link } : {}), creator: clip(payload.creator || result.recipe?.creator, 80) }
@@ -155,8 +232,10 @@ async function settle(row) {
   } catch (error) {
     await failJob(job, error, usage);
   } finally {
-    await cleanup(row.job_id, row.payload);
-    await pool.query("UPDATE recipes.ai_bot_task SET status='finished' WHERE job_id=$1", [row.job_id]).catch(() => {});
+    if (!again) {
+      await cleanup(row.job_id, row.payload);
+      await pool.query("UPDATE recipes.ai_bot_task SET status='finished' WHERE job_id=$1", [row.job_id]).catch(() => {});
+    }
   }
 }
 
@@ -170,17 +249,18 @@ export async function botTableReady() {
 }
 
 /**
- * One worker pass over the bot queue. A queued task fails after 10 minutes when no bridge has asked for work in that
- * time (the bots are down), otherwise after 3 hours in line; a claimed task gets 30 minutes to answer. A task left
+ * One worker pass over the bot queue. Per lane (LANES): a queued task fails when none of the lane's bridges asked for work while it
+ * waited (the bots are down) or when it waited too long, and a claimed task fails when it is not answered in time. A task left
  * `settling` for 15 minutes (the process stopped mid-way) releases its job to the stale sweep. Then one answered task is
- * finished; it stays `settling`, which keeps the stale sweep away, until its job has its final status.
+ * finished; it stays `settling`, which keeps the stale sweep away, until its job has its final status (or goes back in line).
  */
 export async function settleBotTasks() {
   if (!await botTableReady()) return;
-  await pool.query(`UPDATE recipes.ai_bot_task SET status='failed', error='timeout', answered_at=now()
-    WHERE (status='queued' AND (created_at < now() - interval '3 hours' OR (created_at < now() - interval '10 minutes'
-        AND NOT EXISTS (SELECT 1 FROM recipes.ai_bot_bridge WHERE seen_at > now() - interval '10 minutes'))))
-      OR (status='claimed' AND claimed_at < now() - make_interval(mins => $1))`, [ANSWER_MINUTES]);
+  for (const [lane, limits] of Object.entries(LANES)) {
+    await pool.query(`UPDATE recipes.ai_bot_task SET status='failed', error='timeout', answered_at=now()
+      WHERE lane=$1 AND ((status='queued' AND (queued_at < now() - make_interval(mins => $5) OR (queued_at < now() - make_interval(mins => $3) AND NOT ${ALIVE})))
+        OR (status='claimed' AND claimed_at < now() - make_interval(mins => $4)))`, [lane, limits.bridges, limits.idle, limits.claimed, limits.queued]);
+  }
   await pool.query("UPDATE recipes.ai_bot_task SET status='finished' WHERE status='settling' AND settling_at < now() - interval '15 minutes'");
   const row = (await pool.query(`WITH picked AS (
       SELECT job_id, status FROM recipes.ai_bot_task WHERE status IN ('done','failed') ORDER BY answered_at LIMIT 1 FOR UPDATE SKIP LOCKED)

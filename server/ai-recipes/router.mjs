@@ -10,8 +10,9 @@ import { allowed, restricted } from '../operations.mjs';
 import { CommunityError, communityRouter, errors, member, text, throttle } from '../community/http.mjs';
 import { accountAccess } from '../account-access.mjs';
 import { publicId } from '../recipes/rules.mjs';
-import { GeminiError } from './gemini.mjs';
-import { engine, engineReady } from './engine.mjs';
+import { GeminiError, geminiConfig } from './gemini.mjs';
+import { botTableReady, laneUp, quickBusy } from './bots.mjs';
+import { engineReady } from './engine.mjs';
 import { parseLink } from './video.mjs';
 import { MAX_FILE_BYTES, VIDEO_TYPES } from './files.mjs';
 import { UPLOAD_DIR } from './work.mjs';
@@ -22,6 +23,8 @@ import { CHOSEN_KINDS, RECOGNITIONS_PER_DAY, SNAP_CONSENT, dropSnap, keepSnap, r
 import { findCard } from './dishes.mjs';
 import { MAX_ITEMS, MAX_PANTRY, readItems, seeItems } from './ingredients.mjs';
 import { cookable } from './cookable.mjs';
+import { recordGaps } from '../gaps/record.mjs';
+import { matchFood } from '../nutrition/estimate.mjs';
 import { encodePhoto } from '../market/rules.mjs';
 import { AT_ONCE, DAILY_PER_MEMBER, MAX_VIDEO_SECONDS, RAN, dailyCap, jobsLastDay, planAccess, usedLastDay } from './limits.mjs';
 
@@ -39,7 +42,9 @@ const view = row => {
     // The written recipe's own title, so the member's list reads "Vegan laksa" rather than a pasted link.
     title: typeof row.title === 'string' ? row.title.slice(0, 120) : null,
     // False when the recipe was hidden or withdrawn after it was written; absent (unknown) on a job just started.
-    ...(typeof row.openable === 'boolean' ? { openable: row.openable } : {}) };
+    ...(typeof row.openable === 'boolean' ? { openable: row.openable } : {}),
+    // Tasks ahead of a waiting job (the member's list only).
+    ...(Number.isInteger(row.ahead) && row.ahead > 0 ? { ahead: row.ahead } : {}) };
 };
 /** Feature switches and account restriction; every job route runs this first, including the duplicate shortcut. */
 async function available(me) {
@@ -61,6 +66,18 @@ async function exclusive(me, work) {
   await previous;
   try { return await work(); }
   finally { release(); if (chains.get(me) === tail) chains.delete(me); }
+}
+/**
+ * The member's job for the same thing that is still waiting or being written: a double tap or a resend gets it instead of a second
+ * job and a second charge. Once it is finished, asking again makes a new recipe.
+ */
+async function sameJob(me, hash) {
+  return (await pool.query(`SELECT * FROM recipes.ai_job WHERE user_id=$1 AND input_hash=$2 AND cleared_at IS NULL AND status IN ('queued','working')
+    ORDER BY created_at DESC LIMIT 1`, [me, hash])).rows[0] ?? null;
+}
+/** A new Snap a dish or My ingredients recipe, unless the quick lane already holds more than it can write in time. */
+async function quickRoom() {
+  if (await quickBusy()) throw new CommunityError(503, 'Recipe writing is busy right now. Try again in a few minutes.', 'WRITING_BUSY');
 }
 /** Daily and concurrent quota for a member, counting uploads still in flight; call inside exclusive(). */
 async function withinQuota(me) {
@@ -89,18 +106,26 @@ aiRecipes.get('/status', async (_req, res) => {
   const me = res.locals.user?.id ?? null;
   const [enabled, month, today, all, cap, access, gemini] = await Promise.all([
     (async () => await engineReady() && await allowed('ai_recipes') && await allowed('recipes'))(),
-    me ? usedThisMonth(me) : 0, me ? usedLastDay(me) : 0, jobsLastDay(), dailyCap(), planAccess(me), engine().then(e => e === 'gemini')]);
+    me ? usedThisMonth(me) : 0, me ? usedLastDay(me) : 0, jobsLastDay(), dailyCap(), planAccess(me), geminiConfig().then(c => c.enabled)]);
   // The same conditions as snapAvailable, from what is already read: unlimited usage is the master account.
-  const snap = !!me && enabled && access.unlimited && gemini;
-  // `unlimited`: the master account, which has no daily count; `snap`: whether Snap a dish and My ingredients are open to this member.
-  res.json({ enabled, dailyPerMember: DAILY_PER_MEMBER, plan: null, needsPlan: access.needsPlan, unlimited: access.unlimited, snap, usedThisMonth: month, usedToday: today, fullToday: all >= cap,
+  const snap = !!me && enabled && access.unlimited && gemini, paused = snap && !await laneUp('quick');
+  // `unlimited`: the master account, which has no daily count; `snap`: whether Snap a dish and My ingredients are open to this member;
+  // `paused`: they are, but the QT bots that write their recipes are not answering, so the app says so before any photo is taken.
+  res.json({ enabled, dailyPerMember: DAILY_PER_MEMBER, plan: null, needsPlan: access.needsPlan, unlimited: access.unlimited, snap, paused, usedThisMonth: month, usedToday: today, fullToday: all >= cap,
     limits: { videoMinutes: MAX_VIDEO_SECONDS / 60, videoMb: Math.round(MAX_FILE_BYTES / 1048576), atOnce: AT_ONCE } });
 });
 
+/** How many tasks are ahead of a waiting job: jobs before it in line, or, once handed to the bots, tasks before it in its lane. */
+const AHEAD = `CASE WHEN j.status = 'queued' THEN (SELECT count(*) FROM recipes.ai_job q WHERE q.status = 'queued' AND q.created_at < j.created_at AND (q.kind <> 'demand' OR j.kind = 'demand'))
+  WHEN t.status = 'queued' THEN (SELECT count(*) FROM recipes.ai_bot_task q JOIN recipes.ai_job qj ON qj.id = q.job_id
+    WHERE q.status IN ('queued','claimed') AND q.lane = t.lane AND q.created_at < t.created_at AND (qj.kind <> 'demand' OR j.kind = 'demand'))
+  END::int AS ahead`;
 aiRecipes.get('/mine', member, async (_req, res) => {
+  const bots = await botTableReady();
   const rows = (await pool.query(`SELECT j.*, coalesce(r.live, r.pending)->>'title' AS title,
-      coalesce(r.live IS NOT NULL AND r.hidden_at IS NULL, false) AS openable FROM recipes.ai_job j
-    LEFT JOIN recipes.recipe r ON r.id = j.recipe_id WHERE j.user_id=$1 AND j.cleared_at IS NULL ORDER BY j.created_at DESC LIMIT 20`, [res.locals.user.id])).rows;
+      coalesce(r.live IS NOT NULL AND r.hidden_at IS NULL, false) AS openable, ${bots ? AHEAD : "CASE WHEN j.status = 'queued' THEN 0 END AS ahead"} FROM recipes.ai_job j
+    LEFT JOIN recipes.recipe r ON r.id = j.recipe_id ${bots ? 'LEFT JOIN recipes.ai_bot_task t ON t.job_id = j.id' : ''}
+    WHERE j.user_id=$1 AND j.cleared_at IS NULL ORDER BY j.created_at DESC LIMIT 20`, [res.locals.user.id])).rows;
   res.json({ items: rows.map(view) });
 });
 
@@ -112,13 +137,15 @@ aiRecipes.post('/mine/clear', member, async (_req, res) => {
 });
 
 /**
- * Snap a dish (docs/AI_FOOD_LIBRARY_PLAN.md §6) stays on the master account until a cook has cooked 30 recreated dishes (§9), and
- * runs on Gemini only (owner decision 4): with the QT bots engine on it is unavailable rather than quietly switching engines.
+ * Snap a dish and My ingredients (docs/AI_FOOD_LIBRARY_PLAN.md §6, §7) stay on the master account until their release bars are met
+ * (§9). Gemini reads the photos (owner decision 4) and the QT bots write the recipes (Phase E): when either is missing they are
+ * refused at once, before a photo is read, rather than failing later or quietly switching engines.
  */
-async function snapAvailable(me) {
+async function snapAvailable(me, { reading = true, writing = true } = {}) {
   await available(me);
   if ((await accountAccess(me)).role !== 'master') throw new CommunityError(403, 'Snap a dish is not available yet.');
-  if (await engine() !== 'gemini') throw new CommunityError(503, 'Snap a dish is not available right now.');
+  if (reading && !(await geminiConfig()).enabled) throw new CommunityError(503, 'Snap a dish is not available right now.');
+  if (writing && !await laneUp('quick')) throw new CommunityError(503, 'Recipe writing is paused right now. Try again later.', 'WRITING_PAUSED');
 }
 /** Names the dish in a photo (free, 20 a day). The photo is kept on the app's disk for the recipe only, then removed. */
 aiRecipes.post('/snap', member, async (req, res) => {
@@ -132,6 +159,9 @@ aiRecipes.post('/snap', member, async (req, res) => {
     const seen = await recognise(bytes);
     // The photo belongs to the account that took it: only that account can make a recipe from it.
     await saveGuesses(id, { user: me, guesses: seen.guesses, components: seen.components });
+    // A dish we have no card for is a library gap (the most likely guess only; the others are often near names).
+    const top = seen.guesses[0];
+    if (top && !top.card) recordGaps([{ kind: 'dish', key: top.name.en, label: top.name.en, context: { zh: top.name.zh }, user: me }]);
     res.json({ snap: id, guesses: seen.guesses });
   } catch (error) {
     await dropSnap(id);
@@ -146,24 +176,33 @@ aiRecipes.post('/snap', member, async (req, res) => {
  */
 aiRecipes.post('/ingredients/see', member, async (req, res) => {
   const me = res.locals.user.id;
-  await snapAvailable(me);
+  // Reading the items is useful for Matching recipes even while recipe writing is paused.
+  await snapAvailable(me, { writing: false });
   if (req.body?.consent !== SNAP_CONSENT) throw new CommunityError(400, 'Read and accept the photo notice first.', 'SNAP_CONSENT');
   const { bytes } = await encodePhoto(req.body?.photo, { edge: 1024, quality: 80, max: 500000, inputMax: 1400000 });
   await throttle('items:' + me, RECOGNITIONS_PER_DAY, 86400, `You can add ${RECOGNITIONS_PER_DAY} photos a day. Try again tomorrow.`);
-  try { res.json(await seeItems(bytes)); }
+  try {
+    const seen = await seeItems(bytes);
+    res.json(seen);
+    recordGaps(unknownItems(seen.items.map(item => item.name), me));
+  }
   catch (error) {
     if (error instanceof GeminiError) throw new CommunityError(error.status === 422 ? 422 : 503, error.status === 422 ? error.message : 'The photo could not be read right now. Try again.');
     throw error;
   }
 });
+/** Foods the recipe table does not know, as library gaps (`names`: { en, zh } pairs, or plain names the member typed). */
+const unknownItems = (names, user) => names.map(name => typeof name === 'string' ? { en: name, zh: name } : name)
+  .filter(name => name?.en && !matchFood(name.en)).slice(0, 10).map(name => ({ kind: 'food', key: name.en, label: name.en, context: { zh: name.zh }, user }));
 /** "Matching recipes": our recipes ranked by the member's items and basics (no AI, no credit). `recent`: recipes cooked lately. */
 aiRecipes.post('/ingredients/recipes', member, async (req, res) => {
   const me = res.locals.user.id;
-  await snapAvailable(me);
+  await snapAvailable(me, { reading: false, writing: false });
   const items = readItems(req.body?.items, MAX_ITEMS, 'items'), pantry = readItems(req.body?.pantry, MAX_PANTRY, 'basics');
   if (!items.length) throw new CommunityError(400, 'Add an ingredient first.');
   const recent = Array.isArray(req.body?.recent) ? req.body.recent.filter(id => typeof id === 'string' && id.length <= 80).slice(0, 40) : [];
   res.json({ items: await cookable({ items, pantry, recent, viewer: me }) });
+  recordGaps(unknownItems(items, me));
 });
 /** "Create a new one with these": a recipe from mostly the member's items; Vegan, Vegetarian or both; private or public. */
 async function ingredientsJob(me, body) {
@@ -174,23 +213,33 @@ async function ingredientsJob(me, body) {
   const input = items.join(', ').slice(0, 300), options = { items, pantry, diet, private: body?.private === true };
   // The job's options are kept under 2000 bytes (photo.sql); names in Chinese take three bytes a character.
   if (Buffer.byteLength(JSON.stringify(options)) > 1900) throw new CommunityError(400, 'Use fewer or shorter ingredient names.');
+  // The same list (in any order), basics, diet and sharing from the same member is the same request while it waits or is written.
+  // Never reused for another member.
+  const sorted = list => [...list].map(v => v.toLowerCase()).sort();
+  const hash = sha('ingredients:' + me + ':' + JSON.stringify([sorted(items), sorted(pantry), diet, options.private]));
   return exclusive(me, async () => {
+    const same = await sameJob(me, hash);
+    if (same) return same;
     await withinQuota(me);
-    // Each request is its own recipe: never reused for another member, so the hash is unique.
+    await quickRoom();
     return (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, options) VALUES ($1, 'ingredients', $2, $3, $4) RETURNING *`,
-      [me, input, sha('ingredients:' + randomUUID()), options])).rows[0];
+      [me, input, hash, options])).rows[0];
   });
 }
 
 /** Create recipe for a snapped dish: one of the AI's guesses, or a name the member typed; Vegan, Vegetarian or both; private or public. */
 async function photoJob(me, body) {
-  const seen = await readGuesses(body?.snap);
+  if (typeof body?.snap !== 'string' || body.snap.length > 64) throw new CommunityError(400, 'Snap the dish first.');
+  const hash = sha('photo:' + body.snap), made = await sameJob(me, hash);
+  if (made) return made;
+  const seen = await readGuesses(body.snap);
   if (!seen || seen.user !== me) throw new CommunityError(410, 'This photo has expired. Snap it again.');
   let dish, card;
   if (typeof body?.dish === 'string' && body.dish.trim()) {
     const typed = text(body.dish, 80, { min: 2, field: 'Dish name' });
     card = findCard(typed);
     dish = card ? card.name : { en: typed, zh: typed };
+    if (!card) recordGaps([{ kind: 'dish', key: typed, label: typed, user: me }]);
   } else {
     const guess = seen.guesses[Number.isInteger(body?.choice) ? body.choice : 0];
     if (!guess) throw new CommunityError(400, 'Choose the dish.');
@@ -201,17 +250,20 @@ async function photoJob(me, body) {
   // The photo's parts are kept even with a card, so the plan survives a card renamed or removed before the job runs.
   const options = { snap: body.snap, card: card?.id ?? null, dish, diet, private: body?.private === true, components: seen.components };
   return exclusive(me, async () => {
+    // Every photo is its own recipe (the hash is the photo's, never reused for anyone else); a Create racing the first gets it.
+    const same = await sameJob(me, hash);
+    if (same) return same;
     await withinQuota(me);
-    // Every photo is its own recipe: the hash is the photo's, so it is never reused for anyone else.
+    await quickRoom();
     return (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, options) VALUES ($1, 'photo', $2, $3, $4) RETURNING *`,
-      [me, dish.en, sha('photo:' + body.snap), options])).rows[0];
+      [me, dish.en, hash, options])).rows[0];
   });
 }
 
 aiRecipes.post('/', member, async (req, res) => {
   const me = res.locals.user.id;
   if (req.body?.kind === 'photo' || req.body?.kind === 'ingredients') {
-    await snapAvailable(me);
+    await snapAvailable(me, { reading: false });
     return res.status(201).json(view(await (req.body.kind === 'photo' ? photoJob(me, req.body) : ingredientsJob(me, req.body))));
   }
   await available(me);
@@ -235,6 +287,9 @@ aiRecipes.post('/', member, async (req, res) => {
     return res.status(201).json(view(row));
   }
   const row = await exclusive(me, async () => {
+    // The same dish or video already waiting for this member (a double tap, a resend) is returned, not queued twice.
+    const same = await sameJob(me, hash);
+    if (same) return same;
     await withinQuota(me);
     return (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash) VALUES ($1, $2, $3, $4) RETURNING *`, [me, kind, input, hash])).rows[0];
   });

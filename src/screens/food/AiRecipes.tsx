@@ -86,8 +86,9 @@ export function AiRecipesScreen() {
   return <CookLayout title={t("aiTitle")} backTo="/cook" headerAction={credits}>
     {data && !data.enabled && <Notice icon="pause-circle-outline" text={t("aiOff")} />}
     {data?.enabled && full && <Notice icon="hourglass-outline" text={t("aiFull")} />}
+    {data?.snap && data.paused && <Notice icon="pause-circle-outline" text={t("aiWritingPaused")} />}
     {data?.snap && <View style={s.tiles}>
-      <Tile icon="camera-outline" label={t("snapTitle")} disabled={!enabled} onPress={() => { if (ensureMember(member, "/cook/snap")) router.push("/cook/snap" as never); }} />
+      <Tile icon="camera-outline" label={t("snapTitle")} disabled={!enabled || !!data.paused} onPress={() => { if (ensureMember(member, "/cook/snap")) router.push("/cook/snap" as never); }} />
       <Tile icon="basket-outline" label={t("itemsTitle")} disabled={!enabled} onPress={() => { if (ensureMember(member, "/cook/ingredients")) router.push("/cook/ingredients" as never); }} />
     </View>}
     <Field label={t("typeDish")} showLabel={false} value={dish} onChangeText={setDish} maxLength={300} returnKeyType="send"
