@@ -23,8 +23,8 @@ export async function facts(db, userId) {
   const [state, friends, reviews, photos, cooked, dinners, misc] = await Promise.all([
     standing(userId, db),
     q('SELECT count(*)::int AS n FROM social.friend WHERE a_id=$1 OR b_id=$1').then(r => r[0].n),
-    q(`SELECT r.place_id AS "placeId", r.created_at AS at, r.hidden_at IS NOT NULL AS hidden, length(trim(r.body)) >= ${REVIEW_MIN_CHARS} AS long,
-        EXISTS (SELECT 1 FROM community.place_review_photo p WHERE p.review_id=r.id) AS photo FROM community.place_review r WHERE r.user_id=$1`),
+    q(`SELECT r.place_id AS "placeId", coalesce(r.published_at,r.created_at) AS at, r.hidden_at IS NOT NULL AS hidden, length(trim(r.body)) >= ${REVIEW_MIN_CHARS} AS long,
+        EXISTS (SELECT 1 FROM community.place_review_photo p WHERE p.review_id=r.id) AS photo FROM community.place_review r WHERE r.user_id=$1 AND r.published`),
     q('SELECT recipe_id AS "recipeId", created_at AS at, hidden_at IS NOT NULL AS hidden FROM community.cooked_photo WHERE user_id=$1'),
     q("SELECT target AS \"recipeId\", created_at AS at FROM community.reaction WHERE user_id=$1 AND kind='recipe' AND action='cooked'"),
     // Dinners where both people said "We met" (a "They didn't come" claim means one of them did not).

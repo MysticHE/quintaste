@@ -4,7 +4,21 @@ import { emptyStaffContent, staffContentLoader, staffContentQuery } from './staf
 
 // Staff edits win over packaged and bot content until staff clear them. The Expo API routes in this process use the
 // same loader (src/server/staff-content.ts), so Express and Expo always agree about what is hidden.
-const load = staffContentLoader(() => pool.query(staffContentQuery), event => logger.warn({ event }));
+const load = staffContentLoader(async () => {
+  const base=await pool.query(staffContentQuery);
+  const patches=(await pool.query(`SELECT p.*,coalesce(c.version,0) AS current_version FROM ops.explore_patch p LEFT JOIN content.item c ON c.kind=p.kind AND c.id=p.id WHERE NOT p.disabled AND p.staff_version=coalesce(c.version,0)`)).rows;
+  const rows=new Map(base.rows.map(r=>[r.kind+':'+r.id,r]));
+  for(const p of patches) {
+    const key=p.kind+':'+p.id,prior=rows.get(key),data={...prior?.data,...p.data};
+    if(p.kind==='menu') {
+      data.items={...prior?.data?.items};
+      for(const [id,patch] of Object.entries(p.data.items??{})) data.items[id]={...data.items[id],...patch};
+    }
+    rows.set(key,{...(prior??{kind:p.kind,id:p.id,origin:'edit',hidden:false}),data,
+      version:(prior?.version??0)+1000000,updated_at:new Date(p.updated_at).toISOString()});
+  }
+  return {rows:[...rows.values()]};
+}, event => logger.warn({ event }));
 export const staffContent = () => operationsEnabled ? load() : Promise.resolve(emptyStaffContent);
 globalThis.quintasteStaffContent = staffContent;
 /** The record a member sees: null when staff hid it, the staff version when staff edited it, otherwise the original. */

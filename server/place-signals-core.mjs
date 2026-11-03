@@ -11,7 +11,7 @@ import { createHash } from 'node:crypto';
 const active = column => `NOT EXISTS (SELECT 1 FROM ops.restriction rst_ WHERE rst_.user_id=${column} AND rst_.active)`;
 export const placeSignalsQuery = `SELECT id, sum(reviews)::int AS reviews, sum(total)::int AS total, sum(likes)::int AS likes FROM (
     SELECT pr.place_id AS id, count(*) AS reviews, sum(pr.rating) AS total, 0 AS likes FROM community.place_review pr
-      WHERE pr.hidden_at IS NULL AND ${active('pr.user_id')} GROUP BY pr.place_id
+      WHERE pr.published AND pr.hidden_at IS NULL AND ${active('pr.user_id')} GROUP BY pr.place_id
     UNION ALL
     SELECT r.target, 0, 0, count(*) FROM community.reaction r WHERE r.kind='place' AND r.action='like' AND ${active('r.user_id')} GROUP BY r.target
   ) s GROUP BY id ORDER BY id`;

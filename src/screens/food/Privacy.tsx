@@ -12,13 +12,15 @@ import { defaults } from "../../config/preferences";
 import { useAuth } from "../../state/Auth";
 import { accountsEnabled } from "../../services/auth-client";
 import { withdrawRecipes } from "../../services/member-recipes";
-import { useT } from "../../i18n";
+import { useT,useLanguage } from "../../i18n";
+import { contributionWords } from "../../config/explore-work";
 
 export function PrivacyScreen() {
   const { user } = useAuth();
   const { doc, owner, deleteCurrent, readable } = useFood();
   const { saved, save, setPreview, setNotice } = usePreferences();
   const local = useExploreLocal(), t = useT("me");
+  const contributionText=contributionWords(useLanguage());
   const [confirm, setConfirm] = useState(false), [busy, setBusy] = useState(false);
   const exportData = async () => {
     const textData = { app: "QuinTaste local preview", collection: owner, exportedAt: new Date().toISOString(),
@@ -53,6 +55,7 @@ export function PrivacyScreen() {
       <ListItem title={t("onThisPhone")} subtitle={t("onThisPhoneList")} wrap leading={<RowIcon name="phone-portrait-outline" />} />
       {!!user && <ListItem title={t("inYourAccount")} subtitle={t("inYourAccountList")} wrap leading={<RowIcon name="cloud-outline" />} />}
     </ListGroup>
+    <T variant="small" muted>{contributionText.privacy}</T>
     <Button label={t("exportMyData")} icon="share-outline" variant="secondary" onPress={() => void exportData()} disabled={!readable} />
     <Card style={common.stack}><T variant="subtitle" accessibilityRole="header">{t("deletePhoneData")}</T>
       <T muted>{user ? t("deletePhoneNoteAccount") : t("deletePhoneNoteGuest")}</T>

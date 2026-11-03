@@ -50,12 +50,26 @@ export default function Cases({ canAssign }: { canAssign: boolean }) {
   </>;
 }
 export function CaseDetail({ id, onSaved, onClose, canAssign }: { id: string; onSaved: () => void; onClose: () => void; canAssign: boolean }) {
-  const resource = useResource<{ record: Case; notes: { id: string; body: string; created_at: string; author: string }[] }>('/api/manage/cases?id=' + id);
+  const resource = useResource<{ record: Case; notes: { id: string; body: string; created_at: string; author: string }[];
+    explore?:{id:string;kind:string;revision:number;state:string;canModerate:boolean;payload:{body?:string;rating?:number;reports?:{reason:string;details:string}[]};photos:string[];message:string} }>('/api/manage/cases?id=' + id);
   const assignees = useResource<{ id: string; email: string }[]>(canAssign ? '/api/manage/assignees' : null);
   const row = resource.data?.record;
+  const contribution=resource.data?.explore;
   return <section className="panel" ref={reveal}>
     <div className="row spread"><h2>{row?.title ?? 'Case'}</h2><IconButton icon="close" label="Close" onClick={onClose}/></div>
     <Feedback {...resource} retry={resource.reload}/>
+    {contribution&&<section className="panel"><h3>Explore contribution</h3><p>{contribution.state} · revision {contribution.revision}</p>
+      {contribution.payload.rating&&<p>{contribution.payload.rating} stars</p>}<p className="detail">{contribution.payload.body??contribution.message}</p>
+      {contribution.payload.reports?.map((report,i)=><p className="detail" key={i}>{report.reason}: {report.details}</p>)}
+      <div className="row" style={{flexWrap:'wrap'}}>{contribution.photos.map(photo=><a key={photo} href={'/api/manage/explore-photo?caseId='+id+'&id='+photo} target="_blank" rel="noreferrer">
+        {/* Staff-only evidence, served through the existing session/assignment guard. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={'/api/manage/explore-photo?caseId='+id+'&id='+photo} alt="Submitted evidence" style={{width:140,height:140,objectFit:'contain'}}/></a>)}</div>
+      {contribution.canModerate&&['staff','needs-changes','needs-input'].includes(contribution.state)&&<Mutation endpoint="explore-review" label="Apply decision" onSaved={()=>{resource.reload();onSaved();}}
+        values={f=>({caseId:id,workId:contribution.id,revision:contribution.revision,action:f.get('action')})}>
+        <label>Decision<select name="action"><option value="recheck">Check again</option>{contribution.kind==='review'&&<option value="publish">Approve publication</option>}<option value="needs-changes">Request changes</option></select></label>
+      </Mutation>}
+    </section>}
     {row && <>
       <div className="row badges"><span className={tone(row.status)}>{row.status}</span><span className="badge">{row.kind}</span>
         <span className={'badge ' + (row.severity === 'normal' ? '' : 'warn')}>{row.severity}</span></div>

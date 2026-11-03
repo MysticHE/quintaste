@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef,useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { MarketModal } from "../market/MarketChrome";
 import { Button, Field, T } from "../ui";
@@ -11,7 +11,9 @@ import type { PlaceReview } from "../../types/place-reviews";
 import { ReviewStars } from "./ReviewStars";
 import { ListingPhotos, photoBudgets } from "../market/ListingPhotos";
 import type { MarketPhotos } from "../../types/market";
-import { useT } from "../../i18n";
+import { useT,useLanguage } from "../../i18n";
+import { contributionKey,contributionWords } from "../../config/explore-work";
+import { useContributionDraft } from "../../hooks/useContributionDraft";
 
 const reasons = ["Spam", "Not about this place", "Offensive content", "Conflict of interest", "Other"];
 
@@ -23,13 +25,21 @@ export function PlaceReviewDialog({ placeId, review, action, onClose, onSaved }:
   const [reason, setReason] = useState(""), [busy, setBusy] = useState(false), [error, setError] = useState("");
   const [photos, setPhotos] = useState<MarketPhotos>(() => ({ item: review?.photos?.[0], detail: review?.photos?.[1], label: review?.photos?.[2] }));
   const [photoBusy, setPhotoBusy] = useState(false);
+  const words=contributionWords(useLanguage()),submission=useRef({key:contributionKey(),input:""});
+  const draft=useContributionDraft(user?.id&&action==="write"?"qt.explore-draft:"+user.id+":review:"+placeId:null,
+    {rating,body,photos},saved=>{setRating(saved.rating);setBody(saved.body);setPhotos(saved.photos);},submission);
   const send = async () => {
     setBusy(true); setError("");
     try {
-      if (action === "write") await savePlaceReview(placeId, rating, body, [photos.item, photos.detail, photos.label].filter((uri): uri is string => !!uri));
+      if (action === "write") {
+        const chosen=[photos.item,photos.detail,photos.label].filter((uri):uri is string=>!!uri),input=JSON.stringify({rating,body,chosen});
+        if(submission.current.input && submission.current.input!==input) submission.current.key=contributionKey();
+        submission.current.input=input;
+        await savePlaceReview(placeId,rating,body,chosen,submission.current.key);
+      }
       else if (action === "delete") await deletePlaceReview(placeId);
       else if (review) await reportPlaceReview(placeId, review.id, reason, body);
-      onSaved(); onClose(); setNotice({ text: t(action === "report" ? "reportSent" : action === "delete" ? "reviewDeleted" : "reviewPublished") });
+      await draft.clear();onSaved(); onClose(); setNotice({ text: action==="write"?words.pending:t(action === "report" ? "reportSent" : "reviewDeleted") });
     } catch (problem) { setError(problem instanceof ApiError ? problem.message : t("didNotSave")); }
     finally { setBusy(false); }
   };
@@ -46,6 +56,7 @@ export function PlaceReviewDialog({ placeId, review, action, onClose, onSaved }:
             <T variant="caption" muted>{t("ownPhotosHint")}</T>
           </View>
           <T variant="caption" muted>{t("publicAs", { name: user?.name || t("yourAccountName") })}</T>
+          <T variant="caption" muted>{words.hint+" "+words.privacy}</T>
         </>}
         {action === "report" && <>
           <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>{reasons.map(value =>
@@ -55,7 +66,7 @@ export function PlaceReviewDialog({ placeId, review, action, onClose, onSaved }:
         {action === "delete" && <T variant="small">{t("deleteWarning")}</T>}
         {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
         <Button label={t(action === "write" ? "publishReview" : action === "delete" ? "deleteReview" : "sendReport")}
-          loading={busy} disabled={photoBusy || (action === "write" ? !rating : action === "report" ? !reason : false)} onPress={() => void send()} />
+          loading={busy} disabled={!draft.ready||photoBusy || (action === "write" ? !rating : action === "report" ? !reason : false)} onPress={() => void send()} />
         <Button label={tc("cancel")} variant="link" disabled={busy || photoBusy} onPress={onClose} />
       </ScrollView>
     </KeyboardAvoidingView>

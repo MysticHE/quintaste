@@ -32,7 +32,7 @@ function withPreview(venue: CatalogueVenue): CatalogueVenue {
 }
 /** Phone numbers from our records (owner, 1 Nov 2026), added to the place page only so Explore's pages stay small. */
 const contacts = phones.places as Record<string, CatalogueContact>;
-const withContact = (venue: CatalogueVenue): CatalogueVenue => contacts[venue.id] ? { ...venue, contact: contacts[venue.id] } : venue;
+const withContact = (venue: CatalogueVenue): CatalogueVenue => venue.contact ? venue : contacts[venue.id] ? { ...venue, contact: contacts[venue.id] } : venue;
 const hiddenAliases = new Map(aliases.entries.filter(alias => {
   const old = catalogue.find(venue => venue.id === alias.aliasId), next = catalogue.find(venue => venue.id === alias.canonicalId);
   return old?.name === alias.name && next?.name === alias.name && old?.address === alias.address && next?.address === alias.address;
@@ -97,8 +97,8 @@ function staffVenue(id: string, base: CatalogueVenue | undefined, staff: StaffCo
   const { base: _base, sourceUrl: _sourceUrl, photo, hours, kitchen, menuTotal, ...fields } = (place?.data ?? {}) as StaffPlaceData;
   // A staff-created Veg Kitchen place may have no dishes (owner, 21 Oct 2026), like a bot place proven by its name: it lists without a menu.
   const menuless = !applied && place?.origin === "staff" && !kitchen;
-  if (!applied && !menuless) return undefined;
-  const summary = applied ? menuSummary(applied) : { id, name: fields.name ?? "", branch: fields.branch ?? "", address: fields.address ?? "", postalCode: fields.postalCode ?? "",
+  if (!applied && !menuless && !base) return undefined;
+  const summary = applied ? menuSummary(applied) : base ?? { id, name: fields.name ?? "", branch: fields.branch ?? "", address: fields.address ?? "", postalCode: fields.postalCode ?? "",
     aliases: fields.aliases ?? [], googlePlaceId: null, fingerprint: hash({ staffPlace: id, data: place!.data }), checkedAt: new Date(place!.updated_at).toISOString(), itemCount: 0, sectionCount: 0 };
   const venue = { ...(base ?? { point: null, venueDiet: "Vegetarian", alliumFreeClaim: false }), ...fields, ...summary } as CatalogueVenue;
   if (photo === null) delete venue.photo; else if (photo) venue.photo = photo;

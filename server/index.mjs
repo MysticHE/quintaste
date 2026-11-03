@@ -46,6 +46,9 @@ import { gapBots } from './gaps/bot-router.mjs';
 import { startApprovedRefresh } from './gaps/approved.mjs';
 import { startDemandWorker } from './cook-search/demand.mjs';
 import { startNutritionRefresh } from './nutrition/service.mjs';
+import { exploreBots } from './explore-work/bot.mjs';
+import { exploreWork } from './explore-work/member.mjs';
+import { startExploreWorker } from './explore-work/worker.mjs';
 const { createRequestHandler } = createRequire(import.meta.url)('expo-server/adapter/express');
 
 const app = express();
@@ -86,7 +89,10 @@ app.get('/healthz', async (_req, res) => {
 });
 const apiLimits = createApiRateLimits({ pool, secret: process.env.BETTER_AUTH_SECRET, logger,
   resolveSession: req => auth.api.getSession({ headers: fromNodeHeaders(req.headers) }) });
-app.use('/api', apiLimits.network, apiLimits.general);
+app.use('/api', apiLimits.network);
+// Resident signed workers have their own bounded quota; they must not exhaust guests' write budget by polling.
+app.use('/api/explore-work/bot',exploreBots);
+app.use('/api',apiLimits.general);
 app.use('/api/editorial', editorial);
 app.use('/api/auth/sign-in/username', apiLimits.signIn, express.json({ limit: '16kb' }), apiLimits.signInAccount);
 for (const action of ['register', 'recover', 'recovery-codes']) {
@@ -118,6 +124,7 @@ app.use(['/api/menus', '/api/catalogue', '/api/dish-search'], featureGate('menus
 app.use('/api/avatar', avatars);
 app.use('/api/lotus', lotus);
 app.use('/api/community', community);
+app.use('/api/explore-work',exploreWork);
 app.use('/api/inbox', inbox);
 app.use('/api/push', push);
 app.use('/api/place-reviews', featureGate('menus'), placeReviews);
@@ -198,6 +205,7 @@ const stopNutrition = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startN
 // Every minute: wanted recipes from Cook searches (idle until recipe_demand, ai_recipes and recipes are on).
 const stopDemand = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startDemandWorker() : () => {};
 const stopLevels = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startLevelWorker() : () => {};
+const stopExplore=startExploreWorker();
 // Every five minutes: dish cards and swap rules staff approved from library gaps.
 const stopApproved = startApprovedRefresh();
 const purgeContacts = () => purgeOrderContacts().then(count => count && logger.info({ event: 'market_contacts_purged', count }))
@@ -223,6 +231,7 @@ async function stop() {
   stopNutrition();
   stopDemand();
   stopLevels();
+  stopExplore();
   stopApproved();
   clearInterval(purgeTimer);
   clearInterval(purgeSelfieTimer);

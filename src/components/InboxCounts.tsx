@@ -12,6 +12,7 @@ import { setAppBadge } from "../services/app-badge";
 export type InboxCounts = { friends: number; market: number; classes: number; messages: number; orders: number; requests: number; dinners: number; total: number; dining?: boolean;
   /** Unopened gifts (older servers leave it out). */
   gifts?: number;
+  contributions?:number;
   /** Names the photo check waiting on the member (it did not pass, or they changed the checked photo), else null; not in `total` (older servers leave it out). */
   photoCheck?: string | null;
   /** Likes and thank-yous on gifts you sent to people who aren't friends, not yet seen (older servers leave it out). */
@@ -20,7 +21,7 @@ export const inboxPath = "/api/inbox";
 const load = (signal: AbortSignal) => communityRequest<InboxCounts>(inboxPath, { signal });
 const Context = createContext<InboxCounts | undefined>(undefined);
 /** Social and Market changes (reading a chat, an order step, a friend request, a block) can move the counts. */
-const touches = (prefix: string) => ["/api/social", "/api/market"].some(area => prefix.startsWith(area) || area.startsWith(prefix));
+const touches = (prefix: string) => ["/api/social", "/api/market","/api/explore-work","explore-contributions:"].some(area => prefix.startsWith(area) || area.startsWith(prefix));
 /** The counts, refreshed on focus, every 30 s while focused and on Social or Market changes. */
 export function useLiveInbox() {
   const { member } = useMember(), { data, refresh } = useRemote(member ? inboxPath : null, load, 30000);

@@ -199,7 +199,7 @@ export const LANES: Record<string, Lane> = {
     actions: { hide: { ask: 'no-to-member', run: post('review'), undo: unhide('review') } },
     // Only reviews written or edited in the last two days: each pass checks the new ones against the written rules.
     queue: async mode => (await query(`SELECT pr.id, pr.rating, pr.body, pr.updated_at FROM community.place_review pr
-      WHERE pr.hidden_at IS NULL AND pr.updated_at > now() - interval '2 days' AND ${fresh('reviews', 'pr.id::text', 'pr.updated_at', mode)}
+      WHERE pr.published AND pr.live_revision=0 AND pr.hidden_at IS NULL AND pr.updated_at > now() - interval '2 days' AND ${fresh('reviews', 'pr.id::text', 'pr.updated_at', mode)}
       ORDER BY pr.updated_at DESC LIMIT 100`)).rows,
     labels: async targets => Object.fromEntries(targets.map(t => [t, 'Place review'])),
   },
@@ -211,6 +211,7 @@ export const LANES: Record<string, Lane> = {
     // The reporter (subject_id after "|by:") is never read here.
     queue: async mode => (await query(`SELECT c.id, split_part(substr(c.subject_id, 17), '|by:', 1) AS place_id, c.title, c.description, c.created_at
       FROM ops.case_record c WHERE c.status = 'open' AND c.kind = 'report' AND c.subject_id LIKE 'place:catalogue:%'
+        AND NOT EXISTS(SELECT 1 FROM ops.explore_submission s WHERE s.case_id=c.id)
         AND ${fresh('place-reports', 'c.id::text', 'c.updated_at', mode)} ORDER BY c.created_at LIMIT 10`)).rows,
     labels: labelled("SELECT id::text AS id, split_part(substr(subject_id, 17), '|by:', 1) AS label FROM ops.case_record WHERE id::text = ANY($1)", 'Place report · '),
     // Triaged by Coco or by the owner answering Coco, and still triaged however long a fix takes: Pandan's recheck list and the

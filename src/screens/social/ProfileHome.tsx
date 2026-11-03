@@ -84,6 +84,6 @@ function TopRow({ name, data }: { name: string; data: SocialMe | undefined }) {
       label={giftCount ? tc("giftsWaiting", { n: giftCount }) : tc("openCollection")} onPress={() => router.push("/social/collection")} />}
     <MessagesButton unread={inbox?.messages ?? 0} />
     {/* The full Me menu (Saved, Food choices, Location, Appearance, Privacy, Help, sign-out); this is its only entry point. */}
-    <IconButton appearance="plain" icon="settings-outline" label={t("settings")} onPress={() => router.push({ pathname: "/account", params: { returnTo: "/social" } })} />
+    <IconButton appearance="plain" icon="settings-outline" badge={inbox?.contributions??0} label={t("settings")} onPress={() => router.push({ pathname: "/account", params: { returnTo: "/social" } })} />
   </View>;
 }

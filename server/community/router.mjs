@@ -3,6 +3,8 @@ import { CommunityError, communityRouter, errors, requireUser, text, throttle, t
 import { publishedPlaceId } from '../catalogue-places.mjs';
 import { publishedRecipeId } from '../recipes/published.mjs';
 import { separate } from '../social/separate.mjs';
+import { existingReport, queueReport, reportInput } from '../explore-work/reports.mjs';
+import { reviewPhotos } from '../place-reviews/photos.mjs';
 
 /** Blocking is mutual for visibility: neither side sees or contacts the other. */
 export async function blockedBetween(a, b, db = pool) {
@@ -30,7 +32,7 @@ export async function fileReport(reporterId, { subject, title, description }, db
   return db ? work(db) : transaction(work);
 }
 
-export const community = communityRouter();
+export const community = communityRouter({ photoLimit:'1600kb',photos:req=>req.method==='POST' && req.path==='/reports' });
 community.get('/blocks', async (_req, res) => {
   const rows = (await pool.query(`SELECT b.blocked_id AS id, coalesce(p.first_name, u.name) AS name, b.created_at AS "createdAt"
     FROM community.block b JOIN public."user" u ON u.id=b.blocked_id LEFT JOIN social.profile p ON p.user_id=b.blocked_id
@@ -61,6 +63,20 @@ community.post('/reports', async (req, res) => {
   const target = kind === 'place' ? await publishedPlaceId(req.body?.targetId) : kind === 'recipe' ? await publishedRecipeId(req.body?.targetId)
     : kind === 'level' ? await publicLevel(req.body?.targetId) : kind === 'cafe' ? await openCafe(req.body?.targetId) : requireUser(req.body?.targetId);
   if (!target) throw new CommunityError(404, kind === 'recipe' ? 'That recipe is unavailable.' : kind === 'level' ? 'That level is unavailable.' : kind === 'cafe' ? 'That café is closed.' : 'That place is unavailable.');
+  if(kind==='place') {
+    const input=reportInput(req.body,target);
+    const photos=await reviewPhotos(req.body.photos,target) ?? [];
+    if(photos.some(p=>p.keep)) throw new CommunityError(400,'Upload your own evidence photo.');
+    const receipt=await transaction(async db=>{
+      await db.query('SELECT pg_advisory_xact_lock(1902915,hashtext($1))',['explore-submit:'+me]);
+      const {key,prior}=await existingReport(db,me,req.body.submissionKey,input);
+      if(prior) return prior;
+      const caseId=await fileReport(me,{subject:'place:catalogue:'+target,title:'Place update · '+input.reason,
+        description:[input.reason,input.details,input.proposed,input.sourceUrl].filter(Boolean).join('\n')},db);
+      return queueReport(db,{user:me,key,input,caseId,photos});
+    });
+    return res.status(201).json(receipt);
+  }
   const reason = text(req.body?.reason, 60), details = text(req.body?.details, 1000);
   const subject = { listing: 'market:listing:', person: 'community:user:', place: 'place:catalogue:', recipe: 'recipe:member:', level: 'game:level:', cafe: 'game:cafe:' }[kind] + target;
   const reference = await fileReport(me, { subject,

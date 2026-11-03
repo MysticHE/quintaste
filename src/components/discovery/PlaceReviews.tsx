@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
-import { router, useLocalSearchParams } from "expo-router";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ActivityIndicator, AppState, View } from "react-native";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { Button, T, common } from "../ui";
 import { Chip } from "../food/Controls";
 import { ensureMember, useMember } from "../CommunityGate";
@@ -13,16 +13,19 @@ import { PlaceReviewDialog } from "./PlaceReviewDialog";
 import { PlaceReviewCard } from "./PlaceReviewCard";
 import { ReviewStars } from "./ReviewStars";
 import { ReviewPhotos } from "./ReviewPhotos";
-import { useT } from "../../i18n";
+import { useT,useLanguage } from "../../i18n";
+import { contributionWords } from "../../config/explore-work";
 
 export function PlaceReviews({ placeId }: { placeId: string }) {
   const member = useMember(), [sort, setSort] = useState<ReviewSort>("newest");
   return <ReviewList key={placeId + ":" + (member.userId ?? "guest") + ":" + sort} placeId={placeId} sort={sort} setSort={setSort} />;
 }
 function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewSort; setSort: (value: ReviewSort) => void }) {
-  const { theme } = usePreferences(), member = useMember(), params = useLocalSearchParams<{ review?: string }>(), t = useT("explore"), tc = useT("common");
-  const prefix = "place-reviews:" + placeId + ":", key = prefix + (member.userId ?? "guest") + ":" + sort;
-  const remote = useRemote(key, signal => placeReviews(reviewsPath(placeId, sort), signal), { keepPrevious: true }), data = remote.data;
+  const { theme } = usePreferences(), member = useMember(), params = useLocalSearchParams<{ review?: string;reviewId?:string }>(), t = useT("explore"), tc = useT("common"),cw=contributionWords(useLanguage());
+  const prefix = "place-reviews:" + placeId + ":", key = prefix + (member.userId ?? "guest") + ":" + sort+":"+(params.reviewId??"");
+  const remote = useRemote(key, signal => placeReviews(reviewsPath(placeId, sort,undefined,params.reviewId), signal), { keepPrevious: true }), data = remote.data;
+  const refresh=remote.refresh;
+  useFocusEffect(useCallback(()=>{if(!data?.pending)return;const timer=setInterval(()=>{if(AppState.currentState==='active')refresh();},5000);return()=>clearInterval(timer);},[data?.pending,refresh]));
   const latest = useRef(data);
   useEffect(() => { latest.current = data; }, [data]);
   const [extra, setExtra] = useState<{ base: PlaceReviewsPage; items: PlaceReview[]; nextCursor: string | null } | null>(null);
@@ -35,9 +38,9 @@ function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewS
   const controller = useRef<AbortController | null>(null);
   const [dialog, setDialog] = useState<{ action: "write" | "delete" | "report"; review?: PlaceReview } | null>(null);
   useEffect(() => () => controller.current?.abort(), []);
-  const activeDialog = dialog ?? (params.review === "1" && member.member && data ? { action: "write" as const, review: data.mine ?? undefined } : null);
+  const activeDialog = dialog ?? (params.review === "1" && member.member && data ? { action: "write" as const, review: data.pending ?? data.mine ?? undefined } : null);
   const closeDialog = () => { setDialog(null); if (params.review) router.setParams({ review: undefined }); };
-  const write = () => { if (ensureMember(member, "/place/catalogue-" + placeId + "?review=1")) setDialog({ action: "write", review: data?.mine ?? undefined }); };
+  const write = () => { if (ensureMember(member, "/place/catalogue-" + placeId + "?review=1")) setDialog({ action: "write", review: data?.pending ?? data?.mine ?? undefined }); };
   const more = async () => {
     // The faded list from the last sort has that sort's cursor; more pages wait for the new sort.
     if (!cursor || !data || busy || remote.stale) return;
@@ -68,6 +71,8 @@ function ReviewList({ placeId, sort, setSort }: { placeId: string; sort: ReviewS
       {data.count > 1 && <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>{([['newest', 'sortNewest'], ['highest', 'sortHighest'], ['lowest', 'sortLowest']] as const).map(([value, label]) =>
         <Chip key={value} label={t(label)} compact role="radio" selected={sort === value} onPress={() => setSort(value)} />)}</View>}
       {data.mine && card(data.mine, true)}
+      {data.pending&&<View style={{gap:6}}><T variant="small" accessibilityLiveRegion="polite">{data.pending.state==="needs-changes"?cw["needs-changes"]:data.pending.state==="staff"?cw.staff:cw.pending}</T>
+        <Button label={cw.title} variant="link" onPress={()=>router.push(("/explore-contributions/"+data.pending!.workId) as never)}/></View>}
       {items.length > 0 && <View style={{ gap: 10, opacity: remote.stale ? 0.55 : 1 }}>{(showAll ? items : items.slice(0, 2)).map(item => card(item))}</View>}
       {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
       {!showAll && (items.length > 2 || !!cursor) && <Button label={t("seeAllReviews")} variant="link" onPress={() => setShowAll(true)} />}

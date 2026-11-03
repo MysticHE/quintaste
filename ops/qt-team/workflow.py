@@ -19,6 +19,7 @@ import time
 from pathlib import Path
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
+from qt_capacity import limited
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 ROOT = Path(os.environ.get("QT_TEAM_ROOT", "/opt/data/qt-team"))
@@ -569,6 +570,7 @@ def finish_model(call, outcome):
     return outcome['obj'], outcome['receipt']
 
 
+@limited
 def run_model(role, prompt, folder, policy, seconds=None, publication=False, acceptance=False):
     call = prepare_model(role, prompt, folder, policy, seconds, publication, acceptance)
     return finish_model(call, execute_model(call))

@@ -16,10 +16,14 @@ import { TimerAlertControl } from "../components/food/TimerAlertControl";
 import { LotusSlot } from "../components/lotus/LotusSlot";
 import { useDietText } from "../components/food/DietLabels";
 import { useLanguageName } from "./Settings";
-import { useT, useLanguageChoice } from "../i18n";
+import { useT, useLanguageChoice,useLanguage } from "../i18n";
+import { contributionWords } from "../config/explore-work";
+import { useInbox } from "../components/InboxCounts";
 
 export function AccountScreen() {
   const { user, enabled } = useAuth();
+  const contributionText=contributionWords(useLanguage());
+  const contributionCount=useInbox()?.contributions??0;
   const { draft, preview, theme } = usePreferences(), { doc, leavePreview, switching } = useFood();
   const tc = useT("common"), t = useT("me"), languageName = useLanguageName(useLanguageChoice().choice), dietText = useDietText();
   const { returnTo } = useLocalSearchParams<{ returnTo?: string }>();
@@ -50,7 +54,8 @@ export function AccountScreen() {
       <SettingsRow label={tc("saved")} leading={<QuinTasteIcon name="saved" color={theme.accent} size={26} />} value={String(doc.saves.length)} onPress={() => router.push("/saved")} />
       <SettingsRow label={t("foodChoices")} icon="leaf-outline" value={draft.diets.map(dietText.name).join(" · ")} onPress={() => router.push("/exclusions")} />
       <SettingsRow label={t("aiRecipesPlan")} icon="sparkles-outline" onPress={() => router.push("/cook/ai-plans" as never)} />
-      <SettingsRow label={t("location")} icon="location-outline" last={!__DEV__} onPress={() => router.push("/private-places")} />
+      <SettingsRow label={t("location")} icon="location-outline" last={!user&&!__DEV__} onPress={() => router.push("/private-places")} />
+      {user&&<SettingsRow label={contributionText.title} value={contributionCount?String(contributionCount):undefined} icon="file-tray-outline" last={!__DEV__} onPress={()=>router.push("/explore-contributions" as never)}/>}
       {__DEV__ && <SettingsRow label={t("myCases")} icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
     </Card>
     <Card style={s.group}>

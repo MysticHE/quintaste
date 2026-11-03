@@ -4,6 +4,12 @@
  * nothing private shows on a locked screen. `kind` is the switch in Settings › Phone alerts (and the Android channel).
  */
 export const alertWords = {
+  exploreUpdated:{kind:'account',en:['Place details updated','Your report helped correct Explore.'],zh:['地点信息已更新','你的报告帮助我们更正了地点信息。']},
+  explorePublished:{kind:'account',en:['Your review is live','Your rating, comment and photos passed checking.'],zh:['评价已发布','你的评分、评论和照片已通过检查。']},
+  exploreNeedsChanges:{kind:'account',en:['Please update your contribution','Open to see what needs changing.'],zh:['请修改你提交的内容','查看需要修改的地方。']},
+  exploreNeedsInfo:{kind:'account',en:['More information needed','Please add details to your place report.'],zh:['需要补充信息','请为你的地点报告补充信息。']},
+  exploreStaff:{kind:'account',en:['Your contribution needs a closer check','Staff will review it.'],zh:['你的贡献需要进一步检查','工作人员将进行审核。']},
+  exploreCredits:{kind:'account',en:['Thanks for helping Explore','20 credits have been added.'],zh:['感谢你帮助改善地点信息','已获得20积分。']},
   message: { kind: 'messages', en: ['{name}', 'New message'], zh: ['{name}', '新消息'] },
 
   friendRequest: { kind: 'friends', en: ['Friend request', '{name} wants to be friends'], zh: ['好友请求', '{name} 想加你为好友'] },

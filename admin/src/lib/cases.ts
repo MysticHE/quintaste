@@ -5,6 +5,7 @@ import { audit, type Actor } from './audit';
 import { authorize, lockPermission, type Session } from './session';
 import { choice, HttpError, integer, pageSize, text, uuid } from './http';
 import { CHEFS } from './chef-names';
+import { can } from './permissions';
 
 const kinds = ['report','harm','correction','incident','privacy'] as const;
 const statuses = ['open','triaged','investigating','resolved','dismissed'] as const;
@@ -32,7 +33,39 @@ export async function caseDetails(member: Session, id: string) {
       JOIN staff.member m ON m.id=n.author_id WHERE n.case_id=$1
       ${bots ? 'UNION ALL SELECT b.id,b.body,b.created_at,b.bot AS author FROM ops.case_bot_note b WHERE b.case_id=$1' : ''}
       ORDER BY created_at LIMIT 100`, [id])).rows.map(n => ({ ...n, author: CHEFS[n.author] ?? n.author }));
-    return { record, notes };
+    const work=(await db.query(`SELECT w.id,w.kind,w.revision,w.state,w.payload,w.message FROM ops.explore_work w
+      WHERE w.id::text=$1 OR w.id IN(SELECT work_id FROM ops.explore_submission WHERE case_id=$2) ORDER BY w.created_at DESC LIMIT 1`,
+      [record.subject_id?.startsWith('explore:work:')?record.subject_id.slice(13):'',id])).rows[0];
+    const photos=work?(await db.query('SELECT id FROM ops.explore_photo WHERE work_id=$1 ORDER BY position',[work.id])).rows.map(p=>p.id):[];
+    return { record, notes, explore:work?{...work,photos,canModerate:can(member.role,'content')}:null };
+  });
+}
+
+export async function explorePhoto(member:Session,caseId:string,photoId:string){
+  authorize(member,'cases');uuid(caseId,'case id');uuid(photoId,'photo id');
+  return transaction(async db=>{
+    const record=await lockedCase(db,member,caseId);
+    const row=(await db.query(`SELECT p.bytes FROM ops.explore_photo p JOIN ops.explore_work w ON w.id=p.work_id WHERE p.id=$1
+      AND (w.id::text=$2 OR w.id IN(SELECT work_id FROM ops.explore_submission WHERE case_id=$3))`,[photoId,record.subject_id?.startsWith('explore:work:')?record.subject_id.slice(13):'',caseId])).rows[0];
+    if(!row)throw new HttpError(404,'Photo unavailable.');return row.bytes as Buffer;
+  });
+}
+export async function decideExplore(member:Session,input:Record<string,unknown>,reason:string){
+  authorize(member,'cases');authorize(member,'content');
+  const caseId=uuid(input.caseId,'case id'),id=uuid(input.workId,'job id'),revision=integer(input.revision,'revision',1);
+  const action=choice(input.action,['publish','needs-changes','recheck'] as const,'decision');
+  return transaction(async db=>{
+    await lockPermission(db,member,'cases');await lockPermission(db,member,'content');
+    const record=await lockedCase(db,member,caseId);
+    const w=(await db.query(`SELECT w.* FROM ops.explore_work w WHERE w.id=$1 AND (w.id::text=$2 OR w.id IN(SELECT work_id FROM ops.explore_submission WHERE case_id=$3)) FOR UPDATE`,[id,record.subject_id?.startsWith('explore:work:')?record.subject_id.slice(13):'',caseId])).rows[0];
+    if(!w||w.revision!==revision||!['staff','needs-changes','needs-input'].includes(w.state))throw new HttpError(409,'This contribution changed. Refresh before deciding.');
+    if(action==='publish'&&w.kind!=='review')throw new HttpError(400,'Place corrections need source verification. Choose Recheck.');
+    const stage=action==='publish'?'publish':action==='recheck'?'coco':'done',state=action==='needs-changes'?'needs-changes':'queued';
+    const result=action==='publish'?{...w.result,coco:{decision:'approve',reason},kaya:{decision:'approve',reason,staff:member.id}}:w.result;
+    await db.query('UPDATE ops.explore_work SET stage=$2,state=$3,result=$4,message=$5,attempts=0,token=NULL,lease_until=NULL,due_at=now(),updated_at=now() WHERE id=$1',[id,stage,state,result,action==='needs-changes'?reason:'']);
+    await db.query("UPDATE ops.case_record SET status='investigating',version=version+1,updated_at=now() WHERE id=$1",[caseId]);
+    await audit(db,member.id,'explore.'+action,id,reason,{revision,caseId});
+    return {saved:true};
   });
 }
 export async function createCase(member: Session, input: Record<string, unknown>, reason: string) {

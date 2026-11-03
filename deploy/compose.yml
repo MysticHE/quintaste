@@ -75,6 +75,25 @@ services:
       traefik.http.middlewares.quintaste-reviews-body.buffering.memRequestBodyBytes: '4300000'
       traefik.http.middlewares.quintaste-reviews-rate.ratelimit.average: '30'
       traefik.http.middlewares.quintaste-reviews-rate.ratelimit.burst: '40'
+      # Member evidence: one optional photo on a place problem report; other community writes stay small.
+      traefik.http.routers.quintaste-place-reports.rule: Host(`${APP_HOST}`) && Method(`POST`) && Path(`/api/community/reports`)
+      traefik.http.routers.quintaste-place-reports.priority: '106'
+      traefik.http.routers.quintaste-place-reports.entrypoints: websecure
+      traefik.http.routers.quintaste-place-reports.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-place-reports.service: quintaste
+      traefik.http.routers.quintaste-place-reports.middlewares: quintaste-report-body,quintaste-report-rate
+      traefik.http.middlewares.quintaste-report-body.buffering.maxRequestBodyBytes: '1600000'
+      traefik.http.middlewares.quintaste-report-body.buffering.memRequestBodyBytes: '1600000'
+      traefik.http.middlewares.quintaste-report-rate.ratelimit.average: '5'
+      traefik.http.middlewares.quintaste-report-rate.ratelimit.burst: '10'
+      traefik.http.routers.quintaste-explore-bots.rule: Host(`${APP_HOST}`) && Method(`POST`) && PathRegexp(`^/api/explore-work/bot/jobs/[0-9a-f-]{36}/result$`)
+      traefik.http.routers.quintaste-explore-bots.priority: '106'
+      traefik.http.routers.quintaste-explore-bots.entrypoints: websecure
+      traefik.http.routers.quintaste-explore-bots.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-explore-bots.service: quintaste
+      traefik.http.routers.quintaste-explore-bots.middlewares: quintaste-explore-bot-body
+      traefik.http.middlewares.quintaste-explore-bot-body.buffering.maxRequestBodyBytes: '550000'
+      traefik.http.middlewares.quintaste-explore-bot-body.buffering.memRequestBodyBytes: '550000'
       traefik.http.routers.quintaste-market-uploads.rule: Host(`${APP_HOST}`) && (Method(`POST`) && Path(`/api/market/seller/listings`) || Method(`PUT`) && PathRegexp(`^/api/market/seller/listings/[0-9a-f-]{36}$`))
       traefik.http.routers.quintaste-market-uploads.priority: '106'
       traefik.http.routers.quintaste-market-uploads.entrypoints: websecure

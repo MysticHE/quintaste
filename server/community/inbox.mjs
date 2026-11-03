@@ -32,13 +32,15 @@ export async function inboxCounts(me) {
     gifts: social && giftsOn ? giftsWaitingSql : null,
     // Likes and thank-yous on gifts you sent to people who aren't your friends (a friend's come as chat lines).
     giftNews: social && giftsOn ? giftNewsSql : null,
+    contributions:`(SELECT count(DISTINCT w.id)::int FROM ops.explore_work w JOIN ops.explore_submission s ON s.work_id=w.id
+      WHERE s.user_id=$1 AND w.updated_at>s.seen_at AND w.state IN ('published','resolved','staff','needs-input','needs-changes'))`,
   };
   const live = Object.entries(parts).filter(([, sql]) => sql);
   const row = Object.fromEntries(Object.keys(parts).map(key => [key, 0]));
   if (live.length) Object.assign(row, (await pool.query(`SELECT ${live.map(([key, sql]) => sql + ' AS "' + key + '"').join(', ')}`, [me])).rows[0]);
   const messages = row.friends + row.market + row.classes;
   const photoCheck = social && state.step === 'verify' && ['rejected', 'paused'].includes(state.verification) ? state.verification + ':' + (state.decidedAt ?? '') : null;
-  return { ...row, messages, photoCheck, total: messages + row.orders + row.requests + row.dinners + row.gifts + row.giftNews, dining: meet };
+  return { ...row, messages, photoCheck, total: messages + row.orders + row.requests + row.dinners + row.gifts + row.giftNews+row.contributions, dining: meet };
 }
 inbox.get('/', async (_req, res) => { res.json(await inboxCounts(res.locals.user.id)); });
 inbox.use(errors);

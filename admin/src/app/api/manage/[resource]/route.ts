@@ -5,7 +5,7 @@ import { query } from '../../../../lib/db';
 import { overview } from '../../../../lib/overview';
 import { targetLabel } from '../../../../lib/audit-labels';
 import { accounts, accountAction, changeControl, chefLanes, staffList, changeStaff } from '../../../../lib/management';
-import { caseList, caseDetails, createCase, updateCase } from '../../../../lib/cases';
+import { caseList, caseDetails, createCase, updateCase,explorePhoto,decideExplore } from '../../../../lib/cases';
 import { gatewayStatus, checkGateway } from '../../../../lib/gateway';
 import { providerKeyStatus, setProviderKey, removeProviderKey } from '../../../../lib/provider-keys';
 import { sellerAction, sellerDetail, sellerList } from '../../../../lib/sellers';
@@ -24,6 +24,7 @@ export function GET(request: Request, context: Context) { return route(async () 
   if (resource === 'accounts') return json(await accounts(member, params.get('q') || ''));
   if (resource === 'collection') return json(await collection(member, params.get('id')));
   if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || '', offset(params.get('page'))));
+  if(resource==='explore-photo')return new Response(new Uint8Array(await explorePhoto(member,text(params.get('caseId'),'case id',36),text(params.get('id'),'photo id',36))),{headers:{'Content-Type':'image/jpeg','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'}});
   if (resource === 'sellers') return json(params.has('id') ? await sellerDetail(member, text(params.get('id'),'seller id',64)) : await sellerList(member, params.get('status') || ''));
   if (resource === 'integrations') return json({ ...await gatewayStatus(member), ...await providerKeyStatus(member) });
   if (resource === 'photo-checks') return json(params.has('id') ? await photoCheck(member, text(params.get('id'),'member id',64)) : await photoChecks(member, params.get('status') || ''));
@@ -65,6 +66,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   // Credit adjustments and badge revokes require their own reason (checked in lib/collection.ts).
   if (resource === 'collection') return json(await collectionAction(member,input));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
+  if(resource==='explore-review')return json(await decideExplore(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'photo-checks') return json(await photoCheckAction(member,input,reason));
   if (resource === 'teachers') return json(await teacherAction(member,input,reason));
