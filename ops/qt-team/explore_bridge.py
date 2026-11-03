@@ -118,8 +118,12 @@ def require_image_checks(events,images):
         raise ValueError('every image needs a successful inspection')
 
 
+def claim_folder(job):
+    return ROOT/'explore-work'/job['id']/(str(job['revision'])+'-'+job['stage']+'-'+job['token'])
+
+
 def handle(job,lane):
-    folder=ROOT/'explore-work'/job['id']/(str(job['revision'])+'-'+job['stage']+'-'+job['token'])
+    folder=claim_folder(job)
     folder.mkdir(parents=True,exist_ok=True,mode=0o700)
     images=image_prompt(job,folder)
     stage=job['stage']; profile={'coco':'qt-fixer','pandan':'qt-explorer','kaya':'qt-manager'}[stage]
@@ -179,8 +183,8 @@ def process(lane):
                 print(json.dumps({'stage':job['stage'],'error':type(exc).__name__}),flush=True)
             finally:
                 stop.set();thread.join(timeout=2)
-                # Private prompts and member photos never persist in generic run archives.
-                shutil.rmtree(ROOT/'explore-work'/job['id'],ignore_errors=True)
+                # A later stage or revision may already be running under the same work ID.
+                shutil.rmtree(claim_folder(job),ignore_errors=True)
         except Exception as exc:
             print(json.dumps({'worker':lane,'error':type(exc).__name__}),flush=True);time.sleep(5)
 

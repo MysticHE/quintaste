@@ -151,11 +151,11 @@ exploreBots.post('/deliveries/:id/result',raw('2kb'),signedExplore,async(req,res
 });
 exploreBots.post('/export',raw('1kb'),signedExplore,async(req,res)=>{
   const b=json(req)??{},after=String(b.after??'0');if(!/^\d{1,18}$/.test(after))throw new CommunityError(400,'Invalid cursor.');
-  const page=(await pool.query(`SELECT e.id AS event_id,w.id AS work_id,w.target,e.revision,v.created_at AS verified_at,
+  const page=(await pool.query(`SELECT e.id AS event_id,v.id AS verification_event_id,w.id AS work_id,w.target,e.revision,v.created_at AS verified_at,
       e.data,e.data->'before' AS before FROM ops.explore_event e JOIN ops.explore_work w ON w.id=e.work_id
       JOIN ops.explore_event v ON v.work_id=e.work_id AND v.revision=e.revision AND v.what='verified-live'
-    WHERE e.id>$1 AND e.what='correction-applied'
-    ORDER BY e.id LIMIT 25`,[after])).rows;
+    WHERE v.id>$1 AND e.what='correction-applied'
+    ORDER BY v.id LIMIT 25`,[after])).rows;
   // The signed reader is bounded to 1 MB. Stop between whole receipts and advance only over included events.
   const rows=[];let bytes=0;
   for(const row of page){
@@ -164,7 +164,7 @@ exploreBots.post('/export',raw('1kb'),signedExplore,async(req,res)=>{
     rows.push(row);bytes+=size;
   }
   if(page.length&&!rows.length)throw new CommunityError(503,'One correction export needs staff attention.');
-  res.json({rows,next:rows.at(-1)?.event_id??after});
+  res.json({rows,next:rows.at(-1)?.verification_event_id??after});
 });
 exploreBots.use(errors);
 exploreBots.use((_req,res)=>res.sendStatus(404));
