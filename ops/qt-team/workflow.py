@@ -19,9 +19,9 @@ import time
 from pathlib import Path
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
-from qt_capacity import limited
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from qt_capacity import limited
 ROOT = Path(os.environ.get("QT_TEAM_ROOT", "/opt/data/qt-team"))
 SG = ZoneInfo("Asia/Singapore")
 ROLES = ("qt-explorer", "qt-cooker", "qt-event", "qt-manager")
@@ -464,6 +464,7 @@ def kitchen_ping():
             pass
 
 
+@limited
 def execute_model(call):
     """The model call itself (a Hermes subprocess). Thread-safe: reads no shared state and writes only the call's
     own folder. Never raises: returns {'obj', 'receipt', 'tools', 'error'}; finish_model() applies the outcome.
@@ -570,7 +571,6 @@ def finish_model(call, outcome):
     return outcome['obj'], outcome['receipt']
 
 
-@limited
 def run_model(role, prompt, folder, policy, seconds=None, publication=False, acceptance=False):
     call = prepare_model(role, prompt, folder, policy, seconds, publication, acceptance)
     return finish_model(call, execute_model(call))

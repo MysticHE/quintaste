@@ -16,6 +16,7 @@ import urllib.error
 
 from app_signing import open_signed,ORIGIN
 import hermes_run
+from bridge_stop import STOP,on_sigterm
 
 ROOT=Path(os.environ.get('QT_TEAM_ROOT','/opt/data/qt-team'))
 PREFIX='/api/explore-work/bot'
@@ -160,7 +161,7 @@ def reserve():
 
 def process(lane):
     os.environ['QT_EXPLORE_INTERACTIVE']='1' if lane=='quick' else '0'
-    while True:
+    while not STOP.is_set():
         try:
             policy=json.loads((ROOT/'policy.json').read_text())
             if not policy.get('exploreMemberContent'): time.sleep(5);continue
@@ -187,7 +188,7 @@ def process(lane):
 def notify():
     import telegram_reporter as t
     journal=ROOT/'state/explore-delivered';journal.mkdir(parents=True,exist_ok=True,mode=0o700)
-    while True:
+    while not STOP.is_set():
         delivery=None;posted=False
         try:
             config=t.read(ROOT/'private/telegram-chat.json',{})
@@ -223,5 +224,6 @@ def notify():
 
 
 if __name__=='__main__':
+    on_sigterm(1200)
     parser=argparse.ArgumentParser();parser.add_argument('lane',choices=['quick','research','notify']);args=parser.parse_args()
     notify() if args.lane=='notify' else process(args.lane)
