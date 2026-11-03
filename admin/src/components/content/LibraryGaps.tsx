@@ -10,8 +10,9 @@ type FoodDraft = { name: Words; what: string; per100: Record<string, number>; so
 type SwapDraft = { rules: { to: string; basis: string; factor?: number; keeps: string[]; failsIn: string[]; note?: Words; step?: Words; reason: string }[]; sources: string[] };
 type Gap = { id: string; kind: 'dish' | 'food' | 'swap'; key: string; label: string; context: Record<string, string>; hits: number; members: number; status: string;
   draft: (Partial<DishDraft & FoodDraft & SwapDraft> & { skip?: string }) | null; error: string; note: string; attempts: number; last_seen: string; drafted_at: string | null };
-const FIGURES = ['kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium'];
-const kindName ={ dish: 'Dish card', food: 'Food', swap: 'Swap rules' } as const;
+const ORDER = ['kcal', 'protein', 'fat', 'carbs', 'fibre', 'sugar', 'sodium'];  // the usual label order; any other figure follows
+const byOrder = (a: string, b: string) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99);
+const kindName = { dish: 'Dish card', food: 'Food', swap: 'Swap rules' } as const;
 const tone: Record<string, string> = { drafted: 'warn', approved: 'good', shipped: 'good', rejected: 'danger', failed: 'danger' };
 const label: Record<string, string> = { open: 'collecting', queued: 'drafting', claimed: 'drafting', drafted: 'to review', approved: 'approved', shipped: 'in the library', rejected: 'rejected', failed: 'failed' };
 
@@ -46,7 +47,7 @@ function Draft({ gap }: { gap: Gap }) {
       <ul className="list">{d.parts.map(p => <li key={p.name}><span>{p.name}</span><span className="value">{p.grams} g · {p.role}</span></li>)}</ul></>}
     {gap.kind === 'food' && d.per100 && <>
       <p className="detail">{d.name?.en} · {d.name?.zh}{d.what ? ' · ' + d.what : ''}</p>
-      <ul className="list">{FIGURES.filter(k => typeof d.per100![k] === 'number').map(k => [k, d.per100![k]] as const).map(([k, v]) => <li key={k}><span>{k}</span><span className="value">{v}{k === 'kcal' ? '' : k === 'sodium' ? ' mg' : ' g'} per 100 g</span></li>)}</ul>
+      <ul className="list">{Object.keys(d.per100).sort(byOrder).map(k => <li key={k}><span>{k}</span><span className="value">{d.per100![k]}{k === 'kcal' ? '' : k === 'sodium' ? ' mg' : ' g'} per 100 g</span></li>)}</ul>
       <small>From {d.source?.url ? <a href={d.source.url} target="_blank" rel="noreferrer">{d.source.name}</a> : d.source?.name} · roles {d.roles?.join(', ')}
         {d.contains?.length ? ' · contains ' + d.contains.join(', ') : ''}</small></>}
     {gap.kind === 'swap' && d.rules && <ul className="list">{d.rules.map(r => <li key={r.to} className="stack compact">

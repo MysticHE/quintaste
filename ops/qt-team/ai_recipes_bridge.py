@@ -13,7 +13,8 @@ library additions for gaps members hit (server/gaps, with web tools). The app ch
 Lanes (docs/AI_FOOD_LIBRARY_PLAN.md, Phase E): `--lanes quick` serves swap asks and Snap / My ingredients writing; `--lanes
 slow,quick` serves videos, dish requests and library drafts first and quick work when idle. Each process names itself (`--name`),
 which tells the app its lanes are up. Run as a long-lived process, or `--once` for a single claim. Several bridges can run at once:
-the app hands each task to exactly one of them.
+the app hands each task to exactly one of them. SIGTERM (the services' pre-start pkill on every restart) lets the task in hand finish
+and claims nothing more, so a restart never cuts a member's recipe off halfway.
 """
 from __future__ import annotations
 import argparse
@@ -22,7 +23,9 @@ import json
 import os
 from pathlib import Path
 import shutil
+import signal
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -38,6 +41,7 @@ MAX_ANSWER = 230_000  # the app accepts 240 KB of answer
 SWAP_SECONDS, SWAP_TURNS, MAX_SWAP_ANSWER = 180, 2, 11_000  # the app accepts 12 KB
 WRITE_SECONDS, WRITE_TURNS = 300, 3  # Snap a dish and My ingredients: no research, the brief has everything
 GAP_SECONDS, GAP_TURNS, MAX_GAP_ANSWER = 600, 20, 15_500  # library drafts: web research; the edge and the app accept 16 KB
+STOP = threading.Event()  # set by SIGTERM: finish the task in hand, then exit
 WRITING = ('photo', 'ingredients')
 DISCOVERY = ('tool_search', 'tool_describe')
 ALLOWED = {'video': ('video_analyze',) + DISCOVERY, 'web': ('web_search', 'web_extract') + DISCOVERY}
@@ -244,6 +248,8 @@ def once(name: str = 'qt-videomaker', lanes=('slow', 'quick')) -> bool:
 def turn(name: str, lanes) -> bool:
     """One piece of work in the bridge's order of lanes: quick is swap asks then quick recipes; slow is slow recipes then library drafts."""
     for lane in lanes:
+        if STOP.is_set():
+            return False
         if lane == 'quick' and (swap_once() or once(name, ['quick'])):
             return True
         if lane == 'slow' and (once(name, ['slow']) or gap_once()):
@@ -265,13 +271,15 @@ def main():
     if args.once:
         print('claimed' if turn(args.name, lanes) else 'no task')
         return
-    while True:
+    signal.signal(signal.SIGTERM, lambda *_: STOP.set())
+    while not STOP.is_set():
         try:
             if not turn(args.name, lanes):
-                time.sleep(IDLE_SECONDS)
+                STOP.wait(IDLE_SECONDS)
         except (urllib.error.URLError, OSError, ValueError) as exc:
             print('bridge error:', type(exc).__name__, str(exc)[:200], file=sys.stderr, flush=True)
-            time.sleep(30)
+            STOP.wait(30)
+    print('bridge stopped', file=sys.stderr, flush=True)
 
 
 if __name__ == '__main__':

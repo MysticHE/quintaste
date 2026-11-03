@@ -1,6 +1,6 @@
 """Owner request 21 Oct 2026: QT Videomaker writes members' AI recipes when the app's `ai_recipes_bots` control is on.
 
-Not run yet. Guarded like deploy_gamer.py: run lock, release-hash check, backup, atomic replace, import check as the
+Guarded like deploy_gamer.py: run lock, release-hash check, backup, atomic replace, import check as the
 hermes user, automatic restore on failure. Creates the qt-videomaker Hermes profile (SOUL from roles/qt-videomaker.md,
 model copied from qt-cooker, toolsets chosen per call with -t video or -t web, no OAuth store copied), then installs
 qt-ai-recipes-bridge.service on the host, which runs ai_recipes_bridge.py inside the Hermes container as uid 10000.
@@ -99,8 +99,12 @@ WantedBy=multi-user.target
 """);unit.chmod(0o644)
 subprocess.run(['systemd-analyze','verify',str(unit)],check=True,capture_output=True)
 subprocess.run(['systemctl','daemon-reload'],check=True)
-subprocess.run(['systemctl','enable','--now','qt-ai-recipes-bridge.service'],check=True,capture_output=True)
-print(subprocess.check_output(['systemctl','is-active','qt-ai-recipes-bridge.service'],text=True).strip())
+subprocess.run(['systemctl','enable','qt-ai-recipes-bridge.service'],check=True,capture_output=True)
+# Both bridges load the code just copied. A restart is safe at any time: each service's pre-start sends the old process SIGTERM,
+# which lets the task in hand finish (install_quick_bridge.py adds the pre-starts). try-restart leaves a stopped quick bridge stopped.
+subprocess.run(['systemctl','restart','qt-ai-recipes-bridge.service'],check=True)
+subprocess.run(['systemctl','try-restart','qt-ai-quick-bridge.service'],check=True)
+print(subprocess.run(['systemctl','is-active','qt-ai-recipes-bridge.service','qt-ai-quick-bridge.service'],capture_output=True,text=True).stdout.split())
 '''.replace('CONTAINER', CONTAINER)
 
 if __name__ == '__main__':

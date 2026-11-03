@@ -53,7 +53,7 @@ BOT_FILES = ('chef_admin.py', 'chef_work.py', 'sfa_notice.py', 'hermes_run.py', 
              'telegram_controls.py', 'telegram_reporter.py', 'workflow.py', 'game_level_bridge.py', 'ai_recipes_bridge.py')
 TEST_FILES = ('test_chef_lanes.py', 'test_sfa_notice.py', 'test_coco_resolve.py', 'test_rechecks.py')
 ON_VPS = ('kitchen_feed', 'night_window', 'publisher')  # imported by the chef files, deployed by their own scripts
-SERVICES = ('qt-telegram-listener.service', 'qt-ai-recipes-bridge.service', 'qt-game-level-bridge.service')
+SERVICES = ('qt-telegram-listener.service', 'qt-ai-recipes-bridge.service', 'qt-ai-quick-bridge.service', 'qt-game-level-bridge.service')
 PROFILES = ('qt-manager', 'qt-cooker', 'qt-gamer', 'qt-videomaker', 'qt-fixer', 'qt-safety')
 DOCKER = ['docker', 'exec', '--user', '10000', '--workdir', '/opt/data/qt-team', '-e', 'HERMES_HOME=/opt/data', '-e', 'HERMES_SRC=/opt/hermes',
           CONTAINER, '/opt/hermes/.venv/bin/python']
