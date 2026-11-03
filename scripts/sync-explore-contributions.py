@@ -56,7 +56,8 @@ print(r.stdout)
         if sheet is None:sheet=wb.create_sheet('Member corrections');sheet.append(COLUMNS);sheet.freeze_panes='A2'
         now=dt.datetime.now(dt.timezone.utc).isoformat()
         evidence=wb['Member correction evidence'] if 'Member correction evidence' in wb.sheetnames else wb.create_sheet('Member correction evidence')
-        if evidence.max_row==1 and evidence.cell(1,1).value is None:evidence.append(['Event ID','Work ID','Source number','URL','Checked at','Quote','Capture SHA256','Excerpt'])
+        if evidence.max_row==1 and evidence.cell(1,1).value is None:
+            for column,title in enumerate(['Event ID','Work ID','Source number','URL','Checked at','Quote','Capture SHA256','Excerpt'],1):evidence.cell(1,column,title)
         for r in fresh:
             dump=lambda v:json.dumps(v,ensure_ascii=False,separators=(',',':'))
             sheet.append([str(r['event_id']),r['work_id'],r['target'],r['revision'],r['verified_at'],dump(r['before']),dump(r['data']['changes']),'Member correction evidence','PUBLISHED_VERIFIED',now])
