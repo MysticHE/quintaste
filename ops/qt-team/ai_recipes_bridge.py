@@ -164,7 +164,12 @@ def handle_swap(task: dict) -> dict:
 
 
 def swap_once() -> bool:
-    task = signed('POST', '/api/swaps/bot/claim', {}).get('task')
+    try:
+        task = signed('POST', '/api/swaps/bot/claim', {}).get('task')
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:  # an app build without swap asks (older image, rollback): recipe tasks still run
+            return False
+        raise
     if not task:
         return False
     answer = handle_swap(task)
