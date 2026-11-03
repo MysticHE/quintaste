@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import datetime as dt
 import hashlib
+import io
 import json
 import os
 from pathlib import Path
@@ -385,6 +386,42 @@ def change_caption(change):
     return '\n'.join(lines)[:650]
 
 
+def recipe_covers(publication, folder):
+    """Report the immutable published illustration, without an account or a UI screenshot claim."""
+    from PIL import Image
+    from publisher import sha
+    photos = []
+    for record in publication.get('records', []):
+        rid = record.removeprefix('recipe:')
+        recipe = get_public('/api/editorial/recipes/' + rid)
+        change = next((c for c in publication.get('changes', []) if c['kind'] == 'recipe' and c['id'] == rid), {})
+        if recipe.get('id') != rid or change.get('afterHash') and sha(recipe) != change['afterHash']:
+            raise ValueError('Public recipe changed before reporting')
+        image = recipe.get('image') or {}
+        path = image.get('path', '')
+        if not re.fullmatch(r'/api/editorial/assets/[a-f0-9]{64}\.jpg', path):
+            raise ValueError('Recipe has no approved cover')
+        with urllib.request.urlopen(ORIGIN + path, timeout=20) as response:
+            raw = response.read(512 * 1024 + 1)
+        digest = hashlib.sha256(raw).hexdigest()
+        if len(raw) > 512 * 1024 or not path.endswith(digest + '.jpg'):
+            raise ValueError('Recipe cover hash or size changed')
+        with Image.open(io.BytesIO(raw)) as photo:
+            if photo.format != 'JPEG' or photo.mode != 'RGB' or photo.width * 3 != photo.height * 4:
+                raise ValueError('Invalid recipe cover format')
+            photo.verify()
+        target = folder / ('recipe-' + rid + '.jpg')
+        target.write_bytes(raw)
+        figures = (recipe.get('nutrition') or {}).get('perServing') or {}
+        nutrition = (f"Estimated per serving: {figures['kcal']:g} kcal · Protein {figures['protein']:g} g · "
+                     f"Fibre {figures['fibre']:g} g · Sodium {figures['sodium']:g} mg\n") if all(k in figures for k in ('kcal', 'protein', 'fibre', 'sodium')) else ''
+        caption = (f"Published — {recipe['name'][:110]}\n{singapore_time(publication.get('publishedAt'))}\n"
+                   f"By {str(recipe.get('author', ''))[:100]}\n{nutrition}{image.get('credit', 'Published recipe cover')[:150]}\n"
+                   f"{ORIGIN}/cook/recipe/{rid}")
+        photos.append({'path': str(target), 'caption': caption[:1024], 'sha256': digest, 'kind': 'recipe', 'recordId': rid})
+    return photos
+
+
 def capture(publication):
     """Read-only anonymous browser with network restricted to the owned app."""
     revision = publication.get('revision', '')
@@ -405,6 +442,12 @@ def capture(publication):
         elif get_public('/api/editorial/status')['revision'] != revision:
             raise ValueError('Publication superseded; cannot present it as a fresh screenshot')
     verify_current()
+    if publication.get('records') and all(r.startswith('recipe:') for r in publication['records']):
+        folder.mkdir(parents=True, exist_ok=True)
+        photos = recipe_covers(publication, folder)
+        verify_current()
+        write(folder / 'manifest.json', {'revision': revision, 'capturedAt': stamp(), 'photos': photos, 'format': 'published-recipe-cover'})
+        return photos
     from playwright.sync_api import sync_playwright
     folder.mkdir(parents=True, exist_ok=True)
     routes = []
@@ -483,11 +526,22 @@ def publication_updates(state):
     # Durable publication receipts prevent intermediate batches being lost when
     # research publishes again before the reporter wakes. One item per tick keeps
     # screenshot work bounded and releases the owner-command lock frequently.
-    publications = [dict(read(p),status='published') for p in sorted((ROOT/'state/publications').glob('*.json'))[-400:] if read(p).get('changes')]
+    publications = [dict(row,status='published') for p in sorted((ROOT/'state/publications').glob('*.json')) for row in [read(p)] if row.get('changes')]
+    publications.sort(key=lambda p: p.get('publishedAt', ''), reverse=True)
+    publications = publications[:400]
     latest = read(ROOT / 'state/latest-publication.json', {})
     if latest.get('status') == 'published' and not any(p['revision'] == latest['revision'] for p in publications): publications.append(latest)
     request = state.pop('latestRequested', None)
     if request: publications = [latest] if latest.get('status') == 'published' else []
+    if not request:
+        current = []
+        for pub in publications:
+            published = dt.datetime.fromisoformat(str(pub.get('publishedAt') or stamp()).replace('Z', '+00:00'))
+            if dt.datetime.now(dt.timezone.utc) - published > dt.timedelta(days=7):
+                state.setdefault('visuals', {}).setdefault(pub['revision'], {'attempts': 0, 'nextAt': 0}).update(complete=True, disposition='expired')
+            else:
+                current.append(pub)
+        publications = current
     for pub in publications:
         # Mixed Kitchen and Veg Kitchen places get one text digest per batch and task with Remove (new) or Revert (update) per place, never screenshots.
         if any(c.get('kind') == 'place' for c in pub.get('changes', [])):
@@ -532,9 +586,24 @@ def _publication_item(state, pub, visual, request):
                 visual['complete'] = bool(records) and all(r in done for r in records)
                 visual['attempts'] = 0
                 return
+            from publisher import request as editorial_request
+            if pub.get('changes'):
+                live = editorial_request('GET', '/control/state')
+                active = {c['changeId'] for c in live.get('changes', [])}
+                for record in records:
+                    linked = [c for c in pub['changes'] if c['kind'] + ':' + c['id'] == record]
+                    if linked and not any(c['changeId'] in active for c in linked):
+                        done[record] = 'superseded'
+                remaining = [r for r in records if r not in done]
+                if request and not remaining:
+                    remaining = [r for r in records if done.get(r) != 'superseded']
+                if not remaining:
+                    visual.update(complete=True, attempts=0, lastError=None)
+                    return
+                selected = remaining[:1]
+                changes = [c for c in pub['changes'] if c['kind'] + ':' + c['id'] in selected]
             photos = capture(dict(pub,records=selected,changes=changes))
             if not photos: raise ValueError('No current item screenshot available')
-            from publisher import request as editorial_request
             from telegram_controls import photo_buttons, photo_identity
             live = editorial_request('GET', '/control/state')
             if changes and not all(c['changeId'] in {x['changeId'] for x in live.get('changes',[])} for c in changes):
@@ -755,8 +824,9 @@ def maintenance(state):
         if len(state['deliveries']) <= 1000:
             break
         del state['deliveries'][key]
+    receipts = {read(p, {}).get('revision') for p in (ROOT / 'state/publications').glob('*.json')}
     for revision in list(state.get('visuals', {})):
-        if revision != latest and not any(revision in k for k in state['deliveries']):
+        if revision != latest and revision not in receipts and not any(revision in k for k in state['deliveries']):
             del state['visuals'][revision]
     media = STATE / 'media'
     if media.exists():

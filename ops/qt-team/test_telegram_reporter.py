@@ -143,7 +143,7 @@ class TelegramReportingTests(unittest.TestCase):
         self.assertFalse(self.state['deliveries'])
 
     def test_screenshot_failure_never_claims_visual_success(self):
-        t.write(self.root / 'state/latest-publication.json', {'status': 'published', 'revision': 'a' * 64, 'records': [], 'publishedAt': '2026-10-17T07:46:00Z'})
+        t.write(self.root / 'state/latest-publication.json', {'status': 'published', 'revision': 'a' * 64, 'records': [], 'publishedAt': t.stamp()})
         with patch.object(t, 'capture', side_effect=ValueError('unavailable')):
             t.publication_updates(self.state)
         self.assertFalse(self.state['visuals']['a' * 64].get('complete'))
