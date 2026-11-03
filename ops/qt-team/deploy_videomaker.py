@@ -2,20 +2,20 @@
 
 Guarded like deploy_gamer.py: run lock, release-hash check, backup, atomic replace, import check as the
 hermes user, automatic restore on failure. Creates the qt-videomaker Hermes profile (SOUL from roles/qt-videomaker.md,
-model copied from qt-cooker, toolsets chosen per call with -t video or -t web, no OAuth store copied), then installs
-qt-ai-recipes-bridge.service on the host, which runs ai_recipes_bridge.py inside the Hermes container as uid 10000.
+model copied from qt-cooker, toolsets chosen per call with -t video or -t web, no OAuth store copied), then writes both recipe
+bridge units on the host (bridge_units.py), enables qt-ai-recipes-bridge.service and restarts every enabled one.
 
 Order: apply server/ai-recipes/schema.sql (v3) and deploy the app first, then run this, then turn on `ai_recipes_bots`
 in Admin > Operations. Turning the control off sends new jobs back to Gemini; this service can stay running.
 """
 import base64
 from pathlib import Path
+import bridge_units
 import setup
 
 HERE = Path(__file__).resolve().parent
-NAMES = ['ai_recipes_bridge.py', 'app_signing.py', 'roles/qt-videomaker.md']  # app_signing.py: the shared signer the bridge imports
+NAMES = ['ai_recipes_bridge.py', 'app_signing.py', 'bridge_stop.py', 'roles/qt-videomaker.md']  # the shared signer and stop the bridge imports
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
-CONTAINER = 'hermes-agent-yril-hermes-agent-1'
 
 code = r'''
 import pathlib,json,fcntl,hashlib,base64,os,subprocess,datetime,time,shutil,io
@@ -79,33 +79,8 @@ with work:
  print(json.dumps({'files':list(payload),'created':created,'profileCreated':made,'videoToolListed':'video_analyze' in (backup/'tools.txt').read_text(),'backup':str(backup)}))
 '''.replace('PAYLOAD', repr(payload))
 
-UNIT = r'''
-import pathlib,subprocess
-unit=pathlib.Path('/etc/systemd/system/qt-ai-recipes-bridge.service')
-unit.write_text("""[Unit]
-Description=QT Videomaker: members' AI recipes for the app
-After=docker.service network-online.target
-Requires=docker.service
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/docker exec --user 10000 --workdir /opt/data/qt-team -e HERMES_HOME=/opt/data CONTAINER /opt/hermes/.venv/bin/python -u ai_recipes_bridge.py
-Restart=always
-RestartSec=15
-TimeoutStopSec=20
-
-[Install]
-WantedBy=multi-user.target
-""");unit.chmod(0o644)
-subprocess.run(['systemd-analyze','verify',str(unit)],check=True,capture_output=True)
-subprocess.run(['systemctl','daemon-reload'],check=True)
-subprocess.run(['systemctl','enable','qt-ai-recipes-bridge.service'],check=True,capture_output=True)
-# Both bridges load the code just copied. A restart is safe at any time: each service's pre-start sends the old process SIGTERM,
-# which lets the task in hand finish (install_quick_bridge.py adds the pre-starts). try-restart leaves a stopped quick bridge stopped.
-subprocess.run(['systemctl','restart','qt-ai-recipes-bridge.service'],check=True)
-subprocess.run(['systemctl','try-restart','qt-ai-quick-bridge.service'],check=True)
-print(subprocess.run(['systemctl','is-active','qt-ai-recipes-bridge.service','qt-ai-quick-bridge.service'],capture_output=True,text=True).stdout.split())
-'''.replace('CONTAINER', CONTAINER)
+# Both recipe bridges load the code just copied: every enabled one is restarted (bridge_units.py: safe at any time).
+UNIT = bridge_units.install(bridge_units.RECIPES, enable=('qt-ai-recipes-bridge',))
 
 if __name__ == '__main__':
     print(setup.remote_container(code, 'root'))  # runs `python -` in the container; use /opt/hermes/.venv/bin/python when piping by hand

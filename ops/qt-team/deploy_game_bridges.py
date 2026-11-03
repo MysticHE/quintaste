@@ -6,17 +6,19 @@ level and the artist approves every picture.
 
 Guarded like deploy_videomaker.py: run lock, release-hash check, backup, atomic replace, import check as the hermes user,
 automatic restore on failure. Refreshes the qt-gamer profile's SOUL from roles/qt-gamer.md (level shaping added 22 Oct).
-Installs no service: run a bridge once with `python game_level_bridge.py --once` (or `game_art_bridge.py --once`) inside the
-Hermes container as uid 10000; a long-running service is the owner's decision.
+Then restarts whichever of their services (install_game_bridge_services.py) is enabled, so they load the copied code; a restart lets
+the job in hand finish first (bridge_units.py). Without the services, run a bridge once with `python game_level_bridge.py --once`
+(or `game_art_bridge.py --once`) inside the Hermes container as uid 10000.
 """
 import base64
 from pathlib import Path
+import bridge_units
 import setup
 
 HERE = Path(__file__).resolve().parent
 # gamer/generate.py: the art bridge runs it with --manifest (one picture per job) and extra reference images; QT Gamer's own runs
 # keep working unchanged (the manifest defaults to assets.json).
-NAMES = ['game_level_bridge.py', 'game_art_bridge.py', 'app_signing.py', 'roles/qt-gamer.md', 'gamer/generate.py']  # app_signing.py: shared signer
+NAMES = ['game_level_bridge.py', 'game_art_bridge.py', 'app_signing.py', 'bridge_stop.py', 'roles/qt-gamer.md', 'gamer/generate.py']  # shared signer and stop
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 
 code = r'''
@@ -71,3 +73,4 @@ with work:
 
 if __name__ == '__main__':
     print(setup.remote_container(code, 'root'))
+    print(setup.helper.remote(bridge_units.install(bridge_units.GAME)))

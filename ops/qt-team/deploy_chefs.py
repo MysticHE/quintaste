@@ -36,6 +36,8 @@ from pathlib import Path
 import re
 import subprocess
 
+import bridge_units
+
 HERE = Path(__file__).resolve().parent
 REPO, REL = HERE.parents[1], 'ops/qt-team'
 CONTAINER = 'hermes-agent-yril-hermes-agent-1'
@@ -50,10 +52,11 @@ CALLERS = ('alerts', 'head', 'wok', 'writer', 'artist', 'fixer', 'host', 'safety
 READS = {'alerts': 'attention', 'head': 'asks', 'wok': 'ingredients', 'writer': 'wanted', 'artist': 'game-levels', 'fixer': 'reviews',
          'host': 'gatherings', 'safety': 'recalls'}
 BOT_FILES = ('chef_admin.py', 'chef_work.py', 'sfa_notice.py', 'hermes_run.py', 'rechecks.py', 'staff_alerts.py', 'app_signing.py',
-             'telegram_controls.py', 'telegram_reporter.py', 'workflow.py', 'game_level_bridge.py', 'ai_recipes_bridge.py')
+             'telegram_controls.py', 'telegram_reporter.py', 'workflow.py', 'game_level_bridge.py', 'ai_recipes_bridge.py', 'bridge_stop.py')
 TEST_FILES = ('test_chef_lanes.py', 'test_sfa_notice.py', 'test_coco_resolve.py', 'test_rechecks.py')
 ON_VPS = ('kitchen_feed', 'night_window', 'publisher')  # imported by the chef files, deployed by their own scripts
-SERVICES = ('qt-telegram-listener.service', 'qt-ai-recipes-bridge.service', 'qt-ai-quick-bridge.service', 'qt-game-level-bridge.service')
+# The services importing copied files; the bridges finish the job in hand when restarted (bridge_units.py).
+SERVICES = ('qt-telegram-listener.service',) + tuple(name + '.service' for name in bridge_units.RECIPES + ('qt-game-level-bridge',))
 PROFILES = ('qt-manager', 'qt-cooker', 'qt-gamer', 'qt-videomaker', 'qt-fixer', 'qt-safety')
 DOCKER = ['docker', 'exec', '--user', '10000', '--workdir', '/opt/data/qt-team', '-e', 'HERMES_HOME=/opt/data', '-e', 'HERMES_SRC=/opt/hermes',
           CONTAINER, '/opt/hermes/.venv/bin/python']

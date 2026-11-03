@@ -19,12 +19,12 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-import time
 import urllib.error
 import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 from app_signing import open_signed  # noqa: E402  (the shared signer)
+from bridge_stop import STOP, on_sigterm  # noqa: E402  (finish the job in hand on restart)
 GAMER = Path(__file__).resolve().parent / 'gamer'
 ROUTES = ('/api/game-art/bot/claim', '/api/game-art/bot/jobs/')
 VARIANTS, TIER, RUN_SECONDS, IDLE_SECONDS = 2, os.environ.get('QT_GAMER_TIER', 'gpt-image-2-high'), 900, 30
@@ -116,13 +116,14 @@ def main():
     if args.once:
         once()
         return
-    while True:
+    on_sigterm(2 * RUN_SECONDS)  # one generator run, its checks and the upload
+    while not STOP.is_set():  # a restart lets the job in hand finish (bridge_stop.py)
         try:
             if not once():
-                time.sleep(IDLE_SECONDS)
+                STOP.wait(IDLE_SECONDS)
         except (urllib.error.URLError, OSError, ValueError) as exc:
             print(json.dumps({'error': type(exc).__name__}), flush=True)
-            time.sleep(IDLE_SECONDS)
+            STOP.wait(IDLE_SECONDS)
 
 
 if __name__ == '__main__':
