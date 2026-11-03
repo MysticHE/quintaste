@@ -35,7 +35,7 @@ cookedPhotos.get('/:recipeId', async (_req, res) => {
     items: rows.filter(row => !row.own).slice(0, 12).map(shape) });
 });
 cookedPhotos.put('/:recipeId/me', member, async (req, res) => {
-  const recipe = await liveRecipeId(res.locals.recipe), me = res.locals.user.id;
+  const me = res.locals.user.id, recipe = await liveRecipeId(res.locals.recipe, me);
   const note = text(req.body?.note ?? '', 280, { field: 'Note' });
   if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(note)) throw new CommunityError(400, 'Remove unsupported characters from your note.');
   await throttle('cooked-photo-write:' + me, 20, 3600);

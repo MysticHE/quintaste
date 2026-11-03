@@ -47,7 +47,8 @@ CREATE INDEX IF NOT EXISTS recipes_demand_status ON recipes.demand(status, searc
 ALTER TABLE recipes.ai_job ALTER COLUMN user_id DROP NOT NULL;
 ALTER TABLE recipes.ai_job DROP CONSTRAINT IF EXISTS ai_job_kind_check;
 ALTER TABLE recipes.ai_job DROP CONSTRAINT IF EXISTS ai_job_kind;
-ALTER TABLE recipes.ai_job ADD CONSTRAINT ai_job_kind CHECK (kind IN ('video','request','demand'));
+-- 'photo' and 'ingredients' come from server/ai-recipes/photo.sql (Snap a dish, My ingredients); listed here too so running this file again keeps it.
+ALTER TABLE recipes.ai_job ADD CONSTRAINT ai_job_kind CHECK (kind IN ('video','request','demand','photo','ingredients'));
 ALTER TABLE recipes.ai_job DROP CONSTRAINT IF EXISTS ai_job_owner;
 ALTER TABLE recipes.ai_job ADD CONSTRAINT ai_job_owner CHECK (user_id IS NOT NULL OR kind = 'demand');
 ALTER TABLE recipes.recipe ALTER COLUMN author_id DROP NOT NULL;

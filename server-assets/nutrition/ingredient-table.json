@@ -1114,6 +1114,118 @@
         "toor",
         "moong"
       ]
+    },
+    "legacy_tapioca_starch": {
+      "name": "Tapioca starch",
+      "gPerMl": 0.53,
+      "match": [
+        "tapioca starch",
+        "tapioca flour",
+        "cassava starch"
+      ]
+    },
+    "legacy_celery": {
+      "name": "Celery",
+      "each": 40,
+      "gPerMl": 0.5,
+      "match": [
+        "celery"
+      ]
+    },
+    "tw_choy_sum": {
+      "name": "Choy sum",
+      "gPerMl": 0.13,
+      "match": [
+        "choy sum",
+        "chye sim",
+        "cai xin",
+        "caixin"
+      ]
+    },
+    "tw_kai_lan": {
+      "name": "Kai lan (Chinese kale)",
+      "gPerMl": 0.13,
+      "match": [
+        "kai lan",
+        "kailan",
+        "gai lan",
+        "chinese kale",
+        "chinese broccoli"
+      ]
+    },
+    "cherry_tomato": {
+      "name": "Cherry tomatoes",
+      "each": 17,
+      "match": [
+        "cherry tomato"
+      ]
+    },
+    "tau_kwa": {
+      "name": "Tau kwa (pressed firm tofu)",
+      "match": [
+        "tau kwa",
+        "taukwa",
+        "tau-kwa"
+      ]
+    },
+    "legacy_glass_noodles": {
+      "name": "Glass noodles (mung bean)",
+      "match": [
+        "glass noodles",
+        "tang hoon",
+        "cellophane noodles",
+        "mung bean vermicelli"
+      ]
+    },
+    "legacy_cashews": {
+      "name": "Cashew nuts",
+      "gPerMl": 0.55,
+      "match": [
+        "cashew"
+      ]
+    },
+    "tw_glutinous_rice_flour": {
+      "name": "Glutinous rice flour",
+      "gPerMl": 0.5,
+      "match": [
+        "glutinous rice flour",
+        "sweet rice flour",
+        "mochiko"
+      ]
+    },
+    "tw_black_vinegar": {
+      "name": "Black vinegar",
+      "gPerMl": 1.0,
+      "match": [
+        "black vinegar",
+        "chinkiang vinegar"
+      ]
+    },
+    "potato_starch": {
+      "name": "Potato starch",
+      "record": "taiwan-fda:B0720101",
+      "gPerMl": 0.6,
+      "match": [
+        "potato starch"
+      ]
+    },
+    "rice_flour": {
+      "name": "Rice flour",
+      "usda": "169714",
+      "gPerMl": 0.5,
+      "match": [
+        "(?<!glutinous )rice flour"
+      ]
+    },
+    "white_vinegar": {
+      "name": "White vinegar",
+      "usda": "172237",
+      "gPerMl": 1.0,
+      "match": [
+        "white vinegar",
+        "distilled vinegar",
+        "^vinegar"
+      ]
     }
   }
 }

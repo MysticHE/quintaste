@@ -1,0 +1,1591 @@
+{
+ "version": "2026-11-03",
+ "review": "drafted",
+ "notes": "The replacement guide for Snap a dish (docs/AI_FOOD_LIBRARY_PLAN.md §4, §6): each animal or five-pungent part of a dish, how to recognise it in a dish card or the AI's component list, and 2-4 plant options in order, each with one technique in our own words. `to` is a recipe-table key (server-assets/nutrition/ingredient-table.json) so code can weigh it; `name` covers foods the table lacks yet (they are flagged as new until the library has them). Diets: `meat` parts are always replaced; `animal` (egg, dairy, honey) only for Vegan; `pungent` (five pungent) only for Vegetarian.",
+ "parts": [
+  {
+   "key": "chicken",
+   "name": {
+    "en": "Chicken",
+    "zh": "鸡肉"
+   },
+   "diet": "meat",
+   "match": [
+    "\\bchicken\\b(?! stock| broth| powder)",
+    "\\bfrog( legs?)?\\b",
+    "鸡(?!精|汤|粉)|田鸡"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "press, cube and pan-fry until golden",
+      "zh": "压干切块，煎至金黄"
+     }
+    },
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "tear into strips and sear hard",
+      "zh": "撕条大火煎香"
+     }
+    },
+    {
+     "to": "tempeh",
+     "name": {
+      "en": "Tempeh",
+      "zh": "天贝"
+     },
+     "technique": {
+      "en": "steam 10 min, then marinate and fry",
+      "zh": "先蒸10分钟，再腌后煎"
+     }
+    }
+   ]
+  },
+  {
+   "key": "pork",
+   "name": {
+    "en": "Pork",
+    "zh": "猪肉"
+   },
+   "diet": "meat",
+   "match": [
+    "\\bpork\\b(?! belly| floss| lard)",
+    "\\b(ribs|pork loin|pork chop)\\b",
+    "猪肉|排骨"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "press, slice and fry before braising",
+      "zh": "压干切片，煎后再焖"
+     }
+    },
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "slice thick and score before searing",
+      "zh": "切厚片划刀再煎"
+     }
+    },
+    {
+     "to": "tempeh",
+     "name": {
+      "en": "Tempeh",
+      "zh": "天贝"
+     },
+     "technique": {
+      "en": "steam, then braise in the sauce",
+      "zh": "先蒸后入酱汁焖"
+     }
+    }
+   ]
+  },
+  {
+   "key": "pork_belly",
+   "name": {
+    "en": "Pork belly",
+    "zh": "五花肉"
+   },
+   "diet": "meat",
+   "match": [
+    "pork belly",
+    "\\bsamcan\\b",
+    "五花肉|三层肉"
+   ],
+   "options": [
+    {
+     "to": "tofu_puffs",
+     "name": {
+      "en": "Tofu puffs",
+      "zh": "豆卜"
+     },
+     "technique": {
+      "en": "braise until they soak up the sauce",
+      "zh": "焖至吸饱汤汁"
+     }
+    },
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "fry the slices well before braising",
+      "zh": "先煎透再焖"
+     }
+    },
+    {
+     "to": "shiitake",
+     "name": {
+      "en": "Shiitake mushrooms",
+      "zh": "香菇"
+     },
+     "technique": {
+      "en": "braise whole caps for a meaty bite",
+      "zh": "整朵焖煮，口感厚实"
+     }
+    }
+   ]
+  },
+  {
+   "key": "char_siu",
+   "name": {
+    "en": "Char siu",
+    "zh": "叉烧"
+   },
+   "diet": "meat",
+   "match": [
+    "char ?siu(?! sauce)",
+    "barbecue pork|bbq pork",
+    "叉烧(?!酱)"
+   ],
+   "options": [
+    {
+     "to": "tempeh",
+     "name": {
+      "en": "Tempeh",
+      "zh": "天贝"
+     },
+     "technique": {
+      "en": "glaze with sweet sauce and roast",
+      "zh": "刷甜酱烤香"
+     }
+    },
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "glaze with sweet sauce and pan-roast",
+      "zh": "刷甜酱煎烤"
+     }
+    },
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "slice, glaze and roast until sticky",
+      "zh": "切片刷酱烤至黏亮"
+     }
+    }
+   ]
+  },
+  {
+   "key": "minced_meat",
+   "name": {
+    "en": "Minced meat",
+    "zh": "肉碎"
+   },
+   "diet": "meat",
+   "match": [
+    "\\bmince(d)? (pork|meat|beef|chicken|mutton|lamb)\\b",
+    "\\b(pork|beef|chicken|lamb|mutton) mince\\b",
+    "\\bground (pork|beef|chicken)\\b",
+    "肉碎|肉末|绞肉"
+   ],
+   "options": [
+    {
+     "to": "shiitake",
+     "name": {
+      "en": "Chopped shiitake",
+      "zh": "香菇碎"
+     },
+     "technique": {
+      "en": "chop fine and fry until browned",
+      "zh": "切碎炒至焦香"
+     }
+    },
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Crumbled firm tofu",
+      "zh": "老豆腐碎"
+     },
+     "technique": {
+      "en": "crumble and fry until dry",
+      "zh": "捏碎炒干"
+     }
+    },
+    {
+     "to": "tempeh",
+     "name": {
+      "en": "Crumbled tempeh",
+      "zh": "天贝碎"
+     },
+     "technique": {
+      "en": "crumble and fry with the sauce",
+      "zh": "捏碎与酱同炒"
+     }
+    }
+   ]
+  },
+  {
+   "key": "beef",
+   "name": {
+    "en": "Beef",
+    "zh": "牛肉"
+   },
+   "diet": "meat",
+   "match": [
+    "\\bbeef\\b",
+    "\\bbrisket\\b",
+    "牛肉|牛腩"
+   ],
+   "options": [
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "slice, score and sear hard",
+      "zh": "切片划刀大火煎"
+     }
+    },
+    {
+     "to": "tempeh",
+     "name": {
+      "en": "Tempeh",
+      "zh": "天贝"
+     },
+     "technique": {
+      "en": "slice thin and braise",
+      "zh": "切薄片焖煮"
+     }
+    },
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "freeze, thaw and press for a chewier bite",
+      "zh": "冷冻解冻后压干，口感更韧"
+     }
+    }
+   ]
+  },
+  {
+   "key": "mutton",
+   "name": {
+    "en": "Mutton or lamb",
+    "zh": "羊肉"
+   },
+   "diet": "meat",
+   "match": [
+    "\\b(mutton|lamb|goat)\\b",
+    "羊肉"
+   ],
+   "options": [
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "cut into chunks and sear before the curry",
+      "zh": "切块先煎再入咖喱"
+     }
+    },
+    {
+     "to": "potato",
+     "name": {
+      "en": "Potato and chickpeas",
+      "zh": "马铃薯与鹰嘴豆"
+     },
+     "technique": {
+      "en": "simmer in the spices until soft",
+      "zh": "与香料同煮至软"
+     }
+    },
+    {
+     "to": "tempeh",
+     "name": {
+      "en": "Tempeh",
+      "zh": "天贝"
+     },
+     "technique": {
+      "en": "cube, fry, then simmer",
+      "zh": "切丁煎后再煮"
+     }
+    }
+   ]
+  },
+  {
+   "key": "duck",
+   "name": {
+    "en": "Duck",
+    "zh": "鸭肉"
+   },
+   "diet": "meat",
+   "match": [
+    "\\bduck\\b",
+    "鸭(?!蛋)"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "braise in five-spice soy",
+      "zh": "以五香酱油焖"
+     }
+    },
+    {
+     "to": "shiitake",
+     "name": {
+      "en": "Shiitake mushrooms",
+      "zh": "香菇"
+     },
+     "technique": {
+      "en": "braise with the spices",
+      "zh": "与香料同焖"
+     }
+    }
+   ]
+  },
+  {
+   "key": "chinese_sausage",
+   "name": {
+    "en": "Chinese sausage",
+    "zh": "腊肠"
+   },
+   "diet": "meat",
+   "match": [
+    "chinese sausage|lup cheong|lap cheong",
+    "腊肠"
+   ],
+   "options": [
+    {
+     "to": "shiitake",
+     "name": {
+      "en": "Shiitake mushrooms",
+      "zh": "香菇"
+     },
+     "technique": {
+      "en": "dice and fry with a little sugar",
+      "zh": "切丁加少许糖炒"
+     }
+    },
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Smoked or firm tofu",
+      "zh": "豆干"
+     },
+     "technique": {
+      "en": "dice and fry until caramelised",
+      "zh": "切丁煎至焦糖色"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ham_bacon",
+   "name": {
+    "en": "Ham or bacon",
+    "zh": "火腿或培根"
+   },
+   "diet": "meat",
+   "match": [
+    "\\b(ham|bacon|luncheon meat|spam)\\b",
+    "火腿|培根|午餐肉"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "slice thin and fry crisp with soy",
+      "zh": "切薄片加酱油煎脆"
+     }
+    },
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "Mushrooms",
+      "zh": "蘑菇"
+     },
+     "technique": {
+      "en": "fry until browned and crisp",
+      "zh": "煎至焦脆"
+     }
+    }
+   ]
+  },
+  {
+   "key": "pork_floss",
+   "name": {
+    "en": "Meat floss",
+    "zh": "肉松"
+   },
+   "diet": "meat",
+   "match": [
+    "(pork|meat|chicken) floss",
+    "肉松"
+   ],
+   "options": [
+    {
+     "to": "sesame_seeds",
+     "name": {
+      "en": "Toasted sesame seeds",
+      "zh": "炒芝麻"
+     },
+     "technique": {
+      "en": "toast and sprinkle on top",
+      "zh": "炒香后撒上"
+     }
+    },
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "Mushroom floss",
+      "zh": "香菇松"
+     },
+     "technique": {
+      "en": "shred dried mushrooms and fry dry",
+      "zh": "干香菇撕丝炒干"
+     }
+    }
+   ]
+  },
+  {
+   "key": "offal",
+   "name": {
+    "en": "Offal",
+    "zh": "内脏"
+   },
+   "diet": "meat",
+   "match": [
+    "\\b(liver|intestine|kidney|tripe|gizzard)s?\\b",
+    "猪肝|猪肠|粉肠|内脏"
+   ],
+   "options": [
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "Mushrooms",
+      "zh": "蘑菇"
+     },
+     "technique": {
+      "en": "slice and blanch",
+      "zh": "切片焯水"
+     }
+    },
+    {
+     "to": "tofu_puffs",
+     "name": {
+      "en": "Tofu puffs",
+      "zh": "豆卜"
+     },
+     "technique": {
+      "en": "simmer in the broth",
+      "zh": "入汤煮"
+     }
+    }
+   ]
+  },
+  {
+   "key": "fish",
+   "name": {
+    "en": "Fish",
+    "zh": "鱼"
+   },
+   "diet": "seafood",
+   "match": [
+    "\\bfish\\b(?! sauce| cake| ball| stock| curry powder)",
+    "\\b(salmon|cod|snapper|mackerel|tilapia|threadfin|pomfret|tuna|eel|unagi)\\b(?! sauce)",
+    "鱼(?!露|饼|丸)|鳗"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "wrap in seaweed and pan-fry",
+      "zh": "包上海苔后煎"
+     }
+    },
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "slice and steam with ginger",
+      "zh": "切片配姜蒸"
+     }
+    }
+   ]
+  },
+  {
+   "key": "fish_cake",
+   "name": {
+    "en": "Fish cake or fish balls",
+    "zh": "鱼饼或鱼丸"
+   },
+   "diet": "seafood",
+   "match": [
+    "fish ?(cake|ball)s?",
+    "\\b(kamaboko|surimi|chikuwa|fish tofu|crab sticks?)\\b",
+    "鱼饼|鱼丸|鱼片|鱼豆腐|蟹柳"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Fried tofu slices",
+      "zh": "炸豆腐片"
+     },
+     "technique": {
+      "en": "slice and fry until puffed",
+      "zh": "切片炸至起泡"
+     }
+    },
+    {
+     "to": "tofu_puffs",
+     "name": {
+      "en": "Tofu puffs",
+      "zh": "豆卜"
+     },
+     "technique": {
+      "en": "halve and simmer in the soup",
+      "zh": "对切入汤煮"
+     }
+    }
+   ]
+  },
+  {
+   "key": "prawn",
+   "name": {
+    "en": "Prawns",
+    "zh": "虾"
+   },
+   "diet": "seafood",
+   "match": [
+    "\\b(prawn|shrimp)s?\\b(?! paste)",
+    "虾(?!米|酱|膏)"
+   ],
+   "options": [
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "cut into coins and sear",
+      "zh": "切圆片煎香"
+     }
+    },
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "cube and fry until golden",
+      "zh": "切丁煎至金黄"
+     }
+    }
+   ]
+  },
+  {
+   "key": "squid",
+   "name": {
+    "en": "Squid",
+    "zh": "鱿鱼"
+   },
+   "diet": "seafood",
+   "match": [
+    "\\b(squid|sotong|calamari|octopus|cuttlefish)\\b",
+    "鱿鱼|苏东|章鱼|墨鱼"
+   ],
+   "options": [
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "King oyster mushrooms",
+      "zh": "杏鲍菇"
+     },
+     "technique": {
+      "en": "cut into rings and stir-fry fast",
+      "zh": "切圈快炒"
+     }
+    },
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "slice and fry",
+      "zh": "切片煎"
+     }
+    }
+   ]
+  },
+  {
+   "key": "shellfish",
+   "name": {
+    "en": "Shellfish",
+    "zh": "贝类"
+   },
+   "diet": "seafood",
+   "match": [
+    "\\b(cockles?|clams?|mussels?|oysters?(?! sauce)|scallops?|crab|lala)\\b",
+    "蚶|蛤|蚝|扇贝|螃蟹|啦啦"
+   ],
+   "options": [
+    {
+     "to": "mushrooms",
+     "name": {
+      "en": "Mushrooms",
+      "zh": "蘑菇"
+     },
+     "technique": {
+      "en": "halve and sear",
+      "zh": "对切煎香"
+     }
+    },
+    {
+     "to": "tofu_puffs",
+     "name": {
+      "en": "Tofu puffs",
+      "zh": "豆卜"
+     },
+     "technique": {
+      "en": "simmer in the sauce",
+      "zh": "入酱汁煮"
+     }
+    }
+   ]
+  },
+  {
+   "key": "dried_shrimp",
+   "name": {
+    "en": "Dried shrimp",
+    "zh": "虾米"
+   },
+   "diet": "seafood",
+   "match": [
+    "dried shrimp|hae bee|heh bee",
+    "虾米"
+   ],
+   "options": [
+    {
+     "to": "shiitake",
+     "name": {
+      "en": "Dried shiitake",
+      "zh": "干香菇"
+     },
+     "technique": {
+      "en": "soak, chop and fry until crisp",
+      "zh": "泡软切碎炒香"
+     }
+    },
+    {
+     "to": "sesame_seeds",
+     "name": {
+      "en": "Toasted sesame seeds",
+      "zh": "炒芝麻"
+     },
+     "technique": {
+      "en": "toast and add at the end",
+      "zh": "炒香后最后加入"
+     }
+    }
+   ]
+  },
+  {
+   "key": "ikan_bilis",
+   "name": {
+    "en": "Anchovies (ikan bilis)",
+    "zh": "江鱼仔"
+   },
+   "diet": "seafood",
+   "match": [
+    "ikan bilis|anchov",
+    "江鱼仔|小鱼干"
+   ],
+   "options": [
+    {
+     "to": "peanuts",
+     "name": {
+      "en": "Roasted peanuts",
+      "zh": "烤花生"
+     },
+     "technique": {
+      "en": "add for crunch",
+      "zh": "加入增添脆口"
+     }
+    },
+    {
+     "to": "tempeh",
+     "name": {
+      "en": "Fried tempeh strips",
+      "zh": "炸天贝条"
+     },
+     "technique": {
+      "en": "cut thin and fry crisp",
+      "zh": "切细条炸脆"
+     }
+    }
+   ]
+  },
+  {
+   "key": "fish_sauce",
+   "name": {
+    "en": "Fish sauce",
+    "zh": "鱼露"
+   },
+   "diet": "seafood",
+   "match": [
+    "fish sauce|nam pla",
+    "鱼露"
+   ],
+   "options": [
+    {
+     "to": "soy_sauce",
+     "name": {
+      "en": "Light soy sauce",
+      "zh": "生抽"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    },
+    {
+     "to": "miso",
+     "name": {
+      "en": "Miso",
+      "zh": "味噌"
+     },
+     "technique": {
+      "en": "thin with a little water",
+      "zh": "加少许水化开"
+     }
+    }
+   ]
+  },
+  {
+   "key": "oyster_sauce",
+   "name": {
+    "en": "Oyster sauce",
+    "zh": "蚝油"
+   },
+   "diet": "seafood",
+   "match": [
+    "(?<!vegetarian )oyster sauce",
+    "\\b(eel|unagi) (sauce|tare)\\b",
+    "(?<!素)蚝油|鳗鱼汁"
+   ],
+   "options": [
+    {
+     "to": "veg_oyster_sauce",
+     "name": {
+      "en": "Vegetarian oyster sauce",
+      "zh": "素蚝油"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    },
+    {
+     "to": "soy_sauce_dark",
+     "name": {
+      "en": "Dark soy sauce and sugar",
+      "zh": "老抽加糖"
+     },
+     "technique": {
+      "en": "add a pinch of sugar",
+      "zh": "加少许糖"
+     }
+    }
+   ]
+  },
+  {
+   "key": "belacan",
+   "name": {
+    "en": "Shrimp paste (belacan)",
+    "zh": "峇拉煎"
+   },
+   "diet": "seafood",
+   "match": [
+    "belacan|(shrimp|prawn) paste|hae ko|petis",
+    "峇拉煎|虾酱|虾膏|虾头膏"
+   ],
+   "options": [
+    {
+     "to": "miso",
+     "name": {
+      "en": "Miso",
+      "zh": "味噌"
+     },
+     "technique": {
+      "en": "toast it in the pan first",
+      "zh": "先下锅焙香"
+     }
+    },
+    {
+     "to": "fermented_beancurd",
+     "name": {
+      "en": "Fermented beancurd",
+      "zh": "腐乳"
+     },
+     "technique": {
+      "en": "mash into the paste",
+      "zh": "捣入酱料"
+     }
+    }
+   ]
+  },
+  {
+   "key": "meat_stock",
+   "name": {
+    "en": "Meat or seafood stock",
+    "zh": "肉汤或海鲜汤"
+   },
+   "diet": "meat",
+   "match": [
+    "(chicken|pork|beef|bone|fish|prawn|seafood) (stock|broth)",
+    "chicken powder|stock cube|braising (broth|liquid)|master stock",
+    "(anchov(y|ies)|ikan bilis)( and [a-z]+)? (stock|broth)",
+    "鸡汤|骨汤|高汤|鸡精|虾汤|卤汁"
+   ],
+   "options": [
+    {
+     "to": "vegetable_stock",
+     "name": {
+      "en": "Vegetable stock",
+      "zh": "蔬菜高汤"
+     },
+     "technique": {
+      "en": "check the label for the five pungent",
+      "zh": "留意标签是否含五辛"
+     }
+    },
+    {
+     "to": "shiitake",
+     "name": {
+      "en": "Shiitake and kombu stock",
+      "zh": "香菇昆布汤"
+     },
+     "technique": {
+      "en": "simmer soaked mushrooms 20 min",
+      "zh": "泡软香菇煮20分钟"
+     }
+    }
+   ]
+  },
+  {
+   "key": "lard",
+   "name": {
+    "en": "Lard",
+    "zh": "猪油"
+   },
+   "diet": "meat",
+   "match": [
+    "\\blard\\b",
+    "pork fat",
+    "猪油|猪油渣"
+   ],
+   "options": [
+    {
+     "to": "oil_neutral",
+     "name": {
+      "en": "Cooking oil",
+      "zh": "食用油"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    },
+    {
+     "to": "tofu_puffs",
+     "name": {
+      "en": "Fried tofu bits",
+      "zh": "炸豆腐丁"
+     },
+     "technique": {
+      "en": "fry small cubes crisp for the crunch",
+      "zh": "小丁炸脆取代油渣"
+     }
+    }
+   ]
+  },
+  {
+   "key": "gelatin",
+   "name": {
+    "en": "Gelatin",
+    "zh": "明胶"
+   },
+   "diet": "meat",
+   "match": [
+    "gelatin|gelatine",
+    "明胶|吉利丁"
+   ],
+   "options": [
+    {
+     "to": null,
+     "name": {
+      "en": "Agar-agar",
+      "zh": "燕菜"
+     },
+     "technique": {
+      "en": "use a third of the amount and boil it",
+      "zh": "用三分之一的量并煮沸"
+     }
+    }
+   ]
+  },
+  {
+   "key": "dashi",
+   "name": {
+    "en": "Dashi or bonito",
+    "zh": "日式高汤或柴鱼"
+   },
+   "diet": "seafood",
+   "match": [
+    "\\bdashi\\b",
+    "bonito|katsuobushi",
+    "柴鱼|鲣鱼"
+   ],
+   "options": [
+    {
+     "to": "shiitake",
+     "name": {
+      "en": "Kombu and shiitake stock",
+      "zh": "昆布香菇汤"
+     },
+     "technique": {
+      "en": "soak kombu and dried shiitake, then simmer 20 min",
+      "zh": "昆布与干香菇泡软后煮20分钟"
+     }
+    },
+    {
+     "to": "miso",
+     "name": {
+      "en": "Miso",
+      "zh": "味噌"
+     },
+     "technique": {
+      "en": "stir in off the heat",
+      "zh": "离火后拌入"
+     }
+    }
+   ]
+  },
+  {
+   "key": "worcestershire",
+   "name": {
+    "en": "Worcestershire sauce",
+    "zh": "喼汁"
+   },
+   "diet": "seafood",
+   "match": [
+    "worcester(shire)? sauce",
+    "喼汁|伍斯特"
+   ],
+   "options": [
+    {
+     "to": "soy_sauce",
+     "name": {
+      "en": "Soy sauce with tamarind",
+      "zh": "酱油加罗望子"
+     },
+     "technique": {
+      "en": "mix with a little tamarind and sugar",
+      "zh": "加少许罗望子和糖拌匀"
+     }
+    },
+    {
+     "to": "tw_black_vinegar",
+     "name": {
+      "en": "Black vinegar and soy sauce",
+      "zh": "黑醋加酱油"
+     },
+     "technique": {
+      "en": "mix equal parts",
+      "zh": "等量混合"
+     }
+    }
+   ]
+  },
+  {
+   "key": "parmesan",
+   "name": {
+    "en": "Parmesan (animal rennet)",
+    "zh": "帕玛森芝士"
+   },
+   "diet": "meat",
+   "match": [
+    "parmesan|parmigiano|pecorino|grana padano",
+    "帕玛森"
+   ],
+   "options": [
+    {
+     "to": null,
+     "name": {
+      "en": "Nutritional yeast",
+      "zh": "营养酵母"
+     },
+     "technique": {
+      "en": "sprinkle over to finish",
+      "zh": "最后撒上"
+     }
+    },
+    {
+     "to": "legacy_cashews",
+     "name": {
+      "en": "Toasted cashews, ground",
+      "zh": "烤腰果碎"
+     },
+     "technique": {
+      "en": "grind with a pinch of salt",
+      "zh": "加少许盐磨碎"
+     }
+    }
+   ]
+  },
+  {
+   "key": "egg",
+   "name": {
+    "en": "Egg",
+    "zh": "鸡蛋"
+   },
+   "diet": "animal",
+   "match": [
+    "\\beggs?\\b(?!-free| ?less)",
+    "\\begg yolks?\\b",
+    "鸡蛋|蛋(?!白质)"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "crumble and fry with turmeric for scrambles",
+      "zh": "捏碎加黄姜粉炒"
+     },
+     "roles": [
+      "protein",
+      "staple",
+      "garnish",
+      "vegetable"
+     ]
+    },
+    {
+     "to": "tofu_silken",
+     "name": {
+      "en": "Silken tofu",
+      "zh": "嫩豆腐"
+     },
+     "technique": {
+      "en": "blend smooth for custards and sauces",
+      "zh": "打滑用于蒸蛋或酱汁"
+     },
+     "roles": [
+      "creamy",
+      "thicken",
+      "liquid"
+     ]
+    },
+    {
+     "to": "flour",
+     "name": {
+      "en": "Flour and water",
+      "zh": "面粉加水"
+     },
+     "technique": {
+      "en": "whisk 3 tbsp water into 1 tbsp flour per egg",
+      "zh": "每颗蛋用1汤匙面粉加3汤匙水"
+     },
+     "roles": [
+      "bind",
+      "coat"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "egg_noodles",
+   "name": {
+    "en": "Egg noodles",
+    "zh": "蛋面"
+   },
+   "diet": "animal",
+   "match": [
+    "\\begg noodles?\\b",
+    "蛋面|全蛋面"
+   ],
+   "options": [
+    {
+     "to": null,
+     "name": {
+      "en": "Egg-free wheat noodles",
+      "zh": "无蛋面条"
+     },
+     "technique": {
+      "en": "cook as the packet says",
+      "zh": "按包装说明煮"
+     }
+    },
+    {
+     "to": "rice_noodles_dry",
+     "name": {
+      "en": "Rice noodles",
+      "zh": "米粉"
+     },
+     "technique": {
+      "en": "soak or blanch until just tender",
+      "zh": "泡软或焯至刚好"
+     }
+    }
+   ]
+  },
+  {
+   "key": "mayonnaise",
+   "name": {
+    "en": "Mayonnaise",
+    "zh": "蛋黄酱"
+   },
+   "diet": "animal",
+   "match": [
+    "\\bmayo(nnaise)?\\b|kewpie|aioli|caesar dressing",
+    "蛋黄酱|美乃滋"
+   ],
+   "options": [
+    {
+     "to": "tofu_silken",
+     "name": {
+      "en": "Silken tofu dressing",
+      "zh": "嫩豆腐酱"
+     },
+     "technique": {
+      "en": "blend with lemon juice, oil and salt",
+      "zh": "加柠檬汁、油和盐打匀"
+     }
+    },
+    {
+     "to": null,
+     "name": {
+      "en": "Egg-free mayonnaise",
+      "zh": "无蛋蛋黄酱"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    }
+   ]
+  },
+  {
+   "key": "dairy_milk",
+   "name": {
+    "en": "Milk or cream",
+    "zh": "牛奶或奶油"
+   },
+   "diet": "animal",
+   "match": [
+    "(?<!coconut |soy |soya |oat |almond |cashew |rice |plant |vegan )\\b(butter)?milk\\b",
+    "(?<!coconut |soy |oat |almond |cashew |plant |vegan )\\b(cream|evaporated milk|condensed milk)\\b(?! of tartar)",
+    "牛奶|奶油|炼乳|淡奶"
+   ],
+   "options": [
+    {
+     "to": "soy_milk",
+     "name": {
+      "en": "Soy milk",
+      "zh": "豆奶"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    },
+    {
+     "to": "coconut_milk",
+     "name": {
+      "en": "Coconut milk",
+      "zh": "椰浆"
+     },
+     "technique": {
+      "en": "use the same amount for richness",
+      "zh": "等量使用，更香浓"
+     }
+    }
+   ]
+  },
+  {
+   "key": "butter",
+   "name": {
+    "en": "Butter or ghee",
+    "zh": "牛油或酥油"
+   },
+   "diet": "animal",
+   "match": [
+    "\\b(butter|ghee)\\b(?<!peanut butter)",
+    "牛油|黄油|酥油"
+   ],
+   "options": [
+    {
+     "to": "plant_butter",
+     "name": {
+      "en": "Plant-based butter",
+      "zh": "植物牛油"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    },
+    {
+     "to": "coconut_oil",
+     "name": {
+      "en": "Coconut oil",
+      "zh": "椰子油"
+     },
+     "technique": {
+      "en": "use four fifths of the amount",
+      "zh": "用五分之四的量"
+     }
+    }
+   ]
+  },
+  {
+   "key": "cheese",
+   "name": {
+    "en": "Cheese or paneer",
+    "zh": "芝士或印度奶酪"
+   },
+   "diet": "animal",
+   "match": [
+    "\\b(cheese|paneer|mozzarella|cheddar|feta|ricotta)\\b(?<!parmesan cheese)",
+    "芝士|奶酪"
+   ],
+   "options": [
+    {
+     "to": "tofu_firm",
+     "name": {
+      "en": "Firm tofu",
+      "zh": "老豆腐"
+     },
+     "technique": {
+      "en": "press and cube in place of paneer",
+      "zh": "压干切块代替印度奶酪"
+     }
+    },
+    {
+     "to": null,
+     "name": {
+      "en": "Nutritional yeast",
+      "zh": "营养酵母"
+     },
+     "technique": {
+      "en": "sprinkle for a cheesy taste",
+      "zh": "撒上带来芝士风味"
+     }
+    }
+   ]
+  },
+  {
+   "key": "yoghurt",
+   "name": {
+    "en": "Yoghurt",
+    "zh": "酸奶"
+   },
+   "diet": "animal",
+   "match": [
+    "\\byog(h)?urt\\b|\\bdahi\\b|\\bcurd\\b(?! bean)",
+    "酸奶"
+   ],
+   "options": [
+    {
+     "to": "coconut_milk",
+     "name": {
+      "en": "Coconut milk with lime",
+      "zh": "椰浆加青柠"
+     },
+     "technique": {
+      "en": "add a squeeze of lime for tang",
+      "zh": "挤入青柠汁增加酸味"
+     }
+    },
+    {
+     "to": "soy_milk",
+     "name": {
+      "en": "Soy yoghurt",
+      "zh": "豆奶酸奶"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    }
+   ]
+  },
+  {
+   "key": "honey",
+   "name": {
+    "en": "Honey",
+    "zh": "蜂蜜"
+   },
+   "diet": "animal",
+   "match": [
+    "\\bhoney\\b",
+    "蜂蜜"
+   ],
+   "options": [
+    {
+     "to": "maple_syrup",
+     "name": {
+      "en": "Maple syrup",
+      "zh": "枫糖浆"
+     },
+     "technique": {
+      "en": "use the same amount",
+      "zh": "用量相同"
+     }
+    },
+    {
+     "to": "gula_melaka",
+     "name": {
+      "en": "Gula melaka syrup",
+      "zh": "椰糖浆"
+     },
+     "technique": {
+      "en": "melt with a little water",
+      "zh": "加少许水煮溶"
+     }
+    }
+   ]
+  },
+  {
+   "key": "garlic",
+   "name": {
+    "en": "Garlic",
+    "zh": "蒜"
+   },
+   "diet": "pungent",
+   "match": [
+    "\\bgarlic\\b",
+    "蒜"
+   ],
+   "options": [
+    {
+     "to": "ginger",
+     "name": {
+      "en": "Ginger",
+      "zh": "姜"
+     },
+     "technique": {
+      "en": "grate and fry gently for the aroma",
+      "zh": "磨碎小火炒香"
+     }
+    },
+    {
+     "to": "legacy_celery",
+     "name": {
+      "en": "Celery",
+      "zh": "芹菜"
+     },
+     "technique": {
+      "en": "chop fine and fry as the base",
+      "zh": "切碎炒作底味"
+     }
+    }
+   ]
+  },
+  {
+   "key": "onion",
+   "name": {
+    "en": "Onion",
+    "zh": "洋葱"
+   },
+   "diet": "pungent",
+   "match": [
+    "(?<!spring |green )\\bonions?\\b",
+    "洋葱"
+   ],
+   "options": [
+    {
+     "to": "legacy_celery",
+     "name": {
+      "en": "Celery",
+      "zh": "芹菜"
+     },
+     "technique": {
+      "en": "dice and sweat slowly",
+      "zh": "切丁慢炒"
+     }
+    },
+    {
+     "to": "cabbage",
+     "name": {
+      "en": "Cabbage",
+      "zh": "包菜"
+     },
+     "technique": {
+      "en": "shred and cook down for sweetness",
+      "zh": "切丝炒软取其甜"
+     }
+    }
+   ]
+  },
+  {
+   "key": "shallots",
+   "name": {
+    "en": "Shallots",
+    "zh": "红葱头"
+   },
+   "diet": "pungent",
+   "match": [
+    "\\bshallots?\\b",
+    "红葱|葱头|葱酥"
+   ],
+   "options": [
+    {
+     "to": "ginger",
+     "name": {
+      "en": "Ginger",
+      "zh": "姜"
+     },
+     "technique": {
+      "en": "slice thin and fry crisp",
+      "zh": "切细片炸香"
+     }
+    },
+    {
+     "to": "legacy_celery",
+     "name": {
+      "en": "Celery",
+      "zh": "芹菜"
+     },
+     "technique": {
+      "en": "chop fine and fry slowly",
+      "zh": "切碎慢炒"
+     }
+    }
+   ]
+  },
+  {
+   "key": "spring_onion",
+   "name": {
+    "en": "Spring onion",
+    "zh": "青葱"
+   },
+   "diet": "pungent",
+   "match": [
+    "spring onions?|scallions?|green onions?",
+    "青葱|葱花"
+   ],
+   "options": [
+    {
+     "to": "coriander_leaves",
+     "name": {
+      "en": "Coriander leaves",
+      "zh": "芫荽"
+     },
+     "technique": {
+      "en": "scatter on top to finish",
+      "zh": "最后撒上"
+     }
+    },
+    {
+     "to": "legacy_celery",
+     "name": {
+      "en": "Celery leaves",
+      "zh": "芹菜叶"
+     },
+     "technique": {
+      "en": "chop and scatter on top",
+      "zh": "切碎撒上"
+     }
+    }
+   ]
+  },
+  {
+   "key": "leek_chives",
+   "name": {
+    "en": "Leek or chives",
+    "zh": "蒜苗或韭菜"
+   },
+   "diet": "pungent",
+   "match": [
+    "\\b(leeks?|chives?)\\b",
+    "韭菜|蒜苗|大葱"
+   ],
+   "options": [
+    {
+     "to": "tw_choy_sum",
+     "name": {
+      "en": "Choy sum",
+      "zh": "菜心"
+     },
+     "technique": {
+      "en": "cut into short lengths",
+      "zh": "切小段"
+     }
+    },
+    {
+     "to": "bean_sprouts",
+     "name": {
+      "en": "Bean sprouts",
+      "zh": "豆芽"
+     },
+     "technique": {
+      "en": "add at the end for crunch",
+      "zh": "最后加入增加脆口"
+     }
+    }
+   ]
+  }
+ ]
+}

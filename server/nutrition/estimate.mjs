@@ -39,15 +39,20 @@ export function unitOf(unit) {
   if (['', 'whole', 'piece', 'pieces'].includes(u)) return 'each';
   return u;
 }
-/** The food whose alias matches the longest span of the line's name, or undefined. */
+/** The food whose alias matches the longest span of the line's name (`text` is that span), or undefined. */
 export function matchFood(name) {
   let best;
   for (const entry of foods) for (const pattern of entry.patterns) {
     const hit = pattern.exec(String(name ?? ''));
-    if (hit && (!best || hit[0].length > best.length)) best = { ...entry, length: hit[0].length };
+    if (hit && (!best || hit[0].length > best.length)) best = { ...entry, length: hit[0].length, text: hit[0] };
   }
   return best;
 }
+/** The reviewed table's keys, and a key as a cook names it (its first alias: 'firm tofu', not the library's 'Tofu, firm'). */
+export const tableKeys = () => Object.keys(table.foods);
+export const cookName = key => String(table.foods[key]?.match?.[0] ?? key).replace(/[\^$\()?|]/g, '').replace(/_/g, ' ');
+/** A reviewed table key's entry (name, gPerMl, each, per, negligible), or null. */
+export const tableFood = key => table.foods[key] ?? null;
 export function gramsFor(line, food) {
   const unit = unitOf(line.unit), amount = Number(line.amount);
   if (!(amount > 0)) return undefined;

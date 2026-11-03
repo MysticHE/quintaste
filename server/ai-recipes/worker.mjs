@@ -2,7 +2,9 @@ import { pool, logger } from '../config.mjs';
 import { allowed } from '../operations.mjs';
 import { engine, engineReady } from './engine.mjs';
 import { HELD_BY_BOTS, botTableReady, handToBots, settleBotTasks } from './bots.mjs';
-import { parseUpload, runJob } from './pipeline.mjs';
+import { failJob, parseUpload, runJob } from './pipeline.mjs';
+import { GeminiError } from './gemini.mjs';
+import { CHOSEN_KINDS, dropSnap } from './snap.mjs';
 import { settleDrawings } from './drawings.mjs';
 import { deleteFile } from './files.mjs';
 import { sweepWork, uploadPath } from './work.mjs';
@@ -27,9 +29,10 @@ export function startAiRecipeWorker() {
       if (!await engineReady()) return;
       const stale = await pool.query(`UPDATE recipes.ai_job SET status='failed', finished_at=now(),
           message=CASE WHEN input LIKE 'upload %' THEN 'The job was interrupted. Upload the video again.' ELSE 'The job was interrupted. Try again.' END
-        WHERE status='working' AND started_at < now() - interval '20 minutes' ${await botTableReady() ? 'AND NOT ' + HELD_BY_BOTS : ''} RETURNING input, user_id`);
+        WHERE status='working' AND started_at < now() - interval '20 minutes' ${await botTableReady() ? 'AND NOT ' + HELD_BY_BOTS : ''} RETURNING input, user_id, kind, options`);
       for (const row of stale.rows) {
         notify(row.user_id, 'recipeFailed', { url: '/cook/ai' });
+        if (row.kind === 'photo') await dropSnap(row.options?.snap);
         const upload = parseUpload(row.input);
         if (!upload) continue;
         const local = uploadPath(upload.name);
@@ -39,7 +42,9 @@ export function startAiRecipeWorker() {
       if (bots && !await botTableReady()) return;
       const job = (await pool.query(`UPDATE recipes.ai_job SET status='working', started_at=now(), attempts=attempts+1
         WHERE id = (SELECT id FROM recipes.ai_job WHERE status='queued' ORDER BY kind = 'demand', created_at LIMIT 1 FOR UPDATE SKIP LOCKED) RETURNING *`)).rows[0];
-      if (job) await (bots ? handToBots(job) : runJob(job, controller.signal));
+      // Snap a dish and My ingredients run on Gemini only (no quiet switch of engine): with the QT bots on, such a job left in line fails plainly.
+      if (job) await (CHOSEN_KINDS.includes(job.kind) && bots ? failJob(job, new GeminiError(503, 'This recipe cannot be written right now. Try again later.'), { calls: [], bytes: 0 })
+        : bots ? handToBots(job) : runJob(job, controller.signal));
     } catch (error) {
       logger.warn({ event: 'ai_recipe_worker_error', detail: String(error?.message ?? error).slice(0, 200) });
     } finally { busy = false; }

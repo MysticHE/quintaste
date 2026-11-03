@@ -1,5 +1,6 @@
 import type { DietLabel } from "../config/diet-labels";
 import type { RecipeCategory } from "./food";
+import type { ChosenSwap } from "./swaps";
 /** `listingId` links the line to one of the author's own Market items. */
 export type RecipeDraftIngredient = { id: string; name: string; amount: string; unit: string; listingId?: string };
 export type RecipeDraftStep = { id: string; title: string; instruction: string; minutes: string; photo?: string; ingredientIds?: string[] };
@@ -23,4 +24,6 @@ export type CookBrowse = {
 export type CookedEntry = { recipeId: string; revision: number; servings: number; finishedAt: number };
 export type RecipeWorkspace = {
   drafts: RecipeDraft[]; shopping: ShoppingNote[]; browse: CookBrowse; cooked: CookedEntry[]; shoppingView: "combined" | "recipe";
+  /** Ingredient swaps the member chose (src/utils/swaps.ts); private, on this device. */
+  swaps: ChosenSwap[];
 };

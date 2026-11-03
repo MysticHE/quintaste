@@ -17,6 +17,8 @@ import { TimerCard } from "../../components/food/Timers";
 import { StepSwipe, StepTabs } from "../../components/recipes/StepTabs";
 import { cookingRecipeById, cookingIssue } from "../../utils/private-recipes";
 import { stepIngredientIds } from "../../utils/step-ingredients";
+import { useRecipeSwaps } from "../../hooks/useRecipeSwaps";
+import { SwapSheet } from "../../components/recipes/SwapSheet";
 import { TimerAlertControl } from "../../components/food/TimerAlertControl";
 import { useFood } from "../../state/Food";
 import { usePreferences } from "../../state/Preferences";
@@ -40,12 +42,14 @@ export function CookingScreen() {
   const { id } = useLocalSearchParams<{ id: string }>(), { doc, update, commit, startTimer, readable, saving, dirty, error, discoveryScope } = useFood();
   const { theme, textMultiplier, setNotice } = usePreferences(), t = useT("cook"), tc = useT("common");
   usePublishedRecipe(doc.recipes.drafts.some(d => d.id === id) ? null : id);
-  const recipe = cookingRecipeById(id, doc.recipes), session = doc.cooking?.recipeId === id ? doc.cooking : null;
+  // Cook mode follows the member's ingredient swaps (src/utils/swaps.ts) and offers them on its lists like the recipe page.
+  const found = cookingRecipeById(id, doc.recipes), swaps = useRecipeSwaps(found), recipe = swaps.swapped, session = doc.cooking?.recipeId === id ? doc.cooking : null;
   const privateDraft = doc.recipes.drafts.find(d => d.id === id), detailPath = recipe?.private ? "/private-recipe/" + id : "/cook/recipe/" + id;
   const restricted = !!recipe && (!!recipe.withdrawal || (!!privateDraft && !!cookingIssue(privateDraft)) || (!!session && (session.recipeVersion ?? 1) !== recipe.revision));
   const awakeError = useCookingAwake(!!session && !restricted);
   const [busy, setBusy] = useState(false), lock = useRef(false);
   const [sheet, setSheet] = useState<"timer" | "ingredients" | null>(null), [offer, setOffer] = useState(false);
+  const [swapping, setSwapping] = useState<string | null>(null);
   const focused = useIsFocused(), navigated = useRef(false);
   const [completion, setCompletion] = useState<{ scope: string; recipeId: string; finishedAt: number; path: string } | null>(null);
   useEffect(() => {
@@ -99,6 +103,7 @@ export function CookingScreen() {
     try { await patch(open(index)); setOffer(false); }
     finally { lock.current = false; setBusy(false); }
   };
+  const swapLists = swaps.list(setSwapping), swapLine = swapping ? swaps.lines.get(swapping) ?? null : null;
   const servingsControl = <Servings value={session.servings} onChange={servings => void patch({ servings })} />;
   // Close, the recipe name, a new timer, the ingredients and the step tabs stay in view while the step scrolls (owner, 28 Oct 2026).
   const header = <View style={s.header}>
@@ -122,19 +127,21 @@ export function CookingScreen() {
     {/* Swiping moves between steps like Previous and Next, but never finishes the recipe: the last step needs the Finish button. */}
     <StepSwipe onNext={() => { if (!last || gathering) void move(1); }} onPrevious={() => { if (!gathering) void move(-1); }}>
     {gathering ? <><T variant="title">{t("gatherTitle")}</T>{servingsControl}
-      <GatherList ingredients={recipe.ingredients} scale={scale} checked={ticked} disabled={!readable} onToggle={toggleIngredient} /></> : step && <>
+      <GatherList ingredients={found!.ingredients} scale={scale} checked={ticked} disabled={!readable} onToggle={toggleIngredient} swaps={swapLists} /></> : step && <>
       <T variant="title">{step.title}</T><T style={{ fontSize: 20 * textMultiplier, lineHeight: 29 * textMultiplier }}>{step.instruction}</T>
       {privateDraft?.steps[session.step]?.photo ? <Image source={{ uri: privateDraft.steps[session.step].photo }} contentFit="contain" style={{ width: "100%", height: 160 }} accessibilityLabel={t("stepPhoto", { n: session.step + 1 })} />
         : step.photo ? <StepPhoto path={step.photo} height={200} label={t("stepPhoto", { n: session.step + 1 })} /> : null}
-      <StepChecklist ingredients={recipe.ingredients} ids={stepIngredientIds(recipe, session.step)} scale={scale} checked={ticked} disabled={!readable} onToggle={toggleIngredient} />
+      <StepChecklist ingredients={found!.ingredients} ids={stepIngredientIds(recipe, session.step)} scale={scale} checked={ticked} disabled={!readable} onToggle={toggleIngredient} swaps={swapLists} />
       {step.timer && <Button label={t("startTimerMinutes", { n: Math.round(step.timer.seconds / 60) })} icon="timer-outline" variant="secondary" disabled={!readable}
         onPress={() => void startTimer(id, step.timer!.label, step.timer!.seconds).then(okay => { if (okay) setOffer(true); })} />}
       {offer && <TimerAlertOffer />}
     </>}
     </StepSwipe>
     {awakeError && <T variant="small" muted>{t("awakeError")}</T>}
-    <IngredientSheet visible={sheet === "ingredients"} onClose={() => setSheet(null)} ingredients={recipe.ingredients} scale={scale} servings={session.servings}
-      onServings={servings => void patch({ servings })} ticked={ticked} onToggle={toggleIngredient} disabled={!readable} />
+    <IngredientSheet visible={sheet === "ingredients" && !swapLine} onClose={() => setSheet(null)} ingredients={found!.ingredients} scale={scale} servings={session.servings}
+      onServings={servings => void patch({ servings })} ticked={ticked} onToggle={toggleIngredient} disabled={!readable} swaps={swapLists} />
+    <SwapSheet line={swapLine} aiFor={swaps.ai} original={found!.ingredients.find(item => item.id === swapping)?.name ?? ""} scale={scale} language={swapLists.language}
+      onClose={() => setSwapping(null)} onChoose={option => { if (swapLine) swaps.choose(swapLine, option); setSwapping(null); }} />
     <TimerSheet visible={sheet === "timer"} onClose={() => setSheet(null)} recipeId={id} defaultName={!gathering && step ? step.title : recipe.name} />
   </Screen>;
 }

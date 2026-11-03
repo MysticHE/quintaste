@@ -20,7 +20,7 @@ const statusOf: Record<AiJob["status"], { label: CookKey; tone: Tone }> = {
 };
 const removed = { label: "statusRemoved" as CookKey, tone: "warn" as Tone };
 /** The recipe's own title; a request without one shows what was asked, a video a plain name ("Uploaded video" is what the server stores for uploads). */
-const titleOf = (job: AiJob, t: (key: CookKey) => string) => job.title || (job.kind === "request" ? job.input : t(job.input === "Uploaded video" ? "uploadedVideo" : "videoRecipe"));
+const titleOf = (job: AiJob, t: (key: CookKey) => string) => job.title || (job.kind !== "video" ? job.input : t(job.input === "Uploaded video" ? "uploadedVideo" : "videoRecipe"));
 
 export function AiRequests({ jobs, onRetry, retryDisabled, onClear, clearing }: {
   jobs: AiJob[]; onRetry: (job: AiJob) => void; retryDisabled: boolean; onClear: () => void; clearing: boolean;
@@ -54,7 +54,7 @@ function Row({ job, onRetry, retryDisabled }: { job: AiJob; onRetry: (job: AiJob
   const gone = job.status === "published" && job.openable === false, status = gone ? removed : statusOf[job.status];
   const open = job.status === "published" && job.recipeId && !gone ? () => router.push(("/cook/recipe/" + job.recipeId) as never) : undefined;
   const pill = { good: [theme.successSoft, theme.success], warn: [theme.warningSoft, theme.warning], busy: [theme.accentSoft, theme.accent] }[status.tone];
-  const icon: IconName = job.kind === "video" ? "videocam-outline" : "restaurant-outline";
+  const icon: IconName = job.kind === "video" ? "videocam-outline" : job.kind === "photo" ? "camera-outline" : job.kind === "ingredients" ? "basket-outline" : "restaurant-outline";
   // Only a failure says why; other states speak through the pill.
   const note = job.status === "failed" ? job.message : "";
   const summary = <>

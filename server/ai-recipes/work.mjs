@@ -27,7 +27,7 @@ export function uploadPath(name) {
 /** Removes anything older than a day, in case a job or upload was cut off before it cleaned up. */
 export async function sweepWork() {
   const cutoff = Date.now() - 24 * 3600000;
-  for (const sub of ['jobs', 'uploads']) {
+  for (const sub of ['jobs', 'uploads', 'snaps']) {
     const dir = path.join(WORK_DIR, sub);
     const names = await readdir(dir).catch(() => []);
     for (const name of names) {

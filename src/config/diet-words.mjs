@@ -27,3 +27,18 @@ export const egg = /(?<!\b(vegan|plant-based|eggless)[\s-])\b(eggs?|kaya|mayo|ma
  */
 export const dietText = name => name.toLowerCase().replace(/\b(dairy-free|non-dairy)\b/g, 'nondairy')
   .replace(/\b(no|without)\s+[a-z]+|\b[a-z]+-free\b/g, ' ');
+
+const PUNGENT = ['Garlic', 'Onion', 'Leeks', 'Chives', 'Scallions', 'Shallots', 'Asafoetida'];
+/**
+ * Prepared ingredients whose labels commonly hide exclusions (a label-checked line clears the rule), shared by the app's recipe labels
+ * (src/utils/recipe-dietary.ts) and ingredient swaps (server/swaps/plan.mjs), so a swap's note and the labels it leaves agree.
+ * @type {{ pattern: RegExp, hides: string[] }[]}
+ */
+export const COMPOUND_RULES = [
+  { pattern: /\b(stock|bouillon|broth|gravy|soup base|seasoning|curry (powder|paste|sauce)|laksa paste|rempah|sambal|chill?i (bean )?paste|chill?i (oil|crisp)|doubanjiang|ketchup|sweet sauce|tim cheong|hoisin|vegetarian (oyster|mushroom) sauce|mushroom sauce|pasta sauce|marinara|tomato sauce|salsa|spice (mix|blend))\b/i, hides: [...PUNGENT, 'Gluten'] },
+  { pattern: /\bpesto\b/i, hides: [...PUNGENT, 'Dairy'] },
+  { pattern: /\b(puff )?pastry\b/i, hides: ['Eggs', 'Dairy'] },
+  { pattern: /\b(curry paste|laksa paste|rempah|chilli paste)\b/i, hides: ['Root vegetables'] },
+  { pattern: /\b(yellow noodles|egg-free noodles|vegan butter|plant-based butter|margarine|mock meat|plant-based mince)\b/i, hides: ['Eggs', 'Dairy', 'Gluten'] },
+  { pattern: /\b(fermented beancurd|fu ru)\b/i, hides: ['Gluten'] },
+];

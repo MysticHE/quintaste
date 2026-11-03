@@ -40,6 +40,8 @@ import { startAiRecipeWorker } from './ai-recipes/worker.mjs';
 import { startLevelWorker } from './game/levels-worker.mjs';
 import { gameLevelBots } from './game/levels-bot.mjs';
 import { cookSearch } from './cook-search/router.mjs';
+import { swaps } from './swaps/router.mjs';
+import { swapBots } from './swaps/bot-router.mjs';
 import { startDemandWorker } from './cook-search/demand.mjs';
 import { startNutritionRefresh } from './nutrition/service.mjs';
 const { createRequestHandler } = createRequire(import.meta.url)('expo-server/adapter/express');
@@ -134,6 +136,10 @@ app.use('/api/ai-recipes', aiRecipes);
 app.use('/api/cook-search', cookSearch);
 // Likes and shares cover every Cook recipe and Explore place, so they stay on while member submissions are paused.
 app.use('/api/reactions', reactions);
+// Ingredient swaps cover every Cook recipe, so like reactions they stay on while member submissions are paused.
+// The bots' signed routes come first: the members' router would otherwise take /api/swaps/bot/* .
+app.use('/api/swaps/bot', swapBots);
+app.use('/api/swaps', swaps);
 // Members' 'I cooked this' photos on Cook recipes; like reactions they cover every recipe, so they stay on while submissions are paused.
 app.use('/api/cooked-photos', cookedPhotos);
 app.use('/api/areas', featureGate('areas'), areas);

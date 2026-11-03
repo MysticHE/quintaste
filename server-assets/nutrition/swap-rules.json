@@ -1,0 +1,2900 @@
+{
+ "version": "2026-11-02",
+ "notes": "Swap rules for recipe ingredients (docs/AI_FOOD_LIBRARY_PLAN.md §5). Keys are recipe-table keys (server-assets/nutrition/ingredient-table.json). basis: volume (same amount and unit), weight (same grams), sodium or fat (the amount that gives the same sodium or fat, from the food library figures; never with a stand-in key, whose figures are another food), factor (grams times factor), leave (leave it out). keeps: the roles of the original line the swap serves (default: all its roles). failsIn: recipe contexts it does not work in. profiles.contains: exclusions a name does not show (added to what the name shows). note or step: the one change shown, in English and Simplified Chinese. reason: why it works, for staff. Order matters: the first three for a line are shown, the rest under More options. Drafted by QuinTaste from culinary practice and the library figures, 2 Nov 2026; diet, allergen and nutrient effects are worked out by code, never written here.",
+ "roles": [
+  "season",
+  "sweeten",
+  "sour",
+  "heat",
+  "aromatic",
+  "fat",
+  "flavour-oil",
+  "thicken",
+  "coat",
+  "bind",
+  "protein",
+  "vegetable",
+  "staple",
+  "liquid",
+  "creamy",
+  "garnish"
+ ],
+ "contexts": [
+  "baking",
+  "deep-fry",
+  "raw",
+  "cooked"
+ ],
+ "profiles": {
+  "soy_sauce": {
+   "name": {
+    "en": "Light soy sauce",
+    "zh": "生抽"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "soy_sauce_dark": {
+   "name": {
+    "en": "Dark soy sauce",
+    "zh": "老抽"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "veg_oyster_sauce": {
+   "name": {
+    "en": "Vegetarian oyster sauce",
+    "zh": "素蚝油"
+   },
+   "roles": [
+    "season"
+   ],
+   "contains": [
+    "Gluten"
+   ]
+  },
+  "kecap_manis": {
+   "name": {
+    "en": "Kecap manis",
+    "zh": "甜酱油"
+   },
+   "roles": [
+    "season",
+    "sweeten"
+   ],
+   "contains": [
+    "Gluten"
+   ]
+  },
+  "sweet_sauce": {
+   "name": {
+    "en": "Sweet sauce (tim cheong)",
+    "zh": "甜酱"
+   },
+   "roles": [
+    "season",
+    "sweeten"
+   ],
+   "contains": [
+    "Gluten"
+   ]
+  },
+  "miso": {
+   "name": {
+    "en": "Miso",
+    "zh": "味噌"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "doubanjiang": {
+   "name": {
+    "en": "Chilli bean paste",
+    "zh": "豆瓣酱"
+   },
+   "roles": [
+    "season",
+    "heat"
+   ],
+   "contains": [
+    "Gluten"
+   ]
+  },
+  "black_beans_fermented": {
+   "name": {
+    "en": "Fermented black beans",
+    "zh": "豆豉"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "fermented_beancurd": {
+   "name": {
+    "en": "Fermented beancurd",
+    "zh": "腐乳"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "salt": {
+   "name": {
+    "en": "Salt",
+    "zh": "盐"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "salt_kosher_dc": {
+   "name": {
+    "en": "Kosher salt",
+    "zh": "粗盐"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "chilli_paste": {
+   "name": {
+    "en": "Chilli paste",
+    "zh": "辣椒糊"
+   },
+   "roles": [
+    "heat"
+   ]
+  },
+  "chilli_sauce": {
+   "name": {
+    "en": "Chilli sauce",
+    "zh": "辣椒酱"
+   },
+   "roles": [
+    "heat",
+    "season"
+   ]
+  },
+  "ketchup": {
+   "name": {
+    "en": "Tomato ketchup",
+    "zh": "番茄酱"
+   },
+   "roles": [
+    "season",
+    "sweeten"
+   ]
+  },
+  "black_pepper": {
+   "name": {
+    "en": "Black pepper",
+    "zh": "黑胡椒"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "white_pepper": {
+   "name": {
+    "en": "White pepper",
+    "zh": "白胡椒"
+   },
+   "roles": [
+    "season"
+   ]
+  },
+  "rice_vinegar": {
+   "name": {
+    "en": "Rice vinegar",
+    "zh": "米醋"
+   },
+   "roles": [
+    "sour"
+   ]
+  },
+  "white_vinegar": {
+   "name": {
+    "en": "White vinegar",
+    "zh": "白醋"
+   },
+   "roles": [
+    "sour"
+   ]
+  },
+  "tw_black_vinegar": {
+   "name": {
+    "en": "Black vinegar",
+    "zh": "黑醋"
+   },
+   "roles": [
+    "sour"
+   ]
+  },
+  "lemon": {
+   "name": {
+    "en": "Lemon juice",
+    "zh": "柠檬汁"
+   },
+   "roles": [
+    "sour"
+   ]
+  },
+  "lime": {
+   "name": {
+    "en": "Lime",
+    "zh": "青柠"
+   },
+   "roles": [
+    "sour"
+   ]
+  },
+  "tamarind": {
+   "name": {
+    "en": "Tamarind",
+    "zh": "罗望子"
+   },
+   "roles": [
+    "sour"
+   ]
+  },
+  "vegetable_stock": {
+   "name": {
+    "en": "Vegetable stock",
+    "zh": "蔬菜高汤"
+   },
+   "roles": [
+    "liquid"
+   ]
+  },
+  "water": {
+   "name": {
+    "en": "Water",
+    "zh": "清水"
+   },
+   "roles": [
+    "liquid"
+   ]
+  },
+  "sugar": {
+   "name": {
+    "en": "Sugar",
+    "zh": "白糖"
+   },
+   "roles": [
+    "sweeten"
+   ]
+  },
+  "brown_sugar": {
+   "name": {
+    "en": "Brown sugar",
+    "zh": "红糖"
+   },
+   "roles": [
+    "sweeten"
+   ]
+  },
+  "gula_melaka": {
+   "name": {
+    "en": "Gula melaka",
+    "zh": "椰糖"
+   },
+   "roles": [
+    "sweeten"
+   ]
+  },
+  "jaggery": {
+   "name": {
+    "en": "Jaggery",
+    "zh": "印度粗糖"
+   },
+   "roles": [
+    "sweeten"
+   ]
+  },
+  "maple_syrup": {
+   "name": {
+    "en": "Maple syrup",
+    "zh": "枫糖浆"
+   },
+   "roles": [
+    "sweeten"
+   ]
+  },
+  "powdered_sugar": {
+   "name": {
+    "en": "Icing sugar",
+    "zh": "糖粉"
+   },
+   "roles": [
+    "sweeten"
+   ]
+  },
+  "cornflour": {
+   "name": {
+    "en": "Cornflour",
+    "zh": "玉米淀粉"
+   },
+   "roles": [
+    "thicken",
+    "coat"
+   ]
+  },
+  "legacy_tapioca_starch": {
+   "name": {
+    "en": "Tapioca starch",
+    "zh": "木薯淀粉"
+   },
+   "roles": [
+    "thicken",
+    "coat"
+   ]
+  },
+  "potato_starch": {
+   "name": {
+    "en": "Potato starch",
+    "zh": "马铃薯淀粉"
+   },
+   "roles": [
+    "thicken",
+    "coat"
+   ]
+  },
+  "flour": {
+   "name": {
+    "en": "Plain flour",
+    "zh": "面粉"
+   },
+   "roles": [
+    "bind",
+    "coat",
+    "thicken"
+   ]
+  },
+  "rice_flour": {
+   "name": {
+    "en": "Rice flour",
+    "zh": "粘米粉"
+   },
+   "roles": [
+    "coat",
+    "thicken",
+    "bind"
+   ]
+  },
+  "butter": {
+   "name": {
+    "en": "Butter",
+    "zh": "黄油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "butter_unsalted": {
+   "name": {
+    "en": "Unsalted butter",
+    "zh": "无盐黄油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "plant_butter": {
+   "name": {
+    "en": "Plant-based butter",
+    "zh": "植物黄油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "oil_neutral": {
+   "name": {
+    "en": "Cooking oil",
+    "zh": "食用油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "sunflower_oil": {
+   "name": {
+    "en": "Sunflower oil",
+    "zh": "葵花籽油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "peanut_oil": {
+   "name": {
+    "en": "Peanut oil",
+    "zh": "花生油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "olive_oil": {
+   "name": {
+    "en": "Olive oil",
+    "zh": "橄榄油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "coconut_oil": {
+   "name": {
+    "en": "Coconut oil",
+    "zh": "椰子油"
+   },
+   "roles": [
+    "fat"
+   ]
+  },
+  "sesame_oil": {
+   "name": {
+    "en": "Sesame oil",
+    "zh": "麻油"
+   },
+   "roles": [
+    "flavour-oil"
+   ]
+  },
+  "coconut_milk": {
+   "name": {
+    "en": "Coconut milk",
+    "zh": "椰浆"
+   },
+   "roles": [
+    "creamy"
+   ]
+  },
+  "milk": {
+   "name": {
+    "en": "Milk",
+    "zh": "牛奶"
+   },
+   "roles": [
+    "creamy"
+   ]
+  },
+  "soy_milk": {
+   "name": {
+    "en": "Soy milk",
+    "zh": "豆浆"
+   },
+   "roles": [
+    "creamy"
+   ]
+  },
+  "eggs": {
+   "name": {
+    "en": "Eggs",
+    "zh": "鸡蛋"
+   },
+   "roles": [
+    "protein",
+    "bind"
+   ]
+  },
+  "tofu_firm": {
+   "name": {
+    "en": "Firm tofu",
+    "zh": "老豆腐"
+   },
+   "roles": [
+    "protein"
+   ]
+  },
+  "tau_kwa": {
+   "name": {
+    "en": "Tau kwa",
+    "zh": "豆干"
+   },
+   "roles": [
+    "protein"
+   ]
+  },
+  "tofu_silken": {
+   "name": {
+    "en": "Silken tofu",
+    "zh": "嫩豆腐"
+   },
+   "roles": [
+    "protein",
+    "bind"
+   ]
+  },
+  "tofu_puffs": {
+   "name": {
+    "en": "Tofu puffs",
+    "zh": "豆卜"
+   },
+   "roles": [
+    "protein"
+   ]
+  },
+  "tempeh": {
+   "name": {
+    "en": "Tempeh",
+    "zh": "天贝"
+   },
+   "roles": [
+    "protein"
+   ]
+  },
+  "edamame": {
+   "name": {
+    "en": "Edamame",
+    "zh": "毛豆"
+   },
+   "roles": [
+    "protein",
+    "vegetable"
+   ]
+  },
+  "peanuts": {
+   "name": {
+    "en": "Peanuts",
+    "zh": "花生"
+   },
+   "roles": [
+    "garnish",
+    "protein"
+   ]
+  },
+  "legacy_cashews": {
+   "name": {
+    "en": "Cashew nuts",
+    "zh": "腰果"
+   },
+   "roles": [
+    "garnish",
+    "protein"
+   ]
+  },
+  "sesame_seeds": {
+   "name": {
+    "en": "Sesame seeds",
+    "zh": "芝麻"
+   },
+   "roles": [
+    "garnish"
+   ]
+  },
+  "bok_choy": {
+   "name": {
+    "en": "Bok choy",
+    "zh": "小白菜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "tw_choy_sum": {
+   "name": {
+    "en": "Choy sum",
+    "zh": "菜心"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "tw_kai_lan": {
+   "name": {
+    "en": "Kai lan",
+    "zh": "芥兰"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "kangkung": {
+   "name": {
+    "en": "Kangkung",
+    "zh": "蕹菜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "spinach": {
+   "name": {
+    "en": "Spinach",
+    "zh": "菠菜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "chinese_spinach": {
+   "name": {
+    "en": "Chinese spinach (bayam)",
+    "zh": "苋菜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "cabbage": {
+   "name": {
+    "en": "Cabbage",
+    "zh": "包菜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "red_cabbage": {
+   "name": {
+    "en": "Red cabbage",
+    "zh": "紫甘蓝"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "broccoli": {
+   "name": {
+    "en": "Broccoli",
+    "zh": "西兰花"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "lettuce": {
+   "name": {
+    "en": "Lettuce",
+    "zh": "生菜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "cucumber": {
+   "name": {
+    "en": "Cucumber",
+    "zh": "黄瓜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "jicama": {
+   "name": {
+    "en": "Jicama (bangkuang)",
+    "zh": "沙葛"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "carrot": {
+   "name": {
+    "en": "Carrot",
+    "zh": "胡萝卜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "pumpkin": {
+   "name": {
+    "en": "Pumpkin",
+    "zh": "南瓜"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "sweet_potato": {
+   "name": {
+    "en": "Sweet potato",
+    "zh": "番薯"
+   },
+   "roles": [
+    "vegetable",
+    "staple"
+   ]
+  },
+  "potato": {
+   "name": {
+    "en": "Potato",
+    "zh": "马铃薯"
+   },
+   "roles": [
+    "vegetable",
+    "staple"
+   ]
+  },
+  "taro": {
+   "name": {
+    "en": "Taro",
+    "zh": "芋头"
+   },
+   "roles": [
+    "vegetable",
+    "staple"
+   ]
+  },
+  "tomato": {
+   "name": {
+    "en": "Tomato",
+    "zh": "番茄"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "cherry_tomato": {
+   "name": {
+    "en": "Cherry tomatoes",
+    "zh": "小番茄"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "corn": {
+   "name": {
+    "en": "Sweet corn",
+    "zh": "玉米粒"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "peas": {
+   "name": {
+    "en": "Green peas",
+    "zh": "青豆"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "mushrooms": {
+   "name": {
+    "en": "Button mushrooms",
+    "zh": "蘑菇"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "shiitake": {
+   "name": {
+    "en": "Shiitake mushrooms",
+    "zh": "香菇"
+   },
+   "roles": [
+    "vegetable"
+   ]
+  },
+  "legacy_celery": {
+   "name": {
+    "en": "Celery",
+    "zh": "芹菜"
+   },
+   "roles": [
+    "vegetable",
+    "aromatic"
+   ]
+  },
+  "garlic": {
+   "name": {
+    "en": "Garlic",
+    "zh": "蒜"
+   },
+   "roles": [
+    "aromatic"
+   ]
+  },
+  "onion": {
+   "name": {
+    "en": "Onion",
+    "zh": "洋葱"
+   },
+   "roles": [
+    "aromatic",
+    "vegetable"
+   ]
+  },
+  "shallots": {
+   "name": {
+    "en": "Shallots",
+    "zh": "红葱头"
+   },
+   "roles": [
+    "aromatic"
+   ]
+  },
+  "spring_onion": {
+   "name": {
+    "en": "Spring onion",
+    "zh": "青葱"
+   },
+   "roles": [
+    "garnish",
+    "aromatic"
+   ]
+  },
+  "coriander_leaves": {
+   "name": {
+    "en": "Coriander leaves",
+    "zh": "芫荽"
+   },
+   "roles": [
+    "garnish"
+   ]
+  },
+  "ginger": {
+   "name": {
+    "en": "Ginger",
+    "zh": "姜"
+   },
+   "roles": [
+    "aromatic"
+   ]
+  },
+  "red_chilli": {
+   "name": {
+    "en": "Red chilli",
+    "zh": "红辣椒"
+   },
+   "roles": [
+    "heat",
+    "garnish"
+   ]
+  },
+  "green_chilli": {
+   "name": {
+    "en": "Green chilli",
+    "zh": "青辣椒"
+   },
+   "roles": [
+    "heat",
+    "garnish"
+   ]
+  },
+  "dried_chilli": {
+   "name": {
+    "en": "Dried chillies",
+    "zh": "干辣椒"
+   },
+   "roles": [
+    "heat"
+   ]
+  },
+  "jasmine_rice": {
+   "name": {
+    "en": "White rice",
+    "zh": "白米"
+   },
+   "roles": [
+    "staple"
+   ]
+  },
+  "brown_rice_dry": {
+   "name": {
+    "en": "Brown rice",
+    "zh": "糙米"
+   },
+   "roles": [
+    "staple"
+   ]
+  },
+  "millet": {
+   "name": {
+    "en": "Millet",
+    "zh": "小米"
+   },
+   "roles": [
+    "staple"
+   ]
+  },
+  "rice_noodles_dry": {
+   "name": {
+    "en": "Rice noodles",
+    "zh": "米粉"
+   },
+   "roles": [
+    "staple"
+   ]
+  },
+  "yellow_noodles": {
+   "name": {
+    "en": "Yellow noodles",
+    "zh": "黄面"
+   },
+   "roles": [
+    "staple"
+   ]
+  },
+  "legacy_glass_noodles": {
+   "name": {
+    "en": "Mung bean noodles",
+    "zh": "冬粉"
+   },
+   "roles": [
+    "staple"
+   ]
+  }
+ },
+ "rules": [
+  {
+   "from": "soy_sauce",
+   "to": "salt",
+   "basis": "sodium",
+   "note": {
+    "en": "no soy flavour",
+    "zh": "少了酱油香"
+   },
+   "reason": "Salt gives the same saltiness; the soy aroma and colour are lost."
+  },
+  {
+   "from": "soy_sauce",
+   "to": "miso",
+   "basis": "sodium",
+   "step": {
+    "en": "mix with a little water first",
+    "zh": "先用少许水调开"
+   },
+   "reason": "Miso brings the same salty, fermented soy depth."
+  },
+  {
+   "from": "soy_sauce",
+   "to": "veg_oyster_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "sweeter, thicker",
+    "zh": "较甜较稠"
+   },
+   "reason": "Mushroom-based oyster sauce seasons the same way, thicker and a little sweet."
+  },
+  {
+   "from": "soy_sauce",
+   "to": "fermented_beancurd",
+   "basis": "sodium",
+   "step": {
+    "en": "mash first",
+    "zh": "先压碎"
+   },
+   "reason": "Fu ru is salty soy with a creamy, stronger taste."
+  },
+  {
+   "from": "soy_sauce_dark",
+   "to": "soy_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "lighter colour",
+    "zh": "颜色较浅"
+   },
+   "reason": "Light soy seasons the same; the dish is paler."
+  },
+  {
+   "from": "soy_sauce_dark",
+   "to": "kecap_manis",
+   "basis": "volume",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Sweet soy gives the dark colour, with more sweetness."
+  },
+  {
+   "from": "soy_sauce_dark",
+   "to": "veg_oyster_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "less colour",
+    "zh": "颜色较浅"
+   },
+   "reason": "Vegetarian oyster sauce adds savoury depth and some colour."
+  },
+  {
+   "from": "veg_oyster_sauce",
+   "to": "soy_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "thinner",
+    "zh": "较稀"
+   },
+   "reason": "Light soy seasons the same, without the body."
+  },
+  {
+   "from": "veg_oyster_sauce",
+   "to": "miso",
+   "basis": "volume",
+   "step": {
+    "en": "mix with a little water first",
+    "zh": "先用少许水调开"
+   },
+   "reason": "Miso gives the savoury depth."
+  },
+  {
+   "from": "veg_oyster_sauce",
+   "to": "kecap_manis",
+   "basis": "volume",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Sweet soy is thick and savoury like oyster sauce."
+  },
+  {
+   "from": "kecap_manis",
+   "to": "sweet_sauce",
+   "basis": "volume",
+   "reason": "Tim cheong is the same kind of thick sweet soy."
+  },
+  {
+   "from": "kecap_manis",
+   "to": "soy_sauce_dark",
+   "basis": "volume",
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Dark soy gives the colour and saltiness, less sugar."
+  },
+  {
+   "from": "kecap_manis",
+   "to": "veg_oyster_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Thick and savoury, less sweet."
+  },
+  {
+   "from": "sweet_sauce",
+   "to": "kecap_manis",
+   "basis": "volume",
+   "reason": "Kecap manis is the same kind of thick sweet soy."
+  },
+  {
+   "from": "sweet_sauce",
+   "to": "veg_oyster_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Thick and savoury, less sweet."
+  },
+  {
+   "from": "sweet_sauce",
+   "to": "soy_sauce_dark",
+   "basis": "volume",
+   "note": {
+    "en": "saltier",
+    "zh": "较咸"
+   },
+   "reason": "Dark soy gives the colour; it is saltier and not sweet."
+  },
+  {
+   "from": "miso",
+   "to": "fermented_beancurd",
+   "basis": "sodium",
+   "note": {
+    "en": "stronger taste",
+    "zh": "味道较浓"
+   },
+   "reason": "Fu ru is salty fermented soy with a stronger taste."
+  },
+  {
+   "from": "miso",
+   "to": "doubanjiang",
+   "basis": "sodium",
+   "note": {
+    "en": "spicy",
+    "zh": "会辣"
+   },
+   "reason": "Chilli bean paste is fermented and salty, with heat."
+  },
+  {
+   "from": "miso",
+   "to": "soy_sauce",
+   "basis": "sodium",
+   "note": {
+    "en": "thinner",
+    "zh": "较稀"
+   },
+   "reason": "Soy sauce gives the salty soy depth."
+  },
+  {
+   "from": "doubanjiang",
+   "to": "miso",
+   "basis": "sodium",
+   "note": {
+    "en": "not spicy",
+    "zh": "不辣"
+   },
+   "reason": "Miso gives the fermented, salty base without the chilli."
+  },
+  {
+   "from": "doubanjiang",
+   "to": "chilli_paste",
+   "basis": "volume",
+   "note": {
+    "en": "less savoury",
+    "zh": "鲜味较淡"
+   },
+   "reason": "Chilli paste gives the heat; less fermented depth."
+  },
+  {
+   "from": "doubanjiang",
+   "to": "black_beans_fermented",
+   "basis": "volume",
+   "step": {
+    "en": "mash first",
+    "zh": "先压碎"
+   },
+   "reason": "Douchi gives the fermented bean taste without heat."
+  },
+  {
+   "from": "black_beans_fermented",
+   "to": "miso",
+   "basis": "volume",
+   "note": {
+    "en": "smoother",
+    "zh": "口感较滑"
+   },
+   "reason": "Miso gives the same fermented soy taste."
+  },
+  {
+   "from": "black_beans_fermented",
+   "to": "doubanjiang",
+   "basis": "volume",
+   "note": {
+    "en": "spicy",
+    "zh": "会辣"
+   },
+   "reason": "Chilli bean paste is fermented bean with heat."
+  },
+  {
+   "from": "black_beans_fermented",
+   "to": "soy_sauce_dark",
+   "basis": "volume",
+   "note": {
+    "en": "no bean bite",
+    "zh": "没有豆粒口感"
+   },
+   "reason": "Dark soy gives the salty, dark fermented note."
+  },
+  {
+   "from": "fermented_beancurd",
+   "to": "miso",
+   "basis": "sodium",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Miso is fermented soy, milder and less creamy."
+  },
+  {
+   "from": "fermented_beancurd",
+   "to": "soy_sauce",
+   "basis": "sodium",
+   "note": {
+    "en": "thinner",
+    "zh": "较稀"
+   },
+   "reason": "Soy sauce gives the salty soy taste, not the creaminess."
+  },
+  {
+   "from": "salt",
+   "to": "soy_sauce",
+   "basis": "sodium",
+   "note": {
+    "en": "adds colour",
+    "zh": "会上色"
+   },
+   "reason": "Soy sauce salts the dish and adds soy aroma."
+  },
+  {
+   "from": "salt",
+   "to": "miso",
+   "basis": "sodium",
+   "step": {
+    "en": "mix with a little water first",
+    "zh": "先用少许水调开"
+   },
+   "reason": "Miso salts the dish with fermented depth."
+  },
+  {
+   "from": "salt_kosher_dc",
+   "to": "salt",
+   "basis": "sodium",
+   "reason": "Table salt is denser; the amount is matched by sodium."
+  },
+  {
+   "from": "chilli_paste",
+   "to": "chilli_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Chilli sauce gives the heat with more sugar."
+  },
+  {
+   "from": "chilli_paste",
+   "to": "red_chilli",
+   "basis": "weight",
+   "step": {
+    "en": "blend with a little oil",
+    "zh": "加少许油打成泥"
+   },
+   "reason": "Fresh chillies blended make a fresher paste."
+  },
+  {
+   "from": "chilli_paste",
+   "to": "doubanjiang",
+   "basis": "volume",
+   "note": {
+    "en": "saltier",
+    "zh": "较咸"
+   },
+   "reason": "Chilli bean paste gives heat and fermented saltiness."
+  },
+  {
+   "from": "chilli_sauce",
+   "to": "chilli_paste",
+   "basis": "volume",
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Chilli paste gives the heat, less sugar."
+  },
+  {
+   "from": "chilli_sauce",
+   "to": "ketchup",
+   "basis": "volume",
+   "note": {
+    "en": "not spicy",
+    "zh": "不辣"
+   },
+   "reason": "Ketchup gives the sweet-sour sauce without heat."
+  },
+  {
+   "from": "ketchup",
+   "to": "chilli_sauce",
+   "basis": "volume",
+   "note": {
+    "en": "spicy",
+    "zh": "会辣"
+   },
+   "reason": "Chilli sauce is sweet, sour and tomato-like, with heat."
+  },
+  {
+   "from": "red_chilli",
+   "to": "green_chilli",
+   "basis": "weight",
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Green chillies give the same heat, less sweetness."
+  },
+  {
+   "from": "red_chilli",
+   "to": "dried_chilli",
+   "basis": "factor",
+   "factor": 0.25,
+   "keeps": [
+    "heat"
+   ],
+   "step": {
+    "en": "soak first",
+    "zh": "先泡软"
+   },
+   "reason": "Dried chillies are about a quarter of the weight of fresh."
+  },
+  {
+   "from": "red_chilli",
+   "to": "chilli_paste",
+   "basis": "factor",
+   "factor": 0.5,
+   "keeps": [
+    "heat"
+   ],
+   "failsIn": [
+    "raw"
+   ],
+   "note": {
+    "en": "saltier",
+    "zh": "较咸"
+   },
+   "reason": "A spoon of paste replaces a fresh chilli in cooked sauces."
+  },
+  {
+   "from": "green_chilli",
+   "to": "red_chilli",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Red chillies give the same heat, riper and sweeter."
+  },
+  {
+   "from": "dried_chilli",
+   "to": "red_chilli",
+   "basis": "factor",
+   "factor": 4,
+   "note": {
+    "en": "fresher taste",
+    "zh": "较清新"
+   },
+   "reason": "Fresh chillies are about four times the weight of dried."
+  },
+  {
+   "from": "black_pepper",
+   "to": "white_pepper",
+   "basis": "weight",
+   "note": {
+    "en": "sharper",
+    "zh": "较冲"
+   },
+   "reason": "White pepper gives the same heat, sharper and earthier."
+  },
+  {
+   "from": "white_pepper",
+   "to": "black_pepper",
+   "basis": "weight",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Black pepper gives the same heat, milder and more aromatic."
+  },
+  {
+   "from": "rice_vinegar",
+   "to": "white_vinegar",
+   "basis": "volume",
+   "note": {
+    "en": "sharper",
+    "zh": "较酸冲"
+   },
+   "reason": "White vinegar is sharper; the sourness matches."
+  },
+  {
+   "from": "rice_vinegar",
+   "to": "lemon",
+   "basis": "volume",
+   "note": {
+    "en": "citrus taste",
+    "zh": "带柑橘味"
+   },
+   "reason": "Lemon juice gives the same sourness."
+  },
+  {
+   "from": "rice_vinegar",
+   "to": "lime",
+   "basis": "volume",
+   "note": {
+    "en": "citrus taste",
+    "zh": "带柑橘味"
+   },
+   "reason": "Lime juice gives the same sourness."
+  },
+  {
+   "from": "white_vinegar",
+   "to": "rice_vinegar",
+   "basis": "volume",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Rice vinegar is milder; the sourness is close."
+  },
+  {
+   "from": "white_vinegar",
+   "to": "lemon",
+   "basis": "volume",
+   "note": {
+    "en": "citrus taste",
+    "zh": "带柑橘味"
+   },
+   "reason": "Lemon juice gives the same sourness."
+  },
+  {
+   "from": "tw_black_vinegar",
+   "to": "rice_vinegar",
+   "basis": "volume",
+   "note": {
+    "en": "lighter, less malty",
+    "zh": "较淡，少了醇香"
+   },
+   "reason": "Rice vinegar gives the sourness without the malty depth."
+  },
+  {
+   "from": "lemon",
+   "to": "lime",
+   "basis": "volume",
+   "reason": "Lime juice is as sour, more floral."
+  },
+  {
+   "from": "lemon",
+   "to": "rice_vinegar",
+   "basis": "volume",
+   "note": {
+    "en": "no citrus taste",
+    "zh": "没有柑橘味"
+   },
+   "reason": "Vinegar gives the sourness without citrus."
+  },
+  {
+   "from": "lime",
+   "to": "lemon",
+   "basis": "volume",
+   "reason": "Lemon juice is as sour, less floral."
+  },
+  {
+   "from": "lime",
+   "to": "rice_vinegar",
+   "basis": "volume",
+   "note": {
+    "en": "no citrus taste",
+    "zh": "没有柑橘味"
+   },
+   "reason": "Vinegar gives the sourness without citrus."
+  },
+  {
+   "from": "tamarind",
+   "to": "lime",
+   "basis": "volume",
+   "note": {
+    "en": "lighter sourness",
+    "zh": "酸味较清淡"
+   },
+   "reason": "Lime juice gives the sourness, lighter and fresher."
+  },
+  {
+   "from": "tamarind",
+   "to": "lemon",
+   "basis": "volume",
+   "note": {
+    "en": "lighter sourness",
+    "zh": "酸味较清淡"
+   },
+   "reason": "Lemon juice gives the sourness, lighter and fresher."
+  },
+  {
+   "from": "vegetable_stock",
+   "to": "water",
+   "basis": "volume",
+   "note": {
+    "en": "less flavour",
+    "zh": "味道较淡"
+   },
+   "reason": "Water keeps the liquid; season to taste."
+  },
+  {
+   "from": "sugar",
+   "to": "brown_sugar",
+   "basis": "weight",
+   "note": {
+    "en": "caramel taste",
+    "zh": "带焦糖味"
+   },
+   "reason": "Brown sugar sweetens the same, with molasses notes."
+  },
+  {
+   "from": "sugar",
+   "to": "gula_melaka",
+   "basis": "weight",
+   "note": {
+    "en": "deeper flavour",
+    "zh": "味道较浓郁"
+   },
+   "reason": "Palm sugar sweetens the same, with a deeper taste."
+  },
+  {
+   "from": "sugar",
+   "to": "maple_syrup",
+   "basis": "factor",
+   "factor": 1.2,
+   "failsIn": [
+    "baking"
+   ],
+   "step": {
+    "en": "use a little less liquid",
+    "zh": "少放一点水"
+   },
+   "reason": "About 1.2 times the weight of maple syrup matches the sweetness."
+  },
+  {
+   "from": "brown_sugar",
+   "to": "sugar",
+   "basis": "weight",
+   "note": {
+    "en": "less caramel taste",
+    "zh": "少了焦糖味"
+   },
+   "reason": "White sugar sweetens the same, without molasses."
+  },
+  {
+   "from": "brown_sugar",
+   "to": "gula_melaka",
+   "basis": "weight",
+   "reason": "Palm sugar is a close, deeper-tasting match."
+  },
+  {
+   "from": "brown_sugar",
+   "to": "maple_syrup",
+   "basis": "factor",
+   "factor": 1.2,
+   "failsIn": [
+    "baking"
+   ],
+   "step": {
+    "en": "use a little less liquid",
+    "zh": "少放一点水"
+   },
+   "reason": "About 1.2 times the weight of maple syrup matches the sweetness."
+  },
+  {
+   "from": "gula_melaka",
+   "to": "brown_sugar",
+   "basis": "weight",
+   "note": {
+    "en": "less smoky",
+    "zh": "少了椰糖香"
+   },
+   "reason": "Brown sugar is the closest common sugar to palm sugar."
+  },
+  {
+   "from": "gula_melaka",
+   "to": "jaggery",
+   "basis": "weight",
+   "reason": "Jaggery is an unrefined cane sugar, close to palm sugar."
+  },
+  {
+   "from": "gula_melaka",
+   "to": "sugar",
+   "basis": "weight",
+   "note": {
+    "en": "less flavour",
+    "zh": "味道较淡"
+   },
+   "reason": "White sugar sweetens the same, without the palm taste."
+  },
+  {
+   "from": "jaggery",
+   "to": "gula_melaka",
+   "basis": "weight",
+   "reason": "Palm sugar is a close unrefined sugar."
+  },
+  {
+   "from": "jaggery",
+   "to": "brown_sugar",
+   "basis": "weight",
+   "reason": "Brown sugar is the closest common sugar."
+  },
+  {
+   "from": "maple_syrup",
+   "to": "sugar",
+   "basis": "factor",
+   "factor": 0.85,
+   "step": {
+    "en": "dissolve in a little water",
+    "zh": "先用少许水溶化"
+   },
+   "reason": "About 0.85 times the weight of sugar matches the sweetness."
+  },
+  {
+   "from": "maple_syrup",
+   "to": "brown_sugar",
+   "basis": "factor",
+   "factor": 0.85,
+   "step": {
+    "en": "dissolve in a little water",
+    "zh": "先用少许水溶化"
+   },
+   "reason": "About 0.85 times the weight of brown sugar matches the sweetness."
+  },
+  {
+   "from": "powdered_sugar",
+   "to": "sugar",
+   "basis": "weight",
+   "step": {
+    "en": "grind fine first",
+    "zh": "先磨成细粉"
+   },
+   "reason": "Granulated sugar is the same sugar, coarser."
+  },
+  {
+   "from": "cornflour",
+   "to": "legacy_tapioca_starch",
+   "basis": "weight",
+   "note": {
+    "en": "glossier sauce",
+    "zh": "汁更亮滑"
+   },
+   "reason": "Tapioca starch thickens and crisps like cornflour, with a glossier finish."
+  },
+  {
+   "from": "cornflour",
+   "to": "potato_starch",
+   "basis": "weight",
+   "reason": "Potato starch thickens and crisps the same, weight for weight."
+  },
+  {
+   "from": "cornflour",
+   "to": "flour",
+   "basis": "factor",
+   "factor": 2,
+   "keeps": [
+    "thicken"
+   ],
+   "step": {
+    "en": "simmer 2 minutes longer",
+    "zh": "多煮2分钟"
+   },
+   "reason": "Plain flour needs about twice the weight to thicken and must cook through."
+  },
+  {
+   "from": "cornflour",
+   "to": "rice_flour",
+   "basis": "weight",
+   "keeps": [
+    "coat"
+   ],
+   "note": {
+    "en": "crispier",
+    "zh": "更脆"
+   },
+   "reason": "Rice flour gives a crisp, light coating."
+  },
+  {
+   "from": "legacy_tapioca_starch",
+   "to": "cornflour",
+   "basis": "weight",
+   "reason": "Cornflour thickens and crisps the same, weight for weight."
+  },
+  {
+   "from": "legacy_tapioca_starch",
+   "to": "potato_starch",
+   "basis": "weight",
+   "reason": "Potato starch thickens and crisps the same."
+  },
+  {
+   "from": "potato_starch",
+   "to": "cornflour",
+   "basis": "weight",
+   "reason": "Cornflour thickens and crisps the same, weight for weight."
+  },
+  {
+   "from": "potato_starch",
+   "to": "legacy_tapioca_starch",
+   "basis": "weight",
+   "reason": "Tapioca starch thickens and crisps the same."
+  },
+  {
+   "from": "flour",
+   "to": "rice_flour",
+   "basis": "weight",
+   "keeps": [
+    "coat",
+    "thicken"
+   ],
+   "failsIn": [
+    "baking"
+   ],
+   "note": {
+    "en": "less chewy",
+    "zh": "口感较不韧"
+   },
+   "reason": "Rice flour coats and thickens without wheat; it is less chewy."
+  },
+  {
+   "from": "flour",
+   "to": "cornflour",
+   "basis": "factor",
+   "factor": 0.5,
+   "keeps": [
+    "thicken"
+   ],
+   "reason": "Half the weight of cornflour thickens like flour."
+  },
+  {
+   "from": "rice_flour",
+   "to": "flour",
+   "basis": "weight",
+   "keeps": [
+    "coat",
+    "thicken"
+   ],
+   "note": {
+    "en": "chewier",
+    "zh": "较有嚼劲"
+   },
+   "reason": "Plain flour coats and thickens the same, a little chewier."
+  },
+  {
+   "from": "rice_flour",
+   "to": "cornflour",
+   "basis": "weight",
+   "keeps": [
+    "coat"
+   ],
+   "reason": "Cornflour gives a crisp coating."
+  },
+  {
+   "from": "butter",
+   "to": "plant_butter",
+   "basis": "weight",
+   "reason": "Plant-based butter cooks and bakes like butter."
+  },
+  {
+   "from": "butter",
+   "to": "coconut_oil",
+   "basis": "fat",
+   "note": {
+    "en": "coconut taste",
+    "zh": "带椰子味"
+   },
+   "reason": "Coconut oil replaces the fat in butter (about 80%)."
+  },
+  {
+   "from": "butter",
+   "to": "olive_oil",
+   "basis": "fat",
+   "failsIn": [
+    "baking"
+   ],
+   "note": {
+    "en": "no butter taste",
+    "zh": "没有黄油香"
+   },
+   "reason": "Olive oil replaces the fat for cooking, not for baking."
+  },
+  {
+   "from": "butter_unsalted",
+   "to": "plant_butter",
+   "basis": "weight",
+   "note": {
+    "en": "saltier",
+    "zh": "较咸"
+   },
+   "reason": "Plant-based butter cooks and bakes like butter; most brands are salted."
+  },
+  {
+   "from": "butter_unsalted",
+   "to": "coconut_oil",
+   "basis": "fat",
+   "note": {
+    "en": "coconut taste",
+    "zh": "带椰子味"
+   },
+   "reason": "Coconut oil replaces the fat in butter (about 80%)."
+  },
+  {
+   "from": "butter_unsalted",
+   "to": "olive_oil",
+   "basis": "fat",
+   "failsIn": [
+    "baking"
+   ],
+   "note": {
+    "en": "no butter taste",
+    "zh": "没有黄油香"
+   },
+   "reason": "Olive oil replaces the fat for cooking, not for baking."
+  },
+  {
+   "from": "plant_butter",
+   "to": "butter",
+   "basis": "weight",
+   "reason": "Dairy butter cooks and bakes the same."
+  },
+  {
+   "from": "plant_butter",
+   "to": "coconut_oil",
+   "basis": "factor",
+   "factor": 0.8,
+   "note": {
+    "en": "coconut taste",
+    "zh": "带椰子味"
+   },
+   "reason": "Coconut oil replaces the fat; plant-based butter is about 80% fat."
+  },
+  {
+   "from": "plant_butter",
+   "to": "oil_neutral",
+   "basis": "factor",
+   "factor": 0.8,
+   "failsIn": [
+    "baking"
+   ],
+   "reason": "Cooking oil replaces the fat (plant-based butter is about 80% fat), not for baking."
+  },
+  {
+   "from": "oil_neutral",
+   "to": "sunflower_oil",
+   "basis": "volume",
+   "reason": "Sunflower oil is another neutral, high-heat oil."
+  },
+  {
+   "from": "oil_neutral",
+   "to": "peanut_oil",
+   "basis": "volume",
+   "reason": "Peanut oil handles high heat with a light nutty taste."
+  },
+  {
+   "from": "oil_neutral",
+   "to": "olive_oil",
+   "basis": "volume",
+   "failsIn": [
+    "deep-fry"
+   ],
+   "note": {
+    "en": "fruity taste",
+    "zh": "带果香"
+   },
+   "reason": "Olive oil works for everyday cooking, not deep-frying."
+  },
+  {
+   "from": "sunflower_oil",
+   "to": "oil_neutral",
+   "basis": "volume",
+   "reason": "Any neutral cooking oil works the same."
+  },
+  {
+   "from": "sunflower_oil",
+   "to": "peanut_oil",
+   "basis": "volume",
+   "reason": "Peanut oil handles high heat with a light nutty taste."
+  },
+  {
+   "from": "sunflower_oil",
+   "to": "olive_oil",
+   "basis": "volume",
+   "failsIn": [
+    "deep-fry"
+   ],
+   "note": {
+    "en": "fruity taste",
+    "zh": "带果香"
+   },
+   "reason": "Olive oil works for everyday cooking, not deep-frying."
+  },
+  {
+   "from": "peanut_oil",
+   "to": "oil_neutral",
+   "basis": "volume",
+   "reason": "A neutral oil handles the same heat without peanut."
+  },
+  {
+   "from": "peanut_oil",
+   "to": "sunflower_oil",
+   "basis": "volume",
+   "reason": "Sunflower oil handles the same heat without peanut."
+  },
+  {
+   "from": "olive_oil",
+   "to": "oil_neutral",
+   "basis": "volume",
+   "note": {
+    "en": "no olive taste",
+    "zh": "没有橄榄香"
+   },
+   "reason": "A neutral oil cooks the same without the olive taste."
+  },
+  {
+   "from": "olive_oil",
+   "to": "sunflower_oil",
+   "basis": "volume",
+   "note": {
+    "en": "no olive taste",
+    "zh": "没有橄榄香"
+   },
+   "reason": "Sunflower oil cooks the same without the olive taste."
+  },
+  {
+   "from": "coconut_oil",
+   "to": "oil_neutral",
+   "basis": "volume",
+   "note": {
+    "en": "no coconut taste",
+    "zh": "没有椰子味"
+   },
+   "reason": "A neutral oil cooks the same without coconut."
+  },
+  {
+   "from": "coconut_oil",
+   "to": "plant_butter",
+   "basis": "factor",
+   "factor": 1.25,
+   "keeps": [
+    "fat"
+   ],
+   "reason": "Plant-based butter (about 80% fat) replaces the fat in baking."
+  },
+  {
+   "from": "sesame_oil",
+   "to": "sesame_seeds",
+   "basis": "factor",
+   "factor": 2,
+   "step": {
+    "en": "toast and grind first",
+    "zh": "先炒香磨碎"
+   },
+   "reason": "Toasted, ground sesame gives the sesame aroma."
+  },
+  {
+   "from": "sesame_oil",
+   "to": "oil_neutral",
+   "basis": "volume",
+   "note": {
+    "en": "no sesame flavour",
+    "zh": "没有麻油香"
+   },
+   "reason": "A neutral oil keeps the fat without the aroma."
+  },
+  {
+   "from": "sesame_oil",
+   "to": "peanut_oil",
+   "basis": "volume",
+   "note": {
+    "en": "nutty, not sesame",
+    "zh": "花生香，不是麻油香"
+   },
+   "reason": "Peanut oil gives a nutty finish, not sesame."
+  },
+  {
+   "from": "coconut_milk",
+   "to": "soy_milk",
+   "basis": "volume",
+   "note": {
+    "en": "less rich",
+    "zh": "较不浓郁"
+   },
+   "reason": "Soy milk keeps the liquid and some creaminess."
+  },
+  {
+   "from": "coconut_milk",
+   "to": "milk",
+   "basis": "volume",
+   "note": {
+    "en": "less rich",
+    "zh": "较不浓郁"
+   },
+   "reason": "Milk keeps the liquid and some creaminess."
+  },
+  {
+   "from": "milk",
+   "to": "soy_milk",
+   "basis": "volume",
+   "reason": "Unsweetened soy milk cooks and bakes like milk."
+  },
+  {
+   "from": "milk",
+   "to": "coconut_milk",
+   "basis": "volume",
+   "note": {
+    "en": "coconut taste",
+    "zh": "带椰子味"
+   },
+   "reason": "Coconut milk is richer, with a coconut taste."
+  },
+  {
+   "from": "soy_milk",
+   "to": "milk",
+   "basis": "volume",
+   "reason": "Milk cooks and bakes like soy milk."
+  },
+  {
+   "from": "soy_milk",
+   "to": "coconut_milk",
+   "basis": "volume",
+   "note": {
+    "en": "coconut taste",
+    "zh": "带椰子味"
+   },
+   "reason": "Coconut milk is richer, with a coconut taste."
+  },
+  {
+   "from": "eggs",
+   "to": "tofu_firm",
+   "basis": "factor",
+   "factor": 1.2,
+   "keeps": [
+    "protein"
+   ],
+   "failsIn": [
+    "baking"
+   ],
+   "step": {
+    "en": "crumble and fry",
+    "zh": "捏碎后煎"
+   },
+   "reason": "Crumbled firm tofu gives the protein and bite of scrambled egg."
+  },
+  {
+   "from": "eggs",
+   "to": "tofu_silken",
+   "basis": "factor",
+   "factor": 1.2,
+   "keeps": [
+    "bind",
+    "protein"
+   ],
+   "failsIn": [
+    "deep-fry"
+   ],
+   "step": {
+    "en": "blend smooth first",
+    "zh": "先打成泥"
+   },
+   "reason": "Blended silken tofu binds like egg (about 60 g per egg)."
+  },
+  {
+   "from": "tofu_firm",
+   "to": "tau_kwa",
+   "basis": "weight",
+   "note": {
+    "en": "firmer",
+    "zh": "较结实"
+   },
+   "reason": "Tau kwa is pressed tofu, firmer and drier."
+  },
+  {
+   "from": "tofu_firm",
+   "to": "tempeh",
+   "basis": "weight",
+   "note": {
+    "en": "nuttier, firmer",
+    "zh": "较有嚼劲"
+   },
+   "reason": "Tempeh is a firm soy protein with a nutty bite."
+  },
+  {
+   "from": "tofu_firm",
+   "to": "tofu_silken",
+   "basis": "weight",
+   "note": {
+    "en": "softer, breaks easily",
+    "zh": "较嫩易碎"
+   },
+   "reason": "Silken tofu works in soups and steamed dishes; it breaks when stir-fried."
+  },
+  {
+   "from": "tofu_firm",
+   "to": "mushrooms",
+   "basis": "weight",
+   "reason": "Mushrooms give a soy-free, meaty bite."
+  },
+  {
+   "from": "tau_kwa",
+   "to": "tofu_firm",
+   "basis": "weight",
+   "step": {
+    "en": "press 20 min first",
+    "zh": "先压干水分20分钟"
+   },
+   "reason": "Firm tofu is the same soy curd, softer."
+  },
+  {
+   "from": "tau_kwa",
+   "to": "tofu_puffs",
+   "basis": "weight",
+   "note": {
+    "en": "spongier",
+    "zh": "更吸汁"
+   },
+   "reason": "Tofu puffs soak up sauce."
+  },
+  {
+   "from": "tau_kwa",
+   "to": "tempeh",
+   "basis": "weight",
+   "note": {
+    "en": "nuttier",
+    "zh": "较有坚果香"
+   },
+   "reason": "Tempeh is a firm soy protein with a nutty bite."
+  },
+  {
+   "from": "tofu_silken",
+   "to": "tofu_firm",
+   "basis": "weight",
+   "note": {
+    "en": "firmer",
+    "zh": "较结实"
+   },
+   "reason": "Firm tofu holds its shape better."
+  },
+  {
+   "from": "tofu_puffs",
+   "to": "tofu_firm",
+   "basis": "weight",
+   "step": {
+    "en": "fry until golden first",
+    "zh": "先煎至金黄"
+   },
+   "reason": "Firm tofu, fried, takes the place of tofu puffs."
+  },
+  {
+   "from": "tofu_puffs",
+   "to": "tau_kwa",
+   "basis": "weight",
+   "step": {
+    "en": "fry until golden first",
+    "zh": "先煎至金黄"
+   },
+   "reason": "Tau kwa, fried, takes the place of tofu puffs."
+  },
+  {
+   "from": "tempeh",
+   "to": "tofu_firm",
+   "basis": "weight",
+   "step": {
+    "en": "press 20 min first",
+    "zh": "先压干水分20分钟"
+   },
+   "reason": "Firm tofu is a milder soy protein."
+  },
+  {
+   "from": "tempeh",
+   "to": "tau_kwa",
+   "basis": "weight",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Tau kwa is a firm soy protein, milder."
+  },
+  {
+   "from": "edamame",
+   "to": "peas",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Green peas are a sweet, soft legume."
+  },
+  {
+   "from": "edamame",
+   "to": "corn",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Sweet corn adds colour and sweetness."
+  },
+  {
+   "from": "peanuts",
+   "to": "legacy_cashews",
+   "basis": "weight",
+   "reason": "Cashews give the same crunch, richer."
+  },
+  {
+   "from": "peanuts",
+   "to": "sesame_seeds",
+   "basis": "factor",
+   "factor": 0.5,
+   "keeps": [
+    "garnish"
+   ],
+   "note": {
+    "en": "smaller crunch",
+    "zh": "颗粒较小"
+   },
+   "reason": "Toasted sesame gives a nutty crunch without nuts."
+  },
+  {
+   "from": "legacy_cashews",
+   "to": "peanuts",
+   "basis": "weight",
+   "reason": "Peanuts give the same crunch."
+  },
+  {
+   "from": "sesame_seeds",
+   "to": null,
+   "basis": "leave",
+   "keeps": [
+    "garnish"
+   ],
+   "reason": "A garnish can be left out."
+  },
+  {
+   "from": "bok_choy",
+   "to": "tw_choy_sum",
+   "basis": "weight",
+   "reason": "Choy sum is a tender green that cooks the same way."
+  },
+  {
+   "from": "bok_choy",
+   "to": "chinese_spinach",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Bayam cooks quickly and stays tender."
+  },
+  {
+   "from": "bok_choy",
+   "to": "cabbage",
+   "basis": "weight",
+   "step": {
+    "en": "cook 2 minutes longer",
+    "zh": "多炒2分钟"
+   },
+   "reason": "Cabbage holds up in stir-fries; it needs longer."
+  },
+  {
+   "from": "tw_choy_sum",
+   "to": "bok_choy",
+   "basis": "weight",
+   "reason": "Bok choy is a tender green that cooks the same way."
+  },
+  {
+   "from": "tw_choy_sum",
+   "to": "tw_kai_lan",
+   "basis": "weight",
+   "note": {
+    "en": "slightly bitter",
+    "zh": "略带苦味"
+   },
+   "reason": "Kai lan is firmer and slightly bitter."
+  },
+  {
+   "from": "tw_choy_sum",
+   "to": "chinese_spinach",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Bayam cooks quickly and stays tender."
+  },
+  {
+   "from": "tw_kai_lan",
+   "to": "broccoli",
+   "basis": "weight",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Broccoli is the same family, milder."
+  },
+  {
+   "from": "tw_kai_lan",
+   "to": "tw_choy_sum",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Choy sum cooks faster and is milder."
+  },
+  {
+   "from": "tw_kai_lan",
+   "to": "bok_choy",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Bok choy is milder and softer."
+  },
+  {
+   "from": "kangkung",
+   "to": "spinach",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Spinach wilts the same way, without the crunchy stems."
+  },
+  {
+   "from": "kangkung",
+   "to": "chinese_spinach",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Bayam wilts quickly like kangkung."
+  },
+  {
+   "from": "kangkung",
+   "to": "tw_choy_sum",
+   "basis": "weight",
+   "reason": "Choy sum stir-fries the same way."
+  },
+  {
+   "from": "spinach",
+   "to": "chinese_spinach",
+   "basis": "weight",
+   "reason": "Bayam is a tender green like spinach."
+  },
+  {
+   "from": "spinach",
+   "to": "kangkung",
+   "basis": "weight",
+   "note": {
+    "en": "crunchier stems",
+    "zh": "梗较脆"
+   },
+   "reason": "Kangkung wilts like spinach, with crunchy stems."
+  },
+  {
+   "from": "spinach",
+   "to": "bok_choy",
+   "basis": "weight",
+   "note": {
+    "en": "crunchier",
+    "zh": "较爽脆"
+   },
+   "reason": "Bok choy cooks quickly and keeps some crunch."
+  },
+  {
+   "from": "chinese_spinach",
+   "to": "spinach",
+   "basis": "weight",
+   "reason": "Spinach is a tender green like bayam."
+  },
+  {
+   "from": "chinese_spinach",
+   "to": "kangkung",
+   "basis": "weight",
+   "note": {
+    "en": "crunchier stems",
+    "zh": "梗较脆"
+   },
+   "reason": "Kangkung wilts quickly, with crunchy stems."
+  },
+  {
+   "from": "chinese_spinach",
+   "to": "bok_choy",
+   "basis": "weight",
+   "note": {
+    "en": "crunchier",
+    "zh": "较爽脆"
+   },
+   "reason": "Bok choy cooks quickly and keeps some crunch."
+  },
+  {
+   "from": "cabbage",
+   "to": "red_cabbage",
+   "basis": "weight",
+   "note": {
+    "en": "turns the dish purple",
+    "zh": "会染成紫色"
+   },
+   "reason": "Red cabbage cooks the same; it colours the dish."
+  },
+  {
+   "from": "cabbage",
+   "to": "bok_choy",
+   "basis": "weight",
+   "note": {
+    "en": "softer, cooks faster",
+    "zh": "较嫩，熟得快"
+   },
+   "reason": "Bok choy is tender and cooks faster."
+  },
+  {
+   "from": "red_cabbage",
+   "to": "cabbage",
+   "basis": "weight",
+   "note": {
+    "en": "paler",
+    "zh": "颜色较浅"
+   },
+   "reason": "Green cabbage is the same vegetable, paler."
+  },
+  {
+   "from": "broccoli",
+   "to": "tw_kai_lan",
+   "basis": "weight",
+   "note": {
+    "en": "slightly bitter",
+    "zh": "略带苦味"
+   },
+   "reason": "Kai lan is the same family, slightly bitter."
+  },
+  {
+   "from": "lettuce",
+   "to": "cabbage",
+   "basis": "weight",
+   "note": {
+    "en": "crunchier",
+    "zh": "较爽脆"
+   },
+   "reason": "Shredded cabbage gives a crunchier leaf."
+  },
+  {
+   "from": "cucumber",
+   "to": "jicama",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Jicama gives the same crunch, sweeter."
+  },
+  {
+   "from": "jicama",
+   "to": "cabbage",
+   "basis": "weight",
+   "failsIn": [
+    "raw"
+   ],
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Shredded cabbage cooks down like jicama in fillings."
+  },
+  {
+   "from": "jicama",
+   "to": "cucumber",
+   "basis": "weight",
+   "keeps": [
+    "vegetable"
+   ],
+   "failsIn": [
+    "cooked"
+   ],
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Cucumber gives the crunch in raw dishes."
+  },
+  {
+   "from": "carrot",
+   "to": "pumpkin",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Pumpkin is sweet and cooks soft."
+  },
+  {
+   "from": "carrot",
+   "to": "sweet_potato",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Sweet potato adds colour and sweetness."
+  },
+  {
+   "from": "pumpkin",
+   "to": "sweet_potato",
+   "basis": "weight",
+   "note": {
+    "en": "denser",
+    "zh": "较扎实"
+   },
+   "reason": "Sweet potato is sweet and dense."
+  },
+  {
+   "from": "pumpkin",
+   "to": "carrot",
+   "basis": "weight",
+   "note": {
+    "en": "firmer",
+    "zh": "较结实"
+   },
+   "reason": "Carrot is sweet and keeps its shape."
+  },
+  {
+   "from": "sweet_potato",
+   "to": "pumpkin",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Pumpkin is sweet and cooks soft."
+  },
+  {
+   "from": "sweet_potato",
+   "to": "potato",
+   "basis": "weight",
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Potato cooks the same, less sweet."
+  },
+  {
+   "from": "sweet_potato",
+   "to": "taro",
+   "basis": "weight",
+   "note": {
+    "en": "starchier",
+    "zh": "较粉糯"
+   },
+   "reason": "Taro is starchy and creamy when cooked."
+  },
+  {
+   "from": "potato",
+   "to": "sweet_potato",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Sweet potato cooks the same, sweeter."
+  },
+  {
+   "from": "potato",
+   "to": "taro",
+   "basis": "weight",
+   "note": {
+    "en": "creamier",
+    "zh": "较绵密"
+   },
+   "reason": "Taro is starchy and creamy when cooked."
+  },
+  {
+   "from": "taro",
+   "to": "sweet_potato",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Sweet potato is starchy and sweeter."
+  },
+  {
+   "from": "taro",
+   "to": "potato",
+   "basis": "weight",
+   "note": {
+    "en": "less creamy",
+    "zh": "较不绵密"
+   },
+   "reason": "Potato is starchy, less creamy."
+  },
+  {
+   "from": "tomato",
+   "to": "cherry_tomato",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Cherry tomatoes are sweeter tomatoes."
+  },
+  {
+   "from": "cherry_tomato",
+   "to": "tomato",
+   "basis": "weight",
+   "step": {
+    "en": "cut into chunks",
+    "zh": "切块"
+   },
+   "reason": "Tomatoes, cut up, work the same."
+  },
+  {
+   "from": "corn",
+   "to": "peas",
+   "basis": "weight",
+   "reason": "Green peas add the same sweetness and colour."
+  },
+  {
+   "from": "corn",
+   "to": "edamame",
+   "basis": "weight",
+   "note": {
+    "en": "less sweet",
+    "zh": "较不甜"
+   },
+   "reason": "Edamame adds colour and protein."
+  },
+  {
+   "from": "peas",
+   "to": "edamame",
+   "basis": "weight",
+   "note": {
+    "en": "firmer",
+    "zh": "较结实"
+   },
+   "reason": "Edamame is a firmer, nuttier bean."
+  },
+  {
+   "from": "peas",
+   "to": "corn",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Sweet corn adds the same sweetness and colour."
+  },
+  {
+   "from": "mushrooms",
+   "to": "shiitake",
+   "basis": "weight",
+   "note": {
+    "en": "stronger taste",
+    "zh": "味道较浓"
+   },
+   "reason": "Shiitake gives a deeper mushroom taste."
+  },
+  {
+   "from": "shiitake",
+   "to": "mushrooms",
+   "basis": "weight",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Button mushrooms are milder."
+  },
+  {
+   "from": "garlic",
+   "to": "ginger",
+   "basis": "weight",
+   "keeps": [
+    "aromatic"
+   ],
+   "note": {
+    "en": "ginger taste",
+    "zh": "带姜味"
+   },
+   "reason": "Ginger is the usual five-pungent-free aromatic in place of garlic."
+  },
+  {
+   "from": "garlic",
+   "to": "legacy_celery",
+   "basis": "factor",
+   "factor": 4,
+   "keeps": [
+    "aromatic"
+   ],
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Diced celery gives a savoury, five-pungent-free base."
+  },
+  {
+   "from": "onion",
+   "to": "legacy_celery",
+   "basis": "weight",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Celery gives a savoury, crunchy base without onion."
+  },
+  {
+   "from": "onion",
+   "to": "cabbage",
+   "basis": "weight",
+   "keeps": [
+    "vegetable",
+    "aromatic"
+   ],
+   "note": {
+    "en": "sweeter when cooked",
+    "zh": "煮后较甜"
+   },
+   "reason": "Cabbage cooks down sweet and soft like onion."
+  },
+  {
+   "from": "onion",
+   "to": "shallots",
+   "basis": "weight",
+   "note": {
+    "en": "sweeter",
+    "zh": "较甜"
+   },
+   "reason": "Shallots are a sweeter, milder onion."
+  },
+  {
+   "from": "shallots",
+   "to": "onion",
+   "basis": "weight",
+   "note": {
+    "en": "sharper",
+    "zh": "较辛辣"
+   },
+   "reason": "Onion is the same family, a little sharper."
+  },
+  {
+   "from": "shallots",
+   "to": "legacy_celery",
+   "basis": "weight",
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Celery gives a savoury base without onion."
+  },
+  {
+   "from": "spring_onion",
+   "to": "coriander_leaves",
+   "basis": "weight",
+   "keeps": [
+    "garnish"
+   ],
+   "note": {
+    "en": "different herb",
+    "zh": "香味不同"
+   },
+   "reason": "Coriander gives a fresh green garnish."
+  },
+  {
+   "from": "spring_onion",
+   "to": "legacy_celery",
+   "basis": "weight",
+   "keeps": [
+    "aromatic"
+   ],
+   "note": {
+    "en": "milder",
+    "zh": "味道较淡"
+   },
+   "reason": "Celery gives a fresh, savoury lift without onion."
+  },
+  {
+   "from": "spring_onion",
+   "to": null,
+   "basis": "leave",
+   "keeps": [
+    "garnish"
+   ],
+   "reason": "A garnish can be left out."
+  },
+  {
+   "from": "coriander_leaves",
+   "to": "spring_onion",
+   "basis": "weight",
+   "keeps": [
+    "garnish"
+   ],
+   "note": {
+    "en": "different herb",
+    "zh": "香味不同"
+   },
+   "reason": "Spring onion gives a fresh green garnish."
+  },
+  {
+   "from": "coriander_leaves",
+   "to": "legacy_celery",
+   "basis": "weight",
+   "keeps": [
+    "garnish"
+   ],
+   "note": {
+    "en": "different herb",
+    "zh": "香味不同"
+   },
+   "reason": "Chopped celery leaves give a fresh green garnish."
+  },
+  {
+   "from": "coriander_leaves",
+   "to": null,
+   "basis": "leave",
+   "keeps": [
+    "garnish"
+   ],
+   "reason": "A garnish can be left out."
+  },
+  {
+   "from": "red_chilli",
+   "to": null,
+   "basis": "leave",
+   "keeps": [
+    "garnish"
+   ],
+   "reason": "A garnish can be left out."
+  },
+  {
+   "from": "jasmine_rice",
+   "to": "brown_rice_dry",
+   "basis": "weight",
+   "step": {
+    "en": "cook 15 minutes longer",
+    "zh": "多煮15分钟"
+   },
+   "reason": "Brown rice cooks the same way, longer and with more water."
+  },
+  {
+   "from": "jasmine_rice",
+   "to": "millet",
+   "basis": "weight",
+   "note": {
+    "en": "nuttier, smaller grains",
+    "zh": "较香，颗粒小"
+   },
+   "reason": "Millet cooks like rice in about 20 minutes."
+  },
+  {
+   "from": "brown_rice_dry",
+   "to": "jasmine_rice",
+   "basis": "weight",
+   "note": {
+    "en": "softer, cooks faster",
+    "zh": "较软，熟得快"
+   },
+   "reason": "White rice cooks faster with less water."
+  },
+  {
+   "from": "brown_rice_dry",
+   "to": "millet",
+   "basis": "weight",
+   "note": {
+    "en": "nuttier, smaller grains",
+    "zh": "较香，颗粒小"
+   },
+   "reason": "Millet cooks like rice in about 20 minutes."
+  },
+  {
+   "from": "rice_noodles_dry",
+   "to": "legacy_glass_noodles",
+   "basis": "weight",
+   "note": {
+    "en": "chewier",
+    "zh": "更有嚼劲"
+   },
+   "reason": "Glass noodles soak and cook the same way."
+  },
+  {
+   "from": "rice_noodles_dry",
+   "to": "yellow_noodles",
+   "basis": "factor",
+   "factor": 2,
+   "reason": "Fresh yellow noodles weigh about twice the dry rice noodles they replace."
+  },
+  {
+   "from": "yellow_noodles",
+   "to": "rice_noodles_dry",
+   "basis": "factor",
+   "factor": 0.5,
+   "step": {
+    "en": "soak first",
+    "zh": "先泡软"
+   },
+   "reason": "Dry rice noodles weigh about half the fresh noodles."
+  },
+  {
+   "from": "yellow_noodles",
+   "to": "legacy_glass_noodles",
+   "basis": "factor",
+   "factor": 0.4,
+   "step": {
+    "en": "soak first",
+    "zh": "先泡软"
+   },
+   "reason": "Dry glass noodles weigh about 0.4 times the fresh noodles."
+  },
+  {
+   "from": "legacy_glass_noodles",
+   "to": "rice_noodles_dry",
+   "basis": "weight",
+   "note": {
+    "en": "softer",
+    "zh": "较软"
+   },
+   "reason": "Rice noodles soak and cook the same way."
+  }
+ ]
+}

@@ -5,6 +5,6 @@ import { uuid } from '../community/http.mjs';
 export async function publishedRecipeId(value) {
   const id = typeof value === 'string' && value.startsWith('member-') ? value.slice(7) : '';
   if (!uuid(id)) return null;
-  const found = await pool.query('SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL', [id]);
+  const found = await pool.query('SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL AND NOT private', [id]);
   return found.rowCount ? id : null;
 }

@@ -58,6 +58,8 @@ export const pungent = recipe => (recipe.contains ?? []).filter(tag => alliums.i
  */
 export async function wantsNoPungent(job, db = pool) {
   if (job.kind === 'demand') return true;
+  // Snap a dish and My ingredients: the member chose Vegetarian (QuinTaste's meaning, no five pungent) or both.
+  if (job.kind === 'photo' || job.kind === 'ingredients') return job.options?.diet !== 'vegan';
   if (job.kind !== 'request' || !job.user_id) return false;
   const row = (await db.query(`SELECT 'Vegetarian' = ANY(diets) AS yes FROM social.profile WHERE user_id=$1`, [job.user_id])).rows[0];
   return row?.yes === true;

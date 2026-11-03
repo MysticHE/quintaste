@@ -2,12 +2,13 @@ import { recipeCategories } from "../types/food";
 import { readLabels, type DietLabel } from "../config/diet-labels";
 import { nutritionChoices, type CookBrowse, type CookedEntry, type RecipeDraft, type RecipeDraftIngredient, type RecipeWorkspace } from "../types/recipe-workspace";
 import { translate, type Language } from "../i18n";
+import { mergeSwaps, readSwaps } from "../utils/swaps";
 const record = (value: unknown): Record<string, unknown> => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : {};
 const text = (value: unknown, max: number) => typeof value === "string" ? value.slice(0, max) : "";
 const rows = (value: unknown) => Array.isArray(value) ? value.slice(0, 100).map(record) : [];
 export const defaultCookBrowse: CookBrowse = { category: "All", labels: [], time: "Any", onePot: false, sort: "Fit", nutrition: [] };
 export const cookedLimit = 200;
-export const emptyRecipeWorkspace = (): RecipeWorkspace => ({ drafts: [], shopping: [], browse: defaultCookBrowse, cooked: [], shoppingView: "combined" });
+export const emptyRecipeWorkspace = (): RecipeWorkspace => ({ drafts: [], shopping: [], browse: defaultCookBrowse, cooked: [], shoppingView: "combined", swaps: [] });
 /** A blank amount means "to taste"; any amount given must be a positive number with a unit. */
 export function amountIssue(i: RecipeDraftIngredient) {
   if (!i.amount.trim()) return null;
@@ -77,7 +78,7 @@ export function readRecipeWorkspace(value: unknown): RecipeWorkspace {
   });
   const shopping = rows(v.shopping).filter(n => text(n.id, 80) && text(n.text, 300)).map(n => ({ id: text(n.id, 80), recipeId: text(n.recipeId, 80), ...(text(n.recipeName, 120) ? { recipeName: text(n.recipeName, 120) } : {}), text: text(n.text, 300), checked: n.checked === true,
     ...(text(n.name, 120) ? { name: text(n.name, 120), amount: typeof n.amount === "number" && Number.isFinite(n.amount) && n.amount > 0 ? n.amount : null, unit: text(n.unit, 24) } : {}) }));
-  return { drafts, shopping, browse: readBrowse(v.browse, v.filter), cooked: readCooked(v.cooked), shoppingView: v.shoppingView === "recipe" ? "recipe" : "combined" };
+  return { drafts, shopping, browse: readBrowse(v.browse, v.filter), cooked: readCooked(v.cooked), shoppingView: v.shoppingView === "recipe" ? "recipe" : "combined", swaps: readSwaps(v.swaps) };
 }
 export function workspaceSizeIssue(workspace: RecipeWorkspace, language: Language = "en") {
   const bytes = workspace.drafts.reduce((n, d) => n + (d.photo?.length ?? 0) + d.steps.reduce((m, s) => m + (s.photo?.length ?? 0), 0), 0);
@@ -87,6 +88,6 @@ export function workspaceSizeIssue(workspace: RecipeWorkspace, language: Languag
 export function mergeRecipeWorkspace(profile: RecipeWorkspace, guest: RecipeWorkspace): RecipeWorkspace {
   const cooked = [...profile.cooked, ...guest.cooked.filter(g => !profile.cooked.some(p => p.recipeId === g.recipeId && p.finishedAt === g.finishedAt))]
     .sort((a, b) => b.finishedAt - a.finishedAt).slice(0, cookedLimit);
-  const merged = { ...profile, cooked, drafts: [...profile.drafts, ...guest.drafts.filter(d => !profile.drafts.some(p => p.id === d.id)).map(d => ({ ...d, rights: false, policy: false, status: "draft" as const }))], shopping: [...profile.shopping, ...guest.shopping.filter(n => !profile.shopping.some(p => p.id === n.id))] };
+  const merged = { ...profile, cooked, swaps: mergeSwaps(profile.swaps, guest.swaps), drafts: [...profile.drafts, ...guest.drafts.filter(d => !profile.drafts.some(p => p.id === d.id)).map(d => ({ ...d, rights: false, policy: false, status: "draft" as const }))], shopping: [...profile.shopping, ...guest.shopping.filter(n => !profile.shopping.some(p => p.id === n.id))] };
   const issue = workspaceSizeIssue(merged); if (issue) throw new Error(issue); return merged;
 }

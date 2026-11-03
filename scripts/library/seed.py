@@ -27,6 +27,8 @@ LINKS = {
     # Super firm tofu matches a Singapore tau kwa pack (117 kcal, 13.1 g protein, 6.7 g fat per 100 g) within 6%; Taiwan's
     # dougan (161 kcal) is drier.
     'tau-kwa': ('usda-sr', '174297'),
+    # The bot's tapioca key pointed at tapioca pearls; the starch is Taiwan's cassava starch (also Japan's 02028).
+    'legacy-tapioca-starch': ('taiwan-fda', 'B0320101'),
     # The bot took Taiwan's 豆腐皮 for dried tau kee, but that record is fresh beancurd skin (60% water).
     'tw-yuba': ('japan-mext', '04060'),
 }

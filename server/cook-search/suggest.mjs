@@ -26,7 +26,7 @@ async function build() {
   const [members, editorial, linked] = await Promise.all([
     pool.query(`SELECT 'member-' || mr.id AS id, mr.author_id, mr.live->>'title' AS title, (mr.live->>'minutes')::int AS minutes,
         coalesce((SELECT array_agg(i->>'name') FROM jsonb_array_elements(mr.live->'ingredients') i), '{}') AS ingredients
-      FROM recipes.recipe mr WHERE mr.live IS NOT NULL AND mr.hidden_at IS NULL AND ${notRestricted('mr.author_id')}`),
+      FROM recipes.recipe mr WHERE mr.live IS NOT NULL AND mr.hidden_at IS NULL AND NOT mr.private AND ${notRestricted('mr.author_id')}`),
     editorialRecipes().catch(error => { logger.warn({ event: 'cook_suggest_editorial_failed', detail: String(error?.message ?? error).slice(0, 120) }); return []; }),
     pool.query("SELECT term, recipe_id FROM recipes.demand WHERE status='linked' AND recipe_id IS NOT NULL").catch(() => ({ rows: [] })),
   ]);

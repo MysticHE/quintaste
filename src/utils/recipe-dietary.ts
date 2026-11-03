@@ -1,18 +1,12 @@
 import { alliums, animalExclusions, type Exclusion } from "../config/preferences";
+import { COMPOUND_RULES } from "../config/diet-words.mjs";
 import { labelsFrom, suits, type DietLabel } from "../config/diet-labels";
 import type { Ingredient, Recipe } from "../types/food";
 import { translate, type Language } from "../i18n";
 import type { CookKey } from "../i18n/en/cook";
 
-/** Prepared ingredients whose labels commonly hide exclusions. A label-checked line clears the rule. */
-const compoundRules: { pattern: RegExp; hides: readonly Exclusion[] }[] = [
-  { pattern: /\b(stock|bouillon|broth|gravy|soup base|seasoning|curry (powder|paste|sauce)|laksa paste|rempah|sambal|chill?i (bean )?paste|chill?i (oil|crisp)|doubanjiang|ketchup|sweet sauce|tim cheong|hoisin|vegetarian (oyster|mushroom) sauce|mushroom sauce|pasta sauce|marinara|tomato sauce|salsa|spice (mix|blend))\b/i, hides: [...alliums, "Gluten"] },
-  { pattern: /\bpesto\b/i, hides: [...alliums, "Dairy"] },
-  { pattern: /\b(puff )?pastry\b/i, hides: ["Eggs", "Dairy"] },
-  { pattern: /\b(curry paste|laksa paste|rempah|chilli paste)\b/i, hides: ["Root vegetables"] },
-  { pattern: /\b(yellow noodles|egg-free noodles|vegan butter|plant-based butter|margarine|mock meat|plant-based mince)\b/i, hides: ["Eggs", "Dairy", "Gluten"] },
-  { pattern: /\b(fermented beancurd|fu ru)\b/i, hides: ["Gluten"] },
-];
+/** Prepared ingredients whose labels commonly hide exclusions (src/config/diet-words.mjs). A label-checked line clears the rule. */
+const compoundRules = COMPOUND_RULES as { pattern: RegExp; hides: readonly Exclusion[] }[];
 export function compoundExclusions(ingredient: Pick<Ingredient, "name" | "labelChecked">): Exclusion[] {
   if (ingredient.labelChecked) return [];
   return [...new Set(compoundRules.filter(rule => rule.pattern.test(ingredient.name)).flatMap(rule => rule.hides))];

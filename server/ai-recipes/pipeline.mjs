@@ -4,6 +4,8 @@ import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSyste
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
 import { hiddenAnimal, houseNotes, pungent, wantsNoPungent } from './charter.mjs';
 import { fromVideo } from './video-job.mjs';
+import { CHOSEN_KINDS, dropSnap, fromPhoto } from './snap.mjs';
+import { fromIngredients } from './ingredients.mjs';
 import { queueDrawings } from './drawings.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
 import { recipeKeys } from '../nutrition/dynamic.mjs';
@@ -40,7 +42,10 @@ async function reviewNotes(job, recipe, used) {
   const animal = hiddenAnimal(recipe.ingredients.map(i => i.name));
   const notes = animal.length ? ['animal ingredient to swap for a vegetarian one: ' + animal.join(', ')] : [];
   if (job.kind === 'demand') return [...notes, ...houseNotes(recipe)];
-  if (used.length && await noPungentFor(job)) notes.push('uses ' + used.join(', ').toLowerCase() + ', which the member\'s Food Choices leave out');
+  if (used.length && await noPungentFor(job)) notes.push('uses ' + used.join(', ').toLowerCase() + (CHOSEN_KINDS.includes(job.kind) ? ', which the member asked to leave out' : ', which the member\'s Food Choices leave out'));
+  // Snap a dish and My ingredients: a Vegan (or Vegan and Vegetarian) recipe that still has egg, dairy or honey waits for staff.
+  const animalTags = CHOSEN_KINDS.includes(job.kind) && job.options?.diet !== 'vegetarian' ? (recipe.contains ?? []).filter(tag => ['Eggs', 'Dairy', 'Honey'].includes(tag)) : [];
+  if (animalTags.length) notes.push('uses ' + animalTags.join(', ').toLowerCase() + ', which the member asked to leave out (Vegan)');
   return notes;
 }
 
@@ -50,9 +55,12 @@ async function save(job, recipe, review, nutritionComplete) {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    const row = (await client.query(`INSERT INTO recipes.recipe (author_id, draft_key, live, live_revision, pending, pending_revision, pending_state, submitted_at, published_at)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, now(), $8) RETURNING id`,
-      [job.user_id, 'ai-' + job.id, review ? null : saved, review ? null : 1, review ? saved : null, review ? 1 : null, review ? 'review' : null, review ? null : new Date()])).rows[0];
+    // Snap a dish and My ingredients recipes are private when the member chose so (only they see it); every other AI recipe is public.
+    const chosen = CHOSEN_KINDS.includes(job.kind);
+    const row = (await client.query(`INSERT INTO recipes.recipe (author_id, draft_key, live, live_revision, pending, pending_revision, pending_state, submitted_at, published_at${chosen ? ', private' : ''})
+      VALUES ($1, $2, $3, $4, $5, $6, $7, now(), $8${chosen ? ', $9' : ''}) RETURNING id`,
+      [job.user_id, 'ai-' + job.id, review ? null : saved, review ? null : 1, review ? saved : null, review ? 1 : null, review ? 'review' : null, review ? null : new Date(),
+        ...(chosen ? [job.options?.private === true] : [])])).rows[0];
     // A live recipe is linked to its ingredient names, so later corrections in the ingredient database reach it; when
     // some names were left for later (AI off or failed) the hourly refresh checks it again.
     if (!review) await linkRecipe(client, row.id, 1, recipeKeys(saved.ingredients), nutritionComplete);
@@ -98,6 +106,8 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
 
 /** Marks a job failed with a member-readable message (GeminiError messages are written for members). */
 export async function failJob(job, error, usage) {
+  // A photo is kept for its job only, however the job ends.
+  if (job.kind === 'photo') await dropSnap(job.options?.snap);
   const message = error instanceof GeminiError ? error.message : 'Something went wrong reading this. Try again later.';
   await pool.query(`UPDATE recipes.ai_job SET status='failed', message=$2, usage=$3, finished_at=now() WHERE id=$1`, [job.id, message.slice(0, 500), usage]);
   notify(job.user_id, 'recipeFailed', { url: '/cook/ai' });
@@ -111,7 +121,9 @@ export const progress = job => message => pool.query("UPDATE recipes.ai_job SET 
 export async function runJob(job, signal) {
   const usage = { calls: [], bytes: 0 };
   try {
-    const { recipe, photos } = job.kind === 'video' ? await fromVideo(job, signal, usage, progress(job)) : await fromRequest(job, signal, usage, progress(job));
+    const { recipe, photos } = job.kind === 'video' ? await fromVideo(job, signal, usage, progress(job))
+      : job.kind === 'photo' ? await fromPhoto(job, signal, usage, progress(job))
+      : job.kind === 'ingredients' ? await fromIngredients(job, signal, usage, progress(job)) : await fromRequest(job, signal, usage, progress(job));
     return await finishJob(job, recipe, photos, usage, { signal });
   } catch (error) {
     return failJob(job, error, usage);

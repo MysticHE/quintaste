@@ -14,6 +14,8 @@ import { animal, containsFor, labelsFor } from '../diet-labels.mjs';
 export const recipes = communityRouter({ guests: true, bodyLimit: '64kb', photoLimit: '2mb',
   photos: req => req.method === 'PUT' && /^\/mine\/[^/]+$/.test(req.path) });
 const live = `mr.live IS NOT NULL AND mr.hidden_at IS NULL AND ${notRestricted('mr.author_id')}`;
+/** A private recipe (Snap a dish, server/ai-recipes/photo.sql) is seen by its author only; `viewer` is the viewer's id param or null. */
+const notPrivate = viewer => viewer ? `(NOT mr.private OR mr.author_id = ${viewer})` : 'NOT mr.private';
 const photoPath = (id, slot, digest) => `/api/recipes/photos/${id}/${slot}?v=${digest.slice(0, 12)}`;
 const day = at => new Date(at).toISOString().slice(0, 10);
 const coverColumn = `(SELECT digest FROM recipes.photo p WHERE p.recipe_id=mr.id AND p.version='live' AND p.slot='cover') AS cover`;
@@ -29,12 +31,13 @@ function summary(row) {
 /** An author's recipes the viewer can open, newest first, as grid tiles need them (the posts on their Social profile). */
 export async function recipesBy(authorId, viewer) {
   const rows = (await pool.query(`SELECT mr.id, mr.live->>'title' AS name, ${coverColumn} FROM recipes.recipe mr WHERE mr.author_id=$1 AND ${live}
-    AND ${notBlocked('mr.author_id', '$2')} ORDER BY mr.published_at DESC, mr.id LIMIT 60`, [authorId, viewer])).rows;
+    AND ${notBlocked('mr.author_id', '$2')} AND ${notPrivate('$2')} ORDER BY mr.published_at DESC, mr.id LIMIT 60`, [authorId, viewer])).rows;
   return rows.map(row => ({ id: publicId(row.id), name: row.name, image: row.cover ? photoPath(row.id, 'cover', row.cover) : null }));
 }
 
 recipes.get('/', async (req, res) => {
-  const viewer = res.locals.user?.id ?? null, q = req.query, params = [], where = [live];
+  // The shared feed never lists private recipes, not even the author's own (they find them in their AI recipes).
+  const viewer = res.locals.user?.id ?? null, q = req.query, params = [], where = [live, notPrivate(null)];
   const add = value => { params.push(value); return '$' + params.length; };
   if (viewer) where.push(notBlocked('mr.author_id', add(viewer)));
   if (typeof q.q === 'string' && q.q.trim()) {
@@ -118,8 +121,10 @@ recipes.delete('/mine/:key', member, async (req, res) => {
 
 recipes.get('/photos/:id/:slot', async (req, res) => {
   if (!uuid(req.params.id) || !/^(cover|step-[0-9]{1,2})$/.test(req.params.slot)) throw new CommunityError(404, 'Photo unavailable.');
+  const viewer = res.locals.user?.id ?? null;
   const row = (await pool.query(`SELECT p.bytes FROM recipes.photo p JOIN recipes.recipe mr ON mr.id=p.recipe_id
-    WHERE p.recipe_id=$1 AND p.version='live' AND p.slot=$2 AND ${live}`, [req.params.id, req.params.slot])).rows[0];
+    WHERE p.recipe_id=$1 AND p.version='live' AND p.slot=$2 AND ${live} AND ${notPrivate(viewer ? '$3' : null)}`,
+  viewer ? [req.params.id, req.params.slot, viewer] : [req.params.id, req.params.slot])).rows[0];
   if (!row) throw new CommunityError(404, 'Photo unavailable.');
   // Private and short: a hidden recipe's photo must not outlive it in shared caches.
   res.set({ 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, max-age=300', 'Cross-Origin-Resource-Policy': 'cross-origin', 'X-Content-Type-Options': 'nosniff' }).send(row.bytes);
@@ -130,7 +135,7 @@ recipes.get('/:id', async (req, res) => {
   const viewer = res.locals.user?.id ?? null, id = rowId(req.params.id);
   const row = (await pool.query(`SELECT mr.id, mr.author_id, mr.live, mr.live_revision, mr.published_at, ${coverColumn},
       (SELECT json_object_agg(p.slot, p.digest) FROM recipes.photo p WHERE p.recipe_id=mr.id AND p.version='live') AS photos
-    FROM recipes.recipe mr WHERE mr.id=$1 AND ${live} ${viewer ? `AND ${notBlocked('mr.author_id', '$2')}` : ''}`, viewer ? [id, viewer] : [id])).rows[0];
+    FROM recipes.recipe mr WHERE mr.id=$1 AND ${live} AND ${notPrivate(viewer ? '$2' : null)} ${viewer ? `AND ${notBlocked('mr.author_id', '$2')}` : ''}`, viewer ? [id, viewer] : [id])).rows[0];
   if (!row) throw new CommunityError(404, 'This recipe is unavailable.');
   // Wanted recipes have no author, so a guest (no viewer) must not match an empty author.
   const r = row.live, own = !!viewer && viewer === row.author_id;

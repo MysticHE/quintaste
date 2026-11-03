@@ -23,17 +23,18 @@ async function targets(kind, raw) {
   return raw.map(id => typeof id === 'string' && /^[a-z0-9][a-z0-9-]{0,99}$/.test(id) && !id.startsWith('private-') ? id : null);
 }
 /** Liking or sharing needs an item members can see now: a published place, a live member recipe, or a published QuinTaste recipe. */
-async function writable(kind, raw) {
-  if (kind === 'recipe') return liveRecipeId(raw);
+async function writable(kind, raw, viewer) {
+  if (kind === 'recipe') return liveRecipeId(raw, viewer);
   const [id] = await targets(kind, [raw]);
   if (!id) throw unavailable(kind);
   return id;
 }
 /** A recipe id members can act on now (a live member recipe or a published QuinTaste recipe); 404 otherwise. Also used by cooked photos. */
-export async function liveRecipeId(raw) {
+/** `viewer`: a private recipe (Snap a dish) counts for its author only. */
+export async function liveRecipeId(raw, viewer = null) {
   const [id] = await targets('recipe', [raw]);
   const live = !!id && (id.startsWith('member-')
-    ? (await pool.query(`SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL`, [rowId(id)])).rowCount > 0
+    ? (await pool.query(`SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL AND hidden_at IS NULL AND (NOT private OR author_id = $2)`, [rowId(id), viewer])).rowCount > 0
     : await publishedRecipe(id));
   if (!live) throw unavailable('recipe');
   return id;
@@ -61,7 +62,7 @@ reactions.get('/:kind', async (req, res) => {
     return { id, likes: row?.likes ?? 0, shares: row?.shares ?? 0, cooks: row?.cooks ?? 0, liked: !!row?.liked, shared: !!row?.shared, cooked: !!row?.cooked }; }) });
 });
 async function react(req, res, action, adding) {
-  const kind = res.locals.kind, me = res.locals.user.id, id = adding ? await writable(kind, req.params.id) : removable(kind, req.params.id);
+  const kind = res.locals.kind, me = res.locals.user.id, id = adding ? await writable(kind, req.params.id, me) : removable(kind, req.params.id);
   await throttle(`reaction-${action}:${me}`, 300, 3600);
   if (adding) {
     const added = await pool.query(`INSERT INTO community.reaction(kind, target, action, user_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`, [kind, id, action, me]);

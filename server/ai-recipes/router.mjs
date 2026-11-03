@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import { createHash, randomUUID } from 'node:crypto';
 import { createWriteStream } from 'node:fs';
 import { mkdir, rm } from 'node:fs/promises';
@@ -6,25 +7,34 @@ import { finished } from 'node:stream/promises';
 import path from 'node:path';
 import { pool } from '../config.mjs';
 import { allowed, restricted } from '../operations.mjs';
-import { CommunityError, communityRouter, errors, member, text } from '../community/http.mjs';
+import { CommunityError, communityRouter, errors, member, text, throttle } from '../community/http.mjs';
+import { accountAccess } from '../account-access.mjs';
 import { publicId } from '../recipes/rules.mjs';
 import { GeminiError } from './gemini.mjs';
-import { engineReady } from './engine.mjs';
+import { engine, engineReady } from './engine.mjs';
 import { parseLink } from './video.mjs';
 import { MAX_FILE_BYTES, VIDEO_TYPES } from './files.mjs';
 import { UPLOAD_DIR } from './work.mjs';
 import { parseUpload } from './pipeline.mjs';
 import { isRefusal } from './recipe.mjs';
 import { normaliseTerm } from '../cook-search/terms.mjs';
+import { CHOSEN_KINDS, RECOGNITIONS_PER_DAY, SNAP_CONSENT, dropSnap, keepSnap, readDiet, readGuesses, recognise, saveGuesses } from './snap.mjs';
+import { findCard } from './dishes.mjs';
+import { MAX_ITEMS, MAX_PANTRY, readItems, seeItems } from './ingredients.mjs';
+import { cookable } from './cookable.mjs';
+import { encodePhoto } from '../market/rules.mjs';
 import { AT_ONCE, DAILY_PER_MEMBER, MAX_VIDEO_SECONDS, RAN, dailyCap, jobsLastDay, planAccess, usedLastDay } from './limits.mjs';
 
 /** Members queue AI recipe jobs here and watch them; guests see nothing. Three jobs a day per member for now. */
-export const aiRecipes = communityRouter({ guests: true, bodyLimit: '8kb' });
+// Snap a dish and My ingredients send one photo (a JPEG data URI under 1 MB); the edge allows 1.6 MB on those paths only (deploy/compose.yml).
+export const aiRecipes = communityRouter({ guests: true, bodyLimit: '8kb', photoLimit: '1500kb',
+  photos: req => req.method === 'POST' && (req.path === '/snap' || req.path === '/ingredients/see') });
 const sha = value => createHash('sha256').update(value).digest('hex');
 const view = row => {
   const upload = parseUpload(row.input);
   // No retry for uploads (the file is gone) or for answers about the source itself (a retry gets the same answer).
-  return { id: row.id, kind: row.kind, input: upload ? 'Uploaded video' : row.input, retryable: !upload && row.status === 'failed' && !isRefusal(row.message), status: row.status,
+  // A photo job cannot be retried either (its photo is removed when the job ends), nor My ingredients (its list is not kept in the app).
+  return { id: row.id, kind: row.kind, input: upload ? 'Uploaded video' : row.input, retryable: !upload && !CHOSEN_KINDS.includes(row.kind) && row.status === 'failed' && !isRefusal(row.message), status: row.status,
     message: row.message, createdAt: row.created_at, finishedAt: row.finished_at, recipeId: row.recipe_id ? publicId(row.recipe_id) : null,
     // The written recipe's own title, so the member's list reads "Vegan laksa" rather than a pasted link.
     title: typeof row.title === 'string' ? row.title.slice(0, 120) : null,
@@ -77,10 +87,13 @@ aiRecipes.get('/status', async (_req, res) => {
   // `plan` is null until payments are connected (docs/COOK_DISCOVERY_PLAN.md §6). `needsPlan`: AI recipes are paid only,
   // so a member without a plan is sent to the plans screen. `fullToday` means everyone's daily total is used.
   const me = res.locals.user?.id ?? null;
-  const [enabled, month, today, all, cap, access] = await Promise.all([
+  const [enabled, month, today, all, cap, access, gemini] = await Promise.all([
     (async () => await engineReady() && await allowed('ai_recipes') && await allowed('recipes'))(),
-    me ? usedThisMonth(me) : 0, me ? usedLastDay(me) : 0, jobsLastDay(), dailyCap(), planAccess(me)]);
-  res.json({ enabled, dailyPerMember: DAILY_PER_MEMBER, plan: null, needsPlan: access.needsPlan, usedThisMonth: month, usedToday: today, fullToday: all >= cap,
+    me ? usedThisMonth(me) : 0, me ? usedLastDay(me) : 0, jobsLastDay(), dailyCap(), planAccess(me), engine().then(e => e === 'gemini')]);
+  // The same conditions as snapAvailable, from what is already read: unlimited usage is the master account.
+  const snap = !!me && enabled && access.unlimited && gemini;
+  // `unlimited`: the master account, which has no daily count; `snap`: whether Snap a dish and My ingredients are open to this member.
+  res.json({ enabled, dailyPerMember: DAILY_PER_MEMBER, plan: null, needsPlan: access.needsPlan, unlimited: access.unlimited, snap, usedThisMonth: month, usedToday: today, fullToday: all >= cap,
     limits: { videoMinutes: MAX_VIDEO_SECONDS / 60, videoMb: Math.round(MAX_FILE_BYTES / 1048576), atOnce: AT_ONCE } });
 });
 
@@ -98,8 +111,109 @@ aiRecipes.post('/mine/clear', member, async (_req, res) => {
   res.json({ cleared });
 });
 
+/**
+ * Snap a dish (docs/AI_FOOD_LIBRARY_PLAN.md §6) stays on the master account until a cook has cooked 30 recreated dishes (§9), and
+ * runs on Gemini only (owner decision 4): with the QT bots engine on it is unavailable rather than quietly switching engines.
+ */
+async function snapAvailable(me) {
+  await available(me);
+  if ((await accountAccess(me)).role !== 'master') throw new CommunityError(403, 'Snap a dish is not available yet.');
+  if (await engine() !== 'gemini') throw new CommunityError(503, 'Snap a dish is not available right now.');
+}
+/** Names the dish in a photo (free, 20 a day). The photo is kept on the app's disk for the recipe only, then removed. */
+aiRecipes.post('/snap', member, async (req, res) => {
+  const me = res.locals.user.id;
+  await snapAvailable(me);
+  if (req.body?.consent !== SNAP_CONSENT) throw new CommunityError(400, 'Read and accept the photo notice first.', 'SNAP_CONSENT');
+  // The daily count is taken once the photo is readable, so a photo that cannot be decoded does not use one up.
+  const { id, bytes } = await keepSnap(req.body?.photo);
+  try {
+    await throttle('snap:' + me, RECOGNITIONS_PER_DAY, 86400, `You can snap ${RECOGNITIONS_PER_DAY} dishes a day. Try again tomorrow.`);
+    const seen = await recognise(bytes);
+    // The photo belongs to the account that took it: only that account can make a recipe from it.
+    await saveGuesses(id, { user: me, guesses: seen.guesses, components: seen.components });
+    res.json({ snap: id, guesses: seen.guesses });
+  } catch (error) {
+    await dropSnap(id);
+    if (error instanceof GeminiError) throw new CommunityError(error.status === 422 ? 422 : 503, error.status === 422 ? error.message : 'The photo could not be read right now. Try again.');
+    throw error;
+  }
+});
+
+/**
+ * My ingredients: the foods in one fridge or shelf photo (free, 20 photos a day). The photo is read and dropped at once; nothing
+ * of it is kept. Same gates as Snap a dish.
+ */
+aiRecipes.post('/ingredients/see', member, async (req, res) => {
+  const me = res.locals.user.id;
+  await snapAvailable(me);
+  if (req.body?.consent !== SNAP_CONSENT) throw new CommunityError(400, 'Read and accept the photo notice first.', 'SNAP_CONSENT');
+  const { bytes } = await encodePhoto(req.body?.photo, { edge: 1024, quality: 80, max: 500000, inputMax: 1400000 });
+  await throttle('items:' + me, RECOGNITIONS_PER_DAY, 86400, `You can add ${RECOGNITIONS_PER_DAY} photos a day. Try again tomorrow.`);
+  try { res.json(await seeItems(bytes)); }
+  catch (error) {
+    if (error instanceof GeminiError) throw new CommunityError(error.status === 422 ? 422 : 503, error.status === 422 ? error.message : 'The photo could not be read right now. Try again.');
+    throw error;
+  }
+});
+/** "Matching recipes": our recipes ranked by the member's items and basics (no AI, no credit). `recent`: recipes cooked lately. */
+aiRecipes.post('/ingredients/recipes', member, async (req, res) => {
+  const me = res.locals.user.id;
+  await snapAvailable(me);
+  const items = readItems(req.body?.items, MAX_ITEMS, 'items'), pantry = readItems(req.body?.pantry, MAX_PANTRY, 'basics');
+  if (!items.length) throw new CommunityError(400, 'Add an ingredient first.');
+  const recent = Array.isArray(req.body?.recent) ? req.body.recent.filter(id => typeof id === 'string' && id.length <= 80).slice(0, 40) : [];
+  res.json({ items: await cookable({ items, pantry, recent, viewer: me }) });
+});
+/** "Create a new one with these": a recipe from mostly the member's items; Vegan, Vegetarian or both; private or public. */
+async function ingredientsJob(me, body) {
+  const items = readItems(body?.items, MAX_ITEMS, 'items'), pantry = readItems(body?.pantry, MAX_PANTRY, 'basics');
+  if (!items.length) throw new CommunityError(400, 'Add an ingredient first.');
+  const diet = readDiet(body?.diet);
+  if (!diet) throw new CommunityError(400, 'Choose Vegan, Vegetarian or both.');
+  const input = items.join(', ').slice(0, 300), options = { items, pantry, diet, private: body?.private === true };
+  // The job's options are kept under 2000 bytes (photo.sql); names in Chinese take three bytes a character.
+  if (Buffer.byteLength(JSON.stringify(options)) > 1900) throw new CommunityError(400, 'Use fewer or shorter ingredient names.');
+  return exclusive(me, async () => {
+    await withinQuota(me);
+    // Each request is its own recipe: never reused for another member, so the hash is unique.
+    return (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, options) VALUES ($1, 'ingredients', $2, $3, $4) RETURNING *`,
+      [me, input, sha('ingredients:' + randomUUID()), options])).rows[0];
+  });
+}
+
+/** Create recipe for a snapped dish: one of the AI's guesses, or a name the member typed; Vegan, Vegetarian or both; private or public. */
+async function photoJob(me, body) {
+  const seen = await readGuesses(body?.snap);
+  if (!seen || seen.user !== me) throw new CommunityError(410, 'This photo has expired. Snap it again.');
+  let dish, card;
+  if (typeof body?.dish === 'string' && body.dish.trim()) {
+    const typed = text(body.dish, 80, { min: 2, field: 'Dish name' });
+    card = findCard(typed);
+    dish = card ? card.name : { en: typed, zh: typed };
+  } else {
+    const guess = seen.guesses[Number.isInteger(body?.choice) ? body.choice : 0];
+    if (!guess) throw new CommunityError(400, 'Choose the dish.');
+    dish = guess.name; card = guess.card ? { id: guess.card } : null;
+  }
+  const diet = readDiet(body?.diet);
+  if (!diet) throw new CommunityError(400, 'Choose Vegan, Vegetarian or both.');
+  // The photo's parts are kept even with a card, so the plan survives a card renamed or removed before the job runs.
+  const options = { snap: body.snap, card: card?.id ?? null, dish, diet, private: body?.private === true, components: seen.components };
+  return exclusive(me, async () => {
+    await withinQuota(me);
+    // Every photo is its own recipe: the hash is the photo's, so it is never reused for anyone else.
+    return (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, options) VALUES ($1, 'photo', $2, $3, $4) RETURNING *`,
+      [me, dish.en, sha('photo:' + body.snap), options])).rows[0];
+  });
+}
+
 aiRecipes.post('/', member, async (req, res) => {
   const me = res.locals.user.id;
+  if (req.body?.kind === 'photo' || req.body?.kind === 'ingredients') {
+    await snapAvailable(me);
+    return res.status(201).json(view(await (req.body.kind === 'photo' ? photoJob(me, req.body) : ingredientsJob(me, req.body))));
+  }
   await available(me);
   const kind = req.body?.kind === 'video' ? 'video' : req.body?.kind === 'request' ? 'request' : null;
   if (!kind) throw new CommunityError(400, 'Choose a video link or a dish request.');
@@ -112,7 +226,7 @@ aiRecipes.post('/', member, async (req, res) => {
   // A live recipe from the same video, or from the same dish asked for in the last 90 days, is reused instead of written again.
   // Reviewed jobs keep status "review" after staff publish, so a live recipe is what counts.
   const existing = (await pool.query(`SELECT j.recipe_id FROM recipes.ai_job j JOIN recipes.recipe r ON r.id=j.recipe_id
-    WHERE j.input_hash=$1 AND j.status IN ('published','review') AND r.live IS NOT NULL AND r.hidden_at IS NULL
+    WHERE j.input_hash=$1 AND j.status IN ('published','review') AND r.live IS NOT NULL AND r.hidden_at IS NULL AND NOT r.private
       AND ($2 = 'video' OR j.finished_at > now() - interval '90 days') ORDER BY j.finished_at DESC LIMIT 1`, [hash, kind])).rows[0];
   if (existing) {
     const row = (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, status, recipe_id, finished_at, message)
@@ -171,7 +285,7 @@ async function finishUpload(req, res, me, { mimeType, size, link }) {
     await finished(out);
     const hash = sha(digest.digest('hex') + (link ?? ''));
     const existing = (await pool.query(`SELECT j.recipe_id FROM recipes.ai_job j JOIN recipes.recipe r ON r.id=j.recipe_id
-      WHERE j.input_hash=$1 AND j.status='published' AND r.live IS NOT NULL AND r.hidden_at IS NULL ORDER BY j.finished_at DESC LIMIT 1`, [hash])).rows[0];
+      WHERE j.input_hash=$1 AND j.status='published' AND r.live IS NOT NULL AND r.hidden_at IS NULL AND NOT r.private ORDER BY j.finished_at DESC LIMIT 1`, [hash])).rows[0];
     const input = 'upload local/' + name + ' ' + mimeType + (link ? ' ' + link : '');
     if (existing) {
       const row = (await pool.query(`INSERT INTO recipes.ai_job (user_id, kind, input, input_hash, status, recipe_id, finished_at, message)
