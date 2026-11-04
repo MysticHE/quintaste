@@ -62,6 +62,23 @@ class Wiring(unittest.TestCase):
         self.assertTrue(all((HERE / name).exists() for name in d.TEST_FILES))
         self.assertEqual(d.CHECKS[0][1][-len(d.TEST_FILES):], [name[:-3] for name in d.TEST_FILES])
 
+    def test_both_payloads_install_and_probe_the_blocker_dependency(self):
+        import deploy_cooker_rules as cooker
+        for names, probe in ((d.BOT_FILES, d.IMPORTS), (cooker.NAMES, cooker.code)):
+            with self.subTest(payload=names):
+                self.assertIn('bot_blockers.py', names)
+                self.assertIn('bot_blockers', probe)
+                # Rehearse a clean pre-food-review target: no ambient qt-team modules on sys.path.
+                with tempfile.TemporaryDirectory() as folder:
+                    root = Path(folder)
+                    for name in ('bot_blockers.py', 'chef_admin.py', 'app_signing.py'):
+                        (root / name).write_bytes((HERE / name).read_bytes())
+                    result = subprocess.run([sys.executable, '-I', '-c',
+                        'import sys;sys.path.insert(0,sys.argv[1]);import bot_blockers;'
+                        'from pathlib import Path;bot_blockers.record(Path(sys.argv[1]),"head","fixture",failed=False)',
+                        str(root)], capture_output=True, text=True)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_the_vps_scripts_compile_and_carry_no_secret(self):
         keys = d.keys_code()
         compile(keys, 'keys', 'exec')

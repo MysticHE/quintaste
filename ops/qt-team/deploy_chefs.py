@@ -51,7 +51,7 @@ CALLERS = ('alerts', 'head', 'wok', 'writer', 'artist', 'fixer', 'host', 'safety
 # reviews, not place reports, whose hand-off holds case details.
 READS = {'alerts': 'attention', 'head': 'asks', 'wok': 'ingredients', 'writer': 'wanted', 'artist': 'game-levels', 'fixer': 'reviews',
          'host': 'gatherings', 'safety': 'recalls'}
-BOT_FILES = ('chef_admin.py', 'chef_work.py', 'sfa_notice.py', 'kitchen_activity.py', 'qt_capacity.py', 'hermes_run.py', 'rechecks.py', 'staff_alerts.py', 'app_signing.py',
+BOT_FILES = ('chef_admin.py', 'chef_work.py', 'bot_blockers.py', 'sfa_notice.py', 'kitchen_activity.py', 'qt_capacity.py', 'hermes_run.py', 'rechecks.py', 'staff_alerts.py', 'app_signing.py',
              'telegram_controls.py', 'telegram_reporter.py', 'workflow.py', 'game_level_bridge.py', 'ai_recipes_bridge.py', 'bridge_stop.py')
 TEST_FILES = ('test_chef_lanes.py', 'test_sfa_notice.py', 'test_coco_resolve.py', 'test_rechecks.py')
 ON_VPS = ('kitchen_feed', 'night_window', 'publisher')  # imported by the chef files, deployed by their own scripts
@@ -60,7 +60,7 @@ SERVICES = ('qt-telegram-listener.service',) + tuple(name + '.service' for name 
 PROFILES = ('qt-manager', 'qt-cooker', 'qt-gamer', 'qt-videomaker', 'qt-fixer', 'qt-safety')
 DOCKER = ['docker', 'exec', '--user', '10000', '--workdir', '/opt/data/qt-team', '-e', 'HERMES_HOME=/opt/data', '-e', 'HERMES_SRC=/opt/hermes',
           CONTAINER, '/opt/hermes/.venv/bin/python']
-IMPORTS = ('import chef_work, staff_alerts, telegram_controls, telegram_reporter, workflow, game_level_bridge, ai_recipes_bridge\n'
+IMPORTS = ('import chef_work, bot_blockers, staff_alerts, telegram_controls, telegram_reporter, workflow, game_level_bridge, ai_recipes_bridge\n'
            'from kitchen_feed import read, taken_back, when\nprint("ok")')
 REACH = '''import json, pathlib, sys, urllib.error
 import chef_admin

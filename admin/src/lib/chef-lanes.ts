@@ -11,7 +11,7 @@ import { applyDemand, undoDemand } from './recipe-demand';
 import { applyMemberPost } from './content-members';
 import { applyPlaceReport, fileRecallCase, undoPlaceReport, undoRecallCase } from './cases';
 import { HttpError } from './http';
-import { foodApply,foodGuard,foodRecorded,foodQueue } from './food-review';
+import { foodApply,foodGuard,foodRecorded,foodQueue,recipeFoodClear } from './food-review';
 
 /**
  * The admin lanes chefs (QT bots) work in (docs/ADMIN_CHEFS_PLAN.md §1). Each lane belongs to one chef and lists the actions it
@@ -123,6 +123,35 @@ const undoADemand: LaneAction['undo'] = (db, actor, target, undo, reason) =>
 const fresh = (lane: string, column: string, updated: string, mode: Mode) => `NOT EXISTS (SELECT 1 FROM ops.chef_decision cd_
   WHERE cd_.lane = '${lane}' AND cd_.target = ${column} AND (cd_.outcome = 'asked' OR (coalesce(cd_.decided_at, cd_.created_at) > now() - interval '7 days'
     AND coalesce(cd_.decided_at, cd_.created_at) >= ${updated}${mode === 'on' ? " AND cd_.outcome <> 'watched'" : ''})))`;
+
+/** Fill the lane with eligible recipes, walking past held or stale revisions instead of limiting those first. */
+async function recipeQueue(mode: Mode, ai: boolean) {
+  type Candidate = Record<string, unknown> & { id: string; cursor_at: string };
+  const lane = ai ? 'ai-recipes' : 'member-recipes', items: Record<string, unknown>[] = [];
+  let after: { at: string; id: string } | null = null;
+  while (items.length < 10) {
+    const rows: Candidate[] = (await query<Candidate>(`SELECT r.id, r.private,
+      r.pending_revision AS revision, r.pending AS recipe, r.updated_at,
+      to_char(r.updated_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"') AS cursor_at
+      FROM recipes.recipe r WHERE r.pending_state='review' AND ${ai ? '' : 'NOT '}${aiRecipe('r')}
+      AND ${fresh(lane, 'r.id::text', 'r.updated_at', mode)}
+      AND ($1::timestamptz IS NULL OR (r.updated_at, r.id) > ($1::timestamptz, $2::uuid))
+      ORDER BY r.updated_at, r.id LIMIT 10`, [after?.at ?? null, after?.id ?? null])).rows;
+    if (!rows.length) break;
+    const eligible = await Promise.all(rows.map(row => recipeFoodClear({ query }, row.id)));
+    rows.forEach((row, index) => {
+      if (!eligible[index]) return;
+      const item: Record<string, unknown> = { ...row };
+      delete item.cursor_at;
+      items.push(item);
+    });
+    // Preserve microseconds and use the ID to break timestamp ties across pages.
+    const last = rows[rows.length - 1];
+    after = { at: last.cursor_at, id: last.id };
+    if (rows.length < 10) break;
+  }
+  return items.slice(0, 10);
+}
 /** Most triaged place reports handed over at once; a longer list says it was cut. */
 export const HANDOFF = 1000;
 /** A creator that needs no change this week: recorded, nothing touched. */
@@ -181,9 +210,7 @@ export const LANES: Record<string, Lane> = {
     chef: 'writer', title: 'AI recipes', capability: 'content', floor: 0.85, member: true, privateLabel: 'an AI recipe',
     actions: { publish: { askWhen: replacesLive, run: recipe(true, 'publish'), undo: undoARecipe },
       decline: { ask: 'no-to-member', run: recipe(true, 'decline'), undo: undoARecipe } },
-    queue: async mode => (await query(`SELECT r.id,r.private, r.pending_revision AS revision, r.pending AS recipe, r.updated_at
-      FROM recipes.recipe r WHERE r.pending_state = 'review' AND ${aiRecipe('r')} AND ${fresh('ai-recipes', 'r.id::text', 'r.updated_at', mode)}
-      ORDER BY r.updated_at LIMIT 10`)).rows,
+    queue: mode => recipeQueue(mode, true),
     labels: recipeTitles,
   },
   wanted: {
@@ -199,9 +226,7 @@ export const LANES: Record<string, Lane> = {
     chef: 'writer', title: 'Member recipes', capability: 'content', floor: 0.9, member: true, privateLabel: "a member's recipe",
     actions: { publish: { askWhen: replacesLive, run: recipe(false, 'publish'), undo: undoARecipe },
       decline: { ask: 'no-to-member', run: recipe(false, 'decline'), undo: undoARecipe } },
-    queue: async mode => (await query(`SELECT r.id, r.pending_revision AS revision, r.pending AS recipe, r.updated_at
-      FROM recipes.recipe r WHERE r.pending_state = 'review' AND NOT ${aiRecipe('r')} AND ${fresh('member-recipes', 'r.id::text', 'r.updated_at', mode)}
-      ORDER BY r.updated_at LIMIT 10`)).rows,
+    queue: mode => recipeQueue(mode, false),
     labels: recipeTitles,
   },
   reviews: {

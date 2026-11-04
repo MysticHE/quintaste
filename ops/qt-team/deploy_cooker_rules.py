@@ -21,7 +21,7 @@ import setup
 
 HERE = Path(__file__).resolve().parent
 NAMES = ['recipe_quality.py', 'recipe_charter.py', 'recipe_charter.json', 'recipe_standards.py', 'recipe_page.py', 'nutrition.py', 'nutrition_sg.json',
-         'publisher.py', 'workflow.py', 'roles/qt-cooker.md', 'roles/qt-manager.md', 'learning.py',
+         'publisher.py', 'workflow.py', 'bot_blockers.py', 'roles/qt-cooker.md', 'roles/qt-manager.md', 'learning.py',
          'test_workflow.py', 'recipe_policy.py', 'recipe_edits.py', 'night_window.py', 'kitchen_activity.py', 'kitchen_feed.py', 'image_worker.py',
          'test_night_controls.py', 'night_supervisor.py', 'test_menu_coverage.py']  # its tests run on the server before the change is kept
 TESTS = ['test_workflow', 'test_creator_scout', 'test_publisher', 'test_telegram_reporter', 'test_learning', 'test_night_controls', 'test_recipe_policy',
@@ -60,7 +60,7 @@ with work,(r/'state/telegram/reporter.lock').open('a+') as report:
    tmp=soul.with_suffix('.cr-new');tmp.write_bytes((r/'roles'/(x+'.md')).read_bytes());os.chown(tmp,10000,10000);tmp.chmod(0o444);os.replace(tmp,soul)
   test=subprocess.run(['python','-m','unittest']+__QT_TESTS__,cwd=r,capture_output=True,text=True)
   (backup/'tests.txt').write_text(test.stdout+test.stderr);assert test.returncode==0,'Tests failed; files restored'
-  imported=subprocess.run(['python','-c','import json,recipe_quality,recipe_charter,recipe_standards,nutrition,publisher,workflow;'
+  imported=subprocess.run(['python','-c','import json,recipe_quality,recipe_charter,recipe_standards,nutrition,publisher,workflow,bot_blockers;'
     't=nutrition.table(workflow.ROOT);c=recipe_charter.load(workflow.ROOT);'
     'print("ok",len(t["foods"]),"foods",c["version"],c["allowedCategories"])'],cwd=r,capture_output=True,text=True,user=10000,group=10000)
   assert imported.stdout.startswith('ok'),'Import check failed: '+imported.stderr[-300:]

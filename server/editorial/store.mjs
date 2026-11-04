@@ -67,7 +67,7 @@ function jpegDimensions(bytes) {
   }
   throw Object.assign(new Error('JPEG dimensions missing'), { status: 422 });
 }
-export async function publish(root, baseline, batch) {
+export async function publish(root, baseline, batch, beforePublish = null) {
   requireValue(batch && batch.version === 1 && validId(batch.id) && validHash(batch.parent) && Array.isArray(batch.records) && batch.records.length >= 1 && batch.records.length <= 12 && Array.isArray(batch.assets) && batch.assets.length <= MAX_ASSETS, 'Invalid publication batch');
   await fs.mkdir(root, { recursive: true, mode: 0o700 });
   const lock = path.join(root, 'publish.lock');
@@ -193,6 +193,8 @@ export async function publish(root, baseline, batch) {
     next.revision = hash({ parent: next.parent, batchHash });
     requireValue(Buffer.byteLength(JSON.stringify(next)) <= 8 * 1024 * 1024 && Object.keys(next.records).length <= 2000, 'Content capacity reached; operator review required');
     requireValue((await fs.readdir(path.join(root, 'revisions'))).length < 400, 'Revision archive capacity reached; archive before continuing');
+    // Replay/recover committed receipts first. Only a fresh publication needs the current food gate, under this same lock.
+    await beforePublish?.();
     for (const [sha, a] of assets) {
       // Immutable: an asset is written once, before the atomic content switch.
       try {

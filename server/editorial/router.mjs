@@ -60,7 +60,7 @@ editorial.get('/control/state', async (_req, res, next) => {
 editorial.post('/control/publish', async (req, res) => {
   if (Date.now() - lastWrite < 1000) return res.status(429).json({ error: 'Retry publication shortly.' });
   lastWrite = Date.now();
-  try { const batch=JSON.parse(req.body.toString());await editorialFoodGate(pool,root,batch);const result = await publish(root, baseline, batch); res.json(result); }
+  try { const batch=JSON.parse(req.body.toString());const result = await publish(root, baseline, batch, () => editorialFoodGate(pool,root,batch)); res.json(result); }
   catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Publication unavailable; prior content retained.' }); }
 });
 editorial.post('/control/remove', async (req, res) => {

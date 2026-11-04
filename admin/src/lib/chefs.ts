@@ -7,7 +7,6 @@ import { can } from './permissions';
 import { choice, HttpError, pageSize, text, uuid } from './http';
 import { settings } from './config';
 import { CHEFS, HANDOFF, LANES, controlKey, modeOf, type Lane, type Mode, type Why } from './chef-lanes';
-import { recipeFoodClear } from './food-review';
 
 /**
  * Chef decisions (docs/ADMIN_CHEFS_PLAN.md §2 and §6). A chef proposes, Kaya reviews on the bot side, and this decides what
@@ -46,10 +45,6 @@ export async function chefLane(chef: string, value: unknown, after: string | nul
   let items: Record<string, unknown>[] = [], handoff: Record<string, unknown>[] | undefined;
   try {
     if (mode !== 'off') items = await withRounds(name, await lane.queue(mode, after));
-    if(['ai-recipes','member-recipes'].includes(name)){
-      const eligible=await Promise.all(items.map(async item=>await recipeFoodClear({query},String(item.id))?item:null));
-      items=eligible.filter((item):item is Record<string,unknown>=>item!==null);
-    }
     if (lane.handoff) handoff = await lane.handoff();
   } catch (error) {
     if (!['42P01', '3F000'].includes((error as { code?: string })?.code ?? '')) throw error;
