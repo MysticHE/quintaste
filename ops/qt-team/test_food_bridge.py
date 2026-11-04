@@ -21,6 +21,49 @@ class FoodBridge(unittest.TestCase):
   self.assertEqual(download.call_count,1);self.assertEqual(run.call_args.kwargs['toolset'],'vision')
   self.assertEqual(call.call_args.args[1],'food-result');self.assertEqual(call.call_args.args[2]['result'],self.answer)
   self.assertFalse((self.root/'food-review'/self.job['id']/self.job['token']).exists())
+ def test_exact_event_sources_and_verdict_labels_enter_the_reviewer(self):
+  self.job['kind']='editorial-event';self.job['photos']=[]
+  self.job['payload']['data']={'title':'Vegetarian event','organiser':'Fixture organiser','sourceEvidence':[{'url':'https://example.com/event','evidence':'The organiser offers a vegetarian menu.'}]}
+  with patch.object(f.hermes_run,'run',return_value=({'text':json.dumps({**self.answer,'photosReviewed':[]})},[])) as run,patch.object(f,'call',return_value={'ok':True}):f.handle('safety',self.job)
+  prompt=run.call_args.args[1]
+  self.assertIn('editorial-event',prompt);self.assertIn('Fixture organiser',prompt);self.assertIn('sourceEvidence',prompt)
+  self.assertIn('not a QT Vegetarian/five-pungent-free badge',prompt)
+ def test_only_real_read_excerpts_from_one_official_url_are_accepted(self):
+  url='https://example.com/event';quote='This exact cooking class serves a fully plant-based menu.'
+  events=[{'type':'tool_use','name':'web_extract','tool_call_id':'read','input':{'urls':[url]}},
+          {'type':'tool_result','name':'web_extract','tool_call_id':'read','output':json.dumps({'success':True,'content':quote})}]
+  answer={'sources':[{'url':url,'quote':quote}]}
+  self.assertEqual(len(f.evidence_from_events(answer,events,{'example.com'})),1)
+  for invalid in ([],[{**events[0],'input':{'urls':[url,'https://example.com/other']}},events[1]],[events[0],{**events[1],'is_error':True}]):
+   self.assertEqual(f.evidence_from_events(answer,invalid,{'example.com'}),[])
+  self.assertEqual(f.evidence_from_events({'sources':[{'url':url,'quote':'An invented confirmation which was never in the page.'}]},events,{'example.com'}),[])
+  self.assertEqual(f.evidence_from_events(answer,events,{'other.example'}),[])
+ def test_a_source_recheck_requeues_mint_instead_of_asking_the_owner_immediately(self):
+  self.job['kind']='editorial-event';self.job['photos']=[];self.job['prior']={'mint':{'decision':'uncertain'}}
+  with patch.object(f,'event_evidence',return_value=[{'url':'https://example.com/event'}]) as research,patch.object(f,'call',return_value={'requeued':True}) as call,patch.object(f.hermes_run,'run') as model:
+   f.handle('head',self.job)
+  research.assert_called_once();model.assert_not_called();self.assertEqual(call.call_args.args[1],'food-evidence')
+ def test_lychee_has_a_private_work_directory_before_hermes_starts(self):
+  self.job['payload']['data']['sources']=['https://example.com/event'];self.job['prior']={'mint':{'decision':'uncertain'}}
+  def run(*args,**kwargs):
+   self.assertEqual(args[0],'qt-event');self.assertTrue(args[2].is_dir());self.assertEqual(kwargs['seconds'],180)
+   self.assertNotIn('terminal',kwargs['allowed']);return {'text':'{"sources":[]}'},[]
+  with patch.object(f.hermes_run,'run',side_effect=run):self.assertEqual(f.event_evidence(self.job,self.root),[])
+ def test_an_inaccessible_source_check_does_not_repeat_or_invent_an_answer(self):
+  self.job['kind']='editorial-event';self.job['photos']=[];self.job['prior']={'mint':{'decision':'uncertain'}}
+  response={'requeued':False,'sourceRecheck':{'status':'unavailable','sources':[]}}
+  with patch.object(f,'event_evidence',side_effect=RuntimeError('source inaccessible')) as research,patch.object(f,'call',side_effect=[response,{'ok':True}]) as call,patch.object(f.hermes_run,'run',return_value=({'text':json.dumps({**self.answer,'decision':'uncertain','photosReviewed':[]})},[])) as model:
+   f.handle('head',self.job)
+  self.assertEqual(research.call_count,1);self.assertEqual(call.call_args_list[0].args[2]['sources'],[]);self.assertIn('unavailable',model.call_args.args[1])
+  self.job['prior']['evidenceAttempted']=True
+  with patch.object(f,'event_evidence') as research,patch.object(f,'call',return_value={'ok':True}),patch.object(f.hermes_run,'run',return_value=({'text':json.dumps({**self.answer,'decision':'uncertain','photosReviewed':[]})},[])):
+   f.handle('head',self.job)
+  research.assert_not_called()
+ def test_food_cards_describe_the_actual_status_without_an_automatic_hold_headline(self):
+  ask={'chef':'Mint','foodReview':True,'confidence':.97,'foodStatus':{'label':'Needs evidence','mint':'Needs evidence','kaya':'Needs evidence','threshold':.95}}
+  text='\n'.join(telegram_controls.chef_request_lines(ask))
+  self.assertIn('Why: Needs evidence',text);self.assertNotIn('Kaya disagreed',text);self.assertNotIn('hold a',text)
+  self.assertIn('not the chance',text)
  def test_fabricated_model_attestation_without_pixels_routes_uncertainty(self):
   with patch.object(f,'download',side_effect=lambda c,j,p,file:file.write_bytes(self.raw)),patch.object(f.hermes_run,'run',return_value=({'text':json.dumps(self.answer)},[])),patch.object(f,'call',return_value={'ok':True}) as call:
    f.handle('safety',self.job)
@@ -40,6 +83,10 @@ class FoodBridge(unittest.TestCase):
   (self.root/'policy.json').write_text('{}')
   with patch.object(f,'call') as call:self.assertFalse(f.turn())
   call.assert_not_called()
+ def test_capacity_contention_defers_the_claim_without_an_unproven_food_finding(self):
+  with patch.object(f.hermes_run,'run',side_effect=TimeoutError('capacity busy')),patch.object(f,'download',side_effect=lambda c,j,p,file:file.write_bytes(self.raw)),patch.object(f,'call',return_value={'ok':True}) as call,patch.object(bot_blockers,'record'):
+   f.handle('safety',self.job)
+  self.assertEqual(call.call_args.args[1],'food-heartbeat');self.assertTrue(call.call_args.args[2]['defer'])
  def test_runtime_failures_file_only_one_case_after_retries(self):
   with patch.object(chef_admin,'call',return_value={'id':'case-fixture'}) as call:
    bot_blockers.record(self.root,'head','qt-explorer');bot_blockers.record(self.root,'head','qt-explorer');call.assert_not_called()

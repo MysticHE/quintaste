@@ -64,3 +64,11 @@ export async function wantsNoPungent(job, db = pool) {
   const row = (await db.query(`SELECT 'Vegetarian' = ANY(diets) AS yes FROM social.profile WHERE user_id=$1`, [job.user_id])).rows[0];
   return row?.yes === true;
 }
+
+/** Vegan and five-pungent-free are separate requests; a source video's ingredients are never silently substituted. */
+export async function wantsVegan(job, db = pool) {
+  if(job.kind==='photo'||job.kind==='ingredients')return job.options?.diet!=='vegetarian';
+  if(job.kind!=='request'||!job.user_id)return false;
+  const row=(await db.query("SELECT 'Vegan' = ANY(diets) AS yes FROM social.profile WHERE user_id=$1",[job.user_id])).rows[0];
+  return row?.yes===true;
+}

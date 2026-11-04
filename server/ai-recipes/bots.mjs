@@ -7,11 +7,12 @@ import { house, recipeSchema, searchSystem, videoPrompt, videoSystem, requestPro
 import { obtain } from './video-job.mjs';
 import { canDownload, downloadVideo } from './download.mjs';
 import { clip, toRecipe } from './recipe.mjs';
-import { failJob, finishJob, noPungentFor, progress } from './pipeline.mjs';
+import { failJob, finishJob, noPungentFor, veganFor, progress } from './pipeline.mjs';
 import { frameAt, framesAvailable, photoJpeg, shrinkVideo, videoSeconds } from './frames.mjs';
 import { jobDir, jobPath, removeDir } from './work.mjs';
 import { CHOSEN_KINDS, dropSnap } from './snap.mjs';
 import { nextRound, requestOf, writingBrief, writingPayload } from './writing.mjs';
+import { recipeClarityNotes, boundedRepairPayload } from '../../admin/src/lib/food-clarity.mjs';
 
 /**
  * The QT bots engine. The worker hands a job over (`handToBots`: the video is fetched and kept on the app's disk), the
@@ -100,7 +101,7 @@ export async function handToBots(job) {
         video: { bytes: video.size, mimeType: video.mimeType },
         // Server-only: never sent to the bots.
         _file: video.path, _upload: upload };
-    } else payload = { kind: job.kind, request: job.input, noPungent: await noPungentFor(job) };
+    } else payload = { kind: job.kind, request: job.input, noPungent: await noPungentFor(job),vegan:await veganFor(job) };
     await queueTask(job.id, payload, 'slow');
     await progress(job)('In line…');
     return 'working';
@@ -141,9 +142,9 @@ export function brief(payload) {
       + (payload.creator ? '\nCreator: ' + payload.creator : '');
     return { system: videoSystem, prompt: videoPrompt + context, schema: botSchema };
   }
-  const ask = payload.kind === 'demand' ? demandPrompt(payload.request) : requestPrompt(payload.request, payload.noPungent === true);
+  const ask = payload.kind === 'demand' ? demandPrompt(payload.request) : requestPrompt(payload.request, payload.noPungent === true,payload.vegan===true);
   return { system: house + '\n' + researchSystem + '\nThen write the final recipe JSON from the version you propose. Set creator to the author of the page it mainly follows, and at and shotAt to null.',
-    prompt: ask, schema: botSchema };
+    prompt: ask + (payload.clarityFix ? '\nRepair these clarity gaps using the source pages; do not invent a product composition or label check: '+JSON.stringify(payload.clarityFix)+'\nOriginal draft:\n'+JSON.stringify(payload._clarityDraft) : ''), schema: botSchema };
 }
 
 /** The task as the bots see it (no server paths). */
@@ -182,7 +183,9 @@ async function cleanup(jobId, payload) {
  */
 async function settleWriting(job, row, result, usage) {
   const payload = row.payload, calls = [...(Array.isArray(payload.calls) ? payload.calls : []), ...usage.calls];
-  const recipe = toRecipe(result.recipe ?? {}, { source: { kind: 'request', request: requestOf(payload), urls: [], creator: 'QuinTaste' } });
+  let recipe;
+  try{recipe=toRecipe(result.recipe??{},{source:{kind:'request',request:requestOf(payload),urls:[],creator:'QuinTaste'}});}
+  catch(error){if(!payload._draft)throw error;recipe=payload._draft;usage.clarityRepairFailed=true;}
   const next = await nextRound(payload, recipe, usage);
   if (next) {
     await pool.query(`UPDATE recipes.ai_bot_task SET status='queued', payload=$2, result=NULL, error='', claimed_at=NULL, answered_at=NULL,
@@ -202,12 +205,22 @@ async function settle(row) {
   let again = false;
   try {
     if (!job || job.status !== 'working') return;
+    if(row.payload?.kind!=='video'&&!CHOSEN_KINDS.includes(row.payload?.kind)){
+      job.noPungent=row.payload.noPungent===true;
+      if(typeof row.payload.vegan==='boolean')job.vegan=row.payload.vegan;
+    }
     if (row.answered === 'failed') {
       usage.botError = clip(row.error, 300);
       // A fix round that failed or ran out of time: the recipe written before it is complete, so it is kept (without the extra).
       if (CHOSEN_KINDS.includes(row.payload?.kind) && row.payload._draft) {
         usage.calls = Array.isArray(row.payload.calls) ? row.payload.calls : [];
         await finishJob(job, row.payload._draft, null, usage, { aiNutrition: false });
+        return;
+      }
+      if(row.payload?._clarityDraft){
+        usage.calls=Array.isArray(row.payload.calls)?row.payload.calls:[];
+        const saved=toRecipe(row.payload._clarityDraft,{source:row.payload._claritySource});
+        await finishJob(job,saved,null,usage,{aiNutrition:false});
         return;
       }
       await failJob(job, new GeminiError(502, memberMessage(row.error)), usage);
@@ -217,11 +230,26 @@ async function settle(row) {
     if (result.usage && typeof result.usage === 'object') usage.calls.push({ model: clip(result.usage.model, 60) || 'qt-bots', input: Number(result.usage.input) || 0, output: Number(result.usage.output) || 0 });
     const payload = row.payload;
     if (CHOSEN_KINDS.includes(payload.kind)) { again = await settleWriting(job, row, result, usage); return; }
+    usage.calls=[...(Array.isArray(payload.calls)?payload.calls:[]),...usage.calls];
     if (payload.kind !== 'video') job.noPungent = payload.noPungent === true;  // the decision the bots wrote under, not today's choice
     const source = payload.kind === 'video'
       ? { kind: 'video', platform: payload.platform ?? 'upload', ...(payload.link ? { url: payload.link } : {}), creator: clip(payload.creator || result.recipe?.creator, 80) }
-      : { kind: 'request', request: clip(job.input, 200), urls: [...new Set((result.sources ?? []).filter(isHttps))].slice(0, 6) };
-    const recipe = toRecipe(result.recipe ?? {}, { source });
+      : { kind: 'request', request: clip(job.input, 200), urls: [...new Set([...(payload._claritySource?.urls??[]),...(result.sources ?? [])].filter(isHttps))].slice(0, 6) };
+    let recipe;
+    try{recipe=toRecipe(result.recipe??{},{source});}
+    catch(error){
+      if(!payload._clarityDraft)throw error;
+      recipe=toRecipe(payload._clarityDraft,{source:payload._claritySource});usage.clarityRepairFailed=true;
+    }
+    const clarity=recipeClarityNotes(recipe);
+    if(payload.kind!=='video'&&clarity.length&&!(payload.clarityRound>=1)){
+      const next=boundedRepairPayload({...payload,clarityRound:1,clarityFix:clarity,_clarityDraft:result.recipe,_claritySource:source,calls:usage.calls});
+      if(next){
+        await queueTask(row.job_id,next,row.lane??'slow');
+        await progress(job)('Clarifying the ingredients…');
+        again=true;return;
+      }
+    }
     await progress(job)('Choosing a photo for each step…');
     let photos = null;
     const file = payload._file && existsSync(payload._file) ? payload._file : null;

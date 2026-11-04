@@ -1,13 +1,14 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { date, useResource } from './client';
 import { Feedback, IconButton, Mutation, Pager, Segmented, Table, reveal } from './Primitives';
+import type { FoodAssessment } from '../lib/food-assessment';
 
 /** What the chefs (QT bots) decided in their admin lanes, and what they asked you (docs/ADMIN_CHEFS_PLAN.md). */
 type Decision = { id: string; chef: string; lane: string; item: string; action: string; reason: string; evidence: Record<string, unknown>;
   confidence: number | null; review: string; why: string | null; mode: string; outcome: string; note: string; created_at: string;
-  decided_at: string | null; decided_by: string | null; undoable: boolean };
+  decided_at: string | null; decided_by: string | null; undoable: boolean; foodStatus?: FoodAssessment | null };
 const views = [['asked', 'Waiting for you'], ['done', 'Decided'], ['watched', 'Watching'], ['all', 'All']] as const;
 const WHY: Record<string, string> = { disagree: 'Kaya disagreed', weak: 'Not sure enough', 'no-to-member': 'A no to a member',
   irreversible: 'Cannot be undone', rule: 'Lane asks you first', batch: 'Another batch' };
@@ -26,7 +27,7 @@ export function Chefs({ initialId = '' }: { initialId?: string }) {
     <Feedback {...resource} retry={resource.reload}/>
     {resource.data && <div className="panel"><Table headings={['When', 'Chef', 'Lane', 'Item', 'Action', 'Status']} empty="Nothing here"
       rows={resource.data.map(d => [date(d.created_at), d.chef, d.lane,
-        <button type="button" className="link" key="open" onClick={() => setOpen(d.id)}>{d.item}</button>, d.action,
+        <button type="button" className="link" key="open" onClick={() => setOpen(d.id)}>{d.item}</button>, d.foodStatus && d.outcome === 'asked' ? 'Review eligibility' : d.action,
         <span key="s" className={badge(d.outcome)}>{OUTCOME[d.outcome] ?? d.outcome}</span>])}/>
       <Pager page={page} setPage={setPage} count={resource.data.length}/></div>}
     {open && <Feedback {...exact} retry={exact.reload}/>}
@@ -36,16 +37,19 @@ export function Chefs({ initialId = '' }: { initialId?: string }) {
 }
 
 function Detail({ decision: d, onSaved, onClose }: { decision: Decision; onSaved: () => void; onClose: () => void }) {
-  const facts: [string, string][] = [['Chef', d.chef + ' · ' + d.lane], ['Wants to', d.action + ' ' + d.item], ['Why', d.reason],
-    ['Sure', d.confidence === null ? '—' : Math.round(d.confidence * 100) + '%'], ['Kaya', d.review === 'agree' ? 'Agreed' : 'Disagreed'],
-    ['Asked you because', d.why ? WHY[d.why] ?? d.why : '—'], ['Lane was', d.mode === 'on' ? 'On' : 'Watching'],
+  const [foodState,setFoodState]=useState<string|null>(null);
+  const facts: [string, string][] = [['Chef', d.chef + ' · ' + d.lane], ['Wants to', d.foodStatus && d.outcome === 'asked' ? 'Review food eligibility' : d.action + ' ' + d.item], ['Why', d.reason],
+    [d.foodStatus ? 'Model confidence' : 'Sure', d.confidence === null ? '—' : Math.round(d.confidence * 100) + '%'], ['Kaya', d.foodStatus ? d.foodStatus.kaya : d.review === 'agree' ? 'Agreed' : 'Disagreed'],
+    ...(d.foodStatus ? [['Mint', d.foodStatus.mint], ['Automatic threshold', Math.round(d.foodStatus.threshold * 100) + '%']] as [string, string][] : []),
+    ['Asked you because', d.foodStatus?.label ?? (d.why ? WHY[d.why] ?? d.why : '—')], ['Lane was', d.mode === 'on' ? 'On' : 'Watching'],
     ['Result', [OUTCOME[d.outcome] ?? d.outcome, d.note, d.decided_by && 'by ' + d.decided_by].filter(Boolean).join(' · ')]];
   return <section className="panel" ref={reveal}>
     <div className="row spread"><h2>{d.item}</h2><IconButton icon="close" label="Close" onClick={onClose}/></div>
     <ul className="list inset">{facts.map(([k, v]) => <li key={k}><span>{k}</span><span className="value">{v}</span></li>)}</ul>
-    {typeof d.evidence.foodReview==='string' && <FoodEvidence id={d.evidence.foodReview}/>}
+    {d.foodStatus && <p className="muted">Model confidence describes the review, not the probability that an ingredient is prohibited.</p>}
+    {typeof d.evidence.foodReview==='string' && <FoodEvidence id={d.evidence.foodReview} onState={setFoodState}/>}
     {Object.keys(d.evidence).length > 0 && <details><summary>Evidence</summary><div className="code">{JSON.stringify(d.evidence, null, 1)}</div></details>}
-    {d.outcome === 'asked' && (d.evidence.foodReview ? <div className="row">
+    {d.outcome === 'asked' && (!d.evidence.foodReview || foodState==='asked') && (d.evidence.foodReview ? <div className="row">
       <Mutation endpoint="chef-decisions" label="Clear this food revision" onSaved={onSaved} values={f=>({id:d.id,action:'food-clear',reason:f.get('reason')})}><label>Reason<textarea name="reason" required minLength={10} maxLength={300}/></label></Mutation>
       <Mutation endpoint="chef-decisions" label="Hold this food revision" tone="danger" onSaved={onSaved} values={f=>({id:d.id,action:'food-hold',reason:f.get('reason')})}><label>Reason<textarea name="reason" required minLength={10} maxLength={300}/></label></Mutation>
     </div> : <div className="row">
@@ -56,11 +60,13 @@ function Detail({ decision: d, onSaved, onClose }: { decision: Decision; onSaved
   </section>;
 }
 
-function FoodEvidence({id}:{id:string}){
-  const resource=useResource<{kind:string;target:string;state:string;path:string|null;message:string;payload:{data:Record<string,unknown>};photos:{slot:string;digest:string}[]}>('/api/manage/food-review?id='+encodeURIComponent(id));
+function FoodEvidence({id,onState}:{id:string;onState:(state:string|null)=>void}){
+  const resource=useResource<{kind:string;target:string;state:string;path:string|null;currentState?:string|null;currentIssue?:string|null;message:string;payload:{data:Record<string,unknown>};photos:{slot:string;digest:string}[]}>('/api/manage/food-review?id='+encodeURIComponent(id));
   const row=resource.data;
+  useEffect(()=>onState(row?.state??null),[row?.state,onState]);
   return <div><Feedback {...resource} retry={resource.reload}/>{row&&<>
     <h3>Exact food revision</h3><p>{row.kind} · {row.target} · {row.state}</p>
+    {row.state==='superseded'&&<p>This revision was superseded and cannot change current content.{row.currentState?' Current review: '+row.currentState+'.':''} {row.currentIssue&&<a href={row.currentIssue}>Open the current issue</a>}</p>}
     <div className="code">{JSON.stringify(row.payload.data,null,2)}</div>
     {row.photos.map(p=><figure key={p.slot}><Image unoptimized width={480} height={320} alt={'Submitted '+p.slot} style={{maxWidth:'100%',height:'auto',maxHeight:320,objectFit:'contain'}} src={'/api/manage/food-review-photo?id='+encodeURIComponent(id)+'&slot='+encodeURIComponent(p.slot)}/><figcaption>{p.slot}</figcaption></figure>)}
     {row.message&&<p>{row.message}</p>}

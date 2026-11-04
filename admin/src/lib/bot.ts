@@ -11,7 +11,7 @@ import { HttpError } from './http';
  */
 const callers = {
   alerts: { key: 'ADMIN_BOT_ALERTS_KEY', resources: ['attention'] },
-  head: { key: 'ADMIN_BOT_HEAD_KEY', resources: ['asks', 'answer','food-claim','food-heartbeat','food-result','food-photo'] },
+  head: { key: 'ADMIN_BOT_HEAD_KEY', resources: ['asks', 'answer','food-claim','food-heartbeat','food-result','food-photo','food-evidence'] },
   wok: { key: 'ADMIN_BOT_WOK_KEY', resources: ['lane', 'decide'] },
   writer: { key: 'ADMIN_BOT_WRITER_KEY', resources: ['lane', 'decide'] },
   artist: { key: 'ADMIN_BOT_ARTIST_KEY', resources: ['lane', 'decide'] },

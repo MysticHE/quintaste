@@ -52,7 +52,8 @@ LANES = {
     'ai-recipes': {'chef': 'writer', 'profile': 'qt-videomaker', 'max': 5, 'actions': {'publish': None, 'decline': 'note'}, 'rules': (
         'Each item is an AI-written recipe. For public recipes the server requires Mint-cleared food eligibility when that lane '
         'is On; do not run a duplicate food-policy or image review. You own structure: steps follow the ingredient list and '
-        'quantities and times are plausible. For an explicitly private recipe, fulfill its original meat-free request constraints '
+        'quantities and times are plausible. Ingredient clarity notes mark unfinished writing; do not publish an unresolved '
+        'missing ingredient or an unfulfilled foodRequirements request. For an explicitly private recipe, fulfill its original meat-free request constraints '
         '(Mint does not scan private recipes). Escalate safety contradictions rather than certifying safety. decline for structural '
         'faults with a note of 5-300 characters explaining what to change.')},
     'wanted': {'chef': 'writer', 'profile': 'qt-videomaker', 'max': 10, 'actions': {'make': None, 'skip': 'note'}, 'rules': (

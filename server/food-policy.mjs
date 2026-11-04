@@ -1,6 +1,6 @@
 // Generated from admin/src/lib/food-policy.mjs by scripts/recipe-charter-sync.mjs; do not edit.
 /** Shared fast food eligibility checks. AI handles uncertainty; these reject explicit ingredient evidence only. */
-export const FOOD_POLICY_VERSION = '2026-11-04.1';
+export const FOOD_POLICY_VERSION = '2026-11-04.2';
 const animals = 'lard|gelatine?|bonito|anchov(?:y|ies)|ikan bilis|belacan|chicken|beef|fish|prawns?|shrimps?|pork|bacon|duck|goose|geese|turkey|mutton|lamb|venison|ham|crab|lobsters?|oysters?|squid|clams?|mussels?|seafood';
 const meat = new RegExp('\\b(?:' + animals + ')\\b', 'i');
 const alternatives = new RegExp('(?<!\\b(?:non[- ]|not ))\\b(?:vegetarian|vegan|veggie|mock|plant[- ]based|meatless|meat[- ]free|no|without|free from)(?:[-\\s]+(?:roast(?:ed)?|fried|smoked|grilled|shredded|sliced|braised|crispy)){0,2}[-\\s]+(?:' + animals + ')\\b', 'gi');

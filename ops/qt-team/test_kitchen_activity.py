@@ -12,6 +12,29 @@ import kitchen_activity as activity
 import kitchen_feed as feed
 
 
+@unittest.skipIf(os.name=='nt','Linux flock capacity gate')
+class FoodCapacity(unittest.TestCase):
+    def test_food_uses_a_free_existing_slot_but_never_creates_a_third(self):
+        import fcntl,qt_capacity
+        with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,{'QT_TEAM_ROOT':folder,'QT_EXPLORE_INTERACTIVE':'0'}):
+            root=Path(folder)/'state/model-slots';root.mkdir(parents=True)
+            with (root/'0').open('a+') as background:
+                fcntl.flock(background,fcntl.LOCK_EX)
+                with self.assertRaises(TimeoutError):
+                    with qt_capacity.slot(wait_seconds=0):pass
+                with qt_capacity.slot(priority=True,wait_seconds=0):
+                    with self.assertRaises(TimeoutError):
+                        with qt_capacity.slot(priority=True,wait_seconds=0):pass
+            self.assertEqual({p.name for p in root.iterdir()},{'0','1'})
+
+    def test_capacity_options_are_consumed_before_the_model_function(self):
+        import qt_capacity
+        with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ,{'QT_TEAM_ROOT':folder}):
+            @qt_capacity.limited
+            def run(value):return value
+            self.assertEqual(run('fixture',capacity_priority=True,capacity_wait=0),'fixture')
+
+
 class Presence(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()

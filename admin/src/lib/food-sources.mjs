@@ -1,5 +1,6 @@
 /** Canonical food snapshots, shared with the app server. Only fixed queries and public/submitted food fields. */
 import { createHash } from 'node:crypto';
+import { recipeClarityNotes } from './food-clarity.mjs';
 export const FOOD_KINDS = ['recipe', 'listing', 'class', 'gathering', 'cooked-photo', 'editorial-recipe', 'editorial-event'];
 const uuid = /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/;
 const pick = (row, keys) => Object.fromEntries(keys.map(key => [key, row[key] ?? null]));
@@ -7,9 +8,15 @@ const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const canonical = value => Array.isArray(value) ? value.map(canonical) : value && typeof value === 'object' && !(value instanceof Date)
   ? Object.fromEntries(Object.keys(value).sort().map(key => [key,canonical(value[key])])) : value;
 export const foodStamp = snapshot => sha(JSON.stringify(canonical({ edition:snapshot.edition??'pending',data: snapshot.data, photos: snapshot.photos.map(p => ({ slot: p.slot, digest: p.digest })).sort((a,b)=>a.slot.localeCompare(b.slot)) })));
-export const foodCandidate = (kind,data) => pick(data,kind==='recipe'
-  ? ['name','description','dietary','ingredients','steps','nutrition']
-  : ['title','dietEvidence','feeNote','registrationUrl','startsAt','endsAt']);
+export function foodCandidate(kind,data,sources=[]){
+  const fields=pick(data,kind==='recipe'
+    ? ['name','description','dietary','ingredients','steps','nutrition']
+    : ['title','organiser','dietEvidence','feeNote','registrationUrl','startsAt','endsAt','sources']);
+  // These are upstream source captures, not new QT dietary certifications. They are part of the exact fingerprint.
+  fields.sourceEvidence=(Array.isArray(sources)?sources:[]).slice(0,12)
+    .map(source=>pick(source,['url','checkedAt','fetchedAt','contentSha256','evidence']));
+  return fields;
+}
 
 export async function foodSource(db, kind, target, edition = 'pending', lock = false) {
   if (!FOOD_KINDS.includes(kind) || !uuid.test(String(target))) return null;
@@ -22,6 +29,9 @@ export async function foodSource(db, kind, target, edition = 'pending', lock = f
     const recipe = row[edition];
     data = pick(recipe, ['title', 'description', 'ingredients', 'steps', 'contains', 'categories', 'servings', 'minutes']);
     data.legacyDiet = recipe.diet ?? null;
+    data.foodRequirements = recipe.foodRequirements??null;
+    data.sourceNotes = String(recipe.source?.notes??'').slice(0,500);
+    data.clarityNotes = recipeClarityNotes(recipe);
     data.revision = row[edition + '_revision'];
     photos = (await db.query('SELECT slot,bytes,digest FROM recipes.photo WHERE recipe_id=$1 AND version=$2 ORDER BY slot', [target, edition])).rows;
   } else if (kind === 'listing') {

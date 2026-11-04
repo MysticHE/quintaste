@@ -2,7 +2,7 @@ import { pool, logger } from '../config.mjs';
 import { GeminiError, generate } from './gemini.mjs';
 import { demandPrompt, recipeSchema, requestPrompt, searchSystem, structureSystem } from './prompts.mjs';
 import { clip, parseUpload, toRecipe } from './recipe.mjs';
-import { hiddenAnimal, houseNotes, pungent, wantsNoPungent } from './charter.mjs';
+import { hiddenAnimal, houseNotes, pungent, wantsNoPungent, wantsVegan } from './charter.mjs';
 import { fromVideo } from './video-job.mjs';
 import { CHOSEN_KINDS, dropSnap } from './snap.mjs';
 import { queueDrawings } from './drawings.mjs';
@@ -12,6 +12,7 @@ import { linkRecipe } from '../nutrition/learned.mjs';
 import { notify } from '../community/push.mjs';
 import { publicId } from '../recipes/rules.mjs';
 import { foodReviewEnabled,stageFoodReview } from '../food-review/core.mjs';
+import { recipeClarity, recipeClarityNotes } from '../../admin/src/lib/food-clarity.mjs';
 
 export { parseUpload, toRecipe };
 
@@ -20,12 +21,24 @@ export const REVIEW_BELOW = 0.6;
 
 async function fromRequest(job, signal, usage, progress) {
   await progress('Finding rated recipes…');
-  const prompt = job.kind === 'demand' ? demandPrompt(job.input) : requestPrompt(job.input, await noPungentFor(job));
+  const prompt = job.kind === 'demand' ? demandPrompt(job.input) : requestPrompt(job.input, await noPungentFor(job),await veganFor(job));
   const research = await generate({ parts: [{ text: prompt }], system: searchSystem, tools: [{ google_search: {} }], signal, maxOutputTokens: 6000 });
   usage.calls.push(research.usage);
   await progress('Writing the recipe…');
   const structured = await generate({ parts: [{ text: 'Research notes and proposed version:\n\n' + research.data }], schema: recipeSchema, system: structureSystem, signal });
   usage.calls.push(structured.usage);
+  const clarity=recipeClarity(structured.data);
+  if(clarity.length){
+    await progress('Clarifying the ingredients…');
+    try{
+      const repaired=await generate({parts:[{text:'Repair these clarity gaps without inventing source details: '+JSON.stringify(clarity)+'\nOriginal request: '+prompt+'\nSource research:\n'+research.data+'\nDraft:\n'+JSON.stringify(structured.data)}],schema:recipeSchema,system:structureSystem,signal});
+      usage.calls.push(repaired.usage);
+      if(repaired.data?.isRecipe!==false&&repaired.data?.steps?.length){
+        toRecipe(repaired.data,{source:{kind:'request'}}); // reject an invalid repair before replacing the original draft
+        structured.data=repaired.data;
+      }
+    }catch(error){if(signal?.aborted)throw error;logger.warn({event:'ai_recipe_clarity_repair_failed'});}
+  }
   const sources = [...new Set(research.sources)].slice(0, 6);
   return { recipe: toRecipe(structured.data, { source: { kind: 'request', request: clip(job.input, 200), urls: sources } }), photos: null };
 }
@@ -34,6 +47,10 @@ async function fromRequest(job, signal, usage, progress) {
 export async function noPungentFor(job) {
   if (job.noPungent === undefined) job.noPungent = await wantsNoPungent(job);
   return job.noPungent;
+}
+export async function veganFor(job){
+  if(job.vegan===undefined)job.vegan=await wantsVegan(job);
+  return job.vegan;
 }
 
 /** Notes for staff (charter.mjs). Any note holds a member's recipe for review; a Wanted recipe always waits for staff. Animal
@@ -44,7 +61,7 @@ async function reviewNotes(job, recipe, used) {
   if (job.kind === 'demand') return [...notes, ...houseNotes(recipe)];
   if (used.length && await noPungentFor(job)) notes.push('uses ' + used.join(', ').toLowerCase() + (CHOSEN_KINDS.includes(job.kind) ? ', which the member asked to leave out' : ', which the member\'s Food Choices leave out'));
   // Snap a dish and My ingredients: a Vegan (or Vegan and Vegetarian) recipe that still has egg, dairy or honey waits for staff.
-  const animalTags = CHOSEN_KINDS.includes(job.kind) && job.options?.diet !== 'vegetarian' ? (recipe.contains ?? []).filter(tag => ['Eggs', 'Dairy', 'Honey'].includes(tag)) : [];
+  const animalTags = await veganFor(job) ? (recipe.contains ?? []).filter(tag => ['Eggs', 'Dairy', 'Honey'].includes(tag)) : [];
   if (animalTags.length) notes.push('uses ' + animalTags.join(', ').toLowerCase() + ', which the member asked to leave out (Vegan)');
   return notes;
 }
@@ -78,13 +95,14 @@ async function save(job, recipe, review, nutritionComplete) {
  * `aiNutrition: false` keeps the nutrition step to the ingredient table (the bots engine makes no Gemini calls).
  */
 export async function finishJob(job, recipe, photos, usage, { aiNutrition = true, signal = undefined } = {}) {
+  recipe.foodRequirements={noPungent:await noPungentFor(job),vegan:await veganFor(job)};
   await progress(job)('Working out the nutrition…');
   const { nutrition, complete } = await nutritionFor(recipe, { usage, signal, ai: aiNutrition });
   if (nutrition) recipe.nutrition = nutrition;
   const used = pungent(recipe);
   // A Wanted recipe carries QuinTaste's name: one that still uses the five pungent is not saved (owner rule, 17 Oct 2026).
   if (job.kind === 'demand' && used.length) throw new GeminiError(422, 'This version still uses ' + used.join(', ').toLowerCase() + '.');
-  const notes = await reviewNotes(job, recipe, used);
+  const notes = [...recipeClarityNotes(recipe), ...await reviewNotes(job, recipe, used)];
   // Staff-only: never part of recipe.source, which the app's recipe pages receive.
   if (notes.length) recipe.reviewNotes = notes.map(note => clip(note, 300));
   // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.

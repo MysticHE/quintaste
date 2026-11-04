@@ -4,6 +4,7 @@ import { boostersFor, fixInstruction, missedTargets } from './targets.mjs';
 import { photoPrompt, photoSystem, readDiet } from './snap.mjs';
 import { ingredientsPrompt, ingredientsSystem } from './ingredients.mjs';
 import { nutritionFor } from '../nutrition/service.mjs';
+import { recipeClarityNotes, boundedRepairPayload } from '../../admin/src/lib/food-clarity.mjs';
 
 /**
  * Recipe writing for Snap a dish and My ingredients on the QT bots (docs/AI_FOOD_LIBRARY_PLAN.md, Phase E). Code writes the brief
@@ -27,8 +28,12 @@ export function writingPayload(job) {
 export function writingBrief(payload) {
   const system = payload.kind === 'photo' ? photoSystem : ingredientsSystem;
   if (payload.fix && payload._draft) {
-    const { title, servings, ingredients, steps, notes } = payload._draft;
-    return { system, prompt: fixInstruction(payload.fix.picks, payload.fix.missed) + '\n\n' + JSON.stringify({ title, servings, ingredients, steps, notes }) };
+    const { title, servings, ingredients, steps, source } = payload._draft;
+    const instruction=payload.fix.clarity
+      ? 'Repair these ingredient clarity gaps using only the original request and supported facts: '+JSON.stringify(payload.fix.clarity)+'. Do not invent composition or label verification. Explain deliberate substitutions in notes.'
+      : fixInstruction(payload.fix.picks, payload.fix.missed);
+    const original=writingBrief({...payload,fix:null,_draft:null}).prompt;
+    return { system, prompt: instruction + '\nKeep the original requested diet and constraints:\n'+original+'\n\nDraft:\n' + JSON.stringify({ title, servings, ingredients, steps, notes:source?.notes??'' }) };
   }
   if (payload.kind === 'photo') {
     const card = payload.card ? cardById(payload.card) : null;
@@ -48,9 +53,11 @@ export const requestOf = payload => clip(payload.kind === 'photo' ? payload.dish
  */
 export async function nextRound(payload, recipe, usage) {
   if ((payload.round ?? 0) >= MAX_FIX_ROUNDS) return null;
+  const clarity=recipeClarityNotes(recipe);
+  if(clarity.length)return boundedRepairPayload({...payload,round:(payload.round??0)+1,fix:{clarity},_draft:recipe});
   const card = payload.kind === 'photo' && payload.card ? cardById(payload.card) : null;
   const { nutrition } = await nutritionFor(recipe, { usage, ai: false });
   const missed = await missedTargets(recipe, nutrition, card), picks = boostersFor(recipe, missed);
   if (!picks.length && !missed.includes('sodium')) return null;
-  return { ...payload, round: (payload.round ?? 0) + 1, fix: { picks, missed }, _draft: recipe };
+  return boundedRepairPayload({ ...payload, round: (payload.round ?? 0) + 1, fix: { picks, missed }, _draft: recipe });
 }

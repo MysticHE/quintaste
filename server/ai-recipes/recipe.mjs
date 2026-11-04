@@ -2,6 +2,7 @@ import { categories as recipeCategories, veganConflict } from '../recipes/rules.
 import { containsFor } from '../diet-labels.mjs';
 import { containsMeat } from '../market/rules.mjs';
 import { GeminiError } from './gemini.mjs';
+import { recipeClarity, recipeClarityStamp, CLARITY_PREFIX } from '../../admin/src/lib/food-clarity.mjs';
 
 /** Shapes the model's JSON into a member recipe the app can render, with diet tags read from the ingredients. */
 export const clip = (text, max) => String(text ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -62,6 +63,11 @@ export function toRecipe(draft, { source }) {
     servings, minutes, diet, contains, categories: [category], sponsorship: 'None', ingredients, steps, revision: 1,
     source: { ...source, notes: clip(draft.notes, 500), confidence: Math.min(Math.max(Number(draft.confidence) || 0, 0), 1) },
   };
+  const clarity=recipeClarity(draft);
+  if(clarity.length){
+    recipe.reviewNotes=clarity.map(note=>CLARITY_PREFIX+note);
+    recipe.clarity={stamp:recipeClarityStamp(recipe),notes:recipe.reviewNotes};
+  }
   return recipe;
 }
 

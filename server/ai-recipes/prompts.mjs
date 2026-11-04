@@ -1,4 +1,5 @@
 /** Prompts and JSON schemas for AI recipes. The model structures what it sees or finds; it never invents a tested recipe. */
+import { RECIPE_CLARITY_PROMPT } from '../../admin/src/lib/food-clarity.mjs';
 export const categories = ['Breakfast', 'Noodles', 'Rice meals', 'With rice', 'Soups', 'Snacks & kueh', 'Desserts & drinks'];
 
 export const recipeSchema = {
@@ -57,7 +58,8 @@ export const house = `You write recipes for QuinTaste, a Singapore vegetarian co
 - Categories: Breakfast, Noodles, Rice meals (one-dish rice meals), With rice (dishes eaten with rice), Soups, Snacks & kueh, Desserts & drinks.
 - Name each ingredient as one food by its everyday Singapore name ("Choy sum", not "Greens" or "Broccoli & bok choy"); never a generic "stock" or "seasoning": list what goes in it.
 - Diet: Vegan when no egg, dairy or honey; Vegetarian when those appear; NotVegetarian when any meat, poultry, seafood, fish sauce, oyster sauce made from oysters, shrimp paste or belacan, dried shrimp, dashi or bonito, lard, gelatine, or cheese made with animal rennet (Parmesan, Pecorino) appears.
-- Return JSON matching the schema and nothing else.`;
+- Return JSON matching the schema and nothing else.
+${RECIPE_CLARITY_PROMPT}`;
 
 export const videoSystem = house + `
 You are given a cooking video. Watch the frames and listen to the speech and on-screen text, and read the creator's caption when given. Record for each step the second in the video where it starts.
@@ -65,7 +67,8 @@ Every action a cook must do is a step, including preparation the video skips but
 
 export const videoPrompt = 'Turn this video into a complete recipe. If it is not a cooking recipe, set isRecipe to false.';
 
-export const searchSystem = `You research vegetarian recipes for a Singapore cooking app. Use Google Search to find 2 to 4 well-rated recipe pages that match the request, prefer Singapore, Malaysian, Chinese, Indian and South-East Asian home cooking, and read the actual ingredient lists and steps. Report what you found: for each page its URL, title, author, rating if shown, servings, total time, ingredients with quantities and the method in brief. Then propose one QuinTaste version that stays faithful to those pages (no invented quantities), explaining which page each part follows. Vegetarian only: when the dish is usually made with meat or seafood, find vegetarian versions of it (tofu, mushrooms, mock meat, jackfruit) and propose the meat-free home version under a name people recognise, such as "Vegetarian chicken rice".`;
+export const searchSystem = `You research vegetarian recipes for a Singapore cooking app. Use Google Search to find 2 to 4 well-rated recipe pages that match the request, prefer Singapore, Malaysian, Chinese, Indian and South-East Asian home cooking, and read the actual ingredient lists and steps. Report what you found: for each page its URL, title, author, rating if shown, servings, total time, ingredients with quantities and the method in brief. Then propose one QuinTaste version that stays faithful to those pages (no invented quantities), explaining which page each part follows. Vegetarian only: when the dish is usually made with meat or seafood, find vegetarian versions of it (tofu, mushrooms, mock meat, jackfruit) and propose the meat-free home version under a name people recognise, such as "Vegetarian chicken rice".
+${RECIPE_CLARITY_PROMPT}`;
 
 export const structureSystem = house + `
 You are given research notes about recipes found on the web plus a proposed version. Produce the final recipe JSON from the proposed version. Set creator to the author of the page the version mainly follows, and at to null for every step.`;
@@ -73,8 +76,8 @@ You are given research notes about recipes found on the web plus a proposed vers
 /** Written without the five pungent: QuinTaste's own Wanted recipes, and members whose Food Choices include Vegetarian. */
 export const NO_PUNGENT = ' Write it without garlic, onion, shallot, spring onion, leek, chive or asafoetida and without sauces or pastes made with them; '
   + 'use ginger, pepper, coriander, celery or mushrooms for flavour, and say what you changed in notes.';
-export const requestPrompt = (text, noPungent = false) => `Recipe request from a member: "${text}". Find matching vegetarian recipes and propose the QuinTaste version.`
-  + (noPungent ? NO_PUNGENT : '');
+export const requestPrompt = (text, noPungent = false, vegan = false) => `Recipe request from a member: "${text}". Find matching vegetarian recipes and propose the QuinTaste version.`
+  + (noPungent ? NO_PUNGENT : '') + (vegan ? ' The member requested Vegan: no eggs, dairy or honey, including in compound ingredients. Use explicitly named plant alternatives and explain any adaptation.' : '');
 /** A dish several members searched Cook for and could not find (server/cook-search/demand.mjs). */
 export const demandPrompt = text => `Several members searched a Singapore vegetarian cooking app for "${text}" and found no recipe. Find matching vegetarian recipes, or vegetarian versions if the dish usually has meat or seafood, and propose the QuinTaste home version.`
   + NO_PUNGENT + ' Prefer pan-frying, baking or steaming to deep-frying.';

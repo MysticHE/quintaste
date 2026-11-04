@@ -3,7 +3,7 @@ import { botCaller, parse, rawBody } from '../../../../lib/bot';
 import { HttpError, json, throttle } from '../../../../lib/http';
 import { attention } from '../../../../lib/attention';
 import { chefAsks, chefDecide, chefLane, ownerAnswer } from '../../../../lib/chefs';
-import { foodClaim,foodHeartbeat,foodPhoto,foodResult } from '../../../../lib/food-review';
+import { foodClaim,foodHeartbeat,foodPhoto,foodResult,foodEvidence } from '../../../../lib/food-review';
 import { botBlocker } from '../../../../lib/bot-blockers';
 
 type Context = { params: Promise<{ resource: string }> };
@@ -33,6 +33,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   if(resource==='food-claim')return json(await foodClaim(caller));
   if(resource==='food-heartbeat')return json(await foodHeartbeat(caller,parse(body)));
   if(resource==='food-result')return json(await foodResult(caller,parse(body),chefDecide));
+  if(resource==='food-evidence')return json(await foodEvidence(caller,parse(body)));
   if (resource === 'decide') return json(await chefDecide(caller, parse(body)));
   if (resource === 'answer') return json(await ownerAnswer(parse(body)));
   throw new HttpError(404, 'Not found.');

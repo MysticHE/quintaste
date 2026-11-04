@@ -300,6 +300,28 @@ CHEF_WHY = {'disagree': 'Kaya disagreed', 'weak': 'not sure enough', 'no-to-memb
             'batch': "the item's lot and date mark differ from the notice"}
 CHEF_CARDS_PER_DAY = 20   # single ask cards a day (Singapore); more go into one card that points to admin
 CHEF_BURST = 5            # more new asks than this at once also go into that one card
+
+
+def chef_request_lines(ask):
+    """Food evidence gaps must never read as a meat finding or an invented disagreement."""
+    if ask.get('foodReview'):
+        status=ask.get('foodStatus') or {}
+        lines=[f"QT Manager · {ask['chef']} asks you", 'Food eligibility: owner review',
+               'Why: '+status.get('label','Needs food review')]
+        if status:
+            lines.append('Mint: '+status['mint']+' · Kaya: '+status['kaya'])
+        if isinstance(ask.get('confidence'),(int,float)):
+            lines.append('Model confidence: %s%% · automatic threshold: %s%%' %
+                         (round(ask['confidence']*100),round(status.get('threshold',.95)*100)))
+        lines.append('Confidence describes the review, not the chance that the food contains meat.')
+        lines.append('Open the exact issue to inspect the evidence and choose Clear or Hold.')
+        return lines
+    item=ask.get('item') or "a member's item"
+    sure=f" ({round(ask['confidence']*100)}% sure)" if isinstance(ask.get('confidence'),(int,float)) else ''
+    lines=[f"QT Manager · {ask['chef']} asks you",f"{ask['lane']}: {ask['action']} {item}",
+           'Why: '+CHEF_WHY.get(ask.get('why'),'unclear')+sure]
+    if ask.get('reason'):lines.append(f"{ask['chef']}: {ask['reason']}")
+    return lines
 CHEF_TOKENS = 400         # chef buttons kept apart from other owner buttons, so a burst of asks never pushes out Revert or Delete
 CHEF_TOKEN_DAYS = 30
 CHEF_EXPIRED = 'This question can no longer be answered here. Answer it on the Chef decisions page in admin.'
@@ -347,15 +369,10 @@ def chef_requests(state):
         if not ask.get('foodReview'):
             tokens[token] = {'mode': 'chef', 'kind': 'chef', 'id': ask['id'], 'name': f"{ask['action']} {item}"[:120],
                              'expires': time.time() + CHEF_TOKEN_DAYS * 86400, 'stage': 'direct', 'actionId': 'owner-chef-' + token}
-        sure = f" ({round(ask['confidence'] * 100)}% sure)" if isinstance(ask.get('confidence'), (int, float)) else ''
-        lines = [f"QT Manager · {ask['chef']} asks you", f"{ask['lane']}: {ask['action']} {item}",
-                 'Why: ' + CHEF_WHY.get(ask.get('why'), 'unclear') + sure]
-        if ask.get('reason'):
-            lines.append(f"{ask['chef']}: {ask['reason']}")
+        lines = chef_request_lines(ask)
         buttons=[[chef_admin_button(ask['id'])]] if ask.get('foodReview') else [
             [{'text': 'Approve', 'callback_data': 'chef-ok:' + token}, {'text': 'Turn down', 'callback_data': 'chef-no:' + token}],
             [chef_admin_button(ask['id'])]]
-        if ask.get('foodReview'):lines.append('Open the issue to inspect the exact text/photos and choose Clear or Hold.')
         t.enqueue(state, 'chef:' + ask['id'], '\n'.join(lines), buttons=buttons)
         sent[day] += 1
     rest = asks[len(single):]

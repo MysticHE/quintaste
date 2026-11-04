@@ -7,6 +7,7 @@ import { can } from './permissions';
 import { choice, HttpError, pageSize, text, uuid } from './http';
 import { settings } from './config';
 import { CHEFS, HANDOFF, LANES, controlKey, modeOf, type Lane, type Mode, type Why } from './chef-lanes';
+import { foodAssessment, foodAskWhy } from './food-assessment';
 
 /**
  * Chef decisions (docs/ADMIN_CHEFS_PLAN.md §2 and §6). A chef proposes, Kaya reviews on the bot side, and this decides what
@@ -65,10 +66,12 @@ export async function chefDecide(chef: string, input: Record<string, unknown>) {
   const [name, lane] = laneOf(chef, input.lane);
   const action = choice(input.action, Object.keys(lane.actions), 'action'), step = lane.actions[action];
   const target = text(input.target, 'target', 200), reason = text(input.reason, 'reason', 500), idem = text(input.idem, 'idempotency key', 120, 8);
-  const review = choice(input.review, ['agree', 'disagree'] as const, 'review');
+  let review = choice(input.review, ['agree', 'disagree'] as const, 'review');
   const confidence = input.confidence === undefined || input.confidence === null ? null : Number(input.confidence);
   if (confidence !== null && !(confidence >= 0 && confidence <= 1)) throw new HttpError(400, 'Check confidence.');
   const details = json(input.input, 'input', 8000), evidence = json(input.evidence, 'evidence', 16000);
+  const food = name === 'food-checks' ? foodAssessment(evidence, confidence, lane.floor) : null;
+  if (food) review = food.agreement ? 'agree' : 'disagree';
   return transaction(async db => {
     await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', ['chef:' + chef + ':' + idem]);
     const prior = (await db.query<Row>('SELECT id, outcome, note, why_ask FROM ops.chef_decision WHERE chef=$1 AND idem=$2', [chef, idem])).rows[0];
@@ -77,7 +80,7 @@ export async function chefDecide(chef: string, input: Record<string, unknown>) {
     const mode = await laneMode(db, name);
     if (mode === 'off') throw new HttpError(409, 'This lane is off.');
     const asks = step.ask ?? (step.askWhen ? await step.askWhen(db, target, details) : null);
-    const why: Why | null = review === 'disagree' ? 'disagree' : asks ?? (confidence === null || confidence < lane.floor ? 'weak' : null);
+    const why: Why | null = food ? foodAskWhy(food) ?? asks : review === 'disagree' ? 'disagree' : asks ?? (confidence === null || confidence < lane.floor ? 'weak' : null);
     let outcome = mode === 'watch' ? 'watched' : why ? 'asked' : 'done', note = '', result = {};
     if (outcome === 'done') {
       await db.query('SAVEPOINT chef_apply');
@@ -175,10 +178,10 @@ export async function chefDecisions(member: Session, view: string, skip = 0, sel
     LEFT JOIN staff.member m ON m.id = d.decided_by WHERE ${where} AND d.lane = ANY($1) ORDER BY d.created_at DESC LIMIT ${pageSize} OFFSET $2`,
     selected ? [lanes, 0, selected] : [lanes, skip])).rows;
   const names = await labelsFor(rows, () => true);
-  return rows.map(r => ({ id: r.id, chef: CHEFS[r.chef] ?? r.chef, lane: LANES[r.lane]?.title ?? r.lane, item: names[r.lane + '|' + r.target] ?? r.target,
-    action: r.action, reason: r.reason, evidence: r.evidence, confidence: r.confidence, review: r.review, why: r.why_ask, mode: r.mode, outcome: r.outcome,
+  return rows.map(r => { const food = r.lane === 'food-checks' ? foodAssessment(r.evidence, r.confidence, LANES[r.lane]?.floor) : null; return ({ id: r.id, chef: CHEFS[r.chef] ?? r.chef, lane: LANES[r.lane]?.title ?? r.lane, item: names[r.lane + '|' + r.target] ?? r.target,
+    action: r.action, reason: r.reason, evidence: r.evidence, confidence: r.confidence, review: food ? food.agreement ? 'agree' : 'disagree' : r.review, why: food ? foodAskWhy(food) : r.why_ask, foodStatus: food, mode: r.mode, outcome: r.outcome,
     note: r.note, created_at: r.created_at, decided_at: r.decided_at, decided_by: r.decided_email,
-    undoable: ['done', 'approved'].includes(r.outcome) && !!r.result?.undo && !!LANES[r.lane]?.actions[r.action]?.undo }));
+    undoable: ['done', 'approved'].includes(r.outcome) && !!r.result?.undo && !!LANES[r.lane]?.actions[r.action]?.undo }); });
 }
 
 /** Item names keyed "lane|target", one query per lane, for the lanes `which` allows. */
@@ -205,7 +208,8 @@ export async function chefAsks(after: string | null) {
   const names = await labelsFor(rows, lane => !lane.member);
   return rows.map(r => {
     const lane = LANES[r.lane];
-    return { id: r.id, at: r.at, chef: CHEFS[r.chef] ?? r.chef, lane: lane?.title ?? r.lane, action: r.action, why: r.why_ask, confidence: r.confidence,
+    const food = r.lane === 'food-checks' ? foodAssessment(r.evidence, r.confidence, lane?.floor) : null;
+    return { id: r.id, at: r.at, chef: CHEFS[r.chef] ?? r.chef, lane: lane?.title ?? r.lane, action: r.action, why: food ? foodAskWhy(food) : r.why_ask, foodStatus: food, confidence: r.confidence,
       foodReview:r.lane==='food-checks',item: lane && !lane.member ? names[r.lane + '|' + r.target] ?? r.target : lane?.privateLabel ?? null, reason: lane && !lane.member ? r.reason.slice(0, 200) : null };
   });
 }

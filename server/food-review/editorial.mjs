@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
+import { Buffer } from 'node:buffer';
 import sharp from 'sharp';
 import { enqueueFoodReview,foodReviewEnabled } from './core.mjs';
 import { validateRecipe,validateEvent } from '../editorial/validation.mjs';
@@ -27,7 +28,7 @@ export async function editorialFoodGate(db,root,batch){
       await sharp(bytes,{limitInputPixels:1600*1600}).metadata();
       photos.push({slot,digest,bytes});
     }
-    const data=foodCandidate(record.kind,record.data);
+    const data=foodCandidate(record.kind,record.data,record.sources);
     const result=await enqueueFoodReview(db,'editorial-'+record.kind,record.id,{data,edition:'candidate'},photos);
     if(result.state==='held')held.push(record.id);
     if(result.state!=='clear')waiting.push(result.id);

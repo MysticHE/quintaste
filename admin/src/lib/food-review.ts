@@ -8,6 +8,7 @@ import { foodSource, foodStamp, applyFoodVisibility } from './food-sources.mjs';
 import { modeOf } from './chef-names';
 import { FOOD_POLICY_VERSION } from './food-policy.mjs';
 import { authorize,type Session } from './session';
+import { foodAssessment } from './food-assessment';
 
 export async function foodDetail(member:Session,raw:string,slot:string|null=null){
   authorize(member,'content');
@@ -21,7 +22,11 @@ export async function foodDetail(member:Session,raw:string,slot:string|null=null
   const row=(await query('SELECT id,kind,target,fingerprint,policy_version,payload,photos,state,message,created_at FROM ops.food_review WHERE id=$1',[id])).rows[0];
   if(!row)throw new HttpError(404,'Food review unavailable.');
   const paths:Record<string,string>={recipe:'/cook/recipe/member-',listing:'/market/listing/',class:'/market/class/',gathering:'/social/gathering/'};
-  return {...row,path:paths[row.kind]?paths[row.kind]+row.target:null};
+  const current=row.state==='superseded'?(await query(`SELECT r.state,d.id AS issue FROM ops.food_review r
+    LEFT JOIN ops.chef_decision d ON d.lane='food-checks' AND d.target=r.id::text AND d.outcome='asked'
+    WHERE r.kind=$1 AND r.target=$2 AND r.payload->>'edition'=$3 AND r.state<>'superseded' ORDER BY r.created_at DESC LIMIT 1`,
+    [row.kind,row.target,row.payload.edition])).rows[0]:null;
+  return {...row,path:paths[row.kind]?paths[row.kind]+row.target:null,currentState:current?.state??null,currentIssue:current?.issue?'/console/chefs?id='+current.issue:null};
 }
 
 export async function foodClaim(caller: string) {
@@ -50,10 +55,43 @@ export async function foodClaim(caller: string) {
 export async function foodHeartbeat(caller:string,input:Record<string,unknown>){
   const id=uuid(input.id,'review'),token=uuid(input.token,'lease');
   const phase=caller==='safety'?'mint':caller==='head'?'kaya':'';
+  if(input.defer===true){
+    const released=await query(`UPDATE ops.food_review SET state='queued',due_at=now()+interval '30 seconds',token=NULL,lease_until=NULL,attempts=greatest(attempts-1,0)
+      WHERE id=$1 AND token=$2 AND phase=$3 AND state='working' AND lease_until>now()`,[id,token,phase]);
+    if(!released.rowCount)throw new HttpError(409,'Review lease expired.');
+    return {ok:true,deferred:true};
+  }
   const r=await query(`UPDATE ops.food_review SET lease_until=now()+interval '90 seconds' WHERE id=$1 AND token=$2 AND phase=$3
     AND state='working' AND lease_until>now() AND updated_at>now()-interval '20 minutes'`,[id,token,phase]);
   if(!r.rowCount)throw new HttpError(409,'Review lease expired.');
   return {ok:true};
+}
+
+/** One bounded Lychee evidence check, attached to this exact public event revision before an owner is asked. */
+export async function foodEvidence(caller:string,input:Record<string,unknown>){
+  if(caller!=='head')throw new HttpError(403,'Only Kaya can request this evidence handoff.');
+  const id=uuid(input.id,'review'),token=uuid(input.token,'lease');
+  if(!Array.isArray(input.sources)||input.sources.length>3)throw new HttpError(400,'Check source evidence.');
+  return transaction(async db=>{
+    const job=(await db.query("SELECT * FROM ops.food_review WHERE id=$1 AND token=$2 AND phase='kaya' AND state='working' AND lease_until>now() FOR UPDATE",[id,token])).rows[0];
+    if(!job||job.policy_version!==FOOD_POLICY_VERSION||job.kind!=='editorial-event'||job.decision.evidenceAttempted||job.decision.mint?.decision!=='uncertain')throw new HttpError(409,'This revision has no pending evidence handoff.');
+    const host=(value:unknown)=>{try{const u=new URL(String(value));return u.protocol==='https:'&&!u.username&&!u.password&&(!u.port||u.port==='443')&&/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(u.hostname)&&!u.hostname.endsWith('.local')&&!u.hostname.endsWith('.internal')?u.hostname.replace(/^www\./,''):null;}catch{return null;}};
+    const data=job.payload.data,allowed=new Set([data.registrationUrl,...(data.sources??[]),...(data.sourceEvidence??[]).map((s:{url?:string})=>s.url)].map(host).filter(Boolean));
+    const sources=(input.sources as Record<string,unknown>[]).map(s=>{
+      if(!s||typeof s!=='object'||Array.isArray(s))throw new HttpError(400,'Check source evidence.');
+      const sourceHost=host(s.url),fetched=Date.parse(String(s.fetchedAt));
+      if(!sourceHost||!allowed.has(sourceHost)||typeof s.url!=='string'||s.url.length>600||typeof s.evidence!=='string'||s.evidence.trim().length<30||s.evidence.length>1000
+        ||typeof s.contentSha256!=='string'||!/^[a-f0-9]{64}$/.test(s.contentSha256)||!Number.isFinite(fetched)||fetched>Date.now()+60000||fetched<Date.now()-3600000
+        ||s.checkedAt!==new Date(fetched).toISOString().slice(0,10))throw new HttpError(400,'Evidence must be a fresh excerpt read from a supplied official source host.');
+      return {url:s.url,evidence:s.evidence,contentSha256:s.contentSha256,fetchedAt:s.fetchedAt,checkedAt:s.checkedAt};
+    });
+    const sourceRecheck={status:sources.length?'checked':'unavailable',sources};
+    const decision={...job.decision,evidenceAttempted:true,sourceRecheck};
+    if(sources.length)await db.query("UPDATE ops.food_review SET decision=$2,phase='mint',state='queued',attempts=0,token=NULL,lease_until=NULL,due_at=now(),updated_at=now() WHERE id=$1",[id,JSON.stringify(decision)]);
+    else await db.query('UPDATE ops.food_review SET decision=$2 WHERE id=$1',[id,JSON.stringify(decision)]);
+    await audit(db,null,'food.evidence',job.kind+':'+job.target,'Lychee checked the supplied official sources for this exact event revision',{review:id,sources:sources.length},'head');
+    return {requeued:sources.length>0,sourceRecheck};
+  });
 }
 
 export async function foodPhoto(caller:string,id:string,slot:string,token:string){
@@ -121,14 +159,14 @@ export async function foodResult(caller:string,input:Record<string,unknown>,deci
   if(!failed&&(!value||!['clear','hold','uncertain'].includes(value.decision??'')||typeof value.reason!=='string'||value.reason.length<5||value.reason.length>500
     ||typeof value.confidence!=='number'||!Number.isFinite(value.confidence)||value.confidence<0||value.confidence>1
     ||!Array.isArray(value.photosReviewed)||JSON.stringify([...value.photosReviewed].sort())!==JSON.stringify(job.photos.map((p:{digest:string})=>p.digest).sort())))throw new HttpError(400,'Every exact food field and image needs a valid review.');
-  const result=failed?{decision:'uncertain',reason:'The worker could not finish this review. Staff attention is needed.',confidence:0,photosReviewed:[]}:value!;
+  const result=failed?{decision:'uncertain',reason:'The worker could not finish this review. Staff attention is needed.',confidence:0,photosReviewed:[],failed:true}:value!;
   if(phase==='mint'){
     const r=await query(`UPDATE ops.food_review SET phase='kaya',state='queued',decision=$3,token=NULL,lease_until=NULL,attempts=0,updated_at=now()
-      WHERE id=$1 AND token=$2 AND phase='mint' AND state='working' AND lease_until>now()`,[id,token,JSON.stringify({mint:result})]);
+      WHERE id=$1 AND token=$2 AND phase='mint' AND state='working' AND lease_until>now()`,[id,token,JSON.stringify({...job.decision,mint:result})]);
     if(!r.rowCount)throw new HttpError(409,'Food review lease expired.');
     return {ok:true};
   }
-  const mint=job.decision.mint,agreed=!failed&&mint?.decision===result.decision&&result.decision!=='uncertain';
+  const mint=job.decision.mint,status=foodAssessment({mint,kaya:result},Math.min(mint?.confidence??0,result.confidence??0));
   return decide('safety',{lane:'food-checks',target:id,action:result.decision==='clear'?'clear':'hold',input:{fingerprint:job.fingerprint,token},
-    reason:result.reason,evidence:{foodReview:id,mint,kaya:result,photos:job.photos},confidence:Math.min(mint?.confidence??0,result.confidence??0),review:agreed?'agree':'disagree',idem:'food:'+id+':'+job.fingerprint});
+    reason:result.reason,evidence:{foodReview:id,mint,kaya:result,photos:job.photos,sourceRecheck:job.decision.sourceRecheck??null},confidence:Math.min(mint?.confidence??0,result.confidence??0),review:status.agreement?'agree':'disagree',idem:'food:'+id+':'+job.fingerprint});
 }
