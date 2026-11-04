@@ -13,7 +13,7 @@ import setup
 
 HERE = Path(__file__).resolve().parent
 CONTAINER = 'hermes-agent-yril-hermes-agent-1'
-NAMES = ['kitchen_feed.py', 'app_signing.py']
+NAMES = ['kitchen_activity.py', 'kitchen_feed.py', 'app_signing.py']
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 
 code = r'''

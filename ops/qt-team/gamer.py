@@ -17,6 +17,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from kitchen_activity import tracked
 
 PER_RUN = 4            # assets generated per coordinator tick
 REVIEW_BATCH = 6       # assets per Manager review
@@ -64,6 +65,7 @@ def todo(root):
     return [a for a in manifest(root) if a.get('status') == 'todo' and a['id'] not in known]
 
 
+@tracked('qt-gamer')
 def _generate(root, asset, run_id):
     g = folder(root)
     env = dict(os.environ, HERMES_HOME=PROFILE, HERMES_SRC='/opt/hermes')

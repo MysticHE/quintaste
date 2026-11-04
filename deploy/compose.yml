@@ -55,6 +55,12 @@ services:
       traefik.http.routers.quintaste.middlewares: quintaste-body
       traefik.http.middlewares.quintaste-body.buffering.maxRequestBodyBytes: '16384'
       traefik.http.services.quintaste.loadbalancer.server.port: '3000'
+      # Public, bodyless activity stream: buffering must not hold its response until disconnect.
+      traefik.http.routers.quintaste-kitchen-events.rule: Host(`${APP_HOST}`) && Method(`GET`) && Path(`/api/kitchen/events`)
+      traefik.http.routers.quintaste-kitchen-events.priority: '105'
+      traefik.http.routers.quintaste-kitchen-events.entrypoints: websecure
+      traefik.http.routers.quintaste-kitchen-events.tls.certresolver: letsencrypt
+      traefik.http.routers.quintaste-kitchen-events.service: quintaste
       traefik.http.routers.quintaste-editorial.rule: Host(`${APP_HOST}`) && Path(`/api/editorial/control/publish`)
       traefik.http.routers.quintaste-editorial.priority: '110'
       traefik.http.routers.quintaste-editorial.entrypoints: websecure

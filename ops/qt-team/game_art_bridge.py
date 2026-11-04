@@ -21,6 +21,7 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
+from kitchen_activity import tracked
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 from app_signing import open_signed  # noqa: E402  (the shared signer)
@@ -58,6 +59,7 @@ def manifest_for(job: dict) -> dict:
     return {'assets': [{'id': job['artKey'], 'kind': KINDS[job['kind']], 'subject': subject, 'details': details, 'chroma': chroma, 'status': 'todo'}]}
 
 
+@tracked('qt-gamer')
 def draw(job: dict) -> dict:
     """Runs QT Gamer for one job; returns the answer for the app."""
     run = 'job-' + job['id'][:8]

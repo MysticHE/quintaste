@@ -2,8 +2,6 @@
  * Who works in the Mochi kitchen and how each one behaves. Positions are the chef's feet in % of the room painting, for the
  * tall (phone) and wide room. `spots` are places a chef walks to; `face` is the way the chef looks when it gets there.
  */
-export const LIVE = new Set(['head', 'scout', 'wok', 'host', 'artist', 'writer']);
-
 /** Feed states in which a chef's bot is on shift: it works the floor, and its tag shows the green online light. */
 export const ON_SHIFT = ['working', 'reviewing', 'waiting'];
 

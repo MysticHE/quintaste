@@ -13,11 +13,13 @@ from pathlib import Path
 import signal
 import subprocess
 from qt_capacity import limited
+from kitchen_activity import tracked
 
 DISCOVERY = ('tool_search', 'tool_describe')
 
 
 @limited
+@tracked(lambda profile, *args, **kwargs: profile)
 def run(profile: str, prompt: str, folder: Path, *, toolset: str = 'web', allowed=DISCOVERY, seconds: int = 300, turns: int = 3,
         grace: int = 60, reserve=None, keep: bool = True):
     """Returns (final result event, all events), or raises RuntimeError."""

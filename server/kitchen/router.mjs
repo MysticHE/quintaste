@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { json, raw, signed } from '../bot-signature.mjs';
+import { feedStream } from './stream.mjs';
 
 /**
  * The public Mochi kitchen (docs/MOCHI_KITCHEN_PLAN.md §4–5). The QT coordinator pushes one small snapshot built from verified
@@ -89,6 +90,11 @@ export function readFeed(body) {
 }
 
 export const kitchen = express.Router();
+async function readSnapshot() {
+  try { return await fs.readFile(feedFile, 'utf8'); }
+  catch (error) { if (error?.code === 'ENOENT') return JSON.stringify(EMPTY); throw error; }
+}
+kitchen.get('/events', feedStream(readSnapshot));
 kitchen.get('/feed', async (_req, res) => {
   res.set('Cache-Control', 'no-cache');  // live (owner, 30 Oct 2026): every poll sees the latest push
   try { res.type('application/json').send(await fs.readFile(feedFile)); }

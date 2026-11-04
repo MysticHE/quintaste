@@ -14,7 +14,7 @@ import bridge_units
 import setup
 
 HERE = Path(__file__).resolve().parent
-NAMES = ['ai_recipes_bridge.py', 'app_signing.py', 'bridge_stop.py', 'roles/qt-videomaker.md']  # the shared signer and stop the bridge imports
+NAMES = ['kitchen_activity.py', 'qt_capacity.py', 'hermes_run.py', 'ai_recipes_bridge.py', 'app_signing.py', 'bridge_stop.py', 'roles/qt-videomaker.md']  # shared dependencies
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 
 code = r'''

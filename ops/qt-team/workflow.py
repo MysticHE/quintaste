@@ -456,34 +456,22 @@ def prepare_model(role, prompt, folder, policy, seconds=None, publication=False,
 def kitchen_ping():
     """Push the public kitchen page's snapshot now, in the background (owner, 30 Oct 2026: live, no delay). Best effort: the
     page also refreshes every minute from a timer, so a failed or skipped push changes nothing else."""
-    if (ROOT / 'kitchen_feed.py').exists():
-        try:
-            subprocess.Popen([sys.executable, 'kitchen_feed.py', '--push'], cwd=ROOT, stdin=subprocess.DEVNULL,
-                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
-        except OSError:
-            pass
+    from kitchen_activity import ping
+    ping()
 
 
 @limited
 def execute_model(call):
     """The model call itself (a Hermes subprocess). Thread-safe: reads no shared state and writes only the call's
     own folder. Never raises: returns {'obj', 'receipt', 'tools', 'error'}; finish_model() applies the outcome.
-    live.json marks the call as running for the kitchen page (kitchen_feed.chef_activity), which hears when it starts and ends."""
+    A shared, process-bound activity lease tells the kitchen when the call starts and ends."""
     outcome = {'obj': None, 'receipt': None, 'tools': None, 'error': None}
-    live = call['folder'] / 'live.json'
-    try:
-        live.write_text(json.dumps({'role': call['role'], 'startedAt': now()}), encoding='utf-8')
-    except OSError:
-        live = None
-    kitchen_ping()
-    try:
-        _execute(call, outcome)
-    except Exception as exc:
-        outcome['error'] = exc
-    finally:
-        if live:
-            live.unlink(missing_ok=True)
-    kitchen_ping()
+    from kitchen_activity import activity
+    with activity(call['role']):
+        try:
+            _execute(call, outcome)
+        except Exception as exc:
+            outcome['error'] = exc
     return outcome
 
 
@@ -2047,7 +2035,9 @@ def mark_stage(name):
             path.unlink(missing_ok=True)
         else:
             tmp = path.with_suffix('.tmp')
-            tmp.write_text(json.dumps({'stage': name, 'startedAt': now(), 'pid': os.getpid()}), encoding='utf-8')
+            from kitchen_activity import process_identity
+            tmp.write_text(json.dumps({'stage': name, 'startedAt': now(), 'pid': os.getpid(),
+                                       'process': process_identity(os.getpid())}), encoding='utf-8')
             os.replace(tmp, path)
     except OSError:
         pass  # the page is a nicety; never stop a round for it
@@ -2086,10 +2076,13 @@ def run(trial=False, nightly=False):
         raise RuntimeError('Research archive capacity reached; operator archive required before further provider calls')
     tick = Round(policy, trial, nightly)
     tick.prepare()
-    for stage in tick.stages():
-        mark_stage(stage.__name__)
-        stage()
-    mark_stage(None)
+    try:
+        for stage in tick.stages():
+            mark_stage(stage.__name__)
+            stage()
+    finally:
+        mark_stage(None)
+        kitchen_ping()
     if tick.errors:
         sys.exit(1)
 

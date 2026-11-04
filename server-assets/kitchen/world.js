@@ -1,4 +1,4 @@
-import { LIVE, VIEWS, FLOOR, SIZE, HABITS, HANDS, ICON, COUNTER, ON_SHIFT, spot } from './chefs.js';
+import { VIEWS, FLOOR, SIZE, HABITS, HANDS, ICON, COUNTER, ON_SHIFT, spot } from './chefs.js';
 import { RING, FACE, ringFor, inside, bodyMotion, handOffsets } from './pose.js';
 import { home, depth, step, settle } from './behaviour.js';
 import { REACTIONS, burst, bubble, setArtBase } from './reactions.js';
@@ -30,7 +30,7 @@ function buildChef(w, el) {
   const shadow = Object.assign(document.createElement('span'), { className: 'chef-shadow' });
   el.querySelector('.chef-figure').replaceChildren(shadow, rig, el.querySelector('.zz'));
   return { id, el, rig, sprite, icon, hands, shadow, habit: HABITS[id], x: 50, y: 70, ring: 0, turnAt: 0, queue: [], task: null,
-    phase: 0, act: null, actT: 0, hop: 0, pokes: [], state: LIVE.has(id) ? 'unknown' : 'soon', nextIdle: 0, placed: false };
+    phase: 0, act: null, actT: 0, hop: 0, pokes: [], state: 'unknown', nextIdle: 0, placed: false };
 }
 
 function place(w, chef) {
@@ -202,7 +202,7 @@ export function createWorld({ scene, artBase = '/kitchen/art/' }) {
   scene.addEventListener('click', e => floorTap(w, e));
   requestAnimationFrame(now => frame(w, now));
   return {
-    setStates(states) { w.chefs.forEach(c => { c.state = LIVE.has(c.id) ? (states[c.id] ?? 'unknown') : 'soon'; }); },
+    setStates(states) { w.chefs.forEach(c => { c.state = states[c.id] ?? 'unknown'; }); },
     poke: id => poke(w, id),
     deliver: (item, text) => deliver(w, item, text),
   };

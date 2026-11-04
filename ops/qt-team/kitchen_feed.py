@@ -19,6 +19,7 @@ from pathlib import Path
 
 from app_signing import open_signed
 from night_window import ROLE_WINDOWS as BOT_WINDOWS
+import kitchen_activity
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 ROUTE = '/api/kitchen/bot/feed'
@@ -26,16 +27,7 @@ SG = dt.timezone(dt.timedelta(hours=8))
 DELAY = dt.timedelta(0)  # owner, 30 Oct 2026: tickets show as soon as they are published
 WINDOW = dt.timedelta(days=13)  # the app accepts items from the last 14 days
 MAX_ITEMS, MAX_BYTES, MAX_TEXT = 40, 15_500, 90
-LIVE = dt.timedelta(minutes=10)  # QT Gamer and the writer count as working this long after their last file
-STUCK = dt.timedelta(minutes=45)  # a call's live.json older than this was left by a killed round, not a running call
-RECENT = dt.timedelta(minutes=3)  # stays working this long after a call ends, so the short gaps between calls do not flicker
 ROLE_WINDOWS = {chef: BOT_WINDOWS[role] for chef, role in (('wok', 'qt-cooker'), ('host', 'qt-event')) if role in BOT_WINDOWS}  # shift hours (SGT)
-RUN_FOLDERS = {
-    'scout': ('explorer-', 'veg-kitchen-', 'mixed-kitchen-', 'cover-search'),
-    'wok': ('cooker', 'creator-scout'),
-    'host': ('event',),
-    'head': ('manager', 'publication'),
-}
 # QT Manager's free-text hold reasons, reduced to the page's fixed categories; the first match wins.
 REASONS = [
     ('photo-rights-unclear', ('photo', 'image', 'picture', 'cover', 'licen', 'rights', 'illustration')),
@@ -63,7 +55,7 @@ def when(value) -> dt.datetime | None:
 
 
 def iso(at: dt.datetime) -> str:
-    return at.astimezone(dt.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
+    return at.astimezone(dt.timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
 
 
 def text(value) -> str:
@@ -222,26 +214,6 @@ def mtime(path: Path) -> dt.datetime | None:
         return None
 
 
-def calls(prefixes: tuple[str, ...], runs: list[Path]):
-    """Each model call folder of a chef in recent rounds (a call folder holds prompt.txt; publication nests one level down)."""
-    for run in runs:
-        for sub in (s for s in run.iterdir() if s.is_dir() and s.name.startswith(prefixes)):
-            yield from (p.parent for p in [sub / 'prompt.txt', *sub.glob('*/prompt.txt')] if p.exists())
-
-
-def chef_activity(prefixes: tuple[str, ...], runs: list[Path], now: dt.datetime) -> tuple[dt.datetime | None, dt.datetime | None]:
-    """(since, last): since is when the chef's running call started (None when nothing runs now); last is its latest touch.
-    A call is running while its live.json exists (workflow.execute_model writes it and removes it when the call ends, failed
-    or not), however long the model stays quiet."""
-    since = last = None
-    for folder in calls(prefixes, runs):
-        last = newest([last, newest(mtime(f) for f in folder.iterdir())])
-        started = mtime(folder / 'live.json')
-        if started and now - started < STUCK:
-            since = newest([since, started])
-    return since, last
-
-
 # Round stages that are work without a model call (workflow.mark_stage): pictures and publishing above all (owner, 30 Oct 2026).
 STAGE_CHEFS = {'cooker': 'wok', 'recipe_audit': 'wok', 'creator_scout': 'wok', 'event': 'host', 'explorer': 'scout',
                'cover_search': 'scout', 'veg_kitchen': 'scout', 'mixed_kitchen': 'scout', 'manager_review': 'head',
@@ -254,43 +226,36 @@ def stage_now(now: dt.datetime) -> tuple[str | None, dt.datetime | None]:
     marker = read(ROOT / 'state' / 'stage.json', {}) or {}
     started = when(marker.get('startedAt'))
     pid = marker.get('pid')
-    if not (started and isinstance(pid, int) and Path(f'/proc/{pid}').exists() and now - started >= STAGE_SETTLE):
+    if not (started and isinstance(pid, int) and marker.get('process')
+            and marker['process'] == kitchen_activity.process_identity(pid) and now - started >= STAGE_SETTLE):
         return None, None
     return STAGE_CHEFS.get(marker.get('stage')), started
 
 
 def chef_states(now: dt.datetime) -> list[dict]:
-    """Working while a model call runs (and a few minutes after), at any hour: the owner wants the page live (30 Oct 2026)."""
-    runs = [r for r in sorted((ROOT / 'runs').glob('2*'))[-6:] + sorted((ROOT / 'runs').glob('publish-*'))[-3:] if r.is_dir()]
-    activity = {chef: chef_activity(prefixes, runs, now) for chef, prefixes in RUN_FOLDERS.items()}
+    """All deployed profiles, driven by live operations rather than old output timestamps."""
+    activity = kitchen_activity.current(now)
     staged, staged_since = stage_now(now)
-    if staged in activity and not activity[staged][0]:
-        activity[staged] = (staged_since, activity[staged][1])  # working this stage though no model call runs right now
-    busy = {chef: bool(since or last and now - last < RECENT) for chef, (since, last) in activity.items()}
+    if staged:
+        activity.setdefault(staged, staged_since)
+    available = {chef for profile, chef in kitchen_activity.PROFILES.items()
+                 if (ROOT.parent / 'profiles' / profile).is_dir()}
+    available.update(activity)  # an actual running operation also proves availability
+    gamer = read(ROOT / 'gamer' / 'state.json', {}) or {}
+    waiting = sum(1 for a in (gamer.get('assets') or {}).values() if a.get('status') == 'awaiting-owner')
     states = []
-    for chef in ('scout', 'wok', 'host'):
-        since, last = activity[chef]
-        entry = {'id': chef, 'state': 'working' if busy[chef] else 'resting'}
-        if busy[chef]:
-            entry['since'] = iso(since or last)
+    for chef in kitchen_activity.PROFILES.values():
+        if chef not in available:
+            continue
+        since = activity.get(chef)
+        entry = {'id': chef, 'state': ('reviewing' if chef == 'head' else 'working') if since else 'resting'}
+        if since:
+            entry['since'] = iso(since)
+        elif chef == 'artist' and waiting:
+            entry.update(state='waiting', waiting=waiting)
         elif (window := ROLE_WINDOWS.get(chef)) and not window[0] <= now.astimezone(SG).hour < window[1]:
             entry['nextShift'] = iso(next_shift(now, window[0]))
         states.append(entry)
-    since, last = activity['head']
-    if busy['head']:
-        states.append({'id': 'head', 'state': 'reviewing', 'since': iso(since or last)})
-    else:
-        states.append({'id': 'head', 'state': 'working' if any(busy.values()) else 'resting'})
-    gamer = read(ROOT / 'gamer' / 'state.json', {}) or {}
-    waiting = sum(1 for a in (gamer.get('assets') or {}).values() if a.get('status') == 'awaiting-owner')
-    drawn = newest(mtime(p) for p in (ROOT / 'gamer' / 'runs').glob('*'))
-    if waiting:
-        states.append({'id': 'artist', 'state': 'waiting', 'waiting': waiting})
-    else:
-        artist = staged == 'artist' or bool(drawn and now - drawn < LIVE)  # drawing recipe pictures or game art
-        states.append({'id': 'artist', 'state': 'working' if artist else 'resting', **({'since': iso(staged_since)} if staged == 'artist' else {})})
-    wrote = mtime(ROOT / 'ai-recipes' / 'last.json')
-    states.append({'id': 'writer', 'state': 'working' if wrote and now - wrote < LIVE else 'resting'})
     return states
 
 

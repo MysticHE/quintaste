@@ -4,6 +4,7 @@ import json
 import os
 import pathlib
 import sys
+from kitchen_activity import activity
 
 # Hermes owns provider authentication, model selection and image transport.
 sys.path.insert(0, '/opt/hermes')
@@ -36,7 +37,8 @@ elif request.get('kind') == 'ai-recipe-step' and request.get('reference'):
     with Image.open(frame) as check:
         check.verify()
     arguments['image_url'] = str(frame)
-result = _handle_image_generate(arguments)
+with activity('qt-gamer'):
+    result = _handle_image_generate(arguments)
 if isinstance(result, str):
     result = json.loads(result)
 if not result.get('success'):

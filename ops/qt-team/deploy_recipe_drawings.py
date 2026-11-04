@@ -13,7 +13,7 @@ from pathlib import Path
 import setup
 
 HERE = Path(__file__).resolve().parent
-NAMES = ['recipe_drawing_bridge.py', 'image_worker.py']
+NAMES = ['kitchen_activity.py', 'recipe_drawing_bridge.py', 'image_worker.py']
 payload = {n: base64.b64encode((HERE / n).read_bytes()).decode() for n in NAMES}
 CONTAINER = 'hermes-agent-yril-hermes-agent-1'
 

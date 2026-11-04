@@ -1,11 +1,11 @@
 import { CHEFS, PROPS, chefTitle, ticketLine, ticketKey as keyOf, clock, ago, reason, ui } from './strings.js';
-import { LIVE, ON_SHIFT } from './chefs.js';
+import { ON_SHIFT } from './chefs.js';
 import { createWorld } from './world.js';
 import { createTickets } from './tickets.js';
 
 const FEED_URL = '/api/kitchen/feed';
-const POLL_MS = 10_000;  // owner, 30 Oct 2026: live; the bots push whenever a chef starts or finishes
-const STALE_MS = 10 * 60_000;  // the feed arrives every minute, so ten minutes without one means the pipeline stopped
+const POLL_MS = 10_000;  // fallback when the live stream is unavailable
+const STALE_MS = 2 * 60_000;  // two missed minute snapshots mean the source is delayed
 const PAGE = 6;
 const SFA = /^https:\/\/www\.sfa\.gov\.sg\//;
 const ROUTE = /^\/(?!\/)[A-Za-z0-9/?=&%._~-]*$/;
@@ -14,6 +14,7 @@ const $ = id => document.getElementById(id);
 const state = { lang: initialLang(), feed: null, chef: null, expanded: false, loaded: false, replayed: false, seen: new Set() };
 const scene = $('scene');
 let world = null, tickets = null;
+let stream = null, lastEvent = 0, loading = false;
 
 function initialLang() {
   try {
@@ -25,10 +26,9 @@ function initialLang() {
 const fresh = feed => feed?.generatedAt && Date.now() - Date.parse(feed.generatedAt) < STALE_MS;
 
 function chefState(id) {
-  if (!LIVE.has(id)) return { state: 'soon' };
   if (!state.feed?.generatedAt) return { state: 'unknown' };
   if (!fresh(state.feed)) return { state: 'resting' };
-  return state.feed.chefs.find(c => c.id === id) ?? { state: 'resting' };
+  return state.feed.chefs.find(c => c.id === id) ?? { state: 'soon' };
 }
 /** Online means the bot is on shift (working, checking plates or waiting on the owner); the light on each tag shows it. */
 const presence = chef => (chef.state === 'soon' ? null : ON_SHIFT.includes(chef.state) ? 'online' : 'offline');
@@ -135,27 +135,51 @@ function render() {
   renderRail();
 }
 
+function acceptFeed(feed) {
+  if (feed?.version !== 1 || !Array.isArray(feed.items)) throw new Error('feed shape');
+  // A slow fallback request must not overwrite a newer streamed state.
+  if (state.feed?.generatedAt && (!feed.generatedAt || Date.parse(feed.generatedAt) < Date.parse(state.feed.generatedAt))) return;
+  const items = feed.items.filter(i => CHEFS[i.chef] && ticketLine(i, 'en'));
+  state.feed = { ...feed, items, chefs: Array.isArray(feed.chefs) ? feed.chefs : [], sentBack: Array.isArray(feed.sentBack) ? feed.sentBack : [] };
+  render();
+  if (!fresh(state.feed)) return;
+  const arrivals = items.filter(i => !state.seen.has(keyOf(i)));
+  items.forEach(i => state.seen.add(keyOf(i)));
+  if (!state.replayed) { state.replayed = true; tickets.replay(items.slice(0, PAGE).reverse()); }
+  else tickets.play(arrivals.reverse());
+}
+
 async function load() {
+  if (loading) return;
+  loading = true;
   try {
-    const response = await fetch(FEED_URL, { cache: 'no-cache', headers: { accept: 'application/json' } });
+    const response = await fetch(FEED_URL, { cache: 'no-cache', headers: { accept: 'application/json' }, signal: AbortSignal.timeout(8000) });
     if (!response.ok) throw new Error('feed ' + response.status);
-    const feed = await response.json();
-    if (feed?.version !== 1 || !Array.isArray(feed.items)) throw new Error('feed shape');
-    const items = feed.items.filter(i => CHEFS[i.chef] && ticketLine(i, 'en'));
-    state.feed = { ...feed, items, chefs: Array.isArray(feed.chefs) ? feed.chefs : [], sentBack: Array.isArray(feed.sentBack) ? feed.sentBack : [] };
-    render();
-    // Only a fresh snapshot is animated, and tickets count as seen only then, so a late snapshot's tickets still play later.
-    if (!fresh(state.feed)) return;
-    const arrivals = items.filter(i => !state.seen.has(keyOf(i)));
-    items.forEach(i => state.seen.add(keyOf(i)));
-    if (!state.replayed) { state.replayed = true; tickets.replay(items.slice(0, PAGE).reverse()); }
-    else tickets.play(arrivals.reverse());
+    acceptFeed(await response.json());
   } catch {
-    // Keep what is on screen; the notice turns to "delayed" once the last snapshot is ten minutes old.
+    // Keep what is on screen; freshness is measured from the source snapshot, never the stream heartbeat.
     if (!state.feed) { state.feed = { version: 1, generatedAt: null, items: [], chefs: [], sentBack: [] }; render(); }
   } finally {
+    loading = false;
     state.loaded = true;
   }
+}
+
+function connect() {
+  if (stream || document.hidden || !('EventSource' in window)) return;
+  stream = new EventSource('/api/kitchen/events');
+  stream.addEventListener('feed', event => {
+    try { acceptFeed(JSON.parse(event.data)); lastEvent = Date.now(); }
+    catch { lastEvent = 0; }
+  });
+  stream.addEventListener('heartbeat', () => { lastEvent = Date.now(); });
+  stream.onerror = () => { lastEvent = 0; }; // EventSource reconnects automatically; polling covers the gap
+}
+
+function disconnect() {
+  stream?.close();
+  stream = null;
+  lastEvent = 0;
 }
 
 document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => {
@@ -174,12 +198,18 @@ scene.addEventListener('click', event => {
 });
 $('show-all').addEventListener('click', () => { state.chef = null; render(); });
 $('more').addEventListener('click', () => { state.expanded = true; renderRail(); });
-document.addEventListener('visibilitychange', () => { if (!document.hidden && state.loaded) load(); });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) disconnect();
+  else { load(); connect(); }
+});
+window.addEventListener('pagehide', disconnect);
+window.addEventListener('pageshow', connect);
 
 render();
 world = createWorld({ scene });
 tickets = createTickets({ world, findTicket: key => $('rail').querySelector(`[data-key="${CSS.escape(key)}"]`) });
 renderChefs();
 load();
-setInterval(() => { if (!document.hidden) load(); }, POLL_MS);
+connect();
+setInterval(() => { if (!document.hidden && Date.now() - lastEvent > 25_000) load(); }, POLL_MS);
 setInterval(() => { if (!document.hidden) { renderChefs(); renderNotice(); renderRail(); } }, 30_000);
