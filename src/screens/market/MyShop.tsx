@@ -15,7 +15,7 @@ import { useLanguage, useT } from "../../i18n";
 import type { MarketKey } from "../../i18n/en/market";
 import { OrderRow } from "./Orders";
 import type { OwnListing, SellerProfile } from "../../types/community";
-import { foodReviewWords,foodReviewState } from '../../config/food-review';
+import { foodReviewLabels,foodReviewState } from '../../config/food-review';
 
 const statusText: Record<SellerProfile["status"], [MarketKey, Tone]> = {
   draft: ["shopNotOpen", "warning"], active: ["shopOpen", "success"], suspended: ["shopSuspended", "warning"], removed: ["shopRemoved", "muted"],
@@ -58,7 +58,7 @@ function SellerOrders() {
 const itemTone = { active: "success", draft: "muted", paused: "muted", removed: "warning" } as const;
 const itemStatus: Record<OwnListing["status"], MarketKey> = { active: "itemLive", draft: "itemDraft", paused: "itemPaused", removed: "itemRemoved" };
 function SellerItems({ query }: { query: string }) {
-  const remote = useRemote("/api/market/seller/listings", ownListings,10000), term = query.trim().toLowerCase(), t = useT("market"),foodWords=foodReviewWords(useLanguage());
+  const remote = useRemote("/api/market/seller/listings", ownListings,10000), term = query.trim().toLowerCase(), t = useT("market"),foodWords=foodReviewLabels(useLanguage());
   const items = (remote.data?.items ?? []).filter(item => !term || item.name.toLowerCase().includes(term));
   return <>
     <RemoteStatus remote={remote} icon="pricetags-outline" returnTo="/market?tab=shop" />

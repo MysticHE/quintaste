@@ -6,13 +6,14 @@ import { limits, listingProblem, money, noContactDetails, processPhoto, readList
 import { eventFor } from './conversations.mjs';
 import { queueAlert } from '../community/push.mjs';
 import { stageFoodReview, cancelFoodReview } from '../food-review/core.mjs';
+import { foodMessageSql } from '../food-review/views.mjs';
 
 /** A seller's own listings, photos and collection slots. */
 export const sellerShop = express.Router();
 const photoUrl = (id, slot, digest) => `/api/market/seller/photos/${id}/${slot}?v=${digest.slice(0, 12)}`;
 const listingColumns = `l.id, l.kind, l.name, l.category, l.price_cents AS "priceCents", l.portion, l.description, l.ingredients, l.contains,
   l.may_contain AS "mayContain", l.diets, l.storage, l.date_mark::text AS "dateMark", l.lot, l.lead_days AS "leadDays", l.max_per_order AS "maxPerOrder",
-  l.per_slot AS "perSlot", l.status, l.removed_reason AS "removedReason", l.updated_at AS "updatedAt"`;
+  l.per_slot AS "perSlot", l.status, l.removed_reason AS "removedReason", l.updated_at AS "updatedAt",${foodMessageSql('listing','l')} AS "foodMessage"`;
 async function seller(db, me, lock = false) {
   const row = (await db.query(`SELECT user_id AS id, status, meetup, delivery FROM market.seller WHERE user_id=$1 ${lock ? 'FOR UPDATE' : ''}`, [me])).rows[0];
   if (!row) throw new CommunityError(404, 'Set up your shop first.');

@@ -44,7 +44,7 @@ export type ListingInput = {
   contains: MarketIngredient[]; mayContain: MarketIngredient[]; diets: Diet[]; storage: string; dateMark: string | null; lot: string; leadDays: number; maxPerOrder: number;
   perSlot: number | null;
 };
-export type OwnListing = ListingInput & { id: string; status: "draft" | "active" | "paused" | "removed"; removedReason: string; updatedAt: string; photos: Partial<Record<ShopPhotoSlot, string>> };
+export type OwnListing = ListingInput & { id: string; status: "draft" | "active" | "paused" | "removed"; removedReason: string; updatedAt: string; photos: Partial<Record<ShopPhotoSlot, string>>;foodMessage?:string|null };
 /** A seller's collection slot with what to make and every order in it. */
 export type SlotPack = {
   slot: Slot; toMake: { key: string; name: string; quantity: number; perSlot: number | null }[];
@@ -133,7 +133,7 @@ export type Badges = { requests: number; messages: number; dinners: number };
 /** A catalogue place as Social shows it. */
 export type SocialPlace = { id: string; name: string; branch: string; address: string; photo: string | null; hours: string; point: { latitude: number; longitude: number } | null };
 export type CookingClass = { id: string; title: string; makes: string; starts: string; ends: string; venue: string; area: string; seats: number; priceCents: number;
-  diets: DietLabel[]; status: "draft" | "posted" | "cancelled"; taken: number; hosting: boolean; joined: boolean; hidden?: boolean; unread?: number;foodReview?:'pending'|'held'|null;
+  diets: DietLabel[]; status: "draft" | "posted" | "cancelled"; taken: number; hosting: boolean; joined: boolean; hidden?: boolean; unread?: number;foodReview?:'pending'|'held'|null;foodMessage?:string|null;
   teacher: { id: string; name: string; classes: number } };
 export type ClassInput = Pick<CookingClass, "title" | "makes" | "starts" | "ends" | "venue" | "area" | "seats" | "priceCents" | "diets">;
 export type TeacherStatus = "pending" | "approved" | "rejected" | "suspended";

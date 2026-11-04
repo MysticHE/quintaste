@@ -44,6 +44,7 @@ function Form({ existing }: { existing: CookingClass | null }) {
     finally { setBusy(null); }
   };
   return <>
+    {existing?.foodReview==='held'&&<T variant="small" color={theme.warning}>{existing.foodMessage||foodWords.held}</T>}
     <Field label={t("className")} value={c.title} onChangeText={title => set({ title })} maxLength={80} />
     <SgDateTimeField label={t("classStarts")} value={c.starts} onChange={starts => set({ starts })} />
     <ChoiceGroup label={t("classLength")}>{lengths.map(n => <Chip key={n} label={t("hoursShort", { n })} role="radio" selected={hours === n} onPress={() => setHours(n)} />)}</ChoiceGroup>

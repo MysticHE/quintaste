@@ -31,6 +31,7 @@ export function CookedPhotos({ recipeId }: { recipeId: string }) {
         ? <Button label={t("deleteCookedPhoto")} variant="link" onPress={() => { close(); setDialog({ action: "delete", photo: photos[index] }); }} />
         : <Button label={t("reportCookedPhoto")} variant="link" onPress={() => { close(); if (ensureMember(member, returnTo)) setDialog({ action: "report", photo: photos[index] }); }} />} />}
     {data?.mine?.hidden && <T variant="caption" muted>{data.mine.foodReview?foodWords[data.mine.foodReview]:t("cookedHidden")}</T>}
+    {data?.mine?.foodReview==='held'&&data.mine.foodMessage&&<T variant="small">{data.mine.foodMessage}</T>}
     <View style={s.add}><Button label={t(data?.mine ? "changeCookedPhoto" : "addCookedPhoto")} icon="camera-outline" variant="secondary"
       disabled={member.pending || !member.enabled} onPress={add} /></View>
     {dialog && <CookedPhotoDialog recipeId={recipeId} {...dialog} onClose={() => setDialog(null)} onSaved={() => invalidate(prefix)} />}

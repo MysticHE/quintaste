@@ -40,6 +40,7 @@ export function CookedPhotoDialog({ recipeId, action, photo, onClose, onSaved }:
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={s.body} style={s.scroll}>
         {action === "post" && <>
+          {photo?.foodReview==='held'&&photo.foodMessage&&<T variant="small" color={theme.warning}>{photo.foodMessage}</T>}
           <ListingPhotos value={photos} onChange={setPhotos} slots={["item"]} labels={{ item: t("cookedPhotoLabel") }}
             disabled={busy || photoBusy} onBusy={setPhotoBusy} budget={photoBudgets.upload} />
           <Field label={t("cookedNoteOptional")} placeholder={t("cookedNotePlaceholder")} value={note} onChangeText={setNote} multiline maxLength={280} editable={!busy} />

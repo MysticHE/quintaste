@@ -37,6 +37,7 @@ function ClassView({ c, refresh }: { c: CookingClass; refresh: () => void }) {
     {c.diets.length > 0 && <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><DietLabels labels={c.diets} /><StatusPill label={t("sellerDeclared")} /></View>}
     {cancelled && <T style={common.bold}>{t("classCancelledNote")}</T>}
     {c.foodReview&&<T variant="small" muted>{foodReviewWords(language)[c.foodReview]}</T>}
+    {c.hosting&&c.foodReview==='held'&&c.foodMessage&&<T variant="small">{c.foodMessage}</T>}
     <ListGroup>
       <ListItem title={formatSgText(c.starts, language) + (end ? " – " + end : "")} subtitle={t("when")} leading={<RowIcon name="time-outline" />} />
       <ListItem title={c.venue} subtitle={c.area || t("classVenue")} wrap leading={<RowIcon name="location-outline" />} />

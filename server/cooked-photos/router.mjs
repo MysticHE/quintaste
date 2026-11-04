@@ -4,6 +4,7 @@ import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
 import { memberPhoto } from '../place-reviews/photos.mjs';
 import { liveRecipeId, tellAuthor } from '../reactions/router.mjs';
 import { stageFoodReview } from '../food-review/core.mjs';
+import { foodMessageSql } from '../food-review/views.mjs';
 
 /**
  * "I cooked this" photos on Cook recipes (/api/cooked-photos): one photo per member per recipe with an optional note, shown
@@ -28,11 +29,11 @@ cookedPhotos.get('/:recipeId', async (_req, res) => {
   const [visibleRows, mine] = await Promise.all([
     pool.query(`SELECT ${fields}, cp.user_id IS NOT DISTINCT FROM $2 AS own, count(*) OVER ()::int AS total
       FROM community.cooked_photo cp JOIN public."user" u ON u.id=cp.user_id WHERE ${visible} ORDER BY cp.updated_at DESC, cp.id LIMIT 13`, [recipe, viewer]),
-    viewer ? pool.query(`SELECT ${fields}, cp.hidden_at IS NOT NULL AS hidden,CASE WHEN cp.hidden_reason='QT food review pending' THEN 'pending' WHEN cp.hidden_reason='QT food review held' THEN 'held' END AS "foodReview" FROM community.cooked_photo cp JOIN public."user" u ON u.id=cp.user_id
+    viewer ? pool.query(`SELECT ${fields}, cp.hidden_at IS NOT NULL AS hidden,${foodMessageSql('cooked-photo','cp')} AS "foodMessage",CASE WHEN cp.hidden_reason='QT food review pending' THEN 'pending' WHEN cp.hidden_reason='QT food review held' THEN 'held' END AS "foodReview" FROM community.cooked_photo cp JOIN public."user" u ON u.id=cp.user_id
       WHERE cp.recipe_id=$1 AND cp.user_id=$2`, [recipe, viewer]) : { rows: [] },
   ]);
   const own = mine.rows[0], rows = visibleRows.rows;
-  res.json({ recipeId: recipe, count: rows[0]?.total ?? 0, mine: own ? { ...shape(own), hidden: own.hidden,foodReview:own.foodReview } : null,
+  res.json({ recipeId: recipe, count: rows[0]?.total ?? 0, mine: own ? { ...shape(own), hidden: own.hidden,foodReview:own.foodReview,foodMessage:own.foodMessage } : null,
     items: rows.filter(row => !row.own).slice(0, 12).map(shape) });
 });
 cookedPhotos.put('/:recipeId/me', member, async (req, res) => {

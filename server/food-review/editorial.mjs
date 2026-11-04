@@ -10,6 +10,7 @@ import { foodCandidate } from '../../admin/src/lib/food-sources.mjs';
 export async function editorialFoodGate(db,root,batch){
   if(!await foodReviewEnabled(db))return;
   const waiting=[];
+  const held=[];
   for(const record of batch.records??[]){
     if(!['recipe','event'].includes(record.kind))continue;
     if(!/^[a-z0-9][a-z0-9-]{2,150}$/.test(record.id)||record.data?.id!==record.id)throw Object.assign(new Error('Invalid food publication identity.'),{status:422});
@@ -28,7 +29,10 @@ export async function editorialFoodGate(db,root,batch){
     }
     const data=foodCandidate(record.kind,record.data);
     const result=await enqueueFoodReview(db,'editorial-'+record.kind,record.id,{data,edition:'candidate'},photos);
+    if(result.state==='held')held.push(record.id);
     if(result.state!=='clear')waiting.push(result.id);
   }
+  // The publisher's existing 422 isolation flow retires held candidates so unrelated approved work can continue.
+  if(held.length)throw Object.assign(new Error('Food-content review held '+held.join(', ')+'. Correct the food-policy finding before resubmitting this candidate.'),{status:422});
   if(waiting.length)throw Object.assign(new Error('Food-content review is pending. The approved batch is retained for retry.'),{status:409});
 }

@@ -1,7 +1,7 @@
 import { communityRequest as call } from "./community-api";
 
 /** A member's "I cooked this" photo on a recipe (server/cooked-photos/router.mjs); `photo` is its server path. */
-export type CookedPhoto = { id: string; name: string; note: string; updatedAt: string; photo: string };
+export type CookedPhoto = { id: string; name: string; note: string; updatedAt: string; photo: string;foodReview?:'pending'|'held'|null;foodMessage?:string|null };
 export type CookedPhotosPage = { recipeId: string; count: number; mine: (CookedPhoto & { hidden: boolean;foodReview?:'pending'|'held'|null }) | null; items: CookedPhoto[] };
 export const cookedReasons = ["Spam", "Not this recipe", "Offensive content", "Not their photo", "Other"] as const;
 

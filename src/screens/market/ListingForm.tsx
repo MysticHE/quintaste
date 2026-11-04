@@ -74,6 +74,7 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
   };
   const slots: ShopPhotoSlot[] = d.kind === "prepacked" ? ["item", "label"] : ["item", "detail"];
   return <>
+    {initial?.removedReason==='QT food review held'&&<T variant="small" color={theme.warning}>{initial.foodMessage||foodWords.held}</T>}
     {initial?.status === "removed" && <T color={theme.warning}>{t("itemRemovedBy", { reason: initial.removedReason })}</T>}
     <View style={common.row}><SegmentedTabs options={kinds} value={d.kind} onChange={kind => set({ kind })} label={t("itemType")} /></View>
     <FormSection title={t("photos")}>
