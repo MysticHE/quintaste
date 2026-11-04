@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { useState, type ReactNode } from "react";
 import { Pressable, View } from "react-native";
-import { Button, Icon, T, common } from "../ui";
+import { Button, ButtonRow, Icon, T, common } from "../ui";
 import { EmptyState, SearchField } from "../food/Controls";
 import { RemoteStatus } from "../CommunityGate";
 import { DateTile, ListGroup, StatusPill } from "../GroupedList";
@@ -67,8 +67,8 @@ export function DiningOverview() {
   const invite = () => router.push("/social/friends");
   const nothing = !!data && !!history.remote.data && !history.remote.stale && !waiting.length && !coming.length && !history.items.length;
   return <>
-    <View style={[common.row, { gap: 8 }]}><View style={common.flex}><Button label={t("findPeople")} icon="person-add-outline" variant="secondary" onPress={() => router.push("/social/community")} /></View>
-      <View style={common.flex}><Button label={t("friends")} icon="people-outline" variant="secondary" onPress={() => router.push("/social/friends")} /></View></View>
+    <ButtonRow><Button label={t("findPeople")} icon="person-add-outline" variant="secondary" onPress={() => router.push("/social/community")} />
+      <Button label={t("friends")} icon="people-outline" variant="secondary" onPress={() => router.push("/social/friends")} /></ButtonRow>
     {searchable && <SearchField value={query} onChange={setQuery} placeholder={t("findDinners")} />}
     <RemoteStatus remote={remote} icon="restaurant-outline" returnTo="/social?tab=dining" />
     <ListGroup title={ts("needsYou")} inset={72}>{waiting.map(d => <DinnerRow key={d.id} dinner={d} />)}</ListGroup>

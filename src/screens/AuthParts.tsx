@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { Image, Pressable, View } from "react-native";
-import { Button, Card, Field, Icon, T, common } from "../components/ui";
+import { Button, ButtonRow, Card, Field, Icon, T, common } from "../components/ui";
 import { s } from "./authStyles";
 import { usePreferences } from "../state/Preferences";
 import { safeReturn, goBack } from "../utils/navigation";
@@ -131,10 +131,10 @@ export function AuthConsent({
 }
 export function AuthServices({ state }: { state: AuthState }) {
   const t = useT("me");
-  return <View style={common.row}>
-    <View style={common.flex}><Button label="Apple" accessibilityLabel={t("continueWithProvider", { provider: "Apple" })} variant="secondary" icon="logo-apple" onPress={() => state.provider("Apple")} /></View>
-    <View style={common.flex}><Button label="Google" accessibilityLabel={t("continueWithProvider", { provider: "Google" })} variant="secondary" icon="logo-google" onPress={() => state.provider("Google")} /></View>
-  </View>;
+  return <ButtonRow>
+    <Button label="Apple" accessibilityLabel={t("continueWithProvider", { provider: "Apple" })} variant="secondary" icon="logo-apple" onPress={() => state.provider("Apple")} />
+    <Button label="Google" accessibilityLabel={t("continueWithProvider", { provider: "Google" })} variant="secondary" icon="logo-google" onPress={() => state.provider("Google")} />
+  </ButtonRow>;
 }
 export function AuthFooter({ signup }: { signup: boolean }) {
   const { returnTo } = useLocalSearchParams<{ returnTo?: string }>();

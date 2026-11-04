@@ -3,7 +3,7 @@ import { ScrollView, View } from "react-native";
 import { Chip, Chips } from "../food/Controls";
 import { DietIcon } from "../food/DietIcon";
 import { useDietText } from "../food/DietLabels";
-import { Button, T, common } from "../ui";
+import { Button, ButtonRow, T, common } from "../ui";
 import { AreaField } from "./AreaField";
 import { ThemedSwitch } from "../GroupedList";
 import { FilterSection } from "../BrowseControls";
@@ -45,7 +45,7 @@ export function MarketFilters({ value, onApply, onClose }: { value: ShopFilter; 
       <AreaField label={t("area")} value={draft.area} onChange={area => set({ area })} placeholder={t("anyArea")} near />
       <View style={common.spread}><T variant="small" style={[common.flex, { minWidth: 0 }]}>{t("openNow")}</T><ThemedSwitch label={t("openNow")} value={draft.available} onChange={available => set({ available })} /></View>
     </FilterSection>
-  </ScrollView><View style={common.row}><View style={common.flex}><Button label={tc("reset")} variant="secondary" onPress={() => setDraft(defaultShopFilter())} /></View>
-    <View style={common.flex}><Button label={t("showResults")} onPress={() => { onApply(draft); onClose(); }} /></View></View>
+  </ScrollView><ButtonRow><Button label={tc("reset")} variant="secondary" onPress={() => setDraft(defaultShopFilter())} />
+    <Button label={t("showResults")} onPress={() => { onApply(draft); onClose(); }} /></ButtonRow>
   </MarketModal>;
 }

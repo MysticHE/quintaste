@@ -36,3 +36,37 @@ export async function memberPhoto(uri) {
     throw new CommunityError(400, 'That photo could not be read. Choose another photo.');
   } finally { input.fill(0); }
 }
+const thumbs = new Map(), making = new Map(), thumbLimit = 300, thumbSlots = 2, thumbQueue = 400, waiting = [];
+let active = 0;
+/**
+ * Runs one thumbnail at a time per slot, in its own queue: a page of new thumbnails waits its turn instead of failing, and
+ * never takes the upload decode slots, so members can still save reviews while a gallery fills in.
+ */
+async function withThumbSlot(work) {
+  if (active < thumbSlots) active += 1;
+  else {
+    if (waiting.length >= thumbQueue) throw new CommunityError(503, 'Photos are busy. Try again shortly.');
+    await new Promise(resolve => waiting.push(resolve));
+  }
+  try { return await work(); }
+  finally { const next = waiting.shift(); if (next) next(); else active -= 1; }
+}
+/**
+ * A 480 px square of a stored review photo, cropped around its busiest part, so every grid tile has the same shape whatever
+ * the member uploaded. Kept in memory by photo id and digest (the bytes never change under one id), at most 300 at a time;
+ * requests for a thumbnail already being made share that one decode.
+ */
+export async function squareThumb({ id, digest, bytes }) {
+  const key = id + ':' + digest, kept = thumbs.get(key);
+  if (kept) { thumbs.delete(key); thumbs.set(key, kept); return kept; }
+  if (making.has(key)) return making.get(key);
+  const job = withThumbSlot(() => sharp(bytes, { limitInputPixels: maxInputPixels, failOn: 'error' })
+    .resize({ width: 480, height: 480, fit: 'cover', position: sharp.strategy.attention }).jpeg({ quality: 78, mozjpeg: true }).toBuffer())
+    .then(thumb => {
+      thumbs.set(key, thumb);
+      if (thumbs.size > thumbLimit) thumbs.delete(thumbs.keys().next().value);
+      return thumb;
+    }).finally(() => making.delete(key));
+  making.set(key, job);
+  return job;
+}

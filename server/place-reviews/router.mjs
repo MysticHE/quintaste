@@ -2,15 +2,21 @@ import { Buffer } from 'node:buffer';
 import { pool } from '../config.mjs';
 import { communityRouter, CommunityError, errors, member, requireId, text, throttle, transaction, uuid } from '../community/http.mjs';
 import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
-import { photoPath, reviewPhotos } from './photos.mjs';
+import { photoPath, reviewPhotos, squareThumb } from './photos.mjs';
 import { catalogueVenues, publishedPlaceIds } from '../catalogue-places.mjs';
 import { digest, priorSubmission, queueReview, submissionKey } from '../explore-work/core.mjs';
 
-const sorts = { newest: 'pr.created_at DESC,pr.id DESC', highest: 'pr.rating DESC,pr.created_at DESC,pr.id DESC', lowest: 'pr.rating ASC,pr.created_at DESC,pr.id DESC' };
+const sorts = { newest: 'pr.created_at DESC,pr.id DESC', photos: 'pr.created_at DESC,pr.id DESC', highest: 'pr.rating DESC,pr.created_at DESC,pr.id DESC', lowest: 'pr.rating ASC,pr.created_at DESC,pr.id DESC' };
 const reasons = ['Spam', 'Not about this place', 'Offensive content', 'Conflict of interest', 'Other'];
 const fields = `pr.id,pr.rating,pr.body,pr.created_at AS "createdAt",pr.updated_at AS "updatedAt",left(coalesce(nullif(u.name,''),'Member'),50) AS name,
   coalesce((SELECT json_agg('/api/place-reviews/'||pr.place_id||'/photos/'||p.id||'?v='||left(p.digest,12) ORDER BY p.position)
     FROM community.place_review_photo p WHERE p.review_id=pr.id),'[]') AS photos`;
+
+// Cursors carry the full microsecond time: a millisecond copy matches no row exactly and would skip the rest of a page boundary.
+const cursorAt = `to_char(pr.created_at AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"') AS "cursorAt"`;
+const cursorTime = value => typeof value === 'string' && /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d{1,6})?Z$/.test(value) && Number.isFinite(Date.parse(value.replace(/(\.\d{3})\d+Z$/, '$1Z')));
+const withPhotos = ' AND EXISTS (SELECT 1 FROM community.place_review_photo p WHERE p.review_id=pr.id)';
+const visibleReviews = `pr.place_id=$1 AND pr.published AND pr.hidden_at IS NULL AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$2')}`;
 
 // Only saving your own review carries photos.
 export const placeReviews = communityRouter({ guests: true, bodyLimit: '64kb', photoLimit: '4250kb',
@@ -43,26 +49,28 @@ placeReviews.get('/:placeId', async (req, res) => {
     try {
       if (typeof req.query.cursor !== 'string' || req.query.cursor.length > 300 || !/^[A-Za-z0-9_-]+$/.test(req.query.cursor)) throw Error();
       cursor = JSON.parse(Buffer.from(req.query.cursor, 'base64url').toString());
-      if (cursor.sort !== sort || cursor.place !== place || !uuid(cursor.id) || !Number.isInteger(cursor.rating) || cursor.rating < 1 || cursor.rating > 5 || typeof cursor.at !== 'string' || !Number.isFinite(Date.parse(cursor.at))) throw Error();
+      if (cursor.sort !== sort || cursor.place !== place || !uuid(cursor.id) || !Number.isInteger(cursor.rating) || cursor.rating < 1 || cursor.rating > 5 || !cursorTime(cursor.at)) throw Error();
     } catch { throw new CommunityError(400, 'Refresh the reviews.'); }
   }
-  const visible = `pr.place_id=$1 AND pr.published AND pr.hidden_at IS NULL AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$2')}`;
+  const visible = visibleReviews;
   const params = [place, viewer];
   let after = '';
   if (cursor) {
     params.push(cursor.at, cursor.id);
-    if (sort !== 'newest') params.push(cursor.rating);
+    const byTime = sort === 'newest' || sort === 'photos';
+    if (!byTime) params.push(cursor.rating);
     const recent = '(pr.created_at,pr.id)<($3::timestamptz,$4::uuid)';
-    after = sort === 'newest' ? ' AND ' + recent : ` AND (pr.rating${sort === 'highest' ? '<' : '>'}$5 OR (pr.rating=$5 AND ${recent}))`;
+    after = byTime ? ' AND ' + recent : ` AND (pr.rating${sort === 'highest' ? '<' : '>'}$5 OR (pr.rating=$5 AND ${recent}))`;
   }
   const [totals, mine, page] = await Promise.all([
     pool.query(`SELECT rating,count(*)::int AS count FROM community.place_review pr WHERE ${visible} GROUP BY rating`, [place, viewer]),
     viewer ? pool.query(`SELECT ${fields} FROM community.place_review pr JOIN public."user" u ON u.id=pr.user_id WHERE pr.place_id=$1 AND pr.user_id=$2 AND pr.published`, [place, viewer]) : { rows: [] },
-    pool.query(`SELECT ${fields} FROM community.place_review pr JOIN public."user" u ON u.id=pr.user_id WHERE ${visible} AND pr.user_id IS DISTINCT FROM $2${after} ORDER BY ${sorts[sort]} LIMIT 21`, params),
+    pool.query(`SELECT ${fields},${cursorAt} FROM community.place_review pr JOIN public."user" u ON u.id=pr.user_id WHERE ${visible} AND pr.user_id IS DISTINCT FROM $2${sort === 'photos' ? withPhotos : ''}${after} ORDER BY ${sorts[sort]} LIMIT 21`, params),
   ]);
   const distribution = [1, 2, 3, 4, 5].map(rating => totals.rows.find(pr => pr.rating === rating)?.count ?? 0);
-  const count = distribution.reduce((a, b) => a + b, 0), items = page.rows.slice(0, 20), last = items.at(-1);
-  const nextCursor = page.rows.length > 20 ? Buffer.from(JSON.stringify({ place, sort, id: last.id, rating: last.rating, at: last.createdAt.toISOString() })).toString('base64url') : null;
+  const count = distribution.reduce((a, b) => a + b, 0), last = page.rows[19];
+  const nextCursor = page.rows.length > 20 ? Buffer.from(JSON.stringify({ place, sort, id: last.id, rating: last.rating, at: last.cursorAt })).toString('base64url') : null;
+  const items = page.rows.slice(0, 20).map(({ cursorAt: _cursorAt, ...item }) => item);
   let pending=null;
   if(viewer) {
     const w=(await pool.query(`SELECT w.*,r.id AS review FROM ops.explore_work w JOIN community.place_review r ON r.id=w.review_id
@@ -119,12 +127,40 @@ placeReviews.put('/:placeId/me', member, async (req, res) => {
   },'place-review:'+place+':'+me);
   res.status(202).json(receipt);
 });
+/** Every visible review photo of a place, newest review first, 60 a page, each with its review's author, stars and words. */
+placeReviews.get('/:placeId/gallery', async (req, res) => {
+  const place = res.locals.place.id, viewer = res.locals.user?.id ?? null, params = [place, viewer];
+  let after = '';
+  if (req.query.cursor !== undefined) {
+    let cursor;
+    try {
+      if (typeof req.query.cursor !== 'string' || req.query.cursor.length > 300 || !/^[A-Za-z0-9_-]+$/.test(req.query.cursor)) throw Error();
+      cursor = JSON.parse(Buffer.from(req.query.cursor, 'base64url').toString());
+      if (cursor.place !== place || !uuid(cursor.id) || !Number.isInteger(cursor.position) || cursor.position < 0 || cursor.position > 2 || !cursorTime(cursor.at)) throw Error();
+    } catch { throw new CommunityError(400, 'Refresh the photos.'); }
+    params.push(cursor.at, cursor.id, cursor.position);
+    after = ' AND ((pr.created_at,pr.id)<($3::timestamptz,$4::uuid) OR ((pr.created_at,pr.id)=($3::timestamptz,$4::uuid) AND p.position>$5))';
+  }
+  const [total, page] = await Promise.all([
+    pool.query(`SELECT count(*)::int AS n FROM community.place_review_photo p JOIN community.place_review pr ON pr.id=p.review_id WHERE ${visibleReviews}`, [place, viewer]),
+    pool.query(`SELECT '/api/place-reviews/'||pr.place_id||'/photos/'||p.id||'?v='||left(p.digest,12) AS url,p.position,pr.id AS "reviewId",pr.rating,
+        pr.body,pr.created_at AS "createdAt",${cursorAt},left(coalesce(nullif(u.name,''),'Member'),50) AS name
+      FROM community.place_review_photo p JOIN community.place_review pr ON pr.id=p.review_id JOIN public."user" u ON u.id=pr.user_id
+      WHERE ${visibleReviews}${after} ORDER BY pr.created_at DESC,pr.id DESC,p.position LIMIT 61`, params),
+  ]);
+  const rows = page.rows.slice(0, 60), last = rows.at(-1);
+  const nextCursor = page.rows.length > 60 ? Buffer.from(JSON.stringify({ place, id: last.reviewId, position: last.position, at: last.cursorAt })).toString('base64url') : null;
+  res.json({ total: total.rows[0].n, items: rows.map(({ position: _position, cursorAt: _cursorAt, ...item }) => item), nextCursor });
+});
 placeReviews.get('/:placeId/photos/:photoId', async (req, res) => {
-  const row = (await pool.query(`SELECT p.bytes FROM community.place_review_photo p JOIN community.place_review pr ON pr.id=p.review_id
+  const size = req.query.size ?? 'full';
+  if (size !== 'full' && size !== 'thumb') throw new CommunityError(400, 'Choose a photo size.');
+  const row = (await pool.query(`SELECT p.id,p.digest,p.bytes FROM community.place_review_photo p JOIN community.place_review pr ON pr.id=p.review_id
     WHERE p.id=$1 AND pr.place_id=$2 AND pr.published AND (pr.hidden_at IS NULL OR pr.user_id=$3) AND ${notRestricted('pr.user_id')} AND ${notBlocked('pr.user_id', '$3')}`,
   [requireId(req.params.photoId), res.locals.place.id, res.locals.user?.id ?? null])).rows[0];
   if (!row) throw new CommunityError(404, 'Photo unavailable.');
-  res.set({ 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'Cross-Origin-Resource-Policy': 'cross-origin' }).send(row.bytes);
+  res.set({ 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'Cross-Origin-Resource-Policy': 'cross-origin' })
+    .send(size === 'thumb' ? await squareThumb(row) : row.bytes);
 });
 placeReviews.delete('/:placeId/me', member, async (_req, res) => {
   await throttle('place-review-write:' + res.locals.user.id, 20, 3600);

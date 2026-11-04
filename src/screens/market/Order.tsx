@@ -4,7 +4,7 @@ import { Linking, View } from "react-native";
 import { Screen } from "../../components/Screen";
 import { useMinuteClock } from "../../components/food/Timers";
 import { Chip, Chips, HorizontalChips } from "../../components/food/Controls";
-import { Button, Field, T, common } from "../../components/ui";
+import { Button, ButtonRow, Field, T, common } from "../../components/ui";
 import { ListGroup, ListItem, RowIcon, StatusPill } from "../../components/GroupedList";
 import { Action, ActionChip } from "../../components/Actions";
 import { MarketModal, MarketToolbar } from "../../components/market/MarketChrome";
@@ -63,9 +63,9 @@ function OrderView({ order: o, refresh }: { order: Order; refresh: () => void })
     <ListGroup title={t("items")}>{o.items.map((item, i) => <ListItem key={i} title={`${item.quantity} × ${item.name}`} subtitle={[marketMoney(item.priceCents * item.quantity), item.dateMark && t("dateMark", { date: marketDate(item.dateMark, language) }), item.lot && t("lot", { lot: item.lot })].filter(Boolean).join(" · ")} wrap />)}</ListGroup>
     {!!o.note && <ListGroup><ListItem title={o.note} leading={<RowIcon name="chatbox-outline" />} wrap /></ListGroup>}
     {!o.closed && <>
-    {seller && s === "requested" && <View style={common.row}>
-      <View style={common.flex}><Button label={t("decline")} variant="secondary" onPress={() => setSheet("decline")} /></View>
-      <View style={common.flex}><Action label={t("confirmOrder")} run={() => run({ action: "confirm" })} /></View></View>}
+    {seller && s === "requested" && <ButtonRow>
+      <Button label={t("decline")} variant="secondary" onPress={() => setSheet("decline")} />
+      <Action label={t("confirmOrder")} run={() => run({ action: "confirm" })} /></ButtonRow>}
     {seller && s === "confirmed" && <Action label={t("markReady")} run={() => run({ action: "ready" })} />}
     {seller && started && (s === "confirmed" || s === "ready") && <Action label={t("handedOver")} icon="checkmark-done-outline" secondary={s === "confirmed"} run={() => run({ action: "complete" })} />}
     {!seller && s === "completed" && !o.rating && <Button label={t("leaveReview")} icon="star-outline" onPress={() => setSheet("review")} />}

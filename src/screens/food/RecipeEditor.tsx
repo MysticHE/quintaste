@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { CookLayout as Screen } from "../../components/recipes/CookLayout";
-import { Button, T, common } from "../../components/ui";
+import { Button, ButtonRow, T, common } from "../../components/ui";
 import { EmptyState, InfoBox } from "../../components/food/Controls";
 import { DraftBasics, DraftIngredients, DraftSteps } from "../../components/recipes/DraftFields";
 import { useRecipeWorkspace } from "../../hooks/useRecipeWorkspace";
@@ -49,10 +49,10 @@ export function RecipeEditorScreen() {
       <View style={s.action}><Button label={t("viewCook")} variant="secondary" disabled={photoBusy || state.saving || !!state.error} onPress={() => router.push(("/private-recipe/" + id) as never)} /></View>
       <View style={s.action}><Button label={t("reviewPublication")} disabled={photoBusy || state.saving || !!state.error} onPress={publish} /></View>
     </View>
-    {deleting ? <InfoBox title={t("deleteThisRecipe")} text={mine ? t("deleteTextShared") : t("deleteText")}><View style={[common.row, { gap: 8, marginTop: 4 }]}>
-      <View style={common.flex}><Button label={t("keepRecipe")} variant="secondary" onPress={() => setDeleting(false)} /></View>
-      <View style={common.flex}><Button label={t("deleteRecipe")} disabled={photoBusy || state.saving} onPress={() => void remove()} /></View>
-    </View></InfoBox> : <Button label={t("deleteDraft")} variant="link" onPress={() => setDeleting(true)} />}
+    {deleting ? <InfoBox title={t("deleteThisRecipe")} text={mine ? t("deleteTextShared") : t("deleteText")}><View style={{ marginTop: 4 }}><ButtonRow>
+      <Button label={t("keepRecipe")} variant="secondary" onPress={() => setDeleting(false)} />
+      <Button label={t("deleteRecipe")} disabled={photoBusy || state.saving} onPress={() => void remove()} />
+    </ButtonRow></View></InfoBox> : <Button label={t("deleteDraft")} variant="link" onPress={() => setDeleting(true)} />}
   </Screen>;
 }
 const s = StyleSheet.create({ action: { flexGrow: 1, flexBasis: 150 } });

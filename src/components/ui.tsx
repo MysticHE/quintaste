@@ -13,6 +13,7 @@ import {
   Text,
   TextInput,
   View,
+  useWindowDimensions,
   type TextProps,
   type TextInputProps,
   type StyleProp,
@@ -100,6 +101,14 @@ export function Card({
     </View>
   );
 }
+/**
+ * Lines a short control label (button, chip) may take: one at the usual text size, where a squeezed label should shrink a
+ * little rather than wrap; two once the member has asked for larger text (in the app or the phone), so it is never cut off.
+ */
+export function useLabelLines() {
+  const { textMultiplier } = usePreferences(), { fontScale } = useWindowDimensions();
+  return textMultiplier * fontScale > 1.15 ? 2 : 1;
+}
 export function Button({
   label,
   onPress,
@@ -119,7 +128,7 @@ export function Button({
   testID?: string;
   accessibilityLabel?: string;
 }) {
-  const { theme } = usePreferences();
+  const { theme } = usePreferences(), lines = useLabelLines();
   const { focused, focusProps } = useKeyboardFocus();
   // Dark backdrops sit close to the action hue, so dark mode fills primary buttons with the light accent and dark text.
   const fill = theme.dark ? theme.accent : theme.action[0], onFill = theme.dark ? theme.background : theme.actionForeground;
@@ -141,6 +150,9 @@ export function Button({
                   : theme.foreground
             }
             style={s.buttonLabel}
+            numberOfLines={lines}
+            adjustsFontSizeToFit={lines === 1}
+            minimumFontScale={0.8}
           >
             {label}
           </T>
@@ -174,6 +186,7 @@ export function Button({
     </Pressable>
   );
 }
+export { ButtonRow } from "./ButtonRow";
 export function Field({
   label,
   icon,

@@ -2,7 +2,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useState, type ReactNode } from "react";
 import { Modal, Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
 import { Screen } from "../../components/Screen";
-import { Button, Icon, T, common, type IconName } from "../../components/ui";
+import { Button, ButtonRow, Icon, T, common, type IconName } from "../../components/ui";
 import { IconButton } from "../../components/food/Controls";
 import { RemoteStatus } from "../../components/CommunityGate";
 import { ListGroup, ListItem, RowIcon, type Tone } from "../../components/GroupedList";
@@ -124,22 +124,22 @@ function Relationship({ p, me }: { p: PersonPage; me: SocialMe }) {
     try { await work(); invalidate("/api/social"); } catch (failure) { setNotice({ text: problem(failure, p.firstName), error: true }); } finally { setBusy(""); }
   };
   if (p.id === me.id) return <Button label={tp("edit")} icon="create-outline" variant="secondary" onPress={() => router.push("/social/profile")} />;
-  if (p.friend) return <View style={[common.row, { gap: 8 }]}>
-    <View style={common.flex}><Button label={t("message")} icon="chatbubble-outline" onPress={() => openSocial("/chat/" + p.id)} /></View>
-    {p.dinnerId ? <View style={common.flex}><Button label={t("viewDinner")} icon="restaurant-outline" variant="secondary" onPress={() => openSocial("/dinner/" + p.dinnerId)} /></View>
-      : p.canInvite && <View style={common.flex}><Button label={t("inviteShort")} accessibilityLabel={t("inviteNamed", { name: p.firstName })} icon="restaurant-outline"
-        variant="secondary" onPress={() => openSocial("/invite/" + p.id)} /></View>}
-  </View>;
+  if (p.friend) return <ButtonRow>
+    <Button label={t("message")} icon="chatbubble-outline" onPress={() => openSocial("/chat/" + p.id)} />
+    {p.dinnerId ? <Button label={t("viewDinner")} icon="restaurant-outline" variant="secondary" onPress={() => openSocial("/dinner/" + p.dinnerId)} />
+      : p.canInvite && <Button label={t("inviteShort")} accessibilityLabel={t("inviteNamed", { name: p.firstName })} icon="restaurant-outline"
+        variant="secondary" onPress={() => openSocial("/invite/" + p.id)} />}
+  </ButtonRow>;
   const request = p.request;
   if (request?.mine) return <RequestCard icon="time-outline" tone="muted" title={t("requestSent")}
     trailing={<PillButton label={tp("cancel")} accessibilityLabel={tp("cancelTo", { name: p.firstName })} busy={busy === "cancel"} onPress={() => void run("cancel", () => cancelRequest(request.id))} />} />;
   if (request) return <RequestCard icon="person-add-outline" title={t("wantsToBeFriends", { name: p.firstName })}>
     {!!request.note && <View style={[s.note, { backgroundColor: theme.muted }]}><T variant="small">{request.note}</T></View>}
-    <View style={[common.row, { gap: 8 }]}>
-      <View style={common.flex}><Button label={t("decline")} accessibilityLabel={t("declineNamed", { name: p.firstName })} variant="secondary" loading={busy === "decline"} disabled={!!busy}
-        onPress={() => void run("decline", () => declineRequest(request.id))} /></View>
-      <View style={common.flex}><Button label={t("accept")} icon="checkmark" loading={busy === "accept"} disabled={!!busy} onPress={() => void run("accept", () => acceptRequest(request.id))} /></View>
-    </View>
+    <ButtonRow>
+      <Button label={t("decline")} accessibilityLabel={t("declineNamed", { name: p.firstName })} variant="secondary" loading={busy === "decline"} disabled={!!busy}
+        onPress={() => void run("decline", () => declineRequest(request.id))} />
+      <Button label={t("accept")} icon="checkmark" loading={busy === "accept"} disabled={!!busy} onPress={() => void run("accept", () => acceptRequest(request.id))} />
+    </ButtonRow>
   </RequestCard>;
   return <>
     <Button label={t("addFriend")} icon="person-add-outline" onPress={() => setAdding(true)} />

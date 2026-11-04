@@ -3,7 +3,7 @@ import { Platform, Pressable, StyleSheet, View, type ViewInstance } from "react-
 import type { WebOnlyProps } from "../types/web-props";
 import { useKeyboardFocus } from "../hooks/useKeyboardFocus";
 import { usePreferences } from "../state/Preferences";
-import { T, common } from "./ui";
+import { T, common, useLabelLines } from "./ui";
 
 /** `dot` marks an option with something new (Messages Buy / Sell); the label already says so to screen readers via `accessibleLabel`. */
 export type SegmentOption<V extends string> = { id: V; label: string; dot?: boolean; accessibleLabel?: string };
@@ -27,13 +27,13 @@ export function SegmentedTabs<V extends string>({ options, value, onChange, labe
 function Segment({ label, dot, spoken, selected, onPress, controlRef, onKeyDown }: {
   label: string; dot?: boolean; spoken?: string; selected: boolean; onPress: () => void; controlRef: (node: ViewInstance | null) => void; onKeyDown: (event: KeyboardEvent) => void;
 }) {
-  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus();
+  const { theme } = usePreferences(), { focused, focusProps } = useKeyboardFocus(), lines = useLabelLines();
   const keyboardProps: WebOnlyProps = Platform.OS === "web" ? { tabIndex: selected ? 0 : -1, onKeyDown } : {};
   return <Pressable ref={controlRef} {...keyboardProps} accessibilityRole="radio" accessibilityLabel={spoken ?? label} accessibilityState={{ checked: selected }} aria-checked={selected}
     onPress={onPress} {...focusProps}
     style={({ pressed }) => [s.tab, { backgroundColor: selected ? theme.card : theme.transparent,
       borderColor: focused ? theme.accent : theme.transparent, opacity: pressed ? .7 : 1 }, Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
-    <View style={[common.row, { gap: 6 }]}><T variant="small" color={selected ? theme.accent : theme.mutedForeground} style={[common.bold, s.label]}>{label}</T>
+    <View style={[common.row, { gap: 6 }]}><T variant="small" color={selected ? theme.accent : theme.mutedForeground} style={[common.bold, s.label]} numberOfLines={lines} adjustsFontSizeToFit={lines === 1} minimumFontScale={0.8}>{label}</T>
       {dot && <View style={[s.dot, { backgroundColor: theme.accent }]} />}</View>
   </Pressable>;
 }

@@ -6,12 +6,13 @@ import { ReactionBar } from "../../components/ReactionBar";
 import { useReactions } from "../../hooks/useReactions";
 import { placeShareMessage } from "../../utils/place-share";
 import { Screen } from "../../components/Screen";
-import { Button, Icon, T, common } from "../../components/ui";
+import { Button, ButtonRow, Icon, T, common } from "../../components/ui";
 import { EmptyState, IconButton } from "../../components/food/Controls";
 import { StatusPill } from "../../components/GroupedList";
-import { CataloguePhotoBackdrop } from "../../components/discovery/CataloguePhotoBackdrop";
-import { PhotoCredit, PlaceDetailAction, PlaceDetailSection, PlaceDivider, PlaceRow } from "../../components/discovery/PlaceDetailParts";
-import { PlaceReviews } from "../../components/discovery/PlaceReviews";
+import { PlaceDetailAction, PlaceDetailSection, PlaceDivider, PlaceRow } from "../../components/discovery/PlaceDetailParts";
+import { PlaceReviews, type Viewing } from "../../components/discovery/PlaceReviews";
+import { PlacePhotoCarousel } from "../../components/discovery/PlacePhotoCarousel";
+import { useReviewGallery } from "../../hooks/useReviewGallery";
 import { GoogleReviewsLink } from "../../components/discovery/GoogleReviewsLink";
 import { PlaceFeedbackActions } from "../../components/discovery/PlaceFeedbackActions";
 import { DietLabels } from "../../components/food/DietLabels";
@@ -35,7 +36,8 @@ function CataloguePlaceDetail({ id }: { id: string }) {
   useReactions("place", venue ? [venue.id] : []);
   const { theme, setNotice } = usePreferences(), { isSaved, toggleSave, readable } = useFood();
   const t = useT("explore"), tc = useT("common");
-  const [saving, setSaving] = useState(false);
+  const [saving, setSaving] = useState(false), [viewing, setViewing] = useState<Viewing | null>(null);
+  const gallery = useReviewGallery(venue?.id ?? null), hasPhotos = !!venue?.photo || gallery.items.length > 0;
   const savedId = "catalogue-" + id, saved = isSaved("place", savedId);
   const open = async (url: string) => {
     try { await Linking.openURL(url); }
@@ -62,15 +64,11 @@ function CataloguePlaceDetail({ id }: { id: string }) {
       : <EmptyState icon="cloud-offline-outline" title={t("couldntLoadPlace")} text={t(offline ? "offlineConnect" : "checkConnection")} primary={{ label: tc("tryAgain"), onPress: retry }}
         action={t("backToExplore")} onPress={() => router.navigate("/")} />)}
     {venue && <View style={s.page}>
-      {venue.photo && <View style={s.media}>
-        <View testID="catalogue-place-photo" style={[s.hero, { backgroundColor: theme.mediaSurface }]}>
-          <CataloguePhotoBackdrop key={venue.photo.path} path={venue.photo.path} thumbhash={venue.photo.thumbhash} enabled panelHeight={0} />
-        </View>
-        <PhotoCredit photo={venue.photo} open={url => void open(url)} />
-      </View>}
+      {hasPhotos && <PlacePhotoCarousel cover={venue.photo} photos={gallery.items} open={url => void open(url)}
+        onPhoto={start => setViewing({ photos: gallery.items, total: gallery.total, start, gallery: true })} />}
       <View style={s.identity}>
         <View style={[common.row, { gap: 12 }]}>
-          {!venue.photo && <View testID="catalogue-place-tile" style={[s.tile, { backgroundColor: theme.accentSoft }]}>
+          {!hasPhotos && <View testID="catalogue-place-tile" style={[s.tile, { backgroundColor: theme.accentSoft }]}>
             <Icon name={placeTileIcon(venue)} size={26} color={theme.accent} /></View>}
           <View style={[common.flex, { gap: 2 }]}>
             <T variant="title" accessibilityRole="header">{venue.name}</T>
@@ -82,14 +80,14 @@ function CataloguePlaceDetail({ id }: { id: string }) {
         {!isVegOptions(venue) && <DietLabels labels={placeLabels(venue)} />}
         {isVegOptions(venue) && <T testID="veg-options-notice" variant="small" muted>{t("mixedKitchenSafety")}</T>}
       </View>
-      <View testID="place-primary-actions" style={s.actions}>
+      <View testID="place-primary-actions"><ButtonRow>
         <PlaceDetailAction inline variant="primary" label={t("directions")} icon="navigate-outline" onPress={() => void open(directions)} />
         {!!venue.contact && <PlaceDetailAction inline variant="secondary" label={t("call")} icon="call-outline"
           accessibleLabel={t("callPlace", { name: venue.name, phone: venue.contact.phone })} onPress={() => void open("tel:" + venue.contact!.phone.replace(/\s/g, ""))} />}
         {venue.itemCount > 0 && <PlaceDetailAction inline variant="secondary" label={t("menu")} icon="book-outline" accessibleLabel={t("viewMenuFor", { name: venue.name })} onPress={() => router.push({ pathname: "/menu/[id]", params: search ? { id: venue.id, q: search } : { id: venue.id } } as never)} />}
         <PlaceDetailAction inline label={tc(saved ? "saved" : "save")} accessibleLabel={t(saved ? "removeSavedName" : "saveName", { name: venue.name })} icon={saved ? "bookmark" : "bookmark-outline"}
           selected={saved} disabled={!readable || saving} onPress={() => void save()} />
-      </View>
+      </ButtonRow></View>
       <View>
         <PlaceDivider />
         <PlaceRow icon="location-outline" text={venue.address} selectable />
@@ -103,7 +101,7 @@ function CataloguePlaceDetail({ id }: { id: string }) {
           accessibilityLabel={t("priceRangeSpoken", venue.priceRange)} /><PlaceDivider /></>}
       </View>
       <View style={{ gap: 4 }}>
-        <PlaceReviews placeId={venue.id} />
+        <PlaceReviews placeId={venue.id} gallery={gallery} viewing={viewing} setViewing={setViewing} />
         <GoogleReviewsLink id={venue.googlePlaceId} name={venue.name} address={venue.address} />
       </View>
       <View>
@@ -115,9 +113,6 @@ function CataloguePlaceDetail({ id }: { id: string }) {
 }
 const s = StyleSheet.create({
   page: { gap: 18 },
-  media: { gap: 2 },
-  hero: { aspectRatio: 16 / 9, maxHeight: 240, borderRadius: 18, overflow: "hidden" },
   identity: { gap: 10 },
   tile: { width: 56, height: 56, borderRadius: 14, alignItems: "center", justifyContent: "center" },
-  actions: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
 });

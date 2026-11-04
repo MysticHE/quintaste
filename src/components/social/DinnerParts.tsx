@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAskForAlerts } from "../../hooks/useAskForAlerts";
 import { Platform, View } from "react-native";
-import { Button, Field, T, common } from "../ui";
+import { Button, ButtonRow, Field, T, common } from "../ui";
 import { Chip } from "../food/Controls";
 import { ChoiceGroup } from "./ProfileFields";
 import { DateTile, ListGroup, ListItem, RowIcon, StatusPill, ThemedSwitch, type Tone } from "../GroupedList";
@@ -66,10 +66,10 @@ export function AnswerButtons({ dinner: d, onDone }: { dinner: Dinner; onDone?: 
   return <View style={{ gap: 8 }}>
     <Button label={t("accept")} icon="checkmark" loading={busy === "accept"} disabled={!!busy}
       onPress={() => void run("accept", async () => { await acceptDinner(d.id); askForAlerts("dinner", askForReminders); }, "dinnerOn")} />
-    <View style={[common.row, { gap: 8 }]}>
-      <View style={{ flex: 1.7 }}><Button label={t("suggestTime")} variant="secondary" disabled={!!busy} onPress={() => setSuggesting(true)} /></View>
-      <View style={{ flex: 1 }}><Button label={t("decline")} variant="secondary" loading={busy === "decline"} disabled={!!busy} onPress={() => void run("decline", () => declineDinner(d.id))} /></View>
-    </View>
+    <ButtonRow>
+      <Button label={t("suggestTime")} variant="secondary" disabled={!!busy} onPress={() => setSuggesting(true)} />
+      <Button label={t("decline")} variant="secondary" loading={busy === "decline"} disabled={!!busy} onPress={() => void run("decline", () => declineDinner(d.id))} />
+    </ButtonRow>
     <SuggestSheet dinner={d} visible={suggesting} onClose={() => setSuggesting(false)} onSent={onDone} />
   </View>;
 }

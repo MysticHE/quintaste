@@ -135,7 +135,7 @@ function CafeHome() {
     <Animated.View style={[s.hud, { top: insets.top + 6, left: insets.left + 10, right: insets.right + 10 }, hudIn]}>
       {deco ? <DecoHud deco={deco} game={game} setDeco={setDeco} save={save} /> : <>
         <Pill icon="chevron-back" label={t("backToGame")} onPress={leave} />
-        <Pill shrink text={game.cafeName} icon="storefront" label={t("cafeDetailsFor", { name: game.cafeName })} onPress={() => open("cafe")} />
+        <Pill shrink text={size.w >= 360 ? game.cafeName : undefined} icon="storefront" label={t("cafeDetailsFor", { name: game.cafeName })} onPress={() => open("cafe")} />
         <View style={{ flex: 1 }} />
         <CreditsPill credits={game.credits} />
         <Pill label={game.tier ? t("yourLotusTier", { tier: game.tier, name: t(LOTUS_TIER_KEYS[game.tier]) }) : t("yourLotus")} onPress={() => open("lotus")}><Art k={game.tier ? "lotus-" + game.tier : "lotus-bud-pink"} size={28} /></Pill>

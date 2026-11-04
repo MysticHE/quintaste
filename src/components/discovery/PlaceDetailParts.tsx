@@ -49,7 +49,7 @@ export function PlaceDetailAction({ label, accessibleLabel, icon, selected, disa
     onPress={onPress} style={({ pressed }) => [s.action, inline && s.inlineAction, { backgroundColor: variant === "primary" ? theme.accent : pressed || selected || variant === "secondary" ? theme.accentSoft : theme.muted,
       borderColor: focused ? theme.foreground : theme.transparent, opacity: disabled ? 0.5 : pressed ? .8 : 1 }, Platform.OS === "web" && { outlineStyle: "solid", outlineWidth: 0 }]}>
     <Icon name={icon} size={inline ? 19 : 22} color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} />
-    <T variant={inline ? "small" : "caption"} color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} style={[common.bold, { flexShrink: 1 }]}>{label}</T>
+    <T variant={inline ? "small" : "caption"} color={variant === "primary" ? (theme.dark ? theme.background : theme.actionForeground) : theme.accent} style={[common.bold, { flexShrink: 1 }]} numberOfLines={1}>{label}</T>
   </Pressable>;
 }
 /**

@@ -2,7 +2,7 @@ import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Image, View } from "react-native";
 import { Screen } from "../../components/Screen";
-import { Button, Card, T, common } from "../../components/ui";
+import { Button, ButtonRow, Card, T, common } from "../../components/ui";
 import { CaseFormFields } from "../../components/discovery/CaseFormFields";
 import { useFood, localId } from "../../state/Food";
 import { useExploreLocal } from "../../state/ExploreLocal";
@@ -69,10 +69,10 @@ export function ExploreContributionScreen({ placeId, target, kind, draftId, menu
       <Button label="Edit Submission" variant="secondary" disabled={busy} onPress={() => setPreview(false)} />
     </> : <>
       <CaseFormFields draft={draft} change={change} error={setError} />
-      <View style={{ flexDirection: "row", gap: 8 }}>
-        <View style={common.flex}><Button label="Save Draft" variant="secondary" disabled={!readable} loading={busy} onPress={() => void save(false)} /></View>
-        <View style={common.flex}><Button label="Review" disabled={!readable || busy} onPress={() => void review()} /></View>
-      </View>
+      <ButtonRow>
+        <Button label="Save Draft" variant="secondary" disabled={!readable} loading={busy} onPress={() => void save(false)} />
+        <Button label="Review" disabled={!readable || busy} onPress={() => void review()} />
+      </ButtonRow>
     </>}
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
   </Screen>;
