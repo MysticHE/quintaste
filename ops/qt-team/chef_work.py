@@ -50,9 +50,11 @@ LANES = {
         'checked that it plays. approve it, with a confidence that says how sure you are that the stages follow the recipe, the '
         'hints are clear and kind, and nothing in it is meat, fish or seafood. Give a low confidence and say why when unsure.')},
     'ai-recipes': {'chef': 'writer', 'profile': 'qt-videomaker', 'max': 5, 'actions': {'publish': None, 'decline': 'note'}, 'rules': (
-        'Each item is a recipe the AI wrote for a member (title, ingredients, steps). publish when it is vegetarian (no meat, fish, '
-        'seafood or animal gelatin), the steps use the listed ingredients, quantities and times are plausible for home cooking and '
-        'nothing is unsafe to eat. decline otherwise, with a note of 5-300 characters for the member saying what was wrong.')},
+        'Each item is an AI-written recipe. For public recipes the server requires Mint-cleared food eligibility when that lane '
+        'is On; do not run a duplicate food-policy or image review. You own structure: steps follow the ingredient list and '
+        'quantities and times are plausible. For an explicitly private recipe, fulfill its original meat-free request constraints '
+        '(Mint does not scan private recipes). Escalate safety contradictions rather than certifying safety. decline for structural '
+        'faults with a note of 5-300 characters explaining what to change.')},
     'wanted': {'chef': 'writer', 'profile': 'qt-videomaker', 'max': 10, 'actions': {'make': None, 'skip': 'note'}, 'rules': (
         'Each item is a dish name that several members searched for in Cook and found little. make it when it names a dish or a '
         'way of cooking (a meat dish gets its meat-free home version). skip, with a note of 5-300 characters, when it is not a '
@@ -61,9 +63,10 @@ LANES = {
     # owner sets only after the privacy notice covers it (QT-063).
     'member-recipes': {'chef': 'writer', 'profile': 'qt-videomaker', 'max': 5, 'memberText': True, 'perItem': True,
                        'actions': {'publish': None, 'decline': 'note'}, 'rules': (
-        'Each item is a recipe a member shared (title, ingredients, steps). publish when it is vegetarian (no meat, fish, seafood '
-        'or animal gelatin), the steps use the listed ingredients, quantities and times are plausible for home cooking, nothing is '
-        'unsafe to eat and it has no links, phone numbers or payment details. decline otherwise, with a kind note of 5-300 '
+        'Each item is a recipe a member shared (title, ingredients, steps). The server offers only exact revisions whose food '
+        'eligibility Mint has cleared when the food-check lane is On. You own recipe structure: the steps use the listed '
+        'ingredients and quantities and times are plausible for home cooking. Do not run another image or food-policy review. '
+        'Escalate a newly noticed safety contradiction rather than certifying safety. decline otherwise, with a kind note of 5-300 '
         'characters for the member saying what to change.')},
     # Members' place reports (kitchen plan §3.2): their words go to the model, so this waits for chefMemberText too. A triaged report
     # is handed to Pandan through state/fixer/rechecks.json, written from admin's list (so owner-approved ones count too); the
@@ -338,9 +341,10 @@ def idem(lane: str, item: dict) -> str:
     return lane + ':' + hashlib.sha256(seen.encode()).hexdigest()[:40]
 
 
-def member_text_allowed(root: Path) -> bool:
+def member_text_allowed(root: Path, lane: str = '') -> bool:
     try:
-        return json.loads((root / 'policy.json').read_text(encoding='utf-8')).get('chefMemberText') is True
+        policy = json.loads((root / 'policy.json').read_text(encoding='utf-8'))
+        return policy.get('chefMemberText') is True or (lane in ('member-recipes','recalls') and policy.get('foodSafetyMemberContent') is True)
     except (OSError, ValueError):
         return False
 
@@ -414,6 +418,11 @@ def model_lane(root: Path, lane: str, items: list, work: dict, ask):
             key = idem(lane, item)
             stuck[key] = {'n': stuck.get(key, {}).get('n', 0) + 1, 'at': now.isoformat()}
     rechecks.write(stuck_path(root), stuck)
+    import bot_blockers
+    for item in items:
+        key=idem(lane,item)
+        if stuck.get(key,{}).get('n',0)>=STUCK_TRIES:
+            bot_blockers.record(root,spec['chef'],lane,key,threshold=1)
     record = {'lane': lane, 'mode': work['mode'], 'items': len(items), 'results': results}
     if len(items) > len(todo):
         record['stuck'] = len(items) - len(todo)
@@ -449,7 +458,7 @@ def work_lane(root: Path, lane: str, ask=None, now=None, fetch=None, live=None):
     spec = LANES[lane]
     if not chef_admin.has_key(root, spec['chef']):
         return {'lane': lane, 'skipped': 'no key'}
-    if spec.get('memberText') and not member_text_allowed(root):
+    if spec.get('memberText') and not member_text_allowed(root, lane):
         return {'lane': lane, 'skipped': 'waiting for the privacy notice'}
     if spec.get('profile') and not night_window.role_open(spec['profile'], now):
         return {'lane': lane, 'skipped': 'off shift'}
@@ -601,7 +610,7 @@ def tidy(root: Path, today=None):
         os.replace(tmp, log)
 
 
-def main(ask=None):
+def main(ask=None, food_only=False):
     import fcntl
     state = ROOT / 'state' / 'chefs'
     state.mkdir(parents=True, exist_ok=True)
@@ -613,10 +622,14 @@ def main(ask=None):
             return
         tidy(ROOT)
         for lane in LANES:
+            if food_only and lane not in ('ai-recipes','member-recipes'):continue
             try:
                 record = work_lane(ROOT, lane, ask)
             except Exception as exc:  # one lane failing must not stop the others; it is logged and retried next pass
                 record = {'lane': lane, 'error': (type(exc).__name__ + ': ' + str(exc))[:200]}
+            import bot_blockers
+            if not record.get('skipped'):
+                bot_blockers.record(ROOT,LANES[lane]['chef'],lane,failed=bool(record.get('error')))
             record['at'] = dt.datetime.now(dt.timezone.utc).isoformat()
             with (state / 'log.jsonl').open('a', encoding='utf-8') as log:
                 log.write(json.dumps(record) + '\n')
@@ -624,4 +637,5 @@ def main(ask=None):
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(food_only='--food-only' in sys.argv[1:])

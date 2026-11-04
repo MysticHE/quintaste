@@ -981,6 +981,8 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
             reason=json.loads(error.read(4096)).get('error')
         except (ValueError, AttributeError):
             raise error
+        if reason == 'Food-content review is pending. The approved batch is retained for retry.':
+            return {'status':'food-review-pending','productionWrites':0,'batchId':batch['id']}
         if reason != 'Publication baseline changed':
             raise error
         pending.replace(folder/'superseded-by-live-change.json')

@@ -6,6 +6,7 @@ import { action, contentId, expectedVersion, history, newerBelow, newId, staffRo
 import { event, recipeFields, today } from './content-validate';
 import { memberRecipeRows, memberRecipeSummary } from './content-member-recipes';
 import { isMemberRecipeId } from './recipe-ids';
+import { staffFoodGate } from './food-staff';
 
 type Source = 'bundled' | 'bot' | 'staff';
 const titleOf = (data: Record<string, unknown>) => String(data.name ?? data.title ?? '');
@@ -64,6 +65,7 @@ async function save(member: Session, kind: 'recipe' | 'event', input: Record<str
     kind === 'recipe' ? recipe(id, input.fields, (row && Object.keys(row.data).length > 1 ? row.data as Recipe : packaged?.data as Recipe) ?? null, row?.version ?? 0) : event(input.fields, id);
   if (act === 'create') {
     const draft = build('staff-draft', null) as Record<string, unknown>, id = newId(titleOf(draft));
+    await staffFoodGate(member,kind,'staff-draft',draft);
     await writeItem(member, kind as Kind, id, 0, act, reason, () => ({ origin: 'staff', hidden: false, data: { ...build(id, null), id } }));
     return { saved: true, id };
   }
@@ -89,6 +91,8 @@ async function save(member: Session, kind: 'recipe' | 'event', input: Record<str
   if (act === 'undelete') throw new HttpError(400, 'Invalid action.');
   if (act !== 'save') return visibility(member, kind, id, expected, act, reason);
   const packaged = base.find(b => b.data.id === id) ?? null;
+  const current=await staffRow(kind,id);
+  await staffFoodGate(member,kind,id,build(id,packaged,current??undefined));
   return writeItem(member, kind, id, expected, act, reason, row => {
     if (row?.data._deletedAt) throw new HttpError(409, 'Restore this recipe before editing.');
     if (!packaged && row?.origin !== 'staff') throw new HttpError(404, 'Not found. Refresh the list.');

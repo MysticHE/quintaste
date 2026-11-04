@@ -36,6 +36,6 @@ export function useMemberRecipe(id: string | null) {
 }
 /** Where each of the member's drafts stands on the server, keyed by draft id. */
 export function useMyRecipeStatus() {
-  const member = useMember(), remote = useRemote(member.member ? "member-recipes:mine" : null, myRecipes);
+  const member = useMember(), remote = useRemote(member.member ? "member-recipes:mine" : null, myRecipes,10000);
   return { ...remote, byDraft: new Map((remote.data?.items ?? []).map(item => [item.draftKey, item])), member };
 }

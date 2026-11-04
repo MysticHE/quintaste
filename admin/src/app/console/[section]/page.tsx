@@ -12,5 +12,5 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   }
   if (section === 'sellers') redirect('/console/shops');
   if (section === 'controls') redirect('/console/features');
-  return <Console section={section}/>;
+  return <Console key={section + ':' + id} section={section} initialId={id}/>;
 }

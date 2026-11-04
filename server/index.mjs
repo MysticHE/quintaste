@@ -49,6 +49,7 @@ import { startNutritionRefresh } from './nutrition/service.mjs';
 import { exploreBots } from './explore-work/bot.mjs';
 import { exploreWork } from './explore-work/member.mjs';
 import { startExploreWorker } from './explore-work/worker.mjs';
+import { startFoodScan } from './food-review/worker.mjs';
 const { createRequestHandler } = createRequire(import.meta.url)('expo-server/adapter/express');
 
 const app = express();
@@ -206,6 +207,7 @@ const stopNutrition = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startN
 const stopDemand = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startDemandWorker() : () => {};
 const stopLevels = process.env.AI_RECIPES_WORKER_ENABLED !== 'false' ? startLevelWorker() : () => {};
 const stopExplore=startExploreWorker();
+const stopFoodScan=startFoodScan();
 // Every five minutes: dish cards and swap rules staff approved from library gaps.
 const stopApproved = startApprovedRefresh();
 const purgeContacts = () => purgeOrderContacts().then(count => count && logger.info({ event: 'market_contacts_purged', count }))
@@ -232,6 +234,7 @@ async function stop() {
   stopDemand();
   stopLevels();
   stopExplore();
+  stopFoodScan();
   stopApproved();
   clearInterval(purgeTimer);
   clearInterval(purgeSelfieTimer);

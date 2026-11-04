@@ -1,4 +1,5 @@
 import { pool, logger } from '../config.mjs';
+import { stageFoodReview } from '../food-review/core.mjs';
 import { allowed } from '../operations.mjs';
 import { CommunityError, communityRouter, errors, member, throttle, transaction, uuid } from '../community/http.mjs';
 import { notBlocked, notRestricted } from '../community/router.mjs';
@@ -53,7 +54,12 @@ recipes.get('/', async (req, res) => {
 /** The author's own recipes and where each one stands; the app shows this beside the matching draft. */
 recipes.get('/mine', member, async (_req, res) => {
   const rows = (await pool.query(`SELECT mr.id, mr.draft_key AS "draftKey", mr.live IS NOT NULL AS live, mr.live_revision AS "liveRevision",
-      mr.pending_state AS state, mr.pending_revision AS "pendingRevision", mr.decision_note AS note, mr.hidden_at IS NOT NULL AS hidden
+      mr.pending_state AS state, mr.pending_revision AS "pendingRevision", mr.decision_note AS note, mr.hidden_at IS NOT NULL AS hidden,
+      (SELECT CASE WHEN fr.state='held' THEN 'held' WHEN fr.state IN ('queued','working','asked') THEN 'pending' END FROM ops.food_review fr
+        WHERE fr.kind='recipe' AND fr.target=mr.id::text AND fr.payload->>'edition'='pending' AND (fr.payload->'data'->>'revision')::int=mr.pending_revision
+        AND fr.state<>'superseded' ORDER BY fr.created_at DESC LIMIT 1) AS "foodReview",
+      (SELECT fr.message FROM ops.food_review fr WHERE fr.kind='recipe' AND fr.target=mr.id::text AND fr.payload->>'edition'='pending'
+        AND (fr.payload->'data'->>'revision')::int=mr.pending_revision AND fr.state='held' ORDER BY fr.created_at DESC LIMIT 1) AS "foodMessage"
     FROM recipes.recipe mr WHERE mr.author_id=$1 ORDER BY mr.updated_at DESC`, [res.locals.user.id])).rows;
   res.json({ items: rows.map(({ id, ...row }) => ({ ...row, id: publicId(id) })) });
 });
@@ -101,6 +107,7 @@ recipes.put('/mine/:key', member, async (req, res) => {
     for (const photo of photos) {
       await db.query("INSERT INTO recipes.photo(recipe_id, version, slot, bytes, digest) VALUES($1,'pending',$2,$3,$4)", [row.id, photo.slot, photo.bytes, photo.digest]);
     }
+    await stageFoodReview(db,'recipe',row.id);
     return row.id;
   }, 'recipe:' + me);
   logger.info({ event: 'member_recipe_submitted' });

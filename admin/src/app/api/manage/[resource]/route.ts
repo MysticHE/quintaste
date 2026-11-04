@@ -13,6 +13,7 @@ import { setDailyCap } from '../../../../lib/ai-recipes';
 import { photoCheck, photoCheckAction, photoCheckImage, photoChecks, teacher, teacherAction, teachers } from '../../../../lib/social';
 import { chefDecisions, staffChefAction } from '../../../../lib/chefs';
 import { collection, collectionAction } from '../../../../lib/collection';
+import { foodDetail } from '../../../../lib/food-review';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -20,6 +21,8 @@ export function GET(request: Request, context: Context) { return route(async () 
   const member = await session(request); const { resource } = await context.params;
   await throttle('read:' + member.id, 120);
   const params = new URL(request.url).searchParams;
+  if(resource==='food-review')return json(await foodDetail(member,text(params.get('id'),'food review',36)));
+  if(resource==='food-review-photo')return new Response(new Uint8Array(await foodDetail(member,text(params.get('id'),'food review',36),text(params.get('slot'),'photo slot',30)) as Buffer),{headers:{'Content-Type':'image/jpeg','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'}});
   if (resource === 'overview') return json(await overview(member));
   if (resource === 'accounts') return json(await accounts(member, params.get('q') || ''));
   if (resource === 'collection') return json(await collection(member, params.get('id')));
@@ -33,7 +36,7 @@ export function GET(request: Request, context: Context) { return route(async () 
     if (!bytes) throw new HttpError(404, 'Photo not found.');
     return new Response(new Uint8Array(bytes), { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
   }
-  if (resource === 'chef-decisions') return json(await chefDecisions(member, params.get('view') || '', offset(params.get('page'))));
+  if (resource === 'chef-decisions') return json(await chefDecisions(member, params.get('view') || '', offset(params.get('page')), params.get('id')));
   if (resource === 'teachers') return json(params.has('id') ? await teacher(member, text(params.get('id'),'member id',64)) : await teachers(member, params.get('status') || ''));
   if (resource === 'staff') return json(await staffList(member));
   if (resource === 'assignees') {

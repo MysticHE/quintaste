@@ -58,8 +58,8 @@ export const HABITS = {
   artist: { home: 'painting', speed: 0.9, spots: ['window', 'centre', 'painting'], every: [6000, 10000], linger: [2500, 4000], act: 'paint', signature: 'splash' },
   writer: { home: 'pot', speed: 0.95, spots: ['pass', 'fridge', 'pot'], every: [7000, 11000], linger: [1500, 3000], act: 'stir', signature: 'hearts' },
   storyteller: { home: 'sill', speed: 0, spots: [], act: 'doze', signature: 'moon', stays: true },
-  fixer: { home: 'corner', speed: 0, spots: [], act: 'doze', signature: 'plaster', stays: true },
-  safety: { home: 'fridge', speed: 0, spots: [], act: 'doze', signature: 'snow', stays: true },
+  fixer: { home: 'corner', speed: 1, spots: ['centre','pass','corner'], every: [6000,10000], linger: [2000,3500], act: 'inspect', signature: 'plaster' },
+  safety: { home: 'fridge', speed: 0.8, spots: ['fridge','centre','pass'], every: [7000,11000], linger: [2000,3500], act: 'inspect', signature: 'snow' },
 };
 
 /**

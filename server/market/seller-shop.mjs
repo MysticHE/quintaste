@@ -5,6 +5,7 @@ import { readFuture, sgText } from '../social/rules.mjs';
 import { limits, listingProblem, money, noContactDetails, processPhoto, readListing, slots } from './rules.mjs';
 import { eventFor } from './conversations.mjs';
 import { queueAlert } from '../community/push.mjs';
+import { stageFoodReview, cancelFoodReview } from '../food-review/core.mjs';
 
 /** A seller's own listings, photos and collection slots. */
 export const sellerShop = express.Router();
@@ -70,10 +71,12 @@ async function save(req, res, id) {
     await db.query('DELETE FROM market.photo WHERE listing_id=$1 AND slot=$2', [row.id, l.kind === 'made' ? 'label' : 'detail']);
     const present = new Set((await db.query('SELECT slot FROM market.photo WHERE listing_id=$1', [row.id])).rows.map(p => p.slot));
     if (publish) { const problem = listingProblem(l, present); if (problem) throw new CommunityError(400, problem); }
-    await db.query('UPDATE market.listing SET status=$2 WHERE id=$1', [row.id, publish ? 'active' : 'draft']);
-    return row.id;
+    await db.query("UPDATE market.listing SET status=$2,removed_reason='' WHERE id=$1", [row.id, publish ? 'active' : 'draft']);
+    const review=publish?await stageFoodReview(db,'listing',row.id):null;
+    if(!publish)await cancelFoodReview(db,'listing',row.id);
+    return {id:row.id,foodReview:review&&review.state!=='clear'?review.state:null};
   }, 'market-seller:' + me);
-  res.status(id ? 200 : 201).json({ id: saved });
+  res.status(id ? 200 : 201).json(saved);
 }
 sellerShop.post('/listings', (req, res) => save(req, res, null));
 sellerShop.put('/listings/:id', (req, res) => save(req, res, requireId(req.params.id)));
@@ -89,7 +92,9 @@ sellerShop.post('/listings/:id/status', async (req, res) => {
       const present = new Set((await db.query('SELECT slot FROM market.photo WHERE listing_id=$1', [id])).rows.map(p => p.slot));
       const problem = listingProblem(row, present); if (problem) throw new CommunityError(400, problem);
     }
-    await db.query('UPDATE market.listing SET status=$2, updated_at=now() WHERE id=$1', [id, status]);
+    await db.query("UPDATE market.listing SET status=$2,removed_reason='',updated_at=now() WHERE id=$1", [id, status]);
+    if(status==='active')await stageFoodReview(db,'listing',id);
+    else await cancelFoodReview(db,'listing',id);
   }, 'market-seller:' + me);
   res.json({ status });
 });
@@ -109,7 +114,8 @@ sellerShop.post('/listings/:id/withdraw', async (req, res) => {
     if (!item || item.status === 'removed') throw new CommunityError(404, 'This item is unavailable.');
     // A draft or paused item keeps its status; only a live item comes off sale.
     const status = item.status === 'active' ? 'paused' : item.status;
-    if (status !== item.status) await db.query('UPDATE market.listing SET status=$2, updated_at=now() WHERE id=$1', [id, status]);
+    await db.query("UPDATE market.listing SET status=$2,removed_reason='',updated_at=now() WHERE id=$1", [id, status]);
+    await cancelFoodReview(db,'listing',id);
     const lot = item.kind === 'prepacked' ? item.lot : '', name = lot ? `${item.name} (lot ${lot})` : item.name;
     const matches = `i.order_id=o.id AND i.listing_id=$2 AND ($3 = '' OR i.lot = $3)`;
     const cancelled = (await db.query(`UPDATE market."order" o SET status='cancelled', status_reason=$4, updated_at=now()

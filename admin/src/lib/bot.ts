@@ -11,15 +11,16 @@ import { HttpError } from './http';
  */
 const callers = {
   alerts: { key: 'ADMIN_BOT_ALERTS_KEY', resources: ['attention'] },
-  head: { key: 'ADMIN_BOT_HEAD_KEY', resources: ['asks', 'answer'] },
+  head: { key: 'ADMIN_BOT_HEAD_KEY', resources: ['asks', 'answer','food-claim','food-heartbeat','food-result','food-photo'] },
   wok: { key: 'ADMIN_BOT_WOK_KEY', resources: ['lane', 'decide'] },
   writer: { key: 'ADMIN_BOT_WRITER_KEY', resources: ['lane', 'decide'] },
   artist: { key: 'ADMIN_BOT_ARTIST_KEY', resources: ['lane', 'decide'] },
   fixer: { key: 'ADMIN_BOT_FIXER_KEY', resources: ['lane', 'decide'] },
   host: { key: 'ADMIN_BOT_HOST_KEY', resources: ['lane', 'decide'] },
-  safety: { key: 'ADMIN_BOT_SAFETY_KEY', resources: ['lane', 'decide'] },
+  safety: { key: 'ADMIN_BOT_SAFETY_KEY', resources: ['lane', 'decide','food-claim','food-heartbeat','food-result','food-photo'] },
 } as const;
 export type Caller = keyof typeof callers;
+const blockerCallers=['head','wok','writer','artist','fixer','host','safety'];
 
 export function botCaller(request: Request, resource: string, body: Buffer = Buffer.alloc(0)): Caller {
   const name = request.headers.get('x-qt-bot') ?? '', time = request.headers.get('x-qt-time') ?? '';
@@ -30,7 +31,7 @@ export function botCaller(request: Request, resource: string, body: Buffer = Buf
   const url = new URL(request.url);
   const message = time + '\n' + request.method + '\n' + url.pathname + url.search + '\n' + createHash('sha256').update(body).digest('hex');
   if (!timingSafeEqual(createHmac('sha256', key).update(message).digest(), Buffer.from(signature, 'hex'))) throw new HttpError(401, 'Unauthorized.');
-  if (!(caller.resources as readonly string[]).includes(resource)) throw new HttpError(403, 'Not allowed.');
+  if (!(caller.resources as readonly string[]).includes(resource)&&!(resource==='blocked'&&blockerCallers.includes(name))) throw new HttpError(403, 'Not allowed.');
   return name as Caller;
 }
 

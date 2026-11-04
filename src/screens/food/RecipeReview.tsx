@@ -16,6 +16,7 @@ import { usePreferences } from "../../state/Preferences";
 import { publicationIssueKeys, reviewedDrafts } from "../../state/recipe-workspace";
 import { recipeStatus, submitRecipe, withdrawRecipe } from "../../services/member-recipes";
 import { useLanguage, useT } from "../../i18n";
+import { FoodReviewNote } from '../../components/food/FoodReviewNote';
 import { goBack } from "../../utils/navigation";
 
 export function RecipeReviewScreen() {
@@ -45,7 +46,7 @@ export function RecipeReviewScreen() {
   const label = t(!mine ? "submitForReview" : mine.live ? "submitUpdate" : mine.state === "declined" ? "submitAgain" : "submitChanges");
   return <Screen title={t("publicationReview")}>
     <Chips><Chip label={tc("edit")} icon="create-outline" disabled={locked} onPress={edit} /></Chips>
-    <InfoBox title={recipeStatus(d, mine, language)} text={mine?.state === "declined" ? mine.note : ""}>
+    <InfoBox title={recipeStatus(d, mine, language)} text={mine?.foodReview==='held'?mine.foodMessage??'':mine?.state === "declined" ? mine.note : ""}>
       {fields.map(key => <View key={key} style={[common.row, { gap: 8, alignItems: "flex-start" }]}>
         <Icon name="alert-circle-outline" size={18} color={theme.error} /><T variant="small" style={common.flex}>{tm(key)}</T>
       </View>)}
@@ -54,6 +55,7 @@ export function RecipeReviewScreen() {
     {!!links && <T variant="small" muted>{t("shopLinksCount", { n: links })}</T>}
     <IngredientCheck label={t("consentRights")} checked={d.rights} disabled={locked} onPress={() => void state.consent(id, "rights", !d.rights)} />
     <IngredientCheck label={t("consentPolicy")} checked={d.policy} disabled={locked} onPress={() => void state.consent(id, "policy", !d.policy)} />
+    <FoodReviewNote/>
     {!fields.length && issues.includes("issueRights") && <T accessibilityLiveRegion="polite">{tm("issueRights")}</T>}
     {sent ? <Button label={mine?.state === "review" ? t("inReview") : t("published")} disabled onPress={() => {}} />
       : <Button label={label} icon="send-outline" loading={busy} disabled={locked || !!issues.length || !status.member.enabled} onPress={() => void submit()} />}

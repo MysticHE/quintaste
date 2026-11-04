@@ -14,6 +14,7 @@ import { useRemote } from "../../hooks/useRemote";
 import { applyToTeach, myClasses, teaching as loadTeaching } from "../../services/classes-api";
 import { usePreferences } from "../../state/Preferences";
 import { useLanguage, useT } from "../../i18n";
+import { foodReviewWords } from '../../config/food-review';
 import { sgDateTile } from "../../utils/sg-datetime";
 import type { CookingClass, Teacher } from "../../types/community";
 
@@ -21,7 +22,7 @@ const hostState: Record<Teacher["status"], ["teachPending" | "teachApproved" | "
   pending: ["teachPending", "warning"], approved: ["teachApproved", "success"], rejected: ["teachRejected", "warning"], suspended: ["teachSuspended", "warning"] };
 function ClassRow({ c, own }: { c: CookingClass; own: boolean }) {
   const t = useT("market"), language = useLanguage(), tile = sgDateTile(c.starts, language);
-  const note = c.hidden ? t("hiddenByTeam") : c.status === "draft" ? t("notPosted") : c.status === "cancelled" ? t("classStatusCancelled") : own ? t("seatsTaken", { taken: c.taken, seats: c.seats }) : c.venue;
+  const note = c.foodReview ? foodReviewWords(language)[c.foodReview] : c.hidden ? t("hiddenByTeam") : c.status === "draft" ? t("notPosted") : c.status === "cancelled" ? t("classStatusCancelled") : own ? t("seatsTaken", { taken: c.taken, seats: c.seats }) : c.venue;
   return <ListItem title={c.title} subtitle={note} leading={tile ? <DateTile day={tile.day} month={tile.month} /> : undefined}
     trailing={c.status === "draft" ? <StatusPill label={t("classStatusDraft")} /> : c.unread ? <StatusPill label={String(c.unread)} tone="accent" /> : undefined}
     onPress={() => openMarket("/class/" + c.id)} />;

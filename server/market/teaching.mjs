@@ -4,6 +4,8 @@ import { CommunityError, member as signedIn, requireId, requireUser, text, throt
 import { readDiets, readFuture, sgText } from '../social/rules.mjs';
 import { classLine, classView } from './classes.mjs';
 import { featureGate } from '../operations.mjs';
+import { stageFoodReview } from '../food-review/core.mjs';
+import { foodFindings } from '../food-policy.mjs';
 
 /** Teaching: apply from Market > Events > My Cooking Classes, staff approve in the admin console, then post classes that appear in Events. */
 export const teaching = express.Router();
@@ -13,6 +15,7 @@ teaching.use('/teaching', featureGate('market_sellers'), signedIn);
 const hostColumns = `status, display_name AS "displayName", area, experience, teaches, reason, applied_at AS "appliedAt", decided_at AS "decidedAt"`;
 function readClass(body) {
   body ??= {};
+  if(foodFindings({title:body.title,makes:body.makes}).length)throw new CommunityError(400,'Cooking classes must offer meat-free food. Check the class title and menu.');
   // A class starts in the future, within six months, and ends after it starts.
   const starts = readFuture(body.starts, 'Start time'), ends = readFuture(body.ends, 'End time');
   if (starts.getTime() - Date.now() > 183 * 86400000) throw new CommunityError(400, 'Choose a date within the next six months.');
@@ -63,16 +66,18 @@ teaching.post('/teaching/classes', async (req, res) => {
     if (Number((await db.query("SELECT count(*) FROM social.class WHERE host_id=$1 AND status<>'cancelled' AND starts > now()", [me])).rows[0].count) >= 20) {
       throw new CommunityError(409, 'You can have 20 upcoming classes. Cancel one first.');
     }
-    return (await db.query(`INSERT INTO social.class(host_id, title, makes, starts, ends, venue, area, seats, price_cents, diets, status)
+    const created=(await db.query(`INSERT INTO social.class(host_id, title, makes, starts, ends, venue, area, seats, price_cents, diets, status)
       VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id`, [me, c.title, c.makes, c.starts, c.ends, c.venue, c.area, c.seats, c.price, c.diets, post ? 'posted' : 'draft'])).rows[0].id;
+    const review=post?await stageFoodReview(db,'class',created):null;
+    return {id:created,foodReview:review&&review.state!=='clear'?review.state:null};
   });
-  res.status(201).json({ id });
+  res.status(201).json(id);
 });
 /** Edits keep seats already taken; a new time or place is told to everyone who joined. */
 teaching.put('/teaching/classes/:id', async (req, res) => {
   const me = res.locals.user.id, id = requireId(req.params.id, 'This class is unavailable.'), c = readClass(req.body?.class), post = req.body?.post === true;
   await throttle('social-class-edit:' + me, 60, 3600);
-  await transaction(async db => {
+  const review=await transaction(async db => {
     await requireHost(db, me);
     const old = (await db.query(`SELECT status, ${sgText('starts')} AS starts, ${sgText('ends')} AS ends, venue FROM social.class WHERE id=$1 AND host_id=$2 FOR UPDATE`, [id, me])).rows[0];
     if (!old || old.status === 'cancelled') throw new CommunityError(404, 'This class is unavailable.');
@@ -81,10 +86,12 @@ teaching.put('/teaching/classes/:id', async (req, res) => {
     await db.query(`UPDATE social.class SET title=$3, makes=$4, starts=$5, ends=$6, venue=$7, area=$8, seats=$9, price_cents=$10, diets=$11,
       status=CASE WHEN $12 THEN 'posted' ELSE status END, updated_at=now() WHERE id=$1 AND host_id=$2`,
     [id, me, c.title, c.makes, c.starts, c.ends, c.venue, c.area, c.seats, c.price, c.diets, post]);
+    const review=post||old.status==='posted'?await stageFoodReview(db,'class',id):null;
     const moved = (await db.query(`SELECT ${sgText('starts')} AS starts, ${sgText('ends')} AS ends, venue FROM social.class WHERE id=$1`, [id])).rows[0];
     if (moved.starts !== old.starts || moved.ends !== old.ends || moved.venue !== old.venue) for (const member of joined) await classLine(db, id, member, { body: 'changed' });
+    return review;
   }, 'social-class:' + id);
-  res.json({ ok: true });
+  res.json({ ok: true,foodReview:review&&review.state!=='clear'?review.state:null });
 });
 /** Cancelling tells everyone who joined; their seats stay on record so they still see the class. */
 teaching.post('/teaching/classes/:id/cancel', async (req, res) => {

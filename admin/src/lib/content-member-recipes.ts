@@ -1,4 +1,5 @@
 import 'server-only';
+import { recipeFoodClear } from './food-review';
 import type { PoolClient } from 'pg';
 import { query, transaction } from './db';
 import { audit, type Actor } from './audit';
@@ -85,11 +86,14 @@ export async function applyMemberRecipe(db: PoolClient, actor: Actor, input: Rec
   const act = choice(input.action, ['publish', 'decline', 'hide', 'restore'] as const, 'action'), id = uuid(input.id, 'recipe');
   let result, revision: number | null = null, update = false;
   if (act === 'publish' || act === 'decline') {
+    if(act==='publish'&&!await recipeFoodClear(db,id,true))throw new HttpError(409,'Food-content review is pending or needs a correction. Open the food review before publishing.');
     revision = integer(input.revision, 'revision', 1, 10000);
     update = act === 'publish' && !!(await db.query('SELECT 1 FROM recipes.recipe WHERE id=$1 AND live IS NOT NULL', [id])).rowCount;
     result = act === 'publish'
       ? await db.query(`UPDATE recipes.recipe SET live=pending, live_revision=pending_revision, pending=NULL, pending_revision=NULL, pending_state=NULL,
-          decision_note='', published_at=now(), updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`, [id, revision])
+          decision_note='',hidden_at=CASE WHEN hidden_reason IN ('QT food review pending','QT food review held') THEN NULL ELSE hidden_at END,
+          hidden_reason=CASE WHEN hidden_reason IN ('QT food review pending','QT food review held') THEN NULL ELSE hidden_reason END,
+          published_at=now(), updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`, [id, revision])
       : await db.query(`UPDATE recipes.recipe SET pending_state='declined', decision_note=$3, updated_at=now() WHERE id=$1 AND pending_state='review' AND pending_revision=$2`,
         [id, revision, text(input.note, 'note shown to the author', 300, 5)]);
     if (result.rowCount && act === 'publish') {

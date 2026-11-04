@@ -4,6 +4,8 @@ import sharp from 'sharp';
 import { CommunityError, list, pick, text } from '../community/http.mjs';
 import { maxInputPixels, withDecodeSlot } from '../community/images.mjs';
 import { alliums, containsFor, labelsFor } from '../diet-labels.mjs';
+import { containsMeat, foodFindings } from '../food-policy.mjs';
+export { containsMeat };
 
 // Mirrors src/config/market.ts and src/config/market-ingredients.ts; the server is the authority.
 export const categories = ['Bakes', 'Kueh & sweets', 'Savoury', 'Frozen', 'Sauces & pantry', 'Drinks'];
@@ -39,12 +41,6 @@ const liquor = /\b(beer|wine|sake|soju|whisky|whiskey|vodka|liqueur|cocktails?|s
 /** Soft drinks named after beer, and drinks stated to be non-alcoholic, are not liquor. */
 const notLiquor = /\b(ginger|root|birch) beer\b|\bnon[- ]?alcoholic\b|\balcohol[- ]free\b/gi;
 const notSmallScale = /\b(catering|caterer|buffet|party (tray|set|platter)s?|events?|corporate|office (lunch|order)s?|bento for|\d+\s*pax|wholesale|resellers?|for (cafes?|shops?|restaurants?)|bulk orders?|meal (plans?|subscriptions?)|weekly meals)\b/i;
-const animalIngredients = 'lard|gelatine?|bonito|anchov(?:y|ies)|ikan bilis|belacan|chicken|beef|fish|prawns?|shrimps?|pork|bacon|duck|goose|geese|turkey|mutton|lamb|venison|ham|crab|lobsters?|oysters?|squid|clams?|mussels?|seafood';
-const meat = new RegExp('\\b(?:' + animalIngredients + ')\\b', 'i');
-// Remove only explicitly qualified alternatives/absence claims, never an entire ingredient list.
-const qualifiedAlternative = new RegExp('(?<!\\b(?:non[- ]|not ))\\b(?:vegetarian|vegan|veggie|mock|plant[- ]based|meatless|meat[- ]free|no|without|free from)(?:[-\\s]+(?:roast(?:ed)?|fried|smoked|grilled|shredded|sliced|braised|crispy)){0,2}[-\\s]+(?:' + animalIngredients + ')\\b', 'gi');
-const nonMeatIngredients = /\boyster mushrooms?\b|\b(?:(?:vegetarian|vegan) mushroom|mushroom[- ]based) oyster sauce\b|\bfish mint\b|\b(?:chicken|duck|goose|quail|turkey) eggs?\b/gi;
-export const containsMeat = value => meat.test(value.replace(nonMeatIngredients, '').replace(qualifiedAlternative, ''));
 const jainRoots = /\b(potato(es)?|carrots?|beetroots?|radish(es)?|ginger|garlic|onions?|turnips?|yams?|cassava|tapioca|turmeric|leeks?|shallots?|scallions?)\b/i;
 const contactDetails = /https?:\/\/|www\.|\bt\.me\/|\bwa\.me\/|\b[\w.+-]+@[\w-]+\.[a-z]{2,}\b|(?:\+?65[\s-]?)?\b[3689]\d{3}[\s-]?\d{4}\b|\bpaynow\s*:?\s*\d/i;
 
@@ -114,7 +110,7 @@ export function listingProblem(l, photos, today = new Date(Date.now() + 8 * 3600
   if (l.priceCents < 1) return 'Enter a price.';
   if (!l.portion) return 'Add the portion or pack size.';
   if (!l.ingredients) return 'List every ingredient.';
-  if (containsMeat(l.ingredients)) return 'Market is vegetarian. Remove meat, fish or animal-derived ingredients such as gelatine or lard.';
+  if (foodFindings({ name: l.name, description: l.description, ingredients: l.ingredients }).length) return 'Market is vegetarian. Remove meat, fish or animal-derived ingredients such as gelatine or lard.';
   if (!l.storage) return 'Add storage and how soon to eat it.';
   if (!photos.has('item')) return 'Add a photo of the food.';
   if (l.kind === 'prepacked') {

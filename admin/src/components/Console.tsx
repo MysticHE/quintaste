@@ -61,7 +61,7 @@ const groups: { title?: string; sections: Section[] }[] = [
     { id: 'audit', title: 'Audit', icon: 'audit', capability: 'audit' }] },
 ];
 
-export default function Console({ section }: { section: string }) {
+export default function Console({ section, initialId = '' }: { section: string; initialId?: string }) {
   const [signOutError, setSignOutError] = useState('');
   const resource = useResource<StaffSession>('/api/auth/session'); const member = resource.data?.member;
   const attention = useResource<OverviewData>(member ? '/api/manage/overview' : null), counts = attention.data;
@@ -101,8 +101,8 @@ export default function Console({ section }: { section: string }) {
         {section === 'reviews' && <Reviews/>}{section === 'cooked-photos' && <CookedPhotos/>}{section === 'gatherings' && <Gatherings/>}
         {section === 'photo-checks' && <PhotoChecks/>}{section === 'teachers' && <Teachers/>}
         {section === 'shops' && <Sellers/>}{section === 'listings' && <Listings/>}
-        {section === 'accounts' && <Accounts/>}{section === 'cases' && <Cases canAssign={can(member.role, 'operations')}/>}
-        {section === 'chefs' && <Chefs/>}{section === 'chef-jobs' && <ChefJobs/>}{section === 'features' && <Controls/>}{section === 'integrations' && <Integrations/>}
+        {section === 'accounts' && <Accounts/>}{section === 'cases' && <Cases initialId={initialId} canAssign={can(member.role, 'operations')}/>}
+        {section === 'chefs' && <Chefs initialId={initialId}/>}{section === 'chef-jobs' && <ChefJobs/>}{section === 'features' && <Controls/>}{section === 'integrations' && <Integrations/>}
         {section === 'staff' && <Staff self={member.id}/>}{section === 'audit' && <Audit/>}
       </>}
     </main>

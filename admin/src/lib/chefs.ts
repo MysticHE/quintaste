@@ -7,6 +7,7 @@ import { can } from './permissions';
 import { choice, HttpError, pageSize, text, uuid } from './http';
 import { settings } from './config';
 import { CHEFS, HANDOFF, LANES, controlKey, modeOf, type Lane, type Mode, type Why } from './chef-lanes';
+import { recipeFoodClear } from './food-review';
 
 /**
  * Chef decisions (docs/ADMIN_CHEFS_PLAN.md §2 and §6). A chef proposes, Kaya reviews on the bot side, and this decides what
@@ -45,6 +46,10 @@ export async function chefLane(chef: string, value: unknown, after: string | nul
   let items: Record<string, unknown>[] = [], handoff: Record<string, unknown>[] | undefined;
   try {
     if (mode !== 'off') items = await withRounds(name, await lane.queue(mode, after));
+    if(['ai-recipes','member-recipes'].includes(name)){
+      const eligible=await Promise.all(items.map(async item=>await recipeFoodClear({query},String(item.id))?item:null));
+      items=eligible.filter((item):item is Record<string,unknown>=>item!==null);
+    }
     if (lane.handoff) handoff = await lane.handoff();
   } catch (error) {
     if (!['42P01', '3F000'].includes((error as { code?: string })?.code ?? '')) throw error;
@@ -73,6 +78,7 @@ export async function chefDecide(chef: string, input: Record<string, unknown>) {
     await db.query('SELECT pg_advisory_xact_lock(hashtext($1))', ['chef:' + chef + ':' + idem]);
     const prior = (await db.query<Row>('SELECT id, outcome, note, why_ask FROM ops.chef_decision WHERE chef=$1 AND idem=$2', [chef, idem])).rows[0];
     if (prior) return { id: prior.id, outcome: prior.outcome, note: prior.note, why: prior.why_ask, repeated: true };
+    if(lane.guard)await lane.guard(db,target,details);
     const mode = await laneMode(db, name);
     if (mode === 'off') throw new HttpError(409, 'This lane is off.');
     const asks = step.ask ?? (step.askWhen ? await step.askWhen(db, target, details) : null);
@@ -85,12 +91,13 @@ export async function chefDecide(chef: string, input: Record<string, unknown>) {
         note = done.note ?? ''; result = { undo: done.undo ?? null };
       } catch (error) {
         if (!(error instanceof HttpError)) throw error;
-        await db.query('ROLLBACK TO SAVEPOINT chef_apply'); outcome = 'failed'; note = error.message;
+        await db.query('ROLLBACK TO SAVEPOINT chef_apply'); outcome = name === 'food-checks' ? 'asked' : 'failed'; note = error.message;
       }
     }
     const row = (await db.query<{ id: string }>(`INSERT INTO ops.chef_decision(chef,lane,target,action,input,reason,evidence,confidence,review,
       why_ask,mode,outcome,result,note,idem) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING id`, [chef, name, target, action,
       JSON.stringify(details), reason, JSON.stringify(evidence), confidence, review, why, mode, outcome, JSON.stringify(result), short(note), idem])).rows[0];
+    if(lane.recorded)await lane.recorded(db,target,outcome);
     return { id: row.id, outcome, note, why };
   });
 }
@@ -137,11 +144,18 @@ export async function ownerAnswer(input: Record<string, unknown>) {
 
 /** Staff answer an ask, or undo what a chef (or an approved ask) did, from the Chef decisions page. */
 export async function staffChefAction(member: Session, input: Record<string, unknown>, reason: string) {
-  const id = uuid(input.id, 'decision'), act = choice(input.action, ['approve', 'reject', 'undo'] as const, 'action');
+  const id = uuid(input.id, 'decision'), act = choice(input.action, ['approve', 'reject', 'undo','food-clear','food-hold'] as const, 'action');
   return transaction(async db => {
     const row = await locked(db, id), lane = LANES[row.lane];
     if (!lane) throw new HttpError(409, 'This lane no longer exists.');
     await lockPermission(db, member, lane.capability);
+    if(act==='food-clear'||act==='food-hold'){
+      if(row.lane!=='food-checks'||row.outcome!=='asked')throw new HttpError(409,'This food issue is no longer awaiting a decision.');
+      row.action=act==='food-clear'?'clear':'hold';
+      row.reason=reason;
+      await db.query('UPDATE ops.chef_decision SET action=$2 WHERE id=$1',[id,row.action]);
+      return answer(db,row,member,true,'admin');
+    }
     if (act !== 'undo') return answer(db, row, member, act === 'approve', 'admin');
     const step = lane.actions[row.action];
     if (!['done', 'approved'].includes(row.outcome) || !step?.undo || !row.result.undo) throw new HttpError(409, 'This decision cannot be undone.');
@@ -152,17 +166,19 @@ export async function staffChefAction(member: Session, input: Record<string, unk
   });
 }
 
-const VIEWS = { asked: "d.outcome='asked'", done: "d.outcome IN ('done','approved','rejected','undone','failed')", watched: "d.outcome='watched'", all: 'true' };
+const currentQuestion="(d.lane<>'food-checks' OR EXISTS(SELECT 1 FROM ops.food_review r WHERE r.id::text=d.target AND r.state='asked'))";
+const VIEWS = { asked: "d.outcome='asked' AND "+currentQuestion, done: "d.outcome IN ('done','approved','rejected','undone','failed')", watched: "d.outcome='watched'", all: 'true' };
 /** The lanes this staff member can act on (each lane needs its own capability: content, cases or sellers). */
 const lanesFor = (member: Session) => Object.entries(LANES).filter(([, lane]) => can(member.role, lane.capability)).map(([name]) => name);
 /** Decisions in the lanes this staff member can act on, newest first. */
-export async function chefDecisions(member: Session, view: string, skip = 0) {
+export async function chefDecisions(member: Session, view: string, skip = 0, selectedId: string | null = null) {
   const lanes = lanesFor(member);
   if (!lanes.length) throw new HttpError(403, 'You do not have access.');
-  const where = VIEWS[choice(view || 'asked', Object.keys(VIEWS) as (keyof typeof VIEWS)[], 'view')];
+  const selected = selectedId === null ? null : uuid(selectedId, 'decision');
+  const where = selected ? 'd.id=$3' : VIEWS[choice(view || 'asked', Object.keys(VIEWS) as (keyof typeof VIEWS)[], 'view')];
   const rows = (await query<Row & { decided_email: string | null }>(`SELECT d.*, m.email AS decided_email FROM ops.chef_decision d
     LEFT JOIN staff.member m ON m.id = d.decided_by WHERE ${where} AND d.lane = ANY($1) ORDER BY d.created_at DESC LIMIT ${pageSize} OFFSET $2`,
-    [lanes, skip])).rows;
+    selected ? [lanes, 0, selected] : [lanes, skip])).rows;
   const names = await labelsFor(rows, () => true);
   return rows.map(r => ({ id: r.id, chef: CHEFS[r.chef] ?? r.chef, lane: LANES[r.lane]?.title ?? r.lane, item: names[r.lane + '|' + r.target] ?? r.target,
     action: r.action, reason: r.reason, evidence: r.evidence, confidence: r.confidence, review: r.review, why: r.why_ask, mode: r.mode, outcome: r.outcome,
@@ -189,13 +205,13 @@ export async function chefAsks(after: string | null) {
   // The cursor is microseconds since 1970 as digits, so it needs no URL encoding (the signature covers the query as sent).
   if (after !== null && !/^\d{1,18}$/.test(after)) throw new HttpError(400, 'Check after.');
   const at = "(extract(epoch FROM created_at) * 1000000)::bigint";
-  const rows = (await query<Row & { at: string }>(`SELECT *, ${at}::text AS at FROM ops.chef_decision WHERE outcome='asked'
+  const rows = (await query<Row & { at: string }>(`SELECT d.*, ${at}::text AS at FROM ops.chef_decision d WHERE outcome='asked' AND ${currentQuestion}
     AND ($1::bigint IS NULL OR ${at} > $1::bigint) ORDER BY created_at LIMIT 20`, [after])).rows;
   const names = await labelsFor(rows, lane => !lane.member);
   return rows.map(r => {
     const lane = LANES[r.lane];
     return { id: r.id, at: r.at, chef: CHEFS[r.chef] ?? r.chef, lane: lane?.title ?? r.lane, action: r.action, why: r.why_ask, confidence: r.confidence,
-      item: lane && !lane.member ? names[r.lane + '|' + r.target] ?? r.target : lane?.privateLabel ?? null, reason: lane && !lane.member ? r.reason.slice(0, 200) : null };
+      foodReview:r.lane==='food-checks',item: lane && !lane.member ? names[r.lane + '|' + r.target] ?? r.target : lane?.privateLabel ?? null, reason: lane && !lane.member ? r.reason.slice(0, 200) : null };
   });
 }
 
@@ -203,8 +219,8 @@ export async function chefAsks(after: string | null) {
  * Null before admin/db/chefs.sql is installed. */
 export async function chefSummary() {
   try {
-    const rows = (await query<{ lane: string; outcome: string; count: number }>(`SELECT lane, outcome, count(*)::int AS count FROM ops.chef_decision
-      WHERE (outcome='asked' OR created_at > now() - interval '24 hours') AND action <> 'keep' GROUP BY lane, outcome`)).rows;
+    const rows = (await query<{ lane: string; outcome: string; count: number }>(`SELECT lane, outcome, count(*)::int AS count FROM ops.chef_decision d
+      WHERE (outcome='asked' OR created_at > now() - interval '24 hours') AND (outcome<>'asked' OR ${currentQuestion}) AND action <> 'keep' GROUP BY lane, outcome`)).rows;
     const out: Record<string, { handled: number; asked: number; watched: number; failed: number }> = {};
     for (const r of rows) {
       const lane = out[LANES[r.lane]?.title ?? r.lane] ??= { handled: 0, asked: 0, watched: 0, failed: 0 };
@@ -221,6 +237,6 @@ export async function chefSummary() {
 export async function chefWaiting(member: Session) {
   const lanes = lanesFor(member);
   if (!lanes.length) return null;
-  try { return (await query<{ count: number }>("SELECT count(*)::int AS count FROM ops.chef_decision WHERE outcome='asked' AND lane = ANY($1)", [lanes])).rows[0].count; }
+  try { return (await query<{ count: number }>(`SELECT count(*)::int AS count FROM ops.chef_decision d WHERE outcome='asked' AND ${currentQuestion} AND lane = ANY($1)`, [lanes])).rows[0].count; }
   catch (error) { if ((error as { code?: string })?.code === '42P01') return null; throw error; }
 }

@@ -22,8 +22,8 @@ function Subject({ value }: { value: string }) {
     <span className="code">{subject}</span>{by && <small>reported by a member</small>}</span>;
 }
 
-export default function Cases({ canAssign }: { canAssign: boolean }) {
-  const [status, setStatus] = useState(''); const [selected, setSelected] = useState<string | null>(null); const [creating, setCreating] = useState(false); const [page, setPage] = useState(0);
+export default function Cases({ canAssign, initialId = '' }: { canAssign: boolean; initialId?: string }) {
+  const [status, setStatus] = useState(''); const [selected, setSelected] = useState<string | null>(initialId || null); const [creating, setCreating] = useState(false); const [page, setPage] = useState(0);
   const resource = useResource<Case[]>(`/api/manage/cases?status=${status}&page=${page}`);
   return <>
     <div className="toolbar spread">

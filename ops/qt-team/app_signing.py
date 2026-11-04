@@ -22,7 +22,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def open_signed(root: Path, method: str, route: str, raw: bytes = b'', timeout: int = 60, *, origin: str = ORIGIN,
-                key_file: str = 'private/publisher.key', caller: str | None = None):
+                key_file: str = 'private/publisher.key', caller: str | None = None, lease: str | None = None):
     """Opens one signed request to origin + route and returns the response; use it in a `with` block."""
     stamp = str(int(time.time()))
     key = (root / key_file).read_text().strip()
@@ -31,5 +31,7 @@ def open_signed(root: Path, method: str, route: str, raw: bytes = b'', timeout: 
     headers = {'Content-Type': 'application/json', 'X-QT-Time': stamp, 'X-QT-Signature': signature}
     if caller:
         headers['X-QT-Bot'] = caller
+    if lease:
+        headers['X-QT-Lease'] = lease
     request = urllib.request.Request(origin + route, data=raw if method == 'POST' else None, method=method, headers=headers)
     return urllib.request.build_opener(NoRedirect).open(request, timeout=timeout)

@@ -43,3 +43,13 @@ if (mode === '--write') {
   }
   console.log('Recipe charter in sync');
 }
+// Metro deliberately excludes admin/. Keep this generated server mirror byte-for-byte in sync with the canonical
+// admin policy, using the same release gate; both publication services must enforce one policy version.
+const foodSource=readFileSync(path.join(root,'admin/src/lib/food-policy.mjs'),'utf8').replace(/\r\n/g,'\n');
+const foodTarget=path.join(root,'server/food-policy.mjs');
+const foodWanted='// Generated from admin/src/lib/food-policy.mjs by scripts/recipe-charter-sync.mjs; do not edit.\n'+foodSource;
+if(mode==='--write')writeFileSync(foodTarget,foodWanted);
+else if(readFileSync(foodTarget,'utf8').replace(/\r\n/g,'\n')!==foodWanted){
+  console.error('Food policy mirror is out of date: run node scripts/recipe-charter-sync.mjs --write');process.exit(1);
+}
+console.log('Food policy in sync');

@@ -11,6 +11,7 @@ import { recipeKeys } from '../nutrition/dynamic.mjs';
 import { linkRecipe } from '../nutrition/learned.mjs';
 import { notify } from '../community/push.mjs';
 import { publicId } from '../recipes/rules.mjs';
+import { foodReviewEnabled,stageFoodReview } from '../food-review/core.mjs';
 
 export { parseUpload, toRecipe };
 
@@ -60,6 +61,7 @@ async function save(job, recipe, review, nutritionComplete) {
       VALUES ($1, $2, $3, $4, $5, $6, $7, now(), $8${chosen ? ', $9' : ''}) RETURNING id`,
       [job.user_id, 'ai-' + job.id, review ? null : saved, review ? null : 1, review ? saved : null, review ? 1 : null, review ? 'review' : null, review ? null : new Date(),
         ...(chosen ? [job.options?.private === true] : [])])).rows[0];
+    if(review && !(chosen&&job.options?.private===true))await stageFoodReview(client,'recipe',row.id);
     // A live recipe is linked to its ingredient names, so later corrections in the ingredient database reach it; when
     // some names were left for later (AI off or failed) the hourly refresh checks it again.
     if (!review) await linkRecipe(client, row.id, 1, recipeKeys(saved.ingredients), nutritionComplete);
@@ -86,7 +88,8 @@ export async function finishJob(job, recipe, photos, usage, { aiNutrition = true
   // Staff-only: never part of recipe.source, which the app's recipe pages receive.
   if (notes.length) recipe.reviewNotes = notes.map(note => clip(note, 300));
   // Nobody asked for a wanted recipe in these words, so staff always read it before it goes public.
-  const unclear = recipe.source.confidence < REVIEW_BELOW, review = job.kind === 'demand' || unclear || notes.length > 0;
+  const foodCheck = !(CHOSEN_KINDS.includes(job.kind)&&job.options?.private===true) && await foodReviewEnabled(pool);
+  const unclear = recipe.source.confidence < REVIEW_BELOW, review = job.kind === 'demand' || unclear || notes.length > 0 || foodCheck;
   const saved = await save(job, recipe, review, complete);
   // QT Gamer makes every step's picture (from its video frame when there is one); each is attached when it passes the check.
   const drawings = await queueDrawings(saved.id, recipe, photos);

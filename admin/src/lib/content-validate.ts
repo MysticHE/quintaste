@@ -1,6 +1,7 @@
 import 'server-only';
 import { choice, HttpError, text } from './http';
 import type { Hours, MenuItem, Photo, Price } from './content-base';
+import { foodFindings,recipeFoodFields } from './food-policy.mjs';
 
 // Mirrors what the app accepts (src/utils/catalogue-page.ts, menu-catalogue.ts, services/editorial.ts), so a staff
 // change can never make a member's screen reject a whole page.
@@ -88,7 +89,6 @@ export function point(value: unknown) {
   return { latitude, longitude };
 }
 
-const meat = /\b(chicken|pork|beef|lard|shrimp|prawn|fish sauce|oyster sauce|gelatin|gelatine|anchov(?:y|ies)|bacon|ham)\b/i;
 /** The fields staff edit on any recipe; the caller merges them over the packaged or bot recipe. */
 export function recipeFields(value: unknown) {
   const v = asRecord(value, 'recipe'), whole = (x: unknown, name: string, min: number, max: number) => {
@@ -109,7 +109,7 @@ export function recipeFields(value: unknown) {
     return { id, name, amount: quantity === 0 ? null : quantity, unit: text(i.unit ?? '', 'ingredient unit', 30, 0) };
   });
   if (!ingredients.length) throw new HttpError(400, 'Add at least one ingredient.');
-  const bad = ingredients.find(i => meat.test(i.name));
+  const bad = ingredients.find(i => foodFindings({ingredient:i.name}).length);
   if (bad) throw new HttpError(400, `"${bad.name}" is not vegetarian. Change it before saving.`);
   const steps = asList(v.steps, 'steps', 20).map(raw => {
     const s = asRecord(raw, 'a step'), ids = asList(s.ingredientIds ?? [], 'step ingredients', 30).map(id => String(id)).filter(id => used.has(id));
@@ -124,6 +124,7 @@ export function recipeFields(value: unknown) {
       ...(timer ? { timer: { label: text(timer.label, 'timer label', 80), seconds: whole(timer.seconds, 'timer length', 1, 10800) } } : {}) };
   });
   if (!steps.length) throw new HttpError(400, 'Add at least one step.');
+  if(foodFindings(recipeFoodFields({name:v.name,description:v.description,ingredients,steps})).length)throw new HttpError(400,'Food posts must be meat-free. Check the title, ingredients and instructions.');
   const image = v.image ? asRecord(v.image, 'photo') : null;
   if (image && !/^\/api\/(catalogue-photos|editorial\/assets)\/[a-f0-9]{64}\.jpg$/.test(String(image.path))) throw new HttpError(400, 'Upload the photo again.');
   return {
@@ -143,6 +144,7 @@ const sgTime = (value: unknown, name: string) => {
 /** A complete external event in the shape the app and the bot use. */
 export function event(value: unknown, id: string) {
   const e = asRecord(value, 'event'), startsAt = sgTime(e.startsAt, 'start time');
+  if(foodFindings({title:e.title,dietEvidence:e.dietEvidence}).length)throw new HttpError(400,'Events must offer meat-free food. Check the title and food description.');
   const endsAt = e.endsAt ? sgTime(e.endsAt, 'end time') : null, deadline = e.registrationDeadline ? sgTime(e.registrationDeadline, 'registration deadline') : null;
   if (endsAt && Date.parse(endsAt) <= Date.parse(startsAt)) throw new HttpError(400, 'The end time must be after the start.');
   if (deadline && Date.parse(deadline) > Date.parse(startsAt)) throw new HttpError(400, 'Registration must close before the event starts.');

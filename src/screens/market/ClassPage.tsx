@@ -18,6 +18,7 @@ import { usePreferences } from "../../state/Preferences";
 import { useLanguage, useT } from "../../i18n";
 import { formatSgText, sgDateTile } from "../../utils/sg-datetime";
 import type { CookingClass } from "../../types/community";
+import { foodReviewWords } from '../../config/food-review';
 
 function ClassView({ c, refresh }: { c: CookingClass; refresh: () => void }) {
   const t = useT("market"), { setNotice } = usePreferences(), language = useLanguage(), tile = sgDateTile(c.starts, language), end = sgDateTile(c.ends, language)?.time;
@@ -35,6 +36,7 @@ function ClassView({ c, refresh }: { c: CookingClass; refresh: () => void }) {
     </View>
     {c.diets.length > 0 && <View style={[common.row, { gap: 6, flexWrap: "wrap" }]}><DietLabels labels={c.diets} /><StatusPill label={t("sellerDeclared")} /></View>}
     {cancelled && <T style={common.bold}>{t("classCancelledNote")}</T>}
+    {c.foodReview&&<T variant="small" muted>{foodReviewWords(language)[c.foodReview]}</T>}
     <ListGroup>
       <ListItem title={formatSgText(c.starts, language) + (end ? " – " + end : "")} subtitle={t("when")} leading={<RowIcon name="time-outline" />} />
       <ListItem title={c.venue} subtitle={c.area || t("classVenue")} wrap leading={<RowIcon name="location-outline" />} />

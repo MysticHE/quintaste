@@ -12,6 +12,7 @@ CONTAINER = 'hermes-agent-yril-hermes-agent-1'
 PYTHON = '/opt/hermes/.venv/bin/python -u '
 # service: (command after the Python path, description, extra docker exec environment)
 BRIDGES = {
+    'qt-food-review': ('food_bridge.py', 'QT Mint and Kaya: shared food-content review', ' -e HERMES_SRC=/opt/hermes'),
     'qt-explore-quick': ('explore_bridge.py quick', 'QT Explore: contribution screening', ' -e HERMES_SRC=/opt/hermes'),
     'qt-explore-research': ('explore_bridge.py research', 'QT Explore: reported place corrections', ' -e HERMES_SRC=/opt/hermes'),
     'qt-explore-notify': ('explore_bridge.py notify', 'QT Explore: immediate verified receipts', ' -e HERMES_SRC=/opt/hermes'),

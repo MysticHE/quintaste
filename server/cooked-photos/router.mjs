@@ -1,8 +1,9 @@
 import { pool } from '../config.mjs';
-import { communityRouter, CommunityError, errors, member, requireId, text, throttle } from '../community/http.mjs';
+import { communityRouter, CommunityError, errors, member, requireId, text, throttle, transaction } from '../community/http.mjs';
 import { fileReport, notBlocked, notRestricted } from '../community/router.mjs';
 import { memberPhoto } from '../place-reviews/photos.mjs';
 import { liveRecipeId, tellAuthor } from '../reactions/router.mjs';
+import { stageFoodReview } from '../food-review/core.mjs';
 
 /**
  * "I cooked this" photos on Cook recipes (/api/cooked-photos): one photo per member per recipe with an optional note, shown
@@ -27,11 +28,11 @@ cookedPhotos.get('/:recipeId', async (_req, res) => {
   const [visibleRows, mine] = await Promise.all([
     pool.query(`SELECT ${fields}, cp.user_id IS NOT DISTINCT FROM $2 AS own, count(*) OVER ()::int AS total
       FROM community.cooked_photo cp JOIN public."user" u ON u.id=cp.user_id WHERE ${visible} ORDER BY cp.updated_at DESC, cp.id LIMIT 13`, [recipe, viewer]),
-    viewer ? pool.query(`SELECT ${fields}, cp.hidden_at IS NOT NULL AS hidden FROM community.cooked_photo cp JOIN public."user" u ON u.id=cp.user_id
+    viewer ? pool.query(`SELECT ${fields}, cp.hidden_at IS NOT NULL AS hidden,CASE WHEN cp.hidden_reason='QT food review pending' THEN 'pending' WHEN cp.hidden_reason='QT food review held' THEN 'held' END AS "foodReview" FROM community.cooked_photo cp JOIN public."user" u ON u.id=cp.user_id
       WHERE cp.recipe_id=$1 AND cp.user_id=$2`, [recipe, viewer]) : { rows: [] },
   ]);
   const own = mine.rows[0], rows = visibleRows.rows;
-  res.json({ recipeId: recipe, count: rows[0]?.total ?? 0, mine: own ? { ...shape(own), hidden: own.hidden } : null,
+  res.json({ recipeId: recipe, count: rows[0]?.total ?? 0, mine: own ? { ...shape(own), hidden: own.hidden,foodReview:own.foodReview } : null,
     items: rows.filter(row => !row.own).slice(0, 12).map(shape) });
 });
 cookedPhotos.put('/:recipeId/me', member, async (req, res) => {
@@ -42,18 +43,22 @@ cookedPhotos.put('/:recipeId/me', member, async (req, res) => {
   const keep = req.body?.photo === 'keep';
   // Changing only the note keeps the stored photo; a new photo replaces it and moves it to the front. The row keeps its id, so open
   // reports stay attached, and a photo staff hid stays hidden: only staff restore it (its path changes with the digest).
+  const review=await transaction(async db=>{
   if (keep) {
-    const result = await pool.query('UPDATE community.cooked_photo SET note=$3, updated_at=now() WHERE recipe_id=$1 AND user_id=$2', [recipe, me, note]);
+    const result = await db.query('UPDATE community.cooked_photo SET note=$3, updated_at=now() WHERE recipe_id=$1 AND user_id=$2', [recipe, me, note]);
     if (!result.rowCount) throw new CommunityError(400, 'Add a photo of what you cooked.');
   } else {
     const photo = await memberPhoto(req.body?.photo);
-    await pool.query(`INSERT INTO community.cooked_photo(id,recipe_id,user_id,bytes,digest,note) VALUES($1,$2,$3,$4,$5,$6)
+    await db.query(`INSERT INTO community.cooked_photo(id,recipe_id,user_id,bytes,digest,note) VALUES($1,$2,$3,$4,$5,$6)
       ON CONFLICT(recipe_id,user_id) DO UPDATE SET bytes=excluded.bytes,digest=excluded.digest,note=excluded.note,updated_at=now()`,
     [photo.id, recipe, me, photo.bytes, photo.digest, note]);
     // The recipe's author hears about a member's photo once, not on each replacement.
-    await tellAuthor(recipe, me, 'cookedPhoto');
   }
-  res.json({ saved: true });
+  const stored=(await db.query('SELECT id FROM community.cooked_photo WHERE recipe_id=$1 AND user_id=$2',[recipe,me])).rows[0];
+  return stageFoodReview(db,'cooked-photo',stored.id);
+  });
+  if(!keep&&!review)await tellAuthor(recipe, me, 'cookedPhoto');
+  res.json({ saved: true,foodReview:review&&review.state!=='clear'?review.state:null });
 });
 cookedPhotos.delete('/:recipeId/me', member, async (_req, res) => {
   await throttle('cooked-photo-write:' + res.locals.user.id, 20, 3600);

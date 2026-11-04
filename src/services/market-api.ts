@@ -52,7 +52,7 @@ export const ownListing = (id: string, signal: AbortSignal) => call<OwnListing>(
 /** Photos: a data URI replaces a slot, null removes it, a missing slot stays unchanged. */
 export type PhotoChanges = Partial<Record<ShopPhotoSlot, string | null>>;
 export const saveListing = (id: string | null, body: { listing: ListingInput; photos: PhotoChanges; publish: boolean }) =>
-  call<{ id: string }>(id ? "/api/market/seller/listings/" + id : "/api/market/seller/listings", { method: id ? "PUT" : "POST", body });
+  call<{ id: string;foodReview?:string|null }>(id ? "/api/market/seller/listings/" + id : "/api/market/seller/listings", { method: id ? "PUT" : "POST", body });
 export const setListingStatus = (id: string, status: "active" | "paused") => call("/api/market/seller/listings/" + id + "/status", { method: "POST", body: { status } });
 export const deleteListing = (id: string) => call("/api/market/seller/listings/" + id, { method: "DELETE" });
 export const withdrawListing = (id: string, reason: string) => call<{ status: "draft" | "active" | "paused"; notified: number }>("/api/market/seller/listings/" + id + "/withdraw", { method: "POST", body: { reason } });

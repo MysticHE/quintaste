@@ -18,6 +18,7 @@ type Lane = Control & { lane: string; chef: string; title: string };
 const ICONS: Record<string, StaticImageData> = { wok, artist, writer, fixer, host, safety };
 /** What each lane does, and the lanes that send members' words to a model, which wait for `chefMemberText` (plan §7). */
 const JOBS: Record<string, { does: string; privacy?: true }> = {
+  'food-checks': { does: 'Screens exact food text and images; clears eligibility or holds supported violations after Kaya agrees; asks you about uncertainty', privacy: true },
   ingredients: { does: 'Approves ingredient matches or asks the AI again; asks you before rejecting' },
   creators: { does: 'Pins, pauses or reactivates creators; asks you before blocking' },
   'game-levels': { does: 'Approves recipe levels that pass the level checks' },

@@ -155,14 +155,14 @@ class AskCards(unittest.TestCase):
 
     def add(self, n, lane='Ingredients'):
         start = len(self.asks)
-        self.asks += [{'id': f'd{start + i}', 'at': str(1000 + start + i), 'chef': 'Mango', 'lane': lane, 'action': 'reject',
+        self.asks += [{'id': str(__import__('uuid').UUID(int=start+i+1)), 'at': str(1000 + start + i), 'chef': 'Mango', 'lane': lane, 'action': 'reject',
                        'item': 'tofu', 'why': 'rule', 'confidence': 0.9, 'reason': 'Not a food.'} for i in range(n)]
 
     def test_a_few_new_asks_get_a_card_each_with_their_own_buttons(self):
         self.add(2)
         telegram_controls.chef_requests(self.state)
         cards = [k for k in self.state['deliveries'] if k.startswith('chef:')]
-        self.assertEqual(cards, ['chef:d0', 'chef:d1'])
+        self.assertEqual(cards, ['chef:'+self.asks[0]['id'], 'chef:'+self.asks[1]['id']])
         self.assertEqual((len(self.state['chefTokens']), len(self.state['moderation'])), (2, 400))  # Revert buttons all kept
         self.assertEqual(self.state['chefAsksAfter'], '1001')
         telegram_controls.chef_requests(self.state)
@@ -173,8 +173,8 @@ class AskCards(unittest.TestCase):
         self.add(5, lane='Wanted recipes')
         telegram_controls.chef_requests(self.state)
         keys = list(self.state['deliveries'])
-        self.assertEqual(keys, ['chef-digest:d29'])
-        text = self.state['deliveries']['chef-digest:d29']['text']
+        self.assertEqual(keys, ['chef-digest:'+self.asks[-1]['id']])
+        text = self.state['deliveries']['chef-digest:'+self.asks[-1]['id']]['text']
         self.assertIn('30 more questions', text)
         self.assertIn('• Ingredients: 25', text)
         self.assertNotIn('tofu', text)
@@ -183,14 +183,14 @@ class AskCards(unittest.TestCase):
     def test_more_than_a_few_at_once_go_into_one_card_even_under_the_day_limit(self):
         self.add(telegram_controls.CHEF_BURST + 1)
         telegram_controls.chef_requests(self.state)
-        self.assertEqual(list(self.state['deliveries']), ['chef-digest:d5'])
+        self.assertEqual(list(self.state['deliveries']), ['chef-digest:'+self.asks[-1]['id']])
 
     def test_past_the_day_limit_asks_go_into_one_card(self):
         day = dt.datetime.now(telegram_reporter.SG).date().isoformat()
         self.state['chefCards'] = {day: telegram_controls.CHEF_CARDS_PER_DAY - 1}
         self.add(2)
         telegram_controls.chef_requests(self.state)
-        self.assertEqual(list(self.state['deliveries']), ['chef-digest:d1'])
+        self.assertEqual(list(self.state['deliveries']), ['chef-digest:'+self.asks[-1]['id']])
 
     def test_a_full_queue_moves_no_cursor_and_loses_no_card(self):
         self.add(2)
@@ -206,9 +206,9 @@ class AskCards(unittest.TestCase):
                 telegram_controls.chef_requests(self.state)
         self.assertNotIn('chefAsksAfter', self.state)
         token = next(iter(self.state['chefTokens']))
-        self.assertEqual(self.state['chefTokens'][token]['id'], 'd0')  # the queued card's buttons work
+        self.assertEqual(self.state['chefTokens'][token]['id'], self.asks[0]['id'])  # the queued card's buttons work
         telegram_controls.chef_requests(self.state)
-        self.assertEqual(sorted(k for k in self.state['deliveries'] if k.startswith('chef:')), ['chef:d0', 'chef:d1'])
+        self.assertEqual(sorted(k for k in self.state['deliveries'] if k.startswith('chef:')), ['chef:'+self.asks[0]['id'], 'chef:'+self.asks[1]['id']])
 
     def test_an_expired_chef_button_points_to_admin(self):
         with patch.object(telegram_reporter, 'enqueue', side_effect=lambda state, key, text, **k: state['deliveries'].update({key: {'text': text, **k}})):

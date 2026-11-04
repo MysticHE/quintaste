@@ -16,7 +16,7 @@ export const sendClassChat = (id: string, body: string, member?: string | null) 
 export const teaching = (signal: AbortSignal) => call<{ host: Teacher | null; classes: CookingClass[] }>("/api/market/teaching", { signal });
 export const applyToTeach = (input: TeacherApplication) => call<{ host: Teacher }>("/api/market/teaching/apply", { method: "POST", body: input });
 export const saveClass = (id: string | null, input: ClassInput, post: boolean) =>
-  call<{ id?: string }>(id ? "/api/market/teaching/classes/" + id : "/api/market/teaching/classes", { method: id ? "PUT" : "POST", body: { class: input, post } });
+  call<{ id?: string;foodReview?:string|null }>(id ? "/api/market/teaching/classes/" + id : "/api/market/teaching/classes", { method: id ? "PUT" : "POST", body: { class: input, post } });
 export const cancelClass = (id: string) => call("/api/market/teaching/classes/" + id + "/cancel", { method: "POST" });
 export const deleteClass = (id: string) => call("/api/market/teaching/classes/" + id, { method: "DELETE" });
 export const classPeople = (id: string, signal: AbortSignal) => call<{ items: ClassPerson[] }>("/api/market/teaching/classes/" + id + "/people", { signal });

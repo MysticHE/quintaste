@@ -3,6 +3,7 @@ import type { Ingredient, Recipe, RecipeCategory } from "../types/food";
 import type { RecipeDraft } from "../types/recipe-workspace";
 import type { Exclusion, Language } from "../config/preferences";
 import { translate } from "../i18n";
+import { foodReviewWords } from '../config/food-review';
 
 type MemberSummary = {
   id: string; name: string; description: string; minutes: number; servings: number; categories: RecipeCategory[]; diet: "Vegan" | "Vegetarian";
@@ -15,7 +16,7 @@ type MemberDetail = MemberSummary & {
   own: boolean; shop: { id: string; name: string } | null;
   ingredients: Ingredient[]; steps: { title: string; instruction: string; minutes: number | null; ingredientIds: string[]; photo: string | null; at?: number; image?: "frame" | "illustration" }[];
 };
-export type MyRecipeStatus = { id: string; draftKey: string; live: boolean; liveRevision: number | null; state: "review" | "declined" | null; pendingRevision: number | null; note: string; hidden: boolean };
+export type MyRecipeStatus = { id: string; draftKey: string; live: boolean; liveRevision: number | null; state: "review" | "declined" | null; pendingRevision: number | null; note: string; hidden: boolean;foodReview?:'pending'|'held'|null;foodMessage?:string|null };
 
 /** Shared recipe fields in the app's Recipe shape. Diet labels come from the ingredient tags the server reads. */
 function base(r: MemberSummary): Omit<Recipe, "ingredients" | "steps"> {
@@ -64,6 +65,7 @@ export function recipeStatus(d: RecipeDraft, mine: MyRecipeStatus | undefined, l
   const say = (key: Parameters<typeof translate<"cook">>[2]) => translate(language, "cook", key);
   if (!mine) return say(d.status === "ready" ? "statusReadyToSubmit" : "statusPrivateDraft");
   const sent = mine.state ? mine.pendingRevision : mine.liveRevision, unsent = sent !== null && d.revision > sent ? say("statusChangesNotSubmitted") : "";
+  if(mine.foodReview)return (mine.live?say('statusPublished')+' · ':'')+foodReviewWords(language)[mine.foodReview]+unsent;
   if (mine.live && mine.hidden) return say("statusHidden") + unsent;
   if (mine.live) return say("statusPublished") + (mine.state === "review" ? say("statusUpdateInReview") : mine.state === "declined" ? say("statusUpdateNotApproved") : "") + unsent;
   return say(mine.state === "review" ? "statusInReview" : "statusNotApproved") + unsent;

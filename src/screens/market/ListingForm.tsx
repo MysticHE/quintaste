@@ -21,7 +21,9 @@ import { ApiError } from "../../services/community-api";
 import { marketLimits, shopCategories } from "../../config/market";
 import { dietWarnings, draftFrom, draftLabels, listingErrors, listingInput, type ListingDraft } from "../../utils/market";
 import { dayAfter } from "../../utils/day";
-import { useT } from "../../i18n";
+import { useT,useLanguage } from "../../i18n";
+import { FoodReviewNote } from '../../components/food/FoodReviewNote';
+import { foodReviewWords } from '../../config/food-review';
 import type { OwnListing, SellerProfile, ShopPhotoSlot } from "../../types/community";
 
 export default function ListingFormScreen() {
@@ -49,6 +51,7 @@ function photoChanges(d: ListingDraft, initial?: OwnListing): PhotoChanges {
 }
 /** Photos, details, food facts and ordering rules. Drafts save anything; publishing checks every rule. */
 function ListingForm({ initial, seller }: { initial?: OwnListing; seller: SellerProfile }) {
+  const foodWords=foodReviewWords(useLanguage());
   const { theme, setNotice } = usePreferences(), t = useT("market");
   const [d, setDraft] = useState(() => draftFrom(initial)), now = useMinuteClock();
   const kinds = [{ id: "made", label: t("kindMade") }, { id: "prepacked", label: t("kindPrepacked") }] as const;
@@ -62,9 +65,9 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
     if (Object.keys(listingErrors(d, publish, Date.now(), t)).length) return;
     setBusy(true);
     try {
-      await saveListing(initial?.id ?? null, { listing: listingInput(d), photos: photoChanges(d, initial), publish });
+      const result=await saveListing(initial?.id ?? null, { listing: listingInput(d), photos: photoChanges(d, initial), publish });
       invalidate("/api/market/");
-      setNotice({ text: t(publish ? (live ? "changesSaved" : "itemIsLive") : "draftSaved") });
+      setNotice({ text: result.foodReview ? foodWords.saved : t(publish ? (live ? "changesSaved" : "itemIsLive") : "draftSaved") });
       router.dismissTo("/market?tab=shop");
     } catch (error) { setFailure(error instanceof ApiError ? error.message : t("itemSaveFailed")); }
     finally { setBusy(false); }
@@ -105,7 +108,7 @@ function ListingForm({ initial, seller }: { initial?: OwnListing; seller: Seller
       <Field label={t("mostPerCollection")} placeholder={t("noLimit")} value={d.perSlot} onChangeText={perSlot => set({ perSlot })} keyboardType="number-pad" maxLength={3} error={errors.perSlot} editable={!locked} />
     </FormSection>
     {!!(failure || Object.keys(errors).length) && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{failure || t("completeFields")}</T>}
-    {canPublish && <Button label={t(live ? "saveChanges" : "publish")} disabled={photoBusy} loading={busy} onPress={() => void save(true)} />}
+    {canPublish && <><FoodReviewNote/><Button label={t(live ? "saveChanges" : "publish")} disabled={photoBusy} loading={busy} onPress={() => void save(true)} /></>}
     {!live && <Button label={t("saveDraft")} variant={canPublish ? "secondary" : "primary"} disabled={locked} onPress={() => void save(false)} />}
     {!canPublish && seller.status !== "active" && <T variant="small" muted style={common.center}>{t("openToPublish")}</T>}
     {live && initial && <Confirm link label={t("pauseItem")} text={t("pauseText")} action={t("pauseAction")}

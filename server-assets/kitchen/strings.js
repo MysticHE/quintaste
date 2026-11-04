@@ -20,11 +20,11 @@ export const CHEFS = {
   writer: { name: { en: 'Peach', zh: '蜜桃' }, role: { en: 'Request Chef', zh: '心愿厨师' },
     job: { en: 'Writes the recipes members ask for.', zh: '为会员撰写他们想要的食谱。' } },
   storyteller: { name: { en: 'Sesame', zh: '芝麻' }, role: { en: 'Story Chef', zh: '说书厨师' },
-    job: { en: 'Picks stalls for 初一 and 十五 and drafts Mochi’s videos.', zh: '为初一、十五挑选摊位，撰写 Mochi 的视频。' } },
+    job: { en: 'Drafts stories and videos using reviewed places and recipes.', zh: '使用已审核的地点和食谱撰写故事及视频。' } },
   fixer: { name: { en: 'Coco', zh: '椰椰' }, role: { en: 'Fix Chef', zh: '修理厨师' },
     job: { en: 'Turns members’ place reports into rechecks.', zh: '把会员对店家的反馈变成复查任务。' } },
   safety: { name: { en: 'Mint', zh: '薄荷' }, role: { en: 'Safety Chef', zh: '安全厨师' },
-    job: { en: 'Reads SFA’s food recall notices.', zh: '阅读新加坡食品局的食品召回通告。' } },
+    job: { en: 'Checks food posts and photos, and matches food recall notices.', zh: '检查食品内容和照片，并核对食品召回通告。' } },
 };
 /** "Pandan · Explore Chef": a chef's name with its role. */
 export const chefTitle = (id, lang) => `${CHEFS[id].name[lang]} · ${CHEFS[id].role[lang]}`;

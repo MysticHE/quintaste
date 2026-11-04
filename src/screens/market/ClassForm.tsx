@@ -15,7 +15,9 @@ import { Action } from "../../components/Actions";
 import { useRemote } from "../../hooks/useRemote";
 import { classPeople, cookingClass, removeSeat, saveClass } from "../../services/classes-api";
 import { usePreferences } from "../../state/Preferences";
-import { useT } from "../../i18n";
+import { useT,useLanguage } from "../../i18n";
+import { FoodReviewNote } from '../../components/food/FoodReviewNote';
+import { foodReviewWords } from '../../config/food-review';
 import { parseSgDateTime, sgDateTimeText } from "../../utils/sg-datetime";
 import type { ClassInput, ClassPerson, CookingClass } from "../../types/community";
 
@@ -23,6 +25,7 @@ const lengths = [1, 1.5, 2, 2.5, 3, 4] as const;
 const hoursBetween = (starts: string, ends: string) => { const a = parseSgDateTime(starts), b = parseSgDateTime(ends); return a !== null && b !== null ? (b - a) / 3600000 : 2; };
 const blank: ClassInput = { title: "", makes: "", starts: "", ends: "", venue: "", area: "", seats: 8, priceCents: 0, diets: ["Plant-Based"] };
 function Form({ existing }: { existing: CookingClass | null }) {
+  const foodWords=foodReviewWords(useLanguage());
   const t = useT("market"), { theme, setNotice } = usePreferences(), problem = useClassError();
   const [c, setC] = useState<ClassInput>(() => existing ? { title: existing.title, makes: existing.makes, starts: existing.starts, ends: existing.ends,
     venue: existing.venue, area: existing.area, seats: existing.seats, priceCents: existing.priceCents, diets: existing.diets } : blank), [hours, setHours] = useState(existing ? hoursBetween(existing.starts, existing.ends) : 2);
@@ -35,7 +38,7 @@ function Form({ existing }: { existing: CookingClass | null }) {
     setBusy(post ? "post" : "draft"); setError("");
     try {
       const result = await saveClass(existing?.id ?? null, { ...c, ends: sgDateTimeText(start + hours * 3600000), priceCents: cents }, post);
-      setNotice({ text: t(post ? "classPosted" : "classSaved") }); refreshClasses();
+      setNotice({ text: result.foodReview ? foodWords.saved : t(post ? "classPosted" : "classSaved") }); refreshClasses();
       if (!existing && result.id) router.replace(("/market/class/" + result.id) as never); else router.back();
     } catch (failure) { setError(problem(failure)); }
     finally { setBusy(null); }
@@ -55,6 +58,7 @@ function Form({ existing }: { existing: CookingClass | null }) {
     <Field label={t("classPrice")} value={price} onChangeText={value => setPrice(value.replace(/[^\d.]/g, "").slice(0, 7))} keyboardType="decimal-pad" placeholder="0" />
     <Field label={t("classMakes")} value={c.makes} onChangeText={makes => set({ makes })} maxLength={600} multiline />
     <DietChoices value={c.diets} onChange={diets => set({ diets })} />
+    <FoodReviewNote/>
     {!!error && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{error}</T>}
     <Button label={posted ? t("classSave") : t("postClass")} icon="megaphone-outline" loading={busy === "post"} disabled={!!busy} onPress={() => void save(true)} />
     {!posted && <><Button label={t("saveDraft")} variant="secondary" loading={busy === "draft"} disabled={!!busy} onPress={() => void save(false)} />

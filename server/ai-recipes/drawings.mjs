@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { pool, logger } from '../config.mjs';
 import { previewJpeg, stepJpeg } from './frames.mjs';
 import { method, reviewAll, stepsToDraw } from './photos.mjs';
+import { stageFoodReview } from '../food-review/core.mjs';
 
 /**
  * Step pictures for AI recipes, made by QT Gamer on the team's ChatGPT plan (owner, 31 Oct 2026; Gemini no longer draws).
@@ -75,9 +76,9 @@ export async function queueDrawings(recipeId, recipe, photos) {
 
 /** The version the drawings belong to: the one staff are reviewing while there is one, otherwise the live recipe. */
 async function current(db, recipeId) {
-  const row = (await db.query('SELECT live, pending FROM recipes.recipe WHERE id=$1 FOR UPDATE', [recipeId])).rows[0];
+  const row = (await db.query('SELECT live, pending,private FROM recipes.recipe WHERE id=$1 FOR UPDATE', [recipeId])).rows[0];
   if (!row) return null;
-  return row.pending ? { version: 'pending', column: 'pending', recipe: row.pending } : row.live ? { version: 'live', column: 'live', recipe: row.live } : null;
+  return row.pending ? { version: 'pending', column: 'pending', recipe: row.pending,private:row.private } : row.live ? { version: 'live', column: 'live', recipe: row.live,private:row.private } : null;
 }
 
 /** Attaches the accepted pictures (0-based step index -> JPEG); the latest step with a picture (the finished dish) is the cover. */
@@ -99,6 +100,7 @@ async function attach(recipeId, accepted) {
       ON CONFLICT (recipe_id, version, slot) DO UPDATE SET bytes=EXCLUDED.bytes, digest=EXCLUDED.digest`, [recipeId, target.version]);
     const steps = target.recipe.steps.map((step, index) => accepted.has(index) ? { ...step, image: 'illustration' } : step);
     await client.query(`UPDATE recipes.recipe SET ${target.column} = $2, updated_at = now() WHERE id=$1`, [recipeId, { ...target.recipe, steps }]);
+    if(!target.private)await stageFoodReview(client,'recipe',recipeId,target.version);
     await client.query('COMMIT');
     return accepted.size;
   } catch (error) {

@@ -43,8 +43,10 @@ def _newer(latest, seen):
     return bool(latest) and (not seen or _when(latest) > _when(seen))
 
 
-def fetch(root: Path):
-    return chef_admin.call(root, 'alerts', 'GET', '/api/bot/attention', timeout=20)
+def fetch(root: Path, after=None):
+    import urllib.parse
+    route='/api/bot/attention'+('?blockedAfter='+urllib.parse.quote(str(after),safe='') if after else '')
+    return chef_admin.call(root, 'alerts', 'GET', route, timeout=20)
 
 
 def queues(data):
@@ -86,7 +88,7 @@ def check(state, root: Path, now=None, read=fetch):
     box = state.setdefault('staffAlerts', {'seen': {}})
     now = now or dt.datetime.now(dt.timezone.utc)
     try:
-        data = read(root)
+        data = fetch(root,box.get('blockerAfter')) if read is fetch else read(root)
         found = queues(data)
     except Exception as exc:  # unreachable, refused or malformed: never mistaken for an empty queue
         box['error'] = type(exc).__name__
@@ -98,6 +100,14 @@ def check(state, root: Path, now=None, read=fetch):
         return
     box.pop('error', None)
     box.pop('failingSince', None)
+    import re
+    for issue in data.get('botBlockers',[]):
+        if not re.fullmatch(r'[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}',str(issue.get('id',''))):continue
+        scope=str(issue.get('scope',''))
+        if not re.fullmatch(r'[a-z0-9-]{1,60}',scope):continue
+        t.enqueue(state,'bot-blocker:'+issue['id'],'QT Manager · '+scope+' could not finish after its retries. This issue needs your attention.',
+                  buttons=[[{'text':'Open issue','url':ADMIN+'/console/cases?id='+issue['id']}]])
+        if re.fullmatch(r'\d{1,18}',str(issue.get('at',''))):box['blockerAfter']=str(issue['at'])
     seen = box['seen']
     box['counts'] = {name: count for name, (count, _) in found.items()}
     box['chefs'] = data.get('chefs') if isinstance(data.get('chefs'), dict) else None

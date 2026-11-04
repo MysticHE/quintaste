@@ -305,9 +305,15 @@ CHEF_TOKEN_DAYS = 30
 CHEF_EXPIRED = 'This question can no longer be answered here. Answer it on the Chef decisions page in admin.'
 
 
-def chef_admin_button():
+def chef_admin_button(decision_id=None):
     import chef_admin
-    return {'text': 'Open in admin', 'url': chef_admin.ADMIN_ORIGIN + '/console/chefs'}
+    import re
+    path = '/console/chefs'
+    if decision_id is not None:
+        if not isinstance(decision_id, str) or not re.fullmatch(r'[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}', decision_id):
+            raise ValueError('Invalid decision link')
+        path += '?id=' + decision_id
+    return {'text': 'Open issue' if decision_id else 'Open in admin', 'url': chef_admin.ADMIN_ORIGIN + path}
 
 
 def chef_requests(state):
@@ -338,26 +344,31 @@ def chef_requests(state):
     for ask in single:
         item = ask.get('item') or "a member's item"
         token = secrets.token_hex(12)
-        tokens[token] = {'mode': 'chef', 'kind': 'chef', 'id': ask['id'], 'name': f"{ask['action']} {item}"[:120],
-                         'expires': time.time() + CHEF_TOKEN_DAYS * 86400, 'stage': 'direct', 'actionId': 'owner-chef-' + token}
+        if not ask.get('foodReview'):
+            tokens[token] = {'mode': 'chef', 'kind': 'chef', 'id': ask['id'], 'name': f"{ask['action']} {item}"[:120],
+                             'expires': time.time() + CHEF_TOKEN_DAYS * 86400, 'stage': 'direct', 'actionId': 'owner-chef-' + token}
         sure = f" ({round(ask['confidence'] * 100)}% sure)" if isinstance(ask.get('confidence'), (int, float)) else ''
         lines = [f"QT Manager · {ask['chef']} asks you", f"{ask['lane']}: {ask['action']} {item}",
                  'Why: ' + CHEF_WHY.get(ask.get('why'), 'unclear') + sure]
         if ask.get('reason'):
             lines.append(f"{ask['chef']}: {ask['reason']}")
-        t.enqueue(state, 'chef:' + ask['id'], '\n'.join(lines), buttons=[
+        buttons=[[chef_admin_button(ask['id'])]] if ask.get('foodReview') else [
             [{'text': 'Approve', 'callback_data': 'chef-ok:' + token}, {'text': 'Turn down', 'callback_data': 'chef-no:' + token}],
-            [chef_admin_button()]])
+            [chef_admin_button(ask['id'])]]
+        if ask.get('foodReview'):lines.append('Open the issue to inspect the exact text/photos and choose Clear or Hold.')
+        t.enqueue(state, 'chef:' + ask['id'], '\n'.join(lines), buttons=buttons)
         sent[day] += 1
     rest = asks[len(single):]
-    if rest:
+    for offset in range(0,len(rest),40):
+        group=rest[offset:offset+40]
         lanes = {}
-        for ask in rest:
+        for ask in group:
             lanes[ask['lane']] = lanes.get(ask['lane'], 0) + 1
-        t.enqueue(state, 'chef-digest:' + rest[-1]['id'], f"QT Manager · The chefs have {len(rest)} more "
-                  + ('question' if len(rest) == 1 else 'questions') + ' for you\n'
+        links=[{**chef_admin_button(a['id']),'text':str(offset+n+1)+': '+a['lane']} for n,a in enumerate(group)]
+        t.enqueue(state, 'chef-digest:' + group[-1]['id'], f"QT Manager · The chefs have {len(group)} more "
+                  + ('question' if len(group) == 1 else 'questions') + ' for you\n'
                   + '\n'.join(f'• {lane}: {n}' for lane, n in sorted(lanes.items())) + '\nAnswer them on the Chef decisions page.',
-                  buttons=[[chef_admin_button()]])
+                  buttons=[links[n:n+2] for n in range(0,len(links),2)])
     state['chefTokens'] = dict(list(tokens.items())[-CHEF_TOKENS:])
     state['chefAsksAfter'] = last
 

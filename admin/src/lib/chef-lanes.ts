@@ -11,6 +11,7 @@ import { applyDemand, undoDemand } from './recipe-demand';
 import { applyMemberPost } from './content-members';
 import { applyPlaceReport, fileRecallCase, undoPlaceReport, undoRecallCase } from './cases';
 import { HttpError } from './http';
+import { foodApply,foodGuard,foodRecorded,foodQueue } from './food-review';
 
 /**
  * The admin lanes chefs (QT bots) work in (docs/ADMIN_CHEFS_PLAN.md §1). Each lane belongs to one chef and lists the actions it
@@ -42,6 +43,8 @@ export type Lane = {
   labels(targets: string[]): Promise<Record<string, string>>;
   /** What this lane hands to another chef, sent with the lane's work (Coco's triaged reports for Pandan). */
   handoff?(): Promise<Record<string, unknown>[]>;
+  guard?(db:PoolClient,target:string,input:Record<string,unknown>):Promise<void>;
+  recorded?(db:PoolClient,target:string,outcome:string):Promise<void>;
 };
 
 const ingredient = (action: string): LaneAction['run'] => async (db, actor, target, input, reason) => {
@@ -130,6 +133,13 @@ const labelled = (sql: string, prefix = '') => async (targets: string[]) => Obje
 const recipeTitles = labelled("SELECT id::text AS id, coalesce(pending, live)->>'title' AS label FROM recipes.recipe WHERE id::text = ANY($1)");
 
 export const LANES: Record<string, Lane> = {
+  'food-checks': {
+    chef:'safety',title:'Food content checks',capability:'content',floor:0.95,member:true,privateLabel:'a food-content submission',
+    guard:foodGuard,recorded:foodRecorded,
+    actions:{clear:{run:(db,actor,target,input,reason)=>foodApply(db,actor,target,input,reason,'clear')},
+      hold:{run:(db,actor,target,input,reason)=>foodApply(db,actor,target,input,reason,'held')}},
+    queue:foodQueue,labels:async targets=>Object.fromEntries(targets.map(id=>[id,'Food-content review'])),
+  },
   ingredients: {
     chef: 'wok', title: 'Ingredients', capability: 'content', floor: 0.8, member: false,
     actions: {
@@ -171,7 +181,7 @@ export const LANES: Record<string, Lane> = {
     chef: 'writer', title: 'AI recipes', capability: 'content', floor: 0.85, member: true, privateLabel: 'an AI recipe',
     actions: { publish: { askWhen: replacesLive, run: recipe(true, 'publish'), undo: undoARecipe },
       decline: { ask: 'no-to-member', run: recipe(true, 'decline'), undo: undoARecipe } },
-    queue: async mode => (await query(`SELECT r.id, r.pending_revision AS revision, r.pending AS recipe, r.updated_at
+    queue: async mode => (await query(`SELECT r.id,r.private, r.pending_revision AS revision, r.pending AS recipe, r.updated_at
       FROM recipes.recipe r WHERE r.pending_state = 'review' AND ${aiRecipe('r')} AND ${fresh('ai-recipes', 'r.id::text', 'r.updated_at', mode)}
       ORDER BY r.updated_at LIMIT 10`)).rows,
     labels: recipeTitles,

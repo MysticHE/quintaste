@@ -1,6 +1,7 @@
 import { CommunityError, list, pick, text, uuid } from '../community/http.mjs';
 import { containsMeat, noContactDetails, whole } from '../market/rules.mjs';
 import { animal as animalTags, containsFor } from '../diet-labels.mjs';
+import { foodFindings, recipeFoodFields } from '../food-policy.mjs';
 
 // Mirrors src/types/food.ts recipeCategories; the server is the authority.
 export const categories = ['Breakfast', 'Noodles', 'Rice meals', 'With rice', 'Soups', 'Snacks & kueh', 'Desserts & drinks'];
@@ -59,6 +60,8 @@ export function readRecipe(body) {
       ingredientIds: Array.isArray(step?.ingredientIds) ? [...new Set(step.ingredientIds.filter(id => seen.has(id)))].slice(0, 40) : [],
     };
   });
+  if (foodFindings(recipeFoodFields({ title: body.title, description: body.description, ingredients, steps })).length)
+    throw new CommunityError(400, 'QuinTaste recipes must be meat-free. Check the title, ingredients and cooking instructions.');
   return {
     title: field(body.title, 100, 'Recipe name'), description: field(body.description, 2000, 'Description'),
     author: field(body.author, 80, 'Author'), language: text(body.language, 40, { min: 1, field: 'Language' }),

@@ -39,6 +39,7 @@ const takenSql = `(SELECT count(*)::int FROM social.class_seat s WHERE s.class_i
 export const listedSql = param => `c.status='posted' AND c.hidden_at IS NULL AND EXISTS (SELECT 1 FROM social.host h WHERE h.user_id=c.host_id AND h.status='approved')
   AND ${notRestricted('c.host_id')} AND ${notBlocked('c.host_id', param)}`;
 export const classView = param => `c.id, c.title, c.makes, ${sgText('c.starts')} AS starts, ${sgText('c.ends')} AS ends, c.venue, c.area, c.seats, c.price_cents AS "priceCents",
+  CASE WHEN c.hidden_reason='QT food review pending' THEN 'pending' WHEN c.hidden_reason='QT food review held' THEN 'held' END AS "foodReview",
   c.diets, c.status, ${takenSql} AS taken, c.host_id IS NOT DISTINCT FROM ${param} AS hosting,
   EXISTS (SELECT 1 FROM social.class_seat s WHERE s.class_id=c.id AND s.user_id=${param} AND s.status='joined') AS joined,
   (SELECT json_build_object('id', h.user_id, 'name', h.display_name, 'classes', (SELECT count(*)::int FROM social.class x WHERE x.host_id=h.user_id AND x.status='posted' AND x.starts < now()))

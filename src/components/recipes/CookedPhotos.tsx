@@ -7,7 +7,8 @@ import { Button, T, common } from "../ui";
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { cookedPhotos, type CookedPhoto } from "../../services/cooked-photos-api";
 import { CookedPhotoDialog, type CookedAction } from "./CookedPhotoDialog";
-import { useT } from "../../i18n";
+import { useT,useLanguage } from "../../i18n";
+import { foodReviewWords } from '../../config/food-review';
 
 /**
  * Members' "I cooked this" photos on a recipe (owner, 28 Oct 2026): yours first, then the newest, as one sideways strip; a tap
@@ -15,6 +16,7 @@ import { useT } from "../../i18n";
  * the section simply keeps its add button.
  */
 export function CookedPhotos({ recipeId }: { recipeId: string }) {
+  const foodWords=foodReviewWords(useLanguage());
   const member = useMember(), t = useT("cook"), prefix = "cooked-photos:" + recipeId + ":", returnTo = "/cook/recipe/" + recipeId;
   const { data } = useRemote(prefix + (member.userId ?? "guest"), signal => cookedPhotos(recipeId, signal));
   const [dialog, setDialog] = useState<{ action: CookedAction; photo?: CookedPhoto } | null>(null);
@@ -28,7 +30,7 @@ export function CookedPhotos({ recipeId }: { recipeId: string }) {
       actions={(index, close) => photos[index].id === data?.mine?.id
         ? <Button label={t("deleteCookedPhoto")} variant="link" onPress={() => { close(); setDialog({ action: "delete", photo: photos[index] }); }} />
         : <Button label={t("reportCookedPhoto")} variant="link" onPress={() => { close(); if (ensureMember(member, returnTo)) setDialog({ action: "report", photo: photos[index] }); }} />} />}
-    {data?.mine?.hidden && <T variant="caption" muted>{t("cookedHidden")}</T>}
+    {data?.mine?.hidden && <T variant="caption" muted>{data.mine.foodReview?foodWords[data.mine.foodReview]:t("cookedHidden")}</T>}
     <View style={s.add}><Button label={t(data?.mine ? "changeCookedPhoto" : "addCookedPhoto")} icon="camera-outline" variant="secondary"
       disabled={member.pending || !member.enabled} onPress={add} /></View>
     {dialog && <CookedPhotoDialog recipeId={recipeId} {...dialog} onClose={() => setDialog(null)} onSaved={() => invalidate(prefix)} />}

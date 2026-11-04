@@ -3,6 +3,7 @@ import { query } from './db';
 import { chefSummary } from './chefs';
 import { controlKey, modeOf } from './chef-names';
 import { gameWaiting } from './game-content';
+import { HttpError } from './http';
 
 type Queue = { count: number; latest: string | null };
 const queues = ['urgent', 'people', 'market', 'places', 'posts', 'gameFailed', 'other'] as const;
@@ -24,7 +25,8 @@ const bucket = `CASE WHEN kind IN ('harm','privacy') OR severity='critical' THEN
  * lane is On, new ones for their first two hours, so a report reaches the owner only when Coco has not taken it. A game level QT
  * Manager gave up on stops counting once a level of that recipe was made afterwards (the app can file these cases but not close them).
  */
-export async function attention() {
+export async function attention(blockedAfter:string|null=null) {
+  if(blockedAfter!==null&&!/^\d{1,18}$/.test(blockedAfter))throw new HttpError(400,'Check blocker cursor.');
   const coco = modeOf((await query<{ enabled: boolean; notice: string }>('SELECT enabled, notice FROM ops.control WHERE key=$1',
     [controlKey('place-reports')])).rows[0]) === 'on';
   // The queues are independent, so they are read together and the bot's signed call stays well inside its timeout.
@@ -41,7 +43,10 @@ export async function attention() {
     return [name, { count: row?.count ?? 0, latest: iso(row?.latest ?? null) }];
   })) as Record<typeof queues[number], Queue>;
   const due = rows.map(r => r.due).filter((d): d is Date => d !== null).sort((a, b) => b.getTime() - a.getTime())[0] ?? null;
-  return { at: new Date().toISOString(), cases, overdue: { count: rows.reduce((sum, r) => sum + r.overdue, 0), latest: iso(due) }, ...waiting,
+  const botBlockers=(await query(`SELECT id,split_part(subject_id,':',3) AS scope,(extract(epoch FROM created_at)*1000000)::bigint::text AS at
+    FROM ops.case_record WHERE subject_id LIKE 'bot:block:%' AND status NOT IN ('resolved','dismissed')
+    AND ($1::bigint IS NULL OR (extract(epoch FROM created_at)*1000000)::bigint>$1::bigint) ORDER BY created_at,id LIMIT 40`,[blockedAfter])).rows;
+  return { at: new Date().toISOString(), botBlockers,cases, overdue: { count: rows.reduce((sum, r) => sum + r.overdue, 0), latest: iso(due) }, ...waiting,
     gameLevels: game?.levels ?? null, gamePictures: game?.pictures ?? null, gameMembers: game?.members ?? null, chefs };
 }
 

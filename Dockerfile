@@ -12,6 +12,10 @@ ADD --checksum=sha256:1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72e
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY package.json ./
 COPY server ./server
+# Fixed food snapshot adapters are also used by the authenticated admin worker.
+COPY admin/src/lib/food-sources.mjs ./admin/src/lib/food-sources.mjs
+COPY admin/src/lib/food-policy.mjs ./admin/src/lib/food-policy.mjs
+COPY admin/src/lib/food-enqueue.mjs ./admin/src/lib/food-enqueue.mjs
 # The game API replays runs with the app's own simulation (src/game, TypeScript run by Node's type stripping).
 COPY src/game ./src/game
 COPY src/config/game.ts ./src/config/game.ts

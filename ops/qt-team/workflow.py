@@ -1232,8 +1232,14 @@ class Round:
 
     def succeeded(self, role):
         self.state.setdefault('roleCooldown', {}).pop(role, None)
+        if self.production() and not self.trial:
+            import bot_blockers
+            bot_blockers.record(ROOT,'head',role,failed=False)
 
     def failed(self, role):
+        if self.production() and not self.trial:
+            import bot_blockers
+            bot_blockers.record(ROOT,'head',role)
         streak = self.state.setdefault('roleCooldown', {}).setdefault(role, {'count': 0, 'until': 0})
         streak['count'] += 1
         if streak['count'] >= ROLE_FAILURE_STREAK:

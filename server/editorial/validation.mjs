@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { Buffer } from 'node:buffer';
 import { dairy } from '../diet-labels.mjs';
 import { microNutrients } from '../nutrition/nutrients.mjs';
+import { foodFindings,recipeFoodFields } from '../food-policy.mjs';
 
 export const hash = value => createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)).digest('hex');
 const categories = ['Breakfast', 'Noodles', 'Rice meals', 'With rice', 'Soups', 'Snacks & kueh', 'Desserts & drinks'];
@@ -64,7 +65,7 @@ export function validateRecipe(r) {
     requireValue(keys(i, ['id', 'name', 'amount', 'unit']) && validId(i.id) && !ids.has(i.id) && text(i.name, 160) && text(i.unit, 40, true) && (i.amount === null || typeof i.amount === 'number' && Number.isFinite(i.amount) && i.amount > 0 && i.amount <= 10000), 'Invalid ingredient'); ids.add(i.id);
   }
   const names = r.ingredients.map(i => i.name.toLowerCase()).join(' ');
-  requireValue(!/\b(chicken|pork|beef|lard|shrimp|prawn|fish sauce|oyster sauce|gelatin|gelatine)\b/.test(names), 'Ingredient requires vegetarian review');
+  requireValue(!foodFindings(recipeFoodFields(r)).length, 'Recipe text requires meat-free food review');
   for (const [pattern, tag] of /** @type {[RegExp, string][]} */ ([[/\beggs?\b/, 'Eggs'], [dairy, 'Dairy'], [/\bhoney\b/, 'Honey'], [/\bgarlic\b/, 'Garlic'], [/\bonions?\b/, 'Onion'], [/\bsoy sauce|\bwheat\b/, 'Gluten']])) {
     if (pattern.test(names)) requireValue(r.dietary.contains.includes(tag), 'Missing ingredient exclusion');
   }
@@ -79,6 +80,7 @@ export function validateRecipe(r) {
   if (r.image) requireValue(keys(r.image, ['path', 'width', 'height', 'credit']) && /^\/api\/editorial\/assets\/[a-f0-9]{64}\.jpg$/.test(r.image.path) && Number.isInteger(r.image.width) && r.image.width >= 320 && r.image.width <= 1600 && Number.isInteger(r.image.height) && r.image.height >= 240 && r.image.height <= 1600 && text(r.image.credit, 180), 'Invalid recipe image');
 }
 export function validateEvent(e) {
+  requireValue(!foodFindings({title:e?.title,dietEvidence:e?.dietEvidence}).length,'Event food requires meat-free review');
   requireValue(keys(e, ['id', 'title', 'organiser', 'startsAt', 'endsAt', 'location', 'address', 'feeAmount', 'currency', 'feeNote', 'registrationUrl', 'registrationDeadline', 'dietEvidence', 'status', 'checkedAt', 'sources']) && validId(e.id) && text(e.title, 180) && text(e.organiser, 160) && text(e.location, 180) && text(e.address, 300) && text(e.dietEvidence, 600) && date(e.checkedAt), 'Invalid external event');
   requireValue(typeof e.startsAt === 'string' && /\+08:00$/.test(e.startsAt) && Date.parse(e.startsAt) > Date.now() && Date.parse(e.startsAt) < Date.now() + 366 * 86400000 && (e.endsAt === null || /\+08:00$/.test(e.endsAt) && Date.parse(e.endsAt) > Date.parse(e.startsAt)) && ['scheduled', 'cancelled', 'rescheduled'].includes(e.status), 'Invalid event date/status');
   requireValue((e.feeAmount === null && e.currency === null || typeof e.feeAmount === 'number' && e.feeAmount >= 0 && e.feeAmount < 10000 && e.currency === 'SGD') && text(e.feeNote, 300, true) && (e.registrationUrl === null || publicUrl(e.registrationUrl)) && (e.registrationDeadline === null || Number.isFinite(Date.parse(e.registrationDeadline)) && Date.parse(e.registrationDeadline) <= Date.parse(e.startsAt)) && Array.isArray(e.sources) && e.sources.length > 0 && e.sources.length <= 12 && e.sources.every(publicUrl), 'Invalid event source/price');

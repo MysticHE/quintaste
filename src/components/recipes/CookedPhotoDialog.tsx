@@ -9,25 +9,29 @@ import { useAuth } from "../../state/Auth";
 import { ApiError } from "../../services/community-api";
 import { cookedReasons, deleteCookedPhoto, reportCookedPhoto, saveCookedPhoto, type CookedPhoto } from "../../services/cooked-photos-api";
 import type { MarketPhotos } from "../../types/market";
-import { useT } from "../../i18n";
+import { useT,useLanguage } from "../../i18n";
+import { foodReviewWords } from '../../config/food-review';
+import { FoodReviewNote } from '../food/FoodReviewNote';
 
 export type CookedAction = "post" | "delete" | "report";
 /** Posting or changing your cooked photo (one photo, an optional note), deleting it, or reporting someone else's. */
 export function CookedPhotoDialog({ recipeId, action, photo, onClose, onSaved }: {
   recipeId: string; action: CookedAction; photo?: CookedPhoto; onClose: () => void; onSaved: () => void;
 }) {
+  const foodWords=foodReviewWords(useLanguage());
   const { theme, setNotice } = usePreferences(), { user } = useAuth(), t = useT("cook"), tc = useT("common");
   const [photos, setPhotos] = useState<MarketPhotos>({ item: action === "post" ? photo?.photo : undefined });
   const [note, setNote] = useState(action === "post" ? photo?.note ?? "" : ""), [reason, setReason] = useState("");
   const [busy, setBusy] = useState(false), [photoBusy, setPhotoBusy] = useState(false), [error, setError] = useState("");
   const send = async () => {
     setBusy(true); setError("");
+    let pending=false;
     try {
       // The stored photo comes back as its server path: unchanged, only the note is sent.
-      if (action === "post") await saveCookedPhoto(recipeId, photos.item === photo?.photo ? "keep" : photos.item!, note);
+      if (action === "post") pending=Boolean((await saveCookedPhoto(recipeId, photos.item === photo?.photo ? "keep" : photos.item!, note)).foodReview);
       else if (action === "delete") await deleteCookedPhoto(recipeId);
       else await reportCookedPhoto(recipeId, photo!.id, reason, note);
-      onSaved(); onClose(); setNotice({ text: t(action === "post" ? "cookedPosted" : action === "delete" ? "cookedDeleted" : "cookedReported") });
+      onSaved(); onClose(); setNotice({ text: pending?foodWords.saved:t(action === "post" ? "cookedPosted" : action === "delete" ? "cookedDeleted" : "cookedReported") });
     } catch (problem) { setError(problem instanceof ApiError ? problem.message : t("cookedFailed")); }
     finally { setBusy(false); }
   };
@@ -40,6 +44,7 @@ export function CookedPhotoDialog({ recipeId, action, photo, onClose, onSaved }:
             disabled={busy || photoBusy} onBusy={setPhotoBusy} budget={photoBudgets.upload} />
           <Field label={t("cookedNoteOptional")} placeholder={t("cookedNotePlaceholder")} value={note} onChangeText={setNote} multiline maxLength={280} editable={!busy} />
           <T variant="caption" muted>{t("cookedPublicAs", { name: user?.name || t("cookedYourName") })}</T>
+          <FoodReviewNote/>
         </>}
         {action === "report" && <>
           <View style={s.reasons}>{cookedReasons.map(value => <Chip key={value} compact role="radio" label={t("cookedReason", { name: value })}
