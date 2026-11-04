@@ -471,15 +471,12 @@ def caption(entry):
     return '\n'.join(lines)[:1024]
 
 
-def summary_line(root, baseline_venues, live=None):
-    missing = sum(not v.get('hasCover') for v in baseline_venues)
+def missing_counts(root, baseline_venues, live=None):
+    """(venues, Mixed Kitchen places, Veg Kitchen places) without a cover, and covers waiting for the owner's approval."""
     targets = place_targets(live)
     kitchen = sum(str(t['venueId']).startswith('vk-') for t in targets)
-    places = len(targets) - kitchen
-    waiting = sum(e.get('status') == 'pending-owner' for e in entries(root))
-    mixed = (f' and {places} Mixed Kitchen place(s)' if places else '') + (f' and {kitchen} Veg Kitchen place(s)' if kitchen else '')
-    return (f'Cover photos: {missing} venue(s){mixed} without one; {waiting} cover(s) waiting for your approval.\n'
-            if missing or targets or waiting else '')
+    return (sum(not v.get('hasCover') for v in baseline_venues), len(targets) - kitchen, kitchen,
+            sum(e.get('status') == 'pending-owner' for e in entries(root)))
 
 
 # ---------------------------------------------------------------- dish illustrations (owner, 20 Oct 2026)

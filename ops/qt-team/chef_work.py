@@ -627,10 +627,11 @@ def main(ask=None, food_only=False):
             try:
                 record = work_lane(ROOT, lane, ask)
             except Exception as exc:  # one lane failing must not stop the others; it is logged and retried next pass
-                record = {'lane': lane, 'error': (type(exc).__name__ + ': ' + str(exc))[:200]}
+                import bot_blockers
+                record = {'lane': lane, 'error': (type(exc).__name__ + ': ' + str(exc))[:200], 'errorClass': bot_blockers.describe(exc)}
             import bot_blockers
             if not record.get('skipped'):
-                bot_blockers.record(ROOT,LANES[lane]['chef'],lane,failed=bool(record.get('error')))
+                bot_blockers.record(ROOT,LANES[lane]['chef'],lane,failed=bool(record.get('error')),error=record.get('errorClass') or None)
             record['at'] = dt.datetime.now(dt.timezone.utc).isoformat()
             with (state / 'log.jsonl').open('a', encoding='utf-8') as log:
                 log.write(json.dumps(record) + '\n')

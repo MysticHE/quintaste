@@ -24,7 +24,7 @@ import time
 import urllib.error
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
-from app_signing import open_signed  # noqa: E402  (the shared signer)
+from app_signing import IdleBackoff, open_signed  # noqa: E402  (the shared signer)
 ROUTE = '/api/ai-recipes/bot/drawings/'
 DRAW_SECONDS, IDLE_SECONDS, ANSWER_TRIES = 900, 20, 4
 MAX_PICTURE = 700_000  # the app accepts 1 MB of base64
@@ -115,10 +115,13 @@ def main():
     if parser.parse_args().once:
         print('drew one' if once() else 'nothing to draw')
         return
+    idle = IdleBackoff(IDLE_SECONDS, 120)
     while True:
         try:
-            if not once():
-                time.sleep(IDLE_SECONDS)
+            if once():
+                idle.worked()
+            else:
+                time.sleep(idle.idle())
         except (urllib.error.URLError, OSError, ValueError) as exc:
             print(json.dumps({'error': type(exc).__name__}), flush=True)
             time.sleep(IDLE_SECONDS)

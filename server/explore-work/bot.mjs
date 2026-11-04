@@ -1,5 +1,4 @@
 import express from 'express';
-import { rateLimit } from 'express-rate-limit';
 import { randomUUID } from 'node:crypto';
 import { Buffer } from 'node:buffer';
 import { pool } from '../config.mjs';
@@ -15,7 +14,6 @@ import { listedPlaces } from '../catalogue-places.mjs';
 import { consentedCovers } from '../../admin/src/lib/member-cover.mjs';
 
 export const exploreBots=express.Router();
-exploreBots.use(rateLimit({windowMs:60000,limit:300,standardHeaders:'draft-8',legacyHeaders:false}));
 exploreBots.use((req,res,next)=>{
   if(!/^\d{10}$/.test(req.get('X-QT-Time')??'')||! /^[a-f0-9]{64}$/.test(req.get('X-QT-Signature')??''))return res.sendStatus(401);
   next();

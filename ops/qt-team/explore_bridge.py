@@ -16,7 +16,7 @@ import time
 import urllib.error
 import urllib.parse
 
-from app_signing import open_signed,ORIGIN
+from app_signing import IdleBackoff,open_signed,ORIGIN
 import hermes_run
 from bridge_stop import STOP,on_sigterm
 
@@ -323,12 +323,14 @@ def reserve():
 
 def process(lane):
     os.environ['QT_EXPLORE_INTERACTIVE']='1' if lane=='quick' else '0'
+    idle=IdleBackoff(2,10)
     while not STOP.is_set():
         try:
             policy=json.loads((ROOT/'policy.json').read_text())
             if not policy.get('exploreMemberContent'): time.sleep(5);continue
             job=signed('/claim',{'name':'explore-'+lane,'lane':lane}).get('job')
-            if not job: time.sleep(2);continue
+            if not job: STOP.wait(idle.idle());continue
+            idle.worked()
             stop,lost=threading.Event(),threading.Event()
             thread=threading.Thread(target=heartbeat,args=(job,stop,lost),daemon=True);thread.start()
             try:
@@ -350,6 +352,7 @@ def process(lane):
 def notify():
     import telegram_reporter as t
     journal=ROOT/'state/explore-delivered';journal.mkdir(parents=True,exist_ok=True,mode=0o700)
+    idle=IdleBackoff(2,10)
     while not STOP.is_set():
         delivery=None;posted=False
         try:
@@ -364,7 +367,8 @@ def notify():
                     if exc.code==409:file.unlink() # already acknowledged or superseded; never send it again
                 except Exception:pass
             delivery=signed('/deliveries/claim',{}).get('delivery')
-            if not delivery: time.sleep(2);continue
+            if not delivery: STOP.wait(idle.idle());continue
+            idle.worked()
             p=delivery['payload'];path=p['path']
             if not path.startswith('/place/catalogue-') or any(c in path for c in ['\n','\r','\\']): raise ValueError('invalid app link')
             receipt=p.get('editorialReceipt')

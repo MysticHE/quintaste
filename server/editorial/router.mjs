@@ -17,7 +17,29 @@ const root = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
 const baseline = JSON.parse(fs.readFileSync(path.resolve('server-assets/editorial-baseline.json'), 'utf8'));
 /** The editorial store and its packaged baseline, for in-process publishers (member place suggestions, server/explore-work/worker.mjs). */
 export const editorialStore = { root, baseline };
-let lastWrite = 0;
+let lastWrite = 0, writes = Promise.resolve(), waiting = 0;
+/**
+ * Publish, remove and revert run one at a time, at least a second apart, in arrival order. They used to be refused with 429 inside
+ * that second, which failed the publisher's whole round when another bot or an owner button wrote at the same moment (4 Nov 2026).
+ * More than ten waiting writes is a flood, not a queue: those are still refused, with Retry-After.
+ */
+function inTurn(handler) {
+  return (req, res) => {
+    if (waiting >= 10) return res.set('Retry-After', '5').status(429).json({ error: 'Retry shortly.' });
+    waiting++;
+    writes = writes.then(async () => {
+      try {
+        const gap = 1000 - (Date.now() - lastWrite);
+        if (gap > 0) await new Promise(resolve => setTimeout(resolve, gap));
+        lastWrite = Date.now();
+        await handler(req, res);
+      } finally { waiting--; }
+    }).catch(error => {  // a failed write must not stop the writes queued behind it
+      logger.error({ event: 'editorial_write_failed', error: error instanceof Error ? error.message : String(error) });
+      if (!res.headersSent) res.status(503).json({ error: 'Write unavailable; check current state before retrying.' });
+    });
+  };
+}
 /** Header checks run before any body is read; only publication batches (which carry assets) get the large limit. */
 function precheck(req, res, next) {
   res.set('Cache-Control', 'no-store');
@@ -59,24 +81,18 @@ editorial.get('/control/state', async (_req, res, next) => {
     res.json({ accepts, revision: snapshot.revision, removals: Object.values(snapshot.removals ?? {}), reverts: Object.values(snapshot.reverts ?? {}), changes: Object.values(snapshot.records).map(r => r.change).filter(Boolean), venues: baseline.venues.map(v => ({ id: v.id, ...recordState(snapshot, baseline, 'venue', v.id) })), records: Object.values(snapshot.records).filter(r => r.kind !== 'venue').map(r => ({ kind: r.kind, id: r.id, hash: hash(r.data), data: r.data })), recipeIdentities: baseline.recipes, staffPlaces, staffHidden, staffHiddenItems });
   } catch (e) { next(e); }
 });
-editorial.post('/control/publish', async (req, res) => {
-  if (Date.now() - lastWrite < 1000) return res.status(429).json({ error: 'Retry publication shortly.' });
-  lastWrite = Date.now();
+editorial.post('/control/publish', inTurn(async (req, res) => {
   try { const batch=JSON.parse(req.body.toString());const result = await publish(root, baseline, batch, () => editorialFoodGate(pool,root,batch)); res.json(result); }
   catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Publication unavailable; prior content retained.' }); }
-});
-editorial.post('/control/remove', async (req, res) => {
-  if (Date.now() - lastWrite < 1000) return res.status(429).json({ error: 'Retry shortly.' });
-  lastWrite = Date.now();
+}));
+editorial.post('/control/remove', inTurn(async (req, res) => {
   try { res.json(await removeRecord(root, JSON.parse(req.body.toString()))); }
   catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Removal unavailable; check current state before retrying.' }); }
-});
-editorial.post('/control/revert', async (req, res) => {
-  if (Date.now() - lastWrite < 1000) return res.status(429).json({ error: 'Retry shortly.' });
-  lastWrite = Date.now();
+}));
+editorial.post('/control/revert', inTurn(async (req, res) => {
   try { res.json(await revertRecord(root, baseline, JSON.parse(req.body.toString()))); }
   catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Revert unavailable; check current state before retrying.' }); }
-});
+}));
 function conditional(req, res, value) {
   // no-cache: every read revalidates (an unchanged item is a 304), so a staff hide or delete never waits out a cache lifetime.
   const etag = '"' + hash(value) + '"'; res.set({ ETag: etag, 'Cache-Control': 'public, no-cache', 'X-Content-Type-Options': 'nosniff' });

@@ -90,10 +90,10 @@ app.get('/healthz', async (_req, res) => {
 });
 const apiLimits = createApiRateLimits({ pool, secret: process.env.BETTER_AUTH_SECRET, logger,
   resolveSession: req => auth.api.getSession({ headers: fromNodeHeaders(req.headers) }) });
-app.use('/api', apiLimits.network);
-// Resident signed workers have their own bounded quota; they must not exhaust guests' write budget by polling.
-app.use('/api/explore-work/bot',exploreBots);
+app.use('/api', apiLimits.network, ...apiLimits.signedBots);
+// Signed bot workers (Explore included) use the signed-bot budget above; they must not exhaust guests' write budget by polling.
 app.use('/api',apiLimits.general);
+app.use('/api/explore-work/bot',exploreBots);
 app.use('/api/editorial', editorial);
 app.use('/api/auth/sign-in/username', apiLimits.signIn, express.json({ limit: '16kb' }), apiLimits.signInAccount);
 for (const action of ['register', 'recover', 'recovery-codes']) {

@@ -2,6 +2,7 @@
 import fcntl
 import json
 import time
+import app_signing
 import telegram_reporter as t
 
 
@@ -30,7 +31,8 @@ def main():
         fcntl.flock(poll, fcntl.LOCK_EX)
         while True:
             try:
-                count = cycle()
+                with app_signing.budget(20):  # an owner's button waits behind any retry
+                    count = cycle()
                 if count:
                     print(json.dumps({'at': t.stamp(), 'updatesHandled': count}), flush=True)
             except t.DeliveryError as exc:

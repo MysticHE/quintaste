@@ -315,10 +315,12 @@ def main() -> None:
     ap.add_argument('--push', action='store_true', help='send the snapshot to the app')
     args = ap.parse_args()
     from publisher import request as editorial  # the signed, read-only state route the publisher already uses
-    if args.push:
-        print(json.dumps(push_latest(editorial)))
-    else:
-        print(json.dumps(build(editorial('GET', '/control/state')), ensure_ascii=False, indent=1))
+    import app_signing
+    with app_signing.budget(20):  # inside the push's 110-second alarm
+        if args.push:
+            print(json.dumps(push_latest(editorial)))
+        else:
+            print(json.dumps(build(editorial('GET', '/control/state')), ensure_ascii=False, indent=1))
 
 
 if __name__ == '__main__':

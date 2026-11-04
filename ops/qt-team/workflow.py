@@ -117,7 +117,7 @@ def validate(role, obj, assigned=None):
             if not all(checklist.get(k) in ("confirmed", "unchanged", "missing", "conflicting", "not-rechecked") for k in CHECKLIST):
                 raise ValueError("Incomplete venue field checklist")
         if role == "qt-cooker" and record["status"] == "proposed":
-            recipe = record.get("recipe", {})
+            recipe = record.get("recipe") or {}
             if not recipe.get("name") or recipe.get("category") not in CATEGORIES:
                 raise ValueError("Missing recipe identity/category")
             if recipe.get('diet') not in ('Vegetarian', 'Vegan'):
@@ -292,7 +292,9 @@ def normalize_recipe_packet(obj):
     import copy
     obj = copy.deepcopy(obj)
     for row in obj.get("records", []):
-        recipe = row.get("recipe", {})
+        recipe = row.get("recipe")
+        if not isinstance(recipe, dict):
+            continue  # 4 Nov 2026: held records arrive with "recipe": null; every later round that day crashed reading them
         for item in recipe.get("ingredients", []) if isinstance(recipe.get("ingredients"), list) else []:
             if isinstance(item, dict) and isinstance(item.get("name"), str) and NEGATED_COMPOUND.search(item["name"]):
                 item["name"] = re.sub(r'\s{2,}', ' ', NEGATED_COMPOUND.sub('', item["name"])).strip(' ,')  # 22 Oct 2026: two recipes held for this
@@ -641,6 +643,29 @@ def contract(role):
                      "(or exclude it if it fails the vegetarian-focus rule). No upcoming verified events is a valid result.")
 
 
+def recoverable(candidate, role, known_ids, known_names):
+    """(packet, successful extracts) when an earlier answer of today can be used again, else None (see worker)."""
+    prior = normalize_recipe_packet(read(candidate))
+    try:
+        validate(role, prior)
+    except (ValueError, TypeError, KeyError):
+        return None
+    # A recovery is useful only for unseen work. Replaying old evidence for
+    # known candidates must not consume today's fresh research checkpoint.
+    if not prior['records'] or any(r['id'] in known_ids or
+            str((r.get('recipe') or {}).get('name') or '').strip().casefold() in known_names
+            for r in prior['records']):
+        return None
+    successes = 0
+    for line in (candidate.parent / "stream.jsonl").read_text().splitlines():
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        successes += event.get("type") == "tool_result" and event.get("name") == "web_extract" and not event.get("is_error") and '"success": false' not in event.get("output", "")
+    return (prior, successes) if successes else None
+
+
 def worker(role, context, folder, policy, prior_sources=None):
     """prior_sources (Cooker): page key -> {id, name} of recipes already drafted, kept out of the prompt."""
     prompt = ("Current UTC: " + now() + ". Singapore date: " + dt.datetime.now(SG).date().isoformat() + ". " +
@@ -658,30 +683,19 @@ def worker(role, context, folder, policy, prior_sources=None):
             if (candidate.parent == folder or (candidate.parent / "validated.json").exists()
                     or (candidate.parent / 'recovery-consumed.json').exists() or str(candidate) in consumed):
                 continue
-            previous_receipt = read(candidate.parent / "receipt.json", {})
+            previous_receipt = read(candidate.parent / "receipt.json", {}) or {}
             if previous_receipt.get("exitCode") != 0 or not previous_receipt.get("completedAt", "").startswith(dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")):
                 continue
-            prior = normalize_recipe_packet(read(candidate))
             try:
-                validate(role, prior)
-            except (ValueError, TypeError, KeyError):
+                found = recoverable(candidate, role, known_ids, known_names)
+            except Exception as exc:
+                # A saved answer that crashes while being checked is set aside, so it cannot fail every later round of the day
+                # (4 Nov 2026: one answer with "recipe": null failed six Cooker rounds in a row).
+                write(candidate.parent / 'recovery-consumed.json', {'at': now(), 'reason': 'set aside: ' + type(exc).__name__})
                 continue
-            # A recovery is useful only for unseen work. Replaying old evidence for
-            # known candidates must not consume today's fresh research checkpoint.
-            if not prior['records'] or any(r['id'] in known_ids or
-                    r.get('recipe', {}).get('name', '').strip().casefold() in known_names
-                    for r in prior['records']):
+            if not found:
                 continue
-            stream = candidate.parent / "stream.jsonl"
-            successes = 0
-            for line in stream.read_text().splitlines():
-                try:
-                    event = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                successes += event.get("type") == "tool_result" and event.get("name") == "web_extract" and not event.get("is_error") and '"success": false' not in event.get("output", "")
-            if not successes:
-                continue
+            prior, successes = found
             previous_receipt["successfulExtractCalls"] = successes
             previous_receipt["reusedResponseFrom"] = str(candidate)
             folder.mkdir(parents=True, exist_ok=True)
@@ -723,7 +737,7 @@ def worker(role, context, folder, policy, prior_sources=None):
         retry_names = {r['id']: r['name'].strip().casefold() for r in context.get('heldRetries', []) if isinstance(r.get('name'), str)}
         taken = {r['id'] for r in obj['records']}
         for record in obj['records']:
-            name = record.get('recipe', {}).get('name', '').strip().casefold()
+            name = str((record.get('recipe') or {}).get('name') or '').strip().casefold()
             first = next((s.get('url') for s in record.get('sources', []) if isinstance(s, dict) and s.get('url')), None)
             prior = (prior_sources or {}).get(recipe_quality.page_key(first)) if first else None
             if prior and record['id'] != prior['id'] and prior['id'] not in taken and prior['id'] not in existing_ids:
@@ -1195,6 +1209,7 @@ class Round:
         self.month = dt.datetime.now(SG).strftime("%Y-%m")
         self.day = dt.datetime.now(SG).date().isoformat()
         self.packets, self.errors, self.notes = [], [], []
+        self.failed_roles = []  # roles whose own work failed this round (errors also holds non-fatal side problems)
         self.live = None  # one live app snapshot for the research stages; publication fetches its own
         self.reviewed = {"status": "not-run", "decisions": []}
         self.image_result = {'status': 'not-run'}
@@ -1237,6 +1252,7 @@ class Round:
             bot_blockers.record(ROOT,'head',role,failed=False)
 
     def failed(self, role):
+        self.failed_roles.append(role)
         if self.production() and not self.trial:
             import bot_blockers
             bot_blockers.record(ROOT,'head',role)
@@ -1256,7 +1272,8 @@ class Round:
         self.notes.append({"role": role, "note": text, "at": now()})
 
     def error(self, role, text):
-        self.errors.append({"role": role, "error": text, "at": now()})
+        import bot_blockers  # inside an except block: where it failed, so a repeat failure can be traced (5 Nov 2026)
+        self.errors.append({"role": role, "error": text + bot_blockers.where(), "at": now()})
 
     def time_left(self, reserve):
         return time.monotonic() - self.started < self.policy['runSeconds'] - reserve
@@ -1404,7 +1421,7 @@ class Round:
             learning.note_retry(ROOT, [r for r in held_retries if r['id'] in {x['id'] for x in packet['records']}])
             for record in packet["records"]:
                 first = next((s.get("url") for s in record.get("sources", []) if isinstance(s, dict) and s.get("url")), None)
-                if first and record.get("recipe", {}).get("name"):
+                if first and (record.get("recipe") or {}).get("name"):
                     sources[recipe_quality.page_key(first)] = {"id": record["id"], "name": record["recipe"]["name"]}
                     if library:
                         library['record'].append({'url': first, 'status': 'drafted' if record.get('status') == 'proposed' else 'held',
@@ -1996,7 +2013,7 @@ class Round:
         self.save()
         completed = sum(self.in_month(v) for v in state["explorerReviewed"].values())
         publication, errors = self.publication, self.errors
-        report = {"runId": self.run_id, "completedAt": now(), "trial": self.trial, "status": "passed" if not errors else "partial", "workerRolesCompleted": [p["role"] for p in self.packets], "recordsChecked": sum(len(p["records"]) for p in self.packets), "exploreMonthReviewed": completed, "exploreTotal": len(self.venues), "manager": self.reviewed, "image": self.image_result, "errors": errors, "notes": self.notes, "googleRequests": 0, "productionWrites": publication['productionWrites'], "publication": publication, "appHealth": live_health(), "menuAudit": menu_coverage.month_totals(ROOT)}
+        report = {"runId": self.run_id, "completedAt": now(), "trial": self.trial, "status": "passed" if not errors else "partial", "workerRolesCompleted": [p["role"] for p in self.packets], "recordsChecked": sum(len(p["records"]) for p in self.packets), "exploreMonthReviewed": completed, "exploreTotal": len(self.venues), "manager": self.reviewed, "image": self.image_result, "errors": errors, "failedRoles": sorted(set(self.failed_roles)), "notes": self.notes, "googleRequests": 0, "productionWrites": publication['productionWrites'], "publication": publication, "appHealth": live_health(), "menuAudit": menu_coverage.month_totals(ROOT)}
         try:
             report['learning'] = learning.status(ROOT)
         except (ValueError, KeyError, TypeError, OSError) as exc:

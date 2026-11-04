@@ -21,7 +21,7 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
-from app_signing import open_signed  # noqa: E402  (the shared signer)
+from app_signing import IdleBackoff, open_signed  # noqa: E402  (the shared signer)
 from bridge_stop import STOP, on_sigterm  # noqa: E402  (finish the job in hand on restart)
 import hermes_run  # noqa: E402  (the shared Hermes runner)
 PROFILE = 'qt-gamer'
@@ -108,10 +108,13 @@ def main():
         once()
         return
     on_sigterm(3 * RUN_SECONDS)  # a run, its grace and the answer
+    idle = IdleBackoff(IDLE_SECONDS, 120)
     while not STOP.is_set():  # a restart lets the job in hand finish (bridge_stop.py)
         try:
-            if not once():
-                STOP.wait(IDLE_SECONDS)
+            if once():
+                idle.worked()
+            else:
+                STOP.wait(idle.idle())
         except (urllib.error.URLError, OSError, ValueError) as exc:
             print(json.dumps({'error': type(exc).__name__}), flush=True)
             STOP.wait(IDLE_SECONDS)

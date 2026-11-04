@@ -565,7 +565,7 @@ class VegKitchenPublishing(unittest.TestCase):
         target = cover_photos.due(self.root, {'venues': []}, live)
         self.assertEqual((target['venueId'], target['kind']), (self.CID, 'place'))
         self.assertIn('Veg Kitchen place', cover_photos.prompt(target, []))
-        self.assertIn('1 Veg Kitchen place(s)', cover_photos.summary_line(self.root, [], live))
+        self.assertEqual(cover_photos.missing_counts(self.root, [], live)[1:3], (0, 1))
         raw = b'enhanced-cover'
         image_sha = hashlib.sha256(raw).hexdigest()
         folder = self.root / 'images' / 'req'
@@ -751,7 +751,7 @@ class CoverTargets(unittest.TestCase):
             self.assertIn('529536', target['address'])
             self.assertIn('Branch: Tampines One', cover_photos.prompt(target, []))
             self.assertIsNone(cover_photos.due(root, baseline, dict(live, records=[dict(place, data=dict(place['data'], photo={'path': 'x'}))])))
-            self.assertIn('Mixed Kitchen place', cover_photos.summary_line(root, baseline['venues'], live))
+            self.assertGreaterEqual(cover_photos.missing_counts(root, baseline['venues'], live)[1], 1)
         for host in ('lh3.googleusercontent.com', 'www.google.com.sg', 'scontent.fbcdn.net', 'www.instagram.com', 'food.grab.com', 'www.foodpanda.sg', 'p16.tiktokcdn.com'):
             self.assertTrue(cover_photos.blocked_host(host), host)
         for host in ('upload.wikimedia.org', 'commons.wikimedia.org', 'live.staticflickr.com', 'greencafe.sg'):

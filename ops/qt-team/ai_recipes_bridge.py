@@ -29,7 +29,7 @@ import urllib.error
 import urllib.request
 
 ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
-from app_signing import open_signed  # noqa: E402  (the shared signer)
+from app_signing import IdleBackoff, open_signed  # noqa: E402  (the shared signer)
 import hermes_run  # noqa: E402  (the shared Hermes runner)
 from bridge_stop import STOP, on_sigterm  # noqa: E402  (finish the task in hand on restart)
 PROFILE = 'qt-videomaker'
@@ -270,10 +270,14 @@ def main():
         print('claimed' if turn(args.name, lanes) else 'no task')
         return
     on_sigterm(2 * RUN_SECONDS)  # the longest task: a video download and a full run
+    # A bridge with the slow lane asks less often while idle; the quick bridge keeps asking every 10 s (Snap a dish waits on it).
+    idle = IdleBackoff(IDLE_SECONDS, IDLE_SECONDS if lanes == ['quick'] else 60)
     while not STOP.is_set():
         try:
-            if not turn(args.name, lanes):
-                STOP.wait(IDLE_SECONDS)
+            if turn(args.name, lanes):
+                idle.worked()
+            else:
+                STOP.wait(idle.idle())
         except (urllib.error.URLError, OSError, ValueError) as exc:
             print('bridge error:', type(exc).__name__, str(exc)[:200], file=sys.stderr, flush=True)
             STOP.wait(30)

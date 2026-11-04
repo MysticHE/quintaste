@@ -225,8 +225,8 @@ class DailyLine(unittest.TestCase):
             path.parent.mkdir(parents=True)
             path.write_text(json.dumps({'ingredients:abc': {'n': 3, 'at': '2026-10-27T00:00:00+00:00'},
                                         'wanted:def': {'n': 1, 'at': '2026-10-27T00:00:00+00:00'}}))
-            line = staff_alerts.summary_line({'staffAlerts': {'counts': {}}})
-        self.assertIn("Items the chefs couldn't decide, left for you in admin: ingredients (1).", line)
+            needs, _ = staff_alerts.daily_items({'staffAlerts': {'counts': {}}})
+        self.assertIn('Chefs: ingredients 1', needs)
 
 
 if __name__ == '__main__':

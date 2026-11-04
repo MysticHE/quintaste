@@ -68,6 +68,10 @@ def photo_caption(caption):
 def publication_text(publication):
     if publication.get('status') != 'published':
         return 'No verified publication yet.'
+    return '\n'.join(['Latest published update · ' + singapore_time(publication['publishedAt'])] + publication_lines(publication))
+
+
+def publication_lines(publication):
     baseline = read(ROOT / 'baseline.json', {})
     names = {v['venueId']: v['name'] for v in baseline.get('venues', [])}
     records = publication.get('records', [])
@@ -76,7 +80,7 @@ def publication_text(publication):
     events = sum(r.startswith('event:') for r in records)
     kitchen = sum(r.startswith('place:vk-') for r in records)
     places = sum(r.startswith('place:') for r in records) - kitchen
-    lines = ['Latest published update · ' + singapore_time(publication['publishedAt'])]
+    lines = []
     if venues:
         lines.append('• Explore: ' + ', '.join(venues[:3]) + (f' and {len(venues)-3} more' if len(venues)>3 else '') + ' updated.')
     if recipes:
@@ -87,7 +91,11 @@ def publication_text(publication):
         lines.append(f'• Explore: {places} Mixed Kitchen place' + ('s' if places != 1 else '') + ' added or updated.')
     if kitchen:
         lines.append(f'• Explore: {kitchen} Veg Kitchen place' + ('s' if kitchen != 1 else '') + ' added or updated.')
-    return '\n'.join(lines)
+    # Removals, closures, covers and other kinds have no line of their own; they are still published changes (5 Nov 2026).
+    other = (len(records) - len(venues) - len(recipes) - events - kitchen - places) if records else len(publication.get('changes') or [])
+    if other > 0:
+        lines.append(f'• {other} other change' + ('s' if other != 1 else '') + ' published.')
+    return lines
 
 
 class DeliveryError(Exception):
@@ -297,10 +305,9 @@ def handle_updates(state, updates, acknowledge=True):
                             pass  # Removal is already verified; the durable reply still reports it.
                 except Exception as exc:
                     # 20 Oct 2026: the owner's Approve cover taps failed with no trace. Log where (never the callback payload or token).
-                    import traceback
-                    frame = traceback.extract_tb(exc.__traceback__)[-1] if exc.__traceback__ else None
+                    import bot_blockers
                     print(json.dumps({'at': stamp(), 'callbackError': type(exc).__name__,
-                                      'where': f'{Path(frame.filename).name}:{frame.lineno}' if frame else None}), flush=True)
+                                      'where': bot_blockers.where(exc).removeprefix(' (at ').removesuffix(')') or None}), flush=True)
                     enqueue(state, 'control-error:'+str(uid), 'That button did not go through (' + type(exc).__name__ + '). Nothing was changed. '
                             'Tap it again in a minute, or use /manage.')
                     thread_reply(state, 'control-error:'+str(uid), callback)
@@ -617,6 +624,7 @@ def _publication_item(state, pub, visual, request):
         except Exception as exc:
             visual['attempts'] += 1
             visual['nextAt'] = time.time() + 1800
+            visual['failedAt'] = time.time()
             visual['lastError'] = type(exc).__name__
             if request:
                 enqueue(state, key + ':visual-pending:request:' + request, 'QT Manager: live screenshot capture is pending. The reporter will retry within its capture limit.')
@@ -702,31 +710,143 @@ def completion_reports(state):
         return  # a supervised live run sends its own end summary
     # One daily summary after the Cooker/Event window closes, covering the last 24 hours.
     if (now.hour, now.minute) >= (DAILY_SUMMARY_HOUR, 5) and 'daily-summary:' + now.date().isoformat() not in state['deliveries']:
-        since = (now - dt.timedelta(days=1)).isoformat()
-        enqueue(state, 'daily-summary:' + now.date().isoformat(),
-                'QT Manager — daily summary (Explorer 24 h; Cooker and Event 6–10 pm)\n' + summary() + menu_digest(since) + cover_line()
-                + staff_line(state))
+        enqueue(state, 'daily-summary:' + now.date().isoformat(), daily_summary(state, now))
 
 
-def staff_line(state):
+def _section(title, lines):
+    return '\n\n' + title + '\n' + '\n'.join('• ' + line for line in lines) if lines else ''
+
+
+def daily_summary(state, now):
+    """Owner, 5 Nov 2026: one compact message: what was published, where Explore stands, what needs the owner. Counts of what
+    happened cover the last 24 hours; zero counts and fixed schedule text are left out (/status and /coverage keep them)."""
+    since = now - dt.timedelta(days=1)
+    publication = read(ROOT / 'state/latest-publication.json', {}) or {}
+    published_at = aware(publication.get('publishedAt'))
+    fresh = publication.get('status') == 'published' and published_at is not None and published_at >= since
+    published = [line.removeprefix('• ').rstrip('.') for line in publication_lines(publication)] if fresh else []
+    text = f"QT Manager · Daily summary · {now.day} {now.strftime('%b')}"
+    text += _section('Published', published) if published else '\n\nNothing published in the last 24 hours.'
+    text += _section('Explore', guarded(explore_lines, []))
+    digest = guarded(lambda: menu_digest(since.isoformat()), '').strip()
+    text += '\n\n' + digest if digest else ''
     try:
         import staff_alerts
-        return staff_alerts.summary_line(state)
+        needs, done = staff_alerts.daily_items(state)
     except Exception:
-        return ''
+        needs, done = ["Admin: couldn't read the waiting list"], ''
+    failures = guarded(lambda: role_failures(since), {})
+    if failures:
+        needs.append('Bots failed: ' + ' · '.join(f"{role.removeprefix('qt-').title()} {n}×" for role, n in sorted(failures.items())))
+    needs += delivery_problems(state, since) + guarded(lambda: refused_requests(since), [])
+    text += _section('Needs you', needs) if needs else '\n\nNothing needs you.'
+    from night_window import usage
+    calls = guarded(lambda: f"AI calls this month: {usage(ROOT, read(ROOT / 'policy.json', {}))['used']:,}", '')
+    footer = [line for line in ([f'Chefs did: {done}'] if done else []) + [calls] if line]
+    return text + ('\n\n' + '\n'.join(footer) if footer else '')
 
 
-def cover_line():
+def guarded(part, fallback):
+    """One part of the daily summary; a part that fails is left out instead of stopping the whole message."""
+    try:
+        return part()
+    except Exception:
+        return fallback
+
+
+def aware(value):
+    """An ISO time as an aware datetime (a time without an offset is UTC, as the bots write them); None when unreadable."""
+    try:
+        when = dt.datetime.fromisoformat(str(value).replace('Z', '+00:00'))
+    except ValueError:
+        return None
+    return when if when.tzinfo else when.replace(tzinfo=dt.timezone.utc)
+
+
+def role_failures(since):
+    """{role: rounds that failed} in the 24 hours since `since`, from the run reports (a calendar day missed the late rounds)."""
+    found = {}
+    for folder in sorted((ROOT / 'runs').glob('2*'), reverse=True)[:150]:  # about a day and a half of 15-minute rounds
+        try:
+            started = dt.datetime.strptime(folder.name[:16], '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc)
+        except ValueError:
+            continue
+        if started < since:
+            break
+        report = read(folder / 'report.json', {}) or {}
+        # failedRoles: the role's own work failed, not a side problem it noted (5 Nov 2026); older reports only have errors.
+        roles = report['failedRoles'] if isinstance(report.get('failedRoles'), list) else             {str(e.get('role') or 'research') for e in report.get('errors') or [] if isinstance(e, dict)}
+        for role in roles:
+            found[str(role)] = found.get(str(role), 0) + 1
+    return found
+
+
+def refused_requests(since):
+    """Early warning: bot requests the app refused for load (app_signing.retrying). Day files older than a week are removed here."""
+    folder, gave_up, retried = ROOT / 'state' / 'app-throttle', 0, 0
+    for file in sorted(folder.glob('*.jsonl')) if folder.is_dir() else []:
+        if file.stem < (since - dt.timedelta(days=7)).strftime('%Y-%m-%d'):
+            file.unlink(missing_ok=True)
+            continue
+        for line in file.read_text(encoding='utf-8').splitlines():
+            try:
+                row = json.loads(line)
+            except ValueError:
+                continue
+            if isinstance(row, dict) and row.get('at', 0) >= since.timestamp():
+                gave_up += row.get('outcome') == 'gave-up'
+                retried += row.get('outcome') == 'retried'
+    if gave_up:
+        return [f"App busy: {gave_up} bot request{'s' if gave_up != 1 else ''} refused even after waiting"]
+    return [f'App busy: {retried} bot requests had to wait (all went through)'] if retried >= 50 else []
+
+
+def explore_lines():
+    lines = []
+    for module in ('veg_kitchen', 'veg_options'):  # Veg Kitchen, then Mixed Kitchen
+        try:
+            totals, _ = __import__(module).status(ROOT)
+        except Exception:
+            continue
+        if not totals:
+            continue
+        s, r = totals['byStatus'], totals['rechecks']
+        bits = [f"{s['published']:,} live", f"{s['pending']:,} to check", f"{s['in-review'] + s['verified']:,} in review",
+                f"{s['held']:,} held", f"{r['due']:,} rechecks due", f"{r['ownerPrompts']:,} waiting for Remove/Keep"]
+        lines.append(totals['label'] + ': ' + ' · '.join(b for b in bits if not b.startswith('0 ')))
+    from menu_coverage import month_totals
+    audits = month_totals(ROOT)
+    if audits['started']:
+        lines.append(f"Whole-menu audits: {audits['assessed']} of {len(read(ROOT / 'baseline.json', {}).get('venues', []))} places done, "
+                     f"{audits['verified']:,} dishes verified, {audits['held']:,} held")
     try:
         import cover_photos
+        from publisher import request as editorial_request
         try:
-            from publisher import request as editorial_request
-            live = editorial_request('GET', '/control/state')  # Mixed Kitchen places without a photo (once a day)
+            live = editorial_request('GET', '/control/state')  # places without a photo (once a day)
         except Exception:
             live = None
-        return cover_photos.summary_line(ROOT, read(ROOT / 'state/live-baseline.json', {}).get('venues', []), live)
+        venues, mixed, veg, waiting = cover_photos.missing_counts(ROOT, read(ROOT / 'state/live-baseline.json', {}).get('venues', []), live)
+        missing = [f'{veg} Veg' if veg else '', f'{mixed} Mixed' if mixed else '', f'{venues} other' if venues else '']
+        if any(missing):
+            lines.append('No cover: ' + ' · '.join(m for m in missing if m) + (f' ({waiting} waiting for your approval)' if waiting else ''))
     except Exception:
-        return ''
+        pass
+    return lines
+
+
+def delivery_problems(state, since):
+    """Telegram messages and publication screenshots that failed in the last 24 hours. Older ones stay in /status; the summary used
+    to repeat the same 4 messages and 20 screenshots from October every day (5 Nov 2026)."""
+    after, cutoff = since.timestamp(), since.astimezone(dt.timezone.utc).isoformat()  # createdAt is UTC (stamp)
+    sent = sum(v['status'] not in ('sent', 'pending', 'sending', 'suppressed') and v.get('createdAt', '') >= cutoff
+               for v in state.get('deliveries', {}).values())
+    # failedAt is recorded since 5 Nov 2026; an older failure is dated by its retry time, set 30 minutes after it failed.
+    shots = sum(not v.get('complete') and v.get('lastError') is not None and v.get('failedAt', v.get('nextAt', 0) - 1800) >= after
+                for v in state.get('visuals', {}).values())
+    bits = [f'{sent} message' + ('s' if sent != 1 else '') + " couldn't be confirmed" if sent else '',
+            f'{shots} screenshot' + ('s' if shots != 1 else '') + ' failed' if shots else '']
+    return ['Telegram: ' + ' · '.join(b for b in bits if b)] if any(bits) else []
 
 
 def menu_digest(since):
@@ -941,8 +1061,10 @@ def tick():
 
 
 if __name__ == '__main__':
+    import app_signing
     try:
-        tick()
+        with app_signing.budget(20):  # owner buttons and deliveries must not wait behind long retries
+            tick()
     except Exception as exc:
         print(json.dumps({'status': 'failed', 'errorType': type(exc).__name__}))
         raise SystemExit(1)

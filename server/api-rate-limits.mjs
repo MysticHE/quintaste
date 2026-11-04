@@ -6,8 +6,17 @@ export const apiRatePolicies = Object.freeze({
   accountRead: 300, accountWrite: 60, accountProvider: 20,
   guestRead: 600, guestWrite: 30, guestProvider: 10,
   accountSecurity: 10, guestSecurity: 10,
-  networkFlood: 12000, signIn: 10, signInAccount: 20, sensitiveAccount: 10,
+  networkFlood: 12000, signIn: 10, signInAccount: 20, sensitiveAccount: 10, signedBots: 600, unverifiedBots: 30,
 });
+// The QT bots all call from the VPS's one address. Their polling filled the guest write budget (30 a minute) every minute, so the
+// publisher's writes were refused (4 Nov 2026). Signed requests to any bot route (every `/api/<area>/bot` router and the editorial
+// control routes) get their own per-address budget; each router still verifies the signature, and a request whose signature fails
+// counts against a guest-sized budget, so made-up headers buy nothing. Unsigned requests stay on the guest budget.
+const botPaths = /^\/api\/(?:[a-z0-9-]+\/bot|editorial\/control)(?:\/|$)/;
+export function signedBotRequest(req) {
+  return botPaths.test(String(req.originalUrl).split('?')[0])
+    && /^\d{10}$/.test(req.get('X-QT-Time') ?? '') && /^[a-f0-9]{64}$/.test(req.get('X-QT-Signature') ?? '');
+}
 const context = Symbol('verified rate-limit principal');
 const authCookie = /(?:^|;\s*)(?:__Secure-)?quintaste\.session_token=/;
 const providerPaths = new Set(['/api/place-details', '/api/place-photo', '/api/location-search']);
@@ -97,6 +106,7 @@ export function createApiRateLimits({ pool, secret, resolveSession, logger }) {
     return req[context];
   }
   const general = guard(rateLimit({ ...base, windowMs: 60000, store: store('traffic'), requestPropertyName: 'apiQuota',
+    skip: signedBotRequest,
     keyGenerator: async req => (await principal(req)).key,
     limit: async req => (await principal(req)).limit,
     identifier: req => { const p = req[context]; return p.actor + '-' + p.kind; },
@@ -110,6 +120,15 @@ export function createApiRateLimits({ pool, secret, resolveSession, logger }) {
     // A shared network has a deliberately much higher flood ceiling than an individual account budget.
     network: rateLimit({ ...base, windowMs: 60000, limit: apiRatePolicies.networkFlood,
       requestPropertyName: 'networkQuota', identifier: 'network-flood' }),
+    signedBots: [
+      rateLimit({ ...base, windowMs: 60000, limit: apiRatePolicies.signedBots, skip: req => !signedBotRequest(req),
+        requestPropertyName: 'signedBotQuota', identifier: 'signed-bots' }),
+      // Kept only when the router answered 401 (a made-up signature); every other answer, an aborted request or an error is given
+      // back, so slow or dropped real bot requests never count toward it.
+      rateLimit({ ...base, windowMs: 60000, limit: apiRatePolicies.unverifiedBots, skip: req => !signedBotRequest(req),
+        skipFailedRequests: true, requestWasSuccessful: (_req, res) => res.statusCode === 401,
+        requestPropertyName: 'unverifiedBotQuota', identifier: 'unverified-bots' }),
+    ],
     general,
     signIn: strictIp('credential-sign-in', 60000, apiRatePolicies.signIn),
     // Per-username bucket (needs the parsed body): caps guessing against one account from many addresses.

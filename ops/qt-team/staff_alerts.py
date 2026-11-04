@@ -7,6 +7,7 @@ out at once; everything else at most hourly and not in quiet hours. Without the 
 from __future__ import annotations
 
 import datetime as dt
+import json
 from pathlib import Path
 
 from app_signing import ADMIN_ORIGIN as ADMIN
@@ -88,6 +89,10 @@ def check(state, root: Path, now=None, read=fetch):
     box = state.setdefault('staffAlerts', {'seen': {}})
     now = now or dt.datetime.now(dt.timezone.utc)
     try:
+        recovered_notices(state, root)
+    except Exception as exc:  # the notices wait for the next tick; urgent alerts below must still go out
+        print(json.dumps({'recoveredNotices': type(exc).__name__}), flush=True)
+    try:
         data = fetch(root,box.get('blockerAfter')) if read is fetch else read(root)
         found = queues(data)
     except Exception as exc:  # unreachable, refused or malformed: never mistaken for an empty queue
@@ -132,31 +137,57 @@ def check(state, root: Path, now=None, read=fetch):
             seen[name] = last
 
 
-def summary_line(state):
-    """One line for the daily summary, or '' before staff alerts are set up."""
+def recovered_notices(state, root: Path):
+    """One message per issue that closed by itself because its bot works again (bot_blockers.record). The log is taken over by a
+    rename, so lines the bots append meanwhile go to a new file and wait for the next tick."""
+    import re
     import telegram_reporter as t
+    import bot_blockers
+    log = bot_blockers.recovered_log(root)
+    taken = log.with_suffix('.sending')
+    if not taken.exists():
+        try:
+            log.replace(taken)
+        except FileNotFoundError:
+            return
+    for line in taken.read_text(encoding='utf-8').splitlines():
+        try:
+            row = json.loads(line)
+        except ValueError:
+            continue
+        case, scope = str(row.get('case', '')), str(row.get('scope', ''))
+        if re.fullmatch(r'[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}', case) and re.fullmatch(r'[a-z0-9-]{1,60}', scope):
+            t.enqueue(state, 'bot-recovered:' + case, 'QT Manager · ' + scope + ' is working again. Its issue closed by itself.',
+                      buttons=[[{'text': 'Open issue', 'url': ADMIN + '/console/cases?id=' + case}]])
+    taken.unlink()
+
+
+def daily_items(state):
+    """(needs-you bullets, chefs-done phrase) for the daily summary (owner, 5 Nov 2026: one compact message)."""
+    import telegram_reporter as t
+    import chef_work
     box = state.get('staffAlerts')
     if not box:
-        return ''
+        return [], ''
     if box.get('error'):
-        return "\nStaff alerts: can't read admin since " + t.singapore_time(box['failingSince']) + '.\n'
+        return ["Admin: can't read it since " + t.singapore_time(box['failingSince'])], ''
+    needs = []
     lines = waiting(box.get('counts', {}))
-    text = '\nWaiting for you in admin: ' + ' · '.join(lines) + '.\n' if lines else '\nNothing waiting for you in admin.\n'
-    chefs = chef_line(box.get('chefs'))
-    import chef_work
-    failed, stuck = chef_work.failures(t.ROOT), chef_work.stuck_items(t.ROOT)
-    broken = ('Chef lanes that failed today: ' + ', '.join(f'{lane} ({n})' for lane, n in sorted(failed.items())) + '.') if failed else ''
-    left = ("Items the chefs couldn't decide, left for you in admin: " + ', '.join(f'{lane} ({n})' for lane, n in sorted(stuck.items()))
-            + '.') if stuck else ''
-    return text + ''.join(line + '\n' for line in (chefs, broken, left) if line)
-
-
-def chef_line(chefs):
-    """What each chef lane did in the last 24 hours, e.g. 'Chefs today: Ingredients 6 done, 1 waiting for you.'"""
-    parts = []
-    for lane, c in sorted((chefs or {}).items()):
-        bits = [f"{c[k]} {label}" for k, label in (('handled', 'done'), ('asked', 'waiting for you'), ('watched', 'watched'),
-                                                    ('failed', "couldn't apply")) if isinstance(c.get(k), int) and c[k] > 0]
-        if bits:
-            parts.append(lane + ' ' + ', '.join(bits))
-    return 'Chefs today: ' + '; '.join(parts) + '.' if parts else ''
+    if lines:
+        needs.append('Admin: ' + ' · '.join(lines))
+    chefs = {lane: c for lane, c in (box.get('chefs') or {}).items() if isinstance(c, dict)}
+    count = lambda c, k: c[k] if isinstance(c.get(k), int) and c[k] > 0 else 0
+    asked = [f'{lane} {count(c, "asked")}' for lane, c in sorted(chefs.items()) if count(c, 'asked')]
+    stuck = [f'{lane} {n}' for lane, n in sorted(chef_work.stuck_items(t.ROOT).items())]
+    if asked or stuck:
+        needs.append('Chefs: ' + ' · '.join(asked + stuck))
+    broken = [f'{lane} {n}×' for lane, n in sorted(chef_work.failures(t.ROOT).items())]
+    if broken:
+        needs.append('Chef lanes failed: ' + ' · '.join(broken))
+    unapplied = [f'{lane} {count(c, "failed")}' for lane, c in sorted(chefs.items()) if count(c, 'failed')]
+    if unapplied:
+        needs.append("Chefs couldn't apply: " + ' · '.join(unapplied))
+    # Watch lanes only record what they would do, so the owner can judge them before switching them On.
+    done = ' · '.join(lane + ' ' + ', '.join(bits) for lane, c in sorted(chefs.items())
+                      if (bits := [f'{count(c, k)}' + label for k, label in (('handled', ''), ('watched', ' watched')) if count(c, k)]))
+    return needs, done

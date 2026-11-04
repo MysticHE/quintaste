@@ -586,7 +586,7 @@ def status(root, task=None):
     t = _task(task)
     if not (t.folder(root) / 'queue.json').is_file():
         return None, ''
-    totals = counts(t.progress(root), {c['candidateId'] for c in t.queue(root)})
+    totals = dict(counts(t.progress(root), {c['candidateId'] for c in t.queue(root)}), label=t.LABEL)
     s, r = totals['byStatus'], totals['rechecks']
     line = (f"{t.LABEL}: {s['published']} in Explore, {s['pending']} not yet checked, {s['in-review'] + s['verified']} in review, "
             f"{s['held']} held, {s['not-qualified']} not qualified; {r['due']} monthly recheck(s) due"

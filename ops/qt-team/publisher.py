@@ -3,7 +3,6 @@ from __future__ import annotations
 import base64
 import datetime as dt
 import hashlib
-import hmac
 import json
 import os
 from pathlib import Path
@@ -40,16 +39,8 @@ def request(method, route, data=None):
     raw = js_json(data).encode() if data is not None else b''
     if len(raw) > 2_000_000:
         raise ValueError('Publication exceeds packet limit')
-    stamp = str(int(time.time()))
-    secret = (ROOT / 'private/publisher.key').read_text().strip()
-    signature = hmac.new(secret.encode(), (stamp + '\n' + method + '\n' + route + '\n' + hashlib.sha256(raw).hexdigest()).encode(), hashlib.sha256).hexdigest()
-    req = urllib.request.Request(ORIGIN + '/api/editorial' + route, data=raw if method == 'POST' else None, method=method,
-        headers={'Content-Type': 'application/json', 'X-QT-Time': stamp, 'X-QT-Signature': signature})
-    # No redirects: the signing secret/header must never follow a redirect.
-    class NoRedirect(urllib.request.HTTPRedirectHandler):
-        def redirect_request(self, *args, **kwargs):
-            return None
-    with urllib.request.build_opener(NoRedirect).open(req, timeout=30) as response:
+    from app_signing import open_signed  # shared signer: no redirects, and waits out the app's "too many requests" (5 Nov 2026)
+    with open_signed(ROOT, method, '/api/editorial' + route, raw, 30, origin=ORIGIN, signed_path=route) as response:
         raw = response.read(2_000_001)
         if len(raw) > 2_000_000:
             raise ValueError('Publication state too large')
