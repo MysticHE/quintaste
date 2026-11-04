@@ -15,6 +15,28 @@ export async function liveContext(id) {
   const menu=data?.venues?.[0]??null;
   return {venue,menu,hash:digest({venue,menu})};
 }
+/** Opening hours as CatalogueHours, with the captured public source they came from. */
+export function checkHours(v) {
+  if(!v || typeof v.summary!=='string'||v.summary.length>500||!Array.isArray(v.schedule)||v.schedule.length>7||!v.schedule.length||
+    v.schedule.some(s=>typeof s!=='string'||s.length>300)||v.timezone!=='Asia/Singapore'||!publicSource(v.sourceUrl)||!/^\d{4}-\d{2}-\d{2}/.test(v.checkedAt ?? '')||typeof v.notes!=='string'||v.notes.length>1000)
+    throw new CommunityError(400,'Check the supported opening hours.');
+  return v;
+}
+/** A Singapore public phone number with its source, in the listing's contact shape. */
+export function checkContact(v) {
+  if(!v||typeof v.phone!=='string'||! /^(?:\+65[ -]?)?[3689]\d{3}[ -]?\d{4}$|^1800[ -]?\d{3}[ -]?\d{4}$/.test(v.phone)||!publicSource(v.sourceUrl)||!/^\d{4}-\d{2}-\d{2}/.test(v.checkedAt??''))
+    throw new CommunityError(400,'Check the public contact number.');
+  return {phone:v.phone,source:'research',sourceUrl:v.sourceUrl,checkedAt:v.checkedAt};
+}
+/** Pandan's sources, each a public page the bridge actually captured (its hash), quoted exactly; eight at most. */
+export function checkSources(sources) {
+  if(!Array.isArray(sources)||!sources.length||sources.some(s=>!publicSource(s?.url)||typeof s.quote!=='string'||s.quote.length<8||!/^\d{4}-\d{2}-\d{2}/.test(s.checkedAt ?? '')))
+    throw new CommunityError(400,'Captured source evidence is required.');
+  if(sources.some(s=>!s.captureHash || !/^[a-f0-9]{64}$/.test(s.captureHash))) throw new CommunityError(400,'Source captures must be retained.');
+  if(sources.length>8)throw new CommunityError(400,'Use up to eight focused sources.');
+  if(sources.some(s=>s.url.length>1000||s.quote.length>4000||(s.excerpt??'').length>24000))throw new CommunityError(400,'Use bounded source evidence.');
+  return sources;
+}
 export function validateProposal(p,before) {
   if(!p || p.decision!=='propose' || !before?.venue || p.beforeHash!==before.hash || !Array.isArray(p.changes)||!p.changes.length||p.changes.length>20)
     throw new CommunityError(400,'A version-bound correction is required.');
@@ -22,17 +44,9 @@ export function validateProposal(p,before) {
   for(const c of p.changes) {
     const key=c.field+':'+(c.sectionId??'')+':'+(c.itemId??'');
     if(seen.has(key)) throw new CommunityError(400,'Repeated field.'); seen.add(key);
-    if(c.field==='hours') {
-      const v=c.value;
-      if(!v || typeof v.summary!=='string'||v.summary.length>500||!Array.isArray(v.schedule)||v.schedule.length>7||!v.schedule.length||
-        v.schedule.some(s=>typeof s!=='string'||s.length>300)||v.timezone!=='Asia/Singapore'||!publicSource(v.sourceUrl)||!/^\d{4}-\d{2}-\d{2}/.test(v.checkedAt ?? '')||typeof v.notes!=='string'||v.notes.length>1000)
-        throw new CommunityError(400,'Check the supported opening hours.');
-    } else if(c.field==='contact') {
-      const v=c.value;
-      if(!v||typeof v.phone!=='string'||! /^(?:\+65[ -]?)?[3689]\d{3}[ -]?\d{4}$|^1800[ -]?\d{3}[ -]?\d{4}$/.test(v.phone)||!publicSource(v.sourceUrl)||!/^\d{4}-\d{2}-\d{2}/.test(v.checkedAt??''))
-        throw new CommunityError(400,'Check the public contact number.');
-      c.value={phone:v.phone,source:'research',sourceUrl:v.sourceUrl,checkedAt:v.checkedAt};
-    } else if(c.field==='price') {
+    if(c.field==='hours') checkHours(c.value);
+    else if(c.field==='contact') c.value=checkContact(c.value);
+    else if(c.field==='price') {
       const section=before.menu?.sections?.find(s=>s.id===c.sectionId), item=section?.items?.find(i=>i.id===c.itemId);
       const v=c.value;
       if(!item||section.id==='staff'||c.itemName!==item.name||c.channel!==section.scope||!v||v.currency!=='SGD'||v.amount===null||typeof v.amount!=='number'||!Number.isFinite(v.amount)||v.amount<0||v.amount>10000||typeof v.label!=='string'||v.label.length>120)

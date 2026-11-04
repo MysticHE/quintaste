@@ -672,7 +672,7 @@ def identity_key(name, postal):
 
 # Owner, 24 Oct 2026: an exact name and postcode missed "Verimix Vegetarian" beside "Verimix Vegetarian - Le Quest Mall", so a place
 # is one listing when it shares the postcode and the unit, or (a unit missing) the name once branch text and generic words are set
-# aside. Twin of samePlace in admin/src/lib/place-identity.ts: keep both identical. identity_key stays the owner-removal key.
+# aside. Twin of samePlace in admin/src/lib/place-identity.mjs: keep both identical. identity_key stays the owner-removal key.
 GENERIC_NAME_WORDS = frozenset({'vegetarian', 'vegan', 'veggie', 'veg', 'food', 'foods', 'stall', 'the', 'and', 'singapore', 'pte', 'ltd'})
 UNIT = re.compile(r'#\s*(B?\d{1,2})\s*-\s*(\d{1,4}[A-Z]?)', re.I)
 BRACKETED = re.compile(r'[(\[\uff08\u3010][^)\]\uff09\u3011]*[)\]\uff09\u3011]')

@@ -97,11 +97,13 @@ export function ExploreScreen() {
         {accepted && !discovery.busy && !venues.length && !filters.openNow && discovery.mixed && <View style={common.stack}>
           <T variant="subtitle" accessibilityRole="header">{t("noMixedHere")}</T>
           {!!wider && <Button label={t("widenArea")} variant="secondary" onPress={() => { void discovery.setRadius(wider); }} />}
-          <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
+          <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} />
+          <Button label={t("suggestPlace")} variant="link" onPress={() => router.push("/suggest-place")} /></View>}
         {accepted && !discovery.busy && !venues.length && !filters.openNow && !discovery.mixed && <View style={common.stack}>
           <T variant="subtitle" accessibilityRole="header">{t("noPublishedMatch")}</T>
           <T muted>{t("tryWider")}</T>
-          <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} /></View>}
+          <Button label={t("editFilters")} variant="secondary" onPress={() => router.push("/explore-search")} />
+          <Button label={t("suggestPlace")} variant="link" onPress={() => router.push("/suggest-place")} /></View>}
         {!!mixedCount && <LinkRow label={t("mixedNearby", { n: mixedCount })}
           icon="arrow-forward" hint={t("mixedNearbyHint")} onPress={() => discovery.setMixed(true)} />}
       </View> : undefined} />

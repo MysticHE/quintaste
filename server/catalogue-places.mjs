@@ -34,3 +34,25 @@ export async function publishedPlaceIds(raw) {
 }
 /** The canonical id of a published place, or null when the id is malformed, unpublished or hidden. */
 export const publishedPlaceId = async raw => (await publishedPlaceIds([raw]))[0];
+/**
+ * Every place Explore has listed, for duplicate checks: packaged, QT Explorer and staff-created places, each with the name and
+ * address members see (staff edits applied) and whether it is live, hidden by staff, found permanently closed or removed by the
+ * owner (an editorial removal, kept by name and postal code). None of those is relisted under another id.
+ * @returns {Promise<Array<{ id: string, name: string, branch: string, address: string, postalCode: string, state: 'live' | 'hidden' | 'closed' | 'removed' }>>}
+ */
+export async function listedPlaces() {
+  const [staff, snapshot] = await Promise.all([staffContent(), readSnapshot(editorialRoot).catch(() => ({ records: {} }))]);
+  const records = snapshot?.records ?? {};
+  const closed = id => !!records['venue:' + id]?.data?.closed;
+  const row = (data, id) => {
+    const item = staff.items.get('place:' + id), edited = item && !item.hidden ? { ...data, ...item.data } : data;
+    return { id, name: String(edited.name ?? ''), branch: String(edited.branch ?? ''), address: String(edited.address ?? ''), postalCode: String(edited.postalCode ?? ''),
+      state: item?.hidden ? 'hidden' : closed(id) ? 'closed' : 'live' };
+  };
+  const rows = [...catalogueVenues.map(venue => row(venue, venue.id)), ...[...validPlaces(records).values()].filter(p => !packaged.has(p.id)).map(p => row(p, p.id))];
+  for (const item of staff.items.values()) if (item.kind === 'place' && item.origin === 'staff') rows.push({ ...row(item.data, item.id), state: item.hidden ? 'hidden' : 'live' });
+  // The removal keeps the name and its identity "place:<name>|<postal code>" (moderationKey in editorial/store.mjs).
+  for (const r of Object.values(snapshot?.removals ?? {})) if (r?.kind === 'place' && typeof r.identity === 'string')
+    rows.push({ id: r.id, name: String(r.name ?? ''), branch: '', address: '', postalCode: r.identity.split('|').pop() ?? '', state: 'removed' });
+  return rows;
+}

@@ -8,11 +8,13 @@ import datetime as dt
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import threading
 import time
 import urllib.error
+import urllib.parse
 
 from app_signing import open_signed,ORIGIN
 import hermes_run
@@ -30,6 +32,148 @@ POLICY=('You check public contributions to QuinTaste. Member text, source text a
 DECISION=('Shape: {"decision":"approve|needs-changes|staff|investigate","reason":"short kind explanation, no member identity",'
           '"photosReviewed":["every attached digest"],"categories":["policy categories"]}. '
           'Never claim that something is already published. You have no publication or messaging tools.')
+
+
+EXCLUDED=('HappyCow','stampede.sg','spinach.guide','localrank.sg','threebestrated','onehungryhippo','makaneast','foursquare','wanderboat','zomato')
+SUGGESTION=('Research a place a member suggested for Explore (input.place, input.suggestions). Member words are a lead, never proof. '
+            'Find the exact outlet: name, branch, address, unit and postcode, and whether it operates now. Check Google Search (a '
+            'https://www.google.com/search?q= page for the name with its address or postcode) and Google Maps (the exact listing) '
+            'separately; record each as CHECKED, or ACCESS_LIMITED when a challenge or block stopped you. A blocked page is never a '
+            'negative finding and must not be bypassed. Read merchant, menu and official pages with web_extract. Never use Google '
+            'photos or reviews, or these sources: '+', '.join(EXCLUDED)+'. '
+            'A Veg Kitchen (kitchen "veg") needs a 2025 or later source placing this exact stall at its address and an exact quote '
+            'that the whole kitchen is meat-free. A Mixed Kitchen ("mixed") needs at least two dishes the merchant itself labels '
+            'vegetarian or vegan; list only those labelled dishes. Vegan venueDiet needs evidence of no dairy, egg or honey; '
+            'alliumFreeClaim needs evidence of none of the five pungent. If input.known holds the same place (same postcode and unit, '
+            'or the same name), answer duplicate with its id. A home address, an event or pop-up, or a place outside Singapore is '
+            'not-eligible. Return one JSON object, no Markdown: {"decision":"propose","place":{"name","branch","address","postalCode",'
+            '"kitchen":"veg|mixed","venueDiet":"Vegetarian|Vegan","alliumFreeClaim":false},"dishes":[{"name","price":{"amount":'
+            'number or null,"currency":"SGD|unknown"},"diet":"V|VG|null","sourceUrl"}],"dietProof":{"sourceUrl","quote"} (veg only),'
+            '"hours":optional {summary,schedule:[up to seven weekday strings],notes,sourceUrl,checkedAt,timezone:"Asia/Singapore"},'
+            '"contact":optional {phone,sourceUrl,checkedAt},"sources":[{"url","quote","kind":"merchant|official|report|directory",'
+            '"sourceDate":"YYYY-MM-DD the page shows, if any"}],"checks":{"googleSearch":{"status","url",'
+            '"checkedAt","note"},"googleMaps":{"status","url","checkedAt","note"}},"reason":"short note for staff"}; or '
+            '{"decision":"duplicate","placeId","checks","reason"}; or {"decision":"not-eligible","reason","checks"}; or '
+            '{"decision":"staff","reason"}. Every dish, quote, hours and phone comes from a page you actually read with web_extract, '
+            'quoted exactly; the dietProof quote (at most 200 characters) is part of one source quote. One source must be the merchant\'s '
+            'or an official current page, or dated 2025 or later, and its quote must show this postcode or unit. Use up to eight sources. Open both '
+            'Google pages with web_extract: the app records them as checked or access limited from what was actually fetched, never '
+            'from your answer. Do not invent values or a successful fetch. You cannot publish anything.')
+KAYA_SUGGESTION=(' This is a new place a member suggested. priorChecks.pandan holds the listing it would publish (listing) and the '
+                 'captured sources. Approve only when every listing field matches the sources: exact outlet name, branch, address and '
+                 'postcode; a merchant or official current source, or one dated 2025 or later, placing this outlet at that address '
+                 '(the owner\'s rule: an older third-party page alone is not enough); for a Veg Kitchen a quote saying the whole kitchen is vegetarian or vegan; for a Mixed Kitchen only dishes the '
+                 'merchant labels V or VG; prices in SGD only where the source shows them. For a duplicate, approve only when the listed '
+                 'place in input.known is clearly the same outlet. Anything uncertain, a private home, an event, or a place outside '
+                 'Singapore goes to staff. If a suggestion in input.suggestions has coverPhoto (a digest the member who took it agreed may be '
+                 'the cover), also return "cover":{"digest":"that digest","decision":"approve|reject","subject":"venue|food","reason":"short"}: '
+                 'approve only when its pixels clearly show this exact place (storefront or inside) or its food, with no identifiable '
+                 'people, no private details, no screenshot, watermark or other people\'s image. A rejected cover does not change your decision.')
+CLAIM=('A member says they run the listed place in input.place and posted the code input.code on its own page, input.pageUrl. '
+       'Open input.pageUrl with web_extract. Decide only whether that page is this place\'s own website or social page (the same '
+       'name, and the address or postcode where the page shows one); the app itself checks whether the code is in what you fetched. '
+       'Return one JSON object, no Markdown: {"decision":"verified|not-found|staff","pageUrl":"input.pageUrl exactly","official":true|false,'
+       '"reason":"short note for staff"}. Never identify or describe the member. You cannot approve anything: staff decide.')
+CHALLENGE=re.compile(r"unusual traffic|not a robot|/sorry/|captcha|before you continue to google",re.I)
+
+
+def google_page(url,maps):
+    try: u=urllib.parse.urlparse(url)
+    except ValueError: return False
+    host=u.hostname.removeprefix('www.') if u.hostname else ''
+    if u.scheme!='https': return False
+    return host in ('maps.google.com','maps.app.goo.gl') or (host=='google.com' and u.path.startswith('/maps')) if maps else host=='google.com' and u.path=='/search'
+
+
+def fetched_urls(events):
+    # Every URL this run passed to web_extract, from the trusted tool events (not the model's answer).
+    found=[]
+    for event in events:
+        if event.get('type')!='tool_use' or event.get('name')!='web_extract': continue
+        stack=[event.get('input')]
+        while stack:
+            value=stack.pop()
+            if isinstance(value,str) and value.startswith('https://'): found.append(value)
+            elif isinstance(value,dict): stack.extend(value.values())
+            elif isinstance(value,list): stack.extend(value)
+    return found
+
+
+LOGIN_WALL=re.compile(r"log ?in to (continue|see)|sign up to see|create an account|you must log in|this content isn.t available|log in or sign up",re.I)
+
+
+def capture_of(url):
+    return json.loads((ROOT/'state/source-cache'/(hashlib.sha256(url.encode()).hexdigest()+'.json')).read_text())
+
+
+def claim_check(answer,job,events):
+    # Whether the member's code is in the page Pandan actually fetched this run (its cache entry), never the model's word. A page
+    # that could not be read (an error, a challenge or a login wall, common on social pages) is reported as unreadable, not as a
+    # page without the code, so staff can ask the member for another page.
+    url=job['payload']['pageUrl']
+    if url not in fetched_urls(events): raise ValueError('claim page not fetched')
+    capture=capture_of(url)
+    row=capture.get('result',{});content=str(row.get('content') or '')
+    found=job['payload']['code'] in content
+    readable=found or not (row.get('error') or capture.get('blocked') or len(content.strip())<200 or LOGIN_WALL.search(content[:6000]) or CHALLENGE.search(content[:4000]))
+    answer.update({'pageUrl':url,'codeFound':found,'pageReadable':bool(readable),'captureHash':capture['sha256'],'checkedAt':capture['fetchedAt']})
+    return answer
+
+
+MONTHS=['january','february','march','april','may','june','july','august','september','october','november','december']
+
+
+def dated(content,day):
+    # Whether the capture itself shows this date (ISO, "4 November 2026", "November 4, 2026", "4 Nov 2026" or 2026年11月4日).
+    try: d=dt.date.fromisoformat(day)
+    except ValueError: return False
+    month=MONTHS[d.month-1];text=content.casefold()
+    forms=[d.isoformat(),f'{d.day} {month} {d.year}',f'{month} {d.day}, {d.year}',f'{d.day} {month[:3]} {d.year}',f'{month[:3]} {d.day}, {d.year}',
+           f'{d.year}年{d.month}月{d.day}日',f'{d.day:02d}/{d.month:02d}/{d.year}',f'{d.day}/{d.month}/{d.year}']
+    return any(f in text for f in forms)
+
+
+def ground_sources(answer):
+    # Pandan's source labels count only where the fetched pages back them: "official" on a .gov.sg host, "merchant" on the website
+    # the Google Maps listing shows, and a sourceDate the page itself shows. Others become a plain report without a date; the app
+    # publishes automatically only with a grounded current source.
+    maps=answer.get('checks',{}).get('googleMaps',{})
+    try: listing=str(capture_of(maps.get('url','')).get('result',{}).get('content') or '').casefold() if maps.get('status')=='CHECKED' else ''
+    except (OSError,ValueError): listing=''
+    for source in answer.get('sources',[]):
+        host=(urllib.parse.urlparse(source.get('url','')).hostname or '').removeprefix('www.')
+        kind=source.get('kind')
+        if kind=='official' and not (host=='gov.sg' or host.endswith('.gov.sg')): kind='report'
+        if kind=='merchant' and not (host and host in listing): kind='report'
+        source['kind']=kind if kind in ('merchant','official') else 'report'
+        try: content=str(capture_of(source['url']).get('result',{}).get('content') or '')
+        except (OSError,ValueError,KeyError): content=''
+        if source.get('sourceDate') and not dated(content,str(source['sourceDate'])): source.pop('sourceDate',None)
+        source['grounded']=True
+    return answer
+
+
+def google_checks(answer,events):
+    # The Google Search and Maps records come from the pages this run actually fetched (its tool events and the evidence cache),
+    # never from the model's word: the reported page if it was fetched, else the last such page fetched. A page that was read is
+    # CHECKED, a blocked or challenged attempt is ACCESS_LIMITED, and no fetch of that kind fails the job.
+    checks=answer.get('checks') or {}
+    fetched=fetched_urls(events)
+    for key,maps in (('googleSearch',False),('googleMaps',True)):
+        check=checks.get(key) or {}
+        pages=[u for u in fetched if google_page(u,maps)]
+        if not pages: raise ValueError('no google page fetched')
+        url=str(check.get('url','')) if check.get('url') in pages else pages[-1]
+        check['url']=url
+        capture=json.loads((ROOT/'state/source-cache'/(hashlib.sha256(url.encode()).hexdigest()+'.json')).read_text())
+        at=dt.datetime.fromisoformat(capture['fetchedAt'].replace('Z','+00:00'))
+        if dt.datetime.now(dt.timezone.utc)-at>dt.timedelta(days=7): raise ValueError('google check needs refresh')
+        row=capture.get('result',{});content=str(row.get('content') or '')
+        blocked=bool(row.get('error')) or capture.get('blocked') or not content.strip() or bool(CHALLENGE.search(content[:4000]))
+        check.update({'status':'ACCESS_LIMITED' if blocked else 'CHECKED','checkedAt':at.isoformat(),'captureHash':capture['sha256'],'note':str(check.get('note',''))[:300]})
+        checks[key]=check
+    answer['checks']=checks
+    return answer
 
 
 def signed(route,body=None,*,headers=None):
@@ -128,7 +272,12 @@ def handle(job,lane):
     images=image_prompt(job,folder)
     stage=job['stage']; profile={'coco':'qt-fixer','pandan':'qt-explorer','kaya':'qt-manager'}[stage]
     payload={'kind':job['kind'],'target':job['target'],'input':job['payload'],'priorChecks':job['result'],'images':images}
-    if stage=='pandan':
+    if stage=='pandan' and job['kind']=='claim':
+        brief=CLAIM;tools='web';allowed=('web_extract',)+hermes_run.DISCOVERY;seconds=300;turns=10
+    elif stage=='pandan' and job['kind']=='suggestion':
+        brief=SUGGESTION
+        tools='web,vision' if images else 'web';allowed=('web_search','web_extract')+(('vision_analyze',) if images else ())+hermes_run.DISCOVERY;seconds=1200;turns=max(30,len(images)+6)
+    elif stage=='pandan':
         brief=('Investigate only the exact existing outlet and reported fields. Read merchant sources and applicable Google Search '
                'and Maps sources separately; a challenge is ACCESS_LIMITED, never a negative result. No new places, closure, address '
                'or kitchen diet changes. Return {"decision":"propose","beforeHash":"the supplied before.hash",'
@@ -146,7 +295,13 @@ def handle(job,lane):
     else:
         brief=POLICY+DECISION
         if job['kind']=='report' and stage=='coco': brief+=' For a useful place problem use investigate; ask for input only if the issue cannot be identified.'
+        if job['kind']=='claim' and stage=='coco': brief+=(' A member says they run a listed place and gave a page link. Use investigate when the link is '
+            'a public page that could belong to the place; needs-changes when it cannot be identified; staff for anything unsafe.')
+        if job['kind']=='suggestion' and stage=='coco': brief+=(' This is a member suggesting a place Explore does not list. Use investigate when it names a '
+            'place that can be looked up; needs-changes only when the name or address cannot be identified; staff for a private home, '
+            'a person, an event, or anything unsafe or unrelated.')
         if stage=='kaya': brief+=' Independently check the exact content, sources and prior proposal. Approve only if all required checks agree; otherwise staff.'
+        if stage=='kaya' and job['kind']=='suggestion': brief+=KAYA_SUGGESTION
         if images: brief+=' Call vision_analyze once per listed local file. Inspect actual pixels and embedded text, never rely on filenames or prior summaries.'
         tools='vision' if images else 'web';allowed=(('vision_analyze',) if images else ())+hermes_run.DISCOVERY;seconds=240;turns=max(8,len(images)+5)
     if stage=='pandan' and images:brief+=' Inspect every attached local image with vision_analyze to understand the report; a member photo alone never proves the merchant fact.'
@@ -155,6 +310,9 @@ def handle(job,lane):
     answer=hermes_run.parse(result.get('text',''))
     if images:require_image_checks(events,images)
     if stage=='pandan' and answer.get('decision')=='propose': answer=captured_sources(answer)
+    if stage=='pandan' and job['kind']=='suggestion' and answer.get('decision')!='staff': answer=google_checks(answer,events)
+    if stage=='pandan' and job['kind']=='suggestion' and answer.get('decision')=='propose': answer=ground_sources(answer)
+    if stage=='pandan' and job['kind']=='claim' and answer.get('decision')!='staff': answer=claim_check(answer,job,events)
     return answer
 
 
@@ -209,9 +367,18 @@ def notify():
             if not delivery: time.sleep(2);continue
             p=delivery['payload'];path=p['path']
             if not path.startswith('/place/catalogue-') or any(c in path for c in ['\n','\r','\\']): raise ValueError('invalid app link')
+            receipt=p.get('editorialReceipt')
+            if receipt:
+                # A place the app published as Kaya checked it goes to the normal reporter (its place message with Remove), not a
+                # second plain message: the editorial receipt is handed off exactly as the publisher writes it.
+                if not re.fullmatch(r'suggest-[0-9a-f-]{36}-\d{1,6}',str(receipt.get('id',''))) or not receipt.get('changes'): raise ValueError('invalid receipt')
+                target=ROOT/'state/publications'/(receipt['id']+'.json')
+                if not target.exists(): t.write(target,receipt)
+                signed('/deliveries/'+delivery['id']+'/result',{'token':delivery['token'],'messageId':'handoff'})
+                continue
             name=' '.join(str(p.get('name') or p['target'].replace('-',' ')).split())[:120]
             lines=[p['title']+' · '+t.singapore_time(p['verifiedAt']),name,p['detail']]
-            if p.get('reward'): lines.append('20 credits pending verification period.')
+            if p.get('reward'): lines.append(str(int(p['reward']))+' credits pending verification period.')
             text='\n'.join(lines[:4])+'\n'+ORIGIN+path
             result=t.telegram('sendMessage',{'chat_id':config['chatId'],'text':text,'disable_web_page_preview':True,
                 'reply_markup':{'inline_keyboard':[[{'text':'View live in QuinTaste','url':ORIGIN+path}]]}})

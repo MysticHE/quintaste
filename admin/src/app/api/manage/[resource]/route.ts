@@ -14,6 +14,8 @@ import { photoCheck, photoCheckAction, photoCheckImage, photoChecks, teacher, te
 import { chefDecisions, staffChefAction } from '../../../../lib/chefs';
 import { collection, collectionAction } from '../../../../lib/collection';
 import { foodDetail } from '../../../../lib/food-review';
+import { decideSuggestion, suggestionDetail, suggestionList, suggestionPhoto } from '../../../../lib/place-suggestions';
+import { claimDetail, claimList, decideClaim } from '../../../../lib/place-claims';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -24,6 +26,9 @@ export function GET(request: Request, context: Context) { return route(async () 
   if(resource==='food-review')return json(await foodDetail(member,text(params.get('id'),'food review',36)));
   if(resource==='food-review-photo')return new Response(new Uint8Array(await foodDetail(member,text(params.get('id'),'food review',36),text(params.get('slot'),'photo slot',30)) as Buffer),{headers:{'Content-Type':'image/jpeg','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'}});
   if (resource === 'overview') return json(await overview(member));
+  if (resource === 'place-claims') return json(params.has('id') ? await claimDetail(member, text(params.get('id'),'owner check',36)) : await claimList(member, params.get('view') || ''));
+  if (resource === 'place-suggestions') return json(params.has('id') ? await suggestionDetail(member, text(params.get('id'),'suggestion',36)) : await suggestionList(member, params.get('view') || ''));
+  if (resource === 'place-suggestion-photo') return new Response(new Uint8Array(await suggestionPhoto(member, text(params.get('id'),'suggestion',36), text(params.get('photo'),'photo',36))), { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
   if (resource === 'accounts') return json(await accounts(member, params.get('q') || ''));
   if (resource === 'collection') return json(await collection(member, params.get('id')));
   if (resource === 'cases') return json(params.has('id') ? await caseDetails(member, text(params.get('id'),'case id',36)) : await caseList(member, params.get('status') || '', offset(params.get('page'))));
@@ -70,6 +75,8 @@ export function POST(request: Request, context: Context) { return route(async ()
   if (resource === 'collection') return json(await collectionAction(member,input));
   if (resource === 'cases') return json(input.id ? await updateCase(member,input,reason) : await createCase(member,input,reason));
   if(resource==='explore-review')return json(await decideExplore(member,input,reason));
+  if (resource === 'place-suggestions') return json(await decideSuggestion(member,input,reason));
+  if (resource === 'place-claims') return json(await decideClaim(member,input,reason));
   if (resource === 'sellers') return json(await sellerAction(member,input,reason));
   if (resource === 'photo-checks') return json(await photoCheckAction(member,input,reason));
   if (resource === 'teachers') return json(await teacherAction(member,input,reason));

@@ -71,17 +71,21 @@ export async function placeFields(input: Record<string, unknown>, base: Place | 
 /** Owner, 24 Oct 2026: a new place that Explore already lists (samePlace: same postal code and unit, or same name) is refused
  * unless staff confirm it is a different place, so the same branch is not listed twice under a staff id. Hidden and closed places
  * are not listed, matching the bots (live_places in ops/qt-team/veg_options.py). */
-export async function refuseListed(fields: { name: string; address: string; postalCode: string }) {
+/** Every place Explore has listed, with the name and address members see and whether it is live, hidden by staff or closed. */
+export async function listedPlaces() {
   const [base, closed, rows] = await Promise.all([packagedPlaces(), closedPlaces(), staffRows('place')]);
   const staff = new Map(rows.map(row => [row.id, row]));
-  const listed = [...base.flatMap(({ data }) => {
+  return [...base.map(({ data }) => {
     const row = staff.get(data.id), patch = (row?.data ?? {}) as Patch;
-    return row?.hidden || closed.has(data.id) ? [] : [{ id: data.id, name: patch.name ?? data.name, address: patch.address ?? data.address, postalCode: patch.postalCode ?? data.postalCode }];
-  }), ...rows.filter(row => row.origin === 'staff' && !row.hidden).map(row => {
+    return { id: data.id, name: patch.name ?? data.name, branch: patch.branch ?? data.branch, address: patch.address ?? data.address, postalCode: patch.postalCode ?? data.postalCode,
+      state: row?.hidden ? 'hidden' as const : closed.has(data.id) ? 'closed' as const : 'live' as const };
+  }), ...rows.filter(row => row.origin === 'staff').map(row => {
     const data = row.data as Patch;
-    return { id: row.id, name: data.name ?? '', address: data.address ?? '', postalCode: data.postalCode ?? '' };
+    return { id: row.id, name: data.name ?? '', branch: data.branch ?? '', address: data.address ?? '', postalCode: data.postalCode ?? '', state: row.hidden ? 'hidden' as const : 'live' as const };
   })];
-  for (const place of listed) {
+}
+export async function refuseListed(fields: { name: string; address: string; postalCode: string }) {
+  for (const place of (await listedPlaces()).filter(p => p.state === 'live')) {
     const why = samePlace(fields, place);
     if (why) throw new HttpError(409, `${place.name} (${place.address}) is already listed with the ${why === 'same unit' ? 'same unit' : 'same name'} at this postal code. `
       + 'Edit that place instead, or tick "Different place at this address" to add this one.');

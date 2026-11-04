@@ -27,6 +27,9 @@ export const EVERYDAY = {
 };
 /** Verified place corrections are paid by the resident Explore worker; Collection only shows their progress. */
 export const CORRECTION_REWARD = { credits: 20, limit: 3, hours: 24, kind: 'explore_fix' };
+/** A new place a member suggested, paid to its first suggester (not someone who works there) a week after it went live, if still listed.
+ * Suggestions are already limited to three a day, so there is no separate daily cap. */
+export const SUGGESTION_REWARD = { credits: 50, hours: 168, kind: 'explore_place' };
 /** A review counts with a rating and at least this many characters of text. */
 export const REVIEW_MIN_CHARS = 40;
 /** Hours before a review or a cooked photo pays, so staff can hide it first. */

@@ -27,7 +27,7 @@ export async function readSnapshot(root) {
 const staleLockMs = 10 * 60000;
 // A recipe publishes with its cover and one photo per step (owner, 22 Oct 2026); Cooker recipes have at most 8 steps.
 const MAX_ASSETS = 10;
-const IMAGE_KINDS = ['original-generated-recipe-illustration', 'original-generated-recipe-step-illustration', 'approved-reference-enhancement', 'place-dish-illustration'];
+const IMAGE_KINDS = ['original-generated-recipe-illustration', 'original-generated-recipe-step-illustration', 'approved-reference-enhancement', 'place-dish-illustration', 'member-cover-photo'];
 /** Takes the publication lock. A lock older than any real publication was left by a crashed process and is reclaimed. */
 async function acquire(lock) {
   for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -150,7 +150,11 @@ export async function publish(root, baseline, batch, beforePublish = null) {
         requireValue(metadata && metadata.dimensions.width === image.width && metadata.dimensions.height === image.height, 'Reviewed image is missing or dimensions differ');
         // A place cover follows the venue cover rules (an approved exact-branch reference with its original credit and licence), or is an
         // owner-approved illustration of its own dishes credited as one (owner, 20 Oct 2026). Venue covers stay real photos only.
-        if (r.kind === 'place' && metadata.provenance.kind === 'place-dish-illustration') {
+        // A member's own photo of a place they suggested, shared for its cover and checked by Kaya (server/explore-work, 4 Nov 2026).
+        if (r.kind === 'place' && metadata.provenance.kind === 'member-cover-photo') {
+          requireValue(metadata.provenance.placeId === r.id && typeof metadata.provenance.workId === 'string' && /^[0-9a-f-]{36}$/.test(metadata.provenance.workId), 'Image belongs to another place');
+          requireValue(image.author === 'QuinTaste member' && image.licenseUrl === null && image.capturedAt === null, 'A member cover is credited as a member photo');
+        } else if (r.kind === 'place' && metadata.provenance.kind === 'place-dish-illustration') {
           requireValue(metadata.provenance.placeId === r.id, 'Image belongs to another place');
           requireValue(image.author === ILLUSTRATION_CREDIT && image.license === ILLUSTRATION_CREDIT && image.licenseUrl === null && image.capturedAt === null,
             'An illustration is credited as a QuinTaste illustration');

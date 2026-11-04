@@ -1,4 +1,4 @@
-"""Sync the owner's authorized server-processed correction ledger into the existing Explore workbook.
+"""Sync the owner's authorized server-processed correction ledger (corrections and member-suggested places) into the Explore workbook.
 
 No publication, model call, Telegram message or account data. Run while Excel is closed. Default is read-only; --apply saves.
 """
@@ -71,9 +71,10 @@ print(r.stdout)
             for column,title in enumerate(['Event ID','Work ID','Source number','URL','Checked at','Quote','Capture SHA256','Excerpt'],1):evidence.cell(1,column,title)
         for r in fresh:
             dump=lambda v:json.dumps(v,ensure_ascii=False,separators=(',',':'))
+            # A member-suggested place has no before-image: Changes holds the public listing it was added with.
             sheet.append([str(r['event_id']),r['work_id'],r['target'],r['revision'],r['verified_at'],dump(r['before']),dump(r['data']['changes']),'Member correction evidence','PUBLISHED_VERIFIED',now])
             sheet.cell(sheet.max_row,cursor_column,str(r['verification_event_id']))
-            for i,source in enumerate(r['data']['sources'],1):evidence.append([str(r['event_id']),r['work_id'],i,source['url'],source['checkedAt'],source['quote'],source['captureHash'],source.get('excerpt','')])
+            for i,source in enumerate(r['data']['sources'],1):evidence.append([str(r['event_id']),r['work_id'],i,source['url'],source['checkedAt'],source['quote'],source.get('captureHash',''),source.get('excerpt','')])
         authority=wb['Read me'];authority.append(['Member correction synchronization',now+': '+str(len(fresh))+' new verified receipts; '+str(len(reconciled))+' verification cursors reconciled. Current app values may have changed since verification; receipts preserve their dated scope.'])
         # Public source text is still untrusted: never let it become an Excel formula.
         for tab in [sheet,evidence]:

@@ -42,6 +42,10 @@ CREATE INDEX IF NOT EXISTS ops_case_bot_note_case ON ops.case_bot_note(case_id, 
 INSERT INTO ops.control(key, enabled) VALUES ('chef_ingredients', false), ('chef_creators', false), ('chef_game_levels', false),
   ('chef_ai_recipes', false), ('chef_wanted', false), ('chef_member_recipes', false), ('chef_reviews', false), ('chef_gatherings', false),
   ('chef_place_reports', false), ('chef_recalls', false) ON CONFLICT DO NOTHING;
+-- Place suggestions (server/explore-work, 4 Nov 2026) start in Watch: on, without mode=on, so Kaya-checked places wait for staff.
+INSERT INTO ops.control(key, enabled) VALUES ('chef_place_suggestions', true) ON CONFLICT DO NOTHING;
+-- Owner checks (server/explore-work/claims.mjs) are always decided by staff; this switch only pauses or resumes Coco and Pandan.
+INSERT INTO ops.control(key, enabled) VALUES ('chef_place_claims', true) ON CONFLICT DO NOTHING;
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'quintaste_admin') THEN
     GRANT SELECT, INSERT, UPDATE ON ops.chef_decision TO quintaste_admin;

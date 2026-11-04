@@ -17,6 +17,8 @@ COPY admin/src/lib/food-sources.mjs ./admin/src/lib/food-sources.mjs
 COPY admin/src/lib/food-policy.mjs ./admin/src/lib/food-policy.mjs
 COPY admin/src/lib/food-enqueue.mjs ./admin/src/lib/food-enqueue.mjs
 COPY admin/src/lib/food-clarity.mjs ./admin/src/lib/food-clarity.mjs
+COPY admin/src/lib/place-identity.mjs ./admin/src/lib/place-identity.mjs
+COPY admin/src/lib/member-cover.mjs ./admin/src/lib/member-cover.mjs
 # The game API replays runs with the app's own simulation (src/game, TypeScript run by Node's type stripping).
 COPY src/game ./src/game
 COPY src/config/game.ts ./src/config/game.ts

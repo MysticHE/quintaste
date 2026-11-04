@@ -15,6 +15,8 @@ import { withPoint } from './event-points.mjs';
 export const editorial = express.Router();
 const root = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
 const baseline = JSON.parse(fs.readFileSync(path.resolve('server-assets/editorial-baseline.json'), 'utf8'));
+/** The editorial store and its packaged baseline, for in-process publishers (member place suggestions, server/explore-work/worker.mjs). */
+export const editorialStore = { root, baseline };
 let lastWrite = 0;
 /** Header checks run before any body is read; only publication batches (which carry assets) get the large limit. */
 function precheck(req, res, next) {

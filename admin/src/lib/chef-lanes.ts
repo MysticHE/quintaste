@@ -238,6 +238,17 @@ export const LANES: Record<string, Lane> = {
       ORDER BY pr.updated_at DESC LIMIT 100`)).rows,
     labels: async targets => Object.fromEntries(targets.map(t => [t, 'Place review'])),
   },
+  // Run by the Explore pipeline (server/explore-work), not the hourly sweep: Off pauses new suggestions, Watch lets Coco, Pandan and
+  // Kaya check them while staff publish from Place suggestions, On publishes what Kaya approved. Starts in Watch.
+  'place-suggestions': {
+    chef: 'scout', title: 'Place suggestions', capability: 'content', floor: 0.9, member: true, privateLabel: 'a place suggestion',
+    actions: {}, queue: async () => [], labels: async targets => Object.fromEntries(targets.map(t => [t, 'Place suggestion'])),
+  },
+  // Owner checks: Coco and Pandan look at the page, staff always decide (Admin › Owner checks). On or Off pauses only these.
+  'place-claims': {
+    chef: 'scout', title: 'Owner checks', capability: 'content', floor: 0.9, member: true, privateLabel: 'an owner check',
+    actions: {}, queue: async () => [], labels: async targets => Object.fromEntries(targets.map(t => [t, 'Owner check'])),
+  },
   'place-reports': {
     chef: 'fixer', title: 'Place reports', capability: 'cases', floor: 0.8, member: true, privateLabel: 'a place report',
     // Closing a report is staff's call: Coco only suggests it once Pandan's recheck is settled (chef_work.suggest_resolutions).

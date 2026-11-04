@@ -9,7 +9,7 @@ import type { AiSummary } from './content/AiRecipes';
 
 export type OverviewData = { users: number | null; queues: { kind: string; count: number; overdue: number }[] | null; features: { key: string; enabled: boolean }[] | null;
   memberRecipes: number | null; reviews: number | null; listings: number | null; places: { veg: number; mixed: number } | null; ai: AiSummary | null;
-  game?: Record<'levels' | 'pictures' | 'members', { count: number; latest: string | null }> | null; social?: { checks: number | null; teachers: number | null } | null; chefs?: number | null };
+  game?: Record<'levels' | 'pictures' | 'members', { count: number; latest: string | null }> | null; social?: { checks: number | null; teachers: number | null } | null; chefs?: number | null; suggestions?: number | null; claims?: number | null };
 type Resource = { data: OverviewData | null; error: string; loading: boolean; reload: () => void };
 type Task = { href: string; icon: IconName; label: string; count: number; detail?: string; urgent?: boolean };
 
@@ -22,6 +22,8 @@ export default function Overview({ resource, role }: { resource: Resource; role:
   const tasks: Task[] = [
     ...(d.queues ? [{ href: '/console/cases', icon: 'cases' as const, label: 'Open cases', count: open, urgent: overdue > 0,
       detail: [overdue ? `${overdue} overdue` : '', d.queues.map(q => `${q.count} ${q.kind}`).join(' · ')].filter(Boolean).join(' · ') }] : []),
+    ...(d.suggestions != null ? [{ href: '/console/place-suggestions', icon: 'pin' as const, label: 'Place suggestions to decide', count: d.suggestions }] : []),
+    ...(d.claims != null ? [{ href: '/console/place-claims', icon: 'person' as const, label: 'Owner checks to decide', count: d.claims }] : []),
     ...(d.memberRecipes !== null ? [{ href: '/console/member-recipes', icon: 'chef' as const, label: 'Member recipes to review', count: d.memberRecipes }] : []),
     ...(ai ? [{ href: '/console/ai-recipes', icon: 'wand' as const, label: 'AI recipes to review', count: ai.waiting }] : []),
     ...(d.reviews !== null ? [{ href: '/console/reviews', icon: 'star' as const, label: 'Reported place reviews', count: d.reviews }] : []),

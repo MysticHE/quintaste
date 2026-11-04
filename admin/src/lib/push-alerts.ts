@@ -12,6 +12,7 @@ const kinds = {
   photoApproved: 'account', photoDeclined: 'account', shopPaused: 'account', itemRemoved: 'account', safetyNotice: 'orders',
   classCancelled: 'classes', teacherApproved: 'classes', teacherReinstated: 'classes', teacherDeclined: 'classes', teacherSuspended: 'classes',
   recipePublished: 'recipes', recipeDeclined: 'recipes',
+  exploreSuggestionNeedsInfo: 'account', exploreSuggestionClosed: 'account', exploreClaimNeedsInfo: 'account', exploreClaimApproved: 'account', exploreClaimDeclined: 'account',
 } as const;
 export type StaffAlert = keyof typeof kinds;
 

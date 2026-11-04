@@ -12,6 +12,8 @@ import { communityRequest } from "../services/community-api";
 import { useLanguage } from "../i18n";
 import { contributionWords,contributionState,type Contribution } from "../config/explore-work";
 
+/** A suggestion carries the name the member gave; other contributions are about a listed place, named by its id. */
+const placeName=(item:Contribution)=>item.kind==="suggestion"||item.kind==="claim"?item.name??item.target.replaceAll("-"," "):item.target.replaceAll("-"," ");
 function useContributions(id?:string) {
   const member=useMember();
   const path="/api/explore-work"+(id?"/"+id:"");
@@ -24,8 +26,9 @@ export function ContributionsScreen(){
     {!!remote.error&&<><T>{w.load}</T><Button label={w.retry} onPress={remote.refresh}/></>}
     {remote.data?.items.length===0&&<T muted>{w.empty}</T>}
     {remote.data&&<Button label={w.explore} icon="compass-outline" variant="secondary" onPress={()=>router.push("/")}/>}
-    <ListGroup>{remote.data?.items.map(item=><ListItem key={item.id} title={item.kind==="review"?w.review:w.report}
-      subtitle={item.target.replaceAll("-"," ")+" · "+contributionState(item,language)} wrap leading={<RowIcon name={item.kind==="review"?"star-outline":"flag-outline"}/>}
+    {remote.data&&<Button label={w.suggest} icon="add-circle-outline" variant="link" onPress={()=>router.push("/suggest-place")}/>}
+    <ListGroup>{remote.data?.items.map(item=><ListItem key={item.id} title={item.kind==="review"?w.review:item.kind==="suggestion"?w.suggestion:item.kind==="claim"?w.claim:w.report}
+      subtitle={placeName(item)+" · "+contributionState(item,language)} wrap leading={<RowIcon name={item.kind==="review"?"star-outline":item.kind==="suggestion"?"add-circle-outline":item.kind==="claim"?"storefront-outline":"flag-outline"}/>}
       onPress={()=>router.push(("/explore-contributions/"+item.id) as never)}/>)}</ListGroup>
   </MemberGate></Screen>;
 }
@@ -36,17 +39,18 @@ export function ContributionDetail({id}:{id:string}){
   return <Screen title={w.title}><MemberGate returnTo={"/explore-contributions/"+id}>
     {!!remote.error&&<><T>{w.load}</T><Button label={w.retry} onPress={remote.refresh}/></>}
     {item&&<View style={{gap:14}}>
-      <T variant="subtitle" accessibilityRole="header">{item.target.replaceAll("-"," ")}</T>
+      <T variant="subtitle" accessibilityRole="header">{placeName(item)}</T>
       <T accessibilityLiveRegion="polite">{contributionState(item,language)}</T>
       <T variant="caption" muted>{w.reference+": "+item.reference}</T>
       {!!item.details&&<T selectable>{item.details}</T>}
       {!!item.message&&<T>{item.message}</T>}
       {!!item.photos?.length&&<ReviewPhotos photos={item.photos}/>}
-      {item.reward?.state==="pending"&&<T>{w.pendingReward}</T>}
-      {item.reward?.state==="paid"&&<T>{w.paidReward}</T>}
+      {item.reward?.state==="pending"&&<T>{item.kind==="suggestion"?w.placePendingReward:w.pendingReward}</T>}
+      {item.reward?.state==="paid"&&<T>{item.kind==="suggestion"?w.placePaidReward:w.paidReward}</T>}
       {item.reward?.state==="held"&&<T>{w.heldReward}</T>}
       {item.reward?.state==="ineligible"&&<T>{w.ineligibleReward}</T>}
-      <Button label={w.view} icon="open-outline" variant="link" onPress={()=>router.push(("/place/catalogue-"+item.target+(item.reviewId?"?reviewId="+item.reviewId:"")) as never)}/>
+      {(item.kind!=="suggestion"||(!!item.placeId&&(item.outcome==="duplicate"||item.state==="published")))&&<Button label={w.view} icon="open-outline" variant="link"
+        onPress={()=>router.push(("/place/catalogue-"+(item.kind==="suggestion"?item.placeId:item.target)+(item.reviewId?"?reviewId="+item.reviewId:"")) as never)}/>}
       <T variant="small" accessibilityRole="header" style={common.bold}>{w.timeline}</T>
       {item.timeline?.map((entry,i)=><View key={i} style={{gap:2}}><T variant="small">{entry.what==="received"?w.received:entry.what==="verified-live"?w.live:entry.what==="additional-information"?w.reply:w.working}</T>
         <T variant="caption" muted>{new Date(entry.at).toLocaleString(language==="zh"?"zh-SG":"en-SG",{timeZone:"Asia/Singapore"})}</T></View>)}

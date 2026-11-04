@@ -3,12 +3,12 @@ import { CommunityError } from '../community/http.mjs';
 import { attachPhotos, capacity, digest, event, priorSubmission, reference, submissionKey, wake } from './core.mjs';
 
 /** Called in the same transaction as the staff case; retries cannot consume the report limit twice. */
-export async function queueReport(db,{user,key,input,caseId,photos=[]}) {
+export async function queueReport(db,{user,key,input,caseId,photos=[],fromOwner=false}) {
   await capacity(db);
   const issue=digest({target:input.target,reason:input.reason});
   await db.query('SELECT pg_advisory_xact_lock(1902915,hashtext($1))',['explore-issue:'+issue]);
   let w=(await db.query("SELECT * FROM ops.explore_work WHERE issue_key=$1 AND state IN ('queued','working','needs-input','staff') FOR UPDATE",[issue])).rows[0];
-  const report={reason:input.reason,details:input.details,proposed:input.proposed ?? '',sourceUrl:input.sourceUrl ?? ''};
+  const report={reason:input.reason,details:input.details,proposed:input.proposed ?? '',sourceUrl:input.sourceUrl ?? '',...(fromOwner?{fromOwner:true}:{})};
   if(w) {
     if((w.payload.reports??[]).length>=20)throw new CommunityError(503,'This issue has enough reports queued. Please try again after its check.');
     const reports=[...(w.payload.reports ?? []),report];
@@ -21,7 +21,8 @@ export async function queueReport(db,{user,key,input,caseId,photos=[]}) {
     w=(await db.query(`INSERT INTO ops.explore_work(kind,target,issue_key,payload) VALUES('report',$1,$2,$3) RETURNING *`,[input.target,issue,{reports:[report]}])).rows[0];
     await attachPhotos(db,w.id,photos,user);
   }
-  await db.query('INSERT INTO ops.explore_submission(user_id,submission_key,input_hash,work_id,case_id,details) VALUES($1,$2,$3,$4,$5,$6)',[user,key,digest(input),w.id,caseId,input.details]);
+  // works_here: a confirmed owner when they sent it, who earns no credits for correcting their own place.
+  await db.query('INSERT INTO ops.explore_submission(user_id,submission_key,input_hash,work_id,case_id,details,works_here) VALUES($1,$2,$3,$4,$5,$6,$7)',[user,key,digest(input),w.id,caseId,input.details,fromOwner]);
   await event(db,w,'received'); await wake(db);
   return {reference:reference(w.id),id:w.id,caseReference:caseId,state:w.state};
 }

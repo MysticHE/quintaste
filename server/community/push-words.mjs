@@ -9,6 +9,13 @@ export const alertWords = {
   exploreNeedsChanges:{kind:'account',en:['Please update your contribution','Open to see what needs changing.'],zh:['请修改你提交的内容','查看需要修改的地方。']},
   exploreNeedsInfo:{kind:'account',en:['More information needed','Please add details to your place report.'],zh:['需要补充信息','请为你的地点报告补充信息。']},
   exploreStaff:{kind:'account',en:['Your contribution needs a closer check','Staff will review it.'],zh:['你的贡献需要进一步检查','工作人员将进行审核。']},
+  explorePlaceAdded:{kind:'account',en:['Thanks for the tip','{detail} is now on Explore.'],zh:['感谢推荐','{detail} 已加入地点列表。']},
+  exploreSuggestionNeedsInfo:{kind:'account',en:['More information needed','Please add details to your place suggestion.'],zh:['需要补充信息','请为你推荐的地点补充信息。']},
+  explorePlaceCredits:{kind:'account',en:['Thanks for suggesting a place','{detail} credits have been added.'],zh:['感谢推荐地点','已获得{detail}积分。']},
+  exploreClaimNeedsInfo:{kind:'account',en:['More information needed','Please add details to your owner check.'],zh:['需要补充信息','请为你的店主认证补充信息。']},
+  exploreClaimApproved:{kind:'account',en:['Owner check confirmed','Your reports for {detail} now show they come from the owner.'],zh:['店主认证已确认','你对{detail}的报告会标明来自店主。']},
+  exploreClaimDeclined:{kind:'account',en:['Owner check','Open to see what we found.'],zh:['店主认证','查看处理结果。']},
+  exploreSuggestionClosed:{kind:'account',en:['Your place suggestion','Open to see what we found.'],zh:['你推荐的地点','查看处理结果。']},
   exploreCredits:{kind:'account',en:['Thanks for helping Explore','20 credits have been added.'],zh:['感谢你帮助改善地点信息','已获得20积分。']},
   message: { kind: 'messages', en: ['{name}', 'New message'], zh: ['{name}', '新消息'] },
 

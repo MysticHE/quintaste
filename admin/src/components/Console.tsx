@@ -20,6 +20,8 @@ import { Ingredients } from './content/Ingredients';
 import { Creators } from './content/Creators';
 import { GameLevels } from './content/GameLevels';
 import Sellers from './Sellers';
+import PlaceSuggestions from './PlaceSuggestions';
+import PlaceClaims from './PlaceClaims';
 import { PhotoChecks, Teachers } from './Social';
 import { Audit, Integrations, Staff } from './Administration';
 
@@ -31,6 +33,8 @@ const groups: { title?: string; sections: Section[] }[] = [
   { sections: [{ id: 'overview', title: 'Overview', icon: 'overview' }] },
   { title: 'Catalogue', sections: [
     { id: 'places', title: 'Places', icon: 'pin', capability: 'content' },
+    { id: 'place-suggestions', title: 'Place suggestions', icon: 'pin', capability: 'content', count: d => d.suggestions },
+    { id: 'place-claims', title: 'Owner checks', icon: 'person', capability: 'content', count: d => d.claims },
     { id: 'recipes', title: 'Recipes', icon: 'book', capability: 'content' },
     { id: 'events', title: 'Events', icon: 'calendar', capability: 'content' },
     { id: 'creators', title: 'Creators', icon: 'person', capability: 'content' },
@@ -96,7 +100,7 @@ export default function Console({ section, initialId = '' }: { section: string; 
       {signOutError && <div className="notice error" role="alert"><Icon name="warning"/>{signOutError}</div>}
       {!current ? <Empty icon="warning">Not available</Empty> : <>
         {section === 'overview' && <Overview resource={attention} role={member.role}/>}
-        {section === 'places' && <Places/>}{section === 'recipes' && <Recipes/>}{section === 'events' && <Events/>}{section === 'creators' && <Creators/>}{section === 'game-levels' && <GameLevels/>}
+        {section === 'places' && <Places/>}{section === 'place-suggestions' && <PlaceSuggestions initialId={initialId}/>}{section === 'place-claims' && <PlaceClaims initialId={initialId}/>}{section === 'recipes' && <Recipes/>}{section === 'events' && <Events/>}{section === 'creators' && <Creators/>}{section === 'game-levels' && <GameLevels/>}
         {section === 'member-recipes' && <MemberRecipes origin="member"/>}{section === 'ai-recipes' && <AiRecipes canLimit={can(member.role, 'operations')}/>}{section === 'ingredients' && <Ingredients/>}
         {section === 'reviews' && <Reviews/>}{section === 'cooked-photos' && <CookedPhotos/>}{section === 'gatherings' && <Gatherings/>}
         {section === 'photo-checks' && <PhotoChecks/>}{section === 'teachers' && <Teachers/>}
