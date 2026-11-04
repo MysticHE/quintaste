@@ -38,6 +38,18 @@ class FoodBridge(unittest.TestCase):
    self.assertEqual(f.evidence_from_events(answer,invalid,{'example.com'}),[])
   self.assertEqual(f.evidence_from_events({'sources':[{'url':url,'quote':'An invented confirmation which was never in the page.'}]},events,{'example.com'}),[])
   self.assertEqual(f.evidence_from_events(answer,events,{'other.example'}),[])
+ def test_actual_hermes_idless_read_results_are_correlated_only_when_sequential(self):
+  url='https://example.com/event';other='https://example.com/other'
+  quote='This exact cooking class serves a fully plant-based menu.'
+  use=lambda u:{'type':'tool_use','name':'web_extract','input':{'urls':[u]}}
+  result={'type':'tool_result','name':'web_extract','output':json.dumps({'success':True,'content':quote}),'is_error':False}
+  answer={'sources':[{'url':url,'quote':quote},{'url':other,'quote':quote}]}
+  sequential=[use(url),result,use(other),result]
+  self.assertEqual([s['url'] for s in f.evidence_from_events(answer,sequential,{'example.com'})],[url,other])
+  for ambiguous in ([use(url),use(other),result,result],[result,use(url)],[use(url),{**result,'is_error':True}],
+                    [use(url),{**result,'tool_call_id':'unknown'}],
+                    [{**use(url),'input':{'urls':[url,other]}},result]):
+   self.assertEqual(f.evidence_from_events(answer,ambiguous,{'example.com'}),[])
  def test_a_source_recheck_requeues_mint_instead_of_asking_the_owner_immediately(self):
   self.job['kind']='editorial-event';self.job['photos']=[];self.job['prior']={'mint':{'decision':'uncertain'}}
   with patch.object(f,'event_evidence',return_value=[{'url':'https://example.com/event'}]) as research,patch.object(f,'call',return_value={'requeued':True}) as call,patch.object(f.hermes_run,'run') as model:

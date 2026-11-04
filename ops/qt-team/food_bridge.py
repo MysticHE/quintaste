@@ -93,14 +93,7 @@ def official_host(url):
 
 def evidence_from_events(answer,events,hosts):
     """Keep only exact quotes from successful, single-URL web extracts on supplied official hosts."""
-    reads={}
-    for event in events:
-        if event.get('type')!='tool_use' or event.get('name')!='web_extract':continue
-        request=event.get('input') or {};urls=request.get('urls') or [request.get('url')]
-        key=event.get('tool_call_id') or event.get('id')
-        if isinstance(key,str) and key and isinstance(urls,list) and len(urls)==1 and official_host(urls[0]) in hosts:
-            reads[key]=urls[0]
-    captured={}
+    reads={};unkeyed=[];ambiguous=False;captured={}
     def strings(value):
         if isinstance(value,str):
             try:return strings(json.loads(value))
@@ -110,15 +103,31 @@ def evidence_from_events(answer,events,hosts):
         return ''
     norm=lambda value:' '.join(html.unescape(value).split())
     for event in events:
+        if event.get('name')!='web_extract':continue
         key=event.get('tool_call_id') or event.get('id')
-        if event.get('type')!='tool_result' or event.get('name')!='web_extract' or key not in reads or event.get('is_error'):continue
+        if event.get('type')=='tool_use':
+            request=event.get('input') or {};urls=request.get('urls') or [request.get('url')]
+            url=urls[0] if isinstance(urls,list) and len(urls)==1 and official_host(urls[0]) in hosts else None
+            if isinstance(key,str) and key:reads[key]=url
+            else:
+                unkeyed.append(url)
+                ambiguous=ambiguous or len(unkeyed)>1
+            continue
+        if event.get('type')!='tool_result':continue
+        if isinstance(key,str) and key:url=reads.pop(key,None)
+        else:
+            # Hermes stream-json omits IDs. Only one outstanding read can be bound safely.
+            url=unkeyed[0] if len(unkeyed)==1 and not ambiguous else None
+            if unkeyed:unkeyed.pop(0)
+            if not unkeyed:ambiguous=False
+        if not url or event.get('is_error'):continue
         output=event.get('output','')
         try:parsed=json.loads(output) if isinstance(output,str) else output
         except ValueError:parsed=output
         if isinstance(parsed,dict) and (parsed.get('error') or parsed.get('success') is False):continue
         text=strings(output)
         if not text or len(text)>2_000_000:continue
-        captured[reads[key]]=(norm(text),hashlib.sha256(json.dumps(output,ensure_ascii=False).encode()).hexdigest())
+        captured[url]=(norm(text),hashlib.sha256(json.dumps(output,ensure_ascii=False).encode()).hexdigest())
     sources=[];now=dt.datetime.now(dt.timezone.utc).isoformat()
     for item in (answer.get('sources') or [])[:3]:
         if not isinstance(item,dict):continue
