@@ -1861,6 +1861,7 @@ class Round:
                     state.pop("reviewIsolate", None)  # stay one-at-a-time until the queue (and any culprit) is cleared
                 for path in review_paths:
                     state.get("reviewAttempts", {}).pop(path, None)
+                self.succeeded("qt-manager")  # resets its failure count and closes its issue (5 Nov 2026: it never did)
                 self.save()
         except Exception as exc:
             self.reviewed = {"status": "failed", "decisions": []}
@@ -1992,6 +1993,9 @@ class Round:
                     self.publication = dict(more, productionWrites=self.publication['productionWrites'] + more['productionWrites'],
                                             records=list(self.publication.get('records') or []) + list(more.get('records') or []),
                                             changes=list(self.publication.get('changes') or []) + list(more.get('changes') or []))
+                # A finished pass, published or not, is a success: it resets the publisher's failure count and closes its issue
+                # (5 Nov 2026: the publisher never reported success, so one bad evening's count and issue stayed for good).
+                self.succeeded('publisher')
             except Exception as exc:
                 self.failed('publisher')
                 self.publication = {'status': 'deferred-or-failed', 'productionWrites': 0, 'error': str(exc)}
