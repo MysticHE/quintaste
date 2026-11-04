@@ -59,6 +59,7 @@ class FoodBridge(unittest.TestCase):
   self.job['payload']['data']['sources']=['https://example.com/event'];self.job['prior']={'mint':{'decision':'uncertain'}}
   def run(*args,**kwargs):
    self.assertEqual(args[0],'qt-event');self.assertTrue(args[2].is_dir());self.assertEqual(kwargs['seconds'],180)
+   self.assertIn('char_limit=2500',args[1]);self.assertIn('only text visible',args[1])
    self.assertNotIn('terminal',kwargs['allowed']);return {'text':'{"sources":[]}'},[]
   with patch.object(f.hermes_run,'run',side_effect=run):self.assertEqual(f.event_evidence(self.job,self.root),[])
  def test_an_inaccessible_source_check_does_not_repeat_or_invent_an_answer(self):
