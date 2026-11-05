@@ -302,7 +302,20 @@ def week_stats(now: dt.datetime) -> dict:
             'published': dict(published), 'kitchens': kitchens, 'heldByRole': dict(collections.Counter(r for r, _ in holds)),
             'heldReasons': [f'{r}: {why}' for r, why in holds[-30:]], 'commonNotes': [[n, c] for n, c in notes.most_common(10)],
             'aiCalls': ai_calls(since),
-            'appRefused': {'gaveUp': gave_up, 'waitedThenSent': retried}}
+            'appRefused': {'gaveUp': gave_up, 'waitedThenSent': retried},
+            # Context the numbers alone hide: work the owner paused on purpose is not a fault to fix (the first live review
+            # suggested speeding up the kitchen queues while QT Explorer was stopped), and errors only carry a location since then.
+            'pausedRoles': paused_roles(now),
+            'context': ['Error locations "(at file.py:line)" are recorded from 5 Nov 2026; older errors have none, which is not a fault.',
+                        'A role listed in pausedRoles was stopped on purpose; its queues are expected not to move, so do not recommend '
+                        'speeding them up.']}
+
+
+def paused_roles(now: dt.datetime) -> dict:
+    """{role: reason} for roles stopped on purpose (the coordinator's long cooldowns with a reason, e.g. the owner's Explorer stop)."""
+    cooldowns = (read(ROOT / 'state' / 'checkpoint.json', {}) or {}).get('roleCooldown') or {}
+    return {role: str(c['reason'])[:120] for role, c in cooldowns.items()
+            if isinstance(c, dict) and c.get('reason') and c.get('until', 0) > now.timestamp()}
 
 
 def week_holds(since: dt.datetime) -> list:
