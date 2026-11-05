@@ -71,7 +71,7 @@ class Wiring(unittest.TestCase):
                 # Rehearse a clean pre-food-review target: no ambient qt-team modules on sys.path.
                 with tempfile.TemporaryDirectory() as folder:
                     root = Path(folder)
-                    for name in ('bot_blockers.py', 'chef_admin.py', 'app_signing.py'):
+                    for name in ('bot_blockers.py', 'bot_notices.py', 'chef_admin.py', 'app_signing.py'):
                         (root / name).write_bytes((HERE / name).read_bytes())
                     result = subprocess.run([sys.executable, '-I', '-c',
                         'import sys;sys.path.insert(0,sys.argv[1]);import bot_blockers;'

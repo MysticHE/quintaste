@@ -88,10 +88,11 @@ def check(state, root: Path, now=None, read=fetch):
         return
     box = state.setdefault('staffAlerts', {'seen': {}})
     now = now or dt.datetime.now(dt.timezone.utc)
-    try:
-        recovered_notices(state, root)
+    try:  # notices other bot processes left (bot_notices.py): recovered issues, diagnoses, the weekly review
+        import bot_notices
+        bot_notices.drain(state, root, t.enqueue)
     except Exception as exc:  # the notices wait for the next tick; urgent alerts below must still go out
-        print(json.dumps({'recoveredNotices': type(exc).__name__}), flush=True)
+        print(json.dumps({'botNotices': type(exc).__name__}), flush=True)
     try:
         data = fetch(root,box.get('blockerAfter')) if read is fetch else read(root)
         found = queues(data)
@@ -135,31 +136,6 @@ def check(state, root: Path, now=None, read=fetch):
     for name, (_, last) in found.items():
         if _newer(last, seen.get(name)):
             seen[name] = last
-
-
-def recovered_notices(state, root: Path):
-    """One message per issue that closed by itself because its bot works again (bot_blockers.record). The log is taken over by a
-    rename, so lines the bots append meanwhile go to a new file and wait for the next tick."""
-    import re
-    import telegram_reporter as t
-    import bot_blockers
-    log = bot_blockers.recovered_log(root)
-    taken = log.with_suffix('.sending')
-    if not taken.exists():
-        try:
-            log.replace(taken)
-        except FileNotFoundError:
-            return
-    for line in taken.read_text(encoding='utf-8').splitlines():
-        try:
-            row = json.loads(line)
-        except ValueError:
-            continue
-        case, scope = str(row.get('case', '')), str(row.get('scope', ''))
-        if re.fullmatch(r'[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}', case) and re.fullmatch(r'[a-z0-9-]{1,60}', scope):
-            t.enqueue(state, 'bot-recovered:' + case, 'QT Manager · ' + scope + ' is working again. Its issue closed by itself.',
-                      buttons=[[{'text': 'Open issue', 'url': ADMIN + '/console/cases?id=' + case}]])
-    taken.unlink()
 
 
 def daily_items(state):

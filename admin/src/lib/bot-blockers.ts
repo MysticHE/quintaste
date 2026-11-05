@@ -47,3 +47,22 @@ export async function botRecovered(caller:string,input:Record<string,unknown>){
     return {closed:rows.map(r=>r.id)};
   });
 }
+
+/**
+ * Kaya's automatic diagnosis of an open case (ops/qt-team/bot_insight.py): up to four notes beside the staff notes. The bot sees only
+ * its own code, error classes, locations and run logs, never members' words; a suggested fix is checked but never applied.
+ */
+export async function botDiagnosis(caller:string,input:Record<string,unknown>){
+  const {scope,key,subject}=blockerSubject(caller,input);
+  const notes=Array.isArray(input.notes)?input.notes:[];
+  if(!notes.length||notes.length>4||notes.some(n=>typeof n!=='string'||!n.trim()||n.length>1000))throw new HttpError(400,'Check the diagnosis notes.');
+  return transaction(async db=>{
+    await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))',[subject]);
+    const open=(await db.query("SELECT id FROM ops.case_record WHERE subject_id=$1 AND status NOT IN ('resolved','dismissed') ORDER BY created_at LIMIT 1",[subject])).rows[0];
+    if(!open)return {case:null};
+    for(const note of notes as string[])await db.query('INSERT INTO ops.case_bot_note(case_id,bot,body) VALUES($1,$2,$3)',
+      [open.id,caller,note.replace(/[\u0000-\u0009\u000b-\u001f\u007f]+/g,' ').trim()]);
+    await audit(db,null,'bot.diagnosed',open.id,'Automatic diagnosis added',{scope,revision:key},caller);
+    return {case:open.id};
+  });
+}

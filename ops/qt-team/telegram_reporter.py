@@ -763,26 +763,37 @@ def aware(value):
     return when if when.tzinfo else when.replace(tzinfo=dt.timezone.utc)
 
 
-def role_failures(since):
-    """{role: rounds that failed} in the 24 hours since `since`, from the run reports (a calendar day missed the late rounds)."""
-    found = {}
-    for folder in sorted((ROOT / 'runs').glob('2*'), reverse=True)[:150]:  # about a day and a half of 15-minute rounds
+def run_reports(since, limit=150):
+    """(folder, report) of the rounds started since `since`, newest first, at most `limit` (150 is about a day and a half)."""
+    for folder in sorted((ROOT / 'runs').glob('2*'), reverse=True)[:limit]:
         try:
             started = dt.datetime.strptime(folder.name[:16], '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc)
         except ValueError:
             continue
         if started < since:
             break
-        report = read(folder / 'report.json', {}) or {}
-        # failedRoles: the role's own work failed, not a side problem it noted (5 Nov 2026); older reports only have errors.
-        roles = report['failedRoles'] if isinstance(report.get('failedRoles'), list) else             {str(e.get('role') or 'research') for e in report.get('errors') or [] if isinstance(e, dict)}
-        for role in roles:
-            found[str(role)] = found.get(str(role), 0) + 1
+        yield folder, read(folder / 'report.json', {}) or {}
+
+
+def failed_roles(report):
+    """The roles whose own work failed in one round (failedRoles, 5 Nov 2026); older reports only have errors."""
+    if isinstance(report.get('failedRoles'), list):
+        return [str(role) for role in report['failedRoles']]
+    return sorted({str(e.get('role') or 'research') for e in report.get('errors') or [] if isinstance(e, dict)})
+
+
+def role_failures(since, limit=150):
+    """{role: rounds that failed} since `since`, from the run reports (a calendar day missed the late rounds)."""
+    found = {}
+    for _, report in run_reports(since, limit):
+        for role in failed_roles(report):
+            found[role] = found.get(role, 0) + 1
     return found
 
 
-def refused_requests(since):
-    """Early warning: bot requests the app refused for load (app_signing.retrying). Day files older than a week are removed here."""
+def throttle_counts(since):
+    """(gave up, retried): bot requests the app refused for load since `since` (app_signing.retrying). Day files older than a
+    week are removed here."""
     folder, gave_up, retried = ROOT / 'state' / 'app-throttle', 0, 0
     for file in sorted(folder.glob('*.jsonl')) if folder.is_dir() else []:
         if file.stem < (since - dt.timedelta(days=7)).strftime('%Y-%m-%d'):
@@ -796,6 +807,12 @@ def refused_requests(since):
             if isinstance(row, dict) and row.get('at', 0) >= since.timestamp():
                 gave_up += row.get('outcome') == 'gave-up'
                 retried += row.get('outcome') == 'retried'
+    return gave_up, retried
+
+
+def refused_requests(since):
+    """Early warning for the daily summary: requests refused even after waiting, or many that had to wait."""
+    gave_up, retried = throttle_counts(since)
     if gave_up:
         return [f"App busy: {gave_up} bot request{'s' if gave_up != 1 else ''} refused even after waiting"]
     return [f'App busy: {retried} bot requests had to wait (all went through)'] if retried >= 50 else []

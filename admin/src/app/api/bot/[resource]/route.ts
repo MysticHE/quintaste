@@ -4,7 +4,7 @@ import { HttpError, json, throttle } from '../../../../lib/http';
 import { attention } from '../../../../lib/attention';
 import { chefAsks, chefDecide, chefLane, ownerAnswer } from '../../../../lib/chefs';
 import { foodClaim,foodHeartbeat,foodPhoto,foodResult,foodEvidence } from '../../../../lib/food-review';
-import { botBlocker, botRecovered } from '../../../../lib/bot-blockers';
+import { botBlocker, botDiagnosis, botRecovered } from '../../../../lib/bot-blockers';
 
 type Context = { params: Promise<{ resource: string }> };
 export const runtime = 'nodejs';
@@ -31,6 +31,7 @@ export function POST(request: Request, context: Context) { return route(async ()
   await throttle('bot-write:' + caller, 120);
   if(resource==='blocked')return json(await botBlocker(caller,parse(body)));
   if(resource==='recovered')return json(await botRecovered(caller,parse(body)));
+  if(resource==='diagnosis')return json(await botDiagnosis(caller,parse(body)));
   if(resource==='food-claim')return json(await foodClaim(caller));
   if(resource==='food-heartbeat')return json(await foodHeartbeat(caller,parse(body)));
   if(resource==='food-result')return json(await foodResult(caller,parse(body),chefDecide));

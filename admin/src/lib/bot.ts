@@ -31,7 +31,7 @@ export function botCaller(request: Request, resource: string, body: Buffer = Buf
   const url = new URL(request.url);
   const message = time + '\n' + request.method + '\n' + url.pathname + url.search + '\n' + createHash('sha256').update(body).digest('hex');
   if (!timingSafeEqual(createHmac('sha256', key).update(message).digest(), Buffer.from(signature, 'hex'))) throw new HttpError(401, 'Unauthorized.');
-  if (!(caller.resources as readonly string[]).includes(resource)&&!((resource==='blocked'||resource==='recovered')&&blockerCallers.includes(name))) throw new HttpError(403, 'Not allowed.');
+  if (!(caller.resources as readonly string[]).includes(resource)&&!(['blocked','recovered','diagnosis'].includes(resource)&&blockerCallers.includes(name))) throw new HttpError(403, 'Not allowed.');
   return name as Caller;
 }
 

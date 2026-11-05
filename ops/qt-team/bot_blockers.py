@@ -1,15 +1,28 @@
 """Exhausted work goes to one durable Manager case. The existing reporter delivers the exact issue link.
 
 Self-healing (owner, 5 Nov 2026): the case says what failed and where, and it closes by itself when the same work succeeds again;
-the reporter then tells the owner it recovered. Only work that keeps failing after its automatic retries is left for a person."""
-import hashlib,json,sys,threading,time,traceback
+the reporter then tells the owner it recovered. Only work that keeps failing after its automatic retries is left for a person.
+A new case about a whole role (key 'runtime') is queued for Kaya's diagnosis (bot_insight.py)."""
+import hashlib,json,os,sys,threading,time,traceback
 from pathlib import Path
+import bot_notices
 import chef_admin
+from app_signing import ADMIN_ORIGIN
 LOCK=threading.Lock()
 
 
-def recovered_log(root:Path)->Path:
-    return root/'state'/'bot-blockers'/'recovered.jsonl'
+def diagnosis_queue(root:Path)->Path:
+    return root/'state'/'diagnosis'/'queue'
+
+
+def queue_diagnosis(root:Path,case:str,scope:str,key:str,row:dict)->None:
+    """One request per case, picked up by bot_insight.py; never raises (the case itself is already open)."""
+    try:
+        folder=diagnosis_queue(root);folder.mkdir(parents=True,exist_ok=True)
+        temp=folder/(case+'.tmp')
+        temp.write_text(json.dumps({'case':case,'scope':scope,'key':key,'error':row.get('error',''),'n':row.get('n',0),'at':time.time()}))
+        os.replace(temp,folder/(case+'.json'))
+    except OSError:pass
 
 
 def where(exc=None)->str:
@@ -33,8 +46,18 @@ RECONFIRM=6*3600  # a case staff closed while the work still fails is opened aga
 RECOVER_RETRY=(60,3600)  # first and longest wait before telling admin again that the work recovered
 
 
+def blocker_path(root:Path,scope:str,key:str)->Path:
+    return root/'state'/'bot-blockers'/(hashlib.sha256((scope+'|'+key).encode()).hexdigest()+'.json')
+
+
+def open_case(root:Path,scope:str,key:str):
+    """The case this work's failure streak opened, while the streak lasts (None once it recovered)."""
+    try:return json.loads(blocker_path(root,scope,key).read_text()).get('case')
+    except (OSError,ValueError):return None
+
+
 def record(root:Path,caller:str,scope:str,key='runtime',*,failed=True,threshold=3,error=None):
-    path=root/'state'/'bot-blockers'/(''+hashlib.sha256((scope+'|'+key).encode()).hexdigest()+'.json')
+    path=blocker_path(root,scope,key)
     with LOCK:
         path.parent.mkdir(parents=True,exist_ok=True)
         try:row=json.loads(path.read_text())
@@ -51,8 +74,9 @@ def record(root:Path,caller:str,scope:str,key='runtime',*,failed=True,threshold=
                     row.update(n=0,recoverTries=tries+1,recoverAt=now+min(RECOVER_RETRY[1],RECOVER_RETRY[0]*2**tries))
                     _write(path,row);return
                 if closed:  # staff may have closed it already; then there is nothing to announce
-                    with recovered_log(root).open('a',encoding='utf-8') as log:
-                        log.write(json.dumps({'case':closed[0],'scope':scope,'at':now})+'\n')
+                    try:bot_notices.post(root,'bot-recovered:'+closed[0],'QT Manager · '+scope+' is working again. Its issue closed by itself.',
+                                         [[{'text':'Open issue','url':ADMIN_ORIGIN+'/console/cases?id='+closed[0]}]])
+                    except (OSError,ValueError):pass
             path.unlink(missing_ok=True);return
         row['n']=min(100,row.get('n',0)+1)
         row['error']=(error if error is not None else describe() or row.get('error') or '')[:300]
@@ -60,8 +84,9 @@ def record(root:Path,caller:str,scope:str,key='runtime',*,failed=True,threshold=
         if row['n']>=threshold and (not row.get('case') or now-row.get('confirmedAt',0)>=RECONFIRM):
             tried=f"failed {row['n']} times in a row; refused or busy app requests were retried automatically each time"
             try:
-                row['case']=chef_admin.call(root,caller,'POST','/api/bot/blocked',{'scope':scope,'key':key,'error':row['error'],'tried':tried})['id']
-                row['confirmedAt']=now
+                case=chef_admin.call(root,caller,'POST','/api/bot/blocked',{'scope':scope,'key':key,'error':row['error'],'tried':tried})['id']
+                if case!=row.get('case') and key=='runtime':queue_diagnosis(root,case,scope,key,row)
+                row['case'],row['confirmedAt']=case,now
             except Exception:pass  # persisted count retries delivery; never changes the owning content action
         _write(path,row)
 
