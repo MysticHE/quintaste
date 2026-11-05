@@ -6,6 +6,7 @@ const zh: typeof en = {
   paletteCoral: "珊瑚与蜜桃",
   paletteCobalt: "钴蓝与松石绿",
   paletteLavender: "薰衣草与霜白",
+  paletteMonochrome: "纯净黑白",
   displayMode: "显示模式",
   modeLight: "浅色",
   modeDark: "深色",

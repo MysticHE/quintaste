@@ -120,6 +120,7 @@ export function Appearance() {
     coral: t("paletteCoral"),
     cobalt: t("paletteCobalt"),
     lavender: t("paletteLavender"),
+    monochrome: t("paletteMonochrome"),
   };
   return (
     <>

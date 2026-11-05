@@ -1,5 +1,5 @@
 import { readLabels, type DietLabel } from "./diet-labels";
-export const palettes = ["coral", "cobalt", "lavender"] as const;
+export const palettes = ["coral", "cobalt", "lavender", "monochrome"] as const;
 export const displayModes = ["light", "dark", "system"] as const;
 /** Interface language (a device setting, see src/i18n): "system" follows the phone; content keeps its own language. */
 export const languageChoices = ["system", "en", "zh"] as const;

@@ -6,6 +6,7 @@ const en = {
   paletteCoral: "Coral & Peach",
   paletteCobalt: "Cobalt & Turquoise",
   paletteLavender: "Lavender & Frost",
+  paletteMonochrome: "White & Black",
   displayMode: "Display Mode",
   modeLight: "Light",
   modeDark: "Dark",
