@@ -46,11 +46,11 @@ export const refreshGifts = () => invalidate(giftsKey, "/api/social/chats", "/ap
  * the App Store or Google Play (the store sheet opens; the gift goes once the store confirms the payment). The web and
  * Expo Go can't buy them.
  */
-export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; onClose: () => void; to: string; data: GiftCatalog }) {
+export function GiftSheet({ visible, onClose, to, recipientName, data }: { visible: boolean; onClose: () => void; to: string; recipientName?: string; data: GiftCatalog }) {
   const t = useT("collection"), giftName = useGiftName(), { theme, setNotice } = usePreferences(), first = data.weekly ?? data.catalog[0]?.id ?? "";
   const [picked, setPicked] = useState(first), [note, setNote] = useState(""), [busy, setBusy] = useState(false), [problem, setProblem] = useState("");
   // A paid gift the server refused after payment: Google refunds it by itself; Apple needs the member to ask.
-  const [refund, setRefund] = useState(false);
+  const [refund, setRefund] = useState(false), sending = useRef(false);
   const clock = useGlintClock(visible ? data.catalog.length : 0);
   // Opening again starts from this week's choice (state adjusted during render, not in an effect).
   const [wasVisible, setWasVisible] = useState(visible);
@@ -60,7 +60,8 @@ export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; on
   const priceOf = (id: string, cents: number) => isFree(id) ? t("giftFree") : t("giftPrice", { price: sgd(cents) });
   const close = () => { setProblem(""); setRefund(false); onClose(); };
   const send = async () => {
-    if (!gift) return;
+    if (!gift || sending.current) return;
+    sending.current = true;
     setBusy(true); setProblem(""); setRefund(false);
     try {
       if (isFree(gift.id)) await sendGift(to, gift.id, note.trim());
@@ -81,19 +82,20 @@ export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; on
       setNote(""); close();
       setNotice({ text: t("giftSent", { gift: giftName(gift.id) }) });
     } catch (failure) { setProblem(sendError(failure, t)); }
-    finally { setBusy(false); }
+    finally { sending.current = false; setBusy(false); }
   };
   const footer = <View style={{ gap: 8 }}>
     {!!problem && <T variant="small" color={theme.error} accessibilityLiveRegion="polite">{problem}</T>}
     {refund && <View style={{ alignSelf: "flex-start" }}><Button variant="link" label={t("askRefund")} onPress={() => void Linking.openURL("https://reportaproblem.apple.com")} /></View>}
     <Button label={!gift ? t("sendGift") : isFree(gift.id) ? t("sendFree") : t("sendPrice", { price: sgd(gift.priceCents) })} onPress={send} loading={busy} disabled={!gift} />
   </View>;
-  return <Sheet visible={visible} onClose={close} title={t("sendGift")} footer={footer}>
+  return <Sheet visible={visible} onClose={() => { if (!sending.current) close(); }} title={t("sendGift")} footer={footer}>
+    {!!recipientName && <T variant="small" muted>{t("giftTo", { name: recipientName })}</T>}
     <View accessibilityRole="radiogroup">
       <TileGrid>{width => data.catalog.map((g, index) => {
         const selected = g.id === picked, price = priceOf(g.id, g.priceCents), weekly = g.id === data.weekly && data.sending !== "free";
         // The free weekly Rose reads "Free" on the tile (green) and "Free this week" to screen readers.
-        return <Pressable key={g.id} onPress={() => setPicked(g.id)} accessibilityRole="radio" accessibilityState={{ checked: selected }} aria-checked={selected}
+        return <Pressable key={g.id} disabled={busy} onPress={() => setPicked(g.id)} accessibilityRole="radio" accessibilityState={{ checked: selected, disabled: busy }} aria-checked={selected}
           accessibilityLabel={giftName(g.id) + ", " + (weekly ? t("giftWeekly") : price)}
           style={({ pressed }) => [s.tile, { width, borderWidth: selected ? 2 : 1, borderColor: selected ? theme.accent : theme.border,
             backgroundColor: selected ? theme.accentSoft : theme.card, opacity: pressed ? 0.85 : 1 }]}>
@@ -103,7 +105,7 @@ export function GiftSheet({ visible, onClose, to, data }: { visible: boolean; on
         </Pressable>;
       })}</TileGrid>
     </View>
-    <Field label={t("giftNote")} showLabel={false} placeholder={t("giftNote")} value={note} onChangeText={setNote} maxLength={100} />
+    <Field label={t("giftNote")} showLabel={false} placeholder={t("giftNote")} value={note} onChangeText={setNote} maxLength={100} editable={!busy} />
   </Sheet>;
 }
 

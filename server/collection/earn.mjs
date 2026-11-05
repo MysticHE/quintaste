@@ -131,7 +131,7 @@ export async function payTasks(db, userId, f) {
   return { total, paid, owed, src };
 }
 
-/** Cooking counts only up to the daily limit (the "cooked" mark comes from the member's own app), here and for badges. */
+/** Credit milestones respect the daily payout limit; badge progress counts distinct cooking records separately. */
 const milestoneCounts = f => ({ recipes: f.counted.length, reviews: f.goodReviews.length, dinners: f.dinners.length });
 
 /** The Tasks tab: what each task pays and where the member stands, after settling (from payTasks, no second read). */

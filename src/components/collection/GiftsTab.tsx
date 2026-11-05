@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
-import { Icon } from "../ui";
-import { ItemArt, useGlintClock } from "./Glint";
-import { Tile, TileGrid } from "./CollectionParts";
+import { Button, T, common } from "../ui";
+import { ItemArt } from "./Glint";
 import { useGiftName, useGiftOpener } from "./Gifts";
-import { ListGroup, ListItem, StatusPill, SwitchRow } from "../GroupedList";
-import { CollectionSection } from "./CollectionUI";
+import { GiftRecipient } from "./GiftRecipient";
+import { ListItem, StatusPill, SwitchRow } from "../GroupedList";
 import { ChoiceChips } from "../social/ProfileControls";
+import { Sheet } from "../Sheet";
 import { ApiError } from "../../services/community-api";
 import { giftsKey, seeSentGifts, setReceiving, type Gifts } from "../../services/gifts-api";
 import { invalidate, setRemoteData } from "../../hooks/useRemote";
@@ -17,60 +17,65 @@ import { useLanguage, useT } from "../../i18n";
 import { chatTime } from "../../utils/chat-time";
 
 type Side = "received" | "sent";
-/**
- * Collection › Gifts: Received (how many of each, then each gift, unopened ones dim, and Receive gifts) and Sent (who you
- * sent each gift to, a heart once they liked it and whether they said thanks). Tapping a gift plays its opening; a received
- * one can be liked and thanked there. Opens on Sent when someone liked or thanked one of your gifts since you last looked.
- */
-export function GiftsTab({ data }: { data: Gifts }) {
+/** One gift inbox: sender, date and delivery/reaction status, without a duplicate catalogue. */
+export function GiftsTab({ data, preferences, onClosePreferences }: { data: Gifts; preferences: boolean; onClosePreferences: () => void }) {
   const t = useT("collection"), giftName = useGiftName(), language = useLanguage(), { theme, setNotice } = usePreferences();
-  const news = data.sent.some(g => g.news), [side, setSide] = useState<Side>(news && !data.received.some(g => !g.opened) ? "sent" : "received"), [busy, setBusy] = useState(false), opener = useGiftOpener();
-  const count = (id: string) => data.received.filter(g => g.gift === id).length, clock = useGlintClock(data.catalog.length);
+  const news = data.sent.some(g => g.news), [side, setSide] = useState<Side>(news && !data.received.some(g => !g.opened) ? "sent" : "received");
+  const [busy, setBusy] = useState(false), [sending, setSending] = useState(false), [weekly, setWeekly] = useState(false), opener = useGiftOpener();
+  const [localPreferences, setLocalPreferences] = useState(false);
+  const pending = useRef(false), latest = useRef(data);
+  useEffect(() => { latest.current = data; }, [data]);
   const receive = async (on: boolean) => {
-    setBusy(true);
-    try { await setReceiving(on); setRemoteData(giftsKey, { ...data, receiving: on }); }
-    catch (failure) { setNotice({ text: failure instanceof ApiError ? failure.message : t("actionFailed") as string, error: true }); }
-    finally { setBusy(false); }
+    if (pending.current) return;
+    pending.current = true; setBusy(true);
+    try { const result = await setReceiving(on); setRemoteData(giftsKey, { ...latest.current, receiving: result.receiving }); }
+    catch (failure) { setNotice({ text: failure instanceof ApiError ? failure.message : t("actionFailed"), error: true }); }
+    finally { pending.current = false; setBusy(false); }
   };
-  // Looking at Sent clears its count on the Collection button, once per new batch (a refetch mid-request doesn't ask again).
   const seen = useRef(""), newsKey = data.sent.filter(g => g.news).map(g => g.id).join();
   useEffect(() => {
     if (side !== "sent" || !newsKey || seen.current === newsKey) return;
     seen.current = newsKey;
-    seeSentGifts().then(() => { setRemoteData(giftsKey, { ...data, sent: data.sent.map(g => ({ ...g, news: false })) }); invalidate(inboxPath); },
-      () => { seen.current = ""; });
-  }, [side, newsKey, data]);
-  const heart = <Icon name="heart" size={16} color={theme.accent} />, happy = <Icon name="happy" size={16} color={theme.accent} />;
-  const badges = (g: { liked: boolean; thanked: boolean }) => g.liked && g.thanked ? <View style={{ flexDirection: "row", gap: 4 }}>{heart}{happy}</View>
-    : g.liked ? heart : g.thanked ? happy : undefined;
-  const when = (at: string) => chatTime(at, language);
+    const ids = new Set(data.sent.filter(g => g.news).map(g => g.id));
+    seeSentGifts().then(() => {
+      setRemoteData(giftsKey, { ...latest.current, sent: latest.current.sent.map(g => ids.has(g.id) ? { ...g, news: false } : g) }); invalidate(inboxPath);
+    }, () => { seen.current = ""; });
+  }, [side, newsKey, data.sent]);
+  const empty = side === "received" ? !data.received.length : !data.sent.length;
+  const state = (g: { opened: boolean; liked: boolean; thanked: boolean }, sent: boolean) =>
+    g.thanked ? t("thanked") : g.liked ? t("giftLikedShort") : g.opened ? t("giftOpened") : t(sent ? "giftDelivered" : "giftNew");
   return <>
     <ChoiceChips label={t("tabGifts")} value={side} onChange={setSide} options={[{ id: "received", label: t("tabReceived") }, { id: "sent", label: t("tabSent") }]} />
-    {side === "received" && <>
-      <ListGroup>
-        {!data.received.length && <ListItem title={t("noGifts")} />}
-        {data.received.map(g => <ListItem key={g.id} title={giftName(g.gift)} subtitle={[t("giftFrom", { name: g.fromName }), when(g.at)].join(" · ")}
-          detail={g.opened ? g.note : t("tapToOpen")} wrap
-          leading={<ItemArt art={giftArt(g.gift)} size={48} dim={!g.opened} />} badge={g.opened ? badges(g) : <StatusPill label={t("giftNew")} tone="accent" />}
-          label={[t("giftFrom", { name: g.fromName }), giftName(g.gift), g.note, g.opened ? "" : t("tapToOpen"), g.liked ? t("giftStateYouLiked") : "", g.thanked ? t("giftStateYouThanked") : ""].filter(Boolean).join(", ")}
-          onPress={() => opener.show(g, g.fromName, false)} />)}
-      </ListGroup>
-      {!!data.received.length && <CollectionSection title={t("yourGifts")}>
-        <TileGrid>{width => data.catalog.map((g, index) => {
-          const n = count(g.id), last = data.received.find(r => r.gift === g.id);
-          return <Tile key={g.id} width={width} art={giftArt(g.id)} pulse={n ? clock.tile(index) : 0} dim={!n} name={giftName(g.id)} sub={t("giftCount", { n })} selected={false} disabled={!last}
-            onPress={() => last && opener.show(last, last.fromName, false)} label={giftName(g.id) + ", " + t("giftCount", { n })} />;
-        })}</TileGrid>
-      </CollectionSection>}
-      <ListGroup><View style={{ paddingHorizontal: 14 }}><SwitchRow label={t("receiveGifts")} value={data.receiving} onChange={receive} disabled={busy} /></View></ListGroup>
-    </>}
-    {side === "sent" && <ListGroup>
-      {!data.sent.length && <ListItem title={t("noSent")} />}
-      {data.sent.map(g => <ListItem key={g.id} title={t("giftTo", { name: g.toName }) as string} subtitle={g.note || giftName(g.gift)} detail={when(g.at)}
-        leading={<ItemArt art={giftArt(g.gift)} size={40} />} badge={badges(g)}
-        label={[t("giftTo", { name: g.toName }), giftName(g.gift), g.note, g.liked ? t("giftStateLiked") : "", g.thanked ? t("giftStateThanked") : ""].filter(Boolean).join(", ")}
-        onPress={() => opener.show(g, "", true)} />)}
-    </ListGroup>}
+    {empty ? <View testID="gift-empty" style={{ alignItems: "center", gap: 12, paddingVertical: 28 }}>
+      <ItemArt art={giftArt("rose")} size={76} fx />
+      <T variant="subtitle" style={common.bold}>{t(side === "received" ? "noGifts" : "noSent")}</T>
+      <T variant="small" muted style={{ textAlign: "center", maxWidth: 300 }}>{t(side === "received" ? "giftEmptyReceived" : "giftEmptySent")}</T>
+      <View style={{ marginTop: 4 }}><Button label={t("sendGift")} onPress={() => setSending(true)} /></View>
+    </View> : <View testID="gift-inbox">
+      {(side === "received" ? data.received : data.sent).map(g => {
+        const sent = "toName" in g, person = sent ? g.toName : g.fromName;
+        return <View key={g.id} style={{ borderBottomWidth: 1, borderBottomColor: theme.divider }}>
+          <ListItem title={giftName(g.gift)} subtitle={t(sent ? "giftTo" : "giftFrom", { name: person })}
+            detail={chatTime(g.at, language)} wrap leading={<ItemArt art={giftArt(g.gift)} size={48} />}
+            badge={<StatusPill label={state(g, sent)} tone={!g.opened && !sent ? "accent" : "muted"} />}
+            label={[giftName(g.gift), t(sent ? "giftTo" : "giftFrom", { name: person }), state(g, sent), chatTime(g.at, language)].join(", ")}
+            onPress={() => opener.show(g, sent ? "" : person, sent)} />
+        </View>;
+      })}
+      <View style={{ alignSelf: "flex-end" }}><Button variant="link" label={t("sendGift")} onPress={() => setSending(true)} /></View>
+    </View>}
+    {data.sending !== "free" && <ListItem title={t("weeklyRose")} subtitle={t(data.weekly ? "weeklyRoseAvailable" : "weeklyRoseUsed")} wrap
+      leading={<ItemArt art={giftArt("rose")} size={36} />} onPress={() => setWeekly(true)} />}
+    <View style={{ alignSelf: "flex-start" }}><Button variant="link" label={t(data.receiving ? "receivingOn" : "receivingOff")} onPress={() => setLocalPreferences(true)} /></View>
     {opener.opening}
+    <Sheet visible={preferences || localPreferences} onClose={() => { if (!busy) { onClosePreferences(); setLocalPreferences(false); } }} title={t("giftPreferences")}>
+      <SwitchRow label={t("receiveGifts")} value={data.receiving} onChange={receive} disabled={busy} />
+      <T variant="small" muted>{t("receivingHelp")}</T>
+    </Sheet>
+    <Sheet visible={weekly} onClose={() => setWeekly(false)} title={t("weeklyRose")}>
+      <T>{t(data.weekly ? "weeklyRoseAvailable" : "weeklyRoseUsed")}</T><T variant="small" muted>{t("weeklyRoseHelp")}</T>
+      {data.weekly && <Button label={t("sendGift")} onPress={() => { setWeekly(false); setSending(true); }} />}
+    </Sheet>
+    {sending && <GiftRecipient data={data} onClose={() => setSending(false)} />}
   </>;
 }

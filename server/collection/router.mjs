@@ -20,6 +20,8 @@ async function settle(db, userId) {
   const master = (await accountAccess(userId, db)).role === 'master';
   const f = await facts(db, userId);
   const tasks = await payTasks(db, userId, f);
+  // Newly posted rewards count toward lifetime milestones in this same response.
+  f.lifetime = (await db.query("SELECT coalesce(sum(amount), 0)::int AS n FROM game.ledger WHERE user_id=$1 AND amount > 0 AND kind <> 'staff'", [userId])).rows[0].n;
   const badges = await settleBadges(db, userId, f, master);
   return { f, tasks, badges, master };
 }

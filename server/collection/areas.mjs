@@ -3,12 +3,13 @@ import path from 'node:path';
 import { logger } from '../config.mjs';
 import { catalogueVenues, placeAliases } from '../catalogue-places.mjs';
 import { readSnapshot } from '../editorial/store.mjs';
+import { validPlaces } from '../editorial/places.mjs';
 
 /**
  * The URA planning area of a place, for the Explorer badge, from its map point with the app's own lookup
  * (src/utils/planning-area.ts, loaded with Node's type stripping like the game simulation). Covers packaged places,
- * map points the QT bots corrected (venue records), and the approved place alias. Places the bots add have no map point
- * yet, so they don't count towards area tasks until they get one. Rebuilt when the published snapshot changes.
+ * map points the QT bots corrected (venue records), valid new places, and approved place aliases.
+ * Places without a map point cannot count toward area tasks. Rebuilt when the published snapshot changes.
  */
 const editorialRoot = process.env.QT_EDITORIAL_ROOT || path.resolve('.local/editorial');
 let lookup = null, built = { snapshot: undefined, map: new Map() };
@@ -28,9 +29,10 @@ function areaLookup() {
 export async function placeAreas() {
   const areaFor = await areaLookup();
   if (!areaFor) return () => undefined;
-  const snapshot = await readSnapshot(editorialRoot).catch(() => null);
+  const snapshot = await readSnapshot(editorialRoot).catch(() => built.snapshot ?? null);
   if (snapshot !== built.snapshot) {
     const points = new Map(catalogueVenues.filter(v => v.point).map(v => [v.id, v.point]));
+    for (const place of validPlaces(snapshot?.records).values()) if (place.point) points.set(place.id, place.point);
     for (const record of Object.values(snapshot?.records ?? {})) if (record?.kind === 'venue' && record.data?.point && points.has(record.id)) points.set(record.id, record.data.point);
     const map = new Map();
     for (const [id, point] of points) { const area = areaFor(point.latitude, point.longitude); if (area) map.set(id, area.code); }

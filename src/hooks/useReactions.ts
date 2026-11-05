@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import { AppState } from "react-native";
 import { router, useGlobalSearchParams, usePathname } from "expo-router";
 import { useAuth } from "../state/Auth";
 import { usePreferences } from "../state/Preferences";
@@ -92,21 +93,41 @@ export function useReaction(kind: ReactionKind, id: string) {
 const reported = new Set<string>();
 /**
  * Reports each recipe the signed-in member has finished in Cook mode, including ones finished before signing in.
- * The server counts a member once per recipe; the number shows as "Cooked by N". Failures retry on the next change.
+ * The server counts a member once per recipe. Transient failures retry while active and on app resume.
  */
 export function useCookedSync(recipeIds: string[]) {
   const { user } = useAuth(), account = user?.adultConfirmed ? user.id : null;
   const ids = [...new Set(recipeIds.filter(reactable))].sort().join(",");
   useEffect(() => {
     if (!account || !ids) return;
-    for (const id of ids.split(",")) {
+    let stopped = false, timer: ReturnType<typeof setTimeout> | undefined, delay = 5000, syncing = 0, changed = false;
+    const retry = () => {
+      if (stopped || timer || AppState.currentState !== "active") return;
+      timer = setTimeout(() => { timer = undefined; sync(); }, delay);
+      delay = Math.min(delay * 2, 60000);
+    };
+    const sync = () => { if (stopped || AppState.currentState !== "active") return;
+      for (const id of ids.split(",")) {
       const key = keyOf(account, "recipe", id);
       if (reported.has(key)) continue;
-      reported.add(key);
+      // A log change can replace this effect while a request is still pending.
+      if (pending.has(key + ":cooked")) { retry(); continue; }
+      pending.add(key + ":cooked");
+      syncing += 1;
       void communityRequest<Reaction>(`/api/reactions/recipe/${id}/cooked`, { method: "POST" })
-        .then(reaction => remember(account, "recipe", [reaction]))
+        .then(reaction => { reported.add(key); changed = true; remember(account, "recipe", [reaction]); })
         // A recipe that is no longer published stays reported; anything else is tried again later.
-        .catch(error => { if (!(error instanceof ApiError && error.status === 404)) reported.delete(key); });
-    }
+        .catch(error => {
+          if (error instanceof ApiError && error.status === 404) reported.add(key);
+          else retry();
+        }).finally(() => {
+          pending.delete(key + ":cooked"); syncing -= 1;
+          if (syncing === 0 && changed) { changed = false; invalidate("/api/collection"); }
+        });
+      }
+    };
+    sync();
+    const resume = AppState.addEventListener("change", state => { if (state === "active") sync(); });
+    return () => { stopped = true; if (timer) clearTimeout(timer); resume.remove(); };
   }, [account, ids]);
 }

@@ -14,7 +14,7 @@ export type Collection = {
     milestones: { key: string; count: number; steps: { at: number; credits: number; done: boolean }[] }[];
   };
   borders: { id: string; rarity: Rarity; credits: number; owned: boolean; equipped: boolean }[];
-  badges: { id: string; tier: BadgeTier; earned: boolean; revoked: boolean; earnedAt: string | null; tasks: TaskProgress[] }[];
+  badges: { id: string; tier: BadgeTier; earned: boolean; revoked: boolean; accessUnlocked?: boolean; earnedAt: string | null; tasks: TaskProgress[] }[];
   shown: string[];
   /** What this request paid and awarded, for a short notice. */
   just: { credits: number; badges: string[] };

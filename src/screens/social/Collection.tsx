@@ -3,6 +3,7 @@ import { Pressable, View } from "react-native";
 import { Sheet } from "../../components/Sheet";
 import { CreditActivity } from "../../components/collection/CreditActivity";
 import { BadgeReveal } from "../../components/collection/BadgeReveal";
+import { IconButton } from "../../components/food/Controls";
 import { Screen } from "../../components/Screen";
 import { T, common } from "../../components/ui";
 import { TopTabs } from "../../components/TopTabs";
@@ -40,6 +41,7 @@ export function CollectionScreen() {
   const { user } = useAuth();
   const t = useT("collection"), { setNotice } = usePreferences(), inbox = useLiveInbox();
   const [history, setHistory] = useState(false), [reveal, setReveal] = useState<string[]>([]);
+  const [giftPreferences, setGiftPreferences] = useState(false);
   const [tab, setTab] = useState<Tab>((inbox?.gifts ?? 0) + (inbox?.giftNews ?? 0) > 0 ? "gifts" : "tasks");
   const choseTab = useRef(false), checkedInbox = useRef(!!inbox);
   useEffect(() => {
@@ -48,7 +50,7 @@ export function CollectionScreen() {
     if (!choseTab.current && (inbox.gifts ?? 0) + (inbox.giftNews ?? 0) > 0) setTab("gifts");
   }, [inbox]);
   const member=useMember();
-  const remote = useRemote(member.member?collectionKey:null, loadCollection, {poll:tab==="tasks"?5000:undefined}), me = useSocialMe().data, data = remote.data, told = useRef("");
+  const remote = useRemote(member.member?collectionKey:null, loadCollection, {poll:tab==="tasks"||tab==="badges"?5000:undefined}), me = useSocialMe().data, data = remote.data, told = useRef("");
   const giftsRemote = useGifts(member.member && !!me?.hasProfile), gifts = giftsRemote.data;
   useEffect(() => {
     const just = data?.just, key = just ? `${just.credits}|${just.badges.join()}` : "";
@@ -64,7 +66,7 @@ export function CollectionScreen() {
     });
     return () => cancelAnimationFrame(frame);
   }, [data, setNotice, t, user]);
-  return <Screen title={t("title")} headerAction={data ? <CreditsChip n={data.credits} onPress={() => setHistory(true)} /> : undefined}>
+  return <Screen title={t("title")} headerAction={tab === "gifts" ? gifts && <IconButton label={t("giftPreferences")} icon="options-outline" onPress={() => setGiftPreferences(true)} /> : data ? <CreditsChip n={data.credits} onPress={() => setHistory(true)} /> : undefined}>
     <MemberGate returnTo="/social/collection">
       <TopTabs label={t("tabsLabel")} value={tab} onChange={next => { choseTab.current = true; setTab(next); }}
         tabs={[{ id: "tasks", label: t("tabTasks") }, { id: "badges", label: t("tabBadges") }, { id: "borders", label: t("tabBorders") },
@@ -74,7 +76,7 @@ export function CollectionScreen() {
       {data && tab === "badges" && <BadgesTab data={data} me={me} />}
       {data && tab === "borders" && <BordersTab data={data} me={me} />}
       {data && tab === "gifts" && <RemoteStatus remote={giftsRemote} icon="gift-outline" returnTo="/social/collection" />}
-      {data && gifts && tab === "gifts" && <GiftsTab data={gifts} />}
+      {data && gifts && tab === "gifts" && <GiftsTab data={gifts} preferences={giftPreferences} onClosePreferences={() => setGiftPreferences(false)} />}
       <Sheet visible={history && reveal.length === 0} onClose={() => setHistory(false)} title={t("creditActivity")}>
         {history && data && reveal.length === 0 && <CreditActivity data={data} />}
       </Sheet>
