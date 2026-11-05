@@ -1,6 +1,6 @@
 import { useEffect, useId } from "react";
 import { View } from "react-native";
-import Svg, { Circle, Defs, Ellipse, Image, Mask, RadialGradient, Stop } from "react-native-svg";
+import Svg, { Circle, Defs, Ellipse, Image, Mask, RadialGradient, Rect, Stop } from "react-native-svg";
 import Animated, { Easing, cancelAnimation, useAnimatedProps, useSharedValue, withDelay, withRepeat, withSequence, withTiming, type SharedValue } from "react-native-reanimated";
 import { COLLECTION_ART, type CollectionArt } from "../../config/collection-art";
 import { lightEnvelope, useCollectionMotion } from "./Motion";
@@ -33,11 +33,15 @@ export function BorderEffects({ art, size, enabled = true }: { art: CollectionAr
     return () => { cancelAnimation(clock); clock.set(0); };
   }, [on, index, clock]);
   const strength = size < 80 ? 0.9 : 1;
-  const glow = useAnimatedProps(() => ({ opacity: (0.35 + 0.5 * (0.5 - 0.5 * Math.cos(clock.value * Math.PI * 2 / 2800))) * strength }));
+  const glow = useAnimatedProps(() => ({ opacity: (0.25 + 0.75 * (0.5 - 0.5 * Math.cos(clock.value * Math.PI * 2 / 2800))) * strength }));
   const crown = useAnimatedProps(() => ({ opacity: lightEnvelope(clock.value, 0, 700, 1700) * strength * 0.85 }));
   return <View ref={host} pointerEvents="none" testID="border-motion-host" style={{ position: "absolute", width: size, height: size }}>
     {on && path && <Svg testID="border-effects" width={size} height={size} viewBox="0 0 100 100">
       <Defs>
+        <Mask id={id + "outsideFace"} x="-20" y="-20" width="140" height="140" maskUnits="userSpaceOnUse">
+          <Rect x="-20" y="-20" width="140" height="140" fill="white" />
+          {art.hole && <Circle cx={art.hole[0] + art.hole[2] / 2} cy={art.hole[1] + art.hole[2] / 2} r={art.hole[2] / 2} fill="black" />}
+        </Mask>
         <RadialGradient id={id + "fade"}>
           <Stop offset="0" stopColor="white" stopOpacity="0.9" />
           <Stop offset="0.45" stopColor="white" stopOpacity="0.5" />
@@ -51,6 +55,7 @@ export function BorderEffects({ art, size, enabled = true }: { art: CollectionAr
           <Crown cx={path.crown[0]} cy={path.crown[1]} rx="13" ry="11" fill={`url(#${id}fade)`} animatedProps={crown} />
         </Mask>
       </Defs>
+      <LuminousImage href={art.bloom} x="-20" y="-20" width="140" height="140" preserveAspectRatio="xMidYMid meet" mask={`url(#${id}outsideFace)`} animatedProps={glow} />
       <LuminousImage href={art.core} width="100" height="100" preserveAspectRatio="xMidYMid meet" animatedProps={glow} />
       <Image href={art.core} width="100" height="100" preserveAspectRatio="xMidYMid meet" mask={`url(#${id}crown)`} />
       <Image href={art.hot ?? art.lit} width="100" height="100" preserveAspectRatio="xMidYMid meet" mask={`url(#${id}rim)`} />
