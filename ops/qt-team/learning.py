@@ -144,7 +144,7 @@ def ingest(root):
                         state['retryQueue'][key] = {'role': role, 'id': record['id'], 'name': (record.get('recipe') or {}).get('name'),
                             'reason': reason, 'sources': [s['url'] for s in record.get('sources', [])][:3],  # whole: a cut reason was held for being cut (22 Oct 2026)
                             'dueAt': max(due, old.get('dueAt', due)), 'attempts': old.get('attempts', 0),
-                            'status': 'held', 'evidenceHash': obs_id}
+                            'status': 'held', 'evidenceHash': obs_id, 'heldAt': checked}  # heldAt: the weekly review counts the week's holds
                 else:
                     state['retryQueue'].pop(key, None)
         state['processed'][path.name] = raw_hash

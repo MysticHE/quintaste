@@ -37,9 +37,32 @@ def post(root: Path, key: str, text: str, buttons=None) -> None:
     os.replace(temp, path)
 
 
+def adopt_legacy(root: Path) -> None:
+    """Recovery lines that a bot run started before the 5 Nov 2026 release still appends to state/bot-blockers/recovered.jsonl,
+    turned into notices so none is lost. A file taken over before a crash is finished on the next tick."""
+    log = root / 'state' / 'bot-blockers' / 'recovered.jsonl'
+    taken = log.with_suffix('.adopting')
+    if not taken.exists():
+        try:
+            log.replace(taken)
+        except FileNotFoundError:
+            return
+    for line in taken.read_text(encoding='utf-8').splitlines():
+        try:
+            row = json.loads(line)
+            case, scope = str(row['case']), str(row['scope'])
+        except (ValueError, KeyError, TypeError):
+            continue
+        if re.fullmatch(r'[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}', case) and re.fullmatch(r'[a-z0-9-]{1,60}', scope):
+            post(root, 'bot-recovered:' + case, 'QT Manager · ' + scope + ' is working again. Its issue closed by itself.',
+                 [[{'text': 'Open issue', 'url': ADMIN_ORIGIN + '/console/cases?id=' + case}]])
+    taken.unlink(missing_ok=True)
+
+
 def drain(state, root: Path, enqueue) -> int:
     """Moves waiting notices into the reporter's queue with enqueue(state, key, text, buttons=...). A file is removed only after
     its notice is queued, so a full queue leaves the rest for the next tick. Returns how many were queued."""
+    adopt_legacy(root)
     target, done = folder(root), 0
     for path in sorted(target.glob('*.json')) if target.is_dir() else []:
         try:

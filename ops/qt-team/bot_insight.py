@@ -19,6 +19,7 @@ import argparse
 import collections
 import datetime as dt
 import difflib
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -36,8 +37,9 @@ import hermes_run  # noqa: E402
 
 SG = dt.timezone(dt.timedelta(hours=8))
 PROFILE, RUN_SECONDS, TURNS = 'qt-manager', 300, 2
-DIAGNOSES_PER_DAY, PER_PASS, TRIES, KEEP_DAYS = 5, 2, 3, 30  # two a pass keeps a pass inside its timer limit
-LOCATION = re.compile(r'\(at ([a-z0-9_]+\.py):(\d+)\)')
+DIAGNOSES_PER_DAY, PER_PASS, TRIES, KEEP_DAYS = 5, 2, 3, 30  # model calls; two a pass keeps a pass inside its timer limit
+DIFF_SHOWN = 800  # characters of diff that fit in a case note beside the description
+LOCATION = bot_blockers.LOCATION
 KINDS = {'code-bug': 'a bug in the bot code', 'outside': 'a problem outside the bots (the app, a website or a provider)',
          'data': 'unexpected data the code does not handle', 'unknown': 'not clear from the facts'}
 EFFORT = ('small', 'medium', 'large')
@@ -89,20 +91,6 @@ def ask(prompt: str, folder: Path) -> dict:
 
 # ------------------------------------------------------------------ diagnosis
 
-def code_excerpt(error: str):
-    """The live code around the reported line (40 before, 25 after, with the enclosing def), or None without a location."""
-    found = LOCATION.search(error or '')
-    path = ROOT / found.group(1) if found else None
-    if not path or not path.is_file():
-        return None
-    line, lines = int(found.group(2)), path.read_text(encoding='utf-8').splitlines()
-    start, end = max(0, line - 41), min(len(lines), line + 25)
-    head = next((i for i in range(min(line, len(lines)) - 1, -1, -1) if lines[i].lstrip().startswith(('def ', 'class '))), None)
-    parts = [f'{head + 1}: {lines[head]}', '...'] if head is not None and head < start else []
-    parts += [f"{i + 1}{'>' if i + 1 == line else ':'} {lines[i]}" for i in range(start, end)]
-    return {'file': path.name, 'line': line, 'code': '\n'.join(parts)[:9000]}
-
-
 def recent_errors(scope: str, limit: int = 8) -> list:
     """The role's own run errors (research data, never members' words); chef lanes and bridges give only class and location."""
     import telegram_reporter as t
@@ -130,7 +118,8 @@ def diagnosis_prompt(request: dict, excerpt) -> str:
 
 
 def checked_fix(fix, excerpt) -> dict | None:
-    """The fix as given, plus whether it applies exactly once to the live file and still compiles, and its diff."""
+    """The fix as given, plus whether it applies exactly once to the live file and the file still compiles (a syntax check only:
+    it is never run or tested), and its diff. Code that changed since the failure is not checked against."""
     if not isinstance(fix, dict):
         return None
     name, find, replace = str(fix.get('file', '')), fix.get('find'), fix.get('replace')
@@ -139,7 +128,11 @@ def checked_fix(fix, excerpt) -> dict | None:
     if not excerpt or name != excerpt['file'] or not isinstance(find, str) or not isinstance(replace, str) or not find.strip():
         out['why'] = 'it does not name the failing file with an exact change'
         return out
-    live = (ROOT / name).read_text(encoding='utf-8')
+    data = (ROOT / name).read_bytes() if (ROOT / name).is_file() else b''
+    if excerpt.get('sha256') and hashlib.sha256(data).hexdigest() != excerpt['sha256']:
+        out['why'] = f'{name} has changed since the failure (a later deploy), so the fix may no longer fit'
+        return out
+    live = data.decode('utf-8', 'replace')
     if live.count(find) != 1:
         out['why'] = 'its text is not found exactly once in the live file'
         return out
@@ -149,8 +142,8 @@ def checked_fix(fix, excerpt) -> dict | None:
     except SyntaxError:
         out['why'] = 'the changed file would not compile'
         return out
-    diff = difflib.unified_diff(live.splitlines(keepends=True), changed.splitlines(keepends=True), 'live/' + name, 'fixed/' + name, n=2)
-    out.update(checked=True, diff=''.join(diff))
+    diff = ''.join(difflib.unified_diff(live.splitlines(keepends=True), changed.splitlines(keepends=True), 'live/' + name, 'fixed/' + name, n=2))
+    out.update(checked=True, diff=diff, lines=sum(1 for line in diff.splitlines()[2:] if line[:1] in '+-'))
     return out
 
 
@@ -163,19 +156,25 @@ def validate_diagnosis(answer: dict, excerpt) -> dict:
 
 
 def case_notes(request: dict, d: dict) -> list:
+    """Notes for the case, each within admin's 1,000 characters. A fix is only ever described as checked for fitting the live
+    code and compiling: nothing was run or tested, and nothing was applied."""
     notes = [f"Kaya's diagnosis (automatic)\n{d['summary']}\n\nLikely: {KINDS[d['kind']]} · {d['confidence']} confidence\nWhy: {d['cause']}"]
     fix = d['fix']
     if fix and fix['checked']:
-        notes.append((f"Suggested fix (checked: applies to the live {fix['file']} and compiles; not applied)\n"
-                      f"{fix['description']}\nRisk: {fix['risk'] or 'not stated'}\n\n{fix['diff']}")[:1000])
+        head = (f"Suggested fix (fits the live {fix['file']} exactly and the file still compiles; not run, not tested, not applied)\n"
+                f"{fix['description']}\nRisk: {fix['risk'] or 'not stated'}\n\n")
+        shown = fix['diff'] if len(fix['diff']) <= DIFF_SHOWN else ''
+        notes.append(head + (shown or f"The change is {fix['lines']} lines, too long to show here; the brief below describes it."))
     elif fix:
-        notes.append(f"Suggested fix (not checked: {fix['why']}; not applied)\n{fix['description']}\nRisk: {fix['risk'] or 'not stated'}"[:1000])
+        notes.append(f"Suggested fix (not checked: {fix['why']}; not applied)\n{fix['description']}\nRisk: {fix['risk'] or 'not stated'}")
     else:
         notes.append('No code change suggested: ' + ('the cause looks outside the bots; check that service first.' if d['kind'] == 'outside'
                                                      else 'the facts do not show the cause clearly enough.'))
-    notes.append((f"Brief for a code session (paste into Claude Code):\n{d['brief']}\nError: {request.get('error') or 'not recorded'}\n"
-                  f"Full diagnosis on the VPS: state/diagnosis/done/{request['case']}.json")[:1000])
-    return notes
+    excerpt = request.get('excerpt') or {}
+    where = f"{excerpt['file']}:{excerpt['line']}" if excerpt.get('file') else 'not recorded'
+    notes.append(f"Brief for a code session (paste into Claude Code):\n{d['brief']}\nError: {request.get('error') or 'not recorded'}\n"
+                 f"Failing code: ops/qt-team/{where}")
+    return [note[:1000] for note in notes]
 
 
 def card(request: dict, d: dict) -> str:
@@ -184,29 +183,45 @@ def card(request: dict, d: dict) -> str:
             + (f"\nSuggested fix: {fix['description'][:220]}" if fix else '\nNo code change suggested yet.'))
 
 
-def diagnosed_today(done: Path, today: str) -> int:
-    rows = [read(p, {}) or {} for p in done.glob('*.json')]
-    return sum(r.get('day') == today and bool(r.get('asked')) for r in rows)
+def attempts_file(today: str) -> Path:
+    return ROOT / 'state' / 'diagnosis' / 'attempts' / (today + '.json')
+
+
+def attempts_today(today: str) -> int:
+    """Model calls made for diagnoses today, failed ones included: the daily limit counts every call, not every success."""
+    return int((read(attempts_file(today), {}) or {}).get('n', 0))
+
+
+def count_attempt(today: str) -> None:
+    write(attempts_file(today), {'n': attempts_today(today) + 1})
 
 
 def diagnose_pending(dry_run=False) -> list:
-    """Diagnoses queued cases, oldest first, within the daily limit. A case that recovered meanwhile is dropped unasked."""
+    """Diagnoses queued cases, oldest first, within the daily limit of model calls. A case that recovered or was replaced by a
+    newer one meanwhile is closed out without asking."""
     queue, done, out = bot_blockers.diagnosis_queue(ROOT), ROOT / 'state' / 'diagnosis' / 'done', []
     done.mkdir(parents=True, exist_ok=True)
     today = now_sg().date().isoformat()
+    calls_left = DIAGNOSES_PER_DAY - attempts_today(today)
     for path in sorted(queue.glob('*.json'), key=lambda p: p.stat().st_mtime) if queue.is_dir() else []:
         request = read(path, {}) or {}
         case = str(request.get('case', ''))
         if not re.fullmatch(r'[a-f0-9-]{36}', case) or (done / (case + '.json')).exists():
             path.unlink(missing_ok=True)
             continue
-        if bot_blockers.open_case(ROOT, request.get('scope', ''), request.get('key', 'runtime')) != case and not dry_run:
-            write(done / (case + '.json'), {'case': case, 'day': today, 'asked': False, 'outcome': 'recovered before diagnosis'})
+        current = bot_blockers.open_case(ROOT, request.get('scope', ''), request.get('key', 'runtime'))
+        if current != case and not dry_run:
+            outcome = 'recovered before diagnosis' if current is None else f'replaced by case {current} before diagnosis'
+            write(done / (case + '.json'), {'case': case, 'day': today, 'asked': False, 'outcome': outcome})
             path.unlink(missing_ok=True)
             continue
-        if diagnosed_today(done, today) >= DIAGNOSES_PER_DAY or len(out) >= PER_PASS:
+        if len(out) >= PER_PASS:
             break
+        if calls_left <= 0 and not request.get('diagnosis'):
+            continue  # waits for tomorrow's calls; an answer already made is still posted
+        asks = not request.get('diagnosis')
         out.append(diagnose_one(path, request, done, today, dry_run))
+        calls_left -= asks
     return out
 
 
@@ -215,7 +230,11 @@ def diagnose_one(path: Path, request: dict, done: Path, today: str, dry_run: boo
     case = request['case']
     d = request.get('diagnosis')
     if not d:
-        excerpt = code_excerpt(request.get('error', ''))
+        # Taken when the case opened (bot_blockers.queue_diagnosis); a request from before then reads the live code.
+        excerpt = request.get('excerpt') or bot_blockers.code_excerpt(ROOT, request.get('error', ''))
+        request['excerpt'] = excerpt
+        if not dry_run:
+            count_attempt(today)
         try:
             d = validate_diagnosis(ask(diagnosis_prompt(request, excerpt), ROOT / 'state' / 'diagnosis' / 'runs' / case), excerpt)
         except Exception as exc:  # retried on later passes, then given up; the case itself stays open as before
@@ -227,7 +246,7 @@ def diagnose_one(path: Path, request: dict, done: Path, today: str, dry_run: boo
         posted = chef_admin.call(ROOT, 'head', 'POST', '/api/bot/diagnosis', {'scope': request['scope'], 'key': request['key'], 'notes': notes})
     except Exception as exc:
         return retry_later(path, dict(request, diagnosis=d), done, today, 'admin did not take the diagnosis', exc)
-    if posted.get('case'):
+    if posted.get('case') and not posted.get('duplicate'):
         bot_notices.post(ROOT, 'diagnosis:' + case, card(request, d),
                          [[{'text': 'Open issue', 'url': app_signing.ADMIN_ORIGIN + '/console/cases?id=' + case}]])
     write(done / (case + '.json'), {'case': case, 'day': today, 'asked': True, 'request': request, 'diagnosis': d,
@@ -263,7 +282,7 @@ def week_stats(now: dt.datetime) -> dict:
             where = LOCATION.search(str(e.get('error', '')))
             places[(str(e.get('role')), where.group(0) if where else 'no location')] += 1
         started = dt.datetime.strptime(folder.name[:16], '%Y%m%dT%H%M%SZ').replace(tzinfo=dt.timezone.utc)
-        done_at = t.aware(report.get('completedAt'))
+        done_at = aware(report.get('completedAt'))
         if done_at:
             minutes.append(round((done_at - started).total_seconds() / 60, 1))
         publication = report.get('publication') or {}
@@ -275,9 +294,7 @@ def week_stats(now: dt.datetime) -> dict:
         rows = [r[key]['byStatus'] for r in reports if isinstance(r.get(key), dict) and isinstance(r[key].get('byStatus'), dict)]
         if rows:
             kitchens[key] = {'now': rows[0], 'weekAgo': rows[-1]}
-    learning = read(ROOT / 'state' / 'learning' / 'state.json', {}) or {}
-    holds = [(str(v.get('role')), ' '.join(str(v.get('reason', '')).split())[:160]) for v in (learning.get('retryQueue') or {}).values()
-             if isinstance(v, dict)]
+    holds = week_holds(since)
     gave_up, retried = t.throttle_counts(since)
     return {'rounds': len(reports), 'passed': sum(r.get('status') == 'passed' for r in reports),
             'failedRounds': dict(failures), 'errorPlaces': [[k[0], k[1], n] for k, n in places.most_common(8)],
@@ -286,6 +303,32 @@ def week_stats(now: dt.datetime) -> dict:
             'heldReasons': [f'{r}: {why}' for r, why in holds[-30:]], 'commonNotes': [[n, c] for n, c in notes.most_common(10)],
             'aiCalls': ai_calls(since),
             'appRefused': {'gaveUp': gave_up, 'waitedThenSent': retried}}
+
+
+def week_holds(since: dt.datetime) -> list:
+    """(role, reason) of research the bots held during the week: learning's retry queue holds every open hold of any age, so only
+    those held (or held again) since `since` count. heldAt is recorded since 5 Nov 2026; an older entry is dated from its next
+    retry time less the role's retry interval."""
+    import learning
+    queue = (read(ROOT / 'state' / 'learning' / 'state.json', {}) or {}).get('retryQueue') or {}
+    found = []
+    for row in queue.values():
+        if not isinstance(row, dict):
+            continue
+        held = aware(row.get('heldAt'))
+        if held is None and aware(row.get('dueAt')):
+            held = aware(row['dueAt']) - learning.RETRY_AFTER.get(row.get('role'), learning.RETRY_DEFAULT)
+        if held and held >= since:
+            found.append((str(row.get('role')), ' '.join(str(row.get('reason', '')).split())[:160]))
+    return found
+
+
+def aware(value):
+    try:
+        when = dt.datetime.fromisoformat(str(value).replace('Z', '+00:00'))
+    except ValueError:
+        return None
+    return when if when.tzinfo else when.replace(tzinfo=dt.timezone.utc)
 
 
 def ai_calls(since: dt.datetime) -> int:
@@ -352,7 +395,7 @@ def weekly_review(now: dt.datetime, force=False, dry_run=False):
     message = review_message(now, stats, review)
     if dry_run:
         return {'week': week, 'message': message}
-    bot_notices.post(ROOT, 'weekly-review:' + week.lower() + ('-check' if force else ''), message)
+    bot_notices.post(ROOT, 'weekly-review:' + week.lower() + ('-check' if force else ''), message, [])  # [] : no buttons
     write(path, {'week': week, 'sent': True, 'at': time.time(), 'stats': stats, 'review': review})
     return {'week': week, 'recommendations': len(review['recommendations'])}
 

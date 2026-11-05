@@ -3,16 +3,31 @@
 Self-healing (owner, 5 Nov 2026): the case says what failed and where, and it closes by itself when the same work succeeds again;
 the reporter then tells the owner it recovered. Only work that keeps failing after its automatic retries is left for a person.
 A new case about a whole role (key 'runtime') is queued for Kaya's diagnosis (bot_insight.py)."""
-import hashlib,json,os,sys,threading,time,traceback
+import hashlib,json,os,re,sys,threading,time,traceback
 from pathlib import Path
 import bot_notices
 import chef_admin
 from app_signing import ADMIN_ORIGIN
 LOCK=threading.Lock()
+LOCATION=re.compile(r'\(at ([a-z0-9_]+\.py):(\d+)\)')
 
 
 def diagnosis_queue(root:Path)->Path:
     return root/'state'/'diagnosis'/'queue'
+
+
+def code_excerpt(root:Path,error:str):
+    """The code around the reported line (40 before, 25 after, with the enclosing def) and the file's sha256, or None without a
+    location. Taken when the case opens, by the process that failed, so a later deploy cannot shift the lines under it."""
+    found=LOCATION.search(error or '')
+    path=root/found.group(1) if found else None
+    if not path or not path.is_file():return None
+    data=path.read_bytes();line,lines=int(found.group(2)),data.decode('utf-8','replace').splitlines()
+    start,end=max(0,line-41),min(len(lines),line+25)
+    head=next((i for i in range(min(line,len(lines))-1,-1,-1) if lines[i].lstrip().startswith(('def ','class '))),None)
+    parts=[f'{head+1}: {lines[head]}','...'] if head is not None and head<start else []
+    parts+=[f"{i+1}{'>' if i+1==line else ':'} {lines[i]}" for i in range(start,end)]
+    return {'file':path.name,'line':line,'code':'\n'.join(parts)[:9000],'sha256':hashlib.sha256(data).hexdigest()}
 
 
 def queue_diagnosis(root:Path,case:str,scope:str,key:str,row:dict)->None:
@@ -20,9 +35,10 @@ def queue_diagnosis(root:Path,case:str,scope:str,key:str,row:dict)->None:
     try:
         folder=diagnosis_queue(root);folder.mkdir(parents=True,exist_ok=True)
         temp=folder/(case+'.tmp')
-        temp.write_text(json.dumps({'case':case,'scope':scope,'key':key,'error':row.get('error',''),'n':row.get('n',0),'at':time.time()}))
+        temp.write_text(json.dumps({'case':case,'scope':scope,'key':key,'error':row.get('error',''),'n':row.get('n',0),'at':time.time(),
+                                    'excerpt':code_excerpt(root,row.get('error',''))}))
         os.replace(temp,folder/(case+'.json'))
-    except OSError:pass
+    except (OSError,UnicodeError):pass
 
 
 def where(exc=None)->str:
