@@ -3,11 +3,11 @@ import { View } from "react-native";
 import Svg, { Circle, Defs, Ellipse, Image, Mask, RadialGradient, Stop } from "react-native-svg";
 import Animated, { Easing, cancelAnimation, useAnimatedProps, useSharedValue, withDelay, withRepeat, withSequence, withTiming, type SharedValue } from "react-native-reanimated";
 import { COLLECTION_ART, type CollectionArt } from "../../config/collection-art";
-import { usePreferences } from "../../state/Preferences";
 import { lightEnvelope, useCollectionMotion } from "./Motion";
 
 const Light = Animated.createAnimatedComponent(Circle);
 const Crown = Animated.createAnimatedComponent(Ellipse);
+const LuminousImage = Animated.createAnimatedComponent(Image);
 type Point = readonly [number, number];
 type Curve = readonly [Point, Point, Point];
 // Short curves follow each artwork's upper metal, not the circular photo opening.
@@ -21,19 +21,20 @@ const paths: { id: string; crown: Point; left: Curve; right: Curve }[] = [
 
 /** Fixed copies of the original coloured art; only soft masks move over its contours. */
 export function BorderEffects({ art, size, enabled = true }: { art: CollectionArt; size: number; enabled?: boolean }) {
-  const { theme } = usePreferences(), { host, on } = useCollectionMotion(enabled);
+  const { host, on } = useCollectionMotion(enabled);
   const rawId = useId(), id = "border" + rawId.replace(/[^a-zA-Z0-9]/g, "");
   const index = paths.findIndex(p => COLLECTION_ART["border-" + p.id] === art), path = paths[index];
   const clock = useSharedValue(0);
   useEffect(() => {
     clock.set(0);
     if (on && index >= 0) clock.set(withDelay(400 + index * 850, withRepeat(withSequence(
-      withTiming(9000, { duration: 9000, easing: Easing.linear }), withTiming(0, { duration: 0 }),
+      withTiming(5600, { duration: 5600, easing: Easing.linear }), withTiming(0, { duration: 0 }),
     ), -1, false)));
     return () => { cancelAnimation(clock); clock.set(0); };
   }, [on, index, clock]);
-  const strength = (size < 80 ? 0.65 : 1) * (theme.dark ? 0.66 : 0.9);
-  const crown = useAnimatedProps(() => ({ opacity: lightEnvelope(clock.value, 0, 700, 1700) * strength * 0.5 }));
+  const strength = size < 80 ? 0.9 : 1;
+  const glow = useAnimatedProps(() => ({ opacity: (0.35 + 0.5 * (0.5 - 0.5 * Math.cos(clock.value * Math.PI * 2 / 2800))) * strength }));
+  const crown = useAnimatedProps(() => ({ opacity: lightEnvelope(clock.value, 0, 700, 1700) * strength * 0.85 }));
   return <View ref={host} pointerEvents="none" testID="border-motion-host" style={{ position: "absolute", width: size, height: size }}>
     {on && path && <Svg testID="border-effects" width={size} height={size} viewBox="0 0 100 100">
       <Defs>
@@ -50,8 +51,9 @@ export function BorderEffects({ art, size, enabled = true }: { art: CollectionAr
           <Crown cx={path.crown[0]} cy={path.crown[1]} rx="13" ry="11" fill={`url(#${id}fade)`} animatedProps={crown} />
         </Mask>
       </Defs>
+      <LuminousImage href={art.core} width="100" height="100" preserveAspectRatio="xMidYMid meet" animatedProps={glow} />
       <Image href={art.core} width="100" height="100" preserveAspectRatio="xMidYMid meet" mask={`url(#${id}crown)`} />
-      <Image href={art.lit} width="100" height="100" preserveAspectRatio="xMidYMid meet" mask={`url(#${id}rim)`} />
+      <Image href={art.hot ?? art.lit} width="100" height="100" preserveAspectRatio="xMidYMid meet" mask={`url(#${id}rim)`} />
     </Svg>}
   </View>;
 }

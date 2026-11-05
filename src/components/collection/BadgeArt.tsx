@@ -1,35 +1,41 @@
 import { useEffect } from "react";
 import { View } from "react-native";
 import { Image } from "expo-image";
-import Animated, { Easing, cancelAnimation, useAnimatedStyle, useDerivedValue, useSharedValue, withDelay, withRepeat, withSequence, withTiming, type SharedValue } from "react-native-reanimated";
+import Animated, { Easing, cancelAnimation, useAnimatedStyle, useDerivedValue, useSharedValue, withRepeat, withSequence, withTiming, type SharedValue } from "react-native-reanimated";
 import { COLLECTION_ART, type CollectionArt } from "../../config/collection-art";
-import { usePreferences } from "../../state/Preferences";
 import { HALO_PAD, StarGlint } from "./Fx";
 import { lightEnvelope, useCollectionMotion } from "./Motion";
 import { SheenPass } from "./Sheen";
 
 const badges = ["tea-for-two", "good-company", "explorer", "home-cook", "lotus-legend"];
 export const badgeMotionIndex = (art: CollectionArt) => badges.findIndex(id => COLLECTION_ART["badge-" + id] === art);
-const CYCLE = 7800;
+const CYCLE = 5600;
+
+/** Always luminous, breathing twice per sweep cycle; no multi-second dark interval. */
+function luminosity(time: number) {
+  "worklet";
+  return 0.35 + 0.65 * (0.5 - 0.5 * Math.cos(time * Math.PI * 2 / 2800));
+}
 
 /** Golden Lotus's material-coloured light, coordinated on one clock at every badge size. */
 export function BadgeArt({ art, size, index, dim }: { art: CollectionArt; size: number; index: number; dim: boolean }) {
-  const { theme } = usePreferences(), { host, on } = useCollectionMotion(!dim);
+  const { host, on } = useCollectionMotion(!dim);
   const clock = useSharedValue(0);
   useEffect(() => {
-    clock.set(0);
-    if (on) clock.set(withDelay(500 + index * 1400, withRepeat(withSequence(
-      withTiming(CYCLE, { duration: CYCLE, easing: Easing.linear }),
-      withTiming(0, { duration: 0 }),
-    ), -1, false)));
+    const phase = index * 430;
+    clock.set(phase);
+    if (on) clock.set(withRepeat(withSequence(
+      withTiming(CYCLE + phase, { duration: CYCLE, easing: Easing.linear }),
+      withTiming(phase, { duration: 0 }),
+    ), -1, false));
     return () => { cancelAnimation(clock); clock.set(0); };
   }, [on, index, clock]);
   const small = size < 64;
-  // Dark surrounds amplify bloom; small profile art needs less light to retain its silhouette.
-  const strength = (0.76 + art.level * 0.06) * (small ? 0.6 : 1) * (theme.dark ? 0.72 : 1);
-  const core = useAnimatedStyle(() => ({ opacity: lightEnvelope(clock.value, 0, 850, 2400) * 0.48 * strength }));
-  const bloom = useAnimatedStyle(() => ({ opacity: lightEnvelope(clock.value, 150, 1100, 2400) * 0.38 * strength }));
-  const sweep = useDerivedValue(() => Math.max(0, Math.min(1, (clock.value - 350) / 1500)));
+  // The luminous material stays vivid at profile sizes and on dark backgrounds too.
+  const strength = (0.88 + art.level * 0.03) * (small ? 0.9 : 1);
+  const core = useAnimatedStyle(() => ({ opacity: luminosity(clock.value) * 0.85 * strength }));
+  const bloom = useAnimatedStyle(() => ({ opacity: luminosity(clock.value) * 0.95 * strength }));
+  const sweep = useDerivedValue(() => Math.max(0, Math.min(1, ((clock.value % CYCLE) - 350) / 1500)));
   const side = size * HALO_PAD;
   // Pin each glint to a real highlight and time it to the light crossing that horizontal position.
   const points = art.glints.filter(p => p[0] >= 0.2 && p[0] <= 0.8);
@@ -52,7 +58,7 @@ export function BadgeArt({ art, size, index, dim }: { art: CollectionArt; size: 
 function BadgeSpark({ art, size, at, clock, strength }: { art: CollectionArt; size: number; at: [number, number]; clock: SharedValue<number>; strength: number }) {
   const star = Math.max(4, size * 0.095), arrival = 350 + ((at[0] - 0.5 + 0.85) / 1.7) * 1500;
   const style = useAnimatedStyle(() => {
-    const value = lightEnvelope(clock.value, arrival - 180, arrival, arrival + 240);
+    const value = lightEnvelope(clock.value % CYCLE, arrival - 180, arrival, arrival + 240);
     return { opacity: value * strength, transform: [{ scale: 0.65 + value * 0.35 }] };
   });
   return <Animated.View style={[{ position: "absolute", left: at[0] * size - star / 2, top: at[1] * size - star / 2, width: star, height: star }, style]}>
