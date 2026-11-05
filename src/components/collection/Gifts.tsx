@@ -28,7 +28,7 @@ export function useGiftName() {
  * Gifts, while the gifts service is on (it answers 503 while switched off, and nothing about gifts is shown): the full lists
  * for Collection › Gifts, or just what the picker needs elsewhere.
  */
-export const useGifts = (on = true) => useRemote(on ? giftsKey : null, loadGifts);
+export const useGifts = (on = true, poll?:number) => useRemote(on ? giftsKey : null, loadGifts,poll);
 export const useGiftCatalog = (on = true) => useRemote(on ? giftCatalogKey : null, loadGiftCatalog);
 const errorKeys: Record<string, Key> = { GIFT_STORE: "giftStore", GIFT_PURCHASE: "giftPurchase", GIFTS_OFF: "giftsOff", GIFT_LIMIT: "giftLimit", SOCIAL_SETUP: "giftSetup" };
 /** A refused send in the reader's language; "unavailable" (404) covers hidden, blocked and profile-less receivers. */
@@ -198,7 +198,7 @@ export function useGiftOpener() {
   const pending = useRef(new Set<string>()), [working, setWorking] = useState<string[]>([]);
   const show = (view: GiftView, from: string, mine: boolean) => {
     setOpen({ view, from: mine ? "" : from, mine });
-    if (!mine && !view.opened) openGift(view.id).then(refreshGifts, () => undefined);
+    if (!mine && !view.opened) openGift(view.id).then(refreshGifts, () => setNotice({ text:t("actionFailed"),error:true }));
   };
   const like = async (on: boolean) => {
     if (!open || pending.current.has(open.view.id)) return;

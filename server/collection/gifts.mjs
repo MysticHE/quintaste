@@ -44,11 +44,13 @@ gifts.get('/', async (_req, res) => {
     pool.query(`SELECT g.id, g.gift, ${noteSql} AS note, g.created_at AS at, g.opened_at IS NOT NULL AS opened, g.liked_at IS NOT NULL AS liked,
         g.thanked_at IS NOT NULL AS thanked, g.sender_id AS "fromId", ${nameSql('p', 'u')} AS "fromName" FROM community.gift g LEFT JOIN public."user" u ON u.id=g.sender_id
         LEFT JOIN social.profile p ON p.user_id=g.sender_id WHERE g.receiver_id=$1 AND g.status='sent' AND ${fromVisible}
-        ORDER BY g.created_at DESC LIMIT 200`, [me]).then(r => r.rows),
+        ORDER BY (g.opened_at IS NULL) DESC,g.created_at DESC LIMIT 200`, [me]).then(r => r.rows),
     pool.query(`SELECT g.id, g.gift, ${noteSql} AS note, g.created_at AS at, g.opened_at IS NOT NULL AS opened, g.liked_at IS NOT NULL AS liked,
-        g.thanked_at IS NOT NULL AS thanked, ${newsSql} AND NOT ${friendsSql('g.sender_id', 'g.receiver_id')} AS news, g.receiver_id AS "toId", ${nameSql('p', 'u')} AS "toName" FROM community.gift g JOIN public."user" u ON u.id=g.receiver_id
+        g.thanked_at IS NOT NULL AS thanked, coalesce(${newsSql} AND NOT ${friendsSql('g.sender_id', 'g.receiver_id')},false) AS news,
+        to_char(greatest(g.liked_at,g.thanked_at) AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"') AS "newsAt",
+        g.receiver_id AS "toId", ${nameSql('p', 'u')} AS "toName" FROM community.gift g JOIN public."user" u ON u.id=g.receiver_id
         LEFT JOIN social.profile p ON p.user_id=g.receiver_id WHERE g.sender_id=$1 AND g.status='sent' AND ${reachableSql('g.receiver_id', '$1')}
-        ORDER BY g.created_at DESC LIMIT 200`, [me]).then(r => r.rows),
+        ORDER BY news DESC,g.created_at DESC LIMIT 200`, [me]).then(r => r.rows),
     pool.query('SELECT gifts_off FROM social.profile WHERE user_id=$1', [me]).then(r => r.rows[0]?.gifts_off ?? false),
   ]);
   res.json({ catalog, ...mode, received, sent, receiving: !off });
@@ -174,8 +176,19 @@ gifts.put('/:id/thanks', async (req, res) => {
 });
 
 /** The sender looked at their sent gifts: the likes and thank-yous there stop counting as new. */
-gifts.post('/sent/seen', async (_req, res) => {
-  await pool.query(`UPDATE community.gift g SET seen_at=now() WHERE g.sender_id=$1 AND ${newsSql}`, [res.locals.user.id]);
+gifts.post('/sent/seen', async (req, res) => {
+  if (req.body?.id !== undefined || req.body?.through !== undefined) {
+    const id=requireId(req.body.id),through=req.body.through;
+    const time=typeof through==='string'?Date.parse(through):NaN;
+    if(typeof through!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$/.test(through)
+      ||!Number.isFinite(time)||time<0||time>Date.now()||new Date(time).toISOString()!==through.slice(0,23)+'Z') throw new CommunityError(400,'Invalid gift update.');
+    // Only the opened gift, and only reactions present in that response. A newer reaction stays new.
+    await pool.query(`UPDATE community.gift SET seen_at=greatest(seen_at,$3::timestamptz)
+      WHERE id=$2 AND sender_id=$1`,[res.locals.user.id,id,through]);
+  } else {
+    // Compatibility for older app versions, which acknowledge the whole Sent list.
+    await pool.query(`UPDATE community.gift g SET seen_at=now() WHERE g.sender_id=$1 AND ${newsSql}`, [res.locals.user.id]);
+  }
   res.json({ ok: true });
 });
 

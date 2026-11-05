@@ -4,6 +4,7 @@ import { Platform, StyleSheet, View } from "react-native";
 import { AvatarPortrait } from "../components/avatar/AvatarPortrait";
 import { Screen } from "../components/Screen";
 import { SettingsRow } from "../components/SettingsRow";
+import { ListGroup, ListItem, RowIcon } from "../components/GroupedList";
 import { Button, Card, T, common } from "../components/ui";
 import { usePreferences } from "../state/Preferences";
 import { useFood } from "../state/Food";
@@ -18,12 +19,12 @@ import { useDietText } from "../components/food/DietLabels";
 import { useLanguageName } from "./Settings";
 import { useT, useLanguageChoice,useLanguage } from "../i18n";
 import { contributionWords } from "../config/explore-work";
-import { useInbox } from "../components/InboxCounts";
+import { useLiveInbox } from "../components/InboxCounts";
 
 export function AccountScreen() {
   const { user, enabled } = useAuth();
   const contributionText=contributionWords(useLanguage());
-  const contributionCount=useInbox()?.contributions??0;
+  const contributionCount=useLiveInbox()?.contributions??0;
   const { draft, preview, theme } = usePreferences(), { doc, leavePreview, switching } = useFood();
   const tc = useT("common"), t = useT("me"), languageName = useLanguageName(useLanguageChoice().choice), dietText = useDietText();
   const { returnTo } = useLocalSearchParams<{ returnTo?: string }>();
@@ -36,6 +37,9 @@ export function AccountScreen() {
     return result === true;
   };
   return <Screen title={tc("settings")} backTo={origin}>
+    {!!user && contributionCount > 0 && <ListGroup><ListItem title={contributionText.updates.replace("{n}",String(contributionCount))}
+      subtitle={contributionText.updatesHint} wrap leading={<RowIcon name="file-tray-outline" />}
+      onPress={() => router.push("/explore-contributions")} /></ListGroup>}
     {/* Settings is the app and the account (owner, 25 Oct 2026): name, bio, photos and avatar are edited on My Profile. */}
     {!user && <Card style={s.profile}>
       <View style={[s.portrait, { backgroundColor: theme.accentSoft }]}><AvatarPortrait avatar={doc.avatar} size={64} /></View>
@@ -55,7 +59,7 @@ export function AccountScreen() {
       <SettingsRow label={t("foodChoices")} icon="leaf-outline" value={draft.diets.map(dietText.name).join(" · ")} onPress={() => router.push("/exclusions")} />
       <SettingsRow label={t("aiRecipesPlan")} icon="sparkles-outline" onPress={() => router.push("/cook/ai-plans" as never)} />
       <SettingsRow label={t("location")} icon="location-outline" last={!user&&!__DEV__} onPress={() => router.push("/private-places")} />
-      {user&&<SettingsRow label={contributionText.title} value={contributionCount?String(contributionCount):undefined} icon="file-tray-outline" last={!__DEV__} onPress={()=>router.push("/explore-contributions" as never)}/>}
+      {user&&<SettingsRow label={contributionText.title} value={contributionCount?contributionText.newCount.replace("{n}",String(contributionCount)):undefined} icon="file-tray-outline" last={!__DEV__} onPress={()=>router.push("/explore-contributions" as never)}/>}
       {__DEV__ && <SettingsRow label={t("myCases")} icon="file-tray-outline" last onPress={() => router.push("/cases")} />}
     </Card>
     <Card style={s.group}>

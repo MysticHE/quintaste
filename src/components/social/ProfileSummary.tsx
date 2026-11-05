@@ -9,7 +9,7 @@ import { borderArt } from "../../config/collection";
 import { usePostCount } from "./ProfileGrid";
 import { useDietText } from "../food/DietLabels";
 import { useRemote } from "../../hooks/useRemote";
-import { dinners as loadDinners, friends as loadFriends } from "../../services/social-api";
+import { friends as loadFriends } from "../../services/social-api";
 import { usePreferences } from "../../state/Preferences";
 import { useT } from "../../i18n";
 import type { SocialMe } from "../../types/community";
@@ -41,16 +41,14 @@ export function AreaLine({ parts, diets }: { parts: string[]; diets: string }) {
     </View>
   </View>;
 }
-/** Photo with the pencil, Friends · Posts · Dinners beside it, area and diet under the counts, then bio and hobbies. */
-export function ProfileSummary({ data, onEdit, onPosts, onDinners }: { data: SocialMe | undefined; onEdit: () => void; onPosts: () => void; onDinners: () => void }) {
-  const t = useT("profile"), diet = useDietText(), canMeet = !!data?.standing.canMeet;
+/** Photo with the pencil, Friends and Posts beside it, area and diet under the counts, then bio and hobbies. */
+export function ProfileSummary({ data, onEdit, onPosts }: { data: SocialMe | undefined; onEdit: () => void; onPosts: () => void }) {
+  const t = useT("profile"), diet = useDietText();
   const friends = useRemote(data ? "/api/social/friends" : null, loadFriends, 30000).data;
-  const dinners = useRemote(canMeet ? "/api/social/dinners" : null, loadDinners, 30000).data, posts = usePostCount();
-  // Everyone has friends and posts; Dinners only for members who can use Dining (21 to 45, photo checked).
+  const posts = usePostCount();
   const stats: Stat[] = [
     { label: t("friends"), n: friends?.friends.length ?? null, onPress: () => router.push("/social/friends") },
     { label: t("statPosts"), n: posts, onPress: onPosts },
-    ...(canMeet ? [{ label: t("statDinners"), n: dinners?.met ?? null, onPress: onDinners }] : []),
   ];
   const area = data?.profile.area ?? "", diets = area ? (data?.profile.diets ?? []).map(diet.name).join(" · ") : "";
   return <>

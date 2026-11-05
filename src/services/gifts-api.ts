@@ -17,7 +17,7 @@ export type Gifts = GiftCatalog & {
   received: { id: string; gift: string; note: string; at: string; opened: boolean; liked: boolean; thanked: boolean; fromId: string | null; fromName: string }[];
   sent: { id: string; gift: string; note: string; at: string; opened: boolean; liked: boolean; thanked: boolean;
     /** A like or thank-you you haven't looked at yet, from someone who isn't a friend (friends' come as chat lines). */
-    news: boolean; toId: string; toName: string }[];
+    news: boolean; newsAt?: string | null; toId: string; toName: string }[];
   receiving: boolean;
 };
 export const giftsKey = "/api/gifts";
@@ -33,7 +33,7 @@ export const openGift = (id: string) => call<{ ok: boolean }>(giftsKey + "/" + e
 export const likeGift = (id: string, on: boolean) => call<{ liked: boolean }>(giftsKey + "/" + encodeURIComponent(id) + "/like", { method: "PUT", body: { on } });
 export const thankGift = (id: string) => call<{ thanked: boolean }>(giftsKey + "/" + encodeURIComponent(id) + "/thanks", { method: "PUT" });
 /** You looked at your sent gifts: their likes and thank-yous stop counting as new. */
-export const seeSentGifts = () => call<{ ok: boolean }>(giftsKey + "/sent/seen", { method: "POST" });
+export const seeSentGifts = (gift?: { id: string; through: string }) => call<{ ok: boolean }>(giftsKey + "/sent/seen", { method: "POST", body: gift });
 export const setReceiving = (on: boolean) => call<{ receiving: boolean }>(giftsKey + "/receiving", { method: "PUT", body: { on } });
 /** S$ with two decimals, from cents. */
 export const sgd = (cents: number) => (cents / 100).toFixed(2);

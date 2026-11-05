@@ -6,6 +6,7 @@ import { dinnersDueSql, friendRequestsSql, unreadFriendChatsSql } from '../socia
 import { marketAttentionSql, newOrdersSql, unreadMarketChatsSql } from '../market/conversations.mjs';
 import { unreadClassChatsSql } from '../market/classes.mjs';
 import { giftNewsSql, giftsWaitingSql } from '../collection/gifts.mjs';
+import { contributionNewsSql } from '../explore-work/attention.mjs';
 
 /**
  * Everything waiting on the member, in the one request the tab bar polls: unread conversations (friends, Market, classes)
@@ -32,8 +33,7 @@ export async function inboxCounts(me) {
     gifts: social && giftsOn ? giftsWaitingSql : null,
     // Likes and thank-yous on gifts you sent to people who aren't your friends (a friend's come as chat lines).
     giftNews: social && giftsOn ? giftNewsSql : null,
-    contributions:`(SELECT count(DISTINCT w.id)::int FROM ops.explore_work w JOIN ops.explore_submission s ON s.work_id=w.id
-      WHERE s.user_id=$1 AND w.updated_at>s.seen_at AND w.state IN ('published','resolved','staff','needs-input','needs-changes'))`,
+    contributions:`(SELECT count(*)::int FROM ops.explore_work w WHERE ${contributionNewsSql})`,
   };
   const live = Object.entries(parts).filter(([, sql]) => sql);
   const row = Object.fromEntries(Object.keys(parts).map(key => [key, 0]));

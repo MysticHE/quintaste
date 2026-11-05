@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocalSearchParams } from "expo-router";
 import { Pressable, View } from "react-native";
 import { Sheet } from "../../components/Sheet";
 import { CreditActivity } from "../../components/collection/CreditActivity";
@@ -38,11 +39,14 @@ function CreditsChip({ n, onPress }: { n: number; onPress: () => void }) {
  * waiting or one you sent was liked or thanked.
  */
 export function CollectionScreen() {
+  const {tab:requestedTab}=useLocalSearchParams<{tab?:string}>();
   const { user } = useAuth();
   const t = useT("collection"), { setNotice } = usePreferences(), inbox = useLiveInbox();
   const [history, setHistory] = useState(false), [reveal, setReveal] = useState<string[]>([]);
   const [giftPreferences, setGiftPreferences] = useState(false);
-  const [tab, setTab] = useState<Tab>((inbox?.gifts ?? 0) + (inbox?.giftNews ?? 0) > 0 ? "gifts" : "tasks");
+  const [tab, setTab] = useState<Tab>(requestedTab === "gifts" || (inbox?.gifts ?? 0) + (inbox?.giftNews ?? 0) > 0 ? "gifts" : "tasks");
+  const [previousTabRequest,setPreviousTabRequest]=useState(requestedTab);
+  if(previousTabRequest!==requestedTab){setPreviousTabRequest(requestedTab);if(requestedTab==="gifts")setTab("gifts");}
   const choseTab = useRef(false), checkedInbox = useRef(!!inbox);
   useEffect(() => {
     if (!inbox || checkedInbox.current) return;
@@ -51,7 +55,8 @@ export function CollectionScreen() {
   }, [inbox]);
   const member=useMember();
   const remote = useRemote(member.member?collectionKey:null, loadCollection, {poll:tab==="tasks"||tab==="badges"?5000:undefined}), me = useSocialMe().data, data = remote.data, told = useRef("");
-  const giftsRemote = useGifts(member.member && !!me?.hasProfile), gifts = giftsRemote.data;
+  const giftsRemote = useGifts(member.member && !!me?.hasProfile,tab==="gifts"?5000:undefined), gifts = giftsRemote.data;
+  const giftCount=(inbox?.gifts??0)+(inbox?.giftNews??0);
   useEffect(() => {
     const just = data?.just, key = just ? `${just.credits}|${just.badges.join()}` : "";
     if (!just || key === told.current || (!just.credits && !just.badges.length)) return;
@@ -70,7 +75,7 @@ export function CollectionScreen() {
     <MemberGate returnTo="/social/collection">
       <TopTabs label={t("tabsLabel")} value={tab} onChange={next => { choseTab.current = true; setTab(next); }}
         tabs={[{ id: "tasks", label: t("tabTasks") }, { id: "badges", label: t("tabBadges") }, { id: "borders", label: t("tabBorders") },
-          ...(gifts || tab === "gifts" ? [{ id: "gifts" as const, label: t("tabGifts"), dot: (inbox?.gifts ?? 0) + (inbox?.giftNews ?? 0) > 0 }] : [])]} />
+          ...(gifts || tab === "gifts" ? [{ id: "gifts" as const, label: t("tabGifts"), badge: giftCount, accessibleLabel:giftCount?t("giftUpdatesCount",{n:giftCount}):undefined }] : [])]} />
       <RemoteStatus remote={remote} icon="trophy-outline" returnTo="/social/collection" />
       {data && tab === "tasks" && <TasksTab data={data} />}
       {data && tab === "badges" && <BadgesTab data={data} me={me} />}

@@ -24,6 +24,7 @@ export function GiftsTab({ data, preferences, onClosePreferences }: { data: Gift
   const [busy, setBusy] = useState(false), [sending, setSending] = useState(false), [weekly, setWeekly] = useState(false), opener = useGiftOpener();
   const [localPreferences, setLocalPreferences] = useState(false);
   const pending = useRef(false), latest = useRef(data);
+  const reading=useRef(new Set<string>());
   useEffect(() => { latest.current = data; }, [data]);
   const receive = async (on: boolean) => {
     if (pending.current) return;
@@ -32,20 +33,19 @@ export function GiftsTab({ data, preferences, onClosePreferences }: { data: Gift
     catch (failure) { setNotice({ text: failure instanceof ApiError ? failure.message : t("actionFailed"), error: true }); }
     finally { pending.current = false; setBusy(false); }
   };
-  const seen = useRef(""), newsKey = data.sent.filter(g => g.news).map(g => g.id).join();
-  useEffect(() => {
-    if (side !== "sent" || !newsKey || seen.current === newsKey) return;
-    seen.current = newsKey;
-    const ids = new Set(data.sent.filter(g => g.news).map(g => g.id));
-    seeSentGifts().then(() => {
-      setRemoteData(giftsKey, { ...latest.current, sent: latest.current.sent.map(g => ids.has(g.id) ? { ...g, news: false } : g) }); invalidate(inboxPath);
-    }, () => { seen.current = ""; });
-  }, [side, newsKey, data.sent]);
+  const acknowledge=(g:Gifts["sent"][number])=>{
+    if(!g.news||!g.newsAt||reading.current.has(g.id))return;
+    reading.current.add(g.id);
+    seeSentGifts({id:g.id,through:g.newsAt}).then(()=>invalidate(giftsKey,inboxPath),()=>setNotice({text:t("actionFailed"),error:true}))
+      .finally(()=>reading.current.delete(g.id));
+  };
+  const receivedCount=data.received.filter(g=>!g.opened).length,sentCount=data.sent.filter(g=>g.news).length;
   const empty = side === "received" ? !data.received.length : !data.sent.length;
   const state = (g: { opened: boolean; liked: boolean; thanked: boolean }, sent: boolean) =>
     g.thanked ? t("thanked") : g.liked ? t("giftLikedShort") : g.opened ? t("giftOpened") : t(sent ? "giftDelivered" : "giftNew");
   return <>
-    <ChoiceChips label={t("tabGifts")} value={side} onChange={setSide} options={[{ id: "received", label: t("tabReceived") }, { id: "sent", label: t("tabSent") }]} />
+    <ChoiceChips label={t("tabGifts")} value={side} onChange={setSide} options={[{ id: "received", label: t("tabReceived")+(receivedCount?` · ${receivedCount}`:"") }, { id: "sent", label: t("tabSent")+(sentCount?` · ${sentCount}`:"") }]} />
+    {(side==="received"?receivedCount:sentCount)>0&&<T variant="small" muted>{t(side==="received"?"unopenedGiftCount":"newGiftReactionCount",{n:side==="received"?receivedCount:sentCount})}</T>}
     {empty ? <View testID="gift-empty" style={{ alignItems: "center", gap: 12, paddingVertical: 28 }}>
       <ItemArt art={giftArt("rose")} size={76} fx />
       <T variant="subtitle" style={common.bold}>{t(side === "received" ? "noGifts" : "noSent")}</T>
@@ -53,13 +53,13 @@ export function GiftsTab({ data, preferences, onClosePreferences }: { data: Gift
       <View style={{ marginTop: 4 }}><Button label={t("sendGift")} onPress={() => setSending(true)} /></View>
     </View> : <View testID="gift-inbox">
       {(side === "received" ? data.received : data.sent).map(g => {
-        const sent = "toName" in g, person = sent ? g.toName : g.fromName;
+        const sent = "toName" in g, person = sent ? g.toName : g.fromName,newReaction=sent&&g.news;
         return <View key={g.id} style={{ borderBottomWidth: 1, borderBottomColor: theme.divider }}>
           <ListItem title={giftName(g.gift)} subtitle={t(sent ? "giftTo" : "giftFrom", { name: person })}
             detail={chatTime(g.at, language)} wrap leading={<ItemArt art={giftArt(g.gift)} size={48} />}
-            badge={<StatusPill label={state(g, sent)} tone={!g.opened && !sent ? "accent" : "muted"} />}
-            label={[giftName(g.gift), t(sent ? "giftTo" : "giftFrom", { name: person }), state(g, sent), chatTime(g.at, language)].join(", ")}
-            onPress={() => opener.show(g, sent ? "" : person, sent)} />
+            badge={<StatusPill label={newReaction?t("newGiftReaction"):state(g, sent)} tone={newReaction||!g.opened && !sent ? "accent" : "muted"} />}
+            label={[giftName(g.gift), t(sent ? "giftTo" : "giftFrom", { name: person }),newReaction?t("newGiftReaction"):"", state(g, sent), chatTime(g.at, language)].filter(Boolean).join(", ")}
+            onPress={() => {opener.show(g, sent ? "" : person, sent);if(sent)acknowledge(g);}} />
         </View>;
       })}
       <View style={{ alignSelf: "flex-end" }}><Button variant="link" label={t("sendGift")} onPress={() => setSending(true)} /></View>

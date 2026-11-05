@@ -15,7 +15,8 @@ import { ListGroup, ListItem, RowIcon, StatusPill } from "../../components/Group
 import { useInbox } from "../../components/InboxCounts";
 import { useAuth } from "../../state/Auth";
 import { usePreferences } from "../../state/Preferences";
-import { useT } from "../../i18n";
+import { useT, useLanguage } from "../../i18n";
+import { contributionWords } from "../../config/explore-work";
 import type { SocialMe } from "../../types/community";
 
 type ProfileTab = "posts" | "saved" | "dining";
@@ -43,7 +44,7 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
   const dinners = inbox?.dinners ?? 0, orders = inbox?.orders ?? 0;
   return <Screen back={false} header={<TopRow name={name} data={data} />}>
     <MemberGate returnTo="/social">
-      <ProfileSummary data={data} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} onDinners={() => select("dining")} />
+      <ProfileSummary data={data} onEdit={() => router.push(editTarget)} onPosts={() => select("posts")} />
       {data && <PhotoCheckNotice standing={data.standing} />}
       <View testID="social-profile-tabs"><IconTabs label={t("profile")} value={tab} onChange={select} tabs={[
         { id: "posts", label: t("posts"), icon: "grid-outline", activeIcon: "grid" },
@@ -69,6 +70,7 @@ function ProfileHome({ tab }: { tab: ProfileTab }) {
  * chats that need the member: unread ones, plus a seller's chat with a new order not yet answered (server/community/inbox.mjs).
  */
 function TopRow({ name, data }: { name: string; data: SocialMe | undefined }) {
+  const contributionText=contributionWords(useLanguage());
   const t = useT("profile"), tc = useT("collection"), { theme } = usePreferences(), inbox = useInbox(), requests = inbox?.requests ?? 0, giftCount = (inbox?.gifts ?? 0) + (inbox?.giftNews ?? 0);
   const verified = !!data?.standing.verified;
   return <View testID="social-profile-header" style={[common.row, { minHeight: 56, gap: 4 }]}>
@@ -81,9 +83,9 @@ function TopRow({ name, data }: { name: string; data: SocialMe | undefined }) {
     {!!data && <IconButton appearance="plain" icon="person-add-outline" badge={requests} label={requests ? t("addFriendWaiting", { n: requests }) : t("addFriend")}
       onPress={() => router.push("/social/add-friend")} />}
     {data?.worn && <IconButton appearance="plain" icon="trophy-outline" badge={giftCount}
-      label={giftCount ? tc("giftsWaiting", { n: giftCount }) : tc("openCollection")} onPress={() => router.push("/social/collection")} />}
+      label={giftCount ? tc("giftsWaiting", { n: giftCount }) : tc("openCollection")} onPress={() => router.push(giftCount ? {pathname:"/social/collection",params:{tab:"gifts"}} : "/social/collection")} />}
     <MessagesButton unread={inbox?.messages ?? 0} />
     {/* The full Me menu (Saved, Food choices, Location, Appearance, Privacy, Help, sign-out); this is its only entry point. */}
-    <IconButton appearance="plain" icon="settings-outline" badge={inbox?.contributions??0} label={t("settings")} onPress={() => router.push({ pathname: "/account", params: { returnTo: "/social" } })} />
+    <IconButton appearance="plain" icon="settings-outline" badge={inbox?.contributions??0} label={inbox?.contributions?contributionText.settingsUpdates.replace("{n}",String(inbox.contributions)):t("settings")} onPress={() => router.push({ pathname: "/account", params: { returnTo: "/social" } })} />
   </View>;
 }

@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { router } from "expo-router";
 import { Screen } from "../components/Screen";
 import { Button,Field,T,common } from "../components/ui";
-import { ListGroup,ListItem,RowIcon } from "../components/GroupedList";
+import { ListGroup,ListItem,RowIcon,StatusPill } from "../components/GroupedList";
 import { useMember } from "../components/CommunityGate";
 import { MemberGate } from "../components/social/SocialState";
 import { ReviewPhotos } from "../components/discovery/ReviewPhotos";
@@ -17,7 +17,11 @@ const placeName=(item:Contribution)=>item.kind==="suggestion"||item.kind==="clai
 function useContributions(id?:string) {
   const member=useMember();
   const path="/api/explore-work"+(id?"/"+id:"");
-  const remote=useRemote(member.userId?"explore-contributions:"+member.userId+":"+(id??"list"):null,signal=>communityRequest<{items:Contribution[]}&Contribution>(path,{signal}),5000);
+  const remote=useRemote(member.userId?"explore-contributions:"+member.userId+":"+(id??"list"):null,async signal=>{
+    const result=await communityRequest<{items:Contribution[]}&Contribution>(path,{signal});
+    if(id&&!signal.aborted) invalidate("/api/inbox","explore-contributions:"+member.userId+":list");
+    return result;
+  },5000);
   return remote;
 }
 export function ContributionsScreen(){
@@ -28,6 +32,8 @@ export function ContributionsScreen(){
     {remote.data&&<Button label={w.explore} icon="compass-outline" variant="secondary" onPress={()=>router.push("/")}/>}
     {remote.data&&<Button label={w.suggest} icon="add-circle-outline" variant="link" onPress={()=>router.push("/suggest-place")}/>}
     <ListGroup>{remote.data?.items.map(item=><ListItem key={item.id} title={item.kind==="review"?w.review:item.kind==="suggestion"?w.suggestion:item.kind==="claim"?w.claim:w.report}
+      badge={item.unread?<StatusPill label={w.newUpdate} tone="accent"/>:undefined}
+      label={[item.kind==="review"?w.review:item.kind==="suggestion"?w.suggestion:item.kind==="claim"?w.claim:w.report,placeName(item),contributionState(item,language),item.unread?w.newUpdate:""].filter(Boolean).join(", ")}
       subtitle={placeName(item)+" · "+contributionState(item,language)} wrap leading={<RowIcon name={item.kind==="review"?"star-outline":item.kind==="suggestion"?"add-circle-outline":item.kind==="claim"?"storefront-outline":"flag-outline"}/>}
       onPress={()=>router.push(("/explore-contributions/"+item.id) as never)}/>)}</ListGroup>
   </MemberGate></Screen>;

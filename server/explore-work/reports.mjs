@@ -43,7 +43,7 @@ export function publicSource(raw) {
     !/^(localhost|.*\.local|.*\.internal|\d[\d.]*|\[.*\])$/i.test(u.hostname) && u.hostname.includes('.'); } catch { return false; }
 }
 export async function memberStatus(id,user) {
-  const w=(await pool.query(`SELECT w.*,r.state AS reward_state,r.credits FROM ops.explore_work w
+  const w=(await pool.query(`SELECT w.*,w.updated_at::text AS read_version,r.state AS reward_state,r.credits FROM ops.explore_work w
     JOIN ops.explore_submission s ON s.work_id=w.id LEFT JOIN ops.explore_reward r ON r.work_id=w.id AND r.user_id=$2
     WHERE w.id=$1 AND s.user_id=$2 LIMIT 1`,[id,user])).rows[0];
   if(!w) throw new CommunityError(404,'This contribution is unavailable.');

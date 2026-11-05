@@ -5,13 +5,14 @@ import { digest,event,reference,submitOnce,wake } from './core.mjs';
 import { memberStatus } from './reports.mjs';
 import { placeMatches, unitText } from './suggestions.mjs';
 import { claimCode, claimedPlace, claimInput, queueClaim } from './claims.mjs';
+import { contributionNewsSql } from './attention.mjs';
 
 export const exploreWork=communityRouter();
 const publicWork=w=>({id:w.id,reference:reference(w.id),kind:w.kind,target:w.target,reviewId:w.review_id,state:w.state,stage:w.stage,
   name:w.name??w.payload?.place?.name??null,outcome:w.outcome??w.result?.outcome?.kind??null,
   // A duplicate of a hidden or removed place has no page to open.
   placeId:(w.place_live??w.result?.outcome?.live)===false||w.place_live==='false'?null:w.place_id??w.result?.outcome?.placeId??null,
-  message:w.message,createdAt:w.created_at,updatedAt:w.updated_at,verifiedAt:w.verified_at,reward:w.reward_state?{state:w.reward_state,credits:w.credits}:null});
+  unread:!!w.unread,message:w.message,createdAt:w.created_at,updatedAt:w.updated_at,verifiedAt:w.verified_at,reward:w.reward_state?{state:w.reward_state,credits:w.credits}:null});
 /** Live places that are the same listing as the place being suggested, so the form can open them instead (never hidden ones). */
 exploreWork.get('/places/match',async(req,res)=>{
   const postalCode=String(req.query.postalCode??''),name=String(req.query.name??'').slice(0,200),address=String(req.query.address??'').slice(0,300);
@@ -32,18 +33,19 @@ exploreWork.post('/claims',async(req,res)=>{
     queue:(db,{key,count})=>queueClaim(db,{user,key,input,place,count})}));
 });
 exploreWork.get('/',async(_req,res)=>{
-  const rows=(await pool.query(`SELECT DISTINCT w.id,w.kind,w.target,w.review_id,w.state,w.stage,w.message,w.created_at,w.updated_at,w.verified_at,
+  const rows=(await pool.query(`SELECT DISTINCT w.id,w.kind,w.target,w.review_id,w.state,w.stage,w.message,w.created_at,w.updated_at,w.verified_at,${contributionNewsSql} AS unread,
       w.payload->'place'->>'name' AS name,w.result->'outcome'->>'placeId' AS place_id,w.result->'outcome'->>'kind' AS outcome,w.result->'outcome'->>'live' AS place_live,
       r.state AS reward_state,r.credits FROM ops.explore_work w JOIN ops.explore_submission s ON s.work_id=w.id
-      LEFT JOIN ops.explore_reward r ON r.work_id=w.id AND r.user_id=$1 WHERE s.user_id=$1 ORDER BY w.created_at DESC LIMIT 100`,[res.locals.user.id])).rows;
+      LEFT JOIN ops.explore_reward r ON r.work_id=w.id AND r.user_id=$1 WHERE s.user_id=$1 ORDER BY unread DESC,w.updated_at DESC,w.id LIMIT 100`,[res.locals.user.id])).rows;
   res.json({items:rows.map(publicWork)});
 });
 exploreWork.get('/:id',async(req,res)=>{
   const w=await memberStatus(requireId(req.params.id),res.locals.user.id);
-  await pool.query('UPDATE ops.explore_submission SET seen_at=$3 WHERE work_id=$1 AND user_id=$2',[w.id,res.locals.user.id,w.updated_at]);
   const own=(await pool.query('SELECT details FROM ops.explore_submission WHERE work_id=$1 AND user_id=$2 ORDER BY created_at DESC LIMIT 1',[w.id,res.locals.user.id])).rows[0];
   const timeline=(await pool.query('SELECT what,created_at AS at FROM ops.explore_event WHERE work_id=$1 ORDER BY id LIMIT 100',[w.id])).rows;
   const photos=(await pool.query('SELECT id FROM ops.explore_photo WHERE work_id=$1 AND owner_id=$2 ORDER BY position',[w.id,res.locals.user.id])).rows.map(p=>'/api/explore-work/'+w.id+'/photos/'+p.id);
+  // A failed detail load must not consume the update; never move the read watermark backwards.
+  await pool.query('UPDATE ops.explore_submission SET seen_at=GREATEST(seen_at,$3::timestamptz) WHERE work_id=$1 AND user_id=$2',[w.id,res.locals.user.id,w.read_version]);
   res.json({...publicWork(w),details:w.kind==='review'?w.payload.body:own?.details??'',rating:w.kind==='review'?w.payload.rating:null,photos,timeline});
 });
 exploreWork.get('/:id/photos/:photo',async(req,res)=>{
