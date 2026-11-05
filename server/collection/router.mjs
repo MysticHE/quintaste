@@ -5,10 +5,11 @@ import { BORDERS, SHOWN_MAX } from './catalog.mjs';
 import { facts, payTasks, taskStatus } from './earn.mjs';
 import { settleBadges } from './badges.mjs';
 import { accountAccess } from '../account-access.mjs';
+import { creditActivity } from './activity.mjs';
 
 /**
- * Collection (docs/COLLECTION_PLAN.md): credits from tasks, avatar borders and badges, for signed-in members. Every read
- * settles first: credits now due are paid and newly finished badges recorded, in one transaction under the member's
+ * Collection (docs/COLLECTION_PLAN.md): credits from tasks, avatar borders and badges, for signed-in members. Main view
+ * reads settle first (activity history is read-only): credits now due are paid and newly finished badges recorded under the member's
  * game profile lock, so two requests at once queue rather than pay twice. The master account (account-access.mjs) has every
  * border and badge unlocked (owner, 1 Nov 2026); it still earns and spends credits like anyone.
  */
@@ -44,6 +45,11 @@ async function view(db, userId, settled) {
 collection.get('/', async (_req, res) => {
   const me = res.locals.user.id;
   res.json(await transaction(async db => view(db, me, await settle(db, me)), 'collection:' + me));
+});
+
+collection.get('/activity', async (req, res) => {
+  const me = res.locals.user.id;
+  res.json(await transaction(db => creditActivity(db, me, req.query.before), 'collection-history:' + me));
 });
 
 /** Exchange credits for a border. Buying one already owned changes nothing. */

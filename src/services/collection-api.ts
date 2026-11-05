@@ -1,7 +1,7 @@
 import { communityRequest as call } from "./community-api";
 import type { BadgeTier, Rarity } from "../config/collection";
 
-/** Collection on the account (server/collection): credits from tasks, avatar borders and badges. Every call settles first. */
+/** Collection on the account: the main view/mutations settle rewards; activity reads the existing ledger only. */
 export type TaskProgress = { key: string; done: number; of: number };
 export type Collection = {
   /** `owed`: credits to be taken back for hidden posts, which can't be spent meanwhile. `master`: everything unlocked. */
@@ -20,6 +20,9 @@ export type Collection = {
   just: { credits: number; badges: string[] };
 };
 export const collectionKey = "/api/collection";
+export type CreditEntry = { id: string; amount: number; kind: string; balanceAfter: number; at: string };
+export type CreditHistory = { items: CreditEntry[]; next: string | null };
+export const loadCreditHistory = (before: string | null, signal?: AbortSignal) => call<CreditHistory>(collectionKey + "/activity" + (before ? "?before=" + encodeURIComponent(before) : ""), { signal });
 export const loadCollection = (signal: AbortSignal) => call<Collection>(collectionKey, { signal });
 export const buyBorder = (id: string) => call<Collection>("/api/collection/borders/" + encodeURIComponent(id), { method: "POST" });
 /** Wears an owned border, or none with null. */

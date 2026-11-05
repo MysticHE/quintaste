@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Linking, Modal, Pressable, StyleSheet, View } from "react-native";
+import { useRef, useState } from "react";
+import { Linking, Modal, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { IconButton } from "../food/Controls";
 import { Button, Field, Icon, T, common } from "../ui";
 import { Sheet } from "../Sheet";
 import { ItemArt, useGlintClock } from "./Glint";
@@ -10,14 +11,14 @@ import { checkGift, giftCatalogKey, giftsKey, likeGift, loadGiftCatalog, loadGif
 import { invalidate, useRemote } from "../../hooks/useRemote";
 import { giftArt } from "../../config/collection";
 import { usePreferences } from "../../state/Preferences";
-import { useT } from "../../i18n";
+import { useLanguage, useT } from "../../i18n";
 import { ReportSheet } from "../ReportSheet";
 import { buyGift, giftStore } from "../../services/gift-store";
 import type collectionMessages from "../../i18n/en/collection";
 
 type Key = keyof typeof collectionMessages;
 /** One gift as the opening, chat card and Gifts lists see it. */
-export type GiftView = { id: string; gift: string; note: string; opened: boolean; liked?: boolean; thanked?: boolean; fromId?: string | null };
+export type GiftView = { id: string; gift: string; note: string; opened: boolean; liked?: boolean; thanked?: boolean; fromId?: string | null; at?: string };
 /** The gift's name in the reader's language. */
 export function useGiftName() {
   const t = useT("collection");
@@ -113,17 +114,20 @@ type Opened = { view: GiftView; from: string; mine: boolean };
  * come from strangers). The sender sees whether it was liked and thanked. Reduce motion shows it still. Tapping outside the
  * card closes it.
  */
-function GiftOpening({ open, onLike, onThanks, onReport, onClose }: {
-  open: Opened | null; onLike: (on: boolean) => void; onThanks: () => void; onReport: () => void; onClose: () => void;
+function GiftOpening({ open, busy, onLike, onThanks, onReport, onClose }: {
+  open: Opened | null; busy: boolean; onLike: (on: boolean) => void; onThanks: () => void; onReport: () => void; onClose: () => void;
 }) {
   const t = useT("collection"), giftName = useGiftName(), { theme, reducedMotion } = usePreferences(), gift = open?.view.gift, art = gift ? giftArt(gift) : undefined;
   const liked = !!open?.view.liked, thanked = !!open?.view.thanked;
+  const closeLabel = useT("common")("close"), language = useLanguage();
+  const at = open?.view.at ? new Date(open.view.at) : null;
   const state = (icon: "heart" | "happy", text: string) => <View style={[common.row, { gap: 6 }]}>
     <Icon name={icon} size={18} color={theme.accent} /><T variant="small" color={theme.accent} style={common.bold}>{text}</T></View>;
   return <Modal visible={!!open} transparent animationType={reducedMotion ? "none" : "fade"} onRequestClose={onClose}>
     <View style={[s.opening, { backgroundColor: theme.overlay }]}>
       <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel={t("tapToClose")} style={StyleSheet.absoluteFill} />
-      {open && <View style={[s.card, { backgroundColor: theme.background }]} accessibilityViewIsModal>
+      {open && <ScrollView style={[s.card, { backgroundColor: theme.background }]} contentContainerStyle={{ alignItems: "center", gap: 10, padding: 20 }} accessibilityViewIsModal>
+        <View style={{ alignSelf: "stretch", alignItems: "flex-end" }}><IconButton label={closeLabel} icon="close" onPress={onClose} /></View>
         <View style={[s.spot, { backgroundColor: theme.accentSoft }]}>
           <View style={{ width: 184, height: 184 }}>
             <ItemArt art={art} size={184} fx />
@@ -131,19 +135,20 @@ function GiftOpening({ open, onLike, onThanks, onReport, onClose }: {
             {art && <Burst key={open.view.id} art={art} size={184} />}
           </View>
         </View>
-        <T variant="title" numberOfLines={1} style={[common.bold, s.center]} accessibilityRole="header">{giftName(open.view.gift)}</T>
-        {!!open.from && <T muted numberOfLines={1} style={s.center}>{t("giftFrom", { name: open.from })}</T>}
+        <T variant="title" style={[common.bold, s.center]} accessibilityRole="header">{giftName(open.view.gift)}</T>
+        {!!open.from && <T muted style={s.center}>{t("giftFrom", { name: open.from })}</T>}
+        {at && Number.isFinite(at.getTime()) && <T variant="caption" muted>{at.toLocaleString(language === "zh" ? "zh-SG" : "en-SG", { timeZone: "Asia/Singapore", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</T>}
         {!!open.view.note && <T style={s.center}>{open.view.note}</T>}
         {open.mine
           ? (liked || thanked) && <View style={[common.row, { gap: 16, flexWrap: "wrap", justifyContent: "center" }]}>
               {liked && state("heart", t("giftStateLiked"))}{thanked && state("happy", t("giftStateThanked"))}</View>
           : <View style={[common.row, { gap: 8, flexWrap: "wrap", justifyContent: "center" }]}>
-              <Pressable onPress={() => onLike(!liked)} accessibilityRole="button" accessibilityState={{ selected: liked }} accessibilityLabel={liked ? t("unlikeGift") : t("likeGift")}
+              <Pressable onPress={() => onLike(!liked)} disabled={busy} accessibilityRole="button" accessibilityState={{ selected: liked, disabled: busy, busy }} accessibilityLabel={liked ? t("unlikeGift") : t("likeGift")}
                 style={({ pressed }) => [s.react, { borderColor: liked ? theme.accent : theme.border, backgroundColor: liked ? theme.accentSoft : theme.card, opacity: pressed ? 0.85 : 1 }]}>
                 <Icon name={liked ? "heart" : "heart-outline"} size={20} color={theme.accent} />
                 <T style={common.bold} numberOfLines={1} color={liked ? theme.accent : theme.foreground}>{liked ? t("liked") : t("like")}</T>
               </Pressable>
-              <Pressable onPress={onThanks} disabled={thanked} accessibilityRole="button" accessibilityState={{ disabled: thanked }} accessibilityLabel={thanked ? t("giftStateYouThanked") : t("sayThanks")}
+              <Pressable onPress={onThanks} disabled={thanked || busy} accessibilityRole="button" accessibilityState={{ disabled: thanked || busy, busy }} accessibilityLabel={thanked ? t("giftStateYouThanked") : t("sayThanks")}
                 style={({ pressed }) => [s.react, { borderColor: thanked ? theme.accent : theme.border, backgroundColor: thanked ? theme.accentSoft : theme.card, opacity: pressed ? 0.85 : 1 }]}>
                 <Icon name={thanked ? "happy" : "happy-outline"} size={20} color={theme.accent} />
                 <T style={common.bold} numberOfLines={1} color={thanked ? theme.accent : theme.foreground}>{thanked ? t("thanked") : t("sayThanks")}</T>
@@ -151,7 +156,7 @@ function GiftOpening({ open, onLike, onThanks, onReport, onClose }: {
             </View>}
         {!open.mine && !!open.view.fromId && <View style={{ alignSelf: "center" }}>
           <Button variant="link" icon="flag-outline" label={t("reportSender", { name: open.from })} onPress={onReport} /></View>}
-      </View>}
+      </ScrollView>}
     </View>
   </Modal>;
 }
@@ -188,25 +193,32 @@ export function GiftLine({ gift, mine, onPress, fx = true, pulse = 0 }: { gift: 
 export function useGiftOpener() {
   const { setNotice } = usePreferences(), t = useT("collection"), [open, setOpen] = useState<Opened | null>(null);
   const [report, setReport] = useState<{ id: string; name: string } | null>(null);
+  const pending = useRef(new Set<string>()), [working, setWorking] = useState<string[]>([]);
   const show = (view: GiftView, from: string, mine: boolean) => {
     setOpen({ view, from: mine ? "" : from, mine });
     if (!mine && !view.opened) openGift(view.id).then(refreshGifts, () => undefined);
   };
   const like = async (on: boolean) => {
-    if (!open) return;
+    if (!open || pending.current.has(open.view.id)) return;
+    const id = open.view.id;
+    pending.current.add(id); setWorking(current => [...current, id]);
     setOpen({ ...open, view: { ...open.view, liked: on, opened: true } });
     try { await likeGift(open.view.id, on); refreshGifts(); }
-    catch { setOpen(current => current && { ...current, view: { ...current.view, liked: !on } }); setNotice({ text: t("actionFailed") as string, error: true }); }
+    catch { setOpen(current => current?.view.id === id ? { ...current, view: { ...current.view, liked: !on } } : current); setNotice({ text: t("actionFailed") as string, error: true }); }
+    finally { pending.current.delete(id); setWorking(current => current.filter(x => x !== id)); }
   };
   const thanks = async () => {
-    if (!open || open.view.thanked) return;
+    if (!open || open.view.thanked || pending.current.has(open.view.id)) return;
+    const id = open.view.id;
+    pending.current.add(id); setWorking(current => [...current, id]);
     setOpen({ ...open, view: { ...open.view, thanked: true, opened: true } });
     try { await thankGift(open.view.id); refreshGifts(); }
-    catch { setOpen(current => current && { ...current, view: { ...current.view, thanked: false } }); setNotice({ text: t("actionFailed") as string, error: true }); }
+    catch { setOpen(current => current?.view.id === id ? { ...current, view: { ...current.view, thanked: false } } : current); setNotice({ text: t("actionFailed") as string, error: true }); }
+    finally { pending.current.delete(id); setWorking(current => current.filter(x => x !== id)); }
   };
   const reportSender = () => { if (open?.view.fromId) setReport({ id: open.view.fromId, name: open.from }); setOpen(null); };
   return { show, opening: <>
-    <GiftOpening open={open} onLike={like} onThanks={thanks} onReport={reportSender} onClose={() => setOpen(null)} />
+    <GiftOpening open={open} busy={!!open && working.includes(open.view.id)} onLike={like} onThanks={thanks} onReport={reportSender} onClose={() => setOpen(null)} />
     {report && <ReportSheet kind="person" targetId={report.id} name={report.name} hasPhoto={false} visible onClose={() => setReport(null)}
       onBlocked={() => invalidate("/api/social", giftsKey, "/api/inbox")} />}
   </> };
@@ -217,7 +229,7 @@ const s = StyleSheet.create({
   grow: { flexGrow: 1, justifyContent: "center" },
   tile: { borderRadius: 16, paddingVertical: 10, paddingHorizontal: 6, alignItems: "center", gap: 4 },
   opening: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
-  card: { borderRadius: 24, padding: 24, gap: 10, alignItems: "center", width: "100%", maxWidth: 360 },
+  card: { borderRadius: 24, width: "100%", maxWidth: 360, maxHeight: "92%", flexGrow: 0 },
   spot: { width: 216, height: 216, borderRadius: 108, alignItems: "center", justifyContent: "center" },
   react: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, minHeight: 48, minWidth: 128, paddingHorizontal: 18, borderRadius: 24, borderWidth: 1 },
   line: { flexDirection: "row", alignItems: "center", gap: 10, borderRadius: 18, borderWidth: 1, paddingVertical: 8, paddingLeft: 8, paddingRight: 14, maxWidth: "80%" },
