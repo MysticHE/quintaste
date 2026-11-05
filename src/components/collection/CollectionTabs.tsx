@@ -6,7 +6,7 @@ import { SwitchRow } from "../GroupedList";
 import { Sheet } from "../Sheet";
 import { FeatureCard, Tile, TileGrid, TaskBar, rarityTone, tierTone } from "./CollectionParts";
 import { CollectionSection } from "./CollectionUI";
-import { ItemArt, useGlintClock } from "./Glint";
+import { ItemArt } from "./Glint";
 import { useKeyboardFocus } from "../../hooks/useKeyboardFocus";
 import { ProfilePicture } from "../social/ProfilePicture";
 import { badgeArt, borderArt, SHOWN_MAX } from "../../config/collection";
@@ -39,7 +39,7 @@ function useAction() {
 }
 
 export function BordersTab({ data, me }: { data: Collection; me: SocialMe | undefined }) {
-  const t = useT("collection"), tc = useT("common"), { busy, run } = useAction(), clock = useGlintClock(data.borders.length);
+  const t = useT("collection"), tc = useT("common"), { busy, run } = useAction();
   const [selected, setSelected] = useState(() => data.borders.find(b => b.equipped)?.id ?? data.borders[0]?.id);
   const [purchase, setPurchase] = useState<string | null>(null);
   const b = data.borders.find(x => x.id === selected) ?? data.borders[0], buying = data.borders.find(x => x.id === purchase);
@@ -57,7 +57,7 @@ export function BordersTab({ data, me }: { data: Collection; me: SocialMe | unde
       {action}
     </FeatureCard>
     <CollectionSection title={t("chooseBorder")}>
-      <TileGrid columns={2}>{width => data.borders.map((x, i) => <Tile key={x.id} width={width} art={borderArt(x.id)} pulse={clock.tile(i)} inside={picture}
+      <TileGrid columns={2}>{width => data.borders.map(x => <Tile key={x.id} width={width} art={borderArt(x.id)} pulse={0} inside={picture}
         name={t(("border_" + x.id) as Key) as string} selected={x.id === b.id} onPress={() => setSelected(x.id)}
         sub={x.equipped ? t("wearing") : x.owned ? t("owned") : t("costChip", { n: x.credits.toLocaleString() })} subTone={x.equipped ? "success" : "muted"}
         label={[t(("border_" + x.id) as Key) as string, x.equipped ? t("wearing") : x.owned ? t("owned") : t("costChip", { n: x.credits.toLocaleString() })].join(", ")} />)}</TileGrid>
@@ -75,7 +75,7 @@ export function BordersTab({ data, me }: { data: Collection; me: SocialMe | unde
 }
 
 export function BadgesTab({ data }: { data: Collection }) {
-  const t = useT("collection"), { theme, setNotice } = usePreferences(), { busy, run } = useAction(), clock = useGlintClock(data.badges.length);
+  const t = useT("collection"), { theme, setNotice } = usePreferences(), { busy, run } = useAction();
   const [selected, setSelected] = useState<string | null>(null);
   const b = data.badges.find(x => x.id === selected), shown = !!b && data.shown.includes(b.id);
   const earned = data.badges.filter(x => x.earned && !x.revoked);
@@ -96,11 +96,11 @@ export function BadgesTab({ data }: { data: Collection }) {
       </View>
     </CollectionSection>
     <CollectionSection title={t("yourBadges")} aside={t("earnedCount", { done: earned.length, of: data.badges.length })}>
-      <TileGrid columns={2}>{width => data.badges.map((x, i) => {
+      <TileGrid columns={2}>{width => data.badges.map(x => {
         const completed = x.tasks.filter(task => task.done >= task.of).length;
         const progress = x.tasks.reduce((sum, task) => sum + (task.of > 0 ? Math.max(0, Math.min(1, task.done / task.of)) : 0), 0) / Math.max(1, x.tasks.length);
         const state = x.revoked ? t("revoked") : x.earned ? t(data.shown.includes(x.id) ? "shown" : "earned") : t("requirementsCount", { done: completed, of: x.tasks.length });
-        return <Tile key={x.id} width={width} art={badgeArt(x.id)} pulse={x.earned && !x.revoked ? clock.tile(i) : 0} dim={!x.earned || x.revoked}
+        return <Tile key={x.id} width={width} art={badgeArt(x.id)} pulse={0} dim={!x.earned || x.revoked}
           name={t(("badge_" + x.id) as Key) as string} selected={x.id === selected} onPress={() => setSelected(x.id)}
           sub={state} subTone={x.earned && !x.revoked ? "success" : "muted"} bar={!x.earned && !x.revoked ? progress : undefined}
           label={[t(("badge_" + x.id) as Key) as string, t(`tier_${x.tier}` as Key) as string, state].join(", ")} />;

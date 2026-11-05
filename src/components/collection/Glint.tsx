@@ -6,7 +6,9 @@ import { useIsFocused } from "expo-router";
 import { usePreferences } from "../../state/Preferences";
 import type { CollectionArt } from "../../config/collection-art";
 import { Sheen } from "./Sheen";
-import { Bloom, Core, RingLight, StarGlint, Twinkles, useBlink, useFxOn } from "./Fx";
+import { BadgeArt, badgeMotionIndex } from "./BadgeArt";
+import { BorderEffects } from "./BorderEffects";
+import { Bloom, Core, StarGlint, Twinkles, useBlink, useFxOn } from "./Fx";
 
 /**
  * Collection effects, as in the owner's reference video (1 Nov 2026): light passes over an item in its own colours (Sheen),
@@ -60,22 +62,25 @@ export function ItemArt({ art, size, pulse = 0, fx = false, dim = false, inside 
   art: CollectionArt | undefined; size: number; pulse?: number; fx?: boolean; dim?: boolean; inside?: ReactNode;
 }) {
   if (!art) return <View style={{ width: size, height: size }} />;
+  const badgeIndex = badgeMotionIndex(art);
+  if (badgeIndex >= 0) return <BadgeArt art={art} size={size} index={badgeIndex} dim={dim} />;
   return <ItemLayers art={art} size={size} pulse={pulse} fx={fx && !dim} dim={dim} inside={inside} />;
 }
 
 function ItemLayers({ art, size, pulse, fx, dim, inside }: { art: CollectionArt; size: number; pulse: number; fx: boolean; dim: boolean; inside?: ReactNode }) {
-  // Small items (badges under a name) only blink; the sweep, ring light and twinkles need room to read and cost layers.
-  const on = useFxOn() && fx, breath = useBlink(on, art.tone), roomy = size >= 64, hole = art.hole;
+  // Gifts retain their existing effects; borders use their own coordinated contour lighting.
+  const on = useFxOn() && fx, breath = useBlink(on && !art.hole, art.tone), roomy = size >= 64, hole = art.hole;
   return <View style={{ width: size, height: size }} accessible={false}>
     {hole && inside && <View style={{ position: "absolute", left: (hole[0] / 100) * size, top: (hole[1] / 100) * size, width: (hole[2] / 100) * size, height: (hole[2] / 100) * size,
       borderRadius: size, overflow: "hidden" }}>{inside}</View>}
     <Image source={art.image} style={{ width: size, height: size, opacity: dim ? 0.35 : 1 }} contentFit="contain" accessible={false} />
-    {on && <Core art={art} size={size} breath={breath} />}
-    {on && <Bloom art={art} size={size} breath={breath} />}
-    {!dim && (!fx || roomy) && <Sheen art={art} size={size} pulse={pulse} loop={fx} />}
-    {on && roomy && <RingLight art={art} size={size} on={on} />}
-    {on && roomy && <Twinkles art={art} size={size} on={on} />}
-    {!dim && !fx && <Glint points={art.glints} pulse={pulse} size={size} tone={art.tone} spark={art.spark} />}
+    {hole ? <BorderEffects art={art} size={size} enabled={!dim} /> : <>
+      {on && <Core art={art} size={size} breath={breath} />}
+      {on && <Bloom art={art} size={size} breath={breath} />}
+      {!dim && (!fx || roomy) && <Sheen art={art} size={size} pulse={pulse} loop={fx} />}
+      {on && roomy && <Twinkles art={art} size={size} on={on} />}
+      {!dim && !fx && <Glint points={art.glints} pulse={pulse} size={size} tone={art.tone} spark={art.spark} />}
+    </>}
   </View>;
 }
 
@@ -89,17 +94,12 @@ export function BorderFrame({ art, size, shine = false, children }: { art: Colle
 }
 
 function RingLayers({ art, hole, size, shine, children }: { art: CollectionArt; hole: [number, number, number]; size: number; shine: boolean; children: ReactNode }) {
-  const on = useFxOn() && shine, breath = useBlink(on, art.tone);
   const [left, top, width] = hole, ring = (size * 100) / width, box = { position: "absolute" as const, width: ring, height: ring, left: -(left / 100) * ring, top: -(top / 100) * ring };
   return <View style={{ width: size, height: size }}>
     {children}
     <View pointerEvents="none" style={box}>
       <Image source={art.image} accessible={false} contentFit="contain" style={{ width: ring, height: ring }} />
-      {on && <Core art={art} size={ring} breath={breath} />}
-      {on && <Bloom art={art} size={ring} breath={breath} />}
-      {shine && <Sheen art={art} size={ring} loop />}
-      {on && <RingLight art={art} size={ring} on={on} />}
-      {on && <Twinkles art={art} size={ring} on={on} />}
+      <BorderEffects art={art} size={ring} enabled={shine} />
     </View>
   </View>;
 }

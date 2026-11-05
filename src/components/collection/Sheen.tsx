@@ -38,8 +38,13 @@ export function Sheen({ art, size, pulse = 0, loop = false }: { art: CollectionA
     progress.set(withTiming(1, { duration: SWEEP_MS, easing: Easing.inOut(Easing.quad) }, done => { if (done) runOnJS(setActive)(false); }));
   }, [pulse, loop, reducedMotion, progress]);
   if (reducedMotion || !(looping || active)) return null;
+  return <SheenPass art={art} size={size} progress={progress} />;
+}
+
+/** A sweep driven by an owning sequence, so badge highlights share one clock. */
+export function SheenPass({ art, size, progress, strength = 1 }: { art: CollectionArt; size: number; progress: SharedValue<number>; strength?: number }) {
   return <View pointerEvents="none" style={[StyleSheet.absoluteFill, { width: size, height: size, overflow: "hidden" }]}>
-    {LAYERS.map(layer => <Window key={layer.width} art={art} size={size} width={layer.width * size} opacity={layer.opacity} progress={progress} />)}
+    {LAYERS.map(layer => <Window key={layer.width} art={art} size={size} width={layer.width * size} opacity={layer.opacity * strength} progress={progress} />)}
   </View>;
 }
 
