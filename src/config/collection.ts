@@ -11,4 +11,4 @@ export const borderArt = (id: string): CollectionArt | undefined => COLLECTION_A
 export const badgeArt = (id: string): CollectionArt | undefined => COLLECTION_ART["badge-" + id];
 export const giftArt = (id: string): CollectionArt | undefined => COLLECTION_ART["gift-" + id];
 /** Most badges a member shows on their profile (server SHOWN_MAX). */
-export const SHOWN_MAX = 3;
+export const SHOWN_MAX = 5;

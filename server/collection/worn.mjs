@@ -15,7 +15,7 @@ export async function bordersOf(ids) {
 }
 
 /**
- * What a member shows others from their Collection: the avatar border they wear and up to three earned badges, in order
+ * What a member shows others from their Collection: the avatar border they wear and all their equipped earned badges, in order
  * (the master account has every badge unlocked). Null while Collection or Game progress (which holds the credits) is
  * off. A database without the Collection tables (schema not applied yet) gives null too, so Social keeps working.
  */

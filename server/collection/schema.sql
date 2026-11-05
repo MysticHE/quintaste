@@ -4,7 +4,7 @@
 -- backup and after server/game/schema.sql and server/social/friends.sql, before the app image that reads it.
 --   * social.profile.border: the avatar border a member wears (owned borders are game.owned items 'border:<id>').
 --   * community.badge_award: a badge once earned is kept unless staff revoke it (revoked badges are not earned again).
---   * community.badge_shown: up to three earned badges a member shows on their profile, in order.
+--   * community.badge_shown: all five earned badges a member may show on their profile, in order.
 --   * ops.control 'collection' starts off.
 -- Gifts (phase 2): community.gift (one row per gift sent; paid gifts carry the store's transaction id, the master account's
 -- are 'free'), a 'gift' kind of chat line pointing at it, social.profile.gifts_off (a member can stop receiving gifts),
@@ -28,11 +28,13 @@ CREATE TABLE IF NOT EXISTS community.badge_award (
 
 CREATE TABLE IF NOT EXISTS community.badge_shown (
   user_id text NOT NULL REFERENCES public."user"(id) ON DELETE CASCADE,
-  position smallint NOT NULL CHECK (position BETWEEN 1 AND 3),
+  position smallint NOT NULL CHECK (position BETWEEN 1 AND 5),
   badge text NOT NULL CHECK (badge ~ '^[a-z][a-z0-9-]{1,39}$'),
   PRIMARY KEY (user_id, position),
   UNIQUE (user_id, badge)
 );
+
+-- Existing installations must apply server/collection/badge-slots.sql before the five-badge app/server release.
 
 -- Daily limits and badge counts read the ledger by account and kind.
 CREATE INDEX IF NOT EXISTS game_ledger_user_kind ON game.ledger(user_id, kind);

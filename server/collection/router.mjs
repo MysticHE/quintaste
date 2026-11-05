@@ -79,7 +79,7 @@ collection.put('/border', async (req, res) => {
   }, 'collection:' + me));
 });
 
-/** The badges shown on the profile: up to three earned ones, in order. */
+/** Every earned badge may be shown on the profile, in the member's chosen order. */
 collection.put('/badges', async (req, res) => {
   const me = res.locals.user.id, ids = Array.isArray(req.body?.ids) ? req.body.ids : null;
   if (!ids || ids.length > SHOWN_MAX || ids.some(x => typeof x !== 'string') || new Set(ids).size !== ids.length)

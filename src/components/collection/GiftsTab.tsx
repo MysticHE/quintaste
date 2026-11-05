@@ -4,7 +4,8 @@ import { Icon } from "../ui";
 import { ItemArt, useGlintClock } from "./Glint";
 import { Tile, TileGrid } from "./CollectionParts";
 import { useGiftName, useGiftOpener } from "./Gifts";
-import { ListGroup, ListItem, SwitchRow } from "../GroupedList";
+import { ListGroup, ListItem, StatusPill, SwitchRow } from "../GroupedList";
+import { CollectionSection } from "./CollectionUI";
 import { ChoiceChips } from "../social/ProfileControls";
 import { ApiError } from "../../services/community-api";
 import { giftsKey, seeSentGifts, setReceiving, type Gifts } from "../../services/gifts-api";
@@ -46,18 +47,21 @@ export function GiftsTab({ data }: { data: Gifts }) {
   return <>
     <ChoiceChips label={t("tabGifts")} value={side} onChange={setSide} options={[{ id: "received", label: t("tabReceived") }, { id: "sent", label: t("tabSent") }]} />
     {side === "received" && <>
-      <TileGrid>{width => data.catalog.map((g, index) => {
-        const n = count(g.id), last = data.received.find(r => r.gift === g.id);
-        return <Tile key={g.id} width={width} art={giftArt(g.id)} pulse={clock.tile(index)} dim={!n} name={giftName(g.id)} sub={t("giftCount", { n })} selected={false}
-          onPress={() => last && opener.show(last, last.fromName, false)} label={giftName(g.id) + ", " + t("giftCount", { n })} />;
-      })}</TileGrid>
       <ListGroup>
         {!data.received.length && <ListItem title={t("noGifts")} />}
-        {data.received.map(g => <ListItem key={g.id} title={t("giftFrom", { name: g.fromName }) as string} subtitle={g.note || giftName(g.gift)} detail={when(g.at)}
-          leading={<ItemArt art={giftArt(g.gift)} size={40} dim={!g.opened} />} badge={badges(g)}
+        {data.received.map(g => <ListItem key={g.id} title={giftName(g.gift)} subtitle={[t("giftFrom", { name: g.fromName }), when(g.at)].join(" · ")}
+          detail={g.opened ? g.note : t("tapToOpen")} wrap
+          leading={<ItemArt art={giftArt(g.gift)} size={48} dim={!g.opened} />} badge={g.opened ? badges(g) : <StatusPill label={t("giftNew")} tone="accent" />}
           label={[t("giftFrom", { name: g.fromName }), giftName(g.gift), g.note, g.opened ? "" : t("tapToOpen"), g.liked ? t("giftStateYouLiked") : "", g.thanked ? t("giftStateYouThanked") : ""].filter(Boolean).join(", ")}
           onPress={() => opener.show(g, g.fromName, false)} />)}
       </ListGroup>
+      {!!data.received.length && <CollectionSection title={t("yourGifts")}>
+        <TileGrid>{width => data.catalog.map((g, index) => {
+          const n = count(g.id), last = data.received.find(r => r.gift === g.id);
+          return <Tile key={g.id} width={width} art={giftArt(g.id)} pulse={n ? clock.tile(index) : 0} dim={!n} name={giftName(g.id)} sub={t("giftCount", { n })} selected={false} disabled={!last}
+            onPress={() => last && opener.show(last, last.fromName, false)} label={giftName(g.id) + ", " + t("giftCount", { n })} />;
+        })}</TileGrid>
+      </CollectionSection>}
       <ListGroup><View style={{ paddingHorizontal: 14 }}><SwitchRow label={t("receiveGifts")} value={data.receiving} onChange={receive} disabled={busy} /></View></ListGroup>
     </>}
     {side === "sent" && <ListGroup>

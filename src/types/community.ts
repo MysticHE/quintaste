@@ -94,7 +94,7 @@ export type Standing = { step: SocialStep; age: number | null; gender: Gender; v
   reasonKey?: CheckReason | null; decidedAt?: string | null; samePhoto?: boolean };
 export type SocialPhoto = { id: string; position: number; url: string; thumb: string };
 /** `handle` is the member's public handle (made from their name on first use), separate from the private sign-in username. */
-/** What a member shows from their Collection (docs/COLLECTION_PLAN.md): the border they wear and up to three badges; null while Collection is off. */
+/** What a member shows from their Collection (docs/COLLECTION_PLAN.md): their border and all equipped earned badges; null while Collection is off. */
 export type Worn = { border: string | null; badges: string[] } | null;
 export type SocialMe = { id: string; accountName: string; handle: string; hasProfile: boolean; profile: SocialProfile; birthDateFixed?: boolean; photos: SocialPhoto[]; standing: Standing; worn?: Worn };
 export type PhotoLink = { url: string; thumb: string };

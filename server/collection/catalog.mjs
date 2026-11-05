@@ -31,7 +31,7 @@ export const CORRECTION_REWARD = { credits: 20, limit: 3, hours: 24, kind: 'expl
  * Suggestions are already limited to three a day, so there is no separate daily cap. */
 export const SUGGESTION_REWARD = { credits: 50, hours: 168, kind: 'explore_place' };
 /** A review counts with a rating and at least this many characters of text. */
-export const REVIEW_MIN_CHARS = 40;
+export const REVIEW_MIN_CHARS = 20;
 /** Hours before a review or a cooked photo pays, so staff can hide it first. */
 export const SETTLE_HOURS = 24;
 
@@ -50,8 +50,8 @@ export const BADGES = {
   'home-cook': { tier: 'gold', dining: false },
   'lotus-legend': { tier: 'mythic', dining: false },
 };
-/** Most badges a member may show on their profile. */
-export const SHOWN_MAX = 3;
+/** Every badge can be shown once earned; keep the slots aligned with the catalogue. */
+export const SHOWN_MAX = Object.keys(BADGES).length;
 
 /** Gifts (phase 2): store prices in Singapore cents, and how many glints the opening plays. */
 export const GIFTS = {
