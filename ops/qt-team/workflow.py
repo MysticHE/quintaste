@@ -1145,9 +1145,17 @@ def upcoming_events(records):
 
 
 def merge_events(previous, records):
+    import event_twins
     prior = {r['id']: copy.deepcopy(r) for r in previous}
     for record in records:
         old = prior.get(record['id'])
+        if not old and record.get('status') == 'proposed' and isinstance(record.get('event'), dict):
+            # The same class read again under a new id is the entry we already have, or the list fills with copies that are rechecked every evening.
+            saved = [(rid, r['event']) for rid, r in prior.items() if isinstance(r.get('event'), dict)]
+            twin = event_twins.find(dict(record['event'], id=record['id']), saved)
+            if twin:
+                old = prior[twin]
+                record = dict(record, id=twin, event=dict(record['event'], title=old['event'].get('title')))
         if old or (record.get('event') and record.get('status') == 'proposed'):
             if 'event' in record and not isinstance(record['event'], dict):
                 raise ValueError('Event update must be an object')
@@ -1481,6 +1489,9 @@ class Round:
         state = self.state
         removed_event_ids = {r['id'] for r in self.baseline.get('removedRecords', []) if r['kind']=='event'}
         state['upcomingEvents'] = [r for r in state.get('upcomingEvents', []) if r['id'] not in removed_event_ids]
+        if self.live:
+            import event_twins
+            state['upcomingEvents'] = event_twins.without_copies(state['upcomingEvents'], {r['id'] for r in self.live.get('records', []) if r.get('kind') == 'event'})
         previous = state.get("eventDiscoveryAt")
         discovery_due = not previous or dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(previous) >= EVENT_DISCOVERY_EVERY
         upcoming, incomplete_events = upcoming_events(state.get("upcomingEvents", []))

@@ -239,25 +239,44 @@ def captured_sources(proposal):
     return proposal
 
 
+def image_seen(event):
+    """Did this tool result carry the image? Hermes emits native vision attachments as a Python dict string (large images truncate the tail);
+    these trusted tool events prove actual image bytes were attached to the model's next turn."""
+    output=event.get('output','')
+    if event.get('is_error') or not isinstance(output,str):return False
+    if output.startswith("{'_multimodal': True, 'content':") and "'type': 'image_url'" in output and "'url': 'data:image/" in output:return True
+    try:result=json.loads(output)
+    except (ValueError,TypeError):return False
+    return isinstance(result,dict) and result.get('success') is True and len(str(result.get('analysis','')).strip())>=20
+
+
 def require_image_checks(events,images):
-    pending={};checked=set()
+    """Every image needs its own successful inspection. Hermes' stream omits tool call ids and a model may look at several images in one turn
+    (6 Nov 2026: only the last request was remembered, which failed every review with more than one image). Without ids a failed or missing
+    result could belong to any request of its turn, so an image counts only if it was asked for more often than its turn failed."""
+    checked=set();by_id={};asked=[];answered=failed=0
+    def settle():
+        nonlocal asked,answered,failed
+        missed=failed+max(0,len(asked)-answered)
+        checked.update(file for file in asked if asked.count(file)>missed)
+        asked=[];answered=failed=0
     for event in events:
         if event.get('name')!='vision_analyze':continue
+        call_id=event.get('tool_call_id')
         if event.get('type')=='tool_use':
-            pending[event.get('tool_call_id') or 'legacy']=event.get('input',{}).get('image_url')
+            file=event.get('input',{}).get('image_url')
+            if call_id:by_id[call_id]=file
+            else:
+                if answered:settle()
+                asked.append(file)
         elif event.get('type')=='tool_result':
-            key=event.get('tool_call_id') or 'legacy'
-            file=pending.pop(key,None)
-            if not file or event.get('is_error'):continue
-            output=event.get('output','')
-            # Hermes emits native vision attachments as a Python dict string; large images truncate the tail.
-            # These trusted tool events prove actual image bytes were attached to the model's next turn.
-            native=output.startswith("{'_multimodal': True, 'content':") and "'type': 'image_url'" in output and "'url': 'data:image/" in output
-            try:result=json.loads(output)
-            except (ValueError,TypeError):result={}
-            analysed=result.get('success') is True and len(result.get('analysis','').strip())>=20
-            if native or analysed:
-                checked.add(file)
+            if call_id:
+                file=by_id.pop(call_id,None)
+                if file and image_seen(event):checked.add(file)
+            else:
+                answered+=1
+                failed+=not image_seen(event)
+    settle()
     if not all(image['file'] in checked for image in images):
         raise ValueError('every image needs a successful inspection')
 

@@ -399,7 +399,9 @@ def _outdated(row: dict, decision, record: dict):
 def retire_outdated(root: Path, packages, request, settle, now_text) -> None:
     """A parked record whose newer proposal was excluded or held never reached a batch, so `supersede` never saw it. It must not go live
     when the owner answers the old question."""
+    import event_twins
     parked, newest = parked_keys(root), {}
+    listed = [(rid, record.get('data') or {}) for (kind, rid), record in parked.items() if kind == 'event']
     since = {(row['record']['kind'], row['record']['id']): str(row.get('parkedAt') or '') for row in entries(root)}
     for package in packages:
         at = str(package.get('checkedAt') or '')
@@ -408,6 +410,9 @@ def retire_outdated(root: Path, packages, request, settle, now_text) -> None:
             kind = {'qt-event': 'event', 'qt-cooker': 'recipe'}.get(packet.get('role'))
             for row in packet.get('records', []) if kind else ():
                 key = (kind, row.get('id'))
+                event = row.get('event') if isinstance(row.get('event'), dict) else {}
+                if kind == 'event' and key not in parked and event.get('status') == 'cancelled':  # only a cancellation: a copy is often excluded for being a copy
+                    key = (kind, event_twins.find(dict(event, id=row.get('id')), listed))
                 if key in parked and at > since[key] and at >= newest.get(key, ('',))[0]:
                     newest[key] = (at, row, decisions.get(row.get('id')))
     ops = Ops(request, None, settle, now_text)

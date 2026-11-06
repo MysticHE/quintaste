@@ -148,14 +148,53 @@ def event_identity(event):
     return title + '|' + start if title else None
 
 
+def listed_events(live_records, parked):
+    """(id, event) of every event the app has or is about to have: live ones first."""
+    found = [(rid, data) for (kind, rid), data in live_records.items() if kind == 'event']
+    return found + [(rid, record.get('data') or {}) for (kind, rid), record in (parked or {}).items() if kind == 'event']
+
+
+def tell_owner_reworded(event, twin, title):
+    """Once per listed event. A copy never disappears without a word: should the rule ever catch a genuinely different class, the owner can add it by hand."""
+    try:
+        import bot_notices
+        bot_notices.post(ROOT, 'event-twin:' + hashlib.sha256(twin.encode()).hexdigest()[:40],
+                         'QT Manager · Not added as a new event: ' + str(event.get('title'))[:120] + '\nIt looks like ' + str(title)[:120] + ', already listed at the same time and '
+                         'place by the same organiser. Any newer details go on the listed event. If they are different events, add it in Admin > Content.')
+    except (OSError, ValueError, ImportError) as exc:
+        print(json.dumps({'eventTwinNotice': type(exc).__name__}), flush=True)
+
+
+def as_update_of_twin(row, decision, live_records, parked):
+    """Lychee read a listed event again under a new id: (the row as an update of that event, its id), or (row, None) when it is not a copy or not
+    going out anyway. A newer fee or a cancellation must reach the listed event, not vanish with the copy. The listed title stays: it is the one
+    thing the copy was going to change for no reason."""
+    event = row.get('event')
+    cancelling = isinstance(event, dict) and event.get('status') == 'cancelled' and decision in ('exclude', 'ready-for-editorial-review')
+    if not isinstance(event, dict) or not (cancelling or (row.get('status') == 'proposed' and decision == 'ready-for-editorial-review')):
+        return row, None
+    import event_twins
+    others = listed_events(live_records, parked)
+    twin = event_twins.find(dict(event, id=row['id']), others)
+    if not twin:
+        return row, None
+    title = next(data.get('title') for rid, data in others if rid == twin)
+    tell_owner_reworded(event, twin, title)
+    return dict(row, id=twin, event=dict(event, title=title)), twin
+
+
 def event_twin(data, live_records, accepted):
-    """The id of a live or already-accepted event that is this event under another id, else None."""
+    """The id of a live or already-accepted event that is this event under another id, else None. "Vegetarian Cooking" at one time from two
+    community centres is two classes, so the organiser has to match as well."""
+    import event_twins
     me = event_identity(data)
     if not me:
         return None
     others = [(rid, other) for (kind, rid), other in live_records.items() if kind == 'event']
     others += [(c['id'], c['data']) for c in accepted if c['kind'] == 'event']
-    return next((rid for rid, other in others if rid != data['id'] and event_identity(other) == me), None)
+    return next((rid for rid, other in others if rid != data['id'] and event_identity(other) == me and event_twins.same_name(data.get('organiser'), other.get('organiser'))), None)
+
+
 BATCH_ASSETS = 10  # server: batch.assets.length <= MAX_ASSETS (a cover and up to 8 step photos, 22 Oct 2026)
 BATCH_IMAGE_BYTES = 1_300_000  # base64 adds a third: stays under the 2 MB publication body limit (router and proxy)
 STEP_PHOTOS = 'state/step-photos.json'  # {"enabled": true} once the app accepts step photos (owner, 22 Oct 2026)
@@ -324,6 +363,66 @@ def venue_data(row):
     if len(result) == 1: raise ValueError('No publishable field changes')
     return result
 
+def recipe_payload(row, evidence, live, previous, image_assets):
+    """The app payload of a proposed recipe. Raises ValueError with the reason it cannot go out."""
+    data = recipe_data(row,evidence)
+    if 'nutrition' in data and not micro_accepted(live):
+        data['nutrition'] = without_micro(data['nutrition'])
+    if (server_problem := server_recipe_problem(data)):raise ValueError(server_problem)
+    if any((x['id']==row['id'] and previous is None) or (x['id']!=row['id'] and x['name'].casefold()==data['name'].casefold()) for x in live['recipeIdentities']): raise ValueError('Existing recipe identity')
+    if previous:
+        if previous['name'].casefold()!=data['name'].casefold():raise ValueError('Recipe identity change requires operator review')
+        data['revision']=previous['revision']+1
+    cover, step_images = image_results(row['id'])
+    if cover:
+        data['image']={'path':'/api/editorial/assets/'+cover['sha256']+'.jpg','width':cover['width'],'height':cover['height'],'credit':'AI-generated recipe illustration'}
+        image_assets[cover['sha256']]={'sha256':cover['sha256'],'file':cover['file'],'provenance':{'kind':'original-generated-recipe-illustration','recipeId':row['id'],'provider':cover['provider'],'model':cover['model'],'prompt':cover['prompt'],'originalSha256':cover['originalSha256']}}
+    if step_photos_on() and previous is None:
+        # Owner, 22 Oct 2026: a new recipe goes live only with a reviewed photo for every step.
+        missing = 0
+        for n, step in enumerate(data['steps'], 1):
+            info = step_images.get(step_key(step['instruction']))
+            if not info:
+                missing += 1
+                continue
+            step['photo'] = '/api/editorial/assets/'+info['sha256']+'.jpg'
+            image_assets[info['sha256']]={'sha256':info['sha256'],'file':info['file'],'provenance':{'kind':'original-generated-recipe-step-illustration','recipeId':row['id'],'step':n,'provider':info['provider'],'model':info['model'],'prompt':info['prompt'],'originalSha256':info['originalSha256']}}
+        if missing:
+            raise ValueError(f'Awaiting step photos: {missing} of {len(data["steps"])} steps have none yet')
+    content_path = (row.get('recipe') or {}).get('qualifiedBy') == 'content'
+    if previous is None and 'sourceRating' not in data and not content_path and (ROOT/'pantry_sg.json').is_file():
+        # Owner recipe bar (18 Oct 2026): only recipe_quality.gate attaches sourceRating, so a new recipe
+        # without it was proposed before the bar or never passed it. (pantry_sg.json marks the bar as live.)
+        # Owner, 28 Oct 2026: the gate's content path (nutrient level and colour dish) qualifies without a rating.
+        raise ValueError('Not published: proposed before the recipe bar or without a verified rated or content-checked source')
+    if previous is None and 'image' not in data:
+        # Owner rule (18 Oct 2026): a new recipe goes live only together with its approved photo.
+        raise ValueError('Awaiting its generated photo; a new recipe publishes only with an approved image')
+    return data
+
+
+def event_payload(row, evidence, key, existing_records, candidates, parked):
+    """The app payload of a proposed event, or None when it states no new fact. Raises ValueError with the reason it cannot go out."""
+    import event_twins
+    import food_parked
+    from workflow import event_needs_refresh
+    # Only the app's event fields; the bot's own notes (e.g. vegetarianFocus) stay private.
+    data={k:v for k,v in dict(existing_records.get(key,{}),**row['event']).items() if k in EVENT_FIELDS}
+    fee_note=row['event'].get('feeNote', data.get('feeNote',''))
+    data.update(id=row['id'],checkedAt=max(s['checkedAt'] for s in evidence),sources=[s['url'] for s in evidence],feeNote=fee_note.strip()[:300] if isinstance(fee_note,str) else '')
+    if data['currency'] != 'SGD' or data.get('feeAmount') is None: data['feeAmount']=None;data['currency']=None
+    if dt.datetime.fromisoformat(data['startsAt']) <= dt.datetime.now(dt.timezone.utc): raise ValueError('Event is no longer upcoming')
+    if (twin := event_twin(data, existing_records, candidates)): raise ValueError('Same event is already listed as ' + twin + '; not added twice')
+    if key not in existing_records:
+        accepted = [(c['id'], c['data']) for c in candidates if c['kind'] == 'event']
+        if (twin := event_twins.find(data, accepted)):
+            tell_owner_reworded(data, twin, next(other.get('title') for rid, other in accepted if rid == twin))
+            raise ValueError('Same event as ' + twin + ' in other words; not added twice')
+    was = existing_records.get(key)
+    repair = bool(was) and event_needs_refresh(was) and not event_needs_refresh(data)
+    return None if food_parked.event_unchanged(data, was, parked.get(key), repair=repair) else data  # None: reworded, no new fact
+
+
 def prepare(packages, live):
     candidates, held, image_assets, seen = [], [], {}, set()
     outcomes_path = ROOT/'state/publication-outcomes.json'
@@ -332,7 +431,6 @@ def prepare(packages, live):
     states.update({(r['kind'], r['id']): r['hash'] for r in live['records']})
     existing_records = {(r['kind'], r['id']): r['data'] for r in live['records']}
     import food_parked
-    from workflow import event_needs_refresh
     parked = food_parked.parked_keys(ROOT)
     for package in reversed(packages):
         decisions = {d['id']:d for d in package['manager']['decisions']}
@@ -341,6 +439,10 @@ def prepare(packages, live):
             kind = 'place' if packet.get('task') in ('veg-options', 'veg-kitchen') else {'qt-explorer':'venue','qt-cooker':'recipe','qt-event':'event'}[packet['role']]
             for row in packet['records']:
                 key = (kind, row['id'])
+                if kind == 'event' and key not in existing_records:
+                    row, twin = as_update_of_twin(row, decisions.get(row['id'], {}).get('decision'), existing_records, parked)
+                    if twin:
+                        decisions[twin], key = decisions[key[1]], ('event', twin)
                 if key in seen or any((r['kind'], r['id']) == key for r in live.get('removals', [])): continue
                 seen.add(key)
                 proposal_hash = sha(row)
@@ -360,51 +462,10 @@ def prepare(packages, live):
                     evidence = sources(row)
                     if not evidence: raise ValueError('No attached primary capture')
                     if kind == 'recipe':
-                        data = recipe_data(row,evidence)
-                        if 'nutrition' in data and not micro_accepted(live):
-                            data['nutrition'] = without_micro(data['nutrition'])
-                        if (server_problem := server_recipe_problem(data)):raise ValueError(server_problem)
-                        previous = existing_records.get(key)
-                        if any((x['id']==row['id'] and previous is None) or (x['id']!=row['id'] and x['name'].casefold()==data['name'].casefold()) for x in live['recipeIdentities']): raise ValueError('Existing recipe identity')
-                        if previous:
-                            if previous['name'].casefold()!=data['name'].casefold():raise ValueError('Recipe identity change requires operator review')
-                            data['revision']=previous['revision']+1
-                        cover, step_images = image_results(row['id'])
-                        if cover:
-                            data['image']={'path':'/api/editorial/assets/'+cover['sha256']+'.jpg','width':cover['width'],'height':cover['height'],'credit':'AI-generated recipe illustration'}
-                            image_assets[cover['sha256']]={'sha256':cover['sha256'],'file':cover['file'],'provenance':{'kind':'original-generated-recipe-illustration','recipeId':row['id'],'provider':cover['provider'],'model':cover['model'],'prompt':cover['prompt'],'originalSha256':cover['originalSha256']}}
-                        if step_photos_on() and previous is None:
-                            # Owner, 22 Oct 2026: a new recipe goes live only with a reviewed photo for every step.
-                            missing = 0
-                            for n, step in enumerate(data['steps'], 1):
-                                info = step_images.get(step_key(step['instruction']))
-                                if not info:
-                                    missing += 1
-                                    continue
-                                step['photo'] = '/api/editorial/assets/'+info['sha256']+'.jpg'
-                                image_assets[info['sha256']]={'sha256':info['sha256'],'file':info['file'],'provenance':{'kind':'original-generated-recipe-step-illustration','recipeId':row['id'],'step':n,'provider':info['provider'],'model':info['model'],'prompt':info['prompt'],'originalSha256':info['originalSha256']}}
-                            if missing:
-                                raise ValueError(f'Awaiting step photos: {missing} of {len(data["steps"])} steps have none yet')
-                        content_path = (row.get('recipe') or {}).get('qualifiedBy') == 'content'
-                        if previous is None and 'sourceRating' not in data and not content_path and (ROOT/'pantry_sg.json').is_file():
-                            # Owner recipe bar (18 Oct 2026): only recipe_quality.gate attaches sourceRating, so a new recipe
-                            # without it was proposed before the bar or never passed it. (pantry_sg.json marks the bar as live.)
-                            # Owner, 28 Oct 2026: the gate's content path (nutrient level and colour dish) qualifies without a rating.
-                            raise ValueError('Not published: proposed before the recipe bar or without a verified rated or content-checked source')
-                        if previous is None and 'image' not in data:
-                            # Owner rule (18 Oct 2026): a new recipe goes live only together with its approved photo.
-                            raise ValueError('Awaiting its generated photo; a new recipe publishes only with an approved image')
+                        data = recipe_payload(row, evidence, live, existing_records.get(key), image_assets)
                     elif kind == 'event':
-                        # Only the app's event fields; the bot's own notes (e.g. vegetarianFocus) stay private.
-                        data={k:v for k,v in dict(existing_records.get(key,{}),**row['event']).items() if k in EVENT_FIELDS}
-                        fee_note=row['event'].get('feeNote', data.get('feeNote',''))
-                        data.update(id=row['id'],checkedAt=max(s['checkedAt'] for s in evidence),sources=[s['url'] for s in evidence],feeNote=fee_note.strip()[:300] if isinstance(fee_note,str) else '')
-                        if data['currency'] != 'SGD' or data.get('feeAmount') is None: data['feeAmount']=None;data['currency']=None
-                        if dt.datetime.fromisoformat(data['startsAt']) <= dt.datetime.now(dt.timezone.utc): raise ValueError('Event is no longer upcoming')
-                        if (twin := event_twin(data, existing_records, candidates)): raise ValueError('Same event is already listed as ' + twin + '; not added twice')
-                        was = existing_records.get(key)
-                        repair = bool(was) and event_needs_refresh(was) and not event_needs_refresh(data)
-                        if food_parked.event_unchanged(data, was, parked.get(key), repair=repair): continue  # reworded, no new fact
+                        data = event_payload(row, evidence, key, existing_records, candidates, parked)
+                        if data is None: continue
                     elif kind == 'place':
                         if packet.get('task') == 'veg-kitchen':
                             import veg_kitchen

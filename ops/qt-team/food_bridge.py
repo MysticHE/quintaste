@@ -213,11 +213,10 @@ def handle(caller,job):
             except urllib.error.HTTPError as ended:
                 if ended.code!=409:raise
     except Exception as exc:
-        if not lease_lost.is_set():
-            if isinstance(exc,urllib.error.HTTPError) and exc.code==409:return
-            try:call(caller,'food-result',{'id':job['id'],'token':job['token'],'error':True})
-            except urllib.error.HTTPError as ended:
-                if ended.code!=409:raise
+        # A hiccup must not become a question for the owner. Nothing is answered, so the lease lapses within 90 seconds and the review is claimed
+        # again; after 4 tries its claim comes back `exhausted`, which is what asks a person (admin/src/lib/food-review.ts foodClaim).
+        import bot_blockers  # what failed and where, never the content: the run folder is removed below, so this is the only trace
+        print(json.dumps({'foodWorkerFailed':bot_blockers.describe(exc),'review':job.get('id'),'caller':caller}),flush=True)
     finally:
         stopped.set();thread.join(timeout=2)
         expected=(ROOT/'food-review').resolve()

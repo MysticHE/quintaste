@@ -77,10 +77,10 @@ class FoodBridge(unittest.TestCase):
   text='\n'.join(telegram_controls.chef_request_lines(ask))
   self.assertIn('Why: Needs evidence',text);self.assertNotIn('Kaya disagreed',text);self.assertNotIn('hold a',text)
   self.assertIn('not the chance',text)
- def test_fabricated_model_attestation_without_pixels_routes_uncertainty(self):
+ def test_fabricated_model_attestation_without_pixels_is_never_accepted(self):
   with patch.object(f,'download',side_effect=lambda c,j,p,file:file.write_bytes(self.raw)),patch.object(f.hermes_run,'run',return_value=({'text':json.dumps(self.answer)},[])),patch.object(f,'call',return_value={'ok':True}) as call:
    f.handle('safety',self.job)
-  self.assertTrue(call.call_args.args[2]['error'])
+  call.assert_not_called()  # no answer at all: the lease lapses and the review is tried again, until an exhausted claim asks a person
  def test_exhausted_claim_never_runs_a_model(self):
   self.job['exhausted']=True
   with patch.object(f.hermes_run,'run') as run,patch.object(f,'call',return_value={'ok':True}) as call:f.handle('head',self.job)

@@ -55,6 +55,7 @@ RECIPE_LIMIT = 36 * 3600        # the Cooker's target is daily
 TICK_LIMIT = 10 * 60            # Hermes ticks and the Telegram reporter run every minute
 LISTENER_LIMIT = 3 * 60         # the listener polls every 20 seconds
 DELIVERY_LIMIT = 30 * 60
+NOTICE_LIMIT = 2 * 3600         # the reporter retries a failed notice for an hour, then falls back to words
 FREE_BYTES = 5 * 1024 ** 3      # the app refuses to publish under 2 GB
 
 
@@ -356,6 +357,12 @@ def check_telegram(host) -> list:
         rows.append(row('deliveries', 'Telegram messages', 'Telegram', 'problem', ', '.join(bits)))
     else:
         rows.append(row('deliveries', 'Telegram messages', 'Telegram'))
+    # Something went live and the owner was never told: how no event update reached the chat for two weeks after 23 Oct 2026.
+    visuals = state.get('visuals') or {}
+    # Past the reporter's own 7-day limit (telegram_reporter.NOTICE_EXPIRY): an untold update stays a problem until it has really been told, never just by ageing out.
+    untold = [r for at, r in _receipts(host, 8) if now - at > NOTICE_LIMIT and r.get('changes') and not (visuals.get(r.get('revision')) or {}).get('complete')]
+    rows.append(row('notices', 'Publication notices', 'Telegram', 'problem', f'{len(untold)} published updates never reached you') if untold
+                else row('notices', 'Publication notices', 'Telegram'))
     return rows
 
 

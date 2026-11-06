@@ -54,7 +54,7 @@ READS = {'alerts': 'attention', 'head': 'asks', 'wok': 'ingredients', 'writer': 
 BOT_FILES = ('chef_admin.py', 'chef_work.py', 'bot_blockers.py', 'bot_notices.py', 'sfa_notice.py', 'kitchen_activity.py', 'qt_capacity.py', 'hermes_run.py', 'rechecks.py', 'staff_alerts.py', 'app_signing.py',
              'telegram_controls.py', 'telegram_reporter.py', 'workflow.py', 'game_level_bridge.py', 'ai_recipes_bridge.py', 'bridge_stop.py')
 TEST_FILES = ('test_chef_lanes.py', 'test_sfa_notice.py', 'test_coco_resolve.py', 'test_rechecks.py')
-ON_VPS = ('kitchen_feed', 'night_window', 'publisher')  # imported by the chef files, deployed by their own scripts
+ON_VPS = ('kitchen_feed', 'night_window', 'publisher', 'event_twins')  # imported by the chef files, deployed by their own scripts
 # The services importing copied files; the bridges finish the job in hand when restarted (bridge_units.py).
 SERVICES = ('qt-telegram-listener.service',) + tuple(name + '.service' for name in bridge_units.RECIPES + ('qt-game-level-bridge',))
 PROFILES = ('qt-manager', 'qt-cooker', 'qt-gamer', 'qt-videomaker', 'qt-fixer', 'qt-safety')

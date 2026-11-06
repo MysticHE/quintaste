@@ -23,6 +23,12 @@ STATE = ROOT / 'state/telegram'
 ORIGIN = 'https://quintaste.srv1902914.hstgr.cloud'
 SG = ZoneInfo('Asia/Singapore')
 COMMANDS = ('status', 'health', 'restart', 'latest', 'coverage', 'holds', 'learning', 'manage', 'help')
+EVENTS_ROUTE = '/cook?tab=events'
+NOTICE_TRIES = 3         # screenshot attempts before a publication is reported in words instead
+NOTICE_EXPIRY = dt.timedelta(days=7)  # older than this and it joins the late digest without another try
+LATE_NAMES = 12
+NOT_MEMBER_FACING = frozenset({'checkedAt', 'sources', 'id'})
+NOTICE_FRESH = 86400     # how long after publishing a card of its own still makes sense; older ones share one late digest
 
 
 def read(path, default=None):
@@ -473,8 +479,6 @@ def capture(publication):
             routes.append((kind, route, rid.replace('-', ' '), rid))
         elif kind == 'recipe':
             routes.append((kind, '/cook/recipe/' + rid, rid.replace('-', ' '), rid))
-        elif kind == 'event':
-            routes.append((kind, '/social?tab=events&eventType=Local%20events', 'Local events', rid))
     photos = []
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True)
@@ -511,15 +515,6 @@ def capture(publication):
                         page.get_by_text(section,exact=True).click()
                 if kind == 'recipe':
                     page.get_by_role('button', name='Recipe Info', exact=True).wait_for(timeout=15000)
-                if kind == 'event':
-                    events = get_public('/api/editorial/events').get('items', [])
-                    event = next((e for e in events if e['id'] == rid), None)
-                    if event is None:
-                        continue  # Past/removed events must not be represented by a different event.
-                    page.get_by_text(event['title'], exact=True).wait_for(timeout=15000)
-                    page.get_by_text(event['title'], exact=True).click()
-                    page.get_by_role('button', name='Organiser & Registration', exact=True).wait_for(timeout=10000)
-                    label = event['title']
                 page.evaluate('() => Promise.all(Array.from(document.images).map(i => i.decode().catch(() => {})))')
                 target = folder / (kind + '-' + rid + '.jpg')
                 page.screenshot(path=str(target), type='jpeg', quality=80)
@@ -546,14 +541,20 @@ def publication_updates(state):
     request = state.pop('latestRequested', None)
     if request: publications = [latest] if latest.get('status') == 'published' else []
     if not request:
-        current = []
+        current, late = [], []
         for pub in publications:
+            visual = state.setdefault('visuals', {}).setdefault(pub['revision'], {'attempts': 0, 'nextAt': 0})
             published = dt.datetime.fromisoformat(str(pub.get('publishedAt') or stamp()).replace('Z', '+00:00'))
-            if dt.datetime.now(dt.timezone.utc) - published > dt.timedelta(days=7):
-                state.setdefault('visuals', {}).setdefault(pub['revision'], {'attempts': 0, 'nextAt': 0}).update(complete=True, disposition='expired')
+            if dt.datetime.now(dt.timezone.utc) - published > NOTICE_EXPIRY:
+                if not visual.get('complete'):
+                    visual['disposition'] = 'expired'
+                    late.append(pub)
             else:
                 current.append(pub)
+                if not visual.get('complete') and not fresh_notice(pub):
+                    late.append(pub)
         publications = current
+        late_digest(state, late)
     for pub in publications:
         # Mixed Kitchen and Veg Kitchen places get one text digest per batch and task with Remove (new) or Revert (update) per place, never screenshots.
         if any(c.get('kind') == 'place' for c in pub.get('changes', [])):
@@ -575,7 +576,6 @@ def publication_updates(state):
         visual = state.setdefault('visuals', {}).setdefault(pub['revision'], {'attempts':0,'nextAt':0})
         if visual.get('complete') and not request: continue
         if visual['nextAt'] > time.time() and not request: continue
-        if visual['attempts'] >= 3 and not request: continue
         _publication_item(state,pub,visual,request)
         return
 
@@ -591,7 +591,8 @@ def _publication_item(state, pub, visual, request):
     remaining = [r for r in records if r not in done]
     selected = remaining[:1] if remaining else records[:1]
     changes = [c for c in pub.get('changes',[]) if c['kind']+':'+c['id'] in selected]
-    if (not visual.get('complete') and visual['attempts'] < 3 and visual['nextAt'] <= time.time()) or request:
+    give_up = visual['attempts'] >= NOTICE_TRIES
+    if (not visual.get('complete') and (not give_up or fresh_notice(pub)) and visual['nextAt'] <= time.time()) or request:
         try:
             if changes and all('closed' in c.get('fields', []) for c in changes):
                 closure_notice(state, pub, changes, key, request, done)
@@ -614,6 +615,14 @@ def _publication_item(state, pub, visual, request):
                     return
                 selected = remaining[:1]
                 changes = [c for c in pub['changes'] if c['kind'] + ':' + c['id'] in selected]
+            if selected and (give_up or all(r.startswith('event:') for r in selected)):
+                # Since the redesign of 24 Oct 2026 an event is a card in Feeds with no page of its own: no event card went out after that.
+                plain_notice(state, pub, selected, key, request, done)
+                visual['complete'] = bool(records) and all(r in done for r in records)
+                visual['lastError'] = None
+                if not give_up:
+                    visual['attempts'] = 0
+                return
             photos = capture(dict(pub,records=selected,changes=changes))
             if not photos: raise ValueError('No current item screenshot available')
             from telegram_controls import photo_buttons, photo_identity
@@ -635,6 +644,66 @@ def _publication_item(state, pub, visual, request):
             visual['lastError'] = type(exc).__name__
             if request:
                 enqueue(state, key + ':visual-pending:request:' + request, 'QT Manager: live screenshot capture is pending. The reporter will retry within its capture limit.')
+
+
+def fresh_notice(pub):
+    published = aware(pub.get('publishedAt'))
+    return published is None or time.time() - published.timestamp() < NOTICE_FRESH
+
+
+def late_digest(state, late):
+    """Updates that went live while their own notice could not go out for a day or more (reporter down, app unreachable). One message however many,
+    so a long outage ends in a sentence, not a burst of old cards. A notice must never be lost, and the visuals are only marked once it is queued."""
+    changes = [c for pub in late for c in pub.get('changes', []) if c.get('kind') != 'place'
+               and c.get('kind', '') + ':' + c.get('id', '') not in state['visuals'][pub['revision']].get('items', {})]
+    if changes:
+        names = [str((c.get('after') or {}).get('title') or c.get('name') or c.get('id'))[:80] for c in changes]
+        more = f'\n... and {len(names) - LATE_NAMES} more.' if len(names) > LATE_NAMES else ''
+        enqueue(state, 'publication-late:' + hashlib.sha256('|'.join(sorted(p['revision'] for p in late)).encode()).hexdigest()[:32],
+                f'QT Manager · {len(names)} published updates went out without their notice. They are live:\n' + '\n'.join('• ' + name for name in names[:LATE_NAMES]) + more)
+    for pub in late:
+        state['visuals'][pub['revision']].update(complete=True, disposition=state['visuals'][pub['revision']].get('disposition', 'told-late'))
+
+
+def recheck_only(change):
+    """Only the checked date and sources moved (the 14-day refresh of a live event). Nothing a member would see, so nothing to tell the owner."""
+    return bool(change.get('fields')) and not change.get('created') and not set(change['fields']) - NOT_MEMBER_FACING
+
+
+def event_lines(data, change):
+    """What the owner needs in order to judge a published event, and what changed in it."""
+    fee = ('S$' + format(data['feeAmount'], 'g')) if isinstance(data.get('feeAmount'), (int, float)) else ''
+    lines = [singapore_time(data['startsAt']) + ' · ' + str(data.get('location') or '')[:120] if data.get('startsAt') else '',
+             str(data.get('organiser') or '')[:120], ' · '.join(part for part in (fee, str(data.get('feeNote') or '')[:160]) if part)]
+    changed = [f for f in change.get('fields', []) if f not in NOT_MEMBER_FACING]
+    if change.get('created'):
+        lines.append('New event.')
+    else:
+        lines.append('Changed: ' + ', '.join(re.sub(r'(?<!^)([A-Z])', r' \1', f).lower() for f in changed) + '.' if changed else 'Rechecked; no change a member would see.')
+    return [line for line in lines if line]
+
+
+def plain_notice(state, pub, selected, key, request, done):
+    """A publication in words, with its controls: for events, and for anything whose screenshot keeps failing. A notice must never be lost
+    because a picture of it could not be taken."""
+    from publisher import request as editorial_request
+    from telegram_controls import photo_buttons
+    live = editorial_request('GET', '/control/state')
+    rows = {r['kind'] + ':' + r['id']: r['data'] for r in live.get('records', [])}
+    for record in selected:
+        kind, _, rid = record.partition(':')
+        change = next((c for c in pub.get('changes', []) if c['kind'] + ':' + c['id'] == record), {})
+        if kind == 'event' and not request and recheck_only(change):
+            done[record] = 'rechecked'
+            continue
+        data = rows.get(record) or {}
+        route = EVENTS_ROUTE if kind == 'event' else '/cook/recipe/' + rid if kind == 'recipe' else '/place/catalogue-' + rid
+        name = data.get('title') or data.get('name') or change.get('name') or rid
+        body = event_lines(data, change) if kind == 'event' and data else [change_caption(change)]
+        enqueue(state, key + ':photo:' + record + (':request:' + request if request else ''),
+                ('Published — ' + str(name)[:110] + '\n' + singapore_time(pub.get('publishedAt')) + '\n' + '\n'.join(line for line in body if line) + '\n' + ORIGIN + route)[:3900],
+                buttons=photo_buttons(state, kind, rid, live))
+        done[record] = 'queued'
 
 
 def place_digest(state, pub, request=None):
@@ -937,7 +1006,7 @@ def deliver(state, config, interactive_only=False):
                 result = telegram('sendMessage', {'chat_id': config['chatId'], 'text': item['text'], **reply,
                     'link_preview_options': {'is_disabled': True}, 'reply_markup': {'inline_keyboard': item.get('buttons') if item.get('buttons') is not None else [[
                     {'text': 'Explore', 'url': ORIGIN + '/explore'}, {'text': 'Cook', 'url': ORIGIN + '/cook'},
-                    {'text': 'Events', 'url': ORIGIN + '/social?tab=events&eventType=Local%20events'}]]}})
+                    {'text': 'Events', 'url': ORIGIN + EVENTS_ROUTE}]]}})
             if not result.get('message_id') or result.get('chat', {}).get('id') != config['chatId']:
                 raise DeliveryError('delivery-unknown')
             item.update(status='sent', messageId=result['message_id'], sentAt=stamp())

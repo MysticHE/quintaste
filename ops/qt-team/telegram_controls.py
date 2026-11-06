@@ -34,7 +34,7 @@ def photo_buttons(state, kind, record_id, live):
                               'changeId':change['changeId'],'expires':time.time()+30*86400,'stage':'direct',
                               'mode':'revert','actionId':'owner-revert-'+token}
         state['moderation'] = dict(list(actions.items())[-400:])
-        route = '/place/catalogue-'+record_id if kind in ('venue','place') else '/cook/recipe/'+record_id if kind == 'recipe' else '/social?tab=events&eventType=Local%20events'
+        route = '/place/catalogue-'+record_id if kind in ('venue','place') else '/cook/recipe/'+record_id if kind == 'recipe' else t.EVENTS_ROUTE
         return [[{'text':'Open '+kind,'url':t.ORIGIN+route},{'text':'Revert this update','callback_data':'revert:'+token}]]
     if kind not in ('recipe', 'event'): return []
     row = next((r for r in live['records'] if r['kind'] == kind and r['id'] == record_id), None)
@@ -48,7 +48,7 @@ def photo_buttons(state, kind, record_id, live):
                           'hash':row['hash'], 'expires':time.time()+30*86400, 'stage':'direct', 'mode':'direct',
                           'actionId':'owner-delete-'+token}
     state['moderation'] = dict(list(actions.items())[-400:])
-    route = '/cook/recipe/'+record_id if kind == 'recipe' else '/social?tab=events&eventType=Local%20events'
+    route = '/cook/recipe/'+record_id if kind == 'recipe' else t.EVENTS_ROUTE
     return [[{'text':'Open '+kind, 'url':t.ORIGIN+route},
              {'text':'Delete '+kind+' now', 'callback_data':'delete:'+token}]]
 
@@ -531,7 +531,7 @@ def event_exclusion_requests(state):
         if rid in live:
             _remove_or_keep(state, t, 'event', rid, live[rid], 'event-exclusion:' + rid,
                 'Event check: ' + live[rid]['data'].get('title', rid) + '\nEvent no longer lists this under your rule (vegetarian food must be the point):\n'
-                + entry.get('reason', '')[:500], '/social?tab=events&eventType=Local%20events')
+                + entry.get('reason', '')[:500], t.EVENTS_ROUTE)
     state['moderation'] = dict(list(state['moderation'].items())[-400:])
 
 
