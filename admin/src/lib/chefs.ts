@@ -206,12 +206,22 @@ export async function chefAsks(after: string | null) {
   const rows = (await query<Row & { at: string }>(`SELECT d.*, ${at}::text AS at FROM ops.chef_decision d WHERE outcome='asked' AND ${currentQuestion}
     AND ($1::bigint IS NULL OR ${at} > $1::bigint) ORDER BY created_at LIMIT 20`, [after])).rows;
   const names = await labelsFor(rows, lane => !lane.member);
+  const editorial = await editorialFoodItems(rows.filter(r => r.lane === 'food-checks').map(r => r.target));
   return rows.map(r => {
     const lane = LANES[r.lane];
     const food = r.lane === 'food-checks' ? foodAssessment(r.evidence, r.confidence, lane?.floor) : null;
+    const open = editorial[r.target]; // QuinTaste's own public recipes and events are named; a member's content never is
     return { id: r.id, at: r.at, chef: CHEFS[r.chef] ?? r.chef, lane: lane?.title ?? r.lane, action: r.action, why: food ? foodAskWhy(food) : r.why_ask, foodStatus: food, confidence: r.confidence,
-      foodReview:r.lane==='food-checks',item: lane && !lane.member ? names[r.lane + '|' + r.target] ?? r.target : lane?.privateLabel ?? null, reason: lane && !lane.member ? r.reason.slice(0, 200) : null };
+      foodReview:r.lane==='food-checks',itemKind: open?.kind ?? null,item: open?.title ?? (lane && !lane.member ? names[r.lane + '|' + r.target] ?? r.target : lane?.privateLabel ?? null), reason: open ? r.reason.slice(0, 300) : lane && !lane.member ? r.reason.slice(0, 200) : null };
   });
+}
+
+/** Titles of food questions about QuinTaste's own public recipes and events (kind editorial-*), by review id. */
+async function editorialFoodItems(targets: string[]) {
+  if (!targets.length) return {} as Record<string, { kind: string; title: string }>;
+  const rows = (await query<{ id: string; kind: string; title: string | null }>(`SELECT id::text AS id, kind, COALESCE(payload->'data'->>'title', payload->'data'->>'name') AS title
+    FROM ops.food_review WHERE id::text = ANY($1) AND kind IN ('editorial-event','editorial-recipe')`, [targets])).rows;
+  return Object.fromEntries(rows.filter(r => r.title).map(r => [r.id, { kind: r.kind.slice('editorial-'.length), title: r.title!.slice(0, 120) }]));
 }
 
 /** The last 24 hours per lane (and every ask still waiting), for the daily summary; a "keep" changed nothing, so it is left out.

@@ -30,10 +30,11 @@ export async function editorialFoodGate(db,root,batch){
     }
     const data=foodCandidate(record.kind,record.data,record.sources);
     const result=await enqueueFoodReview(db,'editorial-'+record.kind,record.id,{data,edition:'candidate'},photos);
-    if(result.state==='held')held.push(record.id);
-    if(result.state!=='clear')waiting.push(result.id);
+    if(result.state==='held')held.push({kind:record.kind,id:record.id});
+    else if(result.state!=='clear')waiting.push({kind:record.kind,id:record.id,state:result.state});
   }
-  // The publisher's existing 422 isolation flow retires held candidates so unrelated approved work can continue.
-  if(held.length)throw Object.assign(new Error('Food-content review held '+held.join(', ')+'. Correct the food-policy finding before resubmitting this candidate.'),{status:422});
-  if(waiting.length)throw Object.assign(new Error('Food-content review is pending. The approved batch is retained for retry.'),{status:409});
+  // Each refusal names its records, so the publisher sets those aside and the rest of the batch still goes out (6 Nov 2026: two
+  // unanswered owner questions held every publication for three days without any alert).
+  if(held.length)throw Object.assign(new Error('Food-content review held '+held.map(r=>r.id).join(', ')+'. Correct the food-policy finding before resubmitting this candidate.'),{status:422,held,waiting});
+  if(waiting.length)throw Object.assign(new Error('Food-content review is pending. The approved batch is retained for retry.'),{status:409,held,waiting});
 }

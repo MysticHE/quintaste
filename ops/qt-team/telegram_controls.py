@@ -106,8 +106,11 @@ def menu(state, kind='recipe', offset=0):
 
 def callback(state, data, uid):
     import telegram_reporter as t
-    import publisher as p
     parts = data.split(':')
+    if len(parts) == 2 and parts[0].startswith('ops-'):  # before the publisher: the restart button must work even after a bad release
+        import ops_commands
+        return t.enqueue(state, 'control:'+str(uid), *ops_commands.callback(state, t.ROOT, parts[0], parts[1]))
+    import publisher as p
     if len(parts) == 3 and parts[0] == 'manage' and parts[1] in ('recipe','event') and parts[2].isdigit() and int(parts[2]) <= 2000:
         text, buttons = menu(state, parts[1], int(parts[2]))
     elif len(parts) == 2 and parts[0] in ('select','confirm','cancel','delete','revert','cover-ok','cover-no','game-ok','game-no','keep',
@@ -302,19 +305,27 @@ CHEF_CARDS_PER_DAY = 20   # single ask cards a day (Singapore); more go into one
 CHEF_BURST = 5            # more new asks than this at once also go into that one card
 
 
+def ask_name(ask):
+    """'Event: Bento workshop' for QuinTaste's own public items; a member's content is never named here (admin leaves it out)."""
+    kind = {'event': 'Event', 'recipe': 'Recipe'}.get(ask.get('itemKind'))
+    return (kind + ': ' if kind else '') + str(ask.get('item') or "a member's item")
+
+
 def chef_request_lines(ask):
     """Food evidence gaps must never read as a meat finding or an invented disagreement."""
     if ask.get('foodReview'):
         status=ask.get('foodStatus') or {}
-        lines=[f"QT Manager · {ask['chef']} asks you", 'Food eligibility: owner review',
+        lines=[f"QT Manager · {ask['chef']} asks you", ask_name(ask),
                'Why: '+status.get('label','Needs food review')]
         if status:
             lines.append('Mint: '+status['mint']+' · Kaya: '+status['kaya'])
         if isinstance(ask.get('confidence'),(int,float)):
             lines.append('Model confidence: %s%% · automatic threshold: %s%%' %
                          (round(ask['confidence']*100),round(status.get('threshold',.95)*100)))
+        if ask.get('reason'):
+            lines.append(str(ask['reason']))
         lines.append('Confidence describes the review, not the chance that the food contains meat.')
-        lines.append('Open the exact issue to inspect the evidence and choose Clear or Hold.')
+        lines.append('Open it to check the evidence and choose Clear or Hold. Only this item waits; everything else keeps publishing.')
         return lines
     item=ask.get('item') or "a member's item"
     sure=f" ({round(ask['confidence']*100)}% sure)" if isinstance(ask.get('confidence'),(int,float)) else ''
@@ -322,6 +333,9 @@ def chef_request_lines(ask):
            'Why: '+CHEF_WHY.get(ask.get('why'),'unclear')+sure]
     if ask.get('reason'):lines.append(f"{ask['chef']}: {ask['reason']}")
     return lines
+REMIND_AFTER = 12 * 3600  # a question this old goes on the daily reminder
+REMIND_FROM_HOUR = 9      # SGT; the reminder never goes out at night
+REMIND_ROWS = 8           # buttons in one reminder; the rest are counted and link to admin
 CHEF_TOKENS = 400         # chef buttons kept apart from other owner buttons, so a burst of asks never pushes out Revert or Delete
 CHEF_TOKEN_DAYS = 30
 CHEF_EXPIRED = 'This question can no longer be answered here. Answer it on the Chef decisions page in admin.'
@@ -336,6 +350,50 @@ def chef_admin_button(decision_id=None):
             raise ValueError('Invalid decision link')
         path += '?id=' + decision_id
     return {'text': 'Open issue' if decision_id else 'Open in admin', 'url': chef_admin.ADMIN_ORIGIN + path}
+
+
+def chef_answer_buttons(tokens, ask, tag=''):
+    """Approve / Turn down for an ask, with a new token. A food question has none: it is answered on its issue page, with the evidence
+    in front of the owner, so it never takes a tap in the chat."""
+    if ask.get('foodReview'):
+        return []
+    item = ask.get('item') or "a member's item"
+    token = secrets.token_hex(12)
+    tokens[token] = {'mode': 'chef', 'kind': 'chef', 'id': ask['id'], 'name': f"{ask['action']} {item}"[:120],
+                     'expires': time.time() + CHEF_TOKEN_DAYS * 86400, 'stage': 'direct', 'actionId': 'owner-chef-' + token}
+    return [{'text': tag + 'Approve', 'callback_data': 'chef-ok:' + token}, {'text': tag + 'Turn down', 'callback_data': 'chef-no:' + token}]
+
+
+def owner_reminders(state, now=None):
+    """Once a day from 9 am: every question still waiting, by name, with its answer buttons. A card sent once and scrolled past must
+    never leave an item waiting in silence (owner, 6 Nov 2026: two questions sat unanswered for days)."""
+    import datetime as dt
+    import telegram_reporter as t
+    import chef_admin
+    import food_parked
+    if not chef_admin.has_key(t.ROOT, 'head'):
+        return
+    now = now or dt.datetime.now(t.SG)
+    local = now.astimezone(t.SG)
+    key = 'chef-reminder:' + local.date().isoformat()
+    if local.hour < REMIND_FROM_HOUR or local.hour >= 23 or key in state['deliveries']:
+        return
+    asks = [a for a in chef_admin.asks(t.ROOT) if now.timestamp() - int(a['at']) / 1_000_000 >= REMIND_AFTER]
+    if not asks:
+        return
+    tokens = state['chefTokens'] = {k: v for k, v in state.get('chefTokens', {}).items() if v['expires'] > time.time()}
+    lines, rows = [], []
+    for n, ask in enumerate(asks[:REMIND_ROWS], 1):
+        days = int((now.timestamp() - int(ask['at']) / 1_000_000) // 86400)
+        lines.append(f"{n}. {ask_name(ask)} ({str(days) + 'd' if days else 'today'})")
+        rows.append(chef_answer_buttons(tokens, ask, f'{n} ') + [dict(chef_admin_button(ask['id']), text=f'{n} Open')])
+    more = len(asks) - len(lines)
+    parked = food_parked.count(t.ROOT)
+    t.enqueue(state, key, 'QT Manager · Still waiting for your answer\n' + '\n'.join(lines)
+              + (f'\nand {more} more on the Chef decisions page.' if more else '')
+              + (f'\n{parked} set aside until you answer. Everything else keeps publishing.' if parked else ''),
+              buttons=rows + ([[chef_admin_button()]] if more else []))
+    state['chefTokens'] = dict(list(tokens.items())[-CHEF_TOKENS:])
 
 
 def chef_requests(state):
@@ -364,15 +422,9 @@ def chef_requests(state):
     single = asks if len(asks) <= CHEF_BURST and len(asks) <= CHEF_CARDS_PER_DAY - sent[day] else []
     tokens = state['chefTokens'] = {k: v for k, v in state.get('chefTokens', {}).items() if v['expires'] > time.time()}
     for ask in single:
-        item = ask.get('item') or "a member's item"
-        token = secrets.token_hex(12)
-        if not ask.get('foodReview'):
-            tokens[token] = {'mode': 'chef', 'kind': 'chef', 'id': ask['id'], 'name': f"{ask['action']} {item}"[:120],
-                             'expires': time.time() + CHEF_TOKEN_DAYS * 86400, 'stage': 'direct', 'actionId': 'owner-chef-' + token}
         lines = chef_request_lines(ask)
-        buttons=[[chef_admin_button(ask['id'])]] if ask.get('foodReview') else [
-            [{'text': 'Approve', 'callback_data': 'chef-ok:' + token}, {'text': 'Turn down', 'callback_data': 'chef-no:' + token}],
-            [chef_admin_button(ask['id'])]]
+        answers = chef_answer_buttons(tokens, ask)
+        buttons = ([answers] if answers else []) + [[chef_admin_button(ask['id'])]]
         t.enqueue(state, 'chef:' + ask['id'], '\n'.join(lines), buttons=buttons)
         sent[day] += 1
     rest = asks[len(single):]
@@ -382,9 +434,11 @@ def chef_requests(state):
         for ask in group:
             lanes[ask['lane']] = lanes.get(ask['lane'], 0) + 1
         links=[{**chef_admin_button(a['id']),'text':str(offset+n+1)+': '+a['lane']} for n,a in enumerate(group)]
+        names = [ask_name(a) for a in group if a.get('itemKind')][:8]
         t.enqueue(state, 'chef-digest:' + group[-1]['id'], f"QT Manager · The chefs have {len(group)} more "
                   + ('question' if len(group) == 1 else 'questions') + ' for you\n'
-                  + '\n'.join(f'• {lane}: {n}' for lane, n in sorted(lanes.items())) + '\nAnswer them on the Chef decisions page.',
+                  + '\n'.join(f'• {lane}: {n}' for lane, n in sorted(lanes.items()))
+                  + ''.join('\n' + name for name in names) + '\nAnswer them on the Chef decisions page.',
                   buttons=[links[n:n+2] for n in range(0,len(links),2)])
     state['chefTokens'] = dict(list(tokens.items())[-CHEF_TOKENS:])
     state['chefAsksAfter'] = last

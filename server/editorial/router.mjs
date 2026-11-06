@@ -1,12 +1,13 @@
 import express from 'express';
 import { pool } from '../config.mjs';
 import { editorialFoodGate } from '../food-review/editorial.mjs';
+import { cancelFoodReview } from '../food-review/core.mjs';
 import { Buffer } from 'node:buffer';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readSnapshot, publish, recordState, removeRecord, revertRecord } from './store.mjs';
-import { hash } from './validation.mjs';
+import { hash, requireValue, validId } from './validation.mjs';
 import { publisherKey } from './key.mjs';
 import { staffContent, staffCreated, staffEdited, staffPlace, staffRecord } from '../staff-content.mjs';
 import { logger } from '../config.mjs';
@@ -83,8 +84,18 @@ editorial.get('/control/state', async (_req, res, next) => {
 });
 editorial.post('/control/publish', inTurn(async (req, res) => {
   try { const batch=JSON.parse(req.body.toString());const result = await publish(root, baseline, batch, () => editorialFoodGate(pool,root,batch)); res.json(result); }
-  catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Publication unavailable; prior content retained.' }); }
+  catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Publication unavailable; prior content retained.', ...(error.waiting ? { waiting: error.waiting, held: error.held } : {}) }); }
 }));
+// A set-aside item that will not go out (its date passed, the owner removed it, a newer check ruled it out): its open food question closes,
+// so the owner is not asked about it again. A later publication request stages a fresh review.
+editorial.post('/control/food-withdraw', async (req, res) => {
+  try {
+    const { kind, id } = JSON.parse(req.body.toString());
+    requireValue(['recipe', 'event'].includes(kind) && validId(id), 'Invalid food withdrawal');
+    await cancelFoodReview(pool, 'editorial-' + kind, id);
+    res.json({ ok: true });
+  } catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Withdrawal unavailable; retry later.' }); }
+});
 editorial.post('/control/remove', inTurn(async (req, res) => {
   try { res.json(await removeRecord(root, JSON.parse(req.body.toString()))); }
   catch (error) { res.status(error.status ?? (error instanceof SyntaxError ? 400 : 503)).json({ error: error.status ? error.message : 'Removal unavailable; check current state before retrying.' }); }

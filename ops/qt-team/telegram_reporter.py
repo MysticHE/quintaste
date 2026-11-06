@@ -22,7 +22,7 @@ ROOT = Path(os.environ.get('QT_TEAM_ROOT', '/opt/data/qt-team'))
 STATE = ROOT / 'state/telegram'
 ORIGIN = 'https://quintaste.srv1902914.hstgr.cloud'
 SG = ZoneInfo('Asia/Singapore')
-COMMANDS = ('status', 'latest', 'coverage', 'holds', 'learning', 'manage', 'help')
+COMMANDS = ('status', 'health', 'restart', 'latest', 'coverage', 'holds', 'learning', 'manage', 'help')
 
 
 def read(path, default=None):
@@ -204,10 +204,10 @@ def summary(mode='status'):
                 'Lessons use existing review runs; budgets stay unchanged.\n'
                 'Improvement in accuracy is not established yet.\nNext research: ' + next_research())
     if mode == 'help':
-        return ('QT Manager — private reporting\n/status — last run and publication\n'
-                '/latest — latest publication and available live screenshots\n'
+        return ('QT Manager — private reporting\n/health — is every bot working, and what is stuck\n/restart — restart the bots\n'
+                '/status — last run and publication\n/latest — latest publication and available live screenshots\n'
                 '/coverage — review coverage\n/holds — unresolved baseline gaps\n/learning — reviewed lessons and follow-ups\n'
-                '/manage — delete bot-added recipes/events with confirmation. Explorer: 24 hours; Cooker and Event: 6–10 pm SGT.\n'
+                '/manage — delete bot-added recipes/events with confirmation.\n'
                 'Live screenshots for published changes; one text summary at the end of the run.\n'
                 'Telegram never starts research or bypasses Manager review.')
     reviewed = len(checkpoint.get('explorerReviewed', {}))
@@ -342,6 +342,13 @@ def handle_updates(state, updates, acknowledge=True):
                             enqueue(state, 'command:'+str(uid), body, buttons=buttons)
                         except Exception:
                             enqueue(state, 'command:'+str(uid), 'Management is temporarily unavailable. Please retry /manage shortly.')
+                    elif command == 'health':
+                        import ops_commands
+                        enqueue(state, 'command:'+str(uid), ops_commands.health_text(ROOT), buttons=[[{'text': 'Restart', 'callback_data': 'ops-menu:open'}]])
+                    elif command == 'restart':
+                        import ops_commands
+                        body, buttons = ops_commands.restart_menu(state)
+                        enqueue(state, 'command:'+str(uid), body, buttons=buttons)
                     else:
                         enqueue(state, 'command:' + str(uid), summary(command if command in COMMANDS else 'help'))
                     if command == 'latest':
@@ -739,10 +746,15 @@ def daily_summary(state, now):
     if failures:
         needs.append('Bots failed: ' + ' · '.join(f"{role.removeprefix('qt-').title()} {n}×" for role, n in sorted(failures.items())))
     needs += delivery_problems(state, since) + guarded(lambda: refused_requests(since), [])
+    def health_parts():
+        import ops_commands
+        return ops_commands.summary_parts(ROOT)
+    stuck, health = guarded(health_parts, (['Bot health: could not read the report'], ''))
+    needs += stuck
     text += _section('Needs you', needs) if needs else '\n\nNothing needs you.'
     from night_window import usage
     calls = guarded(lambda: f"AI calls this month: {usage(ROOT, read(ROOT / 'policy.json', {}))['used']:,}", '')
-    footer = [line for line in ([f'Chefs did: {done}'] if done else []) + [calls] if line]
+    footer = [line for line in ([f'Chefs did: {done}'] if done else []) + [health, calls] if line]
     return text + ('\n\n' + '\n'.join(footer) if footer else '')
 
 
@@ -981,6 +993,21 @@ def maintenance(state):
                 folder.rmdir()
 
 
+def nothing_left_waiting(state):
+    """Questions the owner has not answered come back daily, and a stopped watchdog is reported. Neither may stop the rest of the tick."""
+    import ops_commands
+    import telegram_controls
+    try:
+        telegram_controls.owner_reminders(state)
+        state.pop('reminderError', None)
+    except Exception as exc:
+        state['reminderError'] = type(exc).__name__
+    try:
+        ops_commands.check_watchdog(state, ROOT, enqueue, dt.datetime.now(SG))
+    except Exception as exc:
+        state['watchdogCheckError'] = type(exc).__name__
+
+
 def tick():
     import fcntl
     STATE.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -1065,6 +1092,7 @@ def tick():
                 state.pop('chefAskError', None)
             except Exception as exc:  # nor a chef's question
                 state['chefAskError'] = type(exc).__name__
+            nothing_left_waiting(state)
             publication_updates(state)
             completion_reports(state)
             deliver(state, config)

@@ -34,7 +34,7 @@ def js_numbers(value):
     return value
 
 def request(method, route, data=None):
-    if route not in ('/control/state', '/control/publish', '/control/remove', '/control/revert'):
+    if route not in ('/control/state', '/control/publish', '/control/remove', '/control/revert', '/control/food-withdraw'):
         raise ValueError('Unapproved publication route')
     raw = js_json(data).encode() if data is not None else b''
     if len(raw) > 2_000_000:
@@ -331,6 +331,9 @@ def prepare(packages, live):
     states = {('venue', v['id']): v['hash'] for v in live['venues']}
     states.update({(r['kind'], r['id']): r['hash'] for r in live['records']})
     existing_records = {(r['kind'], r['id']): r['data'] for r in live['records']}
+    import food_parked
+    from workflow import event_needs_refresh
+    parked = food_parked.parked_keys(ROOT)
     for package in reversed(packages):
         decisions = {d['id']:d for d in package['manager']['decisions']}
         for packet in package['packets']:
@@ -399,6 +402,9 @@ def prepare(packages, live):
                         if data['currency'] != 'SGD' or data.get('feeAmount') is None: data['feeAmount']=None;data['currency']=None
                         if dt.datetime.fromisoformat(data['startsAt']) <= dt.datetime.now(dt.timezone.utc): raise ValueError('Event is no longer upcoming')
                         if (twin := event_twin(data, existing_records, candidates)): raise ValueError('Same event is already listed as ' + twin + '; not added twice')
+                        was = existing_records.get(key)
+                        repair = bool(was) and event_needs_refresh(was) and not event_needs_refresh(data)
+                        if food_parked.event_unchanged(data, was, parked.get(key), repair=repair): continue  # reworded, no new fact
                     elif kind == 'place':
                         if packet.get('task') == 'veg-kitchen':
                             import veg_kitchen
@@ -888,11 +894,65 @@ def make_batch(candidates, images, review, parent, batch_id):
           'review':{'decision':'approved','reviewedBy':'QT Manager','sha256':image['sha256'],'reason':visual[image['sha256']]['reason']}})
     return {'version':1,'id':batch_id,'parent':parent,'records':records,'assets':assets}
 
+def settle_parked(record, outcome):
+    """What became of a parked record: a hold is kept for good; None forgets its approval, so a fresh proposal is reviewed again."""
+    from workflow import read,write
+    path=ROOT/'state/publication-outcomes.json'
+    outcomes=read(path,{})
+    if outcome is None:outcomes.pop(record.get('proposalHash'),None)
+    else:outcomes[record.get('proposalHash')]=outcome
+    write(path,outcomes)
+
+
 def run_publication(policy, folder=None, review_only=False, covers_only=False):
-    from workflow import read,write,now
+    """One publication pass. Records parked on a food answer are offered first and never hold up what follows (food_parked.py)."""
+    import food_parked
     if not policy.get('automaticProductionWrites'):return {'status':'disabled','productionWrites':0}
     folder=folder or ROOT/'runs'/('publish-'+dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
     folder.mkdir(parents=True,exist_ok=True)
+    from workflow import now,read
+    early=[]
+    if not review_only and not covers_only and not (ROOT/'state/pending-publication.json').exists() and food_parked.count(ROOT):
+        try:
+            food_parked.retire_outdated(ROOT,[read(path,{}) or {} for path in sorted((ROOT/'outbox').glob('*.json'))[-80:]],request,settle_parked,now)
+        except (OSError,ValueError,KeyError,TypeError,AttributeError) as exc:  # never in the way of what publishes next
+            print(json.dumps({'parkedReview':type(exc).__name__}),flush=True)
+        early=food_parked.retry(ROOT,request,lambda batch,receipt:published(batch,receipt,folder),settle_parked,now)
+    result=publication_pass(policy,folder,review_only,covers_only)
+    if early:
+        records=[k for r in early for k in r['records']];changes=[c for r in early for c in r['changes']]
+        if result.get('status')=='published':
+            records+=list(result.get('records') or []);changes+=list(result.get('changes') or [])
+        result=dict(result,productionWrites=result.get('productionWrites',0)+sum(r['productionWrites'] for r in early),records=records,changes=changes,
+                    **({} if result.get('status')=='published' else {'parkedOnly':result.get('status'),'status':'published','revision':early[-1]['revision'],'publishedAt':early[-1]['publishedAt']}))
+    waiting=food_parked.count(ROOT)
+    return dict(result,parked=waiting) if waiting else result
+
+
+def set_aside(batch, parts, pending):
+    """Moves records the server named out of the pending batch: questions for the owner to food_parked, holds to their outcome. Returns the
+    smaller batch, now pending, or None when nothing is left of it."""
+    import food_parked
+    from workflow import read,write,now
+    outcomes_path=ROOT/'state/pending-publication-outcomes.json'
+    outcomes=read(outcomes_path,{})
+    for record in parts['hold']:
+        outcomes[record.get('proposalHash')]={'at':now(),'decision':'hold','reason':('Food review held: '+record['id'])[:300]}
+    for record in parts['park']:
+        food_parked.park(ROOT,batch,record,now())
+    write(outcomes_path,outcomes)
+    if parts['keep']:
+        smaller=food_parked.remainder(batch,parts['keep'],'part-'+dt.datetime.now(dt.timezone.utc).strftime('%H%M%S'))
+        write(pending,smaller)
+        return smaller
+    write(ROOT/'state/publication-outcomes.json',{**read(ROOT/'state/publication-outcomes.json',{}),**outcomes})
+    pending.unlink()
+    return None
+
+
+def publication_pass(policy, folder, review_only=False, covers_only=False):
+    import food_parked
+    from workflow import read,write,now
     # Retrying an already reviewed batch is byte-for-byte idempotent. A conflict never triggers blind rebase.
     pending=ROOT/'state/pending-publication.json'
     if pending.exists():
@@ -927,6 +987,7 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         if not batch['records']:
             write(ROOT/'state/publication-outcomes.json',outcomes)
             return {'status':'all-held','productionWrites':0,'held':held}
+        food_parked.supersede(ROOT,batch['records'])
         write(pending,batch)
         write(ROOT/'state/pending-publication-outcomes.json',outcomes)
     if policy.get('_deadline') and time.time() + 100 >= policy['_deadline']:
@@ -946,11 +1007,14 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         # An owner can delete a different item while Manager reviews this batch.
         # The server checks idempotent receipts before its parent-revision guard.
         # Archive only an explicit baseline rejection; never rebase approved bytes.
+        body=food_parked.error_body(error)
+        parts=food_parked.split(batch,body,time.time()-pending.stat().st_mtime) if error.code in (409,422) else None
+        if parts:  # the server named what waits for an answer or was held: those leave, the rest goes out now (owner, 6 Nov 2026)
+            if set_aside(batch,parts,pending):
+                return publication_pass(policy,folder,review_only,covers_only)
+            return {'status':'parked','productionWrites':0,'batchId':batch['id']}
         if error.code == 422:
-            try:
-                reason=str(json.loads(error.read(4096)).get('error'))[:300]
-            except (ValueError, AttributeError):
-                reason='Server rejected the batch'
+            reason=str(body.get('error') or 'Server rejected the batch')[:300]
             pending.replace(folder/'rejected-by-server.json')
             pending_outcomes=ROOT/'state/pending-publication-outcomes.json'
             if len(batch['records'])==1 and not any(word in reason.lower() for word in BATCH_LEVEL_REJECTIONS):
@@ -966,13 +1030,10 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
                                     'suspects':[r['kind']+':'+r['id'] for r in batch['records']]})
             if pending_outcomes.exists():pending_outcomes.replace(folder/'rejected-by-server-outcomes.json')
             return {'status':'rejected-by-server','productionWrites':0,'reason':reason,'records':[r['kind']+':'+r['id'] for r in batch['records']]}
-        if error.code != 409:
+        if error.code != 409 or not body:
             raise
-        try:
-            reason=json.loads(error.read(4096)).get('error')
-        except (ValueError, AttributeError):
-            raise error
-        if reason == 'Food-content review is pending. The approved batch is retained for retry.':
+        reason=body.get('error')
+        if reason == food_parked.FOOD_PENDING:
             return {'status':'food-review-pending','productionWrites':0,'batchId':batch['id']}
         if reason != 'Publication baseline changed':
             raise error
@@ -980,6 +1041,27 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         outcomes=ROOT/'state/pending-publication-outcomes.json'
         if outcomes.exists(): outcomes.replace(folder/'superseded-live-change-outcomes.json')
         return {'status':'live-change-requires-new-review','productionWrites':0,'batchId':batch['id']}
+    result=published(batch,receipt,folder)
+    write(ROOT/'state/publication-outcomes.json',read(ROOT/'state/pending-publication-outcomes.json',{}))
+    pending.unlink()
+    if not covers_only:clear_suspects(batch)
+    return result
+
+
+def clear_suspects(batch):
+    """A covers-only batch never carried the rejected item, so isolation continues; otherwise the published items are cleared of
+    suspicion and isolation ends once no suspect is left (or for an older marker without suspects)."""
+    from workflow import read,write
+    if not (ROOT/ISOLATE).exists():return
+    marker=read(ROOT/ISOLATE,{})
+    left=[k for k in marker.get('suspects') or [] if k not in {r['kind']+':'+r['id'] for r in batch['records']}]
+    if left:write(ROOT/ISOLATE,dict(marker,suspects=left))
+    else:(ROOT/ISOLATE).unlink(missing_ok=True)
+
+
+def published(batch, receipt, folder):
+    """Confirms one accepted batch against the live state, keeps its receipt and wakes the Telegram reporter."""
+    from workflow import write,now
     if receipt.get('id')!=batch['id']:raise ValueError('Publication receipt mismatch')
     # Confirm live delivery revision before marking the work published.
     live=request('GET','/control/state')
@@ -992,16 +1074,7 @@ def run_publication(policy, folder=None, review_only=False, covers_only=False):
         if not changes or not all(c['changeId'] in active | handled or (c['kind'],c['id']) in removed for c in changes):
             raise ValueError('Published records changed; reconciliation required')
     write(folder/'publication-receipt.json',receipt)
-    write(ROOT/'state/publication-outcomes.json',read(ROOT/'state/pending-publication-outcomes.json',{}))
     write(ROOT/'state/publications'/(batch['id']+'.json'),receipt)
-    pending.unlink()
-    if not covers_only and (ROOT/ISOLATE).exists():
-        # a covers-only batch never carried the rejected item, so isolation continues; otherwise the published items are cleared of
-        # suspicion and isolation ends once no suspect is left (or for an older marker without suspects)
-        marker=read(ROOT/ISOLATE,{})
-        left=[k for k in marker.get('suspects') or [] if k not in {r['kind']+':'+r['id'] for r in batch['records']}]
-        if left:write(ROOT/ISOLATE,dict(marker,suspects=left))
-        else:(ROOT/ISOLATE).unlink(missing_ok=True)
     result={'status':'published','productionWrites':len(batch['records']),'revision':receipt['revision'],'publishedAt':receipt.get('publishedAt',now()),'records':receipt['records'],'changes':receipt.get('changes',[])}
     write(ROOT/'state/latest-publication.json',result)
     # Wake the fixed reporter immediately; cron recovers if launch is unavailable.

@@ -227,8 +227,10 @@ def creator_library(sources, live):
 def recipes_on_their_way(live_ids, days=2):
     """Recipes QT Manager approved in the last two days that are not live yet and were not held at the final review: they are
     waiting for pictures or publication, so Mango need not write another for them. An older approval no longer counts."""
+    import food_parked
     import publisher
     outcomes = read(ROOT / 'state' / 'publication-outcomes.json', {}) or {}
+    parked = food_parked.parked_keys(ROOT)  # set aside on a question for the owner, so not on their way: Mango keeps writing meanwhile
     since, seen, count = time.time() - days * 86400, set(), 0
     for path in sorted((ROOT / 'outbox').glob('*.json'), reverse=True)[:60]:
         if path.stat().st_mtime < since:
@@ -242,7 +244,7 @@ def recipes_on_their_way(live_ids, days=2):
                 seen.add(record['id'])  # the newest decision about a recipe is the one that counts
                 held = (outcomes.get(publisher.sha(record)) or {}).get('decision') == 'hold'
                 if decisions.get(record['id']) == 'ready-for-editorial-review' and record.get('status') == 'proposed' and not held \
-                        and record['id'] not in live_ids:
+                        and record['id'] not in live_ids and ('recipe', record['id']) not in parked:
                     count += 1
     return count
 
@@ -340,8 +342,14 @@ def normalize_event_packet(obj):
 LEGACY_FEE_NOTE = "Confirm total fees and availability with the organiser."
 
 
+def event_needs_refresh(data):
+    """A published event whose description reads like a review note or whose fee was never captured."""
+    text = data.get("dietEvidence", "")
+    return len(text) > 200 or bool(REVIEWER_WORDING.search(text)) or data.get("feeNote") == LEGACY_FEE_NOTE
+
+
 def events_to_refresh(state, live=None, excluded=()):
-    """Published events whose description reads like a review note or whose fee was never captured, once each."""
+    """Published events that need event_needs_refresh, once each."""
     import publisher
     done = state.setdefault("eventRefreshAt", {})
     rows = []
@@ -350,8 +358,7 @@ def events_to_refresh(state, live=None, excluded=()):
         last = done.get(record["id"])
         if record["kind"] != "event" or record["id"] in excluded or (last and time.time() - dt.datetime.fromisoformat(last).timestamp() < 3 * 86400):
             continue
-        text = data.get("dietEvidence", "")
-        if len(text) > 200 or REVIEWER_WORDING.search(text) or data.get("feeNote") == LEGACY_FEE_NOTE:
+        if event_needs_refresh(data):
             rows.append({"id": record["id"], **{k: data.get(k) for k in ("title", "organiser", "startsAt", "registrationUrl", "sources", "dietEvidence", "feeAmount")}})
     return rows[:6]
 
@@ -1985,10 +1992,11 @@ class Round:
                 self.publication = run_publication(policy, self.folder / 'publication')
                 # Owner, 30 Oct 2026: every ready recipe goes out this round, one batch each (the app takes 10 pictures / 2 MB a batch).
                 for extra in range(2, 13):  # a held batch does not stop the recipes behind it; its holds are recorded
-                    if self.publication.get('status') not in ('published', 'all-held'):
+                    if self.publication.get('status') not in ('published', 'all-held', 'parked'):
                         break
                     more = run_publication(policy, self.folder / f'publication-{extra}')
-                    if more.get('status') not in ('published', 'all-held'):
+                    if more.get('status') not in ('published', 'all-held', 'parked'):
+                        self.publication = dict(self.publication, **({'parked': more['parked']} if more.get('parked') else {}))
                         break
                     self.publication = dict(more, productionWrites=self.publication['productionWrites'] + more['productionWrites'],
                                             records=list(self.publication.get('records') or []) + list(more.get('records') or []),
