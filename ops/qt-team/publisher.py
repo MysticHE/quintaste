@@ -154,21 +154,12 @@ def listed_events(live_records, parked):
     return found + [(rid, record.get('data') or {}) for (kind, rid), record in (parked or {}).items() if kind == 'event']
 
 
-def tell_owner_reworded(event, twin, title):
-    """Once per listed event. A copy never disappears without a word: should the rule ever catch a genuinely different class, the owner can add it by hand."""
-    try:
-        import bot_notices
-        bot_notices.post(ROOT, 'event-twin:' + hashlib.sha256(twin.encode()).hexdigest()[:40],
-                         'QT Manager · Not added as a new event: ' + str(event.get('title'))[:120] + '\nIt looks like ' + str(title)[:120] + ', already listed at the same time and '
-                         'place by the same organiser. Any newer details go on the listed event. If they are different events, add it in Admin > Content.')
-    except (OSError, ValueError, ImportError) as exc:
-        print(json.dumps({'eventTwinNotice': type(exc).__name__}), flush=True)
-
-
-def as_update_of_twin(row, decision, live_records, parked):
-    """Lychee read a listed event again under a new id: (the row as an update of that event, its id), or (row, None) when it is not a copy or not
-    going out anyway. A newer fee or a cancellation must reach the listed event, not vanish with the copy. The listed title stays: it is the one
-    thing the copy was going to change for no reason."""
+def as_update_of_twin(row, decision, live_records, parked, package):
+    """Lychee read a listed event again under a new id. (row, None): it is not a copy, or not going out anyway. (None, id): a copy with nothing new
+    for the listed event. (the row as an update of that event, its id): a newer fee or a cancellation, which must not vanish with the copy. Only
+    those facts move, onto the listed record, and only from a proposal at least as recent as the listed event's last check: the outbox keeps days of
+    old proposals, and one of those must never overwrite what has been checked since. A copy is never reported: the owner asked for no duplicates in
+    the chat (6 Nov 2026), and a real change reaches them as the listed event's own card."""
     event = row.get('event')
     cancelling = isinstance(event, dict) and event.get('status') == 'cancelled' and decision in ('exclude', 'ready-for-editorial-review')
     if not isinstance(event, dict) or not (cancelling or (row.get('status') == 'proposed' and decision == 'ready-for-editorial-review')):
@@ -178,9 +169,12 @@ def as_update_of_twin(row, decision, live_records, parked):
     twin = event_twins.find(dict(event, id=row['id']), others)
     if not twin:
         return row, None
-    title = next(data.get('title') for rid, data in others if rid == twin)
-    tell_owner_reworded(event, twin, title)
-    return dict(row, id=twin, event=dict(event, title=title)), twin
+    listed = next(data for rid, data in others if rid == twin)
+    checked = str(package.get('checkedAt') or '')
+    if checked[:10] < str(listed.get('checkedAt') or '')[:10]:
+        return None, twin
+    facts = event_twins.new_facts(event, listed)
+    return (dict(row, id=twin, event=dict(listed, **facts)), twin) if facts else (None, twin)
 
 
 def event_twin(data, live_records, accepted):
@@ -413,11 +407,8 @@ def event_payload(row, evidence, key, existing_records, candidates, parked):
     if data['currency'] != 'SGD' or data.get('feeAmount') is None: data['feeAmount']=None;data['currency']=None
     if dt.datetime.fromisoformat(data['startsAt']) <= dt.datetime.now(dt.timezone.utc): raise ValueError('Event is no longer upcoming')
     if (twin := event_twin(data, existing_records, candidates)): raise ValueError('Same event is already listed as ' + twin + '; not added twice')
-    if key not in existing_records:
-        accepted = [(c['id'], c['data']) for c in candidates if c['kind'] == 'event']
-        if (twin := event_twins.find(data, accepted)):
-            tell_owner_reworded(data, twin, next(other.get('title') for rid, other in accepted if rid == twin))
-            raise ValueError('Same event as ' + twin + ' in other words; not added twice')
+    if key not in existing_records and (twin := event_twins.find(data, [(c['id'], c['data']) for c in candidates if c['kind'] == 'event'])):
+        raise ValueError('Same event as ' + twin + ' in other words; not added twice')
     was = existing_records.get(key)
     repair = bool(was) and event_needs_refresh(was) and not event_needs_refresh(data)
     return None if food_parked.event_unchanged(data, was, parked.get(key), repair=repair) else data  # None: reworded, no new fact
@@ -438,14 +429,15 @@ def prepare(packages, live):
             # Veg options (Mixed Kitchen, 19 Oct 2026) and Veg Kitchen (20 Oct 2026) packets create new Explore places of kind "place".
             kind = 'place' if packet.get('task') in ('veg-options', 'veg-kitchen') else {'qt-explorer':'venue','qt-cooker':'recipe','qt-event':'event'}[packet['role']]
             for row in packet['records']:
-                key = (kind, row['id'])
+                key, proposed = (kind, row['id']), row
                 if kind == 'event' and key not in existing_records:
-                    row, twin = as_update_of_twin(row, decisions.get(row['id'], {}).get('decision'), existing_records, parked)
+                    row, twin = as_update_of_twin(row, decisions.get(row['id'], {}).get('decision'), existing_records, parked, package)
+                    if row is None: continue
                     if twin:
                         decisions[twin], key = decisions[key[1]], ('event', twin)
                 if key in seen or any((r['kind'], r['id']) == key for r in live.get('removals', [])): continue
                 seen.add(key)
-                proposal_hash = sha(row)
+                proposal_hash = sha(proposed)  # what was proposed, not what it became: a settled proposal stays settled
                 if proposal_hash in outcomes:
                     # Recipes published before the photo-first rule can still gain their image:
                     # a later generated image is a new reviewable change, not a reason to

@@ -161,7 +161,7 @@ def _text(value) -> str:
 def _same_place(one, other) -> bool:
     """The same text, or the same with detail added at the end. All ten real differences across 104 rechecks but one were this
     ("Geylang Serai CC" -> "Geylang Serai CC, Level 1 Culinary Studio"); "Other hall", "Hallway" and "Hall 2" are not "Hall"."""
-    a, b = _text(one), _text(other)
+    a, b = _text(one).replace(' & ', ' and '), _text(other).replace(' & ', ' and ')
     if a == b or not a or not b:
         return a == b
     short, full = sorted((a, b), key=len)

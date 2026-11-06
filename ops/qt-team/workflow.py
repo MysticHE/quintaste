@@ -1155,7 +1155,10 @@ def merge_events(previous, records):
             twin = event_twins.find(dict(record['event'], id=record['id']), saved)
             if twin:
                 old = prior[twin]
-                record = dict(record, id=twin, event=dict(record['event'], title=old['event'].get('title')))
+                facts = event_twins.new_facts(record['event'], old['event'])
+                if not facts:
+                    continue
+                record = dict(record, id=twin, event=facts)
         if old or (record.get('event') and record.get('status') == 'proposed'):
             if 'event' in record and not isinstance(record['event'], dict):
                 raise ValueError('Event update must be an object')

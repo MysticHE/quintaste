@@ -655,7 +655,8 @@ def late_digest(state, late):
     """Updates that went live while their own notice could not go out for a day or more (reporter down, app unreachable). One message however many,
     so a long outage ends in a sentence, not a burst of old cards. A notice must never be lost, and the visuals are only marked once it is queued."""
     changes = [c for pub in late for c in pub.get('changes', []) if c.get('kind') != 'place'
-               and c.get('kind', '') + ':' + c.get('id', '') not in state['visuals'][pub['revision']].get('items', {})]
+               and c.get('kind', '') + ':' + c.get('id', '') not in state['visuals'][pub['revision']].get('items', {})
+               and not (c.get('kind') == 'event' and recheck_only(c))]
     if changes:
         names = [str((c.get('after') or {}).get('title') or c.get('name') or c.get('id'))[:80] for c in changes]
         more = f'\n... and {len(names) - LATE_NAMES} more.' if len(names) > LATE_NAMES else ''
@@ -666,8 +667,14 @@ def late_digest(state, late):
 
 
 def recheck_only(change):
-    """Only the checked date and sources moved (the 14-day refresh of a live event). Nothing a member would see, so nothing to tell the owner."""
-    return bool(change.get('fields')) and not change.get('created') and not set(change['fields']) - NOT_MEMBER_FACING
+    """No new fact on a live event: only the checked date and sources moved (its 14-day refresh), or its wording did. The owner asked for nothing
+    useless in the chat (6 Nov 2026), and food_parked.same_facts is the rule for what a member would act on."""
+    if not change.get('fields') or change.get('created'):
+        return False
+    if not set(change['fields']) - NOT_MEMBER_FACING:
+        return True
+    from food_parked import same_facts
+    return 'after' in change and same_facts(change['after'], change.get('before') or {})
 
 
 def event_lines(data, change):

@@ -81,6 +81,22 @@ def reworded(one: dict, other: dict) -> bool:
     return same_start(one, other) and same_name(one.get('organiser'), other.get('organiser')) and same_venue(one, other) and _same_class(one, other)
 
 
+def new_facts(copy: dict, listed: dict) -> dict:
+    """What a reworded copy may change on the listed event: only what a member acts on, and only what it actually states. Everything else about a
+    copy is rewording, and a copy that leaves the fee out must not erase it (6 Nov 2026: a proposal without one would have blanked the S$69 on a live
+    tour). A copy can cancel an event but never revive one."""
+    facts = {}
+    if copy.get('status') == 'cancelled' and listed.get('status') != 'cancelled':
+        facts['status'] = 'cancelled'
+    fee = copy.get('feeAmount')
+    if isinstance(fee, (int, float)) and not isinstance(fee, bool) and copy.get('currency') == 'SGD' and (fee != listed.get('feeAmount') or listed.get('currency') != 'SGD'):
+        facts.update(feeAmount=fee, currency='SGD', **({'feeNote': copy['feeNote']} if copy.get('feeNote') else {}))
+    for key in ('endsAt', 'registrationDeadline'):
+        if copy.get(key) and copy[key] != listed.get(key):
+            facts[key] = copy[key]
+    return facts
+
+
 def find(event: dict, others) -> str | None:
     """The id of the first of `others` (id, event) that `event` is a reworded copy of, else None."""
     return next((rid for rid, other in others if rid != event.get('id') and reworded(event, dict(other, id=rid))), None)
